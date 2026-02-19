@@ -6,10 +6,10 @@ All design decisions, conventions, and formulas are documented in the `.MD` file
 
 | File | covers |
 |------|--------|
-| `Architecture.MD` | Tech stack, data flow pipeline, proposed directory structure |
-| `DataStructure.MD` | SQLite schema |
+| `Architecture.MD` | Tech stack, data flow pipeline, current directory structure |
+| `DataStructure.MD` | SQLite schema, Python dataclass models, and DB field mappings |
 | `AnalysisLogic.MD` | Source-of-truth math formulas (EV, SPR, MDF, Pot Odds, VPIP, PFR, AF, etc.) and data processing rules |
-| `TestingStrategy.MD` | TDD policy, testing pyramid, required fixture scenarios, tooling |
+| `TestingStrategy.MD` | TDD policy, testing pyramid, fixture file inventory, tooling |
 | `Contributing.MD` | Toolchain commands, `src/` layout, type hint rules, naming conventions, docstring style, commit protocol |
 | `UserExperience.MD` | UI navigation structure, drill-down flow, dashboard KPIs, state/logic rules |
 
