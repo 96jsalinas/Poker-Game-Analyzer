@@ -83,6 +83,8 @@ Stores players.
 
 ## 📈 Analysis Logic (Derived)
 
+All formulas are defined in `AnalysisLogic.MD` as the single source of truth. The columns below support those calculations:
+
 ### 1. Pot Odds
 When `is_hero = True`, your script can calculate Pot Odds instantly:
 $$Pot\ Odds = \frac{amount\_to\_call}{pot\_before + amount\_to\_call}$$
@@ -90,7 +92,7 @@ $$Pot\ Odds = \frac{amount\_to\_call}{pot\_before + amount\_to\_call}$$
 ### 2. Aggression Factor (AF)
 Calculated by:
 $$\frac{Total\ Bets + Total\ Raises}{Total\ Calls}$$
-*Using the `action_type` column across all `Actions` for a specific `player_id`.*
+*Using the `action_type` column across all `Actions` for a specific `player_id`. See `AnalysisLogic.MD` for the divide-by-zero fallback rule.*
 
-### 3. WTSD% (Went to Showdown)
-$$\frac{Count(Hand\_Players.went\_to\_showdown = True)}{Count(Hands\ Played)}$$
+### 3. WTSD%
+See `AnalysisLogic.MD` for the full definition. Uses `Hand_Players.went_to_showdown`.

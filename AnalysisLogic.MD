@@ -71,6 +71,10 @@ $$AF = \frac{\sum (Bets + Raises)}{\sum Calls}$$
 * **Note**: Calculated for Post-flop streets only. Folds and Checks are ignored.
 * **Fallback**: When player has 0 calls post-flop, give a max integer value to avoid divide by zero error
 
+### F. WTSD% (Went to Showdown)
+The frequency a player reaches showdown after seeing the flop.
+$$WTSD\% = \frac{Count(Hand\_Players.went\_to\_showdown = True)}{Count(\text{Hands where player saw the Flop})}$$
+
 ---
 
 ## 🧪 4. Expected Value (EV) Logic
