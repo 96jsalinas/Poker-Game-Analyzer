@@ -1,2 +1,6 @@
 # Generated database - do not commit
 *.db
+
+# Raw hand history files - kept local only
+histories/*
+!histories/.gitkeep
