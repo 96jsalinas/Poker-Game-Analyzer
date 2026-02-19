@@ -1,6 +1,6 @@
 # Data Structure Definition: PokerHero-Analyzer (v2.0)
 
-This schema is optimized for high-speed numerical analysis. It follows a "Numbers First" approach, storing pre-calculated state data to minimize runtime computation for EV and Pot Odds.
+This schema is optimized for high-speed numerical analysis. It follows a **"Numbers First, Space is Cheap"** design philosophy: storage is cheap; compute at query time is not. Derived values (SPR, MDF, Pot Odds inputs) are pre-calculated at parse time and stored alongside raw data to guarantee instant UI responsiveness.
 
 
 
@@ -68,6 +68,8 @@ Atomic actions. Stores "Contextual Math" to allow for instant Pot Odds analysis.
 | `pot_before` | Decimal | The total pot size *before* this action. |
 | `is_all_in` | Boolean | Flag to trigger "Effective Stack" logic. |
 | `sequence` | Integer | Global order of actions in the hand (1, 2, 3...). |
+| `spr` | Decimal | Stack-to-Pot Ratio, pre-calculated at flop commencement. NULL for all other streets/actions. |
+| `mdf` | Decimal | Minimum Defense Frequency, pre-calculated when Hero faces a bet. NULL otherwise. |
 
 ## 👤 5. Players
 Stores players.

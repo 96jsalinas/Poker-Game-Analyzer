@@ -79,4 +79,4 @@ Breakdown of how the user plays in different seats (BTN, SB, BB, etc.).
 ## 🔄 6. Logic & State Rules
 1.  **Duplicate Prevention**: The system must check Hand IDs during upload to ensure the same session isn't counted twice.
 2.  **Hero Consistency**: If a user changes their username in Settings, the Dashboard must re-calculate stats based on the new ID.
-3.  **Real-time Math**: SPR and MDF are calculated on-the-fly when viewing a specific hand to save database space, or retrieved from the pre-calculated `Actions` table.
+3.  **Real-time Math**: SPR and MDF are pre-calculated at parse time and stored in the `Actions` table (`spr` and `mdf` columns). They are retrieved directly from the database when viewing a specific hand.

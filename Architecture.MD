@@ -12,6 +12,8 @@ This document outlines the high-level architecture, technology stack, and data f
 | **Poker Engine** | PokerKit | Handles state management, hand evaluation, and equity calculations. Provides robust foundations for complex poker math. |
 | **Frontend UI** | Reflex | A decoupled web frontend allows for a modern, responsive interface while keeping the Python backend modular. |
 
+> **Design Philosophy:** Storage is cheap; compute at query time is not. Derived values are pre-calculated at parse time wherever possible. See `DataStructure.MD` for the full "Numbers First, Space is Cheap" rationale.
+
 ## 🔄 Data Flow Pipeline
 
 The application follows a strictly linear data processing pipeline, moving from raw text to interactive web insights.
