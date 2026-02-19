@@ -1,0 +1,60 @@
+import sqlite3
+from pathlib import Path
+import pytest
+
+SCHEMA_PATH = Path(__file__).parent.parent / "src" / "pokerhero" / "database" / "schema.sql"
+
+@pytest.fixture
+def db():
+    conn = sqlite3.connect(":memory:")
+    conn.execute("PRAGMA foreign_keys = ON")
+    conn.executescript(SCHEMA_PATH.read_text())
+    yield conn
+    conn.close()
+
+class TestSchema:
+    def test_schema_file_exists(self):
+        assert SCHEMA_PATH.exists()
+
+    def test_players_table_exists(self, db):
+        row = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='players'").fetchone()
+        assert row is not None
+
+    def test_sessions_table_exists(self, db):
+        row = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='sessions'").fetchone()
+        assert row is not None
+
+    def test_hands_table_exists(self, db):
+        row = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='hands'").fetchone()
+        assert row is not None
+
+    def test_hand_players_table_exists(self, db):
+        row = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='hand_players'").fetchone()
+        assert row is not None
+
+    def test_actions_table_exists(self, db):
+        row = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='actions'").fetchone()
+        assert row is not None
+
+    def _columns(self, db, table):
+        return {row[1] for row in db.execute(f"PRAGMA table_info({table})")}
+
+    def test_players_columns(self, db):
+        cols = self._columns(db, "players")
+        assert {"id", "username", "preferred_name"} <= cols
+
+    def test_sessions_columns(self, db):
+        cols = self._columns(db, "sessions")
+        assert {"id", "game_type", "limit_type", "max_seats", "small_blind", "big_blind", "ante", "start_time", "hero_buy_in", "hero_cash_out"} <= cols
+
+    def test_hands_columns(self, db):
+        cols = self._columns(db, "hands")
+        assert {"id", "session_id", "board_flop", "board_turn", "board_river", "total_pot", "uncalled_bet_returned", "rake", "timestamp"} <= cols
+
+    def test_hand_players_columns(self, db):
+        cols = self._columns(db, "hand_players")
+        assert {"hand_id", "player_id", "position", "starting_stack", "hole_cards", "vpip", "pfr", "went_to_showdown", "net_result"} <= cols
+
+    def test_actions_columns(self, db):
+        cols = self._columns(db, "actions")
+        assert {"id", "hand_id", "player_id", "is_hero", "street", "action_type", "amount", "amount_to_call", "pot_before", "is_all_in", "sequence", "spr", "mdf"} <= cols
