@@ -146,3 +146,70 @@ class TestPlayerInsert:
         id2 = upsert_player(idb, "beta")
         assert id1 != id2
 
+
+class TestSessionInsert:
+    @pytest.fixture
+    def idb(self, tmp_path):
+        from pokerhero.database.db import init_db
+        conn = init_db(tmp_path / "test.db")
+        yield conn
+        conn.close()
+
+    @pytest.fixture
+    def sample_session(self):
+        from pokerhero.parser.models import SessionData
+        from decimal import Decimal
+        return SessionData(
+            game_type="NLHE",
+            limit_type="No Limit",
+            max_seats=9,
+            small_blind=Decimal("100"),
+            big_blind=Decimal("200"),
+            ante=Decimal("0"),
+            is_tournament=False,
+            table_name="TestTable",
+            tournament_id=None,
+        )
+
+    def test_insert_returns_int_id(self, idb, sample_session):
+        from pokerhero.database.db import insert_session
+        sid = insert_session(idb, sample_session, start_time="2024-01-15T20:30:00")
+        assert isinstance(sid, int)
+        assert sid > 0
+
+    def test_insert_row_exists(self, idb, sample_session):
+        from pokerhero.database.db import insert_session
+        sid = insert_session(idb, sample_session, start_time="2024-01-15T20:30:00")
+        row = idb.execute("SELECT * FROM sessions WHERE id=?", (sid,)).fetchone()
+        assert row is not None
+
+    def test_insert_values_correct(self, idb, sample_session):
+        from pokerhero.database.db import insert_session
+        sid = insert_session(idb, sample_session, start_time="2024-01-15T20:30:00")
+        row = idb.execute("SELECT game_type, limit_type, max_seats, small_blind, big_blind FROM sessions WHERE id=?", (sid,)).fetchone()
+        assert row[0] == "NLHE"
+        assert row[1] == "No Limit"
+        assert row[2] == 9
+        assert row[3] == 100.0
+        assert row[4] == 200.0
+
+    def test_insert_with_hero_buyin(self, idb, sample_session):
+        from pokerhero.database.db import insert_session
+        from decimal import Decimal
+        sid = insert_session(idb, sample_session, start_time="2024-01-15T20:30:00", hero_buy_in=Decimal("5000"))
+        row = idb.execute("SELECT hero_buy_in FROM sessions WHERE id=?", (sid,)).fetchone()
+        assert row[0] == 5000.0
+
+    def test_insert_hero_buyin_null_by_default(self, idb, sample_session):
+        from pokerhero.database.db import insert_session
+        sid = insert_session(idb, sample_session, start_time="2024-01-15T20:30:00")
+        row = idb.execute("SELECT hero_buy_in, hero_cash_out FROM sessions WHERE id=?", (sid,)).fetchone()
+        assert row[0] is None
+        assert row[1] is None
+
+    def test_multiple_sessions_unique_ids(self, idb, sample_session):
+        from pokerhero.database.db import insert_session
+        id1 = insert_session(idb, sample_session, start_time="2024-01-15T20:30:00")
+        id2 = insert_session(idb, sample_session, start_time="2024-01-15T21:30:00")
+        assert id1 != id2
+
