@@ -16,6 +16,7 @@ All design decisions, conventions, and formulas are documented in the `.MD` file
 ## Workflow Rules
 
 - After implementing each agreed change, stage all affected files and commit before moving on to the next change.
+- If a requested code change contradicts any rule, convention, or formula defined in the `.MD` files, stop and flag the contradiction to the user before proceeding. Once confirmed, update the relevant `.MD` file first, then implement the code change.
 
 ## Commands
 
