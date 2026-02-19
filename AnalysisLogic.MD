@@ -9,13 +9,14 @@ This document serves as the definitive source of truth for all mathematical calc
 ### A. The "Amount" Rule
 To maintain compatibility with raw PokerStars logs while enabling easy math:
 * **`Actions.amount`**: Stores the **Total Bet/Raise Size** on the current street.
-* **`incremental_cost`**: Calculated at runtime or stored to update the player's stack.
+* **`incremental_cost`**: A derived value (not stored). Calculated as `Actions.amount - prior_commitment`, where `prior_commitment` is what the player already put in on this street. Used to update the player's stack.
     * *Example*: Pot is 20. Player A bets 10. Hero raises to 35.
     * `Actions.amount` for Hero = 35.
-    * `incremental_cost` for Hero = 35.
+    * `incremental_cost` for Hero = 35 (nothing previously committed).
     * *Example 2*: Player A calls.
     * `Actions.amount` for Player A = 35.
     * `incremental_cost` for Player A = 25 (35 total - 10 already committed).
+* **`Actions.amount_to_call`**: The total facing bet size stored at parse time (equals the previous aggressor's `amount`). Different from `incremental_cost` — use `amount_to_call` for Pot Odds, use `incremental_cost` for stack updates.
 
 ### B. Uncalled Bets & Rake
 * **Uncalled Bet**: Any amount of a bet/raise that is not matched by a caller. 
