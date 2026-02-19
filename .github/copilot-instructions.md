@@ -13,6 +13,10 @@ All design decisions, conventions, and formulas are documented in the `.MD` file
 | `Contributing.MD` | Toolchain commands, `src/` layout, type hint rules, naming conventions, docstring style, commit protocol |
 | `UserExperience.MD` | UI navigation structure, drill-down flow, dashboard KPIs, state/logic rules |
 
+## Workflow Rules
+
+- After implementing each agreed change, stage all affected files and commit before moving on to the next change.
+
 ## Commands
 
 ```bash
