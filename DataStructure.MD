@@ -81,6 +81,76 @@ Stores players.
 
 ---
 
+## 🐍 6. Python Models (`src/pokerhero/parser/models.py`)
+
+These dataclasses are what `HandParser.parse()` returns. Field names differ from the DB schema in several places — the mapping is noted below.
+
+### `SessionData`
+| Field | Type | Notes |
+| :--- | :--- | :--- |
+| `table_name` | `str` | Table name string from the log |
+| `game_type` | `str` | e.g. `"NLHE"` |
+| `limit_type` | `str` | e.g. `"No Limit"` |
+| `small_blind` | `Decimal` | |
+| `big_blind` | `Decimal` | |
+| `ante` | `Decimal` | `0` if no ante |
+| `max_seats` | `int` | |
+| `is_tournament` | `bool` | |
+| `tournament_id` | `str \| None` | |
+| `tournament_level` | `str \| None` | e.g. `"Level I"` |
+> ⚠️ `SessionData` has no `start_time`. Pass `hand.timestamp.isoformat()` to `insert_session(start_time=...)`.
+
+### `HandData`
+| Field | Type | DB column |
+| :--- | :--- | :--- |
+| `hand_id` | `str` | `hands.id` (PK) |
+| `timestamp` | `datetime` | `hands.timestamp` |
+| `button_seat` | `int` | not stored in DB |
+| `board_flop` | `str \| None` | |
+| `board_turn` | `str \| None` | |
+| `board_river` | `str \| None` | |
+| `total_pot` | `Decimal` | |
+| `rake` | `Decimal` | |
+| `uncalled_bet_returned` | `Decimal` | |
+
+### `HandPlayerData`
+| Field | Type | Notes |
+| :--- | :--- | :--- |
+| `username` | `str` | used as key in `player_id_map` |
+| `seat` | `int` | not stored in DB |
+| `starting_stack` | `Decimal` | |
+| `position` | `str` | BTN / SB / BB / UTG / UTG+1 / MP / MP+1 / CO |
+| `hole_cards` | `str \| None` | e.g. `"As Kd"` |
+| `net_result` | `Decimal` | |
+| `vpip` | `bool` | stored as INTEGER 0/1 in DB |
+| `pfr` | `bool` | stored as INTEGER 0/1 in DB |
+| `went_to_showdown` | `bool` | stored as INTEGER 0/1 in DB |
+| `is_hero` | `bool` | not stored in DB; derived via `player_id_map` lookup |
+
+### `ActionData`
+| Field | Type | Notes |
+| :--- | :--- | :--- |
+| `sequence` | `int` | |
+| `player` | `str` | username → `player_id` via `player_id_map` |
+| `is_hero` | `bool` | stored as INTEGER 0/1 in DB |
+| `street` | `str` | `PREFLOP / FLOP / TURN / RIVER` |
+| `action_type` | `str` | `POST_BLIND / POST_ANTE / FOLD / CHECK / CALL / BET / RAISE` |
+| `amount` | `Decimal` | total bet/raise size on street; 0 for FOLD/CHECK |
+| `amount_to_call` | `Decimal` | facing bet Hero must match; 0 for BET/CHECK/FOLD/POST_* |
+| `pot_before` | `Decimal` | running pot before this action |
+| `is_all_in` | `bool` | |
+| `spr` | `Decimal \| None` | set only on first hero FLOP action |
+| `mdf` | `Decimal \| None` | set only when `is_hero=True` and `amount_to_call > 0` |
+
+### `ParsedHand`
+Top-level container returned by `HandParser(hero="username").parse(text)`:
+- `session: SessionData`
+- `hand: HandData`
+- `players: list[HandPlayerData]`
+- `actions: list[ActionData]`
+
+---
+
 ## 📈 Analysis Logic (Derived)
 
 All formulas are defined in `AnalysisLogic.MD` as the single source of truth. The columns below support those calculations:
