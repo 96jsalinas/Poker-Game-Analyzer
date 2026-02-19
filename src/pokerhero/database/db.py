@@ -2,7 +2,7 @@ import sqlite3
 from decimal import Decimal
 from pathlib import Path
 
-from pokerhero.parser.models import SessionData, HandData, HandPlayerData, ActionData
+from pokerhero.parser.models import SessionData, HandData, HandPlayerData, ActionData, ParsedHand
 
 _SCHEMA_PATH = Path(__file__).parent / "schema.sql"
 
@@ -135,3 +135,29 @@ def insert_actions(
             for a in actions
         ],
     )
+
+
+def save_parsed_hand(
+    conn: sqlite3.Connection,
+    parsed: ParsedHand,
+    session_id: int,
+) -> None:
+    """Persist a fully parsed hand to the database within an existing session.
+    
+    All inserts are wrapped in a single transaction; caller is responsible
+    for calling conn.commit() or using this inside a transaction block.
+    """
+    # Upsert all players and build the id map
+    player_id_map = {
+        p.username: upsert_player(conn, p.username)
+        for p in parsed.players
+    }
+
+    # Insert hand
+    insert_hand(conn, parsed.hand, session_id)
+
+    # Insert hand_players
+    insert_hand_players(conn, parsed.hand.hand_id, parsed.players, player_id_map)
+
+    # Insert actions
+    insert_actions(conn, parsed.hand.hand_id, parsed.actions, player_id_map)
