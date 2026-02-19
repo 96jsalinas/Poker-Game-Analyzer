@@ -10,7 +10,7 @@ This document outlines the high-level architecture, technology stack, and data f
 | **DB Access** | Raw SQL (`sqlite3`) | Eliminates ORM overhead. Allows for highly optimized, complex analytical queries tailored specifically to our schema. |
 | **Data Manipulation** | Pandas & NumPy | Industry standards for aggregating session data, calculating win rates, and manipulating time-series data for the frontend. |
 | **Poker Engine** | PokerKit | Handles state management, hand evaluation, and equity calculations. Provides robust foundations for complex poker math. |
-| **Frontend UI** | Reflex | A decoupled web frontend allows for a modern, responsive interface while keeping the Python backend modular. |
+| **Frontend UI** | Dash (Plotly) | Pure-Python web framework purpose-built for interactive data dashboards. Tight integration with Pandas and Plotly charts, and sufficient UI flexibility for the drill-down hand replayer (Session → Hand → Action). |
 
 > **Design Philosophy:** Storage is cheap; compute at query time is not. Derived values are pre-calculated at parse time wherever possible. See `DataStructure.MD` for the full "Numbers First, Space is Cheap" rationale.
 
@@ -37,7 +37,7 @@ pokerhero-analyzer/
 │       ├── parser/       # PokerStars text → data dicts (regex-heavy)
 │       ├── analysis/     # Math engine: EV, SPR, MDF, VPIP, PFR, etc.
 │       ├── database/     # Raw SQL connections, schema.sql, INSERT logic
-│       └── frontend/     # (TBD) Web-based UI files and routing logic
+│       └── frontend/     # (TBD) Dash app: layouts, callbacks, and routing logic
 ├── tests/
 │   └── fixtures/         # Raw .txt hand history snippets for edge cases
 ├── data/                 # poker_analyzer.db + raw .txt hand histories

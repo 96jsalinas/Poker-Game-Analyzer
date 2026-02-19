@@ -25,7 +25,7 @@ pokerhero-analyzer/
 │       ├── parser/
 │       ├── analysis/
 │       ├── database/
-│       └── frontend/     # (TBD)
+│       └── frontend/     # (TBD) Dash
 ├── tests/
 │   └── fixtures/
 ├── data/
