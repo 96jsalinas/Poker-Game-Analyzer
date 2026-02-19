@@ -415,3 +415,72 @@ class TestActionsInsert:
         assert row[0] is None
         assert row[1] is None
 
+
+class TestSaveParsedHand:
+    FIXTURE = Path(__file__).parent / "fixtures" / "cash_hero_wins_showdown.txt"
+
+    @pytest.fixture
+    def idb(self, tmp_path):
+        from pokerhero.database.db import init_db
+        conn = init_db(tmp_path / "test.db")
+        yield conn
+        conn.close()
+
+    @pytest.fixture
+    def parsed(self):
+        from pokerhero.parser.hand_parser import HandParser
+        return HandParser(hero_username="jsalinas96").parse(self.FIXTURE.read_text())
+
+    @pytest.fixture
+    def session_id(self, idb, parsed):
+        from pokerhero.database.db import insert_session
+        return insert_session(idb, parsed.session, start_time=parsed.hand.timestamp.isoformat())
+
+    def test_save_inserts_hand_row(self, idb, parsed, session_id):
+        from pokerhero.database.db import save_parsed_hand
+        save_parsed_hand(idb, parsed, session_id)
+        idb.commit()
+        row = idb.execute("SELECT id FROM hands WHERE id=?", (parsed.hand.hand_id,)).fetchone()
+        assert row is not None
+
+    def test_save_inserts_all_players(self, idb, parsed, session_id):
+        from pokerhero.database.db import save_parsed_hand
+        save_parsed_hand(idb, parsed, session_id)
+        idb.commit()
+        count = idb.execute("SELECT COUNT(*) FROM players").fetchone()[0]
+        assert count == len(parsed.players)
+
+    def test_save_inserts_all_hand_players(self, idb, parsed, session_id):
+        from pokerhero.database.db import save_parsed_hand
+        save_parsed_hand(idb, parsed, session_id)
+        idb.commit()
+        count = idb.execute("SELECT COUNT(*) FROM hand_players WHERE hand_id=?", (parsed.hand.hand_id,)).fetchone()[0]
+        assert count == len(parsed.players)
+
+    def test_save_inserts_all_actions(self, idb, parsed, session_id):
+        from pokerhero.database.db import save_parsed_hand
+        save_parsed_hand(idb, parsed, session_id)
+        idb.commit()
+        count = idb.execute("SELECT COUNT(*) FROM actions WHERE hand_id=?", (parsed.hand.hand_id,)).fetchone()[0]
+        assert count == len(parsed.actions)
+
+    def test_save_hero_vpip_stored(self, idb, parsed, session_id):
+        from pokerhero.database.db import save_parsed_hand
+        save_parsed_hand(idb, parsed, session_id)
+        idb.commit()
+        hero_player = next(p for p in parsed.players if p.is_hero)
+        hero_pid = idb.execute("SELECT id FROM players WHERE username=?", ("jsalinas96",)).fetchone()[0]
+        row = idb.execute(
+            "SELECT vpip FROM hand_players WHERE hand_id=? AND player_id=?",
+            (parsed.hand.hand_id, hero_pid)
+        ).fetchone()
+        assert row[0] == int(hero_player.vpip)
+
+    def test_save_twice_raises_on_duplicate_hand(self, idb, parsed, session_id):
+        """hand.id is a PK — inserting the same hand twice must raise."""
+        from pokerhero.database.db import save_parsed_hand
+        save_parsed_hand(idb, parsed, session_id)
+        idb.commit()
+        with pytest.raises(Exception):
+            save_parsed_hand(idb, parsed, session_id)
+
