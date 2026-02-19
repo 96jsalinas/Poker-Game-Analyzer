@@ -937,13 +937,13 @@ class TestSPRAndMDFParsing:
         assert hero_flop.spr is not None
 
     def test_spr_value_correct(self, cash_raises_preflop: ParsedHand) -> None:
-        """Flop pot = 600*3 = 1800; hero stack after posting 600 = 16458-600=15858.
-        Effective stack = min(hero, villain stacks); SPR = effective / pot.
+        """Flop pot includes dead money (firefly2005 folded SB of 100).
+        Pot at flop: 100(dead SB) + 600*3(active players) = 1900.
         Hero invested 600 preflop; stack at flop start = 16458-600 = 15858.
-        Pot at flop: 3 players × 600 = 1800.
         Effective stack = min(15858, Marghita72_remaining, antonio347_remaining).
-        Marghita72 started 40566, called 400 → 40166 remaining. antonio347 started 20000 - 400 = 19600.
-        SPR = min(15858, 40166, 19600) / 1800 = 15858/1800 ≈ 8.81.
+        Marghita72 started 40566, invested 600 → 39966 remaining.
+        antonio347 started 20000, invested 600 → 19400 remaining.
+        SPR = min(15858, 39966, 19400) / 1900 = 15858/1900 ≈ 8.35.
         """
         hero_flop = next(
             a
@@ -952,7 +952,7 @@ class TestSPRAndMDFParsing:
         )
         # Verify type and approximate value
         assert isinstance(hero_flop.spr, Decimal)
-        expected_spr = Decimal("15858") / Decimal("1800")
+        expected_spr = Decimal("15858") / Decimal("1900")
         assert abs(hero_flop.spr - expected_spr) < Decimal("0.01")
 
     def test_spr_none_on_later_flop_actions(
