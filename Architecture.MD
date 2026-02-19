@@ -25,21 +25,30 @@ The application follows a strictly linear data processing pipeline, moving from 
 5. **Mathematical Evaluation:** PokerKit and Pandas process the data to calculate complex metrics (EV, Pot Odds, SPR, MDF) for specific hands or aggregate sessions.
 6. **Presentation:** The analyzed DataFrames are passed to the web frontend for rendering charts, tables, and hand replayers.
 
-## 📂 Proposed Directory Structure
+## 📂 Current Directory Structure
 
-To maintain separation of concerns, the repository is structured into distinct modules using the `src/` layout (see `Contributing.MD` for rationale).
+Parser and database modules are implemented. Analysis and frontend are pending.
 
 ```text
 pokerhero-analyzer/
 ├── src/
 │   └── pokerhero/
 │       ├── __init__.py
-│       ├── parser/       # PokerStars text → data dicts (regex-heavy)
-│       ├── analysis/     # Math engine: EV, SPR, MDF, VPIP, PFR, etc.
-│       ├── database/     # Raw SQL connections, schema.sql, INSERT logic
-│       └── frontend/     # (TBD) Dash app: layouts, callbacks, and routing logic
+│       ├── parser/               # ✅ Implemented
+│       │   ├── __init__.py
+│       │   ├── models.py         # SessionData, HandData, HandPlayerData, ActionData, ParsedHand
+│       │   └── hand_parser.py    # HandParser — regex-based PokerStars text parser
+│       ├── database/             # ✅ Implemented
+│       │   ├── __init__.py
+│       │   ├── schema.sql        # CREATE TABLE statements for all 5 tables
+│       │   └── db.py             # get_connection, init_db, upsert_player, insert_*, save_parsed_hand
+│       ├── analysis/             # 🔲 Pending — math engine (EV, SPR, MDF, VPIP, PFR, AF)
+│       └── frontend/             # 🔲 Pending — Dash app
 ├── tests/
-│   └── fixtures/         # Raw .txt hand history snippets for edge cases
-├── data/                 # poker_analyzer.db + raw .txt hand histories
+│   ├── fixtures/                 # 12 .txt hand history snippets (see TestingStrategy.MD)
+│   ├── test_parser.py            # 137 tests across 12 classes
+│   └── test_database.py          # 44 tests across 7 classes
+├── data/
+│   └── histories/                # Raw .txt session files (git-ignored)
 └── pyproject.toml
 ```
