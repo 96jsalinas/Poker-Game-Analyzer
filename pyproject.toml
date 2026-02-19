@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pokerhero"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "pandas",
+    "numpy",
+    "pokerkit",
+    "dash",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "mypy",
+    "ruff",
+    "pre-commit",
+    "pandas-stubs",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pokerhero"]
+
+[tool.ruff]
+src = ["src"]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+mypy_path = "src"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
