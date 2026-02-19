@@ -58,3 +58,41 @@ class TestSchema:
     def test_actions_columns(self, db):
         cols = self._columns(db, "actions")
         assert {"id", "hand_id", "player_id", "is_hero", "street", "action_type", "amount", "amount_to_call", "pot_before", "is_all_in", "sequence", "spr", "mdf"} <= cols
+
+
+class TestConnection:
+    def test_get_connection_returns_connection(self, tmp_path):
+        from pokerhero.database.db import get_connection
+        conn = get_connection(tmp_path / "test.db")
+        assert isinstance(conn, sqlite3.Connection)
+        conn.close()
+
+    def test_row_factory_is_set(self, tmp_path):
+        from pokerhero.database.db import get_connection
+        conn = get_connection(tmp_path / "test.db")
+        assert conn.row_factory == sqlite3.Row
+        conn.close()
+
+    def test_foreign_keys_enabled(self, tmp_path):
+        from pokerhero.database.db import get_connection
+        conn = get_connection(tmp_path / "test.db")
+        result = conn.execute("PRAGMA foreign_keys").fetchone()
+        assert result[0] == 1
+        conn.close()
+
+    def test_init_db_creates_tables(self, tmp_path):
+        from pokerhero.database.db import init_db
+        conn = init_db(tmp_path / "test.db")
+        tables = {row[0] for row in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+        assert {"players", "sessions", "hands", "hand_players", "actions"} <= tables
+        conn.close()
+
+    def test_init_db_idempotent(self, tmp_path):
+        """Calling init_db twice does not raise or duplicate tables."""
+        from pokerhero.database.db import init_db
+        db_path = tmp_path / "test.db"
+        init_db(db_path).close()
+        conn = init_db(db_path)
+        tables = {row[0] for row in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+        assert len([t for t in tables if t in {"players", "sessions", "hands", "hand_players", "actions"}]) == 5
+        conn.close()
