@@ -63,7 +63,7 @@ Atomic actions. Stores "Contextual Math" to allow for instant Pot Odds analysis.
 | `is_hero` | Boolean | Optimization flag for Hero-only queries. |
 | `street` | Enum | PREFLOP, FLOP, TURN, RIVER. |
 | `action_type` | Enum | FOLD, CHECK, CALL, BET, RAISE, ALL_IN. |
-| `amount` | Decimal | The amount of the specific bet/raise. |
+| `amount` | Decimal | Total bet/raise size on the current street (not the incremental cost). e.g., if Hero raises to $35 over a $10 bet, `amount = 35`. |
 | `amount_to_call` | Decimal | What the player *faced* before acting (for Pot Odds). |
 | `pot_before` | Decimal | The total pot size *before* this action. |
 | `is_all_in` | Boolean | Flag to trigger "Effective Stack" logic. |
