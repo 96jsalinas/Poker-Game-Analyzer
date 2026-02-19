@@ -2,7 +2,7 @@ import sqlite3
 from decimal import Decimal
 from pathlib import Path
 
-from pokerhero.parser.models import SessionData
+from pokerhero.parser.models import SessionData, HandData, HandPlayerData
 
 _SCHEMA_PATH = Path(__file__).parent / "schema.sql"
 
@@ -54,3 +54,52 @@ def insert_session(
         ),
     )
     return cur.lastrowid
+
+
+def insert_hand(conn: sqlite3.Connection, hand: HandData, session_id: int) -> None:
+    """Insert a hand row. hand.hand_id is the PK from PokerStars."""
+    conn.execute(
+        """INSERT INTO hands (id, session_id, board_flop, board_turn, board_river,
+           total_pot, uncalled_bet_returned, rake, timestamp)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+        (
+            hand.hand_id,
+            session_id,
+            hand.board_flop,
+            hand.board_turn,
+            hand.board_river,
+            float(hand.total_pot),
+            float(hand.uncalled_bet_returned),
+            float(hand.rake),
+            hand.timestamp.isoformat(),
+        ),
+    )
+
+
+def insert_hand_players(
+    conn: sqlite3.Connection,
+    hand_id: int,
+    players: list[HandPlayerData],
+    player_id_map: dict[str, int],
+) -> None:
+    """Insert rows into hand_players for all players in the hand."""
+    conn.executemany(
+        """INSERT INTO hand_players
+           (hand_id, player_id, position, starting_stack, hole_cards,
+            vpip, pfr, went_to_showdown, net_result)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+        [
+            (
+                hand_id,
+                player_id_map[p.username],
+                p.position,
+                float(p.starting_stack),
+                p.hole_cards,
+                int(p.vpip),
+                int(p.pfr),
+                int(p.went_to_showdown),
+                float(p.net_result),
+            )
+            for p in players
+        ],
+    )
