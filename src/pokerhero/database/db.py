@@ -16,3 +16,12 @@ def init_db(db_path: str | Path) -> sqlite3.Connection:
     conn.executescript(_SCHEMA_PATH.read_text())
     conn.commit()
     return conn
+
+def upsert_player(conn: sqlite3.Connection, username: str) -> int:
+    """Insert player if not exists, return their id. preferred_name defaults to username."""
+    conn.execute(
+        "INSERT INTO players (username, preferred_name) VALUES (?, ?) ON CONFLICT(username) DO NOTHING",
+        (username, username),
+    )
+    row = conn.execute("SELECT id FROM players WHERE username = ?", (username,)).fetchone()
+    return row[0]
