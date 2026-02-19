@@ -2,7 +2,7 @@ import sqlite3
 from decimal import Decimal
 from pathlib import Path
 
-from pokerhero.parser.models import SessionData, HandData, HandPlayerData
+from pokerhero.parser.models import SessionData, HandData, HandPlayerData, ActionData
 
 _SCHEMA_PATH = Path(__file__).parent / "schema.sql"
 
@@ -101,5 +101,37 @@ def insert_hand_players(
                 float(p.net_result),
             )
             for p in players
+        ],
+    )
+
+
+def insert_actions(
+    conn: sqlite3.Connection,
+    hand_id: int,
+    actions: list[ActionData],
+    player_id_map: dict[str, int],
+) -> None:
+    """Insert all action rows for a hand."""
+    conn.executemany(
+        """INSERT INTO actions
+           (hand_id, player_id, is_hero, street, action_type, amount,
+            amount_to_call, pot_before, is_all_in, sequence, spr, mdf)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+        [
+            (
+                hand_id,
+                player_id_map[a.player],
+                int(a.is_hero),
+                a.street,
+                a.action_type,
+                float(a.amount),
+                float(a.amount_to_call),
+                float(a.pot_before),
+                int(a.is_all_in),
+                a.sequence,
+                float(a.spr) if a.spr is not None else None,
+                float(a.mdf) if a.mdf is not None else None,
+            )
+            for a in actions
         ],
     )
