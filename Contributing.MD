@@ -92,5 +92,18 @@ def calculate_mdf(pot_size: Decimal, bet_size: Decimal) -> float:
 ## 🚨 6. Git & Commit Protocol
 
 * **Pre-commit Hooks:** You must install the repository's pre-commit hooks (`pre-commit install`). This will automatically run Ruff and Mypy on your code when you commit. If they fail, the commit is aborted.
-* **Commit Messages:** Use imperative mood (e.g., "Add regex for PokerStars split pots" instead of "Added regex").
+* **Commit Messages:** Use the **Conventional Commits** format with imperative mood:
+  ```
+  <type>(<scope>): <short description>
+  ```
+  | Type | When to use |
+  | :--- | :--- |
+  | `feat` | New feature or function |
+  | `fix` | Bug fix |
+  | `test` | Adding or updating tests |
+  | `docs` | Documentation changes only |
+  | `chore` | Config, tooling, rules, non-code changes |
+  | `refactor` | Code restructuring with no behaviour change |
+
+  Examples: `feat(parser): add uncalled bet handling`, `fix(database): correct hero net_result calculation`, `test(database): add TestSessionInsert class`
 * **Testing:** All new features or bug fixes must include a passing test in the `tests/` directory following our TDD Fail-First methodology.
