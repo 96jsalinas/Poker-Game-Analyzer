@@ -17,7 +17,7 @@ All design decisions, conventions, and formulas are documented in the `.MD` file
 
 - After implementing each agreed change, stage all affected files and commit before moving on to the next change. Keep commits small and focused — one logical change per commit. If a task naturally produces multiple independent changes (e.g. fixtures and tests), split them into separate commits.
 - If a requested code change contradicts any rule, convention, or formula defined in the `.MD` files, stop and flag the contradiction to the user before proceeding. Once confirmed, update the relevant `.MD` file first, then implement the code change.
-- If a task is too large or complex to be implemented reliably in a single step, break it into smaller sub-tasks, present the breakdown to the user, and implement each sub-task individually with its own commit.
+- If a task is too large or complex to be implemented reliably in a single step, break it into smaller sub-tasks, present the breakdown to the user, and implement each sub-task individually with its own commit. Each sub-task must be fully implemented, tested, and committed before starting the next one. Good sub-task boundaries include: per test class, per module, or per logical feature (e.g. parsing one street type). Never implement more than one sub-task in a single agent call.
 
 ## Commands
 
