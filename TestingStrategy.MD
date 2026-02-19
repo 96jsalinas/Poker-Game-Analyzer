@@ -26,14 +26,22 @@ This project strictly adheres to a **Fail-First (Red-Green-Refactor)** methodolo
 
 ## 📁 3. Test Data & Fixtures Strategy
 
-Poker hand histories contain hundreds of edge cases. The `tests/fixtures/` directory must contain raw `.txt` snippets for the following specific scenarios:
+Poker hand histories contain hundreds of edge cases. The `tests/fixtures/` directory contains raw `.txt` snippets, one scenario per file. All fixtures use hero username `jsalinas96`.
 
-* **Standard Hands:** Normal pre-flop raise, c-bet, fold.
-* **Split Pots:** Hands where the pot is divided evenly among multiple players.
-* **Side Pots & Multi-way All-ins:** Crucial for testing the `total_pot` vs. `eligible_pot` math.
-* **Uncalled Bets Returned:** Hands where a player bets, everyone folds, and the bet is returned (ensuring pot totals balance).
-* **Dead Blinds / Straddles:** Edge cases in pre-flop posting.
-* **Incomplete Hands:** Hands where a player disconnects or the server crashes mid-hand.
+| Filename | Game | Scenario covered |
+| :--- | :--- | :--- |
+| `cash_hero_wins_showdown.txt` | Cash | Hero wins at showdown; baseline for net_result, VPIP, PFR |
+| `cash_hero_loses_showdown.txt` | Cash | Hero loses at showdown; villain wins uncalled bet scenario |
+| `cash_hero_raises_preflop.txt` | Cash | Hero raises preflop; used for SPR and MDF calculations |
+| `cash_standard_hero_folds_preflop.txt` | Cash | Hero folds preflop; tests zero net_result and VPIP=False |
+| `cash_uncalled_bet_returned.txt` | Cash | Aggressor's uncalled bet returned; tests `uncalled_bet_returned` field |
+| `cash_dead_blind_and_uncalled_bet.txt` | Cash | Dead blind + uncalled bet combined edge case |
+| `cash_side_pot_multiway_allin.txt` | Cash | Multiway all-in with side pot; tests `total_pot` vs eligible pot |
+| `tournament_standard_with_antes.txt` | Tournament | Standard tournament hand with antes; tests `ante` parsing |
+| `tournament_uncalled_bet.txt` | Tournament | Tournament uncalled bet returned |
+| `tournament_two_way_split_pot.txt` | Tournament | Split pot divided evenly between two players |
+| `tournament_hero_active_multiple_streets.txt` | Tournament | Hero active on flop/turn/river; tests multi-street SPR/MDF |
+| `tournament_disconnected_timed_out.txt` | Tournament | Player disconnects mid-hand; tests noise-line handling |
 
 ## 🛠️ 4. Tooling & Execution
 
