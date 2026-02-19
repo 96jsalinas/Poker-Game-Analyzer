@@ -25,11 +25,19 @@ The application follows a strictly linear data processing pipeline, moving from 
 
 ## 📂 Proposed Directory Structure
 
-To maintain separation of concerns, the repository is structured into distinct modules.
+To maintain separation of concerns, the repository is structured into distinct modules using the `src/` layout (see `Contributing.MD` for rationale).
 
-* `data/` - Stores the `poker_analyzer.db` SQLite file and a subfolder for raw `.txt` hand histories.
-* `database/` - Contains the `schema.sql` file and Python scripts for executing raw database connections and queries.
-* `parser/` - Houses the logic for reading PokerStars text files and translating them into data dictionaries.
-* `analysis/` - The core math engine utilizing Pandas, NumPy, and PokerKit to evaluate database records.
-* `frontend/` - (TBD) The web-based UI files and routing logic.
-* `tests/` - Unit tests and mock hand histories to ensure parsing and math accuracy.
+```text
+pokerhero-analyzer/
+├── src/
+│   └── pokerhero/
+│       ├── __init__.py
+│       ├── parser/       # PokerStars text → data dicts (regex-heavy)
+│       ├── analysis/     # Math engine: EV, SPR, MDF, VPIP, PFR, etc.
+│       ├── database/     # Raw SQL connections, schema.sql, INSERT logic
+│       └── frontend/     # (TBD) Web-based UI files and routing logic
+├── tests/
+│   └── fixtures/         # Raw .txt hand history snippets for edge cases
+├── data/                 # poker_analyzer.db + raw .txt hand histories
+└── pyproject.toml
+```

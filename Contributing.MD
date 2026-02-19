@@ -24,7 +24,8 @@ pokerhero-analyzer/
 │       ├── __init__.py
 │       ├── parser/
 │       ├── analysis/
-│       └── database/
+│       ├── database/
+│       └── frontend/     # (TBD)
 ├── tests/
 │   └── fixtures/
 ├── data/
