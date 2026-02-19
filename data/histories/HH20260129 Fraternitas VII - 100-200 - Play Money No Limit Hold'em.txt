@@ -1,0 +1,96 @@
+﻿PokerStars Hand #259508053097:  Hold'em No Limit (100/200) - 2026/01/29 15:03:50 CET [2026/01/29 9:03:50 ET]
+Table 'Fraternitas VII' 9-max (Play Money) Seat #2 is the button
+Seat 1: hilkemeyer (69851 in chips) is sitting out
+Seat 2: the best 538 (36627 in chips) 
+Seat 3: FUMOS/100% (115229 in chips) 
+Seat 4: jsalinas96 (14702 in chips) 
+Seat 5: ASTUMUR (21500 in chips) 
+Seat 6: rottenberries (14002 in chips) 
+Seat 7: BMA@mytown (25300 in chips) 
+Seat 8: inchgness (66421 in chips) 
+Seat 9: Minus147 (26183 in chips) 
+FUMOS/100%: posts small blind 100
+jsalinas96: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ks 5c]
+ASTUMUR: raises 21300 to 21500 and is all-in
+rottenberries: folds 
+BMA@mytown: folds 
+inchgness: folds 
+Minus147: folds 
+the best 538: folds 
+FUMOS/100%: folds 
+jsalinas96: folds 
+Uncalled bet (21300) returned to ASTUMUR
+ASTUMUR collected 500 from pot
+*** SUMMARY ***
+Total pot 500 | Rake 0 
+Seat 1: hilkemeyer
+Seat 2: the best 538 (button) folded before Flop (didn't bet)
+Seat 3: FUMOS/100% (small blind) folded before Flop
+Seat 4: jsalinas96 (big blind) folded before Flop
+Seat 5: ASTUMUR collected (500)
+Seat 6: rottenberries folded before Flop (didn't bet)
+Seat 7: BMA@mytown folded before Flop (didn't bet)
+Seat 8: inchgness folded before Flop (didn't bet)
+Seat 9: Minus147 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259508055994:  Hold'em No Limit (100/200) - 2026/01/29 15:04:11 CET [2026/01/29 9:04:11 ET]
+Table 'Fraternitas VII' 9-max (Play Money) Seat #3 is the button
+Seat 1: hilkemeyer (69851 in chips) is sitting out
+Seat 2: the best 538 (36627 in chips) 
+Seat 3: FUMOS/100% (115129 in chips) 
+Seat 4: jsalinas96 (14502 in chips) 
+Seat 5: ASTUMUR (21800 in chips) 
+Seat 6: rottenberries (14002 in chips) 
+Seat 7: BMA@mytown (25300 in chips) 
+Seat 8: inchgness (66421 in chips) 
+Seat 9: Minus147 (26183 in chips) 
+jsalinas96: posts small blind 100
+ASTUMUR: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6d Ac]
+rottenberries: folds 
+BMA@mytown: calls 200
+inchgness: folds 
+Minus147: calls 200
+the best 538: calls 200
+FUMOS/100%: folds 
+jsalinas96: calls 100
+ASTUMUR: checks 
+*** FLOP *** [6h 8h 6s]
+jsalinas96: bets 945
+ASTUMUR: folds 
+BMA@mytown: folds 
+Minus147: folds 
+the best 538: calls 945
+*** TURN *** [6h 8h 6s] [5s]
+jsalinas96: checks 
+the best 538: bets 2731
+jsalinas96: calls 2731
+*** RIVER *** [6h 8h 6s 5s] [4c]
+jsalinas96: checks 
+the best 538: bets 7893
+jsalinas96: raises 2733 to 10626 and is all-in
+the best 538: calls 2733
+*** SHOW DOWN ***
+jsalinas96: shows [6d Ac] (three of a kind, Sixes)
+the best 538: shows [7d Ts] (a straight, Four to Eight)
+the best 538 collected 27976 from pot
+*** SUMMARY ***
+Total pot 29604 | Rake 1628 
+Board [6h 8h 6s 5s 4c]
+Seat 1: hilkemeyer
+Seat 2: the best 538 showed [7d Ts] and won (27976) with a straight, Four to Eight
+Seat 3: FUMOS/100% (button) folded before Flop (didn't bet)
+Seat 4: jsalinas96 (small blind) showed [6d Ac] and lost with three of a kind, Sixes
+Seat 5: ASTUMUR (big blind) folded on the Flop
+Seat 6: rottenberries folded before Flop (didn't bet)
+Seat 7: BMA@mytown folded on the Flop
+Seat 8: inchgness folded before Flop (didn't bet)
+Seat 9: Minus147 folded on the Flop
+
+
+

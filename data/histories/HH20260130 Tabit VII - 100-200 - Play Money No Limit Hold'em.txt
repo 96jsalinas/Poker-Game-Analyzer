@@ -1,0 +1,1091 @@
+﻿PokerStars Hand #259523586231:  Hold'em No Limit (100/200) - 2026/01/30 19:20:54 CET [2026/01/30 13:20:54 ET]
+Table 'Tabit VII' 9-max (Play Money) Seat #4 is the button
+Seat 1: BREOCAN (0 in chips) is sitting out
+Seat 3: sefu_prim (0 in chips) is sitting out
+Seat 2: tinman1944 (29203 in chips) 
+Seat 4: DeAugustus (15371 in chips) 
+Seat 5: maria290960 (3213 in chips) 
+Seat 6: jsalinas96 (13799 in chips) 
+Seat 7: pablo_4041 (74001 in chips) 
+Seat 8: DEDEdu31600 (26937 in chips) 
+Seat 9: 6duca6 (10215 in chips) 
+maria290960: posts small blind 100
+jsalinas96: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ac 4d]
+pablo_4041: folds 
+DEDEdu31600: folds 
+6duca6: calls 200
+tinman1944: calls 200
+DeAugustus: folds 
+maria290960: calls 100
+jsalinas96: checks 
+*** FLOP *** [Qh Th Jd]
+maria290960: bets 200
+DeAugustus leaves the table
+jsalinas96: calls 200
+6duca6: calls 200
+tinman1944: calls 200
+*** TURN *** [Qh Th Jd] [As]
+maria290960: bets 2813 and is all-in
+jsalinas96: calls 2813
+Djalma1958 joins the table at seat #4 
+Djalma1958 is disconnected 
+6duca6: folds 
+tinman1944: folds 
+*** RIVER *** [Qh Th Jd As] [2h]
+*** SHOW DOWN ***
+maria290960: shows [Jc Ks] (a straight, Ten to Ace)
+jsalinas96: shows [Ac 4d] (a pair of Aces)
+maria290960 collected 6829 from pot
+*** SUMMARY ***
+Total pot 7226 | Rake 397 
+Board [Qh Th Jd As 2h]
+Seat 1: BREOCAN
+Seat 3: sefu_prim
+Seat 2: tinman1944 folded on the Turn
+Seat 4: DeAugustus (button) folded before Flop (didn't bet)
+Seat 5: maria290960 (small blind) showed [Jc Ks] and won (6829) with a straight, Ten to Ace
+Seat 6: jsalinas96 (big blind) showed [Ac 4d] and lost with a pair of Aces
+Seat 7: pablo_4041 folded before Flop (didn't bet)
+Seat 8: DEDEdu31600 folded before Flop (didn't bet)
+Seat 9: 6duca6 folded on the Turn
+
+
+
+PokerStars Hand #259523602656:  Hold'em No Limit (100/200) - 2026/01/30 19:22:07 CET [2026/01/30 13:22:07 ET]
+Table 'Tabit VII' 9-max (Play Money) Seat #5 is the button
+Seat 1: BREOCAN (20000 in chips) 
+Seat 2: tinman1944 (28803 in chips) 
+Seat 3: sefu_prim (20000 in chips) 
+Seat 4: Djalma1958 (20000 in chips) 
+Seat 5: maria290960 (6829 in chips) 
+Seat 6: jsalinas96 (10586 in chips) 
+Seat 7: pablo_4041 (74001 in chips) 
+Seat 8: DEDEdu31600 (26937 in chips) 
+Seat 9: 6duca6 (9815 in chips) 
+jsalinas96: posts small blind 100
+pablo_4041: posts big blind 200
+Djalma1958: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9c Qc]
+DEDEdu31600: folds 
+6duca6: calls 200
+BREOCAN: calls 200
+tinman1944: calls 200
+sefu_prim: raises 200 to 400
+Djalma1958: calls 200
+maria290960: calls 400
+jsalinas96: calls 300
+pablo_4041: calls 200
+6duca6: calls 200
+BREOCAN: calls 200
+tinman1944: calls 200
+*** FLOP *** [5c 2c Qh]
+jsalinas96: checks 
+pablo_4041: checks 
+6duca6: checks 
+BREOCAN: checks 
+tinman1944: checks 
+sefu_prim: checks 
+Djalma1958: checks 
+maria290960: checks 
+*** TURN *** [5c 2c Qh] [6c]
+jsalinas96: bets 3024
+pablo_4041: folds 
+6duca6: folds 
+BREOCAN: folds 
+tinman1944: folds 
+sefu_prim: calls 3024
+Djalma1958: folds 
+maria290960: folds 
+*** RIVER *** [5c 2c Qh 6c] [Qs]
+jsalinas96: bets 7162 and is all-in
+sefu_prim: folds 
+Uncalled bet (7162) returned to jsalinas96
+jsalinas96 collected 8739 from pot
+jsalinas96: doesn't show hand 
+*** SUMMARY ***
+Total pot 9248 | Rake 509 
+Board [5c 2c Qh 6c Qs]
+Seat 1: BREOCAN folded on the Turn
+Seat 2: tinman1944 folded on the Turn
+Seat 3: sefu_prim folded on the River
+Seat 4: Djalma1958 folded on the Turn
+Seat 5: maria290960 (button) folded on the Turn
+Seat 6: jsalinas96 (small blind) collected (8739)
+Seat 7: pablo_4041 (big blind) folded on the Turn
+Seat 8: DEDEdu31600 folded before Flop (didn't bet)
+Seat 9: 6duca6 folded on the Turn
+
+
+
+PokerStars Hand #259523619371:  Hold'em No Limit (100/200) - 2026/01/30 19:23:21 CET [2026/01/30 13:23:21 ET]
+Table 'Tabit VII' 9-max (Play Money) Seat #6 is the button
+Seat 1: BREOCAN (19600 in chips) 
+Seat 2: tinman1944 (28403 in chips) 
+Seat 3: sefu_prim (16576 in chips) 
+Seat 4: Djalma1958 (20000 in chips) 
+Seat 5: maria290960 (6429 in chips) 
+Seat 6: jsalinas96 (15901 in chips) 
+Seat 7: pablo_4041 (73601 in chips) 
+Seat 8: DEDEdu31600 (26937 in chips) 
+Seat 9: 6duca6 (9415 in chips) 
+pablo_4041: posts small blind 100
+DEDEdu31600: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3d 8c]
+6duca6: calls 200
+BREOCAN: calls 200
+tinman1944: calls 200
+sefu_prim: raises 1000 to 1200
+Djalma1958: folds 
+maria290960: calls 1200
+jsalinas96: folds 
+pablo_4041: folds 
+DEDEdu31600 has timed out
+DEDEdu31600: folds 
+6duca6: calls 1000
+BREOCAN: folds 
+tinman1944: folds 
+*** FLOP *** [2c Qd Qc]
+6duca6: checks 
+sefu_prim: bets 800
+maria290960: calls 800
+6duca6: folds 
+*** TURN *** [2c Qd Qc] [Kc]
+sefu_prim: bets 1200
+maria290960: calls 1200
+*** RIVER *** [2c Qd Qc Kc] [Jd]
+sefu_prim: bets 2200
+maria290960: raises 1029 to 3229 and is all-in
+sefu_prim: calls 1029
+*** SHOW DOWN ***
+maria290960: shows [Tc 9d] (a straight, Nine to King)
+sefu_prim: shows [7c Ks] (two pair, Kings and Queens)
+maria290960 collected 13946 from pot
+*** SUMMARY ***
+Total pot 14758 | Rake 812 
+Board [2c Qd Qc Kc Jd]
+Seat 1: BREOCAN folded before Flop
+Seat 2: tinman1944 folded before Flop
+Seat 3: sefu_prim showed [7c Ks] and lost with two pair, Kings and Queens
+Seat 4: Djalma1958 folded before Flop (didn't bet)
+Seat 5: maria290960 showed [Tc 9d] and won (13946) with a straight, Nine to King
+Seat 6: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 7: pablo_4041 (small blind) folded before Flop
+Seat 8: DEDEdu31600 (big blind) folded before Flop
+Seat 9: 6duca6 folded on the Flop
+
+
+
+PokerStars Hand #259523635394:  Hold'em No Limit (100/200) - 2026/01/30 19:24:32 CET [2026/01/30 13:24:32 ET]
+Table 'Tabit VII' 9-max (Play Money) Seat #7 is the button
+Seat 8: DEDEdu31600 (26737 in chips) is sitting out
+Seat 1: BREOCAN (19400 in chips) 
+Seat 2: tinman1944 (28203 in chips) 
+Seat 3: sefu_prim (10147 in chips) 
+Seat 4: Djalma1958 (20000 in chips) 
+Seat 5: maria290960 (13946 in chips) 
+Seat 6: jsalinas96 (15901 in chips) 
+Seat 7: pablo_4041 (73501 in chips) 
+Seat 9: 6duca6 (8215 in chips) 
+6duca6: posts small blind 100
+BREOCAN: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2d Qs]
+tinman1944: calls 200
+sefu_prim: raises 1600 to 1800
+Djalma1958: folds 
+maria290960: calls 1800
+jsalinas96: folds 
+pablo_4041: folds 
+6duca6: folds 
+BREOCAN: calls 1600
+tinman1944: folds 
+*** FLOP *** [As 3h 5c]
+BREOCAN: checks 
+sefu_prim: bets 1000
+maria290960: calls 1000
+BREOCAN: calls 1000
+*** TURN *** [As 3h 5c] [Ts]
+BREOCAN: checks 
+sefu_prim: bets 1000
+maria290960: calls 1000
+BREOCAN: raises 11221 to 12221
+sefu_prim: folds 
+maria290960: folds 
+Uncalled bet (11221) returned to BREOCAN
+BREOCAN collected 11056 from pot
+BREOCAN: doesn't show hand 
+*** SUMMARY ***
+Total pot 11700 | Rake 644 
+Board [As 3h 5c Ts]
+Seat 8: DEDEdu31600
+Seat 1: BREOCAN (big blind) collected (11056)
+Seat 2: tinman1944 folded before Flop
+Seat 3: sefu_prim folded on the Turn
+Seat 4: Djalma1958 folded before Flop (didn't bet)
+Seat 5: maria290960 folded on the Turn
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: pablo_4041 (button) folded before Flop (didn't bet)
+Seat 9: 6duca6 (small blind) folded before Flop
+
+
+
+PokerStars Hand #259523648878:  Hold'em No Limit (100/200) - 2026/01/30 19:25:31 CET [2026/01/30 13:25:31 ET]
+Table 'Tabit VII' 9-max (Play Money) Seat #9 is the button
+Seat 8: DEDEdu31600 (26737 in chips) is sitting out
+Seat 1: BREOCAN (26656 in chips) 
+Seat 2: tinman1944 (28003 in chips) 
+Seat 3: sefu_prim (16200 in chips) 
+Seat 4: Djalma1958 (20000 in chips) 
+Seat 5: maria290960 (10146 in chips) 
+Seat 6: jsalinas96 (15901 in chips) 
+Seat 7: pablo_4041 (73501 in chips) 
+Seat 9: 6duca6 (8115 in chips) 
+BREOCAN: posts small blind 100
+tinman1944: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4s Kh]
+sefu_prim: raises 800 to 1000
+Djalma1958: calls 1000
+maria290960: calls 1000
+jsalinas96: folds 
+pablo_4041: folds 
+6duca6: folds 
+BREOCAN: calls 900
+tinman1944: folds 
+*** FLOP *** [2s Td 9c]
+BREOCAN: checks 
+sefu_prim: bets 200
+Djalma1958: calls 200
+maria290960: folds 
+BREOCAN: calls 200
+*** TURN *** [2s Td 9c] [9s]
+BREOCAN: checks 
+sefu_prim: checks 
+Djalma1958: checks 
+*** RIVER *** [2s Td 9c 9s] [6h]
+BREOCAN has timed out
+BREOCAN: checks 
+sefu_prim: checks 
+Djalma1958: bets 18800 and is all-in
+BREOCAN: folds 
+sefu_prim: folds 
+Uncalled bet (18800) returned to Djalma1958
+Djalma1958 collected 4536 from pot
+Djalma1958: doesn't show hand 
+*** SUMMARY ***
+Total pot 4800 | Rake 264 
+Board [2s Td 9c 9s 6h]
+Seat 8: DEDEdu31600
+Seat 1: BREOCAN (small blind) folded on the River
+Seat 2: tinman1944 (big blind) folded before Flop
+Seat 3: sefu_prim folded on the River
+Seat 4: Djalma1958 collected (4536)
+Seat 5: maria290960 folded on the Flop
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: pablo_4041 folded before Flop (didn't bet)
+Seat 9: 6duca6 (button) folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259523665521:  Hold'em No Limit (100/200) - 2026/01/30 19:26:45 CET [2026/01/30 13:26:45 ET]
+Table 'Tabit VII' 9-max (Play Money) Seat #2 is the button
+Seat 1: BREOCAN (25456 in chips) is sitting out
+Seat 2: tinman1944 (27803 in chips) 
+Seat 3: sefu_prim (15000 in chips) 
+Seat 4: Djalma1958 (23336 in chips) 
+Seat 5: maria290960 (9146 in chips) 
+Seat 6: jsalinas96 (15901 in chips) 
+Seat 7: pablo_4041 (73501 in chips) 
+Seat 8: DEDEdu31600 (26737 in chips) 
+Seat 9: 6duca6 (8115 in chips) 
+sefu_prim: posts small blind 100
+Djalma1958: posts big blind 200
+DEDEdu31600: posts small blind 100
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3h 3d]
+maria290960: calls 200
+jsalinas96: raises 400 to 600
+pablo_4041: folds 
+DEDEdu31600: folds 
+6duca6: calls 600
+tinman1944: folds 
+sefu_prim: raises 400 to 1000
+Djalma1958: folds 
+maria290960: calls 800
+jsalinas96: calls 400
+6duca6: calls 400
+*** FLOP *** [7c 4d Jc]
+sefu_prim: bets 800
+maria290960: calls 800
+jsalinas96: folds 
+6duca6: folds 
+*** TURN *** [7c 4d Jc] [4c]
+sefu_prim: bets 800
+maria290960: calls 800
+*** RIVER *** [7c 4d Jc 4c] [Ad]
+sefu_prim: bets 600
+maria290960: calls 600
+*** SHOW DOWN ***
+sefu_prim: shows [Qs Td] (a pair of Fours)
+maria290960: shows [Jd Tc] (two pair, Jacks and Fours)
+maria290960 collected 8221 from pot
+*** SUMMARY ***
+Total pot 8700 | Rake 479 
+Board [7c 4d Jc 4c Ad]
+Seat 1: BREOCAN
+Seat 2: tinman1944 (button) folded before Flop (didn't bet)
+Seat 3: sefu_prim (small blind) showed [Qs Td] and lost with a pair of Fours
+Seat 4: Djalma1958 (big blind) folded before Flop
+Seat 5: maria290960 showed [Jd Tc] and won (8221) with two pair, Jacks and Fours
+Seat 6: jsalinas96 folded on the Flop
+Seat 7: pablo_4041 folded before Flop (didn't bet)
+Seat 8: DEDEdu31600 folded before Flop (didn't bet)
+Seat 9: 6duca6 folded on the Flop
+
+
+
+PokerStars Hand #259523680716:  Hold'em No Limit (100/200) - 2026/01/30 19:27:51 CET [2026/01/30 13:27:51 ET]
+Table 'Tabit VII' 9-max (Play Money) Seat #3 is the button
+Seat 1: BREOCAN (25456 in chips) is sitting out
+Seat 2: tinman1944 (27803 in chips) 
+Seat 3: sefu_prim (11800 in chips) 
+Seat 4: Djalma1958 (23136 in chips) 
+Seat 5: maria290960 (14167 in chips) 
+Seat 6: jsalinas96 (14901 in chips) 
+Seat 7: pablo_4041 (73501 in chips) 
+Seat 8: DEDEdu31600 (26637 in chips) 
+Seat 9: 6duca6 (7115 in chips) 
+Djalma1958: posts small blind 100
+maria290960: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9d Qs]
+jsalinas96: calls 200
+pablo_4041: calls 200
+DEDEdu31600: folds 
+6duca6: calls 200
+tinman1944: calls 200
+DEDEdu31600 leaves the table
+sefu_prim: raises 200 to 400
+Djalma1958: calls 300
+maria290960: calls 200
+jsalinas96: calls 200
+pablo_4041: calls 200
+6duca6: calls 200
+tinman1944: calls 200
+*** FLOP *** [3s 7d 9s]
+Djalma1958: checks 
+maria290960: checks 
+jsalinas96: checks 
+pablo_4041: checks 
+6duca6: checks 
+tinman1944: checks 
+sefu_prim: checks 
+*** TURN *** [3s 7d 9s] [As]
+Djalma1958: bets 1323
+maria290960: folds 
+jsalinas96: folds 
+pablo_4041: folds 
+6duca6: folds 
+tinman1944: calls 1323
+sefu_prim: folds 
+*** RIVER *** [3s 7d 9s As] [8d]
+Djalma1958: bets 2573
+tinman1944: raises 3627 to 6200
+Djalma1958: calls 3627
+*** SHOW DOWN ***
+tinman1944: shows [2s Ks] (a flush, Ace high)
+Djalma1958: mucks hand 
+tinman1944 collected 16864 from pot
+*** SUMMARY ***
+Total pot 17846 | Rake 982 
+Board [3s 7d 9s As 8d]
+Seat 1: BREOCAN
+Seat 2: tinman1944 showed [2s Ks] and won (16864) with a flush, Ace high
+Seat 3: sefu_prim (button) folded on the Turn
+Seat 4: Djalma1958 (small blind) mucked [Th 3h]
+Seat 5: maria290960 (big blind) folded on the Turn
+Seat 6: jsalinas96 folded on the Turn
+Seat 7: pablo_4041 folded on the Turn
+Seat 8: DEDEdu31600 folded before Flop (didn't bet)
+Seat 9: 6duca6 folded on the Turn
+
+
+
+PokerStars Hand #259523702781:  Hold'em No Limit (100/200) - 2026/01/30 19:29:30 CET [2026/01/30 13:29:30 ET]
+Table 'Tabit VII' 9-max (Play Money) Seat #4 is the button
+Seat 1: BREOCAN (25456 in chips) 
+Seat 2: tinman1944 (36744 in chips) 
+Seat 3: sefu_prim (19400 in chips) 
+Seat 4: Djalma1958 (20000 in chips) 
+Seat 5: maria290960 (13767 in chips) 
+Seat 6: jsalinas96 (14501 in chips) 
+Seat 7: pablo_4041 (73101 in chips) 
+Seat 9: 6duca6 (6715 in chips) 
+maria290960: posts small blind 100
+jsalinas96: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9c 4d]
+pablo_4041: calls 200
+6duca6: calls 200
+BREOCAN: calls 200
+tinman1944: calls 200
+sefu_prim: raises 200 to 400
+Djalma1958: raises 1900 to 2300
+maria290960: calls 2200
+jsalinas96: folds 
+pablo_4041: calls 2100
+6duca6: folds 
+BREOCAN: folds 
+tinman1944: folds 
+sefu_prim: calls 1900
+*** FLOP *** [4c Kd 5d]
+maria290960: checks 
+pablo_4041: checks 
+sefu_prim: bets 800
+Djalma1958: calls 800
+maria290960: folds 
+pablo_4041: calls 800
+*** TURN *** [4c Kd 5d] [Tc]
+pablo_4041: checks 
+sefu_prim: bets 2400
+Djalma1958: calls 2400
+pablo_4041: calls 2400
+*** RIVER *** [4c Kd 5d Tc] [8c]
+pokeraldee joins the table at seat #8 
+pokeraldee is disconnected 
+pablo_4041: checks 
+sefu_prim: bets 2200
+Djalma1958: raises 12300 to 14500 and is all-in
+pablo_4041: calls 14500
+sefu_prim: calls 11700 and is all-in
+*** SHOW DOWN ***
+Djalma1958: shows [8s 8d] (three of a kind, Eights)
+pablo_4041: shows [7d 6s] (a straight, Four to Eight)
+pablo_4041 collected 1134 from side pot
+sefu_prim: shows [Ts 5s] (two pair, Tens and Fives)
+pablo_4041 collected 57928 from main pot
+*** SUMMARY ***
+Total pot 62500 Main pot 57928. Side pot 1134. | Rake 3438 
+Board [4c Kd 5d Tc 8c]
+Seat 1: BREOCAN folded before Flop
+Seat 2: tinman1944 folded before Flop
+Seat 3: sefu_prim showed [Ts 5s] and lost with two pair, Tens and Fives
+Seat 4: Djalma1958 (button) showed [8s 8d] and lost with three of a kind, Eights
+Seat 5: maria290960 (small blind) folded on the Flop
+Seat 6: jsalinas96 (big blind) folded before Flop
+Seat 7: pablo_4041 showed [7d 6s] and won (59062) with a straight, Four to Eight
+Seat 9: 6duca6 folded before Flop
+
+
+
+PokerStars Hand #259523723465:  Hold'em No Limit (100/200) - 2026/01/30 19:30:59 CET [2026/01/30 13:30:59 ET]
+Table 'Tabit VII' 9-max (Play Money) Seat #5 is the button
+Seat 3: sefu_prim (0 in chips) is sitting out
+Seat 1: BREOCAN (25256 in chips) 
+Seat 2: tinman1944 (36544 in chips) 
+Seat 4: Djalma1958 (20000 in chips) 
+Seat 5: maria290960 (11467 in chips) 
+Seat 6: jsalinas96 (14301 in chips) 
+Seat 7: pablo_4041 (112163 in chips) 
+Seat 8: pokeraldee (20000 in chips) 
+Seat 9: 6duca6 (6515 in chips) 
+jsalinas96: posts small blind 100
+pablo_4041: posts big blind 200
+pokeraldee: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3c Kh]
+pokeraldee: checks 
+6duca6: calls 200
+BREOCAN: calls 200
+tinman1944: calls 200
+Djalma1958: raises 200 to 400
+maria290960: calls 400
+jsalinas96: folds 
+pablo_4041: calls 200
+pokeraldee: calls 200
+6duca6: calls 200
+BREOCAN: calls 200
+tinman1944: folds 
+*** FLOP *** [4d 7d Jc]
+pablo_4041: checks 
+pokeraldee: checks 
+6duca6: checks 
+BREOCAN: checks 
+Djalma1958: checks 
+maria290960: checks 
+*** TURN *** [4d 7d Jc] [9h]
+pablo_4041: checks 
+pokeraldee: checks 
+6duca6: checks 
+BREOCAN: checks 
+Djalma1958: checks 
+maria290960: checks 
+*** RIVER *** [4d 7d Jc 9h] [6c]
+pablo_4041: checks 
+pokeraldee: checks 
+6duca6: checks 
+BREOCAN: checks 
+Djalma1958: checks 
+maria290960: checks 
+*** SHOW DOWN ***
+pablo_4041: shows [Tc Qh] (high card Queen)
+pokeraldee: shows [8d 9c] (a pair of Nines)
+6duca6: mucks hand 
+BREOCAN: mucks hand 
+Djalma1958: mucks hand 
+maria290960: mucks hand 
+pokeraldee collected 2551 from pot
+*** SUMMARY ***
+Total pot 2700 | Rake 149 
+Board [4d 7d Jc 9h 6c]
+Seat 3: sefu_prim
+Seat 1: BREOCAN mucked [Ac 3h]
+Seat 2: tinman1944 folded before Flop
+Seat 4: Djalma1958 mucked [7s Td]
+Seat 5: maria290960 (button) mucked [5s Qd]
+Seat 6: jsalinas96 (small blind) folded before Flop
+Seat 7: pablo_4041 (big blind) showed [Tc Qh] and lost with high card Queen
+Seat 8: pokeraldee showed [8d 9c] and won (2551) with a pair of Nines
+Seat 9: 6duca6 mucked [8h 3d]
+
+
+
+PokerStars Hand #259523739176:  Hold'em No Limit (100/200) - 2026/01/30 19:32:08 CET [2026/01/30 13:32:08 ET]
+Table 'Tabit VII' 9-max (Play Money) Seat #6 is the button
+Seat 1: BREOCAN (24856 in chips) 
+Seat 2: tinman1944 (36344 in chips) 
+Seat 3: sefu_prim (20000 in chips) 
+Seat 4: Djalma1958 (20000 in chips) 
+Seat 5: maria290960 (11067 in chips) 
+Seat 6: jsalinas96 (14201 in chips) 
+Seat 7: pablo_4041 (111763 in chips) 
+Seat 8: pokeraldee (22151 in chips) 
+Seat 9: 6duca6 (6115 in chips) 
+pablo_4041: posts small blind 100
+pokeraldee: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Js Td]
+6duca6: calls 200
+BREOCAN: calls 200
+tinman1944: calls 200
+sefu_prim: raises 200 to 400
+Djalma1958: calls 400
+maria290960: calls 400
+jsalinas96: calls 400
+pablo_4041: calls 300
+pokeraldee: calls 200
+6duca6: calls 200
+BREOCAN: calls 200
+tinman1944: calls 200
+*** FLOP *** [6d 9c Jd]
+pablo_4041: checks 
+pokeraldee: checks 
+6duca6: checks 
+BREOCAN: checks 
+tinman1944: checks 
+sefu_prim: checks 
+Djalma1958: checks 
+maria290960: checks 
+jsalinas96: checks 
+*** TURN *** [6d 9c Jd] [Tc]
+pablo_4041: checks 
+pokeraldee: checks 
+6duca6: checks 
+BREOCAN: checks 
+tinman1944: checks 
+sefu_prim: bets 200
+Djalma1958: calls 200
+maria290960: raises 10467 to 10667 and is all-in
+jsalinas96: calls 10667
+pablo_4041: folds 
+pokeraldee: folds 
+6duca6: folds 
+BREOCAN: folds 
+tinman1944: folds 
+sefu_prim: folds 
+Djalma1958: folds 
+*** RIVER *** [6d 9c Jd Tc] [Th]
+*** SHOW DOWN ***
+maria290960: shows [Qh Ks] (a straight, Nine to King)
+jsalinas96: shows [Js Td] (a full house, Tens full of Jacks)
+jsalinas96 collected 23941 from pot
+*** SUMMARY ***
+Total pot 25334 | Rake 1393 
+Board [6d 9c Jd Tc Th]
+Seat 1: BREOCAN folded on the Turn
+Seat 2: tinman1944 folded on the Turn
+Seat 3: sefu_prim folded on the Turn
+Seat 4: Djalma1958 folded on the Turn
+Seat 5: maria290960 showed [Qh Ks] and lost with a straight, Nine to King
+Seat 6: jsalinas96 (button) showed [Js Td] and won (23941) with a full house, Tens full of Jacks
+Seat 7: pablo_4041 (small blind) folded on the Turn
+Seat 8: pokeraldee (big blind) folded on the Turn
+Seat 9: 6duca6 folded on the Turn
+
+
+
+PokerStars Hand #259523763564:  Hold'em No Limit (100/200) - 2026/01/30 19:33:55 CET [2026/01/30 13:33:55 ET]
+Table 'Tabit VII' 9-max (Play Money) Seat #7 is the button
+Seat 1: BREOCAN (24456 in chips) is sitting out
+Seat 5: maria290960 (0 in chips) is sitting out
+Seat 2: tinman1944 (35944 in chips) 
+Seat 3: sefu_prim (19400 in chips) 
+Seat 4: Djalma1958 (20000 in chips) 
+Seat 6: jsalinas96 (27075 in chips) 
+Seat 7: pablo_4041 (111363 in chips) 
+Seat 8: pokeraldee (21751 in chips) 
+Seat 9: 6duca6 (5715 in chips) 
+pokeraldee: posts small blind 100
+6duca6: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4h 2d]
+tinman1944: calls 200
+maria290960 leaves the table
+sefu_prim: raises 200 to 400
+Djalma1958: raises 1300 to 1700
+jsalinas96: folds 
+pablo_4041: calls 1700
+pokeraldee: folds 
+6duca6: folds 
+tinman1944: folds 
+sefu_prim: calls 1300
+*** FLOP *** [Qh 6d 9c]
+sefu_prim: bets 1200
+Djalma1958: raises 17100 to 18300 and is all-in
+pablo_4041: folds 
+sefu_prim: calls 16500 and is all-in
+Uncalled bet (600) returned to Djalma1958
+*** TURN *** [Qh 6d 9c] [2c]
+dpz70 joins the table at seat #5 
+*** RIVER *** [Qh 6d 9c 2c] [Kh]
+*** SHOW DOWN ***
+sefu_prim: shows [9d 8c] (a pair of Nines)
+Djalma1958: shows [Qc Jc] (a pair of Queens)
+Djalma1958 collected 38745 from pot
+*** SUMMARY ***
+Total pot 41000 | Rake 2255 
+Board [Qh 6d 9c 2c Kh]
+Seat 1: BREOCAN
+Seat 5: maria290960
+Seat 2: tinman1944 folded before Flop
+Seat 3: sefu_prim showed [9d 8c] and lost with a pair of Nines
+Seat 4: Djalma1958 showed [Qc Jc] and won (38745) with a pair of Queens
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: pablo_4041 (button) folded on the Flop
+Seat 8: pokeraldee (small blind) folded before Flop
+Seat 9: 6duca6 (big blind) folded before Flop
+
+
+
+PokerStars Hand #259523774364:  Hold'em No Limit (100/200) - 2026/01/30 19:34:41 CET [2026/01/30 13:34:41 ET]
+Table 'Tabit VII' 9-max (Play Money) Seat #8 is the button
+Seat 1: BREOCAN (24456 in chips) is sitting out
+Seat 3: sefu_prim (0 in chips) is sitting out
+Seat 2: tinman1944 (35744 in chips) 
+Seat 4: Djalma1958 (39345 in chips) 
+Seat 5: dpz70 (20000 in chips) 
+Seat 6: jsalinas96 (27075 in chips) 
+Seat 7: pablo_4041 (109663 in chips) 
+Seat 8: pokeraldee (21651 in chips) 
+Seat 9: 6duca6 (5515 in chips) 
+6duca6: posts small blind 100
+tinman1944: posts big blind 200
+dpz70: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Js 6s]
+Djalma1958: calls 200
+dpz70: checks 
+sefu_prim leaves the table
+jsalinas96: folds 
+pablo_4041: folds 
+pokeraldee: calls 200
+6duca6: calls 100
+tinman1944: checks 
+*** FLOP *** [6c Jh 8s]
+6duca6: checks 
+vili59 joins the table at seat #3 
+tinman1944: checks 
+Djalma1958: checks 
+dpz70: checks 
+pokeraldee: checks 
+*** TURN *** [6c Jh 8s] [9h]
+6duca6: checks 
+tinman1944: checks 
+Djalma1958: checks 
+dpz70: checks 
+pokeraldee: checks 
+*** RIVER *** [6c Jh 8s 9h] [4c]
+6duca6: checks 
+tinman1944: checks 
+Djalma1958: checks 
+dpz70: checks 
+pokeraldee: checks 
+*** SHOW DOWN ***
+6duca6: shows [Tc Ks] (high card King)
+tinman1944: shows [Td 6d] (a pair of Sixes)
+Djalma1958: mucks hand 
+dpz70: mucks hand 
+pokeraldee: shows [Qs 9c] (a pair of Nines)
+pokeraldee collected 945 from pot
+*** SUMMARY ***
+Total pot 1000 | Rake 55 
+Board [6c Jh 8s 9h 4c]
+Seat 1: BREOCAN
+Seat 3: sefu_prim
+Seat 2: tinman1944 (big blind) showed [Td 6d] and lost with a pair of Sixes
+Seat 4: Djalma1958 mucked [5d 2d]
+Seat 5: dpz70 mucked [4s 3h]
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: pablo_4041 folded before Flop (didn't bet)
+Seat 8: pokeraldee (button) showed [Qs 9c] and won (945) with a pair of Nines
+Seat 9: 6duca6 (small blind) showed [Tc Ks] and lost with high card King
+
+
+
+PokerStars Hand #259523790912:  Hold'em No Limit (100/200) - 2026/01/30 19:35:52 CET [2026/01/30 13:35:52 ET]
+Table 'Tabit VII' 9-max (Play Money) Seat #9 is the button
+Seat 1: BREOCAN (24456 in chips) is sitting out
+Seat 2: tinman1944 (35544 in chips) 
+Seat 3: vili59 (8000 in chips) 
+Seat 4: Djalma1958 (39145 in chips) 
+Seat 5: dpz70 (19800 in chips) 
+Seat 6: jsalinas96 (27075 in chips) 
+Seat 7: pablo_4041 (109663 in chips) 
+Seat 8: pokeraldee (22396 in chips) 
+Seat 9: 6duca6 (5315 in chips) 
+tinman1944: posts small blind 100
+vili59: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Th Qh]
+Djalma1958: raises 200 to 400
+dpz70: folds 
+jsalinas96: raises 200 to 600
+pablo_4041: folds 
+pokeraldee: folds 
+dpz70 leaves the table
+6duca6: calls 600
+tinman1944: folds 
+vili59: calls 400
+Djalma1958: calls 200
+*** FLOP *** [Td Ks 8h]
+vili59: checks 
+Djalma1958: checks 
+jsalinas96: checks 
+MARIUS.LML joins the table at seat #5 
+6duca6: checks 
+*** TURN *** [Td Ks 8h] [4h]
+vili59: checks 
+Djalma1958: checks 
+jsalinas96: checks 
+6duca6: checks 
+*** RIVER *** [Td Ks 8h 4h] [8d]
+vili59: checks 
+Djalma1958: checks 
+jsalinas96: checks 
+6duca6: checks 
+*** SHOW DOWN ***
+vili59: shows [4c 2d] (two pair, Eights and Fours)
+Djalma1958: mucks hand 
+jsalinas96: shows [Th Qh] (two pair, Tens and Eights)
+6duca6: mucks hand 
+jsalinas96 collected 2362 from pot
+*** SUMMARY ***
+Total pot 2500 | Rake 138 
+Board [Td Ks 8h 4h 8d]
+Seat 1: BREOCAN
+Seat 2: tinman1944 (small blind) folded before Flop
+Seat 3: vili59 (big blind) showed [4c 2d] and lost with two pair, Eights and Fours
+Seat 4: Djalma1958 mucked [Ad 3c]
+Seat 5: dpz70 folded before Flop (didn't bet)
+Seat 6: jsalinas96 showed [Th Qh] and won (2362) with two pair, Tens and Eights
+Seat 7: pablo_4041 folded before Flop (didn't bet)
+Seat 8: pokeraldee folded before Flop (didn't bet)
+Seat 9: 6duca6 (button) mucked [9c 5c]
+
+
+
+PokerStars Hand #259523807983:  Hold'em No Limit (100/200) - 2026/01/30 19:37:06 CET [2026/01/30 13:37:06 ET]
+Table 'Tabit VII' 9-max (Play Money) Seat #2 is the button
+Seat 1: BREOCAN (24456 in chips) is sitting out
+Seat 2: tinman1944 (35444 in chips) 
+Seat 3: vili59 (7400 in chips) 
+Seat 4: Djalma1958 (38545 in chips) 
+Seat 5: MARIUS.LML (20000 in chips) 
+Seat 6: jsalinas96 (28837 in chips) 
+Seat 7: pablo_4041 (109663 in chips) 
+Seat 8: pokeraldee (22396 in chips) 
+Seat 9: 6duca6 (4715 in chips) 
+vili59: posts small blind 100
+Djalma1958: posts big blind 200
+MARIUS.LML: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9h 9c]
+MARIUS.LML: checks 
+jsalinas96: raises 400 to 600
+pablo_4041: folds 
+pokeraldee: folds 
+6duca6: folds 
+tinman1944: folds 
+vili59: folds 
+Djalma1958: raises 400 to 1000
+MARIUS.LML: calls 800
+jsalinas96: calls 400
+*** FLOP *** [2h 8c As]
+Djalma1958: checks 
+MARIUS.LML: checks 
+jsalinas96: checks 
+*** TURN *** [2h 8c As] [Tc]
+Djalma1958: checks 
+MARIUS.LML: checks 
+jsalinas96: checks 
+*** RIVER *** [2h 8c As Tc] [8d]
+Djalma1958: checks 
+MARIUS.LML: checks 
+jsalinas96: bets 1000
+Djalma1958: folds 
+MARIUS.LML: folds 
+Uncalled bet (1000) returned to jsalinas96
+jsalinas96 collected 2929 from pot
+jsalinas96: doesn't show hand 
+*** SUMMARY ***
+Total pot 3100 | Rake 171 
+Board [2h 8c As Tc 8d]
+Seat 1: BREOCAN
+Seat 2: tinman1944 (button) folded before Flop (didn't bet)
+Seat 3: vili59 (small blind) folded before Flop
+Seat 4: Djalma1958 (big blind) folded on the River
+Seat 5: MARIUS.LML folded on the River
+Seat 6: jsalinas96 collected (2929)
+Seat 7: pablo_4041 folded before Flop (didn't bet)
+Seat 8: pokeraldee folded before Flop (didn't bet)
+Seat 9: 6duca6 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259523827150:  Hold'em No Limit (100/200) - 2026/01/30 19:38:29 CET [2026/01/30 13:38:29 ET]
+Table 'Tabit VII' 9-max (Play Money) Seat #3 is the button
+Seat 1: BREOCAN (24456 in chips) is sitting out
+Seat 2: tinman1944 (35444 in chips) 
+Seat 3: vili59 (7300 in chips) 
+Seat 4: Djalma1958 (37545 in chips) 
+Seat 5: MARIUS.LML (19000 in chips) 
+Seat 6: jsalinas96 (30766 in chips) 
+Seat 7: pablo_4041 (109663 in chips) 
+Seat 8: pokeraldee (22396 in chips) 
+Seat 9: 6duca6 (4715 in chips) 
+Djalma1958: posts small blind 100
+MARIUS.LML: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8d Jd]
+jsalinas96: raises 400 to 600
+pablo_4041: raises 8200 to 8800
+pokeraldee: folds 
+6duca6: folds 
+tinman1944: folds 
+vili59: folds 
+Djalma1958: calls 8700
+MARIUS.LML: calls 8600
+jsalinas96: calls 8200
+*** FLOP *** [9c Qc 7d]
+Djalma1958: checks 
+MARIUS.LML: checks 
+jsalinas96: checks 
+pablo_4041: checks 
+*** TURN *** [9c Qc 7d] [2h]
+Djalma1958: checks 
+MARIUS.LML: checks 
+jsalinas96: checks 
+pablo_4041: bets 33264
+Djalma1958: folds 
+MARIUS.LML: folds 
+jsalinas96: folds 
+Uncalled bet (33264) returned to pablo_4041
+pablo_4041 collected 33264 from pot
+pablo_4041: doesn't show hand 
+*** SUMMARY ***
+Total pot 35200 | Rake 1936 
+Board [9c Qc 7d 2h]
+Seat 1: BREOCAN
+Seat 2: tinman1944 folded before Flop (didn't bet)
+Seat 3: vili59 (button) folded before Flop (didn't bet)
+Seat 4: Djalma1958 (small blind) folded on the Turn
+Seat 5: MARIUS.LML (big blind) folded on the Turn
+Seat 6: jsalinas96 folded on the Turn
+Seat 7: pablo_4041 collected (33264)
+Seat 8: pokeraldee folded before Flop (didn't bet)
+Seat 9: 6duca6 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259523842345:  Hold'em No Limit (100/200) - 2026/01/30 19:39:35 CET [2026/01/30 13:39:35 ET]
+Table 'Tabit VII' 9-max (Play Money) Seat #4 is the button
+Seat 1: BREOCAN (24456 in chips) is sitting out
+Seat 2: tinman1944 (35444 in chips) 
+Seat 3: vili59 (7300 in chips) 
+Seat 4: Djalma1958 (28745 in chips) 
+Seat 5: MARIUS.LML (10200 in chips) 
+Seat 6: jsalinas96 (21966 in chips) 
+Seat 7: pablo_4041 (134127 in chips) 
+Seat 8: pokeraldee (22396 in chips) 
+Seat 9: 6duca6 (4715 in chips) 
+MARIUS.LML: posts small blind 100
+jsalinas96: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qc Qd]
+pablo_4041: folds 
+pokeraldee: folds 
+6duca6: calls 200
+pablo_4041 leaves the table
+tinman1944: calls 200
+vili59: folds 
+Djalma1958: calls 200
+MARIUS.LML: calls 100
+Noviembre626 joins the table at seat #7 
+jsalinas96: raises 400 to 600
+6duca6: calls 400
+tinman1944: folds 
+Djalma1958: calls 400
+MARIUS.LML: calls 400
+*** FLOP *** [9d 6c 2c]
+MARIUS.LML: checks 
+jsalinas96: checks 
+6duca6: checks 
+Djalma1958: checks 
+*** TURN *** [9d 6c 2c] [9s]
+MARIUS.LML: checks 
+jsalinas96: bets 2457
+6duca6: folds 
+Djalma1958: folds 
+MARIUS.LML: folds 
+Uncalled bet (2457) returned to jsalinas96
+jsalinas96 collected 2457 from pot
+jsalinas96: doesn't show hand 
+*** SUMMARY ***
+Total pot 2600 | Rake 143 
+Board [9d 6c 2c 9s]
+Seat 1: BREOCAN
+Seat 2: tinman1944 folded before Flop
+Seat 3: vili59 folded before Flop (didn't bet)
+Seat 4: Djalma1958 (button) folded on the Turn
+Seat 5: MARIUS.LML (small blind) folded on the Turn
+Seat 6: jsalinas96 (big blind) collected (2457)
+Seat 7: pablo_4041 folded before Flop (didn't bet)
+Seat 8: pokeraldee folded before Flop (didn't bet)
+Seat 9: 6duca6 folded on the Turn
+
+
+
+PokerStars Hand #259523856021:  Hold'em No Limit (100/200) - 2026/01/30 19:40:35 CET [2026/01/30 13:40:35 ET]
+Table 'Tabit VII' 9-max (Play Money) Seat #5 is the button
+Seat 1: BREOCAN (24456 in chips) is sitting out
+Seat 2: tinman1944 (35244 in chips) 
+Seat 3: vili59 (7300 in chips) 
+Seat 4: Djalma1958 (28145 in chips) 
+Seat 5: MARIUS.LML (9600 in chips) 
+Seat 6: jsalinas96 (23823 in chips) 
+Seat 7: Noviembre626 (20000 in chips) 
+Seat 8: pokeraldee (22396 in chips) 
+Seat 9: 6duca6 (4115 in chips) 
+jsalinas96: posts small blind 100
+Noviembre626: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3s Kc]
+pokeraldee: folds 
+6duca6: calls 200
+tinman1944: folds 
+vili59: calls 200
+Djalma1958: calls 200
+MARIUS.LML: calls 200
+jsalinas96: folds 
+Noviembre626: checks 
+*** FLOP *** [6d 7d 4h]
+Noviembre626: checks 
+6duca6: checks 
+vili59: checks 
+Djalma1958: bets 519
+MARIUS.LML: calls 519
+Noviembre626: folds 
+6duca6 has timed out
+6duca6: folds 
+vili59: calls 519
+*** TURN *** [6d 7d 4h] [Ks]
+vili59: checks 
+Djalma1958: bets 1255
+MARIUS.LML: raises 5945 to 7200
+vili59: folds 
+Djalma1958: folds 
+Uncalled bet (5945) returned to MARIUS.LML
+MARIUS.LML collected 4883 from pot
+MARIUS.LML: doesn't show hand 
+*** SUMMARY ***
+Total pot 5167 | Rake 284 
+Board [6d 7d 4h Ks]
+Seat 1: BREOCAN
+Seat 2: tinman1944 folded before Flop (didn't bet)
+Seat 3: vili59 folded on the Turn
+Seat 4: Djalma1958 folded on the Turn
+Seat 5: MARIUS.LML (button) collected (4883)
+Seat 6: jsalinas96 (small blind) folded before Flop
+Seat 7: Noviembre626 (big blind) folded on the Flop
+Seat 8: pokeraldee folded before Flop (didn't bet)
+Seat 9: 6duca6 folded on the Flop
+
+
+
+PokerStars Hand #259523874388:  Hold'em No Limit (100/200) - 2026/01/30 19:41:55 CET [2026/01/30 13:41:55 ET]
+Table 'Tabit VII' 9-max (Play Money) Seat #6 is the button
+Seat 1: BREOCAN (24456 in chips) is sitting out
+Seat 2: tinman1944 (35244 in chips) 
+Seat 3: vili59 (6581 in chips) 
+Seat 4: Djalma1958 (26171 in chips) 
+Seat 5: MARIUS.LML (12509 in chips) 
+Seat 6: jsalinas96 (23723 in chips) 
+Seat 7: Noviembre626 (19800 in chips) 
+Seat 8: pokeraldee (22396 in chips) 
+Seat 9: 6duca6 (3915 in chips) 
+Noviembre626: posts small blind 100
+pokeraldee: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qc 9h]
+6duca6: calls 200
+tinman1944: folds 
+vili59: raises 400 to 600
+Djalma1958: calls 600
+MARIUS.LML: calls 600
+jsalinas96: calls 600
+Noviembre626: raises 19200 to 19800 and is all-in
+pokeraldee: folds 
+6duca6: folds 
+vili59: calls 5981 and is all-in
+Djalma1958: folds 
+MARIUS.LML: calls 11909 and is all-in
+jsalinas96: folds 
+Uncalled bet (7291) returned to Noviembre626
+*** FLOP *** [4h 6h 7h]
+*** TURN *** [4h 6h 7h] [9d]
+*** RIVER *** [4h 6h 7h 9d] [7c]
+*** SHOW DOWN ***
+Noviembre626: shows [6s As] (two pair, Sevens and Sixes)
+MARIUS.LML: shows [Tc Td] (two pair, Tens and Sevens)
+MARIUS.LML collected 11204 from side pot
+vili59: shows [Qd Jd] (a pair of Sevens)
+MARIUS.LML collected 20169 from main pot
+*** SUMMARY ***
+Total pot 33199 Main pot 20169. Side pot 11204. | Rake 1826 
+Board [4h 6h 7h 9d 7c]
+Seat 1: BREOCAN
+Seat 2: tinman1944 folded before Flop (didn't bet)
+Seat 3: vili59 showed [Qd Jd] and lost with a pair of Sevens
+Seat 4: Djalma1958 folded before Flop
+Seat 5: MARIUS.LML showed [Tc Td] and won (31373) with two pair, Tens and Sevens
+Seat 6: jsalinas96 (button) folded before Flop
+Seat 7: Noviembre626 (small blind) showed [6s As] and lost with two pair, Sevens and Sixes
+Seat 8: pokeraldee (big blind) folded before Flop
+Seat 9: 6duca6 folded before Flop
+
+
+

@@ -1,0 +1,2519 @@
+﻿PokerStars Hand #259550924445:  Hold'em No Limit (250/500) - 2026/02/01 18:47:37 CET [2026/02/01 12:47:37 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #8 is the button
+Seat 1: awsumer (74776 in chips) 
+Seat 2: sam46 (41750 in chips) 
+Seat 3: hightestes (47357 in chips) 
+Seat 4: tavfam2024 (46500 in chips) 
+Seat 5: porri65 (32792 in chips) 
+Seat 6: vol1949 (42307 in chips) 
+Seat 7: jsalinas96 (50000 in chips) 
+Seat 8: falco01370 (78538 in chips) 
+Seat 9: CZL40 (239185 in chips) 
+CZL40: posts small blind 250
+awsumer: posts big blind 500
+porri65: posts big blind 500
+jsalinas96: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Kc 8d]
+sam46 has timed out
+sam46: folds 
+hightestes has timed out
+hightestes: folds 
+tavfam2024: calls 500
+porri65: checks 
+vol1949: calls 500
+jsalinas96: checks 
+falco01370: calls 500
+CZL40: calls 250
+awsumer: checks 
+*** FLOP *** [Ah Kd Qs]
+CZL40: checks 
+awsumer: checks 
+tavfam2024: bets 500
+porri65: folds 
+vol1949: folds 
+jsalinas96: calls 500
+falco01370: folds 
+CZL40: calls 500
+awsumer: calls 500
+*** TURN *** [Ah Kd Qs] [2d]
+CZL40: checks 
+awsumer: checks 
+tavfam2024: bets 500
+jsalinas96: calls 500
+CZL40: calls 500
+awsumer: calls 500
+*** RIVER *** [Ah Kd Qs 2d] [5s]
+CZL40: checks 
+awsumer: checks 
+tavfam2024: bets 1000
+jsalinas96: calls 1000
+CZL40: folds 
+awsumer: folds 
+*** SHOW DOWN ***
+tavfam2024: shows [Js Qh] (a pair of Queens)
+jsalinas96: shows [Kc 8d] (a pair of Kings)
+jsalinas96 collected 8977 from pot
+*** SUMMARY ***
+Total pot 9500 | Rake 523 
+Board [Ah Kd Qs 2d 5s]
+Seat 1: awsumer (big blind) folded on the River
+Seat 2: sam46 folded before Flop (didn't bet)
+Seat 3: hightestes folded before Flop (didn't bet)
+Seat 4: tavfam2024 showed [Js Qh] and lost with a pair of Queens
+Seat 5: porri65 folded on the Flop (didn't bet)
+Seat 6: vol1949 folded on the Flop
+Seat 7: jsalinas96 showed [Kc 8d] and won (8977) with a pair of Kings
+Seat 8: falco01370 (button) folded on the Flop
+Seat 9: CZL40 (small blind) folded on the River
+
+
+
+PokerStars Hand #259550953346:  Hold'em No Limit (250/500) - 2026/02/01 18:49:24 CET [2026/02/01 12:49:24 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #9 is the button
+Seat 2: sam46 (41750 in chips) is sitting out
+Seat 1: awsumer (73276 in chips) 
+Seat 3: hightestes (47357 in chips) 
+Seat 4: tavfam2024 (44000 in chips) 
+Seat 5: porri65 (32292 in chips) 
+Seat 6: vol1949 (41807 in chips) 
+Seat 7: jsalinas96 (56477 in chips) 
+Seat 8: falco01370 (78038 in chips) 
+Seat 9: CZL40 (237685 in chips) 
+awsumer: posts small blind 250
+hightestes: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qc 6d]
+tavfam2024: calls 500
+porri65: calls 500
+vol1949: calls 500
+jsalinas96: folds 
+falco01370: calls 500
+CZL40: calls 500
+awsumer: calls 250
+hightestes: checks 
+*** FLOP *** [Jh 2s Th]
+awsumer: checks 
+hightestes: checks 
+tavfam2024: bets 1000
+porri65: calls 1000
+vol1949: calls 1000
+falco01370: folds 
+CZL40: calls 1000
+falco01370 leaves the table
+awsumer: folds 
+hightestes: calls 1000
+*** TURN *** [Jh 2s Th] [Tc]
+hightestes: checks 
+tavfam2024: bets 2000
+jlbarra joins the table at seat #8 
+porri65: folds 
+vol1949: calls 2000
+CZL40: calls 2000
+hightestes: folds 
+*** RIVER *** [Jh 2s Th Tc] [6s]
+tavfam2024: bets 2000
+vol1949: raises 11500 to 13500
+CZL40: folds 
+tavfam2024: folds 
+Uncalled bet (11500) returned to vol1949
+vol1949 collected 17482 from pot
+vol1949: doesn't show hand 
+*** SUMMARY ***
+Total pot 18500 | Rake 1018 
+Board [Jh 2s Th Tc 6s]
+Seat 2: sam46
+Seat 1: awsumer (small blind) folded on the Flop
+Seat 3: hightestes (big blind) folded on the Turn
+Seat 4: tavfam2024 folded on the River
+Seat 5: porri65 folded on the Turn
+Seat 6: vol1949 collected (17482)
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: falco01370 folded on the Flop
+Seat 9: CZL40 (button) folded on the River
+
+
+
+PokerStars Hand #259550980636:  Hold'em No Limit (250/500) - 2026/02/01 18:51:06 CET [2026/02/01 12:51:06 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #1 is the button
+Seat 2: sam46 (41750 in chips) is sitting out
+Seat 1: awsumer (72776 in chips) 
+Seat 3: hightestes (45857 in chips) 
+Seat 4: tavfam2024 (38500 in chips) 
+Seat 5: porri65 (30792 in chips) 
+Seat 6: vol1949 (53789 in chips) 
+Seat 7: jsalinas96 (56477 in chips) 
+Seat 8: jlbarra (50000 in chips) 
+Seat 9: CZL40 (234185 in chips) 
+hightestes: posts small blind 250
+tavfam2024: posts big blind 500
+jlbarra: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Td 5d]
+porri65: folds 
+vol1949: folds 
+jsalinas96: calls 500
+jlbarra: checks 
+CZL40: calls 500
+awsumer: calls 500
+hightestes: calls 250
+tavfam2024: checks 
+*** FLOP *** [7d 8c 6d]
+hightestes: checks 
+tavfam2024: bets 1500
+jsalinas96: calls 1500
+jlbarra: calls 1500
+CZL40: folds 
+awsumer: folds 
+hightestes: calls 1500
+*** TURN *** [7d 8c 6d] [3c]
+hightestes: checks 
+tavfam2024: bets 1000
+jsalinas96: calls 1000
+jlbarra: calls 1000
+hightestes: calls 1000
+*** RIVER *** [7d 8c 6d 3c] [Jd]
+hightestes: checks 
+tavfam2024: bets 1500
+jsalinas96: raises 1500 to 3000
+jlbarra: folds 
+hightestes: folds 
+tavfam2024: folds 
+Uncalled bet (1500) returned to jsalinas96
+jsalinas96 collected 15120 from pot
+jsalinas96: doesn't show hand 
+*** SUMMARY ***
+Total pot 16000 | Rake 880 
+Board [7d 8c 6d 3c Jd]
+Seat 2: sam46
+Seat 1: awsumer (button) folded on the Flop
+Seat 3: hightestes (small blind) folded on the River
+Seat 4: tavfam2024 (big blind) folded on the River
+Seat 5: porri65 folded before Flop (didn't bet)
+Seat 6: vol1949 folded before Flop (didn't bet)
+Seat 7: jsalinas96 collected (15120)
+Seat 8: jlbarra folded on the River
+Seat 9: CZL40 folded on the Flop
+
+
+
+PokerStars Hand #259550998413:  Hold'em No Limit (250/500) - 2026/02/01 18:52:12 CET [2026/02/01 12:52:12 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #3 is the button
+Seat 2: sam46 (41750 in chips) is sitting out
+Seat 1: awsumer (72276 in chips) 
+Seat 3: hightestes (42857 in chips) 
+Seat 4: tavfam2024 (34000 in chips) 
+Seat 5: porri65 (30792 in chips) 
+Seat 6: vol1949 (53789 in chips) 
+Seat 7: jsalinas96 (67097 in chips) 
+Seat 8: jlbarra (47000 in chips) 
+Seat 9: CZL40 (233685 in chips) 
+tavfam2024: posts small blind 250
+porri65: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Jc Td]
+vol1949: folds 
+jsalinas96: folds 
+jlbarra: calls 500
+CZL40: calls 500
+awsumer: calls 500
+hightestes: calls 500
+tavfam2024: calls 250
+porri65: checks 
+*** FLOP *** [9d 2c 4c]
+tavfam2024: checks 
+porri65: checks 
+jlbarra: checks 
+CZL40: checks 
+awsumer: checks 
+hightestes: checks 
+*** TURN *** [9d 2c 4c] [Tc]
+tavfam2024: checks 
+porri65: checks 
+jlbarra: checks 
+CZL40: checks 
+awsumer: checks 
+hightestes: checks 
+*** RIVER *** [9d 2c 4c Tc] [9s]
+tavfam2024: checks 
+porri65: bets 2835
+jlbarra: folds 
+CZL40: folds 
+awsumer: calls 2835
+hightestes: folds 
+tavfam2024: folds 
+*** SHOW DOWN ***
+porri65: shows [9c Qs] (three of a kind, Nines)
+awsumer: mucks hand 
+porri65 collected 8193 from pot
+*** SUMMARY ***
+Total pot 8670 | Rake 477 
+Board [9d 2c 4c Tc 9s]
+Seat 2: sam46
+Seat 1: awsumer mucked [4h As]
+Seat 3: hightestes (button) folded on the River
+Seat 4: tavfam2024 (small blind) folded on the River
+Seat 5: porri65 (big blind) showed [9c Qs] and won (8193) with three of a kind, Nines
+Seat 6: vol1949 folded before Flop (didn't bet)
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: jlbarra folded on the River
+Seat 9: CZL40 folded on the River
+
+
+
+PokerStars Hand #259551015280:  Hold'em No Limit (250/500) - 2026/02/01 18:53:14 CET [2026/02/01 12:53:14 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #4 is the button
+Seat 1: awsumer (68941 in chips) 
+Seat 2: sam46 (41750 in chips) 
+Seat 3: hightestes (42357 in chips) 
+Seat 4: tavfam2024 (33500 in chips) 
+Seat 5: porri65 (35650 in chips) 
+Seat 6: vol1949 (53789 in chips) 
+Seat 7: jsalinas96 (67097 in chips) 
+Seat 8: jlbarra (46500 in chips) 
+Seat 9: CZL40 (233185 in chips) 
+porri65: posts small blind 250
+vol1949: posts big blind 500
+sam46: posts small & big blinds 750
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3d 7s]
+jsalinas96: folds 
+jlbarra: calls 500
+CZL40: calls 500
+awsumer: calls 500
+sam46: checks 
+hightestes: calls 500
+tavfam2024: calls 500
+porri65: calls 250
+vol1949: checks 
+*** FLOP *** [3s Tc Qh]
+porri65: checks 
+vol1949: bets 500
+jlbarra: calls 500
+CZL40: calls 500
+awsumer: folds 
+sam46: folds 
+hightestes: raises 2000 to 2500
+tavfam2024: folds 
+porri65: folds 
+vol1949: calls 2000
+jlbarra: folds 
+CZL40: calls 2000
+*** TURN *** [3s Tc Qh] [6s]
+vol1949: checks 
+CZL40: checks 
+hightestes: bets 5500
+vol1949: folds 
+CZL40: folds 
+Uncalled bet (5500) returned to hightestes
+hightestes collected 11576 from pot
+*** SUMMARY ***
+Total pot 12250 | Rake 674 
+Board [3s Tc Qh 6s]
+Seat 1: awsumer folded on the Flop
+Seat 2: sam46 folded on the Flop (didn't bet)
+Seat 3: hightestes collected (11576)
+Seat 4: tavfam2024 (button) folded on the Flop
+Seat 5: porri65 (small blind) folded on the Flop
+Seat 6: vol1949 (big blind) folded on the Turn
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: jlbarra folded on the Flop
+Seat 9: CZL40 folded on the Turn
+
+
+
+PokerStars Hand #259551033459:  Hold'em No Limit (250/500) - 2026/02/01 18:54:21 CET [2026/02/01 12:54:21 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #5 is the button
+Seat 1: awsumer (68441 in chips) 
+Seat 2: sam46 (41000 in chips) 
+Seat 3: hightestes (50933 in chips) 
+Seat 4: tavfam2024 (33000 in chips) 
+Seat 5: porri65 (35150 in chips) 
+Seat 6: vol1949 (50789 in chips) 
+Seat 7: jsalinas96 (67097 in chips) 
+Seat 8: jlbarra (45500 in chips) 
+Seat 9: CZL40 (230185 in chips) 
+vol1949: posts small blind 250
+jsalinas96: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3h Ks]
+jlbarra: folds 
+CZL40: folds 
+awsumer: folds 
+sam46: folds 
+hightestes: calls 500
+tavfam2024: calls 500
+porri65: calls 500
+vol1949: calls 250
+jsalinas96: checks 
+*** FLOP *** [8h 6d Kd]
+vol1949: checks 
+jsalinas96: checks 
+hightestes: checks 
+tavfam2024: checks 
+porri65: checks 
+*** TURN *** [8h 6d Kd] [9s]
+vol1949: checks 
+jsalinas96: checks 
+hightestes: checks 
+tavfam2024: checks 
+porri65: checks 
+*** RIVER *** [8h 6d Kd 9s] [Kc]
+vol1949: bets 500
+jsalinas96: raises 3362 to 3862
+hightestes: calls 3862
+tavfam2024: folds 
+porri65: folds 
+vol1949: folds 
+*** SHOW DOWN ***
+jsalinas96: shows [3h Ks] (three of a kind, Kings)
+hightestes: mucks hand 
+jsalinas96 collected 10134 from pot
+*** SUMMARY ***
+Total pot 10724 | Rake 590 
+Board [8h 6d Kd 9s Kc]
+Seat 1: awsumer folded before Flop (didn't bet)
+Seat 2: sam46 folded before Flop (didn't bet)
+Seat 3: hightestes mucked [Ah 9c]
+Seat 4: tavfam2024 folded on the River
+Seat 5: porri65 (button) folded on the River
+Seat 6: vol1949 (small blind) folded on the River
+Seat 7: jsalinas96 (big blind) showed [3h Ks] and won (10134) with three of a kind, Kings
+Seat 8: jlbarra folded before Flop (didn't bet)
+Seat 9: CZL40 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259551049851:  Hold'em No Limit (250/500) - 2026/02/01 18:55:28 CET [2026/02/01 12:55:28 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #6 is the button
+Seat 1: awsumer (68441 in chips) 
+Seat 2: sam46 (41000 in chips) 
+Seat 3: hightestes (46571 in chips) 
+Seat 4: tavfam2024 (32500 in chips) 
+Seat 5: porri65 (34650 in chips) 
+Seat 6: vol1949 (49789 in chips) 
+Seat 7: jsalinas96 (72869 in chips) 
+Seat 8: jlbarra (45500 in chips) 
+Seat 9: CZL40 (230185 in chips) 
+jsalinas96: posts small blind 250
+jlbarra: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8h 3c]
+CZL40: folds 
+awsumer: folds 
+sam46: folds 
+hightestes: folds 
+tavfam2024: calls 500
+porri65: calls 500
+vol1949: calls 500
+jsalinas96: folds 
+jlbarra: checks 
+*** FLOP *** [2c 5h Kd]
+jlbarra: checks 
+tavfam2024: bets 500
+porri65: folds 
+vol1949: calls 500
+jlbarra: folds 
+*** TURN *** [2c 5h Kd] [8d]
+tavfam2024: bets 500
+vol1949: folds 
+Uncalled bet (500) returned to tavfam2024
+tavfam2024 collected 3071 from pot
+tavfam2024: doesn't show hand 
+*** SUMMARY ***
+Total pot 3250 | Rake 179 
+Board [2c 5h Kd 8d]
+Seat 1: awsumer folded before Flop (didn't bet)
+Seat 2: sam46 folded before Flop (didn't bet)
+Seat 3: hightestes folded before Flop (didn't bet)
+Seat 4: tavfam2024 collected (3071)
+Seat 5: porri65 folded on the Flop
+Seat 6: vol1949 (button) folded on the Turn
+Seat 7: jsalinas96 (small blind) folded before Flop
+Seat 8: jlbarra (big blind) folded on the Flop
+Seat 9: CZL40 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259551057133:  Hold'em No Limit (250/500) - 2026/02/01 18:56:13 CET [2026/02/01 12:56:13 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #7 is the button
+Seat 1: awsumer (68441 in chips) 
+Seat 2: sam46 (41000 in chips) 
+Seat 3: hightestes (46571 in chips) 
+Seat 4: tavfam2024 (34571 in chips) 
+Seat 5: porri65 (34150 in chips) 
+Seat 6: vol1949 (48789 in chips) 
+Seat 7: jsalinas96 (72619 in chips) 
+Seat 8: jlbarra (45000 in chips) 
+Seat 9: CZL40 (230185 in chips) 
+jlbarra: posts small blind 250
+CZL40: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6d 5h]
+awsumer: calls 500
+sam46: folds 
+hightestes: calls 500
+tavfam2024: calls 500
+porri65: folds 
+vol1949: folds 
+jsalinas96: folds 
+jlbarra: calls 250
+CZL40: checks 
+*** FLOP *** [6s 4h 3c]
+jlbarra: checks 
+CZL40: checks 
+awsumer: bets 1500
+hightestes: calls 1500
+tavfam2024: calls 1500
+jlbarra: folds 
+CZL40: folds 
+*** TURN *** [6s 4h 3c] [Qs]
+awsumer: bets 2000
+hightestes: calls 2000
+tavfam2024: calls 2000
+*** RIVER *** [6s 4h 3c Qs] [Jc]
+awsumer: bets 3000
+hightestes: folds 
+tavfam2024: folds 
+Uncalled bet (3000) returned to awsumer
+awsumer collected 12285 from pot
+awsumer: doesn't show hand 
+*** SUMMARY ***
+Total pot 13000 | Rake 715 
+Board [6s 4h 3c Qs Jc]
+Seat 1: awsumer collected (12285)
+Seat 2: sam46 folded before Flop (didn't bet)
+Seat 3: hightestes folded on the River
+Seat 4: tavfam2024 folded on the River
+Seat 5: porri65 folded before Flop (didn't bet)
+Seat 6: vol1949 folded before Flop (didn't bet)
+Seat 7: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 8: jlbarra (small blind) folded on the Flop
+Seat 9: CZL40 (big blind) folded on the Flop
+
+
+
+PokerStars Hand #259551066238:  Hold'em No Limit (250/500) - 2026/02/01 18:57:08 CET [2026/02/01 12:57:08 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #8 is the button
+Seat 1: awsumer (76726 in chips) 
+Seat 2: sam46 (41000 in chips) 
+Seat 3: hightestes (42571 in chips) 
+Seat 4: tavfam2024 (30571 in chips) 
+Seat 5: porri65 (34150 in chips) 
+Seat 6: vol1949 (48789 in chips) 
+Seat 7: jsalinas96 (72619 in chips) 
+Seat 8: jlbarra (44500 in chips) 
+Seat 9: CZL40 (229685 in chips) 
+CZL40: posts small blind 250
+awsumer: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9d 7s]
+sam46: folds 
+hightestes: folds 
+tavfam2024: raises 500 to 1000
+porri65: folds 
+vol1949: folds 
+jsalinas96: folds 
+jlbarra: calls 1000
+CZL40: calls 750
+awsumer: folds 
+*** FLOP *** [9h Jc 3d]
+CZL40: checks 
+tavfam2024: bets 1500
+jlbarra: calls 1500
+CZL40: folds 
+*** TURN *** [9h Jc 3d] [Jd]
+tavfam2024: bets 1500
+jlbarra: folds 
+Uncalled bet (1500) returned to tavfam2024
+tavfam2024 collected 6142 from pot
+tavfam2024: doesn't show hand 
+*** SUMMARY ***
+Total pot 6500 | Rake 358 
+Board [9h Jc 3d Jd]
+Seat 1: awsumer (big blind) folded before Flop
+Seat 2: sam46 folded before Flop (didn't bet)
+Seat 3: hightestes folded before Flop (didn't bet)
+Seat 4: tavfam2024 collected (6142)
+Seat 5: porri65 folded before Flop (didn't bet)
+Seat 6: vol1949 folded before Flop (didn't bet)
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: jlbarra (button) folded on the Turn
+Seat 9: CZL40 (small blind) folded on the Flop
+
+
+
+PokerStars Hand #259551072745:  Hold'em No Limit (250/500) - 2026/02/01 18:57:47 CET [2026/02/01 12:57:47 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #9 is the button
+Seat 1: awsumer (76226 in chips) 
+Seat 2: sam46 (41000 in chips) 
+Seat 3: hightestes (42571 in chips) 
+Seat 4: tavfam2024 (34213 in chips) 
+Seat 5: porri65 (34150 in chips) 
+Seat 6: vol1949 (48789 in chips) 
+Seat 7: jsalinas96 (72619 in chips) 
+Seat 8: jlbarra (42000 in chips) 
+Seat 9: CZL40 (228685 in chips) 
+awsumer: posts small blind 250
+sam46: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6s Qd]
+hightestes: folds 
+tavfam2024: calls 500
+porri65: folds 
+vol1949: folds 
+jsalinas96: folds 
+jlbarra: folds 
+CZL40: folds 
+awsumer: calls 250
+sam46: checks 
+*** FLOP *** [8s 2d 5d]
+awsumer: checks 
+sam46: checks 
+tavfam2024: checks 
+*** TURN *** [8s 2d 5d] [Tc]
+awsumer: checks 
+sam46: checks 
+tavfam2024: checks 
+*** RIVER *** [8s 2d 5d Tc] [Ad]
+awsumer: checks 
+sam46: checks 
+tavfam2024: checks 
+*** SHOW DOWN ***
+awsumer: shows [4d 9h] (high card Ace)
+sam46: shows [7h 7c] (a pair of Sevens)
+tavfam2024: mucks hand 
+sam46 collected 1417 from pot
+*** SUMMARY ***
+Total pot 1500 | Rake 83 
+Board [8s 2d 5d Tc Ad]
+Seat 1: awsumer (small blind) showed [4d 9h] and lost with high card Ace
+Seat 2: sam46 (big blind) showed [7h 7c] and won (1417) with a pair of Sevens
+Seat 3: hightestes folded before Flop (didn't bet)
+Seat 4: tavfam2024 mucked [Kh 6h]
+Seat 5: porri65 folded before Flop (didn't bet)
+Seat 6: vol1949 folded before Flop (didn't bet)
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: jlbarra folded before Flop (didn't bet)
+Seat 9: CZL40 (button) folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259551080991:  Hold'em No Limit (250/500) - 2026/02/01 18:58:37 CET [2026/02/01 12:58:37 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #1 is the button
+Seat 5: porri65 (34150 in chips) is sitting out
+Seat 1: awsumer (75726 in chips) 
+Seat 2: sam46 (41917 in chips) 
+Seat 3: hightestes (42571 in chips) 
+Seat 4: tavfam2024 (33713 in chips) 
+Seat 6: vol1949 (48789 in chips) 
+Seat 7: jsalinas96 (72619 in chips) 
+Seat 8: jlbarra (42000 in chips) 
+Seat 9: CZL40 (228685 in chips) 
+sam46: posts small blind 250
+hightestes: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Kc Qs]
+tavfam2024: calls 500
+vol1949: calls 500
+jsalinas96: calls 500
+jlbarra: calls 500
+CZL40: calls 500
+awsumer: raises 3750 to 4250
+sam46: folds 
+hightestes: folds 
+tavfam2024: folds 
+vol1949: calls 3750
+jsalinas96: calls 3750
+jlbarra: folds 
+CZL40: folds 
+*** FLOP *** [4h 6d 7h]
+vol1949: checks 
+jsalinas96: checks 
+awsumer: bets 7087
+vol1949: calls 7087
+jsalinas96: folds 
+*** TURN *** [4h 6d 7h] [Tc]
+vol1949: checks 
+awsumer: bets 13784
+vol1949: raises 23668 to 37452 and is all-in
+awsumer: calls 23668
+*** RIVER *** [4h 6d 7h Tc] [Jc]
+*** SHOW DOWN ***
+vol1949: shows [9s 8s] (a straight, Seven to Jack)
+awsumer: shows [Th Ah] (a pair of Tens)
+vol1949 collected 98354 from pot
+*** SUMMARY ***
+Total pot 104078 | Rake 5724 
+Board [4h 6d 7h Tc Jc]
+Seat 5: porri65
+Seat 1: awsumer (button) showed [Th Ah] and lost with a pair of Tens
+Seat 2: sam46 (small blind) folded before Flop
+Seat 3: hightestes (big blind) folded before Flop
+Seat 4: tavfam2024 folded before Flop
+Seat 6: vol1949 showed [9s 8s] and won (98354) with a straight, Seven to Jack
+Seat 7: jsalinas96 folded on the Flop
+Seat 8: jlbarra folded before Flop
+Seat 9: CZL40 folded before Flop
+
+
+
+PokerStars Hand #259551090019:  Hold'em No Limit (250/500) - 2026/02/01 18:59:31 CET [2026/02/01 12:59:31 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #2 is the button
+Seat 5: porri65 (34150 in chips) is sitting out
+Seat 1: awsumer (26937 in chips) 
+Seat 2: sam46 (41667 in chips) 
+Seat 3: hightestes (42071 in chips) 
+Seat 4: tavfam2024 (33213 in chips) 
+Seat 6: vol1949 (98354 in chips) 
+Seat 7: jsalinas96 (68369 in chips) 
+Seat 8: jlbarra (41500 in chips) 
+Seat 9: CZL40 (228185 in chips) 
+hightestes: posts small blind 250
+tavfam2024: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2d 4h]
+vol1949: calls 500
+jsalinas96: folds 
+jlbarra: calls 500
+CZL40: folds 
+awsumer: calls 500
+sam46: folds 
+hightestes: calls 250
+tavfam2024: checks 
+*** FLOP *** [Kc Qd Jh]
+hightestes: checks 
+tavfam2024: bets 500
+vol1949: calls 500
+jlbarra: calls 500
+awsumer: calls 500
+hightestes: calls 500
+*** TURN *** [Kc Qd Jh] [Ad]
+hightestes: checks 
+tavfam2024: bets 1500
+vol1949: calls 1500
+jlbarra has timed out
+jlbarra: folds 
+awsumer: folds 
+hightestes: folds 
+*** RIVER *** [Kc Qd Jh Ad] [4d]
+tavfam2024: bets 1500
+vol1949: calls 1500
+*** SHOW DOWN ***
+tavfam2024: shows [5d Td] (a flush, Ace high)
+vol1949: mucks hand 
+tavfam2024 collected 10395 from pot
+*** SUMMARY ***
+Total pot 11000 | Rake 605 
+Board [Kc Qd Jh Ad 4d]
+Seat 5: porri65
+Seat 1: awsumer folded on the Turn
+Seat 2: sam46 (button) folded before Flop (didn't bet)
+Seat 3: hightestes (small blind) folded on the Turn
+Seat 4: tavfam2024 (big blind) showed [5d Td] and won (10395) with a flush, Ace high
+Seat 6: vol1949 mucked [Jc Kd]
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: jlbarra folded on the Turn
+Seat 9: CZL40 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259551100555:  Hold'em No Limit (250/500) - 2026/02/01 19:00:31 CET [2026/02/01 13:00:31 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #3 is the button
+Seat 5: porri65 (34150 in chips) is sitting out
+Seat 1: awsumer (50000 in chips) 
+Seat 2: sam46 (41667 in chips) 
+Seat 3: hightestes (41071 in chips) 
+Seat 4: tavfam2024 (39608 in chips) 
+Seat 6: vol1949 (94354 in chips) 
+Seat 7: jsalinas96 (68369 in chips) 
+Seat 8: jlbarra (40500 in chips) 
+Seat 9: CZL40 (228185 in chips) 
+tavfam2024: posts small blind 250
+vol1949: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9s Qd]
+jsalinas96: folds 
+jlbarra: calls 500
+CZL40: folds 
+awsumer: folds 
+sam46: calls 500
+hightestes: calls 500
+tavfam2024: calls 250
+vol1949: checks 
+*** FLOP *** [Js 5d 6h]
+tavfam2024: checks 
+vol1949: bets 500
+jlbarra: folds 
+sam46: folds 
+hightestes: calls 500
+tavfam2024: calls 500
+*** TURN *** [Js 5d 6h] [Kd]
+tavfam2024: checks 
+vol1949: bets 3000
+hightestes: folds 
+tavfam2024: folds 
+Uncalled bet (3000) returned to vol1949
+vol1949 collected 3780 from pot
+vol1949: doesn't show hand 
+*** SUMMARY ***
+Total pot 4000 | Rake 220 
+Board [Js 5d 6h Kd]
+Seat 5: porri65
+Seat 1: awsumer folded before Flop (didn't bet)
+Seat 2: sam46 folded on the Flop
+Seat 3: hightestes (button) folded on the Turn
+Seat 4: tavfam2024 (small blind) folded on the Turn
+Seat 6: vol1949 (big blind) collected (3780)
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: jlbarra folded on the Flop
+Seat 9: CZL40 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259551113299:  Hold'em No Limit (250/500) - 2026/02/01 19:01:34 CET [2026/02/01 13:01:34 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #4 is the button
+Seat 5: porri65 (34150 in chips) is sitting out
+Seat 1: awsumer (50000 in chips) 
+Seat 2: sam46 (41167 in chips) 
+Seat 3: hightestes (40071 in chips) 
+Seat 4: tavfam2024 (38608 in chips) 
+Seat 6: vol1949 (97134 in chips) 
+Seat 7: jsalinas96 (68369 in chips) 
+Seat 8: jlbarra (40000 in chips) 
+Seat 9: CZL40 (228185 in chips) 
+vol1949: posts small blind 250
+jsalinas96: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9h 9c]
+jlbarra: calls 500
+CZL40: calls 500
+awsumer: folds 
+sam46: folds 
+hightestes: calls 500
+tavfam2024: calls 500
+vol1949: folds 
+jsalinas96: checks 
+*** FLOP *** [2h 6d 9s]
+jsalinas96: bets 1299
+jlbarra: calls 1299
+CZL40: folds 
+hightestes: calls 1299
+tavfam2024: folds 
+*** TURN *** [2h 6d 9s] [9d]
+jsalinas96: checks 
+jlbarra: checks 
+hightestes: bets 6281
+jsalinas96: calls 6281
+jlbarra: calls 6281
+*** RIVER *** [2h 6d 9s 9d] [6h]
+jsalinas96: bets 24088
+jlbarra: folds 
+hightestes: folds 
+Uncalled bet (24088) returned to jsalinas96
+jsalinas96 collected 24088 from pot
+jsalinas96: doesn't show hand 
+*** SUMMARY ***
+Total pot 25490 | Rake 1402 
+Board [2h 6d 9s 9d 6h]
+Seat 5: porri65
+Seat 1: awsumer folded before Flop (didn't bet)
+Seat 2: sam46 folded before Flop (didn't bet)
+Seat 3: hightestes folded on the River
+Seat 4: tavfam2024 (button) folded on the Flop
+Seat 6: vol1949 (small blind) folded before Flop
+Seat 7: jsalinas96 (big blind) collected (24088)
+Seat 8: jlbarra folded on the River
+Seat 9: CZL40 folded on the Flop
+
+
+
+PokerStars Hand #259551130998:  Hold'em No Limit (250/500) - 2026/02/01 19:02:45 CET [2026/02/01 13:02:45 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #7 is the button
+Seat 4: tavfam2024 (38108 in chips) is sitting out
+Seat 5: porri65 (34150 in chips) is sitting out
+Seat 6: vol1949 (96884 in chips) is sitting out
+Seat 1: awsumer (50000 in chips) 
+Seat 2: sam46 (41167 in chips) 
+Seat 3: hightestes (31991 in chips) 
+Seat 7: jsalinas96 (84377 in chips) 
+Seat 8: jlbarra (31920 in chips) 
+Seat 9: CZL40 (227685 in chips) 
+jlbarra: posts small blind 250
+CZL40: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Td 4c]
+awsumer: calls 500
+sam46: folds 
+hightestes: calls 500
+jsalinas96: folds 
+jlbarra: calls 250
+CZL40: checks 
+*** FLOP *** [3c 7h Kc]
+jlbarra: checks 
+CZL40: checks 
+awsumer: checks 
+hightestes: checks 
+*** TURN *** [3c 7h Kc] [6d]
+jlbarra: checks 
+CZL40: bets 1890
+awsumer: folds 
+hightestes: folds 
+jlbarra: calls 1890
+*** RIVER *** [3c 7h Kc 6d] [Ts]
+jlbarra: checks 
+CZL40: bets 2731
+jlbarra: folds 
+Uncalled bet (2731) returned to CZL40
+CZL40 collected 5462 from pot
+CZL40: doesn't show hand 
+*** SUMMARY ***
+Total pot 5780 | Rake 318 
+Board [3c 7h Kc 6d Ts]
+Seat 4: tavfam2024
+Seat 5: porri65
+Seat 6: vol1949
+Seat 1: awsumer folded on the Turn
+Seat 2: sam46 folded before Flop (didn't bet)
+Seat 3: hightestes folded on the Turn
+Seat 7: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 8: jlbarra (small blind) folded on the River
+Seat 9: CZL40 (big blind) collected (5462)
+
+
+
+PokerStars Hand #259551144846:  Hold'em No Limit (250/500) - 2026/02/01 19:03:39 CET [2026/02/01 13:03:39 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #8 is the button
+Seat 4: tavfam2024 (38108 in chips) is sitting out
+Seat 6: vol1949 (96884 in chips) is sitting out
+Seat 1: awsumer (49500 in chips) 
+Seat 2: sam46 (41167 in chips) 
+Seat 3: hightestes (31491 in chips) 
+Seat 5: porri65 (34150 in chips) 
+Seat 7: jsalinas96 (84377 in chips) 
+Seat 8: jlbarra (29530 in chips) 
+Seat 9: CZL40 (230757 in chips) 
+CZL40: posts small blind 250
+awsumer: posts big blind 500
+porri65: posts small & big blinds 750
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6h Qs]
+sam46: folds 
+hightestes: calls 500
+porri65: checks 
+jsalinas96: folds 
+jlbarra: calls 500
+CZL40: folds 
+awsumer: checks 
+*** FLOP *** [2d Ts 9d]
+awsumer: checks 
+hightestes: checks 
+porri65: checks 
+jlbarra: checks 
+*** TURN *** [2d Ts 9d] [Qd]
+awsumer: bets 500
+hightestes: folds 
+porri65: folds 
+jlbarra: calls 500
+*** RIVER *** [2d Ts 9d Qd] [Jd]
+awsumer: checks 
+jlbarra: checks 
+*** SHOW DOWN ***
+awsumer: shows [Qh 6s] (a pair of Queens)
+jlbarra: shows [Td Qc] (a flush, Queen high)
+jlbarra collected 3307 from pot
+*** SUMMARY ***
+Total pot 3500 | Rake 193 
+Board [2d Ts 9d Qd Jd]
+Seat 4: tavfam2024
+Seat 6: vol1949
+Seat 1: awsumer (big blind) showed [Qh 6s] and lost with a pair of Queens
+Seat 2: sam46 folded before Flop (didn't bet)
+Seat 3: hightestes folded on the Turn
+Seat 5: porri65 folded on the Turn (didn't bet)
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: jlbarra (button) showed [Td Qc] and won (3307) with a flush, Queen high
+Seat 9: CZL40 (small blind) folded before Flop
+
+
+
+PokerStars Hand #259551157996:  Hold'em No Limit (250/500) - 2026/02/01 19:04:27 CET [2026/02/01 13:04:27 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #9 is the button
+Seat 2: sam46 (41167 in chips) is sitting out
+Seat 4: tavfam2024 (38108 in chips) is sitting out
+Seat 6: vol1949 (96884 in chips) is sitting out
+Seat 1: awsumer (48500 in chips) 
+Seat 3: hightestes (30991 in chips) 
+Seat 5: porri65 (33400 in chips) 
+Seat 7: jsalinas96 (84377 in chips) 
+Seat 8: jlbarra (31837 in chips) 
+Seat 9: CZL40 (230507 in chips) 
+awsumer: posts small blind 250
+hightestes: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ks 8s]
+porri65: calls 500
+jsalinas96: calls 500
+jlbarra: calls 500
+CZL40: calls 500
+awsumer: calls 250
+hightestes: checks 
+*** FLOP *** [5s 6s Ad]
+awsumer: bets 500
+hightestes: folds 
+porri65: calls 500
+jsalinas96: calls 500
+jlbarra: calls 500
+CZL40: calls 500
+*** TURN *** [5s 6s Ad] [9c]
+awsumer: bets 1500
+porri65: calls 1500
+jsalinas96: calls 1500
+jlbarra: folds 
+CZL40: calls 1500
+*** RIVER *** [5s 6s Ad 9c] [9h]
+awsumer: bets 2500
+porri65: folds 
+jsalinas96: folds 
+CZL40: calls 2500
+*** SHOW DOWN ***
+awsumer: shows [8h Ac] (two pair, Aces and Nines)
+CZL40: mucks hand 
+awsumer collected 15592 from pot
+*** SUMMARY ***
+Total pot 16500 | Rake 908 
+Board [5s 6s Ad 9c 9h]
+Seat 2: sam46
+Seat 4: tavfam2024
+Seat 6: vol1949
+Seat 1: awsumer (small blind) showed [8h Ac] and won (15592) with two pair, Aces and Nines
+Seat 3: hightestes (big blind) folded on the Flop
+Seat 5: porri65 folded on the River
+Seat 7: jsalinas96 folded on the River
+Seat 8: jlbarra folded on the Turn
+Seat 9: CZL40 (button) mucked [3s Ah]
+
+
+
+PokerStars Hand #259551173285:  Hold'em No Limit (250/500) - 2026/02/01 19:05:22 CET [2026/02/01 13:05:22 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #1 is the button
+Seat 2: sam46 (41167 in chips) is sitting out
+Seat 4: tavfam2024 (38108 in chips) is sitting out
+Seat 6: vol1949 (96884 in chips) is sitting out
+Seat 1: awsumer (59092 in chips) 
+Seat 3: hightestes (30491 in chips) 
+Seat 5: porri65 (30900 in chips) 
+Seat 7: jsalinas96 (81877 in chips) 
+Seat 8: jlbarra (30837 in chips) 
+Seat 9: CZL40 (225507 in chips) 
+hightestes: posts small blind 250
+porri65: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Kd Tc]
+jsalinas96: calls 500
+jlbarra: calls 500
+CZL40: calls 500
+awsumer: calls 500
+hightestes: calls 250
+porri65: checks 
+*** FLOP *** [6c Td Ad]
+hightestes: checks 
+porri65: checks 
+jsalinas96: checks 
+jlbarra: checks 
+CZL40: checks 
+awsumer: checks 
+*** TURN *** [6c Td Ad] [7h]
+hightestes: checks 
+porri65: checks 
+jsalinas96: checks 
+jlbarra: checks 
+CZL40: checks 
+awsumer: checks 
+*** RIVER *** [6c Td Ad 7h] [Ks]
+hightestes: checks 
+porri65: checks 
+jsalinas96: bets 2000
+jlbarra: folds 
+CZL40: folds 
+awsumer: calls 2000
+hightestes: folds 
+porri65: folds 
+*** SHOW DOWN ***
+jsalinas96: shows [Kd Tc] (two pair, Kings and Tens)
+awsumer: mucks hand 
+jsalinas96 collected 6615 from pot
+*** SUMMARY ***
+Total pot 7000 | Rake 385 
+Board [6c Td Ad 7h Ks]
+Seat 2: sam46
+Seat 4: tavfam2024
+Seat 6: vol1949
+Seat 1: awsumer (button) mucked [3s Kh]
+Seat 3: hightestes (small blind) folded on the River
+Seat 5: porri65 (big blind) folded on the River
+Seat 7: jsalinas96 showed [Kd Tc] and won (6615) with two pair, Kings and Tens
+Seat 8: jlbarra folded on the River
+Seat 9: CZL40 folded on the River
+
+
+
+PokerStars Hand #259551190696:  Hold'em No Limit (250/500) - 2026/02/01 19:06:25 CET [2026/02/01 13:06:25 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #3 is the button
+Seat 2: sam46 (41167 in chips) is sitting out
+Seat 4: tavfam2024 (38108 in chips) is sitting out
+Seat 6: vol1949 (96884 in chips) is sitting out
+Seat 1: awsumer (56592 in chips) 
+Seat 3: hightestes (29991 in chips) 
+Seat 5: porri65 (30400 in chips) 
+Seat 7: jsalinas96 (85992 in chips) 
+Seat 8: jlbarra (30337 in chips) 
+Seat 9: CZL40 (225007 in chips) 
+porri65: posts small blind 250
+jsalinas96: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8c Th]
+jlbarra: calls 500
+CZL40: folds 
+awsumer: folds 
+hightestes: folds 
+porri65: calls 250
+jsalinas96: checks 
+*** FLOP *** [9d Ks Jd]
+porri65: checks 
+jsalinas96: checks 
+jlbarra: checks 
+*** TURN *** [9d Ks Jd] [Qs]
+porri65: checks 
+jsalinas96: checks 
+jlbarra: bets 2500
+porri65: calls 2500
+jsalinas96: calls 2500
+*** RIVER *** [9d Ks Jd Qs] [6c]
+porri65: checks 
+vol1949 leaves the table
+jsalinas96: bets 4252
+jlbarra: calls 4252
+porri65: folds 
+*** SHOW DOWN ***
+jsalinas96: shows [8c Th] (a straight, Nine to King)
+jlbarra: shows [7s Td] (a straight, Nine to King)
+jsalinas96 collected 8271 from pot
+jlbarra collected 8270 from pot
+*** SUMMARY ***
+Total pot 17504 | Rake 963 
+Board [9d Ks Jd Qs 6c]
+Seat 2: sam46
+Seat 4: tavfam2024
+Seat 6: vol1949
+Seat 1: awsumer folded before Flop (didn't bet)
+Seat 3: hightestes (button) folded before Flop (didn't bet)
+Seat 5: porri65 (small blind) folded on the River
+Seat 7: jsalinas96 (big blind) showed [8c Th] and won (8271) with a straight, Nine to King
+Seat 8: jlbarra showed [7s Td] and won (8270) with a straight, Nine to King
+Seat 9: CZL40 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259551203748:  Hold'em No Limit (250/500) - 2026/02/01 19:07:12 CET [2026/02/01 13:07:12 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #5 is the button
+Seat 2: sam46 (41167 in chips) is sitting out
+Seat 4: tavfam2024 (38108 in chips) is sitting out
+Seat 1: awsumer (56592 in chips) 
+Seat 3: hightestes (29991 in chips) 
+Seat 5: porri65 (27400 in chips) 
+Seat 7: jsalinas96 (87011 in chips) 
+Seat 8: jlbarra (31355 in chips) 
+Seat 9: CZL40 (225007 in chips) 
+jsalinas96: posts small blind 250
+jlbarra: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Jd 4d]
+CZL40: calls 500
+awsumer: folds 
+hightestes: calls 500
+porri65: folds 
+porri65 leaves the table
+jsalinas96: folds 
+jlbarra: checks 
+*** FLOP *** [Kh 9h Kc]
+jlbarra: checks 
+CZL40: checks 
+hightestes: checks 
+*** TURN *** [Kh 9h Kc] [6h]
+jlbarra: checks 
+CZL40: checks 
+hightestes: checks 
+*** RIVER *** [Kh 9h Kc 6h] [Ts]
+jlbarra: checks 
+CZL40: checks 
+hightestes: checks 
+*** SHOW DOWN ***
+jlbarra: shows [Td Ac] (two pair, Kings and Tens)
+CZL40: mucks hand 
+hightestes: mucks hand 
+donodion joins the table at seat #5 
+jlbarra collected 1654 from pot
+*** SUMMARY ***
+Total pot 1750 | Rake 96 
+Board [Kh 9h Kc 6h Ts]
+Seat 2: sam46
+Seat 4: tavfam2024
+Seat 1: awsumer folded before Flop (didn't bet)
+Seat 3: hightestes mucked [5d As]
+Seat 5: porri65 (button) folded before Flop (didn't bet)
+Seat 7: jsalinas96 (small blind) folded before Flop
+Seat 8: jlbarra (big blind) showed [Td Ac] and won (1654) with two pair, Kings and Tens
+Seat 9: CZL40 mucked [8c Jh]
+
+
+
+PokerStars Hand #259551213240:  Hold'em No Limit (250/500) - 2026/02/01 19:07:46 CET [2026/02/01 13:07:46 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #7 is the button
+Seat 2: sam46 (41167 in chips) is sitting out
+Seat 4: tavfam2024 (38108 in chips) is sitting out
+Seat 1: awsumer (56592 in chips) 
+Seat 3: hightestes (29491 in chips) 
+Seat 5: donodion (50000 in chips) 
+Seat 7: jsalinas96 (86761 in chips) 
+Seat 8: jlbarra (32509 in chips) 
+Seat 9: CZL40 (224507 in chips) 
+jlbarra: posts small blind 250
+CZL40: posts big blind 500
+donodion: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3c Jd]
+awsumer: calls 500
+hightestes: folds 
+donodion: checks 
+jsalinas96: folds 
+jlbarra: calls 250
+CZL40: checks 
+*** FLOP *** [Jc 8d 3d]
+jlbarra: checks 
+CZL40: checks 
+awsumer: checks 
+donodion: checks 
+*** TURN *** [Jc 8d 3d] [Tc]
+jlbarra: checks 
+CZL40: checks 
+awsumer: checks 
+donodion: checks 
+*** RIVER *** [Jc 8d 3d Tc] [Qh]
+jlbarra: checks 
+CZL40: checks 
+awsumer: checks 
+donodion: bets 4500
+jlbarra: folds 
+CZL40: calls 4500
+awsumer: folds 
+*** SHOW DOWN ***
+donodion: shows [Kd 6h] (high card King)
+CZL40: shows [4d 9s] (a straight, Eight to Queen)
+CZL40 collected 10395 from pot
+*** SUMMARY ***
+Total pot 11000 | Rake 605 
+Board [Jc 8d 3d Tc Qh]
+Seat 2: sam46
+Seat 4: tavfam2024
+Seat 1: awsumer folded on the River
+Seat 3: hightestes folded before Flop (didn't bet)
+Seat 5: donodion showed [Kd 6h] and lost with high card King
+Seat 7: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 8: jlbarra (small blind) folded on the River
+Seat 9: CZL40 (big blind) showed [4d 9s] and won (10395) with a straight, Eight to Queen
+
+
+
+PokerStars Hand #259551230606:  Hold'em No Limit (250/500) - 2026/02/01 19:08:49 CET [2026/02/01 13:08:49 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #8 is the button
+Seat 2: sam46 (41167 in chips) is sitting out
+Seat 4: tavfam2024 (38108 in chips) is sitting out
+Seat 1: awsumer (56092 in chips) 
+Seat 3: hightestes (29491 in chips) 
+Seat 5: donodion (45000 in chips) 
+Seat 7: jsalinas96 (86761 in chips) 
+Seat 8: jlbarra (32009 in chips) 
+Seat 9: CZL40 (229902 in chips) 
+CZL40: posts small blind 250
+awsumer: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qh Ad]
+hightestes: folds 
+Kelly631 joins the table at seat #6 
+donodion: folds 
+jsalinas96: calls 500
+jlbarra: calls 500
+CZL40: calls 250
+awsumer: checks 
+*** FLOP *** [Ah Kd 9s]
+CZL40: checks 
+awsumer: checks 
+jsalinas96: checks 
+jlbarra: checks 
+*** TURN *** [Ah Kd 9s] [9d]
+CZL40: bets 1890
+awsumer: folds 
+jsalinas96: calls 1890
+jlbarra: calls 1890
+*** RIVER *** [Ah Kd 9s 9d] [7h]
+CZL40: checks 
+jsalinas96: checks 
+jlbarra: checks 
+*** SHOW DOWN ***
+CZL40: shows [9h Jd] (three of a kind, Nines)
+jsalinas96: mucks hand 
+jlbarra: mucks hand 
+CZL40 collected 7248 from pot
+*** SUMMARY ***
+Total pot 7670 | Rake 422 
+Board [Ah Kd 9s 9d 7h]
+Seat 2: sam46
+Seat 4: tavfam2024
+Seat 1: awsumer (big blind) folded on the Turn
+Seat 3: hightestes folded before Flop (didn't bet)
+Seat 5: donodion folded before Flop (didn't bet)
+Seat 7: jsalinas96 mucked [Qh Ad]
+Seat 8: jlbarra (button) mucked [Kc 2c]
+Seat 9: CZL40 (small blind) showed [9h Jd] and won (7248) with three of a kind, Nines
+
+
+
+PokerStars Hand #259551242277:  Hold'em No Limit (250/500) - 2026/02/01 19:09:30 CET [2026/02/01 13:09:30 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #9 is the button
+Seat 4: tavfam2024 (38108 in chips) is sitting out
+Seat 1: awsumer (55592 in chips) 
+Seat 2: sam46 (41167 in chips) 
+Seat 3: hightestes (29491 in chips) 
+Seat 5: donodion (45000 in chips) 
+Seat 6: Kelly631 (50000 in chips) 
+Seat 7: jsalinas96 (84371 in chips) 
+Seat 8: jlbarra (29619 in chips) 
+Seat 9: CZL40 (234760 in chips) 
+awsumer: posts small blind 250
+sam46: posts big blind 500
+Kelly631: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ks Tc]
+hightestes: folds 
+donodion: folds 
+Kelly631: checks 
+jsalinas96: calls 500
+jlbarra: folds 
+CZL40: calls 500
+awsumer: raises 2500 to 3000
+sam46: folds 
+Kelly631: calls 2500
+jsalinas96: folds 
+CZL40: calls 2500
+*** FLOP *** [5s 5h 6d]
+awsumer: bets 3500
+Kelly631: calls 3500
+CZL40: folds 
+*** TURN *** [5s 5h 6d] [8c]
+awsumer: bets 8032
+Kelly631: folds 
+Uncalled bet (8032) returned to awsumer
+awsumer collected 16065 from pot
+awsumer: doesn't show hand 
+*** SUMMARY ***
+Total pot 17000 | Rake 935 
+Board [5s 5h 6d 8c]
+Seat 4: tavfam2024
+Seat 1: awsumer (small blind) collected (16065)
+Seat 2: sam46 (big blind) folded before Flop
+Seat 3: hightestes folded before Flop (didn't bet)
+Seat 5: donodion folded before Flop (didn't bet)
+Seat 6: Kelly631 folded on the Turn
+Seat 7: jsalinas96 folded before Flop
+Seat 8: jlbarra folded before Flop (didn't bet)
+Seat 9: CZL40 (button) folded on the Flop
+
+
+
+PokerStars Hand #259551255626:  Hold'em No Limit (250/500) - 2026/02/01 19:10:18 CET [2026/02/01 13:10:18 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #1 is the button
+Seat 4: tavfam2024 (38108 in chips) is sitting out
+Seat 1: awsumer (65157 in chips) 
+Seat 2: sam46 (40667 in chips) 
+Seat 3: hightestes (29491 in chips) 
+Seat 5: donodion (45000 in chips) 
+Seat 6: Kelly631 (43500 in chips) 
+Seat 7: jsalinas96 (83871 in chips) 
+Seat 8: jlbarra (29619 in chips) 
+Seat 9: CZL40 (231760 in chips) 
+sam46: posts small blind 250
+hightestes: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3h Ks]
+donodion: raises 4000 to 4500
+Kelly631: folds 
+jsalinas96: folds 
+jlbarra: folds 
+CZL40: folds 
+awsumer: folds 
+sam46: folds 
+hightestes: folds 
+Uncalled bet (4000) returned to donodion
+donodion collected 1250 from pot
+donodion: doesn't show hand 
+*** SUMMARY ***
+Total pot 1250 | Rake 0 
+Seat 4: tavfam2024
+Seat 1: awsumer (button) folded before Flop (didn't bet)
+Seat 2: sam46 (small blind) folded before Flop
+Seat 3: hightestes (big blind) folded before Flop
+Seat 5: donodion collected (1250)
+Seat 6: Kelly631 folded before Flop (didn't bet)
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: jlbarra folded before Flop (didn't bet)
+Seat 9: CZL40 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259551263864:  Hold'em No Limit (250/500) - 2026/02/01 19:10:47 CET [2026/02/01 13:10:47 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #2 is the button
+Seat 4: tavfam2024 (38108 in chips) is sitting out
+Seat 1: awsumer (65157 in chips) 
+Seat 2: sam46 (40417 in chips) 
+Seat 3: hightestes (28991 in chips) 
+Seat 5: donodion (45750 in chips) 
+Seat 6: Kelly631 (50000 in chips) 
+Seat 7: jsalinas96 (83871 in chips) 
+Seat 8: jlbarra (29619 in chips) 
+Seat 9: CZL40 (231760 in chips) 
+hightestes: posts small blind 250
+donodion: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9h Qd]
+Kelly631: calls 500
+jsalinas96: folds 
+jlbarra: calls 500
+CZL40: calls 500
+awsumer: folds 
+sam46: folds 
+hightestes: raises 1500 to 2000
+donodion: raises 1500 to 3500
+Kelly631: folds 
+jlbarra: calls 3000
+CZL40: calls 3000
+hightestes: raises 25491 to 28991 and is all-in
+donodion: folds 
+jlbarra: calls 25491
+CZL40: folds 
+*** FLOP *** [7h Kc Jc]
+*** TURN *** [7h Kc Jc] [5h]
+*** RIVER *** [7h Kc Jc 5h] [2h]
+*** SHOW DOWN ***
+hightestes: shows [Ks Kd] (three of a kind, Kings)
+jlbarra: shows [9s 5s] (a pair of Fives)
+hightestes collected 61880 from pot
+*** SUMMARY ***
+Total pot 65482 | Rake 3602 
+Board [7h Kc Jc 5h 2h]
+Seat 4: tavfam2024
+Seat 1: awsumer folded before Flop (didn't bet)
+Seat 2: sam46 (button) folded before Flop (didn't bet)
+Seat 3: hightestes (small blind) showed [Ks Kd] and won (61880) with three of a kind, Kings
+Seat 5: donodion (big blind) folded before Flop
+Seat 6: Kelly631 folded before Flop
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: jlbarra showed [9s 5s] and lost with a pair of Fives
+Seat 9: CZL40 folded before Flop
+
+
+
+PokerStars Hand #259551276701:  Hold'em No Limit (250/500) - 2026/02/01 19:11:34 CET [2026/02/01 13:11:34 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #3 is the button
+Seat 4: tavfam2024 (38108 in chips) is sitting out
+Seat 1: awsumer (65157 in chips) 
+Seat 2: sam46 (40417 in chips) 
+Seat 3: hightestes (61880 in chips) 
+Seat 5: donodion (42250 in chips) 
+Seat 6: Kelly631 (49500 in chips) 
+Seat 7: jsalinas96 (83871 in chips) 
+Seat 8: jlbarra (628 in chips) 
+Seat 9: CZL40 (228260 in chips) 
+donodion: posts small blind 250
+Kelly631: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6h 3s]
+jsalinas96: folds 
+jlbarra: folds 
+CZL40: calls 500
+awsumer: calls 500
+sam46: folds 
+hightestes: folds 
+donodion: raises 500 to 1000
+hightestes leaves the table
+Kelly631: calls 500
+CZL40: calls 500
+awsumer: calls 500
+*** FLOP *** [Tc 8h 3h]
+donald_illich joins the table at seat #3 
+donald_illich is disconnected 
+donodion: bets 4500
+Kelly631: folds 
+CZL40: calls 4500
+awsumer: folds 
+*** TURN *** [Tc 8h 3h] [7h]
+donodion: checks 
+CZL40: bets 6142
+donodion: calls 6142
+*** RIVER *** [Tc 8h 3h 7h] [6s]
+donodion: checks 
+CZL40: checks 
+*** SHOW DOWN ***
+donodion: shows [Ad 3d] (a pair of Threes)
+CZL40: shows [Td Qs] (a pair of Tens)
+CZL40 collected 23893 from pot
+*** SUMMARY ***
+Total pot 25284 | Rake 1391 
+Board [Tc 8h 3h 7h 6s]
+Seat 4: tavfam2024
+Seat 1: awsumer folded on the Flop
+Seat 2: sam46 folded before Flop (didn't bet)
+Seat 3: hightestes (button) folded before Flop (didn't bet)
+Seat 5: donodion (small blind) showed [Ad 3d] and lost with a pair of Threes
+Seat 6: Kelly631 (big blind) folded on the Flop
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: jlbarra folded before Flop (didn't bet)
+Seat 9: CZL40 showed [Td Qs] and won (23893) with a pair of Tens
+
+
+
+PokerStars Hand #259551293099:  Hold'em No Limit (250/500) - 2026/02/01 19:12:33 CET [2026/02/01 13:12:33 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #5 is the button
+Seat 4: tavfam2024 (38108 in chips) is sitting out
+Seat 1: awsumer (64157 in chips) 
+Seat 2: sam46 (40417 in chips) 
+Seat 3: donald_illich (50000 in chips) 
+Seat 5: donodion (30608 in chips) 
+Seat 6: Kelly631 (48500 in chips) 
+Seat 7: jsalinas96 (83871 in chips) 
+Seat 8: jlbarra (628 in chips) 
+Seat 9: CZL40 (240511 in chips) 
+Kelly631: posts small blind 250
+jsalinas96: posts big blind 500
+donald_illich: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6s 8d]
+jlbarra: raises 128 to 628 and is all-in
+CZL40: calls 628
+awsumer: raises 3134 to 3762
+sam46: folds 
+donald_illich: folds 
+donodion: folds 
+Kelly631: folds 
+jsalinas96: folds 
+CZL40: calls 3134
+*** FLOP *** [8h Qd 7d]
+CZL40: checks 
+awsumer: bets 3000
+CZL40: folds 
+Uncalled bet (3000) returned to awsumer
+*** TURN *** [8h Qd 7d] [7h]
+*** RIVER *** [8h Qd 7d 7h] [9c]
+*** SHOW DOWN ***
+awsumer: shows [As Qc] (two pair, Queens and Sevens)
+awsumer collected 5923 from side pot
+jlbarra: shows [4h 3c] (a pair of Sevens)
+awsumer collected 2962 from main pot
+*** SUMMARY ***
+Total pot 9402 Main pot 2962. Side pot 5923. | Rake 517 
+Board [8h Qd 7d 7h 9c]
+Seat 4: tavfam2024
+Seat 1: awsumer showed [As Qc] and won (8885) with two pair, Queens and Sevens
+Seat 2: sam46 folded before Flop (didn't bet)
+Seat 3: donald_illich folded before Flop (didn't bet)
+Seat 5: donodion (button) folded before Flop (didn't bet)
+Seat 6: Kelly631 (small blind) folded before Flop
+Seat 7: jsalinas96 (big blind) folded before Flop
+Seat 8: jlbarra showed [4h 3c] and lost with a pair of Sevens
+Seat 9: CZL40 folded on the Flop
+
+
+
+PokerStars Hand #259551306309:  Hold'em No Limit (250/500) - 2026/02/01 19:13:20 CET [2026/02/01 13:13:20 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #6 is the button
+Seat 4: tavfam2024 (38108 in chips) is sitting out
+Seat 8: jlbarra (0 in chips) is sitting out
+Seat 1: awsumer (69280 in chips) 
+Seat 2: sam46 (40417 in chips) 
+Seat 3: donald_illich (49500 in chips) 
+Seat 5: donodion (30608 in chips) 
+Seat 6: Kelly631 (48250 in chips) 
+Seat 7: jsalinas96 (83371 in chips) 
+Seat 9: CZL40 (236749 in chips) 
+jsalinas96: posts small blind 250
+CZL40: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3h 5h]
+awsumer: folds 
+sam46: folds 
+donald_illich: folds 
+donodion: folds 
+Kelly631: calls 500
+jsalinas96: calls 250
+CZL40: checks 
+*** FLOP *** [8s Qc 7d]
+jsalinas96: checks 
+CZL40: checks 
+Kelly631: checks 
+*** TURN *** [8s Qc 7d] [Qd]
+jsalinas96: checks 
+CZL40: checks 
+Kelly631: checks 
+*** RIVER *** [8s Qc 7d Qd] [5s]
+jsalinas96: checks 
+CZL40: checks 
+Kelly631: checks 
+*** SHOW DOWN ***
+jsalinas96: shows [3h 5h] (two pair, Queens and Fives)
+CZL40: mucks hand 
+Kelly631: mucks hand 
+jsalinas96 collected 1417 from pot
+*** SUMMARY ***
+Total pot 1500 | Rake 83 
+Board [8s Qc 7d Qd 5s]
+Seat 4: tavfam2024
+Seat 8: jlbarra
+Seat 1: awsumer folded before Flop (didn't bet)
+Seat 2: sam46 folded before Flop (didn't bet)
+Seat 3: donald_illich folded before Flop (didn't bet)
+Seat 5: donodion folded before Flop (didn't bet)
+Seat 6: Kelly631 (button) mucked [2c As]
+Seat 7: jsalinas96 (small blind) showed [3h 5h] and won (1417) with two pair, Queens and Fives
+Seat 9: CZL40 (big blind) mucked [Ks 3d]
+
+
+
+PokerStars Hand #259551320013:  Hold'em No Limit (250/500) - 2026/02/01 19:14:09 CET [2026/02/01 13:14:09 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #7 is the button
+Seat 4: tavfam2024 (38108 in chips) is sitting out
+Seat 8: jlbarra (50000 in chips) is sitting out
+Seat 1: awsumer (69280 in chips) 
+Seat 2: sam46 (40417 in chips) 
+Seat 3: donald_illich (49500 in chips) 
+Seat 5: donodion (30608 in chips) 
+Seat 6: Kelly631 (47750 in chips) 
+Seat 7: jsalinas96 (84288 in chips) 
+Seat 9: CZL40 (236249 in chips) 
+CZL40: posts small blind 250
+awsumer: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9c Td]
+sam46: calls 500
+donald_illich: calls 500
+donodion: raises 500 to 1000
+Kelly631: folds 
+jsalinas96: folds 
+CZL40: folds 
+awsumer: calls 500
+sam46: calls 500
+donald_illich: calls 500
+*** FLOP *** [6c 2s 9h]
+awsumer: bets 500
+sam46: folds 
+donald_illich: calls 500
+donodion: raises 500 to 1000
+awsumer: calls 500
+donald_illich: folds 
+*** TURN *** [6c 2s 9h] [Ts]
+awsumer: bets 500
+donodion: calls 500
+*** RIVER *** [6c 2s 9h Ts] [Jd]
+awsumer: bets 1500
+donodion: folds 
+Uncalled bet (1500) returned to awsumer
+awsumer collected 7324 from pot
+awsumer: doesn't show hand 
+*** SUMMARY ***
+Total pot 7750 | Rake 426 
+Board [6c 2s 9h Ts Jd]
+Seat 4: tavfam2024
+Seat 8: jlbarra
+Seat 1: awsumer (big blind) collected (7324)
+Seat 2: sam46 folded on the Flop
+Seat 3: donald_illich folded on the Flop
+Seat 5: donodion folded on the River
+Seat 6: Kelly631 folded before Flop (didn't bet)
+Seat 7: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 9: CZL40 (small blind) folded before Flop
+
+
+
+PokerStars Hand #259551341660:  Hold'em No Limit (250/500) - 2026/02/01 19:15:26 CET [2026/02/01 13:15:26 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #9 is the button
+Seat 4: tavfam2024 (38108 in chips) is sitting out
+Seat 1: awsumer (74104 in chips) 
+Seat 2: sam46 (39417 in chips) 
+Seat 3: donald_illich (48000 in chips) 
+Seat 5: donodion (28108 in chips) 
+Seat 6: Kelly631 (47750 in chips) 
+Seat 7: jsalinas96 (84288 in chips) 
+Seat 8: jlbarra (50000 in chips) 
+Seat 9: CZL40 (235999 in chips) 
+awsumer: posts small blind 250
+sam46: posts big blind 500
+jlbarra: posts small & big blinds 750
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qh 7d]
+donald_illich: calls 500
+donodion: folds 
+Kelly631: folds 
+jsalinas96: folds 
+jlbarra: checks 
+CZL40: calls 500
+awsumer: folds 
+sam46: checks 
+*** FLOP *** [Qc 6c Jd]
+sam46: checks 
+donald_illich: checks 
+jlbarra: checks 
+CZL40: checks 
+*** TURN *** [Qc 6c Jd] [6d]
+sam46: checks 
+donald_illich: checks 
+jlbarra: checks 
+CZL40: checks 
+*** RIVER *** [Qc 6c Jd 6d] [3s]
+sam46: checks 
+donald_illich: checks 
+jlbarra: checks 
+CZL40: checks 
+*** SHOW DOWN ***
+sam46: shows [4h 9c] (a pair of Sixes)
+donald_illich: shows [Ad 9h] (a pair of Sixes - Ace kicker)
+jlbarra: shows [8s 3d] (two pair, Sixes and Threes)
+CZL40: mucks hand 
+jlbarra collected 2362 from pot
+*** SUMMARY ***
+Total pot 2500 | Rake 138 
+Board [Qc 6c Jd 6d 3s]
+Seat 4: tavfam2024
+Seat 1: awsumer (small blind) folded before Flop
+Seat 2: sam46 (big blind) showed [4h 9c] and lost with a pair of Sixes
+Seat 3: donald_illich showed [Ad 9h] and lost with a pair of Sixes
+Seat 5: donodion folded before Flop (didn't bet)
+Seat 6: Kelly631 folded before Flop (didn't bet)
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: jlbarra showed [8s 3d] and won (2362) with two pair, Sixes and Threes
+Seat 9: CZL40 (button) mucked [5s Ac]
+
+
+
+PokerStars Hand #259551360673:  Hold'em No Limit (250/500) - 2026/02/01 19:16:32 CET [2026/02/01 13:16:32 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #1 is the button
+Seat 4: tavfam2024 (38108 in chips) is sitting out
+Seat 1: awsumer (73854 in chips) 
+Seat 2: sam46 (38917 in chips) 
+Seat 3: donald_illich (47500 in chips) 
+Seat 5: donodion (28108 in chips) 
+Seat 6: Kelly631 (47750 in chips) 
+Seat 7: jsalinas96 (84288 in chips) 
+Seat 8: jlbarra (51612 in chips) 
+Seat 9: CZL40 (235499 in chips) 
+sam46: posts small blind 250
+donald_illich: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5h 4d]
+donodion: folds 
+Kelly631: calls 500
+jsalinas96: folds 
+jlbarra: calls 500
+CZL40: folds 
+awsumer: raises 3000 to 3500
+sam46: raises 35417 to 38917 and is all-in
+donald_illich: folds 
+Kelly631: folds 
+jlbarra: folds 
+awsumer: calls 35417
+*** FLOP *** [7c 2s 4h]
+*** TURN *** [7c 2s 4h] [7s]
+*** RIVER *** [7c 2s 4h 7s] [Td]
+*** SHOW DOWN ***
+sam46: shows [Ah Qd] (a pair of Sevens)
+awsumer: shows [Jc Ac] (a pair of Sevens - lower kicker)
+sam46 collected 74971 from pot
+*** SUMMARY ***
+Total pot 79334 | Rake 4363 
+Board [7c 2s 4h 7s Td]
+Seat 4: tavfam2024
+Seat 1: awsumer (button) showed [Jc Ac] and lost with a pair of Sevens
+Seat 2: sam46 (small blind) showed [Ah Qd] and won (74971) with a pair of Sevens
+Seat 3: donald_illich (big blind) folded before Flop
+Seat 5: donodion folded before Flop (didn't bet)
+Seat 6: Kelly631 folded before Flop
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: jlbarra folded before Flop
+Seat 9: CZL40 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259551371118:  Hold'em No Limit (250/500) - 2026/02/01 19:17:09 CET [2026/02/01 13:17:09 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #2 is the button
+Seat 4: tavfam2024 (38108 in chips) is sitting out
+Seat 1: awsumer (34937 in chips) 
+Seat 2: sam46 (74971 in chips) 
+Seat 3: donald_illich (47000 in chips) 
+Seat 5: donodion (28108 in chips) 
+Seat 6: Kelly631 (47250 in chips) 
+Seat 7: jsalinas96 (84288 in chips) 
+Seat 8: jlbarra (51112 in chips) 
+Seat 9: CZL40 (235499 in chips) 
+donald_illich: posts small blind 250
+donodion: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qs Ah]
+Kelly631: folds 
+jsalinas96: calls 500
+jlbarra: calls 500
+CZL40: calls 500
+awsumer: calls 500
+sam46: folds 
+donald_illich: calls 250
+donodion: checks 
+*** FLOP *** [2c 3c 3d]
+donald_illich: checks 
+donodion: checks 
+jsalinas96: checks 
+jlbarra: bets 500
+CZL40: calls 500
+awsumer: calls 500
+donald_illich: folds 
+donodion: calls 500
+jsalinas96: calls 500
+*** TURN *** [2c 3c 3d] [5c]
+donodion: bets 1000
+jsalinas96: folds 
+jlbarra: calls 1000
+CZL40: folds 
+awsumer: calls 1000
+*** RIVER *** [2c 3c 3d 5c] [Qh]
+donodion: checks 
+jlbarra: checks 
+awsumer: checks 
+*** SHOW DOWN ***
+donodion: shows [4s Tc] (a pair of Threes)
+jlbarra: shows [Kh 2s] (two pair, Threes and Deuces)
+awsumer: mucks hand 
+jlbarra collected 8032 from pot
+tavfam2024 leaves the table
+*** SUMMARY ***
+Total pot 8500 | Rake 468 
+Board [2c 3c 3d 5c Qh]
+Seat 4: tavfam2024
+Seat 1: awsumer mucked [Ac 6h]
+Seat 2: sam46 (button) folded before Flop (didn't bet)
+Seat 3: donald_illich (small blind) folded on the Flop
+Seat 5: donodion (big blind) showed [4s Tc] and lost with a pair of Threes
+Seat 6: Kelly631 folded before Flop (didn't bet)
+Seat 7: jsalinas96 folded on the Turn
+Seat 8: jlbarra showed [Kh 2s] and won (8032) with two pair, Threes and Deuces
+Seat 9: CZL40 folded on the Turn
+
+
+
+PokerStars Hand #259551395484:  Hold'em No Limit (250/500) - 2026/02/01 19:18:34 CET [2026/02/01 13:18:34 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #3 is the button
+Seat 1: awsumer (48000 in chips) 
+Seat 2: sam46 (74971 in chips) 
+Seat 3: donald_illich (46500 in chips) 
+Seat 5: donodion (26108 in chips) 
+Seat 6: Kelly631 (47250 in chips) 
+Seat 7: jsalinas96 (83288 in chips) 
+Seat 8: jlbarra (57144 in chips) 
+Seat 9: CZL40 (234499 in chips) 
+donodion: posts small blind 250
+Kelly631: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6d 5d]
+jsalinas96: calls 500
+jlbarra: calls 500
+CZL40: folds 
+awsumer: raises 1500 to 2000
+sam46: folds 
+donald_illich: folds 
+donodion: raises 1500 to 3500
+Kelly631: calls 3000
+jsalinas96: folds 
+jlbarra: folds 
+awsumer: calls 1500
+*** FLOP *** [Jh Ac 2d]
+donodion: checks 
+Kelly631: checks 
+awsumer: checks 
+*** TURN *** [Jh Ac 2d] [3h]
+donodion: bets 3000
+Kelly631: folds 
+awsumer: calls 3000
+*** RIVER *** [Jh Ac 2d 3h] [Qs]
+donodion: bets 2000
+awsumer: calls 2000
+*** SHOW DOWN ***
+donodion: shows [6s Ad] (a pair of Aces)
+awsumer: mucks hand 
+donodion collected 20317 from pot
+*** SUMMARY ***
+Total pot 21500 | Rake 1183 
+Board [Jh Ac 2d 3h Qs]
+Seat 1: awsumer mucked [Jd Kh]
+Seat 2: sam46 folded before Flop (didn't bet)
+Seat 3: donald_illich (button) folded before Flop (didn't bet)
+Seat 5: donodion (small blind) showed [6s Ad] and won (20317) with a pair of Aces
+Seat 6: Kelly631 (big blind) folded on the Turn
+Seat 7: jsalinas96 folded before Flop
+Seat 8: jlbarra folded before Flop
+Seat 9: CZL40 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259551415947:  Hold'em No Limit (250/500) - 2026/02/01 19:19:46 CET [2026/02/01 13:19:46 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #5 is the button
+Seat 1: awsumer (39500 in chips) 
+Seat 2: sam46 (74971 in chips) 
+Seat 3: donald_illich (46500 in chips) 
+Seat 5: donodion (37925 in chips) 
+Seat 6: Kelly631 (43750 in chips) 
+Seat 7: jsalinas96 (82788 in chips) 
+Seat 8: jlbarra (56644 in chips) 
+Seat 9: CZL40 (234499 in chips) 
+Kelly631: posts small blind 250
+jsalinas96: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9d Qd]
+jlbarra: calls 500
+CZL40: folds 
+awsumer: folds 
+sam46: folds 
+rougecoeur69 joins the table at seat #4 
+rougecoeur69 is disconnected 
+donald_illich: calls 500
+donodion: folds 
+Kelly631: calls 250
+jsalinas96: checks 
+*** FLOP *** [Kd Ts Qs]
+Kelly631: checks 
+jsalinas96: checks 
+jlbarra: checks 
+donald_illich: checks 
+*** TURN *** [Kd Ts Qs] [8d]
+Kelly631: checks 
+jsalinas96: bets 1890
+jlbarra: folds 
+donald_illich: folds 
+Kelly631: calls 1890
+*** RIVER *** [Kd Ts Qs 8d] [2h]
+Kelly631: checks 
+jsalinas96: checks 
+*** SHOW DOWN ***
+Kelly631: shows [Jh 8c] (a pair of Eights)
+jsalinas96: shows [9d Qd] (a pair of Queens)
+jsalinas96 collected 5462 from pot
+*** SUMMARY ***
+Total pot 5780 | Rake 318 
+Board [Kd Ts Qs 8d 2h]
+Seat 1: awsumer folded before Flop (didn't bet)
+Seat 2: sam46 folded before Flop (didn't bet)
+Seat 3: donald_illich folded on the Turn
+Seat 5: donodion (button) folded before Flop (didn't bet)
+Seat 6: Kelly631 (small blind) showed [Jh 8c] and lost with a pair of Eights
+Seat 7: jsalinas96 (big blind) showed [9d Qd] and won (5462) with a pair of Queens
+Seat 8: jlbarra folded on the Turn
+Seat 9: CZL40 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259551435146:  Hold'em No Limit (250/500) - 2026/02/01 19:20:54 CET [2026/02/01 13:20:54 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #6 is the button
+Seat 1: awsumer (50000 in chips) 
+Seat 2: sam46 (74971 in chips) 
+Seat 3: donald_illich (46000 in chips) 
+Seat 4: rougecoeur69 (50000 in chips) 
+Seat 5: donodion (37925 in chips) 
+Seat 6: Kelly631 (41360 in chips) 
+Seat 7: jsalinas96 (85860 in chips) 
+Seat 8: jlbarra (56144 in chips) 
+Seat 9: CZL40 (234499 in chips) 
+jsalinas96: posts small blind 250
+jlbarra: posts big blind 500
+rougecoeur69: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [7s 6s]
+CZL40: folds 
+awsumer: calls 500
+sam46: calls 500
+donald_illich: folds 
+rougecoeur69: checks 
+donodion: folds 
+Kelly631: calls 500
+jsalinas96: calls 250
+jlbarra: checks 
+*** FLOP *** [Th Qc Tc]
+jsalinas96: checks 
+jlbarra: checks 
+awsumer: checks 
+sam46: checks 
+rougecoeur69: bets 500
+Kelly631: calls 500
+jsalinas96: folds 
+jlbarra: folds 
+awsumer: folds 
+sam46: calls 500
+*** TURN *** [Th Qc Tc] [7c]
+sam46: checks 
+rougecoeur69: bets 1500
+Kelly631: raises 1500 to 3000
+sam46: folds 
+rougecoeur69: raises 46000 to 49000 and is all-in
+Kelly631: calls 37360 and is all-in
+Uncalled bet (8640) returned to rougecoeur69
+*** RIVER *** [Th Qc Tc 7c] [9d]
+*** SHOW DOWN ***
+rougecoeur69: shows [7d Ts] (a full house, Tens full of Sevens)
+Kelly631: shows [2c 5c] (a flush, Queen high)
+rougecoeur69 collected 80533 from pot
+*** SUMMARY ***
+Total pot 85220 | Rake 4687 
+Board [Th Qc Tc 7c 9d]
+Seat 1: awsumer folded on the Flop
+Seat 2: sam46 folded on the Turn
+Seat 3: donald_illich folded before Flop (didn't bet)
+Seat 4: rougecoeur69 showed [7d Ts] and won (80533) with a full house, Tens full of Sevens
+Seat 5: donodion folded before Flop (didn't bet)
+Seat 6: Kelly631 (button) showed [2c 5c] and lost with a flush, Queen high
+Seat 7: jsalinas96 (small blind) folded on the Flop
+Seat 8: jlbarra (big blind) folded on the Flop
+Seat 9: CZL40 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259551458749:  Hold'em No Limit (250/500) - 2026/02/01 19:22:17 CET [2026/02/01 13:22:17 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #7 is the button
+Seat 6: Kelly631 (0 in chips) is sitting out
+Seat 1: awsumer (49500 in chips) 
+Seat 2: sam46 (73971 in chips) 
+Seat 3: donald_illich (46000 in chips) 
+Seat 4: rougecoeur69 (89173 in chips) 
+Seat 5: donodion (37925 in chips) 
+Seat 7: jsalinas96 (85360 in chips) 
+Seat 8: jlbarra (55644 in chips) 
+Seat 9: CZL40 (234499 in chips) 
+jlbarra: posts small blind 250
+CZL40: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3s Qs]
+awsumer: folds 
+sam46: folds 
+donald_illich: folds 
+rougecoeur69: calls 500
+donodion has timed out
+donodion: folds 
+jsalinas96: calls 500
+jlbarra: calls 250
+CZL40: checks 
+*** FLOP *** [Qh 2d 5c]
+jlbarra: checks 
+CZL40: checks 
+rougecoeur69: checks 
+jsalinas96: checks 
+*** TURN *** [Qh 2d 5c] [6c]
+jlbarra: checks 
+CZL40: checks 
+rougecoeur69: checks 
+jsalinas96: checks 
+*** RIVER *** [Qh 2d 5c 6c] [Kc]
+jlbarra: checks 
+CZL40: checks 
+rougecoeur69: checks 
+jsalinas96: checks 
+*** SHOW DOWN ***
+jlbarra: shows [6s Td] (a pair of Sixes)
+CZL40: mucks hand 
+rougecoeur69: mucks hand 
+jsalinas96: shows [3s Qs] (a pair of Queens)
+jsalinas96 collected 1890 from pot
+*** SUMMARY ***
+Total pot 2000 | Rake 110 
+Board [Qh 2d 5c 6c Kc]
+Seat 6: Kelly631
+Seat 1: awsumer folded before Flop (didn't bet)
+Seat 2: sam46 folded before Flop (didn't bet)
+Seat 3: donald_illich folded before Flop (didn't bet)
+Seat 4: rougecoeur69 mucked [As 4c]
+Seat 5: donodion folded before Flop (didn't bet)
+Seat 7: jsalinas96 (button) showed [3s Qs] and won (1890) with a pair of Queens
+Seat 8: jlbarra (small blind) showed [6s Td] and lost with a pair of Sixes
+Seat 9: CZL40 (big blind) mucked [Jc 9s]
+
+
+
+PokerStars Hand #259551478349:  Hold'em No Limit (250/500) - 2026/02/01 19:23:26 CET [2026/02/01 13:23:26 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #8 is the button
+Seat 1: awsumer (49500 in chips) 
+Seat 2: sam46 (73971 in chips) 
+Seat 3: donald_illich (46000 in chips) 
+Seat 4: rougecoeur69 (88673 in chips) 
+Seat 5: donodion (37925 in chips) 
+Seat 6: Kelly631 (50000 in chips) 
+Seat 7: jsalinas96 (86750 in chips) 
+Seat 8: jlbarra (55144 in chips) 
+Seat 9: CZL40 (233999 in chips) 
+CZL40: posts small blind 250
+awsumer: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9d Kc]
+sam46: folds 
+donald_illich: folds 
+rougecoeur69: calls 500
+donodion: folds 
+Kelly631: calls 500
+jsalinas96: folds 
+jlbarra: calls 500
+CZL40: folds 
+awsumer: checks 
+*** FLOP *** [3s 3d 4c]
+awsumer: bets 500
+rougecoeur69 has timed out
+rougecoeur69: folds 
+Kelly631: folds 
+jlbarra: folds 
+Uncalled bet (500) returned to awsumer
+awsumer collected 2126 from pot
+awsumer: doesn't show hand 
+*** SUMMARY ***
+Total pot 2250 | Rake 124 
+Board [3s 3d 4c]
+Seat 1: awsumer (big blind) collected (2126)
+Seat 2: sam46 folded before Flop (didn't bet)
+Seat 3: donald_illich folded before Flop (didn't bet)
+Seat 4: rougecoeur69 folded on the Flop
+Seat 5: donodion folded before Flop (didn't bet)
+Seat 6: Kelly631 folded on the Flop
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: jlbarra (button) folded on the Flop
+Seat 9: CZL40 (small blind) folded before Flop
+
+
+
+PokerStars Hand #259551495021:  Hold'em No Limit (250/500) - 2026/02/01 19:24:25 CET [2026/02/01 13:24:25 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #9 is the button
+Seat 1: awsumer (51126 in chips) 
+Seat 2: sam46 (73971 in chips) 
+Seat 3: donald_illich (46000 in chips) 
+Seat 4: rougecoeur69 (88173 in chips) 
+Seat 5: donodion (37925 in chips) 
+Seat 6: Kelly631 (49500 in chips) 
+Seat 7: jsalinas96 (86750 in chips) 
+Seat 8: jlbarra (54644 in chips) 
+Seat 9: CZL40 (233749 in chips) 
+awsumer: posts small blind 250
+sam46: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Kh 2d]
+donald_illich: folds 
+rougecoeur69: calls 500
+donodion: calls 500
+Kelly631: folds 
+jsalinas96: folds 
+jlbarra: calls 500
+CZL40: calls 500
+awsumer: calls 250
+sam46: checks 
+*** FLOP *** [2s 9s 3c]
+awsumer: checks 
+sam46: checks 
+rougecoeur69: checks 
+donodion: checks 
+jlbarra: checks 
+CZL40: bets 2835
+awsumer: folds 
+sam46: folds 
+rougecoeur69: folds 
+donodion: calls 2835
+jlbarra: folds 
+*** TURN *** [2s 9s 3c] [3h]
+donodion: checks 
+CZL40: bets 8193
+donodion: folds 
+Uncalled bet (8193) returned to CZL40
+CZL40 collected 8193 from pot
+CZL40: doesn't show hand 
+*** SUMMARY ***
+Total pot 8670 | Rake 477 
+Board [2s 9s 3c 3h]
+Seat 1: awsumer (small blind) folded on the Flop
+Seat 2: sam46 (big blind) folded on the Flop
+Seat 3: donald_illich folded before Flop (didn't bet)
+Seat 4: rougecoeur69 folded on the Flop
+Seat 5: donodion folded on the Turn
+Seat 6: Kelly631 folded before Flop (didn't bet)
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: jlbarra folded on the Flop
+Seat 9: CZL40 (button) collected (8193)
+
+
+
+PokerStars Hand #259551517989:  Hold'em No Limit (250/500) - 2026/02/01 19:25:46 CET [2026/02/01 13:25:46 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #1 is the button
+Seat 1: awsumer (50626 in chips) 
+Seat 2: sam46 (73471 in chips) 
+Seat 3: donald_illich (46000 in chips) 
+Seat 4: rougecoeur69 (87673 in chips) 
+Seat 5: donodion (34590 in chips) 
+Seat 6: Kelly631 (49500 in chips) 
+Seat 7: jsalinas96 (86750 in chips) 
+Seat 8: jlbarra (54144 in chips) 
+Seat 9: CZL40 (238607 in chips) 
+sam46: posts small blind 250
+donald_illich: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4d 5h]
+rougecoeur69: calls 500
+donodion: folds 
+Kelly631: calls 500
+jsalinas96: folds 
+jlbarra: calls 500
+CZL40: folds 
+awsumer: calls 500
+sam46: calls 250
+donald_illich: checks 
+*** FLOP *** [6d 9d Tc]
+sam46: checks 
+donald_illich: checks 
+rougecoeur69: checks 
+Kelly631: checks 
+jlbarra: checks 
+awsumer: checks 
+*** TURN *** [6d 9d Tc] [Ad]
+sam46: checks 
+donald_illich: checks 
+rougecoeur69: checks 
+Kelly631: checks 
+jlbarra: checks 
+awsumer: checks 
+*** RIVER *** [6d 9d Tc Ad] [8h]
+sam46: checks 
+donald_illich: checks 
+rougecoeur69: bets 500
+Kelly631: folds 
+jlbarra: calls 500
+awsumer: folds 
+sam46: folds 
+donald_illich: folds 
+*** SHOW DOWN ***
+rougecoeur69: shows [Qs Jd] (a straight, Eight to Queen)
+jlbarra: mucks hand 
+rougecoeur69 collected 3780 from pot
+*** SUMMARY ***
+Total pot 4000 | Rake 220 
+Board [6d 9d Tc Ad 8h]
+Seat 1: awsumer (button) folded on the River
+Seat 2: sam46 (small blind) folded on the River
+Seat 3: donald_illich (big blind) folded on the River
+Seat 4: rougecoeur69 showed [Qs Jd] and won (3780) with a straight, Eight to Queen
+Seat 5: donodion folded before Flop (didn't bet)
+Seat 6: Kelly631 folded on the River
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: jlbarra mucked [Kd 7c]
+Seat 9: CZL40 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259551541998:  Hold'em No Limit (250/500) - 2026/02/01 19:27:10 CET [2026/02/01 13:27:10 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #2 is the button
+Seat 1: awsumer (50126 in chips) 
+Seat 2: sam46 (72971 in chips) 
+Seat 3: donald_illich (45500 in chips) 
+Seat 4: rougecoeur69 (90453 in chips) 
+Seat 5: donodion (34590 in chips) 
+Seat 6: Kelly631 (49000 in chips) 
+Seat 7: jsalinas96 (86750 in chips) 
+Seat 8: jlbarra (53144 in chips) 
+Seat 9: CZL40 (238607 in chips) 
+donald_illich: posts small blind 250
+rougecoeur69: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8h 3h]
+donodion: folds 
+Kelly631: calls 500
+jsalinas96: folds 
+jlbarra: calls 500
+CZL40: folds 
+awsumer: folds 
+sam46: folds 
+donald_illich: raises 1000 to 1500
+rougecoeur69: calls 1000
+Kelly631: calls 1000
+jlbarra: calls 1000
+*** FLOP *** [9c 4d 6d]
+donald_illich: bets 2000
+rougecoeur69: calls 2000
+Kelly631: folds 
+jlbarra: calls 2000
+*** TURN *** [9c 4d 6d] [As]
+donald_illich: checks 
+rougecoeur69: checks 
+jlbarra: bets 2500
+donald_illich: folds 
+rougecoeur69: calls 2500
+*** RIVER *** [9c 4d 6d As] [Tc]
+rougecoeur69: checks 
+jlbarra: bets 3000
+rougecoeur69: folds 
+Uncalled bet (3000) returned to jlbarra
+jlbarra collected 16065 from pot
+jlbarra: doesn't show hand 
+*** SUMMARY ***
+Total pot 17000 | Rake 935 
+Board [9c 4d 6d As Tc]
+Seat 1: awsumer folded before Flop (didn't bet)
+Seat 2: sam46 (button) folded before Flop (didn't bet)
+Seat 3: donald_illich (small blind) folded on the Turn
+Seat 4: rougecoeur69 (big blind) folded on the River
+Seat 5: donodion folded before Flop (didn't bet)
+Seat 6: Kelly631 folded on the Flop
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: jlbarra collected (16065)
+Seat 9: CZL40 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259551562961:  Hold'em No Limit (250/500) - 2026/02/01 19:28:25 CET [2026/02/01 13:28:25 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #3 is the button
+Seat 6: Kelly631 (47500 in chips) is sitting out
+Seat 1: awsumer (50126 in chips) 
+Seat 2: sam46 (72971 in chips) 
+Seat 3: donald_illich (42000 in chips) 
+Seat 4: rougecoeur69 (84453 in chips) 
+Seat 5: donodion (34590 in chips) 
+Seat 7: jsalinas96 (86750 in chips) 
+Seat 8: jlbarra (63209 in chips) 
+Seat 9: CZL40 (238607 in chips) 
+rougecoeur69: posts small blind 250
+donodion: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Th Kc]
+jsalinas96: calls 500
+jlbarra: calls 500
+CZL40: calls 500
+awsumer: calls 500
+sam46: folds 
+donald_illich: raises 1000 to 1500
+rougecoeur69: calls 1250
+donodion: raises 1000 to 2500
+jsalinas96: calls 2000
+jlbarra: folds 
+CZL40: calls 2000
+awsumer: folds 
+donald_illich: calls 1000
+rougecoeur69: calls 1000
+*** FLOP *** [5c Qc 9s]
+rougecoeur69: bets 1500
+donodion: calls 1500
+jsalinas96: calls 1500
+CZL40: calls 1500
+donald_illich: folds 
+*** TURN *** [5c Qc 9s] [9c]
+rougecoeur69: bets 1500
+donodion: raises 1500 to 3000
+jsalinas96: calls 3000
+CZL40: calls 3000
+rougecoeur69: calls 1500
+*** RIVER *** [5c Qc 9s 9c] [Jd]
+rougecoeur69: checks 
+donodion: bets 9000
+jsalinas96: raises 9000 to 18000
+CZL40: folds 
+rougecoeur69: folds 
+donodion: folds 
+Uncalled bet (9000) returned to jsalinas96
+jsalinas96 collected 46777 from pot
+jsalinas96: doesn't show hand 
+*** SUMMARY ***
+Total pot 49500 | Rake 2723 
+Board [5c Qc 9s 9c Jd]
+Seat 6: Kelly631
+Seat 1: awsumer folded before Flop
+Seat 2: sam46 folded before Flop (didn't bet)
+Seat 3: donald_illich (button) folded on the Flop
+Seat 4: rougecoeur69 (small blind) folded on the River
+Seat 5: donodion (big blind) folded on the River
+Seat 7: jsalinas96 collected (46777)
+Seat 8: jlbarra folded before Flop
+Seat 9: CZL40 folded on the River
+
+
+
+PokerStars Hand #259551587665:  Hold'em No Limit (250/500) - 2026/02/01 19:29:52 CET [2026/02/01 13:29:52 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #4 is the button
+Seat 6: Kelly631 (47500 in chips) is sitting out
+Seat 1: awsumer (49626 in chips) 
+Seat 2: sam46 (72971 in chips) 
+Seat 3: donald_illich (39500 in chips) 
+Seat 4: rougecoeur69 (77453 in chips) 
+Seat 5: donodion (18590 in chips) 
+Seat 7: jsalinas96 (117527 in chips) 
+Seat 8: jlbarra (62709 in chips) 
+Seat 9: CZL40 (231607 in chips) 
+donodion: posts small blind 250
+jsalinas96: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6d 2d]
+jlbarra: calls 500
+CZL40: folds 
+awsumer: raises 1500 to 2000
+sam46: folds 
+donald_illich: folds 
+rougecoeur69: calls 2000
+donodion: folds 
+jsalinas96: folds 
+jlbarra: calls 1500
+*** FLOP *** [Qh 3s 5h]
+jlbarra: checks 
+awsumer: checks 
+rougecoeur69: checks 
+*** TURN *** [Qh 3s 5h] [Jc]
+jlbarra: checks 
+awsumer: bets 1500
+rougecoeur69: folds 
+jlbarra: calls 1500
+*** RIVER *** [Qh 3s 5h Jc] [7s]
+jlbarra: checks 
+awsumer: bets 3000
+jlbarra: calls 3000
+*** SHOW DOWN ***
+awsumer: shows [Th As] (high card Ace)
+jlbarra: shows [Kc Jh] (a pair of Jacks)
+jlbarra collected 14884 from pot
+*** SUMMARY ***
+Total pot 15750 | Rake 866 
+Board [Qh 3s 5h Jc 7s]
+Seat 6: Kelly631
+Seat 1: awsumer showed [Th As] and lost with high card Ace
+Seat 2: sam46 folded before Flop (didn't bet)
+Seat 3: donald_illich folded before Flop (didn't bet)
+Seat 4: rougecoeur69 (button) folded on the Turn
+Seat 5: donodion (small blind) folded before Flop
+Seat 7: jsalinas96 (big blind) folded before Flop
+Seat 8: jlbarra showed [Kc Jh] and won (14884) with a pair of Jacks
+Seat 9: CZL40 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259551604648:  Hold'em No Limit (250/500) - 2026/02/01 19:30:51 CET [2026/02/01 13:30:51 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #5 is the button
+Seat 6: Kelly631 (47500 in chips) is sitting out
+Seat 1: awsumer (43126 in chips) 
+Seat 2: sam46 (72971 in chips) 
+Seat 3: donald_illich (39500 in chips) 
+Seat 4: rougecoeur69 (75453 in chips) 
+Seat 5: donodion (18340 in chips) 
+Seat 7: jsalinas96 (117027 in chips) 
+Seat 8: jlbarra (71093 in chips) 
+Seat 9: CZL40 (231607 in chips) 
+jsalinas96: posts small blind 250
+jlbarra: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4s 2c]
+CZL40: folds 
+awsumer: raises 2500 to 3000
+sam46: folds 
+donald_illich: calls 3000
+rougecoeur69: folds 
+donodion: folds 
+jsalinas96: folds 
+jlbarra: folds 
+*** FLOP *** [6h 4h 9d]
+rougecoeur69 leaves the table
+awsumer: bets 2000
+donald_illich: calls 2000
+*** TURN *** [6h 4h 9d] [8d]
+awsumer: bets 3000
+donald_illich: calls 3000
+*** RIVER *** [6h 4h 9d 8d] [As]
+awsumer: bets 4000
+donald_illich: calls 4000
+*** SHOW DOWN ***
+awsumer: shows [Th Ac] (a pair of Aces)
+donald_illich: shows [Jh Ah] (a pair of Aces - Jack kicker)
+donald_illich collected 23389 from pot
+*** SUMMARY ***
+Total pot 24750 | Rake 1361 
+Board [6h 4h 9d 8d As]
+Seat 6: Kelly631
+Seat 1: awsumer showed [Th Ac] and lost with a pair of Aces
+Seat 2: sam46 folded before Flop (didn't bet)
+Seat 3: donald_illich showed [Jh Ah] and won (23389) with a pair of Aces
+Seat 4: rougecoeur69 folded before Flop (didn't bet)
+Seat 5: donodion (button) folded before Flop (didn't bet)
+Seat 7: jsalinas96 (small blind) folded before Flop
+Seat 8: jlbarra (big blind) folded before Flop
+Seat 9: CZL40 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259551618159:  Hold'em No Limit (250/500) - 2026/02/01 19:31:38 CET [2026/02/01 13:31:38 ET]
+Table 'Parysatis VII' 9-max (Play Money) Seat #7 is the button
+Seat 1: awsumer (31126 in chips) 
+Seat 2: sam46 (72971 in chips) 
+Seat 3: donald_illich (50889 in chips) 
+Seat 5: donodion (18340 in chips) 
+Seat 6: Kelly631 (47500 in chips) 
+Seat 7: jsalinas96 (116777 in chips) 
+Seat 8: jlbarra (70593 in chips) 
+Seat 9: CZL40 (231607 in chips) 
+jlbarra: posts small blind 250
+CZL40: posts big blind 500
+Kelly631: posts small & big blinds 750
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Kh Kd]
+awsumer: raises 2000 to 2500
+sam46: folds 
+donald_illich: calls 2500
+donodion: raises 4500 to 7000
+Kelly631: folds 
+jsalinas96: calls 7000
+jlbarra: calls 6750
+CZL40: folds 
+awsumer: raises 24126 to 31126 and is all-in
+donald_illich: folds 
+donodion: calls 11340 and is all-in
+jsalinas96: calls 24126
+jlbarra: calls 24126
+*** FLOP *** [8h 8s 7c]
+jlbarra: checks 
+jsalinas96: checks 
+*** TURN *** [8h 8s 7c] [2h]
+jlbarra: bets 19000
+jsalinas96: calls 19000
+*** RIVER *** [8h 8s 7c 2h] [8c]
+misterwitch joins the table at seat #4 
+misterwitch is disconnected 
+jlbarra: bets 5000
+jsalinas96: raises 61651 to 66651 and is all-in
+jlbarra: calls 15467 and is all-in
+Uncalled bet (46184) returned to jsalinas96
+*** SHOW DOWN ***
+jsalinas96: shows [Kh Kd] (a full house, Eights full of Kings)
+jlbarra: shows [7s As] (a full house, Eights full of Sevens)
+jsalinas96 collected 74593 from side pot-2 
+awsumer: shows [Td Ac] (three of a kind, Eights)
+jsalinas96 collected 36248 from side pot-1 
+donodion: shows [Tc Ks] (three of a kind, Eights)
+jsalinas96 collected 72869 from main pot
+*** SUMMARY ***
+Total pot 194402 Main pot 72869. Side pot-1 36248. Side pot-2 74593. | Rake 10692 
+Board [8h 8s 7c 2h 8c]
+Seat 1: awsumer showed [Td Ac] and lost with three of a kind, Eights
+Seat 2: sam46 folded before Flop (didn't bet)
+Seat 3: donald_illich folded before Flop
+Seat 5: donodion showed [Tc Ks] and lost with three of a kind, Eights
+Seat 6: Kelly631 folded before Flop (didn't bet)
+Seat 7: jsalinas96 (button) showed [Kh Kd] and won (183710) with a full house, Eights full of Kings
+Seat 8: jlbarra (small blind) showed [7s As] and lost with a full house, Eights full of Sevens
+Seat 9: CZL40 (big blind) folded before Flop
+
+
+

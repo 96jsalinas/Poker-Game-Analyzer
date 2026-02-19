@@ -1,0 +1,2117 @@
+﻿PokerStars Hand #259615520628: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level I (10/20) - 2026/02/06 16:01:00 CET [2026/02/06 10:01:00 ET]
+Table '3970436932 1' 9-max Seat #1 is the button
+Seat 1: Heron1960 (1500 in chips) 
+Seat 2: JazzWill (1500 in chips) 
+Seat 3: AldairRRDR (1500 in chips) 
+Seat 4: MantisNN (1500 in chips) 
+Seat 5: jsalinas96 (1500 in chips) 
+Seat 7: MMc2112 (1500 in chips) 
+Seat 8: Bush1962 (1500 in chips) 
+Seat 9: Montana9797 (1500 in chips) 
+Heron1960: posts the ante 2
+JazzWill: posts the ante 2
+AldairRRDR: posts the ante 2
+MantisNN: posts the ante 2
+jsalinas96: posts the ante 2
+MMc2112: posts the ante 2
+Bush1962: posts the ante 2
+Montana9797: posts the ante 2
+JazzWill: posts small blind 10
+AldairRRDR: posts big blind 20
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4d 9d]
+juhubx is disconnected 
+MantisNN: folds 
+jsalinas96: folds 
+MMc2112: folds 
+Bush1962 has timed out
+Bush1962: folds 
+Montana9797: calls 20
+Heron1960: folds 
+JazzWill: calls 10
+AldairRRDR has timed out
+AldairRRDR: checks 
+*** FLOP *** [Qd 5c 6s]
+JazzWill: bets 20
+AldairRRDR: calls 20
+Montana9797: calls 20
+*** TURN *** [Qd 5c 6s] [Ah]
+JazzWill: checks 
+AldairRRDR: bets 20
+Montana9797: calls 20
+JazzWill: calls 20
+*** RIVER *** [Qd 5c 6s Ah] [5d]
+JazzWill: checks 
+AldairRRDR: bets 20
+Montana9797: calls 20
+JazzWill: calls 20
+*** SHOW DOWN ***
+AldairRRDR: shows [7s Qs] (two pair, Queens and Fives)
+Montana9797: shows [Kd Qh] (two pair, Queens and Fives)
+JazzWill: shows [Qc 2d] (two pair, Queens and Fives)
+JazzWill collected 86 from pot
+AldairRRDR collected 85 from pot
+Montana9797 collected 85 from pot
+*** SUMMARY ***
+Total pot 256 | Rake 0 
+Board [Qd 5c 6s Ah 5d]
+Seat 1: Heron1960 (button) folded before Flop (didn't bet)
+Seat 2: JazzWill (small blind) showed [Qc 2d] and won (86) with two pair, Queens and Fives
+Seat 3: AldairRRDR (big blind) showed [7s Qs] and won (85) with two pair, Queens and Fives
+Seat 4: MantisNN folded before Flop (didn't bet)
+Seat 5: jsalinas96 folded before Flop (didn't bet)
+Seat 7: MMc2112 folded before Flop (didn't bet)
+Seat 8: Bush1962 folded before Flop (didn't bet)
+Seat 9: Montana9797 showed [Kd Qh] and won (85) with two pair, Queens and Fives
+
+
+
+PokerStars Hand #259615533078: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level I (10/20) - 2026/02/06 16:02:20 CET [2026/02/06 10:02:20 ET]
+Table '3970436932 1' 9-max Seat #2 is the button
+Seat 1: Heron1960 (1498 in chips) 
+Seat 2: JazzWill (1504 in chips) 
+Seat 3: AldairRRDR (1503 in chips) 
+Seat 4: MantisNN (1498 in chips) 
+Seat 5: jsalinas96 (1498 in chips) 
+Seat 6: juhubx (1500 in chips) 
+Seat 7: MMc2112 (1498 in chips) 
+Seat 8: Bush1962 (1498 in chips) 
+Seat 9: Montana9797 (1503 in chips) 
+Heron1960: posts the ante 2
+JazzWill: posts the ante 2
+AldairRRDR: posts the ante 2
+MantisNN: posts the ante 2
+jsalinas96: posts the ante 2
+juhubx: posts the ante 2
+MMc2112: posts the ante 2
+Bush1962: posts the ante 2
+Montana9797: posts the ante 2
+AldairRRDR: posts small blind 10
+MantisNN: posts big blind 20
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5h 8s]
+jsalinas96: folds 
+juhubx: calls 20
+MMc2112: folds 
+Bush1962: raises 20 to 40
+Montana9797: folds 
+Heron1960: folds 
+JazzWill: folds 
+AldairRRDR: calls 30
+MantisNN: calls 20
+juhubx: calls 20
+*** FLOP *** [7s Kh 7c]
+AldairRRDR: checks 
+MantisNN has timed out
+MantisNN: checks 
+juhubx: checks 
+Bush1962: bets 178
+AldairRRDR: folds 
+MantisNN: folds 
+juhubx: folds 
+Uncalled bet (178) returned to Bush1962
+Bush1962 collected 178 from pot
+Bush1962: doesn't show hand 
+*** SUMMARY ***
+Total pot 178 | Rake 0 
+Board [7s Kh 7c]
+Seat 1: Heron1960 folded before Flop (didn't bet)
+Seat 2: JazzWill (button) folded before Flop (didn't bet)
+Seat 3: AldairRRDR (small blind) folded on the Flop
+Seat 4: MantisNN (big blind) folded on the Flop
+Seat 5: jsalinas96 folded before Flop (didn't bet)
+Seat 6: juhubx folded on the Flop
+Seat 7: MMc2112 folded before Flop (didn't bet)
+Seat 8: Bush1962 collected (178)
+Seat 9: Montana9797 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259615545499: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level I (10/20) - 2026/02/06 16:03:38 CET [2026/02/06 10:03:38 ET]
+Table '3970436932 1' 9-max Seat #3 is the button
+Seat 1: Heron1960 (1496 in chips) 
+Seat 2: JazzWill (1502 in chips) 
+Seat 3: AldairRRDR (1461 in chips) 
+Seat 4: MantisNN (1456 in chips) 
+Seat 5: jsalinas96 (1496 in chips) 
+Seat 6: juhubx (1458 in chips) 
+Seat 7: MMc2112 (1496 in chips) 
+Seat 8: Bush1962 (1634 in chips) 
+Seat 9: Montana9797 (1501 in chips) 
+Heron1960: posts the ante 2
+JazzWill: posts the ante 2
+AldairRRDR: posts the ante 2
+MantisNN: posts the ante 2
+jsalinas96: posts the ante 2
+juhubx: posts the ante 2
+MMc2112: posts the ante 2
+Bush1962: posts the ante 2
+Montana9797: posts the ante 2
+MantisNN: posts small blind 10
+jsalinas96: posts big blind 20
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8d 6d]
+juhubx: folds 
+MMc2112: calls 20
+Bush1962: calls 20
+Montana9797: folds 
+Heron1960: folds 
+JazzWill: folds 
+AldairRRDR: calls 20
+MantisNN: calls 10
+jsalinas96: checks 
+*** FLOP *** [4d Ah 8c]
+MantisNN: checks 
+jsalinas96: checks 
+MMc2112: checks 
+Bush1962: bets 20
+AldairRRDR: folds 
+MantisNN: folds 
+jsalinas96: calls 20
+MMc2112: calls 20
+*** TURN *** [4d Ah 8c] [Tc]
+jsalinas96: checks 
+MMc2112: checks 
+Bush1962: bets 20
+jsalinas96: folds 
+MMc2112: calls 20
+*** RIVER *** [4d Ah 8c Tc] [6h]
+MMc2112: checks 
+Bush1962: bets 218
+MMc2112: calls 218
+*** SHOW DOWN ***
+Bush1962: shows [5h 4h] (a pair of Fours)
+MMc2112: shows [Ac 2c] (a pair of Aces)
+MMc2112 collected 654 from pot
+*** SUMMARY ***
+Total pot 654 | Rake 0 
+Board [4d Ah 8c Tc 6h]
+Seat 1: Heron1960 folded before Flop (didn't bet)
+Seat 2: JazzWill folded before Flop (didn't bet)
+Seat 3: AldairRRDR (button) folded on the Flop
+Seat 4: MantisNN (small blind) folded on the Flop
+Seat 5: jsalinas96 (big blind) folded on the Turn
+Seat 6: juhubx folded before Flop (didn't bet)
+Seat 7: MMc2112 showed [Ac 2c] and won (654) with a pair of Aces
+Seat 8: Bush1962 showed [5h 4h] and lost with a pair of Fours
+Seat 9: Montana9797 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259615555574: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level I (10/20) - 2026/02/06 16:04:41 CET [2026/02/06 10:04:41 ET]
+Table '3970436932 1' 9-max Seat #4 is the button
+Seat 1: Heron1960 (1494 in chips) 
+Seat 2: JazzWill (1500 in chips) 
+Seat 3: AldairRRDR (1439 in chips) 
+Seat 4: MantisNN (1434 in chips) 
+Seat 5: jsalinas96 (1454 in chips) 
+Seat 7: MMc2112 (1870 in chips) 
+Seat 8: Bush1962 (1354 in chips) 
+Seat 9: Montana9797 (1499 in chips) 
+Heron1960: posts the ante 2
+JazzWill: posts the ante 2
+AldairRRDR: posts the ante 2
+MantisNN: posts the ante 2
+jsalinas96: posts the ante 2
+MMc2112: posts the ante 2
+Bush1962: posts the ante 2
+Montana9797: posts the ante 2
+jsalinas96: posts small blind 10
+MMc2112: posts big blind 20
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4d Kh]
+Bush1962: calls 20
+Montana9797: folds 
+Heron1960: calls 20
+JazzWill: calls 20
+AldairRRDR: folds 
+MantisNN: calls 20
+jsalinas96: folds 
+MMc2112: checks 
+*** FLOP *** [6c Kc Ac]
+MMc2112: checks 
+Bush1962: bets 126
+Heron1960: folds 
+JazzWill: calls 126
+MantisNN: calls 126
+MMc2112: folds 
+*** TURN *** [6c Kc Ac] [Ks]
+JazzWill is disconnected 
+Bush1962: bets 20
+JazzWill has timed out while disconnected
+JazzWill: folds 
+MantisNN: raises 1266 to 1286 and is all-in
+Bush1962: folds 
+Uncalled bet (1266) returned to MantisNN
+MantisNN collected 544 from pot
+MantisNN: doesn't show hand 
+JazzWill is disconnected 
+*** SUMMARY ***
+Total pot 544 | Rake 0 
+Board [6c Kc Ac Ks]
+Seat 1: Heron1960 folded on the Flop
+Seat 2: JazzWill folded on the Turn
+Seat 3: AldairRRDR folded before Flop (didn't bet)
+Seat 4: MantisNN (button) collected (544)
+Seat 5: jsalinas96 (small blind) folded before Flop
+Seat 7: MMc2112 (big blind) folded on the Flop
+Seat 8: Bush1962 folded on the Turn
+Seat 9: Montana9797 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259615569503: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level II (15/30) - 2026/02/06 16:06:07 CET [2026/02/06 10:06:07 ET]
+Table '3970436932 1' 9-max Seat #5 is the button
+Seat 1: Heron1960 (1472 in chips) 
+Seat 2: JazzWill (1352 in chips) is sitting out
+Seat 3: AldairRRDR (1437 in chips) 
+Seat 4: MantisNN (1810 in chips) 
+Seat 5: jsalinas96 (1442 in chips) 
+Seat 6: RockRac24 (1500 in chips) out of hand (moved from another table into small blind)
+Seat 7: MMc2112 (1848 in chips) 
+Seat 8: Bush1962 (1186 in chips) 
+Seat 9: Montana9797 (1497 in chips) 
+RockRac24 will be allowed to play after the button
+Heron1960: posts the ante 3
+JazzWill: posts the ante 3
+AldairRRDR: posts the ante 3
+MantisNN: posts the ante 3
+jsalinas96: posts the ante 3
+MMc2112: posts the ante 3
+Bush1962: posts the ante 3
+Montana9797: posts the ante 3
+MMc2112: posts small blind 15
+Bush1962: posts big blind 30
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4s 3d]
+JazzWill is disconnected 
+JazzWill is disconnected 
+Montana9797: calls 30
+Heron1960: calls 30
+JazzWill: folds 
+AldairRRDR: folds 
+MantisNN: calls 30
+jsalinas96: folds 
+MMc2112: calls 15
+Bush1962: raises 1153 to 1183 and is all-in
+Montana9797: folds 
+Heron1960: folds 
+MantisNN: calls 1153
+MMc2112: folds 
+*** FLOP *** [8c 8h 6s]
+*** TURN *** [8c 8h 6s] [2h]
+*** RIVER *** [8c 8h 6s 2h] [6c]
+*** SHOW DOWN ***
+Bush1962: shows [2d Ad] (two pair, Eights and Sixes)
+MantisNN: shows [Kd As] (two pair, Eights and Sixes)
+Bush1962 collected 1240 from pot
+MantisNN collected 1240 from pot
+*** SUMMARY ***
+Total pot 2480 | Rake 0 
+Board [8c 8h 6s 2h 6c]
+Seat 1: Heron1960 folded before Flop
+Seat 2: JazzWill folded before Flop (didn't bet)
+Seat 3: AldairRRDR folded before Flop (didn't bet)
+Seat 4: MantisNN showed [Kd As] and won (1240) with two pair, Eights and Sixes
+Seat 5: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 7: MMc2112 (small blind) folded before Flop
+Seat 8: Bush1962 (big blind) showed [2d Ad] and won (1240) with two pair, Eights and Sixes
+Seat 9: Montana9797 folded before Flop
+
+
+
+PokerStars Hand #259615576573: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level II (15/30) - 2026/02/06 16:06:50 CET [2026/02/06 10:06:50 ET]
+Table '3970436932 1' 9-max Seat #7 is the button
+Seat 1: Heron1960 (1439 in chips) 
+Seat 2: JazzWill (1349 in chips) 
+Seat 3: AldairRRDR (1434 in chips) 
+Seat 4: MantisNN (1864 in chips) 
+Seat 5: jsalinas96 (1439 in chips) 
+Seat 6: RockRac24 (1500 in chips) 
+Seat 7: MMc2112 (1815 in chips) 
+Seat 8: Bush1962 (1240 in chips) 
+Heron1960: posts the ante 3
+JazzWill: posts the ante 3
+AldairRRDR: posts the ante 3
+MantisNN: posts the ante 3
+jsalinas96: posts the ante 3
+RockRac24: posts the ante 3
+MMc2112: posts the ante 3
+Bush1962: posts the ante 3
+Bush1962: posts small blind 15
+Heron1960: posts big blind 30
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qd Js]
+JazzWill: calls 30
+AldairRRDR: calls 30
+MantisNN: folds 
+jsalinas96: calls 30
+RockRac24: calls 30
+MMc2112: folds 
+Bush1962: calls 15
+Heron1960: checks 
+*** FLOP *** [3d 8h 3h]
+Bush1962: bets 30
+Heron1960: folds 
+JazzWill: calls 30
+AldairRRDR: calls 30
+jsalinas96: calls 30
+RockRac24: calls 30
+*** TURN *** [3d 8h 3h] [As]
+Bush1962: bets 30
+JazzWill: calls 30
+AldairRRDR: folds 
+jsalinas96: folds 
+RockRac24: calls 30
+*** RIVER *** [3d 8h 3h As] [7d]
+Bush1962: bets 30
+JazzWill: calls 30
+RockRac24: raises 90 to 120
+Bush1962: folds 
+JazzWill: folds 
+Uncalled bet (90) returned to RockRac24
+RockRac24 collected 534 from pot
+*** SUMMARY ***
+Total pot 534 | Rake 0 
+Board [3d 8h 3h As 7d]
+Seat 1: Heron1960 (big blind) folded on the Flop
+Seat 2: JazzWill folded on the River
+Seat 3: AldairRRDR folded on the Turn
+Seat 4: MantisNN folded before Flop (didn't bet)
+Seat 5: jsalinas96 folded on the Turn
+Seat 6: RockRac24 collected (534)
+Seat 7: MMc2112 (button) folded before Flop (didn't bet)
+Seat 8: Bush1962 (small blind) folded on the River
+
+
+
+PokerStars Hand #259615588893: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level II (15/30) - 2026/02/06 16:08:06 CET [2026/02/06 10:08:06 ET]
+Table '3970436932 1' 9-max Seat #8 is the button
+Seat 1: Heron1960 (1406 in chips) 
+Seat 3: AldairRRDR (1371 in chips) 
+Seat 4: MantisNN (1861 in chips) 
+Seat 5: jsalinas96 (1376 in chips) 
+Seat 6: RockRac24 (1911 in chips) 
+Seat 7: MMc2112 (1812 in chips) 
+Seat 8: Bush1962 (1117 in chips) 
+Seat 9: jim 071969 (1500 in chips) out of hand (moved from another table into small blind)
+jim 071969 will be allowed to play after the button
+Heron1960: posts the ante 3
+AldairRRDR: posts the ante 3
+MantisNN: posts the ante 3
+jsalinas96: posts the ante 3
+RockRac24: posts the ante 3
+MMc2112: posts the ante 3
+Bush1962: posts the ante 3
+Heron1960: posts small blind 15
+AldairRRDR: posts big blind 30
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Td Ac]
+MantisNN: folds 
+jsalinas96: calls 30
+RockRac24: calls 30
+MMc2112: folds 
+Bush1962: calls 30
+Heron1960: calls 15
+AldairRRDR: checks 
+*** FLOP *** [5h Qs 8h]
+Heron1960: checks 
+AldairRRDR: checks 
+jsalinas96: checks 
+RockRac24: checks 
+Bush1962: bets 1084 and is all-in
+Heron1960: folds 
+AldairRRDR: folds 
+jsalinas96: folds 
+RockRac24: folds 
+Uncalled bet (1084) returned to Bush1962
+Bush1962 collected 171 from pot
+Bush1962: doesn't show hand 
+*** SUMMARY ***
+Total pot 171 | Rake 0 
+Board [5h Qs 8h]
+Seat 1: Heron1960 (small blind) folded on the Flop
+Seat 3: AldairRRDR (big blind) folded on the Flop
+Seat 4: MantisNN folded before Flop (didn't bet)
+Seat 5: jsalinas96 folded on the Flop
+Seat 6: RockRac24 folded on the Flop
+Seat 7: MMc2112 folded before Flop (didn't bet)
+Seat 8: Bush1962 (button) collected (171)
+
+
+
+PokerStars Hand #259615595624: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level II (15/30) - 2026/02/06 16:08:48 CET [2026/02/06 10:08:48 ET]
+Table '3970436932 1' 9-max Seat #1 is the button
+Seat 1: Heron1960 (1373 in chips) 
+Seat 2: d_fond (1500 in chips) out of hand (moved from another table into small blind)
+Seat 3: AldairRRDR (1338 in chips) 
+Seat 4: MantisNN (1858 in chips) 
+Seat 5: jsalinas96 (1343 in chips) 
+Seat 6: RockRac24 (1878 in chips) 
+Seat 7: MMc2112 (1809 in chips) 
+Seat 8: Bush1962 (1255 in chips) 
+Seat 9: jim 071969 (1500 in chips) 
+d_fond will be allowed to play after the button
+Heron1960: posts the ante 3
+AldairRRDR: posts the ante 3
+MantisNN: posts the ante 3
+jsalinas96: posts the ante 3
+RockRac24: posts the ante 3
+MMc2112: posts the ante 3
+Bush1962: posts the ante 3
+jim 071969: posts the ante 3
+AldairRRDR: posts small blind 15
+MantisNN: posts big blind 30
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4c 2s]
+jsalinas96: folds 
+RockRac24: calls 30
+MMc2112: calls 30
+Bush1962: calls 30
+jim 071969: calls 30
+Heron1960: folds 
+AldairRRDR: calls 15
+MantisNN: checks 
+*** FLOP *** [6s 2c Td]
+AldairRRDR: checks 
+MantisNN: checks 
+RockRac24: bets 30
+MMc2112: calls 30
+Bush1962: calls 30
+jim 071969: calls 30
+AldairRRDR: calls 30
+MantisNN: calls 30
+*** TURN *** [6s 2c Td] [Jc]
+AldairRRDR: checks 
+MantisNN: checks 
+RockRac24: bets 60
+MMc2112: calls 60
+Bush1962: calls 60
+jim 071969: folds 
+AldairRRDR: calls 60
+MantisNN: calls 60
+*** RIVER *** [6s 2c Td Jc] [Kc]
+AldairRRDR: checks 
+MantisNN: checks 
+RockRac24: bets 1755 and is all-in
+MMc2112: calls 1686 and is all-in
+Bush1962: calls 1132 and is all-in
+AldairRRDR: folds 
+MantisNN: folds 
+Uncalled bet (69) returned to RockRac24
+*** SHOW DOWN ***
+RockRac24: shows [Tc Th] (three of a kind, Tens)
+MMc2112: shows [Ks Ah] (a pair of Kings)
+RockRac24 collected 1108 from side pot
+Bush1962: shows [Ac 3c] (a flush, Ace high)
+Bush1962 collected 4080 from main pot
+MMc2112 finished the tournament
+*** SUMMARY ***
+Total pot 5188 Main pot 4080. Side pot 1108. | Rake 0 
+Board [6s 2c Td Jc Kc]
+Seat 1: Heron1960 (button) folded before Flop (didn't bet)
+Seat 3: AldairRRDR (small blind) folded on the River
+Seat 4: MantisNN (big blind) folded on the River
+Seat 5: jsalinas96 folded before Flop (didn't bet)
+Seat 6: RockRac24 showed [Tc Th] and won (1108) with three of a kind, Tens
+Seat 7: MMc2112 showed [Ks Ah] and lost with a pair of Kings
+Seat 8: Bush1962 showed [Ac 3c] and won (4080) with a flush, Ace high
+Seat 9: jim 071969 folded on the Turn
+
+
+
+PokerStars Hand #259615609891: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level III (20/40) - 2026/02/06 16:10:16 CET [2026/02/06 10:10:16 ET]
+Table '3970436932 1' 9-max Seat #3 is the button
+Seat 1: Heron1960 (1370 in chips) 
+Seat 2: d_fond (1500 in chips) 
+Seat 3: AldairRRDR (1215 in chips) 
+Seat 4: MantisNN (1735 in chips) 
+Seat 5: jsalinas96 (1340 in chips) 
+Seat 6: RockRac24 (1177 in chips) 
+Seat 8: Bush1962 (4080 in chips) 
+Seat 9: jim 071969 (1437 in chips) 
+Heron1960: posts the ante 4
+d_fond: posts the ante 4
+AldairRRDR: posts the ante 4
+MantisNN: posts the ante 4
+jsalinas96: posts the ante 4
+RockRac24: posts the ante 4
+Bush1962: posts the ante 4
+jim 071969: posts the ante 4
+MantisNN: posts small blind 20
+jsalinas96: posts big blind 40
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9h 8s]
+RockRac24: folds 
+Bush1962: raises 40 to 80
+jim 071969: folds 
+Heron1960: folds 
+d_fond: folds 
+AldairRRDR: folds 
+MantisNN: calls 60
+jsalinas96: folds 
+*** FLOP *** [4d 4c Ah]
+MantisNN: bets 120
+Bush1962: folds 
+Uncalled bet (120) returned to MantisNN
+MantisNN collected 232 from pot
+MantisNN: doesn't show hand 
+*** SUMMARY ***
+Total pot 232 | Rake 0 
+Board [4d 4c Ah]
+Seat 1: Heron1960 folded before Flop (didn't bet)
+Seat 2: d_fond folded before Flop (didn't bet)
+Seat 3: AldairRRDR (button) folded before Flop (didn't bet)
+Seat 4: MantisNN (small blind) collected (232)
+Seat 5: jsalinas96 (big blind) folded before Flop
+Seat 6: RockRac24 folded before Flop (didn't bet)
+Seat 8: Bush1962 folded on the Flop
+Seat 9: jim 071969 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259615614938: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level III (20/40) - 2026/02/06 16:10:47 CET [2026/02/06 10:10:47 ET]
+Table '3970436932 1' 9-max Seat #4 is the button
+Seat 1: Heron1960 (1366 in chips) 
+Seat 2: d_fond (1496 in chips) 
+Seat 3: AldairRRDR (1211 in chips) 
+Seat 4: MantisNN (1883 in chips) 
+Seat 5: jsalinas96 (1296 in chips) 
+Seat 6: RockRac24 (1173 in chips) 
+Seat 7: MMc2112 (1500 in chips) 
+Seat 8: Bush1962 (3996 in chips) 
+Seat 9: jim 071969 (1433 in chips) 
+Heron1960: posts the ante 4
+d_fond: posts the ante 4
+AldairRRDR: posts the ante 4
+MantisNN: posts the ante 4
+jsalinas96: posts the ante 4
+RockRac24: posts the ante 4
+MMc2112: posts the ante 4
+Bush1962: posts the ante 4
+jim 071969: posts the ante 4
+jsalinas96: posts small blind 20
+RockRac24: posts big blind 40
+*** HOLE CARDS ***
+Dealt to jsalinas96 [7s 2h]
+MMc2112: folds 
+Bush1962: raises 40 to 80
+jim 071969: folds 
+Heron1960: folds 
+d_fond: folds 
+AldairRRDR: folds 
+MantisNN: folds 
+jsalinas96: folds 
+RockRac24: calls 40
+*** FLOP *** [Ts 6c 5d]
+RockRac24: checks 
+Bush1962: bets 120
+RockRac24: folds 
+Uncalled bet (120) returned to Bush1962
+Bush1962 collected 216 from pot
+Bush1962: doesn't show hand 
+*** SUMMARY ***
+Total pot 216 | Rake 0 
+Board [Ts 6c 5d]
+Seat 1: Heron1960 folded before Flop (didn't bet)
+Seat 2: d_fond folded before Flop (didn't bet)
+Seat 3: AldairRRDR folded before Flop (didn't bet)
+Seat 4: MantisNN (button) folded before Flop (didn't bet)
+Seat 5: jsalinas96 (small blind) folded before Flop
+Seat 6: RockRac24 (big blind) folded on the Flop
+Seat 7: MMc2112 folded before Flop (didn't bet)
+Seat 8: Bush1962 collected (216)
+Seat 9: jim 071969 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259615623141: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level III (20/40) - 2026/02/06 16:11:37 CET [2026/02/06 10:11:37 ET]
+Table '3970436932 1' 9-max Seat #5 is the button
+Seat 1: Heron1960 (1362 in chips) 
+Seat 2: d_fond (1492 in chips) 
+Seat 3: AldairRRDR (1207 in chips) 
+Seat 4: MantisNN (1879 in chips) 
+Seat 5: jsalinas96 (1272 in chips) 
+Seat 6: RockRac24 (1089 in chips) 
+Seat 8: Bush1962 (4128 in chips) 
+Seat 9: jim 071969 (1429 in chips) 
+Heron1960: posts the ante 4
+d_fond: posts the ante 4
+AldairRRDR: posts the ante 4
+MantisNN: posts the ante 4
+jsalinas96: posts the ante 4
+RockRac24: posts the ante 4
+Bush1962: posts the ante 4
+jim 071969: posts the ante 4
+RockRac24: posts small blind 20
+Bush1962: posts big blind 40
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6c 4s]
+jim 071969: folds 
+Heron1960: folds 
+d_fond: folds 
+AldairRRDR: calls 40
+MantisNN: calls 40
+jsalinas96: folds 
+RockRac24: calls 20
+Bush1962: raises 40 to 80
+AldairRRDR: calls 40
+MantisNN: calls 40
+RockRac24: raises 120 to 200
+Bush1962: calls 120
+AldairRRDR: calls 120
+MantisNN: calls 120
+*** FLOP *** [Ad Kd 7h]
+RockRac24: bets 885 and is all-in
+Bush1962: folds 
+AldairRRDR: calls 885
+MantisNN: calls 885
+*** TURN *** [Ad Kd 7h] [3h]
+AldairRRDR: checks 
+MantisNN: checks 
+*** RIVER *** [Ad Kd 7h 3h] [Js]
+AldairRRDR: checks 
+MantisNN: checks 
+*** SHOW DOWN ***
+RockRac24: shows [5d 5h] (a pair of Fives)
+AldairRRDR: shows [Td Jh] (a pair of Jacks)
+MantisNN: shows [Ks Tc] (a pair of Kings)
+MantisNN collected 3487 from pot
+RockRac24 finished the tournament
+*** SUMMARY ***
+Total pot 3487 | Rake 0 
+Board [Ad Kd 7h 3h Js]
+Seat 1: Heron1960 folded before Flop (didn't bet)
+Seat 2: d_fond folded before Flop (didn't bet)
+Seat 3: AldairRRDR showed [Td Jh] and lost with a pair of Jacks
+Seat 4: MantisNN showed [Ks Tc] and won (3487) with a pair of Kings
+Seat 5: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 6: RockRac24 (small blind) showed [5d 5h] and lost with a pair of Fives
+Seat 8: Bush1962 (big blind) folded on the Flop
+Seat 9: jim 071969 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259615635016: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level III (20/40) - 2026/02/06 16:12:49 CET [2026/02/06 10:12:49 ET]
+Table '3970436932 1' 9-max Seat #8 is the button
+Seat 1: Heron1960 (1358 in chips) 
+Seat 2: d_fond (1488 in chips) 
+Seat 3: AldairRRDR (118 in chips) 
+Seat 4: MantisNN (4277 in chips) 
+Seat 5: jsalinas96 (1268 in chips) 
+Seat 7: Yoshi22g (1500 in chips) 
+Seat 8: Bush1962 (3924 in chips) 
+Heron1960: posts the ante 4
+d_fond: posts the ante 4
+AldairRRDR: posts the ante 4
+MantisNN: posts the ante 4
+jsalinas96: posts the ante 4
+Yoshi22g: posts the ante 4
+Bush1962: posts the ante 4
+Heron1960: posts small blind 20
+d_fond: posts big blind 40
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8h 6h]
+v2king62 is disconnected 
+AldairRRDR: raises 74 to 114 and is all-in
+MantisNN: calls 114
+jsalinas96: folds 
+Yoshi22g: calls 114
+Bush1962: raises 3806 to 3920 and is all-in
+Heron1960: folds 
+d_fond: folds 
+MantisNN: folds 
+Yoshi22g: folds 
+Uncalled bet (3806) returned to Bush1962
+*** FLOP *** [6c 8s 2s]
+*** TURN *** [6c 8s 2s] [Ts]
+*** RIVER *** [6c 8s 2s Ts] [6s]
+*** SHOW DOWN ***
+AldairRRDR: shows [2c Kd] (two pair, Sixes and Deuces)
+Bush1962: shows [Jd Ah] (a pair of Sixes)
+AldairRRDR collected 544 from pot
+*** SUMMARY ***
+Total pot 544 | Rake 0 
+Board [6c 8s 2s Ts 6s]
+Seat 1: Heron1960 (small blind) folded before Flop
+Seat 2: d_fond (big blind) folded before Flop
+Seat 3: AldairRRDR showed [2c Kd] and won (544) with two pair, Sixes and Deuces
+Seat 4: MantisNN folded before Flop
+Seat 5: jsalinas96 folded before Flop (didn't bet)
+Seat 7: Yoshi22g folded before Flop
+Seat 8: Bush1962 (button) showed [Jd Ah] and lost with a pair of Sixes
+
+
+
+PokerStars Hand #259615640647: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level IV (30/60) - 2026/02/06 16:13:24 CET [2026/02/06 10:13:24 ET]
+Table '3970436932 1' 9-max Seat #1 is the button
+Seat 1: Heron1960 (1334 in chips) 
+Seat 2: d_fond (1444 in chips) 
+Seat 3: AldairRRDR (544 in chips) 
+Seat 4: MantisNN (4159 in chips) 
+Seat 5: jsalinas96 (1264 in chips) 
+Seat 6: v2king62 (2035 in chips) 
+Seat 7: Yoshi22g (1382 in chips) 
+Seat 8: Bush1962 (3806 in chips) 
+Seat 9: PANCHO2283 (1500 in chips) 
+Heron1960: posts the ante 6
+d_fond: posts the ante 6
+AldairRRDR: posts the ante 6
+MantisNN: posts the ante 6
+jsalinas96: posts the ante 6
+v2king62: posts the ante 6
+Yoshi22g: posts the ante 6
+Bush1962: posts the ante 6
+PANCHO2283: posts the ante 6
+d_fond: posts small blind 30
+AldairRRDR: posts big blind 60
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Td 6h]
+MantisNN: calls 60
+jsalinas96: folds 
+v2king62: calls 60
+Yoshi22g: folds 
+Bush1962: folds 
+PANCHO2283: calls 60
+Heron1960: folds 
+d_fond: calls 30
+AldairRRDR: checks 
+*** FLOP *** [Kh Qc 8d]
+d_fond: bets 60
+AldairRRDR: raises 418 to 478 and is all-in
+MantisNN: folds 
+v2king62: calls 478
+PANCHO2283: folds 
+d_fond: calls 418
+*** TURN *** [Kh Qc 8d] [Qd]
+d_fond: checks 
+v2king62: checks 
+*** RIVER *** [Kh Qc 8d Qd] [Ks]
+d_fond: bets 300
+v2king62: folds 
+Uncalled bet (300) returned to d_fond
+*** SHOW DOWN ***
+d_fond: shows [6s Kc] (a full house, Kings full of Queens)
+AldairRRDR: shows [2c 8h] (two pair, Kings and Queens)
+d_fond collected 1788 from pot
+AldairRRDR finished the tournament
+*** SUMMARY ***
+Total pot 1788 | Rake 0 
+Board [Kh Qc 8d Qd Ks]
+Seat 1: Heron1960 (button) folded before Flop (didn't bet)
+Seat 2: d_fond (small blind) showed [6s Kc] and won (1788) with a full house, Kings full of Queens
+Seat 3: AldairRRDR (big blind) showed [2c 8h] and lost with two pair, Kings and Queens
+Seat 4: MantisNN folded on the Flop
+Seat 5: jsalinas96 folded before Flop (didn't bet)
+Seat 6: v2king62 folded on the River
+Seat 7: Yoshi22g folded before Flop (didn't bet)
+Seat 8: Bush1962 folded before Flop (didn't bet)
+Seat 9: PANCHO2283 folded on the Flop
+
+
+
+PokerStars Hand #259615648106: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level IV (30/60) - 2026/02/06 16:14:08 CET [2026/02/06 10:14:08 ET]
+Table '3970436932 1' 9-max Seat #2 is the button
+Seat 1: Heron1960 (1328 in chips) 
+Seat 2: d_fond (2688 in chips) 
+Seat 5: jsalinas96 (1258 in chips) 
+Seat 6: v2king62 (1491 in chips) 
+Seat 7: Yoshi22g (1376 in chips) 
+Seat 8: Bush1962 (3800 in chips) 
+Seat 9: PANCHO2283 (1434 in chips) 
+Heron1960: posts the ante 6
+d_fond: posts the ante 6
+jsalinas96: posts the ante 6
+v2king62: posts the ante 6
+Yoshi22g: posts the ante 6
+Bush1962: posts the ante 6
+PANCHO2283: posts the ante 6
+jsalinas96: posts small blind 30
+v2king62: posts big blind 60
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Th 6h]
+Yoshi22g: folds 
+Bush1962: calls 60
+PANCHO2283: folds 
+Heron1960: folds 
+d_fond: calls 60
+jsalinas96: calls 30
+v2king62: raises 282 to 342
+Bush1962: calls 282
+d_fond: folds 
+jsalinas96: calls 282
+*** FLOP *** [Tc 3h 2c]
+jsalinas96: checks 
+v2king62: bets 60
+Bush1962: calls 60
+jsalinas96: calls 60
+*** TURN *** [Tc 3h 2c] [Jc]
+jsalinas96: checks 
+v2king62: bets 60
+Bush1962: raises 3332 to 3392 and is all-in
+jsalinas96: folds 
+v2king62: calls 1023 and is all-in
+Uncalled bet (2309) returned to Bush1962
+*** RIVER *** [Tc 3h 2c Jc] [Qc]
+*** SHOW DOWN ***
+v2king62: shows [As Ah] (a pair of Aces)
+Bush1962: shows [Js 9h] (a pair of Jacks)
+v2king62 collected 3474 from pot
+*** SUMMARY ***
+Total pot 3474 | Rake 0 
+Board [Tc 3h 2c Jc Qc]
+Seat 1: Heron1960 folded before Flop (didn't bet)
+Seat 2: d_fond (button) folded before Flop
+Seat 5: jsalinas96 (small blind) folded on the Turn
+Seat 6: v2king62 (big blind) showed [As Ah] and won (3474) with a pair of Aces
+Seat 7: Yoshi22g folded before Flop (didn't bet)
+Seat 8: Bush1962 showed [Js 9h] and lost with a pair of Jacks
+Seat 9: PANCHO2283 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259615657024: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level IV (30/60) - 2026/02/06 16:15:02 CET [2026/02/06 10:15:02 ET]
+Table '3970436932 1' 9-max Seat #5 is the button
+Seat 1: Heron1960 (1322 in chips) 
+Seat 2: d_fond (2622 in chips) 
+Seat 3: losxmen (1494 in chips) 
+Seat 4: ImBrittneyBxtch (1500 in chips) 
+Seat 5: jsalinas96 (850 in chips) 
+Seat 6: v2king62 (3474 in chips) 
+Seat 7: Yoshi22g (1370 in chips) 
+Seat 8: Bush1962 (2309 in chips) 
+Seat 9: PANCHO2283 (1428 in chips) 
+Heron1960: posts the ante 6
+d_fond: posts the ante 6
+losxmen: posts the ante 6
+ImBrittneyBxtch: posts the ante 6
+jsalinas96: posts the ante 6
+v2king62: posts the ante 6
+Yoshi22g: posts the ante 6
+Bush1962: posts the ante 6
+PANCHO2283: posts the ante 6
+v2king62: posts small blind 30
+Yoshi22g: posts big blind 60
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8s 8c]
+Bush1962: raises 60 to 120
+PANCHO2283: folds 
+Heron1960: calls 120
+d_fond: folds 
+jsalinas96 is disconnected 
+losxmen: calls 120
+ImBrittneyBxtch: folds 
+jsalinas96 has timed out while disconnected
+jsalinas96: folds 
+v2king62: calls 90
+Yoshi22g: calls 60
+*** FLOP *** [5h Qd Jd]
+v2king62: checks 
+Yoshi22g: bets 60
+Bush1962: raises 2123 to 2183 and is all-in
+Heron1960: folds 
+losxmen: calls 1368 and is all-in
+v2king62: calls 2183
+Yoshi22g: folds 
+*** TURN *** [5h Qd Jd] [4d]
+*** RIVER *** [5h Qd Jd 4d] [8d]
+*** SHOW DOWN ***
+v2king62: shows [5d 3d] (a flush, Queen high)
+Bush1962: shows [Qc Ks] (a pair of Queens)
+v2king62 collected 1630 from side pot
+losxmen: shows [Jh 7c] (a pair of Jacks)
+v2king62 collected 4818 from main pot
+Bush1962 finished the tournament
+losxmen finished the tournament
+*** SUMMARY ***
+Total pot 6448 Main pot 4818. Side pot 1630. | Rake 0 
+Board [5h Qd Jd 4d 8d]
+Seat 1: Heron1960 folded on the Flop
+Seat 2: d_fond folded before Flop (didn't bet)
+Seat 3: losxmen showed [Jh 7c] and lost with a pair of Jacks
+Seat 4: ImBrittneyBxtch folded before Flop (didn't bet)
+Seat 5: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 6: v2king62 (small blind) showed [5d 3d] and won (6448) with a flush, Queen high
+Seat 7: Yoshi22g (big blind) folded on the Flop
+Seat 8: Bush1962 showed [Qc Ks] and lost with a pair of Queens
+Seat 9: PANCHO2283 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259615671833: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level IV (30/60) - 2026/02/06 16:16:29 CET [2026/02/06 10:16:29 ET]
+Table '3970436932 1' 9-max Seat #6 is the button
+Seat 1: Heron1960 (1196 in chips) 
+Seat 2: d_fond (2616 in chips) 
+Seat 4: ImBrittneyBxtch (1494 in chips) 
+Seat 5: jsalinas96 (844 in chips) 
+Seat 6: v2king62 (7613 in chips) 
+Seat 7: Yoshi22g (1184 in chips) 
+Seat 9: PANCHO2283 (1422 in chips) 
+Heron1960: posts the ante 6
+d_fond: posts the ante 6
+ImBrittneyBxtch: posts the ante 6
+jsalinas96: posts the ante 6
+v2king62: posts the ante 6
+Yoshi22g: posts the ante 6
+PANCHO2283: posts the ante 6
+Yoshi22g: posts small blind 30
+PANCHO2283: posts big blind 60
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4h Ac]
+Heron1960: folds 
+d_fond: folds 
+ImBrittneyBxtch: folds 
+jsalinas96: folds 
+v2king62: calls 60
+Yoshi22g: folds 
+PANCHO2283: checks 
+*** FLOP *** [7s 5c 4c]
+PANCHO2283: bets 120
+Reginatto 571 is disconnected 
+v2king62: folds 
+Uncalled bet (120) returned to PANCHO2283
+PANCHO2283 collected 192 from pot
+*** SUMMARY ***
+Total pot 192 | Rake 0 
+Board [7s 5c 4c]
+Seat 1: Heron1960 folded before Flop (didn't bet)
+Seat 2: d_fond folded before Flop (didn't bet)
+Seat 4: ImBrittneyBxtch folded before Flop (didn't bet)
+Seat 5: jsalinas96 folded before Flop (didn't bet)
+Seat 6: v2king62 (button) folded on the Flop
+Seat 7: Yoshi22g (small blind) folded before Flop
+Seat 9: PANCHO2283 (big blind) collected (192)
+
+
+
+PokerStars Hand #259615677129: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level IV (30/60) - 2026/02/06 16:17:00 CET [2026/02/06 10:17:00 ET]
+Table '3970436932 1' 9-max Seat #7 is the button
+Seat 2: d_fond (2610 in chips) 
+Seat 3: Bush1962 (1500 in chips) 
+Seat 4: ImBrittneyBxtch (1488 in chips) 
+Seat 5: jsalinas96 (838 in chips) 
+Seat 6: v2king62 (7547 in chips) 
+Seat 7: Yoshi22g (1148 in chips) 
+Seat 8: Reginatto 571 (1500 in chips) out of hand (moved from another table into small blind)
+Seat 9: PANCHO2283 (1548 in chips) 
+Reginatto 571 will be allowed to play after the button
+d_fond: posts the ante 6
+Bush1962: posts the ante 6
+ImBrittneyBxtch: posts the ante 6
+jsalinas96: posts the ante 6
+v2king62: posts the ante 6
+Yoshi22g: posts the ante 6
+PANCHO2283: posts the ante 6
+PANCHO2283: posts small blind 30
+d_fond: posts big blind 60
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5c Tc]
+Bush1962: calls 60
+ImBrittneyBxtch: folds 
+jsalinas96: folds 
+v2king62: calls 60
+Yoshi22g: folds 
+PANCHO2283: calls 30
+d_fond: checks 
+*** FLOP *** [9s Qh Kc]
+PANCHO2283: checks 
+d_fond: checks 
+Bush1962: checks 
+v2king62: checks 
+*** TURN *** [9s Qh Kc] [Ts]
+PANCHO2283: bets 60
+d_fond: folds 
+Bush1962: folds 
+yahama123 is disconnected 
+v2king62: raises 60 to 120
+PANCHO2283: calls 60
+*** RIVER *** [9s Qh Kc Ts] [Js]
+PANCHO2283: bets 1362 and is all-in
+v2king62: calls 1362
+*** SHOW DOWN ***
+PANCHO2283: shows [7d Ac] (a straight, Ten to Ace)
+v2king62: shows [Jh Jc] (a straight, Nine to King)
+PANCHO2283 collected 3246 from pot
+*** SUMMARY ***
+Total pot 3246 | Rake 0 
+Board [9s Qh Kc Ts Js]
+Seat 2: d_fond (big blind) folded on the Turn
+Seat 3: Bush1962 folded on the Turn
+Seat 4: ImBrittneyBxtch folded before Flop (didn't bet)
+Seat 5: jsalinas96 folded before Flop (didn't bet)
+Seat 6: v2king62 showed [Jh Jc] and lost with a straight, Nine to King
+Seat 7: Yoshi22g (button) folded before Flop (didn't bet)
+Seat 9: PANCHO2283 (small blind) showed [7d Ac] and won (3246) with a straight, Ten to Ace
+
+
+
+PokerStars Hand #259615686937: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level V (40/80) - 2026/02/06 16:17:57 CET [2026/02/06 10:17:57 ET]
+Table '3970436932 1' 9-max Seat #9 is the button
+Seat 1: yahama123 (1500 in chips) out of hand (moved from another table into small blind)
+Seat 2: d_fond (2544 in chips) 
+Seat 4: ImBrittneyBxtch (1482 in chips) 
+Seat 5: jsalinas96 (832 in chips) 
+Seat 6: v2king62 (5999 in chips) 
+Seat 7: Yoshi22g (1142 in chips) 
+Seat 8: Reginatto 571 (1500 in chips) 
+Seat 9: PANCHO2283 (3246 in chips) 
+yahama123 will be allowed to play after the button
+d_fond: posts the ante 8
+ImBrittneyBxtch: posts the ante 8
+jsalinas96: posts the ante 8
+v2king62: posts the ante 8
+Yoshi22g: posts the ante 8
+Reginatto 571: posts the ante 8
+PANCHO2283: posts the ante 8
+d_fond: posts small blind 40
+ImBrittneyBxtch: posts big blind 80
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2h Qs]
+jsalinas96: folds 
+v2king62: calls 80
+Yoshi22g: folds 
+Reginatto 571: raises 80 to 160
+PANCHO2283: folds 
+d_fond: folds 
+ImBrittneyBxtch: calls 80
+v2king62: folds 
+*** FLOP *** [4s 6d 5c]
+ImBrittneyBxtch: checks 
+Reginatto 571: bets 1332 and is all-in
+ImBrittneyBxtch: calls 1314 and is all-in
+Uncalled bet (18) returned to Reginatto 571
+*** TURN *** [4s 6d 5c] [4d]
+*** RIVER *** [4s 6d 5c 4d] [5s]
+*** SHOW DOWN ***
+ImBrittneyBxtch: shows [Ad Qd] (two pair, Fives and Fours)
+Reginatto 571: shows [Ah Jh] (two pair, Fives and Fours)
+ImBrittneyBxtch collected 1562 from pot
+Reginatto 571 collected 1562 from pot
+*** SUMMARY ***
+Total pot 3124 | Rake 0 
+Board [4s 6d 5c 4d 5s]
+Seat 2: d_fond (small blind) folded before Flop
+Seat 4: ImBrittneyBxtch (big blind) showed [Ad Qd] and won (1562) with two pair, Fives and Fours
+Seat 5: jsalinas96 folded before Flop (didn't bet)
+Seat 6: v2king62 folded before Flop
+Seat 7: Yoshi22g folded before Flop (didn't bet)
+Seat 8: Reginatto 571 showed [Ah Jh] and won (1562) with two pair, Fives and Fours
+Seat 9: PANCHO2283 (button) folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259615694050: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level V (40/80) - 2026/02/06 16:18:39 CET [2026/02/06 10:18:39 ET]
+Table '3970436932 1' 9-max Seat #2 is the button
+Seat 1: yahama123 (1500 in chips) 
+Seat 2: d_fond (2496 in chips) 
+Seat 4: ImBrittneyBxtch (1562 in chips) 
+Seat 5: jsalinas96 (824 in chips) 
+Seat 6: v2king62 (5911 in chips) 
+Seat 7: Yoshi22g (1134 in chips) 
+Seat 8: Reginatto 571 (1580 in chips) 
+Seat 9: PANCHO2283 (3238 in chips) 
+yahama123: posts the ante 8
+d_fond: posts the ante 8
+ImBrittneyBxtch: posts the ante 8
+jsalinas96: posts the ante 8
+v2king62: posts the ante 8
+Yoshi22g: posts the ante 8
+Reginatto 571: posts the ante 8
+PANCHO2283: posts the ante 8
+ImBrittneyBxtch: posts small blind 40
+jsalinas96: posts big blind 80
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Kc 6c]
+v2king62: folds 
+Yoshi22g: folds 
+Reginatto 571: folds 
+PANCHO2283: calls 80
+yahama123: calls 80
+d_fond: folds 
+ImBrittneyBxtch: calls 40
+jsalinas96: checks 
+*** FLOP *** [7c 9s 8s]
+ImBrittneyBxtch: checks 
+jsalinas96: checks 
+PANCHO2283: checks 
+yahama123: bets 192
+ImBrittneyBxtch: calls 192
+jsalinas96: calls 192
+PANCHO2283: calls 192
+*** TURN *** [7c 9s 8s] [Ac]
+ImBrittneyBxtch: checks 
+jsalinas96: bets 544 and is all-in
+PANCHO2283: folds 
+yahama123: folds 
+ImBrittneyBxtch: calls 544
+*** RIVER *** [7c 9s 8s Ac] [8h]
+*** SHOW DOWN ***
+ImBrittneyBxtch: shows [2c As] (two pair, Aces and Eights)
+jsalinas96: shows [Kc 6c] (a pair of Eights)
+ImBrittneyBxtch collected 2240 from pot
+jsalinas96 finished the tournament
+*** SUMMARY ***
+Total pot 2240 | Rake 0 
+Board [7c 9s 8s Ac 8h]
+Seat 1: yahama123 folded on the Turn
+Seat 2: d_fond (button) folded before Flop (didn't bet)
+Seat 4: ImBrittneyBxtch (small blind) showed [2c As] and won (2240) with two pair, Aces and Eights
+Seat 5: jsalinas96 (big blind) showed [Kc 6c] and lost with a pair of Eights
+Seat 6: v2king62 folded before Flop (didn't bet)
+Seat 7: Yoshi22g folded before Flop (didn't bet)
+Seat 8: Reginatto 571 folded before Flop (didn't bet)
+Seat 9: PANCHO2283 folded on the Turn
+
+
+
+PokerStars Hand #259615728140: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level VI (50/100) - 2026/02/06 16:22:00 CET [2026/02/06 10:22:00 ET]
+Table '3970436932 17' 9-max Seat #6 is the button
+Seat 1: static126 (1940 in chips) 
+Seat 2: nene798 (2258 in chips) 
+Seat 3: frisky888 (3910 in chips) 
+Seat 4: magicusys (5640 in chips) 
+Seat 5: jsalinas96 (1500 in chips) 
+Seat 6: TRAVADO 2018 (1114 in chips) 
+Seat 8: Peet198169 (1908 in chips) 
+Seat 9: madhatter412 (1500 in chips) 
+static126: posts the ante 10
+nene798: posts the ante 10
+frisky888: posts the ante 10
+magicusys: posts the ante 10
+jsalinas96: posts the ante 10
+TRAVADO 2018: posts the ante 10
+Peet198169: posts the ante 10
+madhatter412: posts the ante 10
+Peet198169: posts small blind 50
+madhatter412: posts big blind 100
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ac 4c]
+static126: calls 100
+nene798: folds 
+frisky888: folds 
+magicusys: folds 
+jsalinas96: calls 100
+TRAVADO 2018: calls 100
+Peet198169: calls 50
+madhatter412: checks 
+*** FLOP *** [Qc Kd Js]
+Peet198169: checks 
+madhatter412: checks 
+Petrelis19 is disconnected 
+static126: bets 300
+jsalinas96: calls 300
+TRAVADO 2018: raises 704 to 1004 and is all-in
+Peet198169: raises 704 to 1708
+madhatter412: folds 
+static126: raises 122 to 1830 and is all-in
+jsalinas96: calls 1090 and is all-in
+Peet198169: calls 90 and is all-in
+Uncalled bet (32) returned to static126
+*** TURN *** [Qc Kd Js] [Kh]
+*** RIVER *** [Qc Kd Js Kh] [8c]
+*** SHOW DOWN ***
+Peet198169: shows [Td 9d] (a straight, Nine to King)
+static126: shows [9h Tc] (a straight, Nine to King)
+Peet198169 collected 408 from side pot-2 
+static126 collected 408 from side pot-2 
+jsalinas96: shows [Ac 4c] (a pair of Kings)
+Peet198169 collected 579 from side pot-1 
+static126 collected 579 from side pot-1 
+TRAVADO 2018: shows [Qd Jd] (two pair, Kings and Queens)
+Peet198169 collected 2298 from main pot
+static126 collected 2298 from main pot
+jsalinas96 finished the tournament
+TRAVADO 2018 finished the tournament
+*** SUMMARY ***
+Total pot 6570 Main pot 4596. Side pot-1 1158. Side pot-2 816. | Rake 0 
+Board [Qc Kd Js Kh 8c]
+Seat 1: static126 showed [9h Tc] and won (3285) with a straight, Nine to King
+Seat 2: nene798 folded before Flop (didn't bet)
+Seat 3: frisky888 folded before Flop (didn't bet)
+Seat 4: magicusys folded before Flop (didn't bet)
+Seat 5: jsalinas96 showed [Ac 4c] and lost with a pair of Kings
+Seat 6: TRAVADO 2018 (button) showed [Qd Jd] and lost with two pair, Kings and Queens
+Seat 8: Peet198169 (small blind) showed [Td 9d] and won (3285) with a straight, Nine to King
+Seat 9: madhatter412 (big blind) folded on the Flop
+
+
+
+PokerStars Hand #259615744840: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level VI (50/100) - 2026/02/06 16:23:36 CET [2026/02/06 10:23:36 ET]
+Table '3970436932 27' 9-max Seat #8 is the button
+Seat 1: Geo2929 (3655 in chips) 
+Seat 2: JLB 2301 (1936 in chips) 
+Seat 3: AldairRRDR (456 in chips) 
+Seat 4: mumuky007 (2389 in chips) 
+Seat 6: jsalinas96 (1500 in chips) 
+Seat 7: MantisNN (981 in chips) 
+Seat 8: juhubx (2614 in chips) 
+Seat 9: carlos xxxzxx (1496 in chips) 
+Geo2929: posts the ante 10
+JLB 2301: posts the ante 10
+AldairRRDR: posts the ante 10
+mumuky007: posts the ante 10
+jsalinas96: posts the ante 10
+MantisNN: posts the ante 10
+juhubx: posts the ante 10
+carlos xxxzxx: posts the ante 10
+carlos xxxzxx: posts small blind 50
+Geo2929: posts big blind 100
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3d 8d]
+JLB 2301 has timed out
+JLB 2301: folds 
+AldairRRDR: raises 346 to 446 and is all-in
+mumuky007: folds 
+jsalinas96: folds 
+MantisNN: calls 446
+juhubx: folds 
+carlos xxxzxx: folds 
+Geo2929: calls 346
+*** FLOP *** [Kc 9d Qs]
+Geo2929: checks 
+MantisNN: bets 525 and is all-in
+Geo2929: calls 525
+*** TURN *** [Kc 9d Qs] [4c]
+*** RIVER *** [Kc 9d Qs 4c] [8s]
+*** SHOW DOWN ***
+Geo2929: shows [5d Td] (high card King)
+MantisNN: shows [7h Ks] (a pair of Kings)
+MantisNN collected 1050 from side pot
+AldairRRDR: shows [Qd Jh] (a pair of Queens)
+MantisNN collected 1468 from main pot
+AldairRRDR finished the tournament
+*** SUMMARY ***
+Total pot 2518 Main pot 1468. Side pot 1050. | Rake 0 
+Board [Kc 9d Qs 4c 8s]
+Seat 1: Geo2929 (big blind) showed [5d Td] and lost with high card King
+Seat 2: JLB 2301 folded before Flop (didn't bet)
+Seat 3: AldairRRDR showed [Qd Jh] and lost with a pair of Queens
+Seat 4: mumuky007 folded before Flop (didn't bet)
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: MantisNN showed [7h Ks] and won (2518) with a pair of Kings
+Seat 8: juhubx (button) folded before Flop (didn't bet)
+Seat 9: carlos xxxzxx (small blind) folded before Flop
+
+
+
+PokerStars Hand #259615753621: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level VI (50/100) - 2026/02/06 16:24:27 CET [2026/02/06 10:24:27 ET]
+Table '3970436932 27' 9-max Seat #9 is the button
+Seat 1: Geo2929 (2674 in chips) 
+Seat 2: JLB 2301 (1926 in chips) 
+Seat 3: magicusys (5610 in chips) 
+Seat 4: mumuky007 (2379 in chips) 
+Seat 6: jsalinas96 (1490 in chips) 
+Seat 7: MantisNN (2518 in chips) 
+Seat 8: juhubx (2604 in chips) 
+Seat 9: carlos xxxzxx (1436 in chips) 
+Geo2929: posts the ante 10
+JLB 2301: posts the ante 10
+magicusys: posts the ante 10
+mumuky007: posts the ante 10
+jsalinas96: posts the ante 10
+MantisNN: posts the ante 10
+juhubx: posts the ante 10
+carlos xxxzxx: posts the ante 10
+Geo2929: posts small blind 50
+JLB 2301: posts big blind 100
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ks Qc]
+magicusys: calls 100
+mumuky007: folds 
+jsalinas96: calls 100
+MantisNN: calls 100
+juhubx: calls 100
+carlos xxxzxx: folds 
+Geo2929: calls 50
+JLB 2301: checks 
+*** FLOP *** [Th Ah 8d]
+Geo2929: bets 100
+jaral2005 is disconnected 
+JLB 2301: raises 880 to 980
+magicusys: folds 
+jsalinas96: folds 
+MantisNN: calls 980
+juhubx: folds 
+Geo2929: calls 880
+*** TURN *** [Th Ah 8d] [Qs]
+Geo2929: checks 
+JLB 2301: bets 836 and is all-in
+MantisNN: calls 836
+Geo2929: calls 836
+*** RIVER *** [Th Ah 8d Qs] [9h]
+Geo2929: checks 
+MantisNN: bets 592 and is all-in
+Geo2929: calls 592
+*** SHOW DOWN ***
+MantisNN: shows [8h Kh] (a flush, Ace high)
+Geo2929: shows [Qh As] (two pair, Aces and Queens)
+MantisNN collected 1184 from side pot
+JLB 2301: shows [Ac 8s] (two pair, Aces and Eights)
+MantisNN collected 6128 from main pot
+JLB 2301 finished the tournament
+*** SUMMARY ***
+Total pot 7312 Main pot 6128. Side pot 1184. | Rake 0 
+Board [Th Ah 8d Qs 9h]
+Seat 1: Geo2929 (small blind) showed [Qh As] and lost with two pair, Aces and Queens
+Seat 2: JLB 2301 (big blind) showed [Ac 8s] and lost with two pair, Aces and Eights
+Seat 3: magicusys folded on the Flop
+Seat 4: mumuky007 folded before Flop (didn't bet)
+Seat 6: jsalinas96 folded on the Flop
+Seat 7: MantisNN showed [8h Kh] and won (7312) with a flush, Ace high
+Seat 8: juhubx folded on the Flop
+Seat 9: carlos xxxzxx (button) folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259615765939: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level VII (60/120) - 2026/02/06 16:25:37 CET [2026/02/06 10:25:37 ET]
+Table '3970436932 27' 9-max Seat #1 is the button
+Seat 1: Geo2929 (156 in chips) 
+Seat 3: magicusys (5500 in chips) 
+Seat 4: mumuky007 (2369 in chips) 
+Seat 5: jaral2005 (1500 in chips) 
+Seat 6: jsalinas96 (1380 in chips) 
+Seat 7: MantisNN (7312 in chips) 
+Seat 8: juhubx (2494 in chips) 
+Seat 9: carlos xxxzxx (1426 in chips) 
+Geo2929: posts the ante 12
+magicusys: posts the ante 12
+mumuky007: posts the ante 12
+jaral2005: posts the ante 12
+jsalinas96: posts the ante 12
+MantisNN: posts the ante 12
+juhubx: posts the ante 12
+carlos xxxzxx: posts the ante 12
+magicusys: posts small blind 60
+mumuky007: posts big blind 120
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Kd Tc]
+jaral2005: folds 
+jsalinas96: calls 120
+MantisNN: calls 120
+juhubx: calls 120
+carlos xxxzxx: calls 120
+Geo2929: raises 24 to 144 and is all-in
+magicusys: calls 84
+mumuky007: calls 24
+jsalinas96: calls 24
+MantisNN: calls 24
+juhubx: calls 24
+carlos xxxzxx: calls 24
+*** FLOP *** [2c 9h Qs]
+magicusys: checks 
+mumuky007: checks 
+jsalinas96: checks 
+MantisNN: checks 
+juhubx: checks 
+carlos xxxzxx: checks 
+*** TURN *** [2c 9h Qs] [2d]
+magicusys: checks 
+mumuky007: checks 
+jsalinas96: checks 
+MantisNN: checks 
+juhubx: checks 
+carlos xxxzxx: bets 360
+magicusys: calls 360
+mumuky007: folds 
+jsalinas96: calls 360
+MantisNN: folds 
+juhubx: folds 
+*** RIVER *** [2c 9h Qs 2d] [5d]
+magicusys: bets 960
+jsalinas96: folds 
+carlos xxxzxx: folds 
+Uncalled bet (960) returned to magicusys
+*** SHOW DOWN ***
+magicusys: shows [2s Ah] (three of a kind, Deuces)
+magicusys collected 1080 from side pot
+Geo2929: shows [7c 3s] (a pair of Deuces)
+magicusys collected 1104 from main pot
+Geo2929 finished the tournament
+*** SUMMARY ***
+Total pot 2184 Main pot 1104. Side pot 1080. | Rake 0 
+Board [2c 9h Qs 2d 5d]
+Seat 1: Geo2929 (button) showed [7c 3s] and lost with a pair of Deuces
+Seat 3: magicusys (small blind) showed [2s Ah] and won (2184) with three of a kind, Deuces
+Seat 4: mumuky007 (big blind) folded on the Turn
+Seat 5: jaral2005 folded before Flop (didn't bet)
+Seat 6: jsalinas96 folded on the River
+Seat 7: MantisNN folded on the Turn
+Seat 8: juhubx folded on the Turn
+Seat 9: carlos xxxzxx folded on the River
+
+
+
+PokerStars Hand #259615780112: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level VII (60/120) - 2026/02/06 16:26:59 CET [2026/02/06 10:26:59 ET]
+Table '3970436932 27' 9-max Seat #3 is the button
+Seat 2: marcos pe157 (1500 in chips) 
+Seat 3: magicusys (7168 in chips) 
+Seat 4: mumuky007 (2213 in chips) 
+Seat 5: jaral2005 (1488 in chips) 
+Seat 6: jsalinas96 (864 in chips) 
+Seat 7: MantisNN (7156 in chips) 
+Seat 8: juhubx (2338 in chips) 
+Seat 9: carlos xxxzxx (910 in chips) 
+marcos pe157: posts the ante 12
+magicusys: posts the ante 12
+mumuky007: posts the ante 12
+jaral2005: posts the ante 12
+jsalinas96: posts the ante 12
+MantisNN: posts the ante 12
+juhubx: posts the ante 12
+carlos xxxzxx: posts the ante 12
+mumuky007: posts small blind 60
+jaral2005: posts big blind 120
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Js 7h]
+jsalinas96: folds 
+MantisNN: calls 120
+juhubx: calls 120
+carlos xxxzxx: folds 
+marcos pe157: folds 
+magicusys: folds 
+mumuky007 has timed out
+mumuky007: folds 
+jaral2005: checks 
+*** FLOP *** [6d 2d 7c]
+jaral2005: checks 
+MantisNN: bets 480
+juhubx: calls 480
+jaral2005: folds 
+*** TURN *** [6d 2d 7c] [8c]
+MantisNN: bets 120
+juhubx: calls 120
+*** RIVER *** [6d 2d 7c 8c] [9s]
+MantisNN: bets 6424 and is all-in
+juhubx: folds 
+Uncalled bet (6424) returned to MantisNN
+MantisNN collected 1716 from pot
+MantisNN: doesn't show hand 
+*** SUMMARY ***
+Total pot 1716 | Rake 0 
+Board [6d 2d 7c 8c 9s]
+Seat 2: marcos pe157 folded before Flop (didn't bet)
+Seat 3: magicusys (button) folded before Flop (didn't bet)
+Seat 4: mumuky007 (small blind) folded before Flop
+Seat 5: jaral2005 (big blind) folded on the Flop
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: MantisNN collected (1716)
+Seat 8: juhubx folded on the River
+Seat 9: carlos xxxzxx folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259615789289: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level VII (60/120) - 2026/02/06 16:27:52 CET [2026/02/06 10:27:52 ET]
+Table '3970436932 27' 9-max Seat #4 is the button
+Seat 1: PUrA69VidA (1500 in chips) 
+Seat 2: marcos pe157 (1488 in chips) 
+Seat 3: magicusys (7156 in chips) 
+Seat 4: mumuky007 (2141 in chips) 
+Seat 5: jaral2005 (1356 in chips) 
+Seat 6: jsalinas96 (852 in chips) 
+Seat 7: MantisNN (8140 in chips) 
+Seat 8: juhubx (1606 in chips) 
+Seat 9: carlos xxxzxx (898 in chips) 
+PUrA69VidA: posts the ante 12
+marcos pe157: posts the ante 12
+magicusys: posts the ante 12
+mumuky007: posts the ante 12
+jaral2005: posts the ante 12
+jsalinas96: posts the ante 12
+MantisNN: posts the ante 12
+juhubx: posts the ante 12
+carlos xxxzxx: posts the ante 12
+jaral2005: posts small blind 60
+jsalinas96: posts big blind 120
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Jd 7c]
+MantisNN: folds 
+juhubx: raises 120 to 240
+carlos xxxzxx: folds 
+PUrA69VidA: folds 
+marcos pe157: folds 
+magicusys: folds 
+mumuky007: calls 240
+jaral2005: folds 
+jsalinas96: folds 
+*** FLOP *** [6c Ts 8d]
+juhubx: bets 120
+mumuky007: calls 120
+*** TURN *** [6c Ts 8d] [2s]
+juhubx: bets 120
+mumuky007: calls 120
+*** RIVER *** [6c Ts 8d 2s] [Ah]
+juhubx: bets 1114 and is all-in
+mumuky007: calls 1114
+*** SHOW DOWN ***
+juhubx: shows [Qh Qc] (a pair of Queens)
+mumuky007: shows [Jc Jh] (a pair of Jacks)
+juhubx collected 3476 from pot
+*** SUMMARY ***
+Total pot 3476 | Rake 0 
+Board [6c Ts 8d 2s Ah]
+Seat 1: PUrA69VidA folded before Flop (didn't bet)
+Seat 2: marcos pe157 folded before Flop (didn't bet)
+Seat 3: magicusys folded before Flop (didn't bet)
+Seat 4: mumuky007 (button) showed [Jc Jh] and lost with a pair of Jacks
+Seat 5: jaral2005 (small blind) folded before Flop
+Seat 6: jsalinas96 (big blind) folded before Flop
+Seat 7: MantisNN folded before Flop (didn't bet)
+Seat 8: juhubx showed [Qh Qc] and won (3476) with a pair of Queens
+Seat 9: carlos xxxzxx folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259615796526: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level VII (60/120) - 2026/02/06 16:28:33 CET [2026/02/06 10:28:33 ET]
+Table '3970436932 27' 9-max Seat #5 is the button
+Seat 2: marcos pe157 (1476 in chips) 
+Seat 3: magicusys (7144 in chips) 
+Seat 4: mumuky007 (535 in chips) 
+Seat 5: jaral2005 (1284 in chips) 
+Seat 6: jsalinas96 (720 in chips) 
+Seat 7: MantisNN (8128 in chips) 
+Seat 8: juhubx (3476 in chips) 
+Seat 9: carlos xxxzxx (886 in chips) 
+marcos pe157: posts the ante 12
+magicusys: posts the ante 12
+mumuky007: posts the ante 12
+jaral2005: posts the ante 12
+jsalinas96: posts the ante 12
+MantisNN: posts the ante 12
+juhubx: posts the ante 12
+carlos xxxzxx: posts the ante 12
+jsalinas96: posts small blind 60
+MantisNN: posts big blind 120
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8h 5s]
+juhubx: folds 
+carlos xxxzxx: calls 120
+marcos pe157: calls 120
+magicusys: folds 
+mumuky007: calls 120
+jaral2005: folds 
+FatiaNegr575 is disconnected 
+jsalinas96: folds 
+MantisNN: checks 
+*** FLOP *** [4h Jh 4d]
+MantisNN: checks 
+carlos xxxzxx: checks 
+marcos pe157: bets 1344 and is all-in
+mumuky007: calls 403 and is all-in
+MantisNN: folds 
+carlos xxxzxx: folds 
+Uncalled bet (941) returned to marcos pe157
+*** TURN *** [4h Jh 4d] [7s]
+*** RIVER *** [4h Jh 4d 7s] [Js]
+*** SHOW DOWN ***
+marcos pe157: shows [Kd Jc] (a full house, Jacks full of Fours)
+mumuky007: shows [4c Ac] (a full house, Fours full of Jacks)
+marcos pe157 collected 1442 from pot
+mumuky007 finished the tournament
+*** SUMMARY ***
+Total pot 1442 | Rake 0 
+Board [4h Jh 4d 7s Js]
+Seat 2: marcos pe157 showed [Kd Jc] and won (1442) with a full house, Jacks full of Fours
+Seat 3: magicusys folded before Flop (didn't bet)
+Seat 4: mumuky007 showed [4c Ac] and lost with a full house, Fours full of Jacks
+Seat 5: jaral2005 (button) folded before Flop (didn't bet)
+Seat 6: jsalinas96 (small blind) folded before Flop
+Seat 7: MantisNN (big blind) folded on the Flop
+Seat 8: juhubx folded before Flop (didn't bet)
+Seat 9: carlos xxxzxx folded on the Flop
+
+
+
+PokerStars Hand #259615804244: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level VIII (80/160) - 2026/02/06 16:29:17 CET [2026/02/06 10:29:17 ET]
+Table '3970436932 27' 9-max Seat #6 is the button
+Seat 1: FatiaNegr575 (1500 in chips) 
+Seat 2: marcos pe157 (2383 in chips) 
+Seat 3: magicusys (7132 in chips) 
+Seat 5: jaral2005 (1272 in chips) 
+Seat 6: jsalinas96 (648 in chips) 
+Seat 7: MantisNN (7996 in chips) 
+Seat 8: juhubx (3464 in chips) 
+Seat 9: carlos xxxzxx (754 in chips) 
+FatiaNegr575: posts the ante 16
+marcos pe157: posts the ante 16
+magicusys: posts the ante 16
+jaral2005: posts the ante 16
+jsalinas96: posts the ante 16
+MantisNN: posts the ante 16
+juhubx: posts the ante 16
+carlos xxxzxx: posts the ante 16
+MantisNN: posts small blind 80
+juhubx: posts big blind 160
+*** HOLE CARDS ***
+Dealt to jsalinas96 [7d Kc]
+carlos xxxzxx: folds 
+FatiaNegr575: folds 
+aceofhear941 is disconnected 
+marcos pe157: folds 
+magicusys: calls 160
+jaral2005: calls 160
+jsalinas96: folds 
+MantisNN: calls 80
+juhubx: checks 
+*** FLOP *** [Kd 9s 2h]
+MantisNN: checks 
+juhubx: checks 
+magicusys: checks 
+jaral2005: checks 
+*** TURN *** [Kd 9s 2h] [Ac]
+MantisNN: checks 
+juhubx: checks 
+magicusys: bets 160
+jaral2005: folds 
+MantisNN: folds 
+juhubx: folds 
+Uncalled bet (160) returned to magicusys
+magicusys collected 768 from pot
+*** SUMMARY ***
+Total pot 768 | Rake 0 
+Board [Kd 9s 2h Ac]
+Seat 1: FatiaNegr575 folded before Flop (didn't bet)
+Seat 2: marcos pe157 folded before Flop (didn't bet)
+Seat 3: magicusys collected (768)
+Seat 5: jaral2005 folded on the Turn
+Seat 6: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 7: MantisNN (small blind) folded on the Turn
+Seat 8: juhubx (big blind) folded on the Turn
+Seat 9: carlos xxxzxx folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259615813013: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level VIII (80/160) - 2026/02/06 16:30:07 CET [2026/02/06 10:30:07 ET]
+Table '3970436932 27' 9-max Seat #7 is the button
+Seat 1: FatiaNegr575 (1484 in chips) 
+Seat 3: magicusys (7724 in chips) 
+Seat 4: aceofhear941 (1500 in chips) 
+Seat 5: jaral2005 (1096 in chips) 
+Seat 6: jsalinas96 (632 in chips) 
+Seat 7: MantisNN (7820 in chips) 
+Seat 8: juhubx (3288 in chips) 
+Seat 9: carlos xxxzxx (738 in chips) 
+FatiaNegr575: posts the ante 16
+magicusys: posts the ante 16
+aceofhear941: posts the ante 16
+jaral2005: posts the ante 16
+jsalinas96: posts the ante 16
+MantisNN: posts the ante 16
+juhubx: posts the ante 16
+carlos xxxzxx: posts the ante 16
+juhubx: posts small blind 80
+carlos xxxzxx: posts big blind 160
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6h 4d]
+FatiaNegr575: folds 
+magicusys: folds 
+aceofhear941: calls 160
+jaral2005: folds 
+jsalinas96: folds 
+MantisNN: folds 
+juhubx: calls 80
+carlos xxxzxx: raises 562 to 722 and is all-in
+aceofhear941: folds 
+juhubx: calls 562
+*** FLOP *** [Kh 3d 4s]
+*** TURN *** [Kh 3d 4s] [Ts]
+*** RIVER *** [Kh 3d 4s Ts] [6d]
+*** SHOW DOWN ***
+juhubx: shows [9s 5d] (high card King)
+carlos xxxzxx: shows [As 3s] (a pair of Threes)
+carlos xxxzxx collected 1732 from pot
+*** SUMMARY ***
+Total pot 1732 | Rake 0 
+Board [Kh 3d 4s Ts 6d]
+Seat 1: FatiaNegr575 folded before Flop (didn't bet)
+Seat 3: magicusys folded before Flop (didn't bet)
+Seat 4: aceofhear941 folded before Flop
+Seat 5: jaral2005 folded before Flop (didn't bet)
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: MantisNN (button) folded before Flop (didn't bet)
+Seat 8: juhubx (small blind) showed [9s 5d] and lost with high card King
+Seat 9: carlos xxxzxx (big blind) showed [As 3s] and won (1732) with a pair of Threes
+
+
+
+PokerStars Hand #259615821521: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level VIII (80/160) - 2026/02/06 16:30:55 CET [2026/02/06 10:30:55 ET]
+Table '3970436932 27' 9-max Seat #8 is the button
+Seat 1: FatiaNegr575 (1468 in chips) 
+Seat 2: Dulovcan (1500 in chips) 
+Seat 3: magicusys (7708 in chips) 
+Seat 4: aceofhear941 (1324 in chips) 
+Seat 5: jaral2005 (1080 in chips) 
+Seat 6: jsalinas96 (616 in chips) 
+Seat 7: MantisNN (7804 in chips) 
+Seat 8: juhubx (2550 in chips) 
+Seat 9: carlos xxxzxx (1732 in chips) 
+FatiaNegr575: posts the ante 16
+Dulovcan: posts the ante 16
+magicusys: posts the ante 16
+aceofhear941: posts the ante 16
+jaral2005: posts the ante 16
+jsalinas96: posts the ante 16
+MantisNN: posts the ante 16
+juhubx: posts the ante 16
+carlos xxxzxx: posts the ante 16
+carlos xxxzxx: posts small blind 80
+FatiaNegr575: posts big blind 160
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2h Ts]
+Dulovcan: folds 
+magicusys: calls 160
+aceofhear941: calls 160
+jaral2005: folds 
+jsalinas96: folds 
+MantisNN: calls 160
+juhubx: calls 160
+carlos xxxzxx: folds 
+FatiaNegr575: checks 
+*** FLOP *** [8h Kc 7d]
+FatiaNegr575: checks 
+magicusys: checks 
+aceofhear941: bets 160
+MantisNN: calls 160
+juhubx: calls 160
+FatiaNegr575: folds 
+magicusys: folds 
+*** TURN *** [8h Kc 7d] [3c]
+aceofhear941: bets 160
+MantisNN: raises 640 to 800
+juhubx: folds 
+aceofhear941: calls 640
+*** RIVER *** [8h Kc 7d 3c] [Qc]
+aceofhear941: checks 
+MantisNN: checks 
+*** SHOW DOWN ***
+aceofhear941: shows [7s Kh] (two pair, Kings and Sevens)
+MantisNN: mucks hand 
+aceofhear941 collected 3104 from pot
+*** SUMMARY ***
+Total pot 3104 | Rake 0 
+Board [8h Kc 7d 3c Qc]
+Seat 1: FatiaNegr575 (big blind) folded on the Flop
+Seat 2: Dulovcan folded before Flop (didn't bet)
+Seat 3: magicusys folded on the Flop
+Seat 4: aceofhear941 showed [7s Kh] and won (3104) with two pair, Kings and Sevens
+Seat 5: jaral2005 folded before Flop (didn't bet)
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: MantisNN mucked [Ks Ad]
+Seat 8: juhubx (button) folded on the Turn
+Seat 9: carlos xxxzxx (small blind) folded before Flop
+
+
+
+PokerStars Hand #259615838829: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level VIII (80/160) - 2026/02/06 16:32:33 CET [2026/02/06 10:32:33 ET]
+Table '3970436932 27' 9-max Seat #9 is the button
+Seat 1: FatiaNegr575 (1292 in chips) 
+Seat 2: Dulovcan (1484 in chips) 
+Seat 3: magicusys (7532 in chips) 
+Seat 4: aceofhear941 (3292 in chips) 
+Seat 5: jaral2005 (1064 in chips) 
+Seat 6: jsalinas96 (600 in chips) 
+Seat 7: MantisNN (6668 in chips) 
+Seat 8: juhubx (2214 in chips) 
+Seat 9: carlos xxxzxx (1636 in chips) 
+FatiaNegr575: posts the ante 16
+Dulovcan: posts the ante 16
+magicusys: posts the ante 16
+aceofhear941: posts the ante 16
+jaral2005: posts the ante 16
+jsalinas96: posts the ante 16
+MantisNN: posts the ante 16
+juhubx: posts the ante 16
+carlos xxxzxx: posts the ante 16
+FatiaNegr575: posts small blind 80
+Dulovcan: posts big blind 160
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6d Ah]
+magicusys: folds 
+aceofhear941: folds 
+jaral2005: folds 
+jsalinas96: folds 
+MantisNN: folds 
+juhubx: calls 160
+carlos xxxzxx: calls 160
+FatiaNegr575: folds 
+Dulovcan: checks 
+*** FLOP *** [Th Jd 7d]
+Dulovcan: checks 
+juhubx: checks 
+carlos xxxzxx: bets 320
+Dulovcan: folds 
+juhubx: calls 320
+*** TURN *** [Th Jd 7d] [4c]
+juhubx: checks 
+carlos xxxzxx: checks 
+*** RIVER *** [Th Jd 7d 4c] [3s]
+juhubx: checks 
+carlos xxxzxx: checks 
+*** SHOW DOWN ***
+juhubx: shows [Js 6s] (a pair of Jacks)
+carlos xxxzxx: mucks hand 
+juhubx collected 1344 from pot
+*** SUMMARY ***
+Total pot 1344 | Rake 0 
+Board [Th Jd 7d 4c 3s]
+Seat 1: FatiaNegr575 (small blind) folded before Flop
+Seat 2: Dulovcan (big blind) folded on the Flop
+Seat 3: magicusys folded before Flop (didn't bet)
+Seat 4: aceofhear941 folded before Flop (didn't bet)
+Seat 5: jaral2005 folded before Flop (didn't bet)
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: MantisNN folded before Flop (didn't bet)
+Seat 8: juhubx showed [Js 6s] and won (1344) with a pair of Jacks
+Seat 9: carlos xxxzxx (button) mucked [5h 5s]
+
+
+
+PokerStars Hand #259615851198: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level IX (100/200) - 2026/02/06 16:33:44 CET [2026/02/06 10:33:44 ET]
+Table '3970436932 27' 9-max Seat #1 is the button
+Seat 1: FatiaNegr575 (1196 in chips) 
+Seat 2: Dulovcan (1308 in chips) 
+Seat 3: magicusys (7516 in chips) 
+Seat 4: aceofhear941 (3276 in chips) 
+Seat 5: jaral2005 (1048 in chips) 
+Seat 6: jsalinas96 (584 in chips) 
+Seat 7: MantisNN (6652 in chips) 
+Seat 8: juhubx (3062 in chips) 
+Seat 9: carlos xxxzxx (1140 in chips) 
+FatiaNegr575: posts the ante 20
+Dulovcan: posts the ante 20
+magicusys: posts the ante 20
+aceofhear941: posts the ante 20
+jaral2005: posts the ante 20
+jsalinas96: posts the ante 20
+MantisNN: posts the ante 20
+juhubx: posts the ante 20
+carlos xxxzxx: posts the ante 20
+Dulovcan: posts small blind 100
+magicusys: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Th 7d]
+aceofhear941: calls 200
+jaral2005: folds 
+jsalinas96: folds 
+MantisNN: folds 
+juhubx: calls 200
+carlos xxxzxx: folds 
+FatiaNegr575: folds 
+Dulovcan: raises 1088 to 1288 and is all-in
+magicusys: folds 
+aceofhear941: calls 1088
+juhubx: folds 
+*** FLOP *** [4h Kc Jc]
+*** TURN *** [4h Kc Jc] [Jd]
+*** RIVER *** [4h Kc Jc Jd] [5d]
+*** SHOW DOWN ***
+Dulovcan: shows [Kh Qc] (two pair, Kings and Jacks)
+aceofhear941: shows [Qd As] (a pair of Jacks)
+Dulovcan collected 3156 from pot
+*** SUMMARY ***
+Total pot 3156 | Rake 0 
+Board [4h Kc Jc Jd 5d]
+Seat 1: FatiaNegr575 (button) folded before Flop (didn't bet)
+Seat 2: Dulovcan (small blind) showed [Kh Qc] and won (3156) with two pair, Kings and Jacks
+Seat 3: magicusys (big blind) folded before Flop
+Seat 4: aceofhear941 showed [Qd As] and lost with a pair of Jacks
+Seat 5: jaral2005 folded before Flop (didn't bet)
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: MantisNN folded before Flop (didn't bet)
+Seat 8: juhubx folded before Flop
+Seat 9: carlos xxxzxx folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259615861933: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level IX (100/200) - 2026/02/06 16:34:45 CET [2026/02/06 10:34:45 ET]
+Table '3970436932 27' 9-max Seat #2 is the button
+Seat 1: FatiaNegr575 (1176 in chips) 
+Seat 2: Dulovcan (3156 in chips) 
+Seat 3: magicusys (7296 in chips) 
+Seat 4: aceofhear941 (1968 in chips) 
+Seat 5: jaral2005 (1028 in chips) 
+Seat 6: jsalinas96 (564 in chips) 
+Seat 7: MantisNN (6632 in chips) 
+Seat 8: juhubx (2842 in chips) 
+Seat 9: carlos xxxzxx (1120 in chips) 
+FatiaNegr575: posts the ante 20
+Dulovcan: posts the ante 20
+magicusys: posts the ante 20
+aceofhear941: posts the ante 20
+jaral2005: posts the ante 20
+jsalinas96: posts the ante 20
+MantisNN: posts the ante 20
+juhubx: posts the ante 20
+carlos xxxzxx: posts the ante 20
+magicusys: posts small blind 100
+aceofhear941: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6d 2c]
+jaral2005: folds 
+jsalinas96: folds 
+MantisNN: folds 
+juhubx: folds 
+carlos xxxzxx: raises 900 to 1100 and is all-in
+FatiaNegr575: folds 
+Dulovcan: calls 1100
+magicusys: folds 
+aceofhear941: folds 
+*** FLOP *** [Qh 6c 8h]
+*** TURN *** [Qh 6c 8h] [3s]
+*** RIVER *** [Qh 6c 8h 3s] [Js]
+*** SHOW DOWN ***
+carlos xxxzxx: shows [9d Qd] (a pair of Queens)
+Dulovcan: shows [5d As] (high card Ace)
+carlos xxxzxx collected 2680 from pot
+*** SUMMARY ***
+Total pot 2680 | Rake 0 
+Board [Qh 6c 8h 3s Js]
+Seat 1: FatiaNegr575 folded before Flop (didn't bet)
+Seat 2: Dulovcan (button) showed [5d As] and lost with high card Ace
+Seat 3: magicusys (small blind) folded before Flop
+Seat 4: aceofhear941 (big blind) folded before Flop
+Seat 5: jaral2005 folded before Flop (didn't bet)
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: MantisNN folded before Flop (didn't bet)
+Seat 8: juhubx folded before Flop (didn't bet)
+Seat 9: carlos xxxzxx showed [9d Qd] and won (2680) with a pair of Queens
+
+
+
+PokerStars Hand #259615870339: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level IX (100/200) - 2026/02/06 16:35:34 CET [2026/02/06 10:35:34 ET]
+Table '3970436932 27' 9-max Seat #3 is the button
+Seat 1: FatiaNegr575 (1156 in chips) 
+Seat 2: Dulovcan (2036 in chips) 
+Seat 3: magicusys (7176 in chips) 
+Seat 4: aceofhear941 (1748 in chips) 
+Seat 5: jaral2005 (1008 in chips) 
+Seat 6: jsalinas96 (544 in chips) 
+Seat 7: MantisNN (6612 in chips) 
+Seat 8: juhubx (2822 in chips) 
+Seat 9: carlos xxxzxx (2680 in chips) 
+FatiaNegr575: posts the ante 20
+Dulovcan: posts the ante 20
+magicusys: posts the ante 20
+aceofhear941: posts the ante 20
+jaral2005: posts the ante 20
+jsalinas96: posts the ante 20
+MantisNN: posts the ante 20
+juhubx: posts the ante 20
+carlos xxxzxx: posts the ante 20
+aceofhear941: posts small blind 100
+jaral2005: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5d 2s]
+jsalinas96: folds 
+MantisNN: raises 400 to 600
+juhubx: calls 600
+carlos xxxzxx: folds 
+FatiaNegr575 has timed out
+FatiaNegr575: folds 
+Dulovcan: folds 
+magicusys: folds 
+aceofhear941: folds 
+jaral2005: folds 
+*** FLOP *** [7s 5h Jc]
+MantisNN: bets 600
+juhubx: calls 600
+*** TURN *** [7s 5h Jc] [Kd]
+MantisNN: bets 1000
+juhubx: raises 602 to 1602 and is all-in
+MantisNN: calls 602
+*** RIVER *** [7s 5h Jc Kd] [Tc]
+*** SHOW DOWN ***
+MantisNN: shows [Ad Ac] (a pair of Aces)
+juhubx: shows [Ks Js] (two pair, Kings and Jacks)
+juhubx collected 6084 from pot
+*** SUMMARY ***
+Total pot 6084 | Rake 0 
+Board [7s 5h Jc Kd Tc]
+Seat 1: FatiaNegr575 folded before Flop (didn't bet)
+Seat 2: Dulovcan folded before Flop (didn't bet)
+Seat 3: magicusys (button) folded before Flop (didn't bet)
+Seat 4: aceofhear941 (small blind) folded before Flop
+Seat 5: jaral2005 (big blind) folded before Flop
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: MantisNN showed [Ad Ac] and lost with a pair of Aces
+Seat 8: juhubx showed [Ks Js] and won (6084) with two pair, Kings and Jacks
+Seat 9: carlos xxxzxx folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259615882907: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level IX (100/200) - 2026/02/06 16:36:47 CET [2026/02/06 10:36:47 ET]
+Table '3970436932 27' 9-max Seat #4 is the button
+Seat 1: FatiaNegr575 (1136 in chips) 
+Seat 2: Dulovcan (2016 in chips) 
+Seat 3: magicusys (7156 in chips) 
+Seat 4: aceofhear941 (1628 in chips) 
+Seat 5: jaral2005 (788 in chips) 
+Seat 6: jsalinas96 (524 in chips) 
+Seat 7: MantisNN (3790 in chips) 
+Seat 8: juhubx (6084 in chips) 
+Seat 9: carlos xxxzxx (2660 in chips) 
+FatiaNegr575: posts the ante 20
+Dulovcan: posts the ante 20
+magicusys: posts the ante 20
+aceofhear941: posts the ante 20
+jaral2005: posts the ante 20
+jsalinas96: posts the ante 20
+MantisNN: posts the ante 20
+juhubx: posts the ante 20
+carlos xxxzxx: posts the ante 20
+jaral2005: posts small blind 100
+jsalinas96: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8h Kh]
+MantisNN: calls 200
+juhubx: calls 200
+carlos xxxzxx: folds 
+FatiaNegr575: folds 
+Dulovcan: calls 200
+magicusys: calls 200
+aceofhear941: calls 200
+jaral2005: folds 
+jsalinas96: raises 304 to 504 and is all-in
+MantisNN: calls 304
+juhubx: calls 304
+Dulovcan: calls 304
+magicusys: calls 304
+aceofhear941: calls 304
+*** FLOP *** [Qd 3c Ad]
+MantisNN: checks 
+juhubx: checks 
+Dulovcan: checks 
+magicusys: checks 
+aceofhear941: checks 
+*** TURN *** [Qd 3c Ad] [5c]
+MantisNN: checks 
+juhubx: checks 
+Dulovcan: bets 600
+magicusys: folds 
+aceofhear941: calls 600
+MantisNN: folds 
+juhubx: folds 
+*** RIVER *** [Qd 3c Ad 5c] [9h]
+Dulovcan: checks 
+aceofhear941: checks 
+*** SHOW DOWN ***
+Dulovcan: shows [Kc 5h] (a pair of Fives)
+aceofhear941: mucks hand 
+Dulovcan collected 1200 from side pot
+jsalinas96: mucks hand 
+Dulovcan collected 3304 from main pot
+jsalinas96 finished the tournament in 230th place
+*** SUMMARY ***
+Total pot 4504 Main pot 3304. Side pot 1200. | Rake 0 
+Board [Qd 3c Ad 5c 9h]
+Seat 1: FatiaNegr575 folded before Flop (didn't bet)
+Seat 2: Dulovcan showed [Kc 5h] and won (4504) with a pair of Fives
+Seat 3: magicusys folded on the Turn
+Seat 4: aceofhear941 (button) mucked [Kd 6d]
+Seat 5: jaral2005 (small blind) folded before Flop
+Seat 6: jsalinas96 (big blind) mucked [8h Kh]
+Seat 7: MantisNN folded on the Turn
+Seat 8: juhubx folded on the Turn
+Seat 9: carlos xxxzxx folded before Flop (didn't bet)
+
+
+

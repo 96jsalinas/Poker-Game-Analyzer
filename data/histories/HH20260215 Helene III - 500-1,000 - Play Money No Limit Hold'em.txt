@@ -1,0 +1,958 @@
+﻿PokerStars Hand #259739149502:  Hold'em No Limit (500/1000) - 2026/02/15 19:59:26 CET [2026/02/15 13:59:26 ET]
+Table 'Helene III' 9-max (Play Money) Seat #4 is the button
+Seat 2: RinzlerNarga (21580 in chips) is sitting out
+Seat 1: jsalinas96 (100000 in chips) 
+Seat 3: jimo9797 (527750 in chips) 
+Seat 4: DALIATURCO (147680 in chips) 
+Seat 5: deadlee1883 (477150 in chips) 
+Seat 6: ghostriderRSF (100000 in chips) 
+Seat 7: onamission26 (174820 in chips) 
+Seat 8: Frank1000mil (97940 in chips) 
+Seat 9: susa252525 (151450 in chips) 
+deadlee1883: posts small blind 500
+ghostriderRSF: posts big blind 1000
+jsalinas96: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6h 5h]
+onamission26: calls 1000
+Frank1000mil: calls 1000
+susa252525: raises 5500 to 6500
+jsalinas96: folds 
+jimo9797: folds 
+DALIATURCO: calls 6500
+deadlee1883 has timed out
+deadlee1883: folds 
+ghostriderRSF has timed out
+ghostriderRSF: folds 
+onamission26: calls 5500
+Frank1000mil: calls 5500
+*** FLOP *** [Qd 8s 4s]
+onamission26: checks 
+Frank1000mil: checks 
+susa252525: checks 
+DALIATURCO: bets 3000
+onamission26: calls 3000
+Frank1000mil: folds 
+susa252525: folds 
+*** TURN *** [Qd 8s 4s] [3d]
+onamission26: checks 
+DALIATURCO: bets 8000
+onamission26: calls 8000
+*** RIVER *** [Qd 8s 4s 3d] [Tc]
+onamission26: checks 
+DALIATURCO: checks 
+*** SHOW DOWN ***
+onamission26: shows [Ad Ts] (a pair of Tens)
+DALIATURCO: shows [Qs Jh] (a pair of Queens)
+DALIATURCO collected 47720 from pot
+*** SUMMARY ***
+Total pot 50500 | Rake 2780 
+Board [Qd 8s 4s 3d Tc]
+Seat 2: RinzlerNarga
+Seat 1: jsalinas96 folded before Flop (didn't bet)
+Seat 3: jimo9797 folded before Flop (didn't bet)
+Seat 4: DALIATURCO (button) showed [Qs Jh] and won (47720) with a pair of Queens
+Seat 5: deadlee1883 (small blind) folded before Flop
+Seat 6: ghostriderRSF (big blind) folded before Flop
+Seat 7: onamission26 showed [Ad Ts] and lost with a pair of Tens
+Seat 8: Frank1000mil folded on the Flop
+Seat 9: susa252525 folded on the Flop
+
+
+
+PokerStars Hand #259739171296:  Hold'em No Limit (500/1000) - 2026/02/15 20:01:19 CET [2026/02/15 14:01:19 ET]
+Table 'Helene III' 9-max (Play Money) Seat #5 is the button
+Seat 2: RinzlerNarga (21580 in chips) is sitting out
+Seat 6: ghostriderRSF (99000 in chips) is sitting out
+Seat 1: jsalinas96 (99000 in chips) 
+Seat 3: jimo9797 (527750 in chips) 
+Seat 4: DALIATURCO (177900 in chips) 
+Seat 5: deadlee1883 (476650 in chips) 
+Seat 7: onamission26 (157320 in chips) 
+Seat 8: Frank1000mil (91440 in chips) 
+Seat 9: susa252525 (144950 in chips) 
+onamission26: posts small blind 500
+Frank1000mil: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ks 3s]
+susa252525: folds 
+jsalinas96: calls 1000
+jimo9797: calls 1000
+DALIATURCO: folds 
+deadlee1883: folds 
+onamission26: folds 
+Frank1000mil: checks 
+*** FLOP *** [6d 9d 6h]
+Frank1000mil: checks 
+jsalinas96: checks 
+jimo9797: bets 1000
+Frank1000mil: folds 
+jsalinas96: calls 1000
+*** TURN *** [6d 9d 6h] [Tc]
+jsalinas96: checks 
+jimo9797: bets 1000
+jsalinas96: calls 1000
+*** RIVER *** [6d 9d 6h Tc] [Qc]
+jsalinas96: checks 
+jimo9797: bets 12000
+jsalinas96: folds 
+Uncalled bet (12000) returned to jimo9797
+jimo9797 collected 7090 from pot
+jimo9797: doesn't show hand 
+*** SUMMARY ***
+Total pot 7500 | Rake 410 
+Board [6d 9d 6h Tc Qc]
+Seat 2: RinzlerNarga
+Seat 6: ghostriderRSF
+Seat 1: jsalinas96 folded on the River
+Seat 3: jimo9797 collected (7090)
+Seat 4: DALIATURCO folded before Flop (didn't bet)
+Seat 5: deadlee1883 (button) folded before Flop (didn't bet)
+Seat 7: onamission26 (small blind) folded before Flop
+Seat 8: Frank1000mil (big blind) folded on the Flop
+Seat 9: susa252525 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259739185398:  Hold'em No Limit (500/1000) - 2026/02/15 20:02:16 CET [2026/02/15 14:02:16 ET]
+Table 'Helene III' 9-max (Play Money) Seat #7 is the button
+Seat 2: RinzlerNarga (21580 in chips) is sitting out
+Seat 6: ghostriderRSF (99000 in chips) is sitting out
+Seat 1: jsalinas96 (96000 in chips) 
+Seat 3: jimo9797 (531840 in chips) 
+Seat 4: DALIATURCO (177900 in chips) 
+Seat 5: deadlee1883 (476650 in chips) 
+Seat 7: onamission26 (156820 in chips) 
+Seat 8: Frank1000mil (99000 in chips) 
+Seat 9: susa252525 (144950 in chips) 
+Frank1000mil: posts small blind 500
+susa252525: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9s 3s]
+jsalinas96: folds 
+jimo9797: calls 1000
+DALIATURCO: folds 
+deadlee1883: folds 
+onamission26: raises 1000 to 2000
+Frank1000mil: calls 1500
+susa252525: calls 1000
+jimo9797: calls 1000
+*** FLOP *** [6d 4s 7s]
+Frank1000mil: checks 
+susa252525: checks 
+jimo9797: checks 
+onamission26: bets 7560
+Frank1000mil: calls 7560
+susa252525: folds 
+jimo9797: folds 
+*** TURN *** [6d 4s 7s] [Js]
+Frank1000mil: checks 
+onamission26: checks 
+*** RIVER *** [6d 4s 7s Js] [Ah]
+Frank1000mil: checks 
+onamission26: checks 
+*** SHOW DOWN ***
+Frank1000mil: shows [9c 8d] (high card Ace)
+onamission26: shows [Th Ac] (a pair of Aces)
+onamission26 collected 21850 from pot
+*** SUMMARY ***
+Total pot 23120 | Rake 1270 
+Board [6d 4s 7s Js Ah]
+Seat 2: RinzlerNarga
+Seat 6: ghostriderRSF
+Seat 1: jsalinas96 folded before Flop (didn't bet)
+Seat 3: jimo9797 folded on the Flop
+Seat 4: DALIATURCO folded before Flop (didn't bet)
+Seat 5: deadlee1883 folded before Flop (didn't bet)
+Seat 7: onamission26 (button) showed [Th Ac] and won (21850) with a pair of Aces
+Seat 8: Frank1000mil (small blind) showed [9c 8d] and lost with high card Ace
+Seat 9: susa252525 (big blind) folded on the Flop
+
+
+
+PokerStars Hand #259739212249:  Hold'em No Limit (500/1000) - 2026/02/15 20:03:48 CET [2026/02/15 14:03:48 ET]
+Table 'Helene III' 9-max (Play Money) Seat #8 is the button
+Seat 2: RinzlerNarga (21580 in chips) is sitting out
+Seat 6: ghostriderRSF (99000 in chips) is sitting out
+Seat 1: jsalinas96 (96000 in chips) 
+Seat 3: jimo9797 (529840 in chips) 
+Seat 4: DALIATURCO (177900 in chips) 
+Seat 5: deadlee1883 (476650 in chips) 
+Seat 7: onamission26 (169110 in chips) 
+Seat 8: Frank1000mil (89440 in chips) 
+Seat 9: susa252525 (142950 in chips) 
+susa252525: posts small blind 500
+jsalinas96: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qc 6h]
+jimo9797: calls 1000
+DALIATURCO: calls 1000
+deadlee1883: folds 
+onamission26: calls 1000
+Frank1000mil: calls 1000
+deadlee1883 leaves the table
+susa252525: raises 1000 to 2000
+jsalinas96: folds 
+jimo9797: calls 1000
+DALIATURCO: calls 1000
+onamission26: calls 1000
+Frank1000mil: calls 1000
+*** FLOP *** [4h 9s Kd]
+susa252525: bets 1000
+jimo9797: calls 1000
+DALIATURCO: calls 1000
+onamission26: calls 1000
+Frank1000mil: calls 1000
+*** TURN *** [4h 9s Kd] [Ks]
+susa252525: bets 1000
+jimo9797: calls 1000
+DALIATURCO: calls 1000
+onamission26: raises 9560 to 10560
+Frank1000mil: raises 75880 to 86440 and is all-in
+susa252525: folds 
+jimo9797: calls 85440
+DALIATURCO: folds 
+onamission26: folds 
+*** RIVER *** [4h 9s Kd Ks] [2c]
+*** SHOW DOWN ***
+jimo9797: shows [Qh Kh] (three of a kind, Kings)
+Frank1000mil: shows [8c Kc] (three of a kind, Kings - lower kicker)
+jimo9797 collected 190360 from pot
+*** SUMMARY ***
+Total pot 201440 | Rake 11080 
+Board [4h 9s Kd Ks 2c]
+Seat 2: RinzlerNarga
+Seat 6: ghostriderRSF
+Seat 1: jsalinas96 (big blind) folded before Flop
+Seat 3: jimo9797 showed [Qh Kh] and won (190360) with three of a kind, Kings
+Seat 4: DALIATURCO folded on the Turn
+Seat 5: deadlee1883 folded before Flop (didn't bet)
+Seat 7: onamission26 folded on the Turn
+Seat 8: Frank1000mil (button) showed [8c Kc] and lost with three of a kind, Kings
+Seat 9: susa252525 (small blind) folded on the Turn
+
+
+
+PokerStars Hand #259739237297:  Hold'em No Limit (500/1000) - 2026/02/15 20:05:15 CET [2026/02/15 14:05:15 ET]
+Table 'Helene III' 9-max (Play Money) Seat #9 is the button
+Seat 2: RinzlerNarga (21580 in chips) is sitting out
+Seat 6: ghostriderRSF (99000 in chips) is sitting out
+Seat 8: Frank1000mil (0 in chips) is sitting out
+Seat 1: jsalinas96 (95000 in chips) 
+Seat 3: jimo9797 (630760 in chips) 
+Seat 4: DALIATURCO (173900 in chips) 
+Seat 7: onamission26 (155550 in chips) 
+Seat 9: susa252525 (138950 in chips) 
+jsalinas96: posts small blind 500
+jimo9797: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5s Th]
+DALIATURCO: folds 
+onamission26: calls 1000
+susa252525: folds 
+jsalinas96: folds 
+jimo9797: checks 
+*** FLOP *** [6h 4d 2c]
+ChuEnLai Iº joins the table at seat #5 
+jimo9797: checks 
+onamission26: checks 
+*** TURN *** [6h 4d 2c] [4s]
+jimo9797: checks 
+onamission26: checks 
+*** RIVER *** [6h 4d 2c 4s] [Td]
+jimo9797: checks 
+onamission26: bets 2360
+jimo9797: folds 
+Uncalled bet (2360) returned to onamission26
+onamission26 collected 2360 from pot
+onamission26: doesn't show hand 
+*** SUMMARY ***
+Total pot 2500 | Rake 140 
+Board [6h 4d 2c 4s Td]
+Seat 2: RinzlerNarga
+Seat 6: ghostriderRSF
+Seat 8: Frank1000mil
+Seat 1: jsalinas96 (small blind) folded before Flop
+Seat 3: jimo9797 (big blind) folded on the River
+Seat 4: DALIATURCO folded before Flop (didn't bet)
+Seat 7: onamission26 collected (2360)
+Seat 9: susa252525 (button) folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259739249427:  Hold'em No Limit (500/1000) - 2026/02/15 20:05:56 CET [2026/02/15 14:05:56 ET]
+Table 'Helene III' 9-max (Play Money) Seat #1 is the button
+Seat 2: RinzlerNarga (21580 in chips) is sitting out
+Seat 1: jsalinas96 (94500 in chips) 
+Seat 3: jimo9797 (629760 in chips) 
+Seat 4: DALIATURCO (173900 in chips) 
+Seat 5: ChuEnLai Iº (100000 in chips) 
+Seat 6: ghostriderRSF (99000 in chips) 
+Seat 7: onamission26 (156910 in chips) 
+Seat 8: Frank1000mil (100000 in chips) 
+Seat 9: susa252525 (138950 in chips) 
+jimo9797: posts small blind 500
+DALIATURCO: posts big blind 1000
+ChuEnLai Iº: posts big blind 1000
+ghostriderRSF: posts small blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qs 2d]
+ChuEnLai Iº: checks 
+RinzlerNarga leaves the table
+ghostriderRSF: calls 1000
+onamission26: folds 
+Frank1000mil: calls 1000
+susa252525: raises 6000 to 7000
+jsalinas96: folds 
+jimo9797: calls 6500
+DALIATURCO: calls 6000
+ChuEnLai Iº: folds 
+ghostriderRSF: calls 6000
+Frank1000mil: calls 6000
+*** FLOP *** [3h 7h Ac]
+jimo9797: checks 
+DALIATURCO: bets 4000
+ghostriderRSF: folds 
+Frank1000mil: calls 4000
+susa252525: folds 
+jimo9797: calls 4000
+*** TURN *** [3h 7h Ac] [6d]
+jimo9797: checks 
+DALIATURCO: bets 12000
+Frank1000mil has timed out
+Frank1000mil: folds 
+jimo9797: calls 12000
+*** RIVER *** [3h 7h Ac 6d] [Tc]
+jimo9797: checks 
+DALIATURCO: bets 4000
+jimo9797: calls 4000
+*** SHOW DOWN ***
+DALIATURCO: shows [Kc Ah] (a pair of Aces)
+jimo9797: mucks hand 
+DALIATURCO collected 76070 from pot
+*** SUMMARY ***
+Total pot 80500 | Rake 4430 
+Board [3h 7h Ac 6d Tc]
+Seat 2: RinzlerNarga
+Seat 1: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 3: jimo9797 (small blind) mucked [As 5s]
+Seat 4: DALIATURCO (big blind) showed [Kc Ah] and won (76070) with a pair of Aces
+Seat 5: ChuEnLai Iº folded before Flop (didn't bet)
+Seat 6: ghostriderRSF folded on the Flop
+Seat 7: onamission26 folded before Flop (didn't bet)
+Seat 8: Frank1000mil folded on the Turn
+Seat 9: susa252525 folded on the Flop
+
+
+
+PokerStars Hand #259739283405:  Hold'em No Limit (500/1000) - 2026/02/15 20:07:50 CET [2026/02/15 14:07:50 ET]
+Table 'Helene III' 9-max (Play Money) Seat #3 is the button
+Seat 8: Frank1000mil (89000 in chips) is sitting out
+Seat 1: jsalinas96 (94500 in chips) 
+Seat 3: jimo9797 (602760 in chips) 
+Seat 4: DALIATURCO (222970 in chips) 
+Seat 5: ChuEnLai Iº (99000 in chips) 
+Seat 6: ghostriderRSF (91500 in chips) 
+Seat 7: onamission26 (156910 in chips) 
+Seat 9: susa252525 (131950 in chips) 
+DALIATURCO: posts small blind 500
+ChuEnLai Iº: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4h 2h]
+ghostriderRSF: folds 
+onamission26: folds 
+susa252525: raises 1000 to 2000
+jsalinas96: folds 
+jimo9797: calls 2000
+DALIATURCO: calls 1500
+ChuEnLai Iº: calls 1000
+*** FLOP *** [2c 6s 9s]
+DALIATURCO: checks 
+ChuEnLai Iº: checks 
+susa252525: bets 1000
+jimo9797: folds 
+DALIATURCO: calls 1000
+ChuEnLai Iº: calls 1000
+*** TURN *** [2c 6s 9s] [6d]
+DALIATURCO: checks 
+ChuEnLai Iº: checks 
+susa252525: checks 
+*** RIVER *** [2c 6s 9s 6d] [3d]
+DALIATURCO: checks 
+ChuEnLai Iº: checks 
+susa252525: checks 
+*** SHOW DOWN ***
+DALIATURCO: shows [Ac Td] (a pair of Sixes)
+ChuEnLai Iº: mucks hand 
+susa252525: mucks hand 
+DALIATURCO collected 10390 from pot
+*** SUMMARY ***
+Total pot 11000 | Rake 610 
+Board [2c 6s 9s 6d 3d]
+Seat 8: Frank1000mil
+Seat 1: jsalinas96 folded before Flop (didn't bet)
+Seat 3: jimo9797 (button) folded on the Flop
+Seat 4: DALIATURCO (small blind) showed [Ac Td] and won (10390) with a pair of Sixes
+Seat 5: ChuEnLai Iº (big blind) mucked [7d Qs]
+Seat 6: ghostriderRSF folded before Flop (didn't bet)
+Seat 7: onamission26 folded before Flop (didn't bet)
+Seat 9: susa252525 mucked [Ks 5s]
+
+
+
+PokerStars Hand #259739301784:  Hold'em No Limit (500/1000) - 2026/02/15 20:08:52 CET [2026/02/15 14:08:52 ET]
+Table 'Helene III' 9-max (Play Money) Seat #4 is the button
+Seat 8: Frank1000mil (89000 in chips) is sitting out
+Seat 1: jsalinas96 (94500 in chips) 
+Seat 3: jimo9797 (600760 in chips) 
+Seat 4: DALIATURCO (230360 in chips) 
+Seat 5: ChuEnLai Iº (96000 in chips) 
+Seat 6: ghostriderRSF (91500 in chips) 
+Seat 7: onamission26 (156910 in chips) 
+Seat 9: susa252525 (128950 in chips) 
+ChuEnLai Iº: posts small blind 500
+ghostriderRSF: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8c Qh]
+onamission26: calls 1000
+susa252525: raises 1000 to 2000
+jsalinas96: calls 2000
+jimo9797: calls 2000
+DALIATURCO: folds 
+ChuEnLai Iº: calls 1500
+ghostriderRSF: calls 1000
+onamission26: calls 1000
+*** FLOP *** [3s 4s 2d]
+ChuEnLai Iº: bets 1000
+ghostriderRSF: folds 
+onamission26: folds 
+susa252525: folds 
+jsalinas96: folds 
+jimo9797: calls 1000
+*** TURN *** [3s 4s 2d] [6s]
+ChuEnLai Iº: bets 6000
+jimo9797: calls 6000
+*** RIVER *** [3s 4s 2d 6s] [3d]
+ChuEnLai Iº: bets 24570
+jimo9797: folds 
+Uncalled bet (24570) returned to ChuEnLai Iº
+ChuEnLai Iº collected 24570 from pot
+ChuEnLai Iº: doesn't show hand 
+*** SUMMARY ***
+Total pot 26000 | Rake 1430 
+Board [3s 4s 2d 6s 3d]
+Seat 8: Frank1000mil
+Seat 1: jsalinas96 folded on the Flop
+Seat 3: jimo9797 folded on the River
+Seat 4: DALIATURCO (button) folded before Flop (didn't bet)
+Seat 5: ChuEnLai Iº (small blind) collected (24570)
+Seat 6: ghostriderRSF (big blind) folded on the Flop
+Seat 7: onamission26 folded on the Flop
+Seat 9: susa252525 folded on the Flop
+
+
+
+PokerStars Hand #259739320956:  Hold'em No Limit (500/1000) - 2026/02/15 20:09:58 CET [2026/02/15 14:09:58 ET]
+Table 'Helene III' 9-max (Play Money) Seat #5 is the button
+Seat 1: jsalinas96 (92500 in chips) 
+Seat 3: jimo9797 (591760 in chips) 
+Seat 4: DALIATURCO (230360 in chips) 
+Seat 5: ChuEnLai Iº (111570 in chips) 
+Seat 6: ghostriderRSF (89500 in chips) 
+Seat 7: onamission26 (154910 in chips) 
+Seat 8: Frank1000mil (89000 in chips) 
+Seat 9: susa252525 (126950 in chips) 
+ghostriderRSF: posts small blind 500
+onamission26: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ts Jh]
+Frank1000mil: calls 1000
+susa252525: raises 3500 to 4500
+jsalinas96: folds 
+jimo9797: calls 4500
+DALIATURCO: folds 
+ChuEnLai Iº: folds 
+ghostriderRSF: folds 
+onamission26: folds 
+Frank1000mil: calls 3500
+*** FLOP *** [5s 6d Tc]
+Frank1000mil: checks 
+susa252525: bets 14170
+jimo9797: folds 
+Frank1000mil: folds 
+Uncalled bet (14170) returned to susa252525
+susa252525 collected 14170 from pot
+susa252525: doesn't show hand 
+*** SUMMARY ***
+Total pot 15000 | Rake 830 
+Board [5s 6d Tc]
+Seat 1: jsalinas96 folded before Flop (didn't bet)
+Seat 3: jimo9797 folded on the Flop
+Seat 4: DALIATURCO folded before Flop (didn't bet)
+Seat 5: ChuEnLai Iº (button) folded before Flop (didn't bet)
+Seat 6: ghostriderRSF (small blind) folded before Flop
+Seat 7: onamission26 (big blind) folded before Flop
+Seat 8: Frank1000mil folded on the Flop
+Seat 9: susa252525 collected (14170)
+
+
+
+PokerStars Hand #259739335232:  Hold'em No Limit (500/1000) - 2026/02/15 20:10:46 CET [2026/02/15 14:10:46 ET]
+Table 'Helene III' 9-max (Play Money) Seat #6 is the button
+Seat 1: jsalinas96 (92500 in chips) 
+Seat 3: jimo9797 (587260 in chips) 
+Seat 4: DALIATURCO (230360 in chips) 
+Seat 5: ChuEnLai Iº (111570 in chips) 
+Seat 6: ghostriderRSF (89000 in chips) 
+Seat 7: onamission26 (153910 in chips) 
+Seat 8: Frank1000mil (84500 in chips) 
+Seat 9: susa252525 (136620 in chips) 
+onamission26: posts small blind 500
+Frank1000mil: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2c 9s]
+susa252525: calls 1000
+jsalinas96: folds 
+jimo9797: calls 1000
+DALIATURCO: folds 
+ChuEnLai Iº: calls 1000
+ghostriderRSF: folds 
+onamission26: folds 
+Frank1000mil: checks 
+*** FLOP *** [Ah 7c 9c]
+RUFAT008 joins the table at seat #2 
+Frank1000mil: checks 
+susa252525: checks 
+jimo9797: checks 
+ChuEnLai Iº: bets 4250
+Frank1000mil: folds 
+susa252525: folds 
+jimo9797: folds 
+Uncalled bet (4250) returned to ChuEnLai Iº
+ChuEnLai Iº collected 4250 from pot
+ChuEnLai Iº: doesn't show hand 
+*** SUMMARY ***
+Total pot 4500 | Rake 250 
+Board [Ah 7c 9c]
+Seat 1: jsalinas96 folded before Flop (didn't bet)
+Seat 3: jimo9797 folded on the Flop
+Seat 4: DALIATURCO folded before Flop (didn't bet)
+Seat 5: ChuEnLai Iº collected (4250)
+Seat 6: ghostriderRSF (button) folded before Flop (didn't bet)
+Seat 7: onamission26 (small blind) folded before Flop
+Seat 8: Frank1000mil (big blind) folded on the Flop
+Seat 9: susa252525 folded on the Flop
+
+
+
+PokerStars Hand #259739355210:  Hold'em No Limit (500/1000) - 2026/02/15 20:11:53 CET [2026/02/15 14:11:53 ET]
+Table 'Helene III' 9-max (Play Money) Seat #7 is the button
+Seat 1: jsalinas96 (92500 in chips) 
+Seat 2: RUFAT008 (100000 in chips) 
+Seat 3: jimo9797 (586260 in chips) 
+Seat 4: DALIATURCO (230360 in chips) 
+Seat 5: ChuEnLai Iº (114820 in chips) 
+Seat 6: ghostriderRSF (89000 in chips) 
+Seat 7: onamission26 (153410 in chips) 
+Seat 8: Frank1000mil (99000 in chips) 
+Seat 9: susa252525 (135620 in chips) 
+Frank1000mil: posts small blind 500
+susa252525: posts big blind 1000
+RUFAT008: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8h 2s]
+jsalinas96: folds 
+RUFAT008: checks 
+jimo9797: calls 1000
+DALIATURCO: folds 
+ChuEnLai Iº: calls 1000
+ghostriderRSF: folds 
+onamission26: raises 1000 to 2000
+Frank1000mil: calls 1500
+susa252525: raises 9000 to 11000
+RUFAT008: calls 10000
+jimo9797: calls 10000
+ChuEnLai Iº: folds 
+onamission26: calls 9000
+Frank1000mil: calls 9000
+*** FLOP *** [6c 2c 3s]
+Frank1000mil: checks 
+susa252525: checks 
+RUFAT008: checks 
+jimo9797: checks 
+onamission26: bets 26460
+Frank1000mil: calls 26460
+susa252525: folds 
+RUFAT008: folds 
+jimo9797: folds 
+*** TURN *** [6c 2c 3s] [Jc]
+Frank1000mil: bets 61540 and is all-in
+onamission26: calls 61540
+*** RIVER *** [6c 2c 3s Jc] [Jd]
+*** SHOW DOWN ***
+Frank1000mil: shows [6d Jh] (a full house, Jacks full of Sixes)
+onamission26: shows [Kh 6h] (two pair, Jacks and Sixes)
+Frank1000mil collected 219240 from pot
+*** SUMMARY ***
+Total pot 232000 | Rake 12760 
+Board [6c 2c 3s Jc Jd]
+Seat 1: jsalinas96 folded before Flop (didn't bet)
+Seat 2: RUFAT008 folded on the Flop
+Seat 3: jimo9797 folded on the Flop
+Seat 4: DALIATURCO folded before Flop (didn't bet)
+Seat 5: ChuEnLai Iº folded before Flop
+Seat 6: ghostriderRSF folded before Flop (didn't bet)
+Seat 7: onamission26 (button) showed [Kh 6h] and lost with two pair, Jacks and Sixes
+Seat 8: Frank1000mil (small blind) showed [6d Jh] and won (219240) with a full house, Jacks full of Sixes
+Seat 9: susa252525 (big blind) folded on the Flop
+
+
+
+PokerStars Hand #259739382772:  Hold'em No Limit (500/1000) - 2026/02/15 20:13:27 CET [2026/02/15 14:13:27 ET]
+Table 'Helene III' 9-max (Play Money) Seat #8 is the button
+Seat 7: onamission26 (54410 in chips) is sitting out
+Seat 1: jsalinas96 (92500 in chips) 
+Seat 2: RUFAT008 (89000 in chips) 
+Seat 3: jimo9797 (575260 in chips) 
+Seat 4: DALIATURCO (230360 in chips) 
+Seat 5: ChuEnLai Iº (113820 in chips) 
+Seat 6: ghostriderRSF (89000 in chips) 
+Seat 8: Frank1000mil (219240 in chips) 
+Seat 9: susa252525 (124620 in chips) 
+susa252525: posts small blind 500
+jsalinas96: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3d 5c]
+RUFAT008: calls 1000
+jimo9797: calls 1000
+DALIATURCO: calls 1000
+ChuEnLai Iº: calls 1000
+onamission26 leaves the table
+ghostriderRSF is disconnected 
+ghostriderRSF has timed out while being disconnected
+ghostriderRSF: folds 
+Frank1000mil: raises 6500 to 7500
+susa252525: calls 7000
+jsalinas96: folds 
+RUFAT008: calls 6500
+jimo9797: folds 
+DALIATURCO: calls 6500
+ChuEnLai Iº: folds 
+*** FLOP *** [Td 2h 6s]
+susa252525: checks 
+RUFAT008: checks 
+DALIATURCO: checks 
+Frank1000mil: bets 15590
+susa252525: folds 
+RUFAT008: calls 15590
+DALIATURCO: raises 29410 to 45000
+Frank1000mil: raises 166740 to 211740 and is all-in
+RUFAT008: calls 65910 and is all-in
+DALIATURCO: calls 166740
+*** TURN *** [Td 2h 6s] [Kc]
+*** RIVER *** [Td 2h 6s Kc] [4h]
+*** SHOW DOWN ***
+DALIATURCO: shows [Ah Ac] (a pair of Aces)
+Frank1000mil: shows [Ks Kd] (three of a kind, Kings)
+Frank1000mil collected 246150 from side pot
+RUFAT008: shows [8c Tc] (a pair of Tens)
+Frank1000mil collected 262240 from main pot
+*** SUMMARY ***
+Total pot 537980 Main pot 262240. Side pot 246150. | Rake 29590 
+Board [Td 2h 6s Kc 4h]
+Seat 7: onamission26
+Seat 1: jsalinas96 (big blind) folded before Flop
+Seat 2: RUFAT008 showed [8c Tc] and lost with a pair of Tens
+Seat 3: jimo9797 folded before Flop
+Seat 4: DALIATURCO showed [Ah Ac] and lost with a pair of Aces
+Seat 5: ChuEnLai Iº folded before Flop
+Seat 6: ghostriderRSF folded before Flop (didn't bet)
+Seat 8: Frank1000mil (button) showed [Ks Kd] and won (508390) with three of a kind, Kings
+Seat 9: susa252525 (small blind) folded on the Flop
+
+
+
+PokerStars Hand #259739413458:  Hold'em No Limit (500/1000) - 2026/02/15 20:15:12 CET [2026/02/15 14:15:12 ET]
+Table 'Helene III' 9-max (Play Money) Seat #9 is the button
+Seat 2: RUFAT008 (0 in chips) is sitting out
+Seat 6: ghostriderRSF (89000 in chips) is sitting out
+Seat 1: jsalinas96 (91500 in chips) 
+Seat 3: jimo9797 (574260 in chips) 
+Seat 4: DALIATURCO (11120 in chips) 
+Seat 5: ChuEnLai Iº (112820 in chips) 
+Seat 8: Frank1000mil (508390 in chips) 
+Seat 9: susa252525 (117120 in chips) 
+jsalinas96: posts small blind 500
+jimo9797: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3c Js]
+DALIATURCO: raises 10120 to 11120 and is all-in
+ChuEnLai Iº: folds 
+Frank1000mil: folds 
+susa252525: folds 
+jsalinas96: folds 
+jimo9797: calls 10120
+*** FLOP *** [Qc Jd Kd]
+*** TURN *** [Qc Jd Kd] [Kh]
+*** RIVER *** [Qc Jd Kd Kh] [3d]
+*** SHOW DOWN ***
+jimo9797: shows [Ah Jh] (two pair, Kings and Jacks)
+DALIATURCO: shows [Qd Ks] (a full house, Kings full of Queens)
+DALIATURCO collected 21490 from pot
+*** SUMMARY ***
+Total pot 22740 | Rake 1250 
+Board [Qc Jd Kd Kh 3d]
+Seat 2: RUFAT008
+Seat 6: ghostriderRSF
+Seat 1: jsalinas96 (small blind) folded before Flop
+Seat 3: jimo9797 (big blind) showed [Ah Jh] and lost with two pair, Kings and Jacks
+Seat 4: DALIATURCO showed [Qd Ks] and won (21490) with a full house, Kings full of Queens
+Seat 5: ChuEnLai Iº folded before Flop (didn't bet)
+Seat 8: Frank1000mil folded before Flop (didn't bet)
+Seat 9: susa252525 (button) folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259739428030:  Hold'em No Limit (500/1000) - 2026/02/15 20:16:01 CET [2026/02/15 14:16:01 ET]
+Table 'Helene III' 9-max (Play Money) Seat #1 is the button
+Seat 2: RUFAT008 (100000 in chips) is sitting out
+Seat 6: ghostriderRSF (89000 in chips) is sitting out
+Seat 1: jsalinas96 (91000 in chips) 
+Seat 3: jimo9797 (563140 in chips) 
+Seat 4: DALIATURCO (21490 in chips) 
+Seat 5: ChuEnLai Iº (112820 in chips) 
+Seat 8: Frank1000mil (508390 in chips) 
+Seat 9: susa252525 (117120 in chips) 
+jimo9797: posts small blind 500
+DALIATURCO: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8d 7h]
+ChuEnLai Iº: calls 1000
+Frank1000mil: calls 1000
+susa252525: calls 1000
+jsalinas96: folds 
+jimo9797: calls 500
+DALIATURCO: checks 
+*** FLOP *** [2c 3s 6d]
+jimo9797: checks 
+DALIATURCO: checks 
+ChuEnLai Iº: checks 
+Frank1000mil: checks 
+susa252525: bets 4720
+jimo9797: folds 
+DALIATURCO: folds 
+ChuEnLai Iº: folds 
+Frank1000mil: folds 
+Uncalled bet (4720) returned to susa252525
+susa252525 collected 4720 from pot
+susa252525: doesn't show hand 
+*** SUMMARY ***
+Total pot 5000 | Rake 280 
+Board [2c 3s 6d]
+Seat 2: RUFAT008
+Seat 6: ghostriderRSF
+Seat 1: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 3: jimo9797 (small blind) folded on the Flop
+Seat 4: DALIATURCO (big blind) folded on the Flop
+Seat 5: ChuEnLai Iº folded on the Flop
+Seat 8: Frank1000mil folded on the Flop
+Seat 9: susa252525 collected (4720)
+
+
+
+PokerStars Hand #259739444495:  Hold'em No Limit (500/1000) - 2026/02/15 20:16:56 CET [2026/02/15 14:16:56 ET]
+Table 'Helene III' 9-max (Play Money) Seat #3 is the button
+Seat 6: ghostriderRSF (89000 in chips) is sitting out
+Seat 1: jsalinas96 (91000 in chips) 
+Seat 2: RUFAT008 (100000 in chips) 
+Seat 3: jimo9797 (562140 in chips) 
+Seat 4: DALIATURCO (20490 in chips) 
+Seat 5: ChuEnLai Iº (111820 in chips) 
+Seat 8: Frank1000mil (507390 in chips) 
+Seat 9: susa252525 (120840 in chips) 
+DALIATURCO: posts small blind 500
+ChuEnLai Iº: posts big blind 1000
+RUFAT008: posts small & big blinds 1500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4d 7h]
+Frank1000mil: calls 1000
+susa252525: calls 1000
+jsalinas96: folds 
+RUFAT008: checks 
+jimo9797: calls 1000
+DALIATURCO: calls 500
+ChuEnLai Iº: checks 
+*** FLOP *** [7s Jh 4s]
+DALIATURCO: checks 
+ChuEnLai Iº: checks 
+Frank1000mil: checks 
+susa252525: bets 6140
+RUFAT008: calls 6140
+jimo9797: calls 6140
+DALIATURCO: folds 
+ChuEnLai Iº: folds 
+Frank1000mil: folds 
+*** TURN *** [7s Jh 4s] [9s]
+susa252525: bets 23550
+RUFAT008: calls 23550
+jimo9797: calls 23550
+*** RIVER *** [7s Jh 4s 9s] [8s]
+susa252525: checks 
+RUFAT008: checks 
+jimo9797: bets 101000
+susa252525: folds 
+RUFAT008: folds 
+Uncalled bet (101000) returned to jimo9797
+jimo9797 collected 90310 from pot
+jimo9797: doesn't show hand 
+*** SUMMARY ***
+Total pot 95570 | Rake 5260 
+Board [7s Jh 4s 9s 8s]
+Seat 6: ghostriderRSF
+Seat 1: jsalinas96 folded before Flop (didn't bet)
+Seat 2: RUFAT008 folded on the River
+Seat 3: jimo9797 (button) collected (90310)
+Seat 4: DALIATURCO (small blind) folded on the Flop
+Seat 5: ChuEnLai Iº (big blind) folded on the Flop
+Seat 8: Frank1000mil folded on the Flop
+Seat 9: susa252525 folded on the River
+
+
+
+PokerStars Hand #259739471137:  Hold'em No Limit (500/1000) - 2026/02/15 20:18:26 CET [2026/02/15 14:18:26 ET]
+Table 'Helene III' 9-max (Play Money) Seat #4 is the button
+Seat 1: jsalinas96 (91000 in chips) 
+Seat 2: RUFAT008 (68810 in chips) 
+Seat 3: jimo9797 (621760 in chips) 
+Seat 4: DALIATURCO (19490 in chips) 
+Seat 5: ChuEnLai Iº (110820 in chips) 
+Seat 6: ghostriderRSF (89000 in chips) 
+Seat 8: Frank1000mil (506390 in chips) 
+Seat 9: susa252525 (90150 in chips) 
+ChuEnLai Iº: posts small blind 500
+ghostriderRSF: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8s 7c]
+Frank1000mil: calls 1000
+susa252525: calls 1000
+jsalinas96: folds 
+RUFAT008: folds 
+jimo9797: calls 1000
+DALIATURCO: folds 
+ChuEnLai Iº: calls 500
+ghostriderRSF: raises 2000 to 3000
+Frank1000mil: calls 2000
+susa252525: calls 2000
+jimo9797: calls 2000
+ChuEnLai Iº: calls 2000
+*** FLOP *** [Tc 9h Qd]
+ChuEnLai Iº: checks 
+ghostriderRSF: checks 
+DURRUTI56 joins the table at seat #7 
+Frank1000mil: checks 
+susa252525: checks 
+jimo9797: checks 
+*** TURN *** [Tc 9h Qd] [Td]
+ChuEnLai Iº: checks 
+ghostriderRSF: checks 
+Frank1000mil: checks 
+susa252525: checks 
+jimo9797: bets 1000
+ChuEnLai Iº: calls 1000
+ghostriderRSF has timed out
+ghostriderRSF: folds 
+Frank1000mil: calls 1000
+susa252525: folds 
+*** RIVER *** [Tc 9h Qd Td] [7h]
+ChuEnLai Iº: checks 
+Frank1000mil: checks 
+jimo9797: checks 
+*** SHOW DOWN ***
+ChuEnLai Iº: shows [9s Ac] (two pair, Tens and Nines)
+Frank1000mil: mucks hand 
+jimo9797: shows [5c Qs] (two pair, Queens and Tens)
+jimo9797 collected 17010 from pot
+*** SUMMARY ***
+Total pot 18000 | Rake 990 
+Board [Tc 9h Qd Td 7h]
+Seat 1: jsalinas96 folded before Flop (didn't bet)
+Seat 2: RUFAT008 folded before Flop (didn't bet)
+Seat 3: jimo9797 showed [5c Qs] and won (17010) with two pair, Queens and Tens
+Seat 4: DALIATURCO (button) folded before Flop (didn't bet)
+Seat 5: ChuEnLai Iº (small blind) showed [9s Ac] and lost with two pair, Tens and Nines
+Seat 6: ghostriderRSF (big blind) folded on the Turn
+Seat 8: Frank1000mil mucked [Jd 6c]
+Seat 9: susa252525 folded on the Turn
+
+
+
+PokerStars Hand #259739502104:  Hold'em No Limit (500/1000) - 2026/02/15 20:20:11 CET [2026/02/15 14:20:11 ET]
+Table 'Helene III' 9-max (Play Money) Seat #5 is the button
+Seat 1: jsalinas96 (91000 in chips) 
+Seat 2: RUFAT008 (68810 in chips) 
+Seat 3: jimo9797 (634770 in chips) 
+Seat 4: DALIATURCO (19490 in chips) 
+Seat 5: ChuEnLai Iº (106820 in chips) 
+Seat 6: ghostriderRSF (86000 in chips) 
+Seat 7: DURRUTI56 (100000 in chips) 
+Seat 8: Frank1000mil (502390 in chips) 
+Seat 9: susa252525 (87150 in chips) 
+ghostriderRSF: posts small blind 500
+DURRUTI56: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qh 7s]
+Frank1000mil: calls 1000
+susa252525: folds 
+jsalinas96: calls 1000
+RUFAT008: calls 1000
+jimo9797: calls 1000
+DALIATURCO: folds 
+ChuEnLai Iº: calls 1000
+ghostriderRSF: folds 
+DURRUTI56: checks 
+*** FLOP *** [3d 4s Jh]
+DURRUTI56: checks 
+Frank1000mil: checks 
+jsalinas96: checks 
+RUFAT008: checks 
+jimo9797: checks 
+ChuEnLai Iº: checks 
+*** TURN *** [3d 4s Jh] [Ah]
+DURRUTI56: checks 
+Frank1000mil: checks 
+jsalinas96: checks 
+RUFAT008: bets 3070
+jimo9797: calls 3070
+ChuEnLai Iº: folds 
+DURRUTI56: calls 3070
+Frank1000mil: calls 3070
+jsalinas96: calls 3070
+*** RIVER *** [3d 4s Jh Ah] [7c]
+DURRUTI56: checks 
+Frank1000mil: checks 
+jsalinas96: bets 4000
+RUFAT008: raises 28650 to 32650
+jimo9797: calls 32650
+DURRUTI56: folds 
+Frank1000mil: folds 
+jsalinas96: calls 28650
+*** SHOW DOWN ***
+RUFAT008: shows [As 7h] (two pair, Aces and Sevens)
+jimo9797: shows [5d 2d] (a straight, Ace to Five)
+jsalinas96: mucks hand 
+jimo9797 collected 113210 from pot
+*** SUMMARY ***
+Total pot 119800 | Rake 6590 
+Board [3d 4s Jh Ah 7c]
+Seat 1: jsalinas96 mucked [Qh 7s]
+Seat 2: RUFAT008 showed [As 7h] and lost with two pair, Aces and Sevens
+Seat 3: jimo9797 showed [5d 2d] and won (113210) with a straight, Ace to Five
+Seat 4: DALIATURCO folded before Flop (didn't bet)
+Seat 5: ChuEnLai Iº (button) folded on the Turn
+Seat 6: ghostriderRSF (small blind) folded before Flop
+Seat 7: DURRUTI56 (big blind) folded on the River
+Seat 8: Frank1000mil folded on the River
+Seat 9: susa252525 folded before Flop (didn't bet)
+
+
+

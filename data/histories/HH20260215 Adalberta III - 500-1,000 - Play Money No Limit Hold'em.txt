@@ -1,0 +1,1297 @@
+﻿PokerStars Hand #259733478403:  Hold'em No Limit (500/1000) - 2026/02/15 12:22:23 CET [2026/02/15 6:22:23 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #9 is the button
+Seat 2: vicente6357 (98000 in chips) 
+Seat 3: JOZ67 (103090 in chips) 
+Seat 4: Trungeldor (101660 in chips) 
+Seat 5: jsalinas96 (100000 in chips) 
+Seat 6: hbjr147 (100000 in chips) 
+Seat 9: Marika975 (98440 in chips) 
+vicente6357: posts small blind 500
+JOZ67: posts big blind 1000
+jsalinas96: posts big blind 1000
+hbjr147: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qh 8h]
+Trungeldor: folds 
+jsalinas96: raises 2000 to 3000
+hbjr147: calls 2000
+Marika975: folds 
+vicente6357: folds 
+JOZ67: calls 2000
+*** FLOP *** [Ts 7d 7c]
+Marika975 leaves the table
+JOZ67: checks 
+joanne123131 joins the table at seat #7 
+jsalinas96: checks 
+hbjr147: checks 
+*** TURN *** [Ts 7d 7c] [Kd]
+JOZ67: checks 
+jsalinas96: checks 
+Walter-5739 joins the table at seat #8 
+hbjr147: bets 4000
+JOZ67: folds 
+jsalinas96: folds 
+Uncalled bet (4000) returned to hbjr147
+hbjr147 collected 8980 from pot
+hbjr147: doesn't show hand 
+bobperrr joins the table at seat #9 
+*** SUMMARY ***
+Total pot 9500 | Rake 520 
+Board [Ts 7d 7c Kd]
+Seat 2: vicente6357 (small blind) folded before Flop
+Seat 3: JOZ67 (big blind) folded on the Turn
+Seat 4: Trungeldor folded before Flop (didn't bet)
+Seat 5: jsalinas96 folded on the Turn
+Seat 6: hbjr147 collected (8980)
+Seat 9: Marika975 (button) folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259733483117:  Hold'em No Limit (500/1000) - 2026/02/15 12:23:06 CET [2026/02/15 6:23:06 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #2 is the button
+Seat 2: vicente6357 (97500 in chips) 
+Seat 3: JOZ67 (100090 in chips) 
+Seat 4: Trungeldor (101660 in chips) 
+Seat 5: jsalinas96 (97000 in chips) 
+Seat 6: hbjr147 (105980 in chips) 
+Seat 7: joanne123131 (60000 in chips) 
+Seat 8: Walter-5739 (100000 in chips) 
+Seat 9: bobperrr (100000 in chips) 
+JOZ67: posts small blind 500
+Trungeldor: posts big blind 1000
+joanne123131: posts big blind 1000
+Walter-5739: posts big blind 1000
+bobperrr: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2h 2c]
+jsalinas96: calls 1000
+hbjr147: folds 
+joanne123131: raises 59000 to 60000 and is all-in
+Walter-5739: folds 
+bobperrr: folds 
+vicente6357: folds 
+JOZ67: raises 40090 to 100090 and is all-in
+Trungeldor: folds 
+jsalinas96: folds 
+Uncalled bet (40090) returned to JOZ67
+*** FLOP *** [Ac 7h 3h]
+*** TURN *** [Ac 7h 3h] [3d]
+*** RIVER *** [Ac 7h 3h 3d] [Qh]
+*** SHOW DOWN ***
+JOZ67: shows [Ad 5d] (two pair, Aces and Threes)
+joanne123131: shows [9c Tc] (a pair of Threes)
+JOZ67 collected 117180 from pot
+*** SUMMARY ***
+Total pot 124000 | Rake 6820 
+Board [Ac 7h 3h 3d Qh]
+Seat 2: vicente6357 (button) folded before Flop (didn't bet)
+Seat 3: JOZ67 (small blind) showed [Ad 5d] and won (117180) with two pair, Aces and Threes
+Seat 4: Trungeldor (big blind) folded before Flop
+Seat 5: jsalinas96 folded before Flop
+Seat 6: hbjr147 folded before Flop (didn't bet)
+Seat 7: joanne123131 showed [9c Tc] and lost with a pair of Threes
+Seat 8: Walter-5739 folded before Flop (didn't bet)
+Seat 9: bobperrr folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259733488931:  Hold'em No Limit (500/1000) - 2026/02/15 12:23:58 CET [2026/02/15 6:23:58 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #3 is the button
+Seat 7: joanne123131 (0 in chips) is sitting out
+Seat 2: vicente6357 (97500 in chips) 
+Seat 3: JOZ67 (157270 in chips) 
+Seat 4: Trungeldor (100660 in chips) 
+Seat 5: jsalinas96 (96000 in chips) 
+Seat 6: hbjr147 (105980 in chips) 
+Seat 8: Walter-5739 (99000 in chips) 
+Seat 9: bobperrr (99000 in chips) 
+Trungeldor: posts small blind 500
+jsalinas96: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2s 9d]
+hbjr147: folds 
+Walter-5739: folds 
+bobperrr: calls 1000
+vicente6357: calls 1000
+JOZ67: calls 1000
+joanne123131 is disconnected 
+Trungeldor: folds 
+jsalinas96: checks 
+*** FLOP *** [Ad 2h Qc]
+jsalinas96: checks 
+bobperrr: checks 
+vicente6357: checks 
+JOZ67: checks 
+*** TURN *** [Ad 2h Qc] [5c]
+jsalinas96: checks 
+bobperrr: checks 
+vicente6357: checks 
+JOZ67: checks 
+*** RIVER *** [Ad 2h Qc 5c] [Qs]
+jsalinas96: bets 2120
+bobperrr: folds 
+vicente6357: calls 2120
+JOZ67: folds 
+*** SHOW DOWN ***
+jsalinas96: shows [2s 9d] (two pair, Queens and Deuces)
+vicente6357: shows [Jc Ac] (two pair, Aces and Queens)
+vicente6357 collected 8260 from pot
+*** SUMMARY ***
+Total pot 8740 | Rake 480 
+Board [Ad 2h Qc 5c Qs]
+Seat 7: joanne123131
+Seat 2: vicente6357 showed [Jc Ac] and won (8260) with two pair, Aces and Queens
+Seat 3: JOZ67 (button) folded on the River
+Seat 4: Trungeldor (small blind) folded before Flop
+Seat 5: jsalinas96 (big blind) showed [2s 9d] and lost with two pair, Queens and Deuces
+Seat 6: hbjr147 folded before Flop (didn't bet)
+Seat 8: Walter-5739 folded before Flop (didn't bet)
+Seat 9: bobperrr folded on the River
+
+
+
+PokerStars Hand #259733497115:  Hold'em No Limit (500/1000) - 2026/02/15 12:25:10 CET [2026/02/15 6:25:10 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #4 is the button
+Seat 7: joanne123131 (0 in chips) is sitting out
+Seat 2: vicente6357 (102640 in chips) 
+Seat 3: JOZ67 (156270 in chips) 
+Seat 4: Trungeldor (100160 in chips) 
+Seat 5: jsalinas96 (92880 in chips) 
+Seat 6: hbjr147 (105980 in chips) 
+Seat 8: Walter-5739 (99000 in chips) 
+Seat 9: bobperrr (98000 in chips) 
+jsalinas96: posts small blind 500
+hbjr147: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3c 5c]
+Walter-5739: calls 1000
+bobperrr: calls 1000
+vicente6357: calls 1000
+JOZ67: folds 
+Trungeldor: calls 1000
+jsalinas96: folds 
+hbjr147: checks 
+*** FLOP *** [6s As Qd]
+ggrrss joins the table at seat #1 
+hbjr147: checks 
+Walter-5739: checks 
+bobperrr: checks 
+vicente6357: checks 
+Trungeldor: checks 
+*** TURN *** [6s As Qd] [8h]
+hbjr147: checks 
+Walter-5739: checks 
+bobperrr: checks 
+vicente6357: checks 
+Trungeldor: checks 
+*** RIVER *** [6s As Qd 8h] [4h]
+hbjr147: checks 
+Walter-5739: checks 
+bobperrr: checks 
+vicente6357: checks 
+Trungeldor: checks 
+*** SHOW DOWN ***
+hbjr147: shows [Jc 8c] (a pair of Eights)
+Walter-5739: mucks hand 
+bobperrr: mucks hand 
+vicente6357: mucks hand 
+Trungeldor: shows [7d 5d] (a straight, Four to Eight)
+Trungeldor collected 5200 from pot
+*** SUMMARY ***
+Total pot 5500 | Rake 300 
+Board [6s As Qd 8h 4h]
+Seat 7: joanne123131
+Seat 2: vicente6357 mucked [6d Kd]
+Seat 3: JOZ67 folded before Flop (didn't bet)
+Seat 4: Trungeldor (button) showed [7d 5d] and won (5200) with a straight, Four to Eight
+Seat 5: jsalinas96 (small blind) folded before Flop
+Seat 6: hbjr147 (big blind) showed [Jc 8c] and lost with a pair of Eights
+Seat 8: Walter-5739 mucked [9h 5s]
+Seat 9: bobperrr mucked [9d 6c]
+
+
+
+PokerStars Hand #259733503889:  Hold'em No Limit (500/1000) - 2026/02/15 12:26:11 CET [2026/02/15 6:26:11 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #5 is the button
+Seat 7: joanne123131 (0 in chips) is sitting out
+Seat 1: ggrrss (100000 in chips) 
+Seat 2: vicente6357 (101640 in chips) 
+Seat 3: JOZ67 (156270 in chips) 
+Seat 4: Trungeldor (104360 in chips) 
+Seat 5: jsalinas96 (92380 in chips) 
+Seat 6: hbjr147 (104980 in chips) 
+Seat 8: Walter-5739 (98000 in chips) 
+Seat 9: bobperrr (97000 in chips) 
+hbjr147: posts small blind 500
+Walter-5739: posts big blind 1000
+ggrrss: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8s 4s]
+bobperrr: calls 1000
+ggrrss: checks 
+vicente6357: folds 
+JOZ67: calls 1000
+Trungeldor: calls 1000
+jsalinas96: calls 1000
+hbjr147: calls 500
+Walter-5739: checks 
+*** FLOP *** [2d Tc 5h]
+hbjr147: checks 
+Walter-5739: checks 
+bobperrr: checks 
+ggrrss: checks 
+JOZ67: bets 3300
+Trungeldor: calls 3300
+jsalinas96: folds 
+hbjr147: folds 
+Walter-5739: folds 
+bobperrr: folds 
+ggrrss: folds 
+*** TURN *** [2d Tc 5h] [Qc]
+JOZ67: checks 
+Trungeldor: checks 
+*** RIVER *** [2d Tc 5h Qc] [Ad]
+JOZ67: bets 12850
+Trungeldor: raises 38550 to 51400
+JOZ67: calls 38550
+*** SHOW DOWN ***
+Trungeldor: shows [4c 3c] (a straight, Ace to Five)
+JOZ67: mucks hand 
+Trungeldor collected 110000 from pot
+*** SUMMARY ***
+Total pot 116400 | Rake 6400 
+Board [2d Tc 5h Qc Ad]
+Seat 7: joanne123131
+Seat 1: ggrrss folded on the Flop (didn't bet)
+Seat 2: vicente6357 folded before Flop (didn't bet)
+Seat 3: JOZ67 mucked [As 2c]
+Seat 4: Trungeldor showed [4c 3c] and won (110000) with a straight, Ace to Five
+Seat 5: jsalinas96 (button) folded on the Flop
+Seat 6: hbjr147 (small blind) folded on the Flop
+Seat 8: Walter-5739 (big blind) folded on the Flop
+Seat 9: bobperrr folded on the Flop
+
+
+
+PokerStars Hand #259733511929:  Hold'em No Limit (500/1000) - 2026/02/15 12:27:22 CET [2026/02/15 6:27:22 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #6 is the button
+Seat 7: joanne123131 (0 in chips) is sitting out
+Seat 1: ggrrss (99000 in chips) 
+Seat 2: vicente6357 (101640 in chips) 
+Seat 3: JOZ67 (100570 in chips) 
+Seat 4: Trungeldor (158660 in chips) 
+Seat 5: jsalinas96 (91380 in chips) 
+Seat 6: hbjr147 (103980 in chips) 
+Seat 8: Walter-5739 (97000 in chips) 
+Seat 9: bobperrr (96000 in chips) 
+Walter-5739: posts small blind 500
+bobperrr: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5s 5h]
+ggrrss: folds 
+vicente6357: folds 
+JOZ67: calls 1000
+Trungeldor: folds 
+jsalinas96: calls 1000
+hbjr147: calls 1000
+Walter-5739: calls 500
+bobperrr: checks 
+*** FLOP *** [8s 9c 4c]
+Walter-5739: checks 
+bobperrr: checks 
+JOZ67: checks 
+jsalinas96: checks 
+hbjr147: bets 1000
+Walter-5739: folds 
+bobperrr: calls 1000
+JOZ67: folds 
+jsalinas96: calls 1000
+*** TURN *** [8s 9c 4c] [2h]
+bobperrr: checks 
+jsalinas96: checks 
+hbjr147: checks 
+*** RIVER *** [8s 9c 4c 2h] [3c]
+bobperrr: checks 
+jsalinas96: checks 
+hbjr147: checks 
+*** SHOW DOWN ***
+bobperrr: shows [9s Th] (a pair of Nines)
+jsalinas96: mucks hand 
+hbjr147: mucks hand 
+bobperrr collected 7560 from pot
+*** SUMMARY ***
+Total pot 8000 | Rake 440 
+Board [8s 9c 4c 2h 3c]
+Seat 7: joanne123131
+Seat 1: ggrrss folded before Flop (didn't bet)
+Seat 2: vicente6357 folded before Flop (didn't bet)
+Seat 3: JOZ67 folded on the Flop
+Seat 4: Trungeldor folded before Flop (didn't bet)
+Seat 5: jsalinas96 mucked [5s 5h]
+Seat 6: hbjr147 (button) mucked [6d Td]
+Seat 8: Walter-5739 (small blind) folded on the Flop
+Seat 9: bobperrr (big blind) showed [9s Th] and won (7560) with a pair of Nines
+
+
+
+PokerStars Hand #259733519786:  Hold'em No Limit (500/1000) - 2026/02/15 12:28:31 CET [2026/02/15 6:28:31 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #8 is the button
+Seat 7: joanne123131 (0 in chips) is sitting out
+Seat 1: ggrrss (99000 in chips) 
+Seat 2: vicente6357 (101640 in chips) 
+Seat 3: JOZ67 (99570 in chips) 
+Seat 4: Trungeldor (158660 in chips) 
+Seat 5: jsalinas96 (89380 in chips) 
+Seat 6: hbjr147 (101980 in chips) 
+Seat 8: Walter-5739 (96000 in chips) 
+Seat 9: bobperrr (101560 in chips) 
+bobperrr: posts small blind 500
+ggrrss: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4s 8s]
+vicente6357: calls 1000
+JOZ67: calls 1000
+Trungeldor: calls 1000
+jsalinas96: calls 1000
+hbjr147: folds 
+Walter-5739: calls 1000
+bobperrr: calls 500
+ggrrss: checks 
+*** FLOP *** [3s Qh 9h]
+bobperrr: checks 
+ggrrss: checks 
+vicente6357: checks 
+JOZ67: bets 3300
+Trungeldor: calls 3300
+jsalinas96: folds 
+Walter-5739: folds 
+bobperrr: folds 
+ggrrss: folds 
+vicente6357: folds 
+*** TURN *** [3s Qh 9h] [8d]
+JOZ67: bets 1000
+Trungeldor: calls 1000
+*** RIVER *** [3s Qh 9h 8d] [7s]
+JOZ67: bets 1000
+Trungeldor: calls 1000
+*** SHOW DOWN ***
+JOZ67: shows [Ks 9c] (a pair of Nines)
+Trungeldor: shows [Qc Th] (a pair of Queens)
+Trungeldor collected 16630 from pot
+*** SUMMARY ***
+Total pot 17600 | Rake 970 
+Board [3s Qh 9h 8d 7s]
+Seat 7: joanne123131
+Seat 1: ggrrss (big blind) folded on the Flop
+Seat 2: vicente6357 folded on the Flop
+Seat 3: JOZ67 showed [Ks 9c] and lost with a pair of Nines
+Seat 4: Trungeldor showed [Qc Th] and won (16630) with a pair of Queens
+Seat 5: jsalinas96 folded on the Flop
+Seat 6: hbjr147 folded before Flop (didn't bet)
+Seat 8: Walter-5739 (button) folded on the Flop
+Seat 9: bobperrr (small blind) folded on the Flop
+
+
+
+PokerStars Hand #259733528087:  Hold'em No Limit (500/1000) - 2026/02/15 12:29:45 CET [2026/02/15 6:29:45 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #9 is the button
+Seat 7: joanne123131 (0 in chips) is sitting out
+Seat 1: ggrrss (98000 in chips) 
+Seat 2: vicente6357 (100640 in chips) 
+Seat 3: JOZ67 (93270 in chips) 
+Seat 4: Trungeldor (168990 in chips) 
+Seat 5: jsalinas96 (88380 in chips) 
+Seat 6: hbjr147 (101980 in chips) 
+Seat 8: Walter-5739 (95000 in chips) 
+Seat 9: bobperrr (100560 in chips) 
+ggrrss: posts small blind 500
+vicente6357: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6c Ts]
+JOZ67: raises 1000 to 2000
+Trungeldor: calls 2000
+jsalinas96: folds 
+hbjr147: folds 
+Walter-5739: folds 
+bobperrr: calls 2000
+ggrrss: folds 
+vicente6357: folds 
+*** FLOP *** [Kh 9h 7h]
+JOZ67: checks 
+Trungeldor: checks 
+bobperrr: checks 
+*** TURN *** [Kh 9h 7h] [As]
+JOZ67: checks 
+Trungeldor: checks 
+bobperrr: checks 
+*** RIVER *** [Kh 9h 7h As] [8h]
+JOZ67: bets 1000
+Trungeldor: folds 
+bobperrr: raises 1000 to 2000
+JOZ67: calls 1000
+*** SHOW DOWN ***
+bobperrr: shows [Jh 5d] (a flush, King high)
+JOZ67: mucks hand 
+bobperrr collected 10870 from pot
+*** SUMMARY ***
+Total pot 11500 | Rake 630 
+Board [Kh 9h 7h As 8h]
+Seat 7: joanne123131
+Seat 1: ggrrss (small blind) folded before Flop
+Seat 2: vicente6357 (big blind) folded before Flop
+Seat 3: JOZ67 mucked [Kc Qd]
+Seat 4: Trungeldor folded on the River
+Seat 5: jsalinas96 folded before Flop (didn't bet)
+Seat 6: hbjr147 folded before Flop (didn't bet)
+Seat 8: Walter-5739 folded before Flop (didn't bet)
+Seat 9: bobperrr (button) showed [Jh 5d] and won (10870) with a flush, King high
+
+
+
+PokerStars Hand #259733534607:  Hold'em No Limit (500/1000) - 2026/02/15 12:30:43 CET [2026/02/15 6:30:43 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #1 is the button
+Seat 7: joanne123131 (0 in chips) is sitting out
+Seat 1: ggrrss (97500 in chips) 
+Seat 2: vicente6357 (99640 in chips) 
+Seat 3: JOZ67 (89270 in chips) 
+Seat 4: Trungeldor (166990 in chips) 
+Seat 5: jsalinas96 (88380 in chips) 
+Seat 6: hbjr147 (101980 in chips) 
+Seat 8: Walter-5739 (95000 in chips) 
+Seat 9: bobperrr (107430 in chips) 
+vicente6357: posts small blind 500
+JOZ67: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9d 6s]
+Trungeldor: calls 1000
+jsalinas96: folds 
+hbjr147: calls 1000
+Walter-5739: calls 1000
+bobperrr: calls 1000
+ggrrss: calls 1000
+vicente6357: folds 
+JOZ67: raises 1000 to 2000
+Trungeldor has timed out
+Trungeldor: folds 
+hbjr147: calls 1000
+Walter-5739: folds 
+bobperrr: calls 1000
+ggrrss: calls 1000
+*** FLOP *** [Ks 2s 9h]
+JOZ67: checks 
+hbjr147: checks 
+bobperrr: checks 
+ggrrss: checks 
+*** TURN *** [Ks 2s 9h] [Qs]
+JOZ67: checks 
+hbjr147: checks 
+bobperrr: checks 
+ggrrss: checks 
+*** RIVER *** [Ks 2s 9h Qs] [7s]
+JOZ67: bets 9920
+hbjr147: folds 
+bobperrr: folds 
+ggrrss: folds 
+Uncalled bet (9920) returned to JOZ67
+JOZ67 collected 9920 from pot
+*** SUMMARY ***
+Total pot 10500 | Rake 580 
+Board [Ks 2s 9h Qs 7s]
+Seat 7: joanne123131
+Seat 1: ggrrss (button) folded on the River
+Seat 2: vicente6357 (small blind) folded before Flop
+Seat 3: JOZ67 (big blind) collected (9920)
+Seat 4: Trungeldor folded before Flop
+Seat 5: jsalinas96 folded before Flop (didn't bet)
+Seat 6: hbjr147 folded on the River
+Seat 8: Walter-5739 folded before Flop
+Seat 9: bobperrr folded on the River
+
+
+
+PokerStars Hand #259733545395:  Hold'em No Limit (500/1000) - 2026/02/15 12:32:18 CET [2026/02/15 6:32:18 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #2 is the button
+Seat 7: joanne123131 (0 in chips) is sitting out
+Seat 1: ggrrss (95500 in chips) 
+Seat 2: vicente6357 (99140 in chips) 
+Seat 3: JOZ67 (97190 in chips) 
+Seat 4: Trungeldor (165990 in chips) 
+Seat 5: jsalinas96 (88380 in chips) 
+Seat 6: hbjr147 (99980 in chips) 
+Seat 8: Walter-5739 (94000 in chips) 
+Seat 9: bobperrr (105430 in chips) 
+JOZ67: posts small blind 500
+Trungeldor: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Jd Qd]
+jsalinas96: raises 2000 to 3000
+hbjr147: calls 3000
+Walter-5739: calls 3000
+bobperrr: calls 3000
+ggrrss: folds 
+vicente6357: folds 
+JOZ67: calls 2500
+Trungeldor: calls 2000
+*** FLOP *** [Ts 3d 6c]
+JOZ67: checks 
+Trungeldor: checks 
+jsalinas96: checks 
+hbjr147: bets 8500
+Walter-5739: folds 
+bobperrr: folds 
+JOZ67: folds 
+Trungeldor: calls 8500
+jsalinas96: calls 8500
+*** TURN *** [Ts 3d 6c] [Ac]
+Trungeldor: bets 41110
+jsalinas96: folds 
+hbjr147: raises 41110 to 82220
+Trungeldor: calls 41110
+*** RIVER *** [Ts 3d 6c Ac] [5c]
+Trungeldor: bets 72270 and is all-in
+hbjr147: calls 6260 and is all-in
+Uncalled bet (66010) returned to Trungeldor
+*** SHOW DOWN ***
+Trungeldor: shows [As Ks] (a pair of Aces)
+hbjr147: shows [Td Tc] (three of a kind, Tens)
+hbjr147 collected 208330 from pot
+*** SUMMARY ***
+Total pot 220460 | Rake 12130 
+Board [Ts 3d 6c Ac 5c]
+Seat 7: joanne123131
+Seat 1: ggrrss folded before Flop (didn't bet)
+Seat 2: vicente6357 (button) folded before Flop (didn't bet)
+Seat 3: JOZ67 (small blind) folded on the Flop
+Seat 4: Trungeldor (big blind) showed [As Ks] and lost with a pair of Aces
+Seat 5: jsalinas96 folded on the Turn
+Seat 6: hbjr147 showed [Td Tc] and won (208330) with three of a kind, Tens
+Seat 8: Walter-5739 folded on the Flop
+Seat 9: bobperrr folded on the Flop
+
+
+
+PokerStars Hand #259733556036:  Hold'em No Limit (500/1000) - 2026/02/15 12:33:49 CET [2026/02/15 6:33:49 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #3 is the button
+Seat 7: joanne123131 (0 in chips) is sitting out
+Seat 1: ggrrss (95500 in chips) 
+Seat 2: vicente6357 (99140 in chips) 
+Seat 3: JOZ67 (94190 in chips) 
+Seat 4: Trungeldor (66010 in chips) 
+Seat 5: jsalinas96 (76880 in chips) 
+Seat 6: hbjr147 (208330 in chips) 
+Seat 8: Walter-5739 (91000 in chips) 
+Seat 9: bobperrr (102430 in chips) 
+Trungeldor: posts small blind 500
+jsalinas96: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Jd 3c]
+hbjr147: calls 1000
+Walter-5739: calls 1000
+bobperrr: calls 1000
+ggrrss: calls 1000
+vicente6357: calls 1000
+JOZ67: folds 
+Trungeldor: folds 
+jsalinas96: checks 
+*** FLOP *** [4c 9c Jc]
+Trungeldor leaves the table
+jsalinas96: checks 
+joanne123131 leaves the table
+hbjr147: bets 1000
+Walter-5739: calls 1000
+bobperrr: calls 1000
+ggrrss: folds 
+vicente6357: folds 
+jsalinas96: calls 1000
+*** TURN *** [4c 9c Jc] [8h]
+jsalinas96: checks 
+hbjr147: bets 9920
+Walter-5739: calls 9920
+bobperrr: calls 9920
+jsalinas96: calls 9920
+*** RIVER *** [4c 9c Jc 8h] [Ad]
+jsalinas96: checks 
+hbjr147: checks 
+Walter-5739: bets 50000
+bobperrr: folds 
+jsalinas96: folds 
+hbjr147: folds 
+Uncalled bet (50000) returned to Walter-5739
+Walter-5739 collected 47420 from pot
+belzeabutt joins the table at seat #7 
+Walter-5739: doesn't show hand 
+*** SUMMARY ***
+Total pot 50180 | Rake 2760 
+Board [4c 9c Jc 8h Ad]
+Seat 7: joanne123131
+Seat 1: ggrrss folded on the Flop
+Seat 2: vicente6357 folded on the Flop
+Seat 3: JOZ67 (button) folded before Flop (didn't bet)
+Seat 4: Trungeldor (small blind) folded before Flop
+Seat 5: jsalinas96 (big blind) folded on the River
+Seat 6: hbjr147 folded on the River
+Seat 8: Walter-5739 collected (47420)
+Seat 9: bobperrr folded on the River
+
+
+
+PokerStars Hand #259733565659:  Hold'em No Limit (500/1000) - 2026/02/15 12:35:11 CET [2026/02/15 6:35:11 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #5 is the button
+Seat 1: ggrrss (94500 in chips) 
+Seat 2: vicente6357 (98140 in chips) 
+Seat 3: JOZ67 (94190 in chips) 
+Seat 5: jsalinas96 (64960 in chips) 
+Seat 6: hbjr147 (196410 in chips) 
+Seat 7: belzeabutt (100000 in chips) 
+Seat 8: Walter-5739 (126500 in chips) 
+Seat 9: bobperrr (90510 in chips) 
+hbjr147: posts small blind 500
+belzeabutt is connected 
+belzeabutt: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5d 4c]
+Walter-5739: calls 1000
+bobperrr: calls 1000
+ggrrss: calls 1000
+vicente6357: folds 
+JOZ67: calls 1000
+jsalinas96: folds 
+hbjr147: calls 500
+belzeabutt: checks 
+*** FLOP *** [3d Td 4d]
+hbjr147: checks 
+belzeabutt: bets 5670
+Walter-5739: calls 5670
+bobperrr: calls 5670
+ggrrss: folds 
+JOZ67: calls 5670
+hbjr147: folds 
+*** TURN *** [3d Td 4d] [Ts]
+belzeabutt: bets 27100
+Walter-5739: calls 27100
+bobperrr: calls 27100
+alyi404 joins the table at seat #4 
+JOZ67: folds 
+*** RIVER *** [3d Td 4d Ts] [4h]
+belzeabutt: bets 66230 and is all-in
+Walter-5739: folds 
+bobperrr: calls 56740 and is all-in
+Uncalled bet (9490) returned to belzeabutt
+*** SHOW DOWN ***
+belzeabutt: shows [3c 3s] (a full house, Threes full of Tens)
+bobperrr: shows [Th 9d] (a full house, Tens full of Fours)
+bobperrr collected 211170 from pot
+*** SUMMARY ***
+Total pot 223460 | Rake 12290 
+Board [3d Td 4d Ts 4h]
+Seat 1: ggrrss folded on the Flop
+Seat 2: vicente6357 folded before Flop (didn't bet)
+Seat 3: JOZ67 folded on the Turn
+Seat 5: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 6: hbjr147 (small blind) folded on the Flop
+Seat 7: belzeabutt (big blind) showed [3c 3s] and lost with a full house, Threes full of Tens
+Seat 8: Walter-5739 folded on the River
+Seat 9: bobperrr showed [Th 9d] and won (211170) with a full house, Tens full of Fours
+
+
+
+PokerStars Hand #259733576201:  Hold'em No Limit (500/1000) - 2026/02/15 12:36:39 CET [2026/02/15 6:36:39 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #6 is the button
+Seat 1: ggrrss (93500 in chips) 
+Seat 2: vicente6357 (98140 in chips) 
+Seat 3: JOZ67 (87520 in chips) 
+Seat 4: alyi404 (100000 in chips) 
+Seat 5: jsalinas96 (64960 in chips) 
+Seat 6: hbjr147 (195410 in chips) 
+Seat 7: belzeabutt (9490 in chips) 
+Seat 8: Walter-5739 (92730 in chips) 
+Seat 9: bobperrr (211170 in chips) 
+belzeabutt: posts small blind 500
+Walter-5739: posts big blind 1000
+alyi404: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ks 2c]
+bobperrr: calls 1000
+ggrrss: folds 
+vicente6357: folds 
+JOZ67: folds 
+alyi404: checks 
+jsalinas96: folds 
+hbjr147: folds 
+belzeabutt: raises 8490 to 9490 and is all-in
+Walter-5739: calls 8490
+bobperrr: folds 
+alyi404: raises 8490 to 17980
+Walter-5739: calls 8490
+*** FLOP *** [9d 9h 3d]
+Walter-5739: checks 
+alyi404: bets 43900
+Walter-5739: folds 
+Uncalled bet (43900) returned to alyi404
+*** TURN *** [9d 9h 3d] [6s]
+*** RIVER *** [9d 9h 3d 6s] [2d]
+*** SHOW DOWN ***
+alyi404: shows [4h 4s] (two pair, Nines and Fours)
+alyi404 collected 16050 from side pot
+belzeabutt: shows [8d Kd] (a flush, King high)
+belzeabutt collected 27850 from main pot
+*** SUMMARY ***
+Total pot 46450 Main pot 27850. Side pot 16050. | Rake 2550 
+Board [9d 9h 3d 6s 2d]
+Seat 1: ggrrss folded before Flop (didn't bet)
+Seat 2: vicente6357 folded before Flop (didn't bet)
+Seat 3: JOZ67 folded before Flop (didn't bet)
+Seat 4: alyi404 showed [4h 4s] and won (16050) with two pair, Nines and Fours
+Seat 5: jsalinas96 folded before Flop (didn't bet)
+Seat 6: hbjr147 (button) folded before Flop (didn't bet)
+Seat 7: belzeabutt (small blind) showed [8d Kd] and won (27850) with a flush, King high
+Seat 8: Walter-5739 (big blind) folded on the Flop
+Seat 9: bobperrr folded before Flop
+
+
+
+PokerStars Hand #259733582207:  Hold'em No Limit (500/1000) - 2026/02/15 12:37:29 CET [2026/02/15 6:37:29 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #7 is the button
+Seat 1: ggrrss (93500 in chips) 
+Seat 2: vicente6357 (98140 in chips) 
+Seat 3: JOZ67 (87520 in chips) 
+Seat 4: alyi404 (98070 in chips) 
+Seat 5: jsalinas96 (64960 in chips) 
+Seat 6: hbjr147 (195410 in chips) 
+Seat 7: belzeabutt (100000 in chips) 
+Seat 8: Walter-5739 (74750 in chips) 
+Seat 9: bobperrr (210170 in chips) 
+Walter-5739: posts small blind 500
+bobperrr: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6h Kc]
+ggrrss: folds 
+vicente6357: folds 
+JOZ67: raises 1000 to 2000
+alyi404: calls 2000
+jsalinas96: folds 
+hbjr147: folds 
+belzeabutt: calls 2000
+Walter-5739: calls 1500
+bobperrr: calls 1000
+*** FLOP *** [Qd As Js]
+Walter-5739: checks 
+bobperrr: checks 
+JOZ67: bets 4720
+alyi404: calls 4720
+belzeabutt: calls 4720
+Walter-5739: calls 4720
+bobperrr: folds 
+*** TURN *** [Qd As Js] [7h]
+Walter-5739: checks 
+JOZ67: bets 13640
+alyi404: calls 13640
+belzeabutt: calls 13640
+Walter-5739: raises 54390 to 68030 and is all-in
+JOZ67: calls 54390
+alyi404: raises 23320 to 91350 and is all-in
+belzeabutt: raises 1930 to 93280 and is all-in
+JOZ67: calls 12770 and is all-in
+Uncalled bet (1930) returned to belzeabutt
+*** RIVER *** [Qd As Js 7h] [5s]
+*** SHOW DOWN ***
+alyi404: shows [Tc 3c] (high card Ace)
+belzeabutt: shows [9c Th] (high card Ace - Queen+Jack+Ten+Nine kicker)
+belzeabutt collected 19940 from side pot-2 
+JOZ67: shows [Ac 2c] (a pair of Aces)
+JOZ67 collected 36210 from side pot-1 
+Walter-5739: shows [7d Jd] (two pair, Jacks and Sevens)
+Walter-5739 collected 284440 from main pot
+*** SUMMARY ***
+Total pot 360410 Main pot 284440. Side pot-1 36210. Side pot-2 19940. | Rake 19820 
+Board [Qd As Js 7h 5s]
+Seat 1: ggrrss folded before Flop (didn't bet)
+Seat 2: vicente6357 folded before Flop (didn't bet)
+Seat 3: JOZ67 showed [Ac 2c] and won (36210) with a pair of Aces
+Seat 4: alyi404 showed [Tc 3c] and lost with high card Ace
+Seat 5: jsalinas96 folded before Flop (didn't bet)
+Seat 6: hbjr147 folded before Flop (didn't bet)
+Seat 7: belzeabutt (button) showed [9c Th] and won (19940) with high card Ace
+Seat 8: Walter-5739 (small blind) showed [7d Jd] and won (284440) with two pair, Jacks and Sevens
+Seat 9: bobperrr (big blind) folded on the Flop
+
+
+
+PokerStars Hand #259733592544:  Hold'em No Limit (500/1000) - 2026/02/15 12:38:56 CET [2026/02/15 6:38:56 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #8 is the button
+Seat 1: ggrrss (93500 in chips) 
+Seat 2: vicente6357 (98140 in chips) 
+Seat 3: JOZ67 (36210 in chips) 
+Seat 5: jsalinas96 (64960 in chips) 
+Seat 6: hbjr147 (195410 in chips) 
+Seat 7: belzeabutt (21870 in chips) 
+Seat 8: Walter-5739 (284440 in chips) 
+Seat 9: bobperrr (208170 in chips) 
+bobperrr: posts small blind 500
+ggrrss: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8s 3s]
+vicente6357: folds 
+JOZ67: folds 
+jsalinas96: folds 
+hbjr147: calls 1000
+belzeabutt: raises 20870 to 21870 and is all-in
+Walter-5739: folds 
+bobperrr: calls 21370
+ggrrss: folds 
+hbjr147: calls 20870
+*** FLOP *** [7d Kc Td]
+bobperrr: bets 1000
+hbjr147: calls 1000
+*** TURN *** [7d Kc Td] [2h]
+bobperrr: bets 1000
+hbjr147: calls 1000
+*** RIVER *** [7d Kc Td 2h] [5d]
+bobperrr: bets 1000
+hbjr147: calls 1000
+*** SHOW DOWN ***
+bobperrr: shows [7c 7s] (three of a kind, Sevens)
+hbjr147: mucks hand 
+bobperrr collected 5670 from side pot
+belzeabutt: mucks hand 
+bobperrr collected 62950 from main pot
+*** SUMMARY ***
+Total pot 72610 Main pot 62950. Side pot 5670. | Rake 3990 
+Board [7d Kc Td 2h 5d]
+Seat 1: ggrrss (big blind) folded before Flop
+Seat 2: vicente6357 folded before Flop (didn't bet)
+Seat 3: JOZ67 folded before Flop (didn't bet)
+Seat 5: jsalinas96 folded before Flop (didn't bet)
+Seat 6: hbjr147 mucked [Qc Qh]
+Seat 7: belzeabutt mucked [4c 3c]
+Seat 8: Walter-5739 (button) folded before Flop (didn't bet)
+Seat 9: bobperrr (small blind) showed [7c 7s] and won (68620) with three of a kind, Sevens
+
+
+
+PokerStars Hand #259733600271:  Hold'em No Limit (500/1000) - 2026/02/15 12:40:01 CET [2026/02/15 6:40:01 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #9 is the button
+Seat 1: ggrrss (92500 in chips) 
+Seat 2: vicente6357 (98140 in chips) 
+Seat 3: JOZ67 (36210 in chips) 
+Seat 5: jsalinas96 (64960 in chips) 
+Seat 6: hbjr147 (170540 in chips) 
+Seat 7: belzeabutt (78130 in chips) 
+Seat 8: Walter-5739 (284440 in chips) 
+Seat 9: bobperrr (251920 in chips) 
+ggrrss: posts small blind 500
+vicente6357: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9c 8c]
+JOZ67: folds 
+jsalinas96: calls 1000
+hbjr147: folds 
+belzeabutt: calls 1000
+Walter-5739: calls 1000
+bobperrr: calls 1000
+ggrrss: calls 500
+vicente6357: checks 
+*** FLOP *** [7h 4s Ks]
+ggrrss: checks 
+vicente6357: checks 
+jsalinas96: checks 
+belzeabutt: checks 
+Walter-5739: checks 
+bobperrr: bets 1000
+ggrrss: calls 1000
+vicente6357: folds 
+jsalinas96: calls 1000
+belzeabutt: calls 1000
+Walter-5739: calls 1000
+*** TURN *** [7h 4s Ks] [Kc]
+ggrrss: checks 
+jsalinas96: checks 
+belzeabutt: checks 
+Walter-5739: checks 
+bobperrr: bets 1000
+ggrrss: calls 1000
+jsalinas96: folds 
+belzeabutt: calls 1000
+Walter-5739: calls 1000
+*** RIVER *** [7h 4s Ks Kc] [4h]
+ggrrss: checks 
+belzeabutt: checks 
+Walter-5739: checks 
+bobperrr: bets 1000
+ggrrss: folds 
+belzeabutt: calls 1000
+Walter-5739: calls 1000
+*** SHOW DOWN ***
+bobperrr: shows [6s Kd] (a full house, Kings full of Fours)
+belzeabutt: mucks hand 
+Walter-5739: mucks hand 
+bobperrr collected 17010 from pot
+*** SUMMARY ***
+Total pot 18000 | Rake 990 
+Board [7h 4s Ks Kc 4h]
+Seat 1: ggrrss (small blind) folded on the River
+Seat 2: vicente6357 (big blind) folded on the Flop
+Seat 3: JOZ67 folded before Flop (didn't bet)
+Seat 5: jsalinas96 folded on the Turn
+Seat 6: hbjr147 folded before Flop (didn't bet)
+Seat 7: belzeabutt mucked [4d Qs]
+Seat 8: Walter-5739 mucked [Tc Th]
+Seat 9: bobperrr (button) showed [6s Kd] and won (17010) with a full house, Kings full of Fours
+
+
+
+PokerStars Hand #259733609894:  Hold'em No Limit (500/1000) - 2026/02/15 12:41:24 CET [2026/02/15 6:41:24 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #1 is the button
+Seat 1: ggrrss (89500 in chips) 
+Seat 2: vicente6357 (97140 in chips) 
+Seat 3: JOZ67 (36210 in chips) 
+Seat 5: jsalinas96 (62960 in chips) 
+Seat 6: hbjr147 (170540 in chips) 
+Seat 7: belzeabutt (74130 in chips) 
+Seat 8: Walter-5739 (280440 in chips) 
+Seat 9: bobperrr (264930 in chips) 
+vicente6357: posts small blind 500
+JOZ67: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6s Kd]
+BlefferM joins the table at seat #4 
+jsalinas96: folds 
+hbjr147: folds 
+belzeabutt: calls 1000
+Walter-5739: calls 1000
+bobperrr: calls 1000
+ggrrss: calls 1000
+vicente6357: folds 
+JOZ67: checks 
+*** FLOP *** [7d 6c 6d]
+JOZ67: checks 
+belzeabutt: checks 
+Walter-5739: checks 
+bobperrr: checks 
+ggrrss: checks 
+*** TURN *** [7d 6c 6d] [7c]
+JOZ67: checks 
+belzeabutt: checks 
+Walter-5739: checks 
+bobperrr: checks 
+ggrrss: checks 
+*** RIVER *** [7d 6c 6d 7c] [Kh]
+JOZ67: checks 
+belzeabutt: checks 
+Walter-5739: checks 
+bobperrr: checks 
+ggrrss: checks 
+*** SHOW DOWN ***
+JOZ67: shows [4s 8h] (two pair, Sevens and Sixes)
+belzeabutt: shows [Qh 9h] (two pair, Sevens and Sixes)
+Walter-5739: shows [8c 5c] (two pair, Sevens and Sixes)
+bobperrr: shows [9d Js] (two pair, Sevens and Sixes)
+ggrrss: shows [Ad 9s] (two pair, Sevens and Sixes - Ace kicker)
+ggrrss collected 5200 from pot
+*** SUMMARY ***
+Total pot 5500 | Rake 300 
+Board [7d 6c 6d 7c Kh]
+Seat 1: ggrrss (button) showed [Ad 9s] and won (5200) with two pair, Sevens and Sixes
+Seat 2: vicente6357 (small blind) folded before Flop
+Seat 3: JOZ67 (big blind) showed [4s 8h] and lost with two pair, Sevens and Sixes
+Seat 5: jsalinas96 folded before Flop (didn't bet)
+Seat 6: hbjr147 folded before Flop (didn't bet)
+Seat 7: belzeabutt showed [Qh 9h] and lost with two pair, Sevens and Sixes
+Seat 8: Walter-5739 showed [8c 5c] and lost with two pair, Sevens and Sixes
+Seat 9: bobperrr showed [9d Js] and lost with two pair, Sevens and Sixes
+
+
+
+PokerStars Hand #259733616275:  Hold'em No Limit (500/1000) - 2026/02/15 12:42:21 CET [2026/02/15 6:42:21 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #2 is the button
+Seat 1: ggrrss (93700 in chips) 
+Seat 2: vicente6357 (96640 in chips) 
+Seat 3: JOZ67 (35210 in chips) 
+Seat 4: BlefferM (63370 in chips) 
+Seat 5: jsalinas96 (62960 in chips) 
+Seat 6: hbjr147 (170540 in chips) 
+Seat 7: belzeabutt (73130 in chips) 
+Seat 8: Walter-5739 (279440 in chips) 
+Seat 9: bobperrr (263930 in chips) 
+JOZ67: posts small blind 500
+BlefferM: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Tc 2c]
+jsalinas96: calls 1000
+hbjr147: calls 1000
+belzeabutt: calls 1000
+Walter-5739: calls 1000
+bobperrr: calls 1000
+ggrrss: folds 
+vicente6357: folds 
+JOZ67: calls 500
+BlefferM: checks 
+*** FLOP *** [Qs Td Js]
+JOZ67: bets 2000
+BlefferM: folds 
+jsalinas96: folds 
+hbjr147: calls 2000
+belzeabutt: folds 
+Walter-5739: calls 2000
+bobperrr: calls 2000
+*** TURN *** [Qs Td Js] [6c]
+BlefferM leaves the table
+JOZ67: bets 7080
+hbjr147: calls 7080
+Walter-5739: calls 7080
+bobperrr: calls 7080
+*** RIVER *** [Qs Td Js 6c] [Ts]
+JOZ67: checks 
+hbjr147: bets 5000
+Walter-5739: calls 5000
+jsalinas96 is disconnected 
+bobperrr: folds 
+JOZ67: folds 
+*** SHOW DOWN ***
+hbjr147: shows [2s As] (a flush, Ace high)
+Walter-5739: mucks hand 
+hbjr147 collected 50390 from pot
+*** SUMMARY ***
+Total pot 53320 | Rake 2930 
+Board [Qs Td Js 6c Ts]
+Seat 1: ggrrss folded before Flop (didn't bet)
+Seat 2: vicente6357 (button) folded before Flop (didn't bet)
+Seat 3: JOZ67 (small blind) folded on the River
+Seat 4: BlefferM (big blind) folded on the Flop
+Seat 5: jsalinas96 folded on the Flop
+Seat 6: hbjr147 showed [2s As] and won (50390) with a flush, Ace high
+Seat 7: belzeabutt folded on the Flop
+Seat 8: Walter-5739 mucked [Jd Qc]
+Seat 9: bobperrr folded on the River
+
+
+
+PokerStars Hand #259733624815:  Hold'em No Limit (500/1000) - 2026/02/15 12:43:36 CET [2026/02/15 6:43:36 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #3 is the button
+Seat 1: ggrrss (93700 in chips) 
+Seat 2: vicente6357 (96640 in chips) 
+Seat 3: JOZ67 (25130 in chips) 
+Seat 5: jsalinas96 (61960 in chips) 
+Seat 6: hbjr147 (205850 in chips) 
+Seat 7: belzeabutt (72130 in chips) 
+Seat 8: Walter-5739 (264360 in chips) 
+Seat 9: bobperrr (253850 in chips) 
+jsalinas96: posts small blind 500
+hbjr147: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6c 3d]
+belzeabutt: calls 1000
+Walter-5739: calls 1000
+bobperrr: calls 1000
+ggrrss: folds 
+vicente6357: folds 
+JOZ67: calls 1000
+jsalinas96: folds 
+hbjr147: checks 
+*** FLOP *** [Jh Kc Js]
+hbjr147: checks 
+belzeabutt: checks 
+Walter-5739: checks 
+bobperrr: checks 
+JOZ67: checks 
+*** TURN *** [Jh Kc Js] [6s]
+hbjr147: checks 
+belzeabutt: checks 
+Walter-5739: checks 
+bobperrr: checks 
+JOZ67: checks 
+*** RIVER *** [Jh Kc Js 6s] [Ad]
+hbjr147: checks 
+belzeabutt: checks 
+Walter-5739: checks 
+bobperrr: checks 
+JOZ67: checks 
+*** SHOW DOWN ***
+hbjr147: shows [Qh 2c] (a pair of Jacks)
+belzeabutt: shows [Kh 9s] (two pair, Kings and Jacks)
+Walter-5739: mucks hand 
+bobperrr: mucks hand 
+JOZ67: mucks hand 
+belzeabutt collected 5200 from pot
+nestor1961 joins the table at seat #4 
+*** SUMMARY ***
+Total pot 5500 | Rake 300 
+Board [Jh Kc Js 6s Ad]
+Seat 1: ggrrss folded before Flop (didn't bet)
+Seat 2: vicente6357 folded before Flop (didn't bet)
+Seat 3: JOZ67 (button) mucked [8c 9c]
+Seat 5: jsalinas96 (small blind) folded before Flop
+Seat 6: hbjr147 (big blind) showed [Qh 2c] and lost with a pair of Jacks
+Seat 7: belzeabutt showed [Kh 9s] and won (5200) with two pair, Kings and Jacks
+Seat 8: Walter-5739 mucked [7c 7d]
+Seat 9: bobperrr mucked [8d 2d]
+
+
+
+PokerStars Hand #259733630791:  Hold'em No Limit (500/1000) - 2026/02/15 12:44:28 CET [2026/02/15 6:44:28 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #5 is the button
+Seat 1: ggrrss (93700 in chips) 
+Seat 2: vicente6357 (96640 in chips) 
+Seat 3: JOZ67 (24130 in chips) 
+Seat 4: nestor1961 (40000 in chips) 
+Seat 5: jsalinas96 (61460 in chips) 
+Seat 6: hbjr147 (204850 in chips) 
+Seat 7: belzeabutt (76330 in chips) 
+Seat 8: Walter-5739 (263360 in chips) 
+Seat 9: bobperrr (252850 in chips) 
+hbjr147: posts small blind 500
+belzeabutt: posts big blind 1000
+nestor1961 is connected 
+nestor1961: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ah Ts]
+Walter-5739: calls 1000
+bobperrr: calls 1000
+ggrrss: calls 1000
+vicente6357: calls 1000
+JOZ67: calls 1000
+nestor1961: folds 
+jsalinas96: calls 1000
+hbjr147 has timed out
+hbjr147: folds 
+belzeabutt: checks 
+*** FLOP *** [6c 5d Jh]
+nestor1961 leaves the table
+belzeabutt: checks 
+Walter-5739: checks 
+bobperrr: checks 
+ggrrss: checks 
+vicente6357: checks 
+JOZ67: bets 4010
+jsalinas96: calls 4010
+belzeabutt: calls 4010
+Walter-5739: folds 
+bobperrr: folds 
+ggrrss: folds 
+vicente6357: calls 4010
+*** TURN *** [6c 5d Jh] [4h]
+belzeabutt: checks 
+vicente6357: checks 
+JOZ67: bets 19120 and is all-in
+jsalinas96: folds 
+belzeabutt: folds 
+vicente6357: folds 
+Uncalled bet (19120) returned to JOZ67
+JOZ67 collected 23190 from pot
+*** SUMMARY ***
+Total pot 24540 | Rake 1350 
+Board [6c 5d Jh 4h]
+Seat 1: ggrrss folded on the Flop
+Seat 2: vicente6357 folded on the Turn
+Seat 3: JOZ67 collected (23190)
+Seat 4: nestor1961 folded before Flop (didn't bet)
+Seat 5: jsalinas96 (button) folded on the Turn
+Seat 6: hbjr147 (small blind) folded before Flop
+Seat 7: belzeabutt (big blind) folded on the Turn
+Seat 8: Walter-5739 folded on the Flop
+Seat 9: bobperrr folded on the Flop
+
+
+
+PokerStars Hand #259733641757:  Hold'em No Limit (500/1000) - 2026/02/15 12:46:03 CET [2026/02/15 6:46:03 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #7 is the button
+Seat 6: hbjr147 (204350 in chips) is sitting out
+Seat 1: ggrrss (92700 in chips) 
+Seat 2: vicente6357 (91630 in chips) 
+Seat 3: JOZ67 (42310 in chips) 
+Seat 5: jsalinas96 (56450 in chips) 
+Seat 7: belzeabutt (71320 in chips) 
+Seat 8: Walter-5739 (262360 in chips) 
+Seat 9: bobperrr (251850 in chips) 
+Walter-5739: posts small blind 500
+bobperrr: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Kh 5c]
+ggrrss: folds 
+vicente6357: calls 1000
+JOZ67: folds 
+jsalinas96: folds 
+belzeabutt: calls 1000
+Walter-5739: calls 500
+bobperrr: checks 
+*** FLOP *** [6c Jh Td]
+Walter-5739: checks 
+bobperrr: checks 
+vicente6357: checks 
+belzeabutt: checks 
+*** TURN *** [6c Jh Td] [7d]
+Walter-5739: checks 
+bobperrr: checks 
+vicente6357: checks 
+belzeabutt: checks 
+*** RIVER *** [6c Jh Td 7d] [9d]
+Walter-5739: checks 
+bobperrr: checks 
+vicente6357: checks 
+belzeabutt: checks 
+*** SHOW DOWN ***
+Walter-5739: shows [9h Ts] (two pair, Tens and Nines)
+bobperrr: mucks hand 
+vicente6357: mucks hand 
+belzeabutt: mucks hand 
+Walter-5739 collected 3780 from pot
+*** SUMMARY ***
+Total pot 4000 | Rake 220 
+Board [6c Jh Td 7d 9d]
+Seat 6: hbjr147
+Seat 1: ggrrss folded before Flop (didn't bet)
+Seat 2: vicente6357 mucked [Tc Ac]
+Seat 3: JOZ67 folded before Flop (didn't bet)
+Seat 5: jsalinas96 folded before Flop (didn't bet)
+Seat 7: belzeabutt (button) mucked [Qh 9c]
+Seat 8: Walter-5739 (small blind) showed [9h Ts] and won (3780) with two pair, Tens and Nines
+Seat 9: bobperrr (big blind) mucked [Kc 4h]
+
+
+
+PokerStars Hand #259733647127:  Hold'em No Limit (500/1000) - 2026/02/15 12:46:49 CET [2026/02/15 6:46:49 ET]
+Table 'Adalberta III' 9-max (Play Money) Seat #8 is the button
+Seat 1: ggrrss (92700 in chips) is sitting out
+Seat 6: hbjr147 (204350 in chips) is sitting out
+Seat 2: vicente6357 (90630 in chips) 
+Seat 3: JOZ67 (42310 in chips) 
+Seat 5: jsalinas96 (56450 in chips) 
+Seat 7: belzeabutt (70320 in chips) 
+Seat 8: Walter-5739 (265140 in chips) 
+Seat 9: bobperrr (250850 in chips) 
+bobperrr: posts small blind 500
+vicente6357: posts big blind 1000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9c 9s]
+JOZ67: folds 
+ggrrss leaves the table
+jsalinas96: raises 2000 to 3000
+belzeabutt: folds 
+Walter-5739: calls 3000
+bobperrr: folds 
+vicente6357: folds 
+*** FLOP *** [8h 2d 3d]
+jsalinas96: checks 
+Walter-5739: bets 4000
+jsalinas96: raises 49450 to 53450 and is all-in
+Walter-5739: calls 49450
+*** TURN *** [8h 2d 3d] [6d]
+*** RIVER *** [8h 2d 3d 6d] [5h]
+*** SHOW DOWN ***
+jsalinas96: shows [9c 9s] (a pair of Nines)
+Walter-5739: shows [Ad 5d] (a flush, Ace high)
+Walter-5739 collected 108110 from pot
+*** SUMMARY ***
+Total pot 114400 | Rake 6290 
+Board [8h 2d 3d 6d 5h]
+Seat 1: ggrrss
+Seat 6: hbjr147
+Seat 2: vicente6357 (big blind) folded before Flop
+Seat 3: JOZ67 folded before Flop (didn't bet)
+Seat 5: jsalinas96 showed [9c 9s] and lost with a pair of Nines
+Seat 7: belzeabutt folded before Flop (didn't bet)
+Seat 8: Walter-5739 (button) showed [Ad 5d] and won (108110) with a flush, Ace high
+Seat 9: bobperrr (small blind) folded before Flop
+
+
+

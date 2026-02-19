@@ -1,0 +1,1117 @@
+﻿PokerStars Hand #259376977665:  Hold'em No Limit (100/200) - 2026/01/19 16:30:28 CET [2026/01/19 10:30:28 ET]
+Table 'Melpomene V' 9-max (Play Money) Seat #5 is the button
+Seat 6: ATR.MMT (15000 in chips) is sitting out
+Seat 1: L¡tanorte (19600 in chips) 
+Seat 2: Joel0601 (38597 in chips) 
+Seat 3: jsalinas96 (15000 in chips) 
+Seat 4: cleopatranada6 (20000 in chips) 
+Seat 5: bulldoser05 (18505 in chips) 
+Seat 7: starssb766 (20000 in chips) 
+Seat 8: nowel13 (20000 in chips) 
+Seat 9: DEDEdu31600 (10000 in chips) 
+starssb766: posts small blind 100
+nowel13: posts big blind 200
+DEDEdu31600: posts big blind 200
+jsalinas96: posts big blind 200
+cleopatranada6: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9c 2c]
+DEDEdu31600: checks 
+L¡tanorte: folds 
+Joel0601: calls 200
+jsalinas96: checks 
+cleopatranada6: checks 
+bulldoser05: folds 
+starssb766: calls 100
+nowel13: checks 
+*** FLOP *** [6c Td 3c]
+starssb766: checks 
+bulldoser05 leaves the table
+nowel13: checks 
+DEDEdu31600: checks 
+Joel0601: checks 
+Radosavlevici joins the table at seat #5 
+jsalinas96: checks 
+cleopatranada6: checks 
+*** TURN *** [6c Td 3c] [8s]
+starssb766: checks 
+nowel13: checks 
+DEDEdu31600: checks 
+Joel0601: checks 
+jsalinas96: checks 
+cleopatranada6: checks 
+*** RIVER *** [6c Td 3c 8s] [6h]
+starssb766: checks 
+nowel13: checks 
+DEDEdu31600: bets 1134
+Joel0601: folds 
+jsalinas96: folds 
+cleopatranada6: calls 1134
+starssb766: folds 
+nowel13: folds 
+*** SHOW DOWN ***
+DEDEdu31600: shows [Ks 3s] (two pair, Sixes and Threes)
+cleopatranada6: shows [8d Tc] (two pair, Tens and Eights)
+cleopatranada6 collected 3277 from pot
+*** SUMMARY ***
+Total pot 3468 | Rake 191 
+Board [6c Td 3c 8s 6h]
+Seat 6: ATR.MMT
+Seat 1: L¡tanorte folded before Flop (didn't bet)
+Seat 2: Joel0601 folded on the River
+Seat 3: jsalinas96 folded on the River (didn't bet)
+Seat 4: cleopatranada6 showed [8d Tc] and won (3277) with two pair, Tens and Eights
+Seat 5: bulldoser05 (button) folded before Flop (didn't bet)
+Seat 7: starssb766 (small blind) folded on the River
+Seat 8: nowel13 (big blind) folded on the River
+Seat 9: DEDEdu31600 showed [Ks 3s] and lost with two pair, Sixes and Threes
+
+
+
+PokerStars Hand #259376999170:  Hold'em No Limit (100/200) - 2026/01/19 16:32:33 CET [2026/01/19 10:32:33 ET]
+Table 'Melpomene V' 9-max (Play Money) Seat #7 is the button
+Seat 1: L¡tanorte (19600 in chips) 
+Seat 2: Joel0601 (38397 in chips) 
+Seat 3: jsalinas96 (14800 in chips) 
+Seat 4: cleopatranada6 (21943 in chips) 
+Seat 5: Radosavlevici (15000 in chips) 
+Seat 6: ATR.MMT (15000 in chips) 
+Seat 7: starssb766 (20000 in chips) 
+Seat 8: nowel13 (19800 in chips) 
+Seat 9: DEDEdu31600 (8666 in chips) 
+nowel13: posts small blind 100
+DEDEdu31600: posts big blind 200
+Radosavlevici: posts big blind 200
+ATR.MMT: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9s 8d]
+L¡tanorte: calls 200
+Joel0601: folds 
+jsalinas96: folds 
+cleopatranada6: calls 200
+Radosavlevici: checks 
+ATR.MMT: checks 
+starssb766: calls 200
+nowel13: calls 100
+DEDEdu31600: checks 
+*** FLOP *** [5s 2s Qs]
+nowel13: checks 
+DEDEdu31600 has timed out
+DEDEdu31600: checks 
+L¡tanorte: checks 
+cleopatranada6: checks 
+Radosavlevici: checks 
+ATR.MMT: checks 
+starssb766: bets 1400
+nowel13: folds 
+DEDEdu31600: folds 
+L¡tanorte: calls 1400
+cleopatranada6: calls 1400
+Radosavlevici: calls 1400
+ATR.MMT: folds 
+*** TURN *** [5s 2s Qs] [5h]
+L¡tanorte: checks 
+cleopatranada6: checks 
+Radosavlevici: checks 
+starssb766: bets 6800
+nowel13 leaves the table
+L¡tanorte: folds 
+cleopatranada6: calls 6800
+Radosavlevici: calls 6800
+*** RIVER *** [5s 2s Qs 5h] [Qc]
+josef de joins the table at seat #8 
+cleopatranada6: checks 
+Radosavlevici: bets 6600 and is all-in
+starssb766: calls 6600
+cleopatranada6: folds 
+*** SHOW DOWN ***
+Radosavlevici: shows [8c Qd] (a full house, Queens full of Fives)
+starssb766: shows [Ks Ts] (a flush, King high)
+Radosavlevici collected 38367 from pot
+*** SUMMARY ***
+Total pot 40600 | Rake 2233 
+Board [5s 2s Qs 5h Qc]
+Seat 1: L¡tanorte folded on the Turn
+Seat 2: Joel0601 folded before Flop (didn't bet)
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 4: cleopatranada6 folded on the River
+Seat 5: Radosavlevici showed [8c Qd] and won (38367) with a full house, Queens full of Fives
+Seat 6: ATR.MMT folded on the Flop (didn't bet)
+Seat 7: starssb766 (button) showed [Ks Ts] and lost with a flush, King high
+Seat 8: nowel13 (small blind) folded on the Flop
+Seat 9: DEDEdu31600 (big blind) folded on the Flop
+
+
+
+PokerStars Hand #259377023839:  Hold'em No Limit (100/200) - 2026/01/19 16:34:56 CET [2026/01/19 10:34:56 ET]
+Table 'Melpomene V' 9-max (Play Money) Seat #9 is the button
+Seat 1: L¡tanorte (18000 in chips) 
+Seat 2: Joel0601 (38397 in chips) 
+Seat 3: jsalinas96 (14800 in chips) 
+Seat 4: cleopatranada6 (13543 in chips) 
+Seat 5: Radosavlevici (38367 in chips) 
+Seat 6: ATR.MMT (14800 in chips) 
+Seat 7: starssb766 (20000 in chips) 
+Seat 8: josef de (20000 in chips) 
+Seat 9: DEDEdu31600 (8466 in chips) 
+L¡tanorte: posts small blind 100
+Joel0601: posts big blind 200
+josef de: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9d 3c]
+jsalinas96: folds 
+cleopatranada6: calls 200
+Radosavlevici: calls 200
+ATR.MMT: calls 200
+starssb766: calls 200
+josef de: checks 
+DEDEdu31600 has timed out
+DEDEdu31600: folds 
+L¡tanorte: calls 100
+Joel0601: raises 200 to 400
+cleopatranada6: calls 200
+Radosavlevici: calls 200
+ATR.MMT: calls 200
+starssb766: calls 200
+josef de: calls 200
+L¡tanorte: folds 
+*** FLOP *** [2c Kh 5h]
+Joel0601: checks 
+cleopatranada6: checks 
+Radosavlevici: checks 
+ATR.MMT: checks 
+starssb766: checks 
+josef de: checks 
+*** TURN *** [2c Kh 5h] [Ad]
+Joel0601: checks 
+ATR.MMT is disconnected 
+cleopatranada6: checks 
+Radosavlevici: checks 
+ATR.MMT is connected 
+ATR.MMT: checks 
+starssb766: checks 
+josef de: checks 
+*** RIVER *** [2c Kh 5h Ad] [6c]
+Joel0601: checks 
+cleopatranada6: checks 
+Radosavlevici: checks 
+ATR.MMT: checks 
+starssb766: checks 
+josef de: checks 
+*** SHOW DOWN ***
+Joel0601: shows [Js 9s] (high card Ace)
+cleopatranada6: shows [3d 2d] (a pair of Deuces)
+Radosavlevici: shows [4s As] (a pair of Aces)
+ATR.MMT: mucks hand 
+starssb766: mucks hand 
+josef de: mucks hand 
+Radosavlevici collected 2457 from pot
+*** SUMMARY ***
+Total pot 2600 | Rake 143 
+Board [2c Kh 5h Ad 6c]
+Seat 1: L¡tanorte (small blind) folded before Flop
+Seat 2: Joel0601 (big blind) showed [Js 9s] and lost with high card Ace
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 4: cleopatranada6 showed [3d 2d] and lost with a pair of Deuces
+Seat 5: Radosavlevici showed [4s As] and won (2457) with a pair of Aces
+Seat 6: ATR.MMT mucked [8c 9c]
+Seat 7: starssb766 mucked [8d Td]
+Seat 8: josef de mucked [8s Ks]
+Seat 9: DEDEdu31600 (button) folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259377043833:  Hold'em No Limit (100/200) - 2026/01/19 16:36:52 CET [2026/01/19 10:36:52 ET]
+Table 'Melpomene V' 9-max (Play Money) Seat #2 is the button
+Seat 1: L¡tanorte (17800 in chips) is sitting out
+Seat 2: Joel0601 (37997 in chips) 
+Seat 3: jsalinas96 (14800 in chips) 
+Seat 4: cleopatranada6 (13143 in chips) 
+Seat 5: Radosavlevici (40424 in chips) 
+Seat 6: ATR.MMT (14400 in chips) 
+Seat 7: starssb766 (20000 in chips) 
+Seat 8: josef de (19600 in chips) 
+Seat 9: DEDEdu31600 (8466 in chips) 
+jsalinas96: posts small blind 100
+cleopatranada6: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ac 2c]
+Radosavlevici: calls 200
+ATR.MMT: calls 200
+starssb766: calls 200
+josef de: calls 200
+DEDEdu31600: calls 200
+Joel0601: calls 200
+jsalinas96: raises 400 to 600
+cleopatranada6: folds 
+Radosavlevici: calls 400
+L¡tanorte leaves the table
+ATR.MMT: calls 400
+starssb766: calls 400
+josef de: calls 400
+CaravanChick joins the table at seat #1 
+CaravanChick is disconnected 
+DEDEdu31600 has timed out
+DEDEdu31600: folds 
+Joel0601: calls 400
+*** FLOP *** [Ts Qd 5s]
+cleopatranada6 leaves the table
+jsalinas96: checks 
+Radosavlevici: checks 
+ATR.MMT: checks 
+olwaly11 joins the table at seat #4 
+starssb766: checks 
+josef de: checks 
+Joel0601: checks 
+*** TURN *** [Ts Qd 5s] [Qh]
+jsalinas96: checks 
+Radosavlevici: checks 
+ATR.MMT: checks 
+starssb766: checks 
+josef de has timed out
+josef de: checks 
+Joel0601: bets 1890
+jsalinas96: folds 
+Radosavlevici: calls 1890
+ATR.MMT: folds 
+starssb766: folds 
+josef de: calls 1890
+*** RIVER *** [Ts Qd 5s Qh] [8c]
+Radosavlevici: checks 
+josef de: checks 
+Joel0601: bets 9138
+Radosavlevici: folds 
+josef de: folds 
+Uncalled bet (9138) returned to Joel0601
+Joel0601 collected 9138 from pot
+Joel0601: doesn't show hand 
+*** SUMMARY ***
+Total pot 9670 | Rake 532 
+Board [Ts Qd 5s Qh 8c]
+Seat 1: L¡tanorte
+Seat 2: Joel0601 (button) collected (9138)
+Seat 3: jsalinas96 (small blind) folded on the Turn
+Seat 4: cleopatranada6 (big blind) folded before Flop
+Seat 5: Radosavlevici folded on the River
+Seat 6: ATR.MMT folded on the Turn
+Seat 7: starssb766 folded on the Turn
+Seat 8: josef de folded on the River
+Seat 9: DEDEdu31600 folded before Flop
+
+
+
+PokerStars Hand #259377072589:  Hold'em No Limit (100/200) - 2026/01/19 16:39:39 CET [2026/01/19 10:39:39 ET]
+Table 'Melpomene V' 9-max (Play Money) Seat #3 is the button
+Seat 4: olwaly11 (10300 in chips) is sitting out
+Seat 1: CaravanChick (20000 in chips) 
+Seat 2: Joel0601 (44645 in chips) 
+Seat 3: jsalinas96 (14200 in chips) 
+Seat 5: Radosavlevici (37934 in chips) 
+Seat 6: ATR.MMT (13800 in chips) 
+Seat 7: starssb766 (20000 in chips) 
+Seat 8: josef de (17110 in chips) 
+Seat 9: DEDEdu31600 (8266 in chips) 
+Radosavlevici: posts small blind 100
+ATR.MMT: posts big blind 200
+CaravanChick: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3s Ks]
+starssb766: folds 
+josef de: calls 200
+DEDEdu31600: raises 200 to 400
+CaravanChick: calls 200
+Joel0601: calls 400
+jsalinas96: calls 400
+Radosavlevici: calls 300
+ATR.MMT: calls 200
+josef de: calls 200
+*** FLOP *** [8h 2h Jd]
+Radosavlevici: checks 
+ATR.MMT: checks 
+josef de: checks 
+DEDEdu31600: bets 2646
+CaravanChick: folds 
+Joel0601: raises 2646 to 5292
+jsalinas96: folds 
+Radosavlevici: raises 2646 to 7938
+ATR.MMT: folds 
+josef de: folds 
+DEDEdu31600: calls 5220 and is all-in
+Joel0601: calls 2646
+*** TURN *** [8h 2h Jd] [Js]
+Radosavlevici: checks 
+Joel0601: bets 25082
+Radosavlevici: folds 
+Uncalled bet (25082) returned to Joel0601
+*** RIVER *** [8h 2h Jd Js] [6d]
+*** SHOW DOWN ***
+Joel0601: shows [8d Jc] (a full house, Jacks full of Eights)
+Joel0601 collected 136 from side pot
+DEDEdu31600: shows [Ts Td] (two pair, Jacks and Tens)
+Joel0601 collected 24946 from main pot
+*** SUMMARY ***
+Total pot 26542 Main pot 24946. Side pot 136. | Rake 1460 
+Board [8h 2h Jd Js 6d]
+Seat 4: olwaly11
+Seat 1: CaravanChick folded on the Flop
+Seat 2: Joel0601 showed [8d Jc] and won (25082) with a full house, Jacks full of Eights
+Seat 3: jsalinas96 (button) folded on the Flop
+Seat 5: Radosavlevici (small blind) folded on the Turn
+Seat 6: ATR.MMT (big blind) folded on the Flop
+Seat 7: starssb766 folded before Flop (didn't bet)
+Seat 8: josef de folded on the Flop
+Seat 9: DEDEdu31600 showed [Ts Td] and lost with two pair, Jacks and Tens
+
+
+
+PokerStars Hand #259377090745:  Hold'em No Limit (100/200) - 2026/01/19 16:41:24 CET [2026/01/19 10:41:24 ET]
+Table 'Melpomene V' 9-max (Play Money) Seat #5 is the button
+Seat 9: DEDEdu31600 (0 in chips) is sitting out
+Seat 1: CaravanChick (19600 in chips) 
+Seat 2: Joel0601 (61389 in chips) 
+Seat 3: jsalinas96 (13800 in chips) 
+Seat 4: olwaly11 (10300 in chips) 
+Seat 5: Radosavlevici (29596 in chips) 
+Seat 6: ATR.MMT (13400 in chips) 
+Seat 7: starssb766 (20000 in chips) 
+Seat 8: josef de (16710 in chips) 
+ATR.MMT: posts small blind 100
+starssb766: posts big blind 200
+olwaly11: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [7h 8d]
+josef de: calls 200
+CaravanChick: raises 200 to 400
+Joel0601: calls 400
+jsalinas96: folds 
+olwaly11: calls 200
+Radosavlevici: calls 400
+ATR.MMT: calls 300
+starssb766: folds 
+josef de: calls 200
+*** FLOP *** [Ah 6s 7s]
+ATR.MMT: checks 
+josef de: checks 
+CaravanChick: bets 800
+Joel0601: calls 800
+olwaly11: calls 800
+Radosavlevici: folds 
+ATR.MMT: folds 
+josef de: calls 800
+*** TURN *** [Ah 6s 7s] [2h]
+josef de: checks 
+CaravanChick: bets 1940
+Joel0601: folds 
+olwaly11: raises 3340 to 5280
+ATR.MMT is disconnected 
+josef de: folds 
+CaravanChick: calls 3340
+*** RIVER *** [Ah 6s 7s 2h] [Qh]
+CaravanChick: bets 13120 and is all-in
+olwaly11: calls 3820 and is all-in
+Uncalled bet (9300) returned to CaravanChick
+*** SHOW DOWN ***
+CaravanChick: shows [9h As] (a pair of Aces)
+olwaly11: shows [2s Ac] (two pair, Aces and Deuces)
+olwaly11 collected 22680 from pot
+*** SUMMARY ***
+Total pot 24000 | Rake 1320 
+Board [Ah 6s 7s 2h Qh]
+Seat 9: DEDEdu31600
+Seat 1: CaravanChick showed [9h As] and lost with a pair of Aces
+Seat 2: Joel0601 folded on the Turn
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 4: olwaly11 showed [2s Ac] and won (22680) with two pair, Aces and Deuces
+Seat 5: Radosavlevici (button) folded on the Flop
+Seat 6: ATR.MMT (small blind) folded on the Flop
+Seat 7: starssb766 (big blind) folded before Flop
+Seat 8: josef de folded on the Turn
+
+
+
+PokerStars Hand #259377109576:  Hold'em No Limit (100/200) - 2026/01/19 16:43:11 CET [2026/01/19 10:43:11 ET]
+Table 'Melpomene V' 9-max (Play Money) Seat #6 is the button
+Seat 1: CaravanChick (9300 in chips) 
+Seat 2: Joel0601 (60189 in chips) 
+Seat 3: jsalinas96 (13800 in chips) 
+Seat 4: olwaly11 (22680 in chips) 
+Seat 5: Radosavlevici (29196 in chips) 
+Seat 6: ATR.MMT (13000 in chips) 
+Seat 7: starssb766 (20000 in chips) 
+Seat 8: josef de (15510 in chips) 
+Seat 9: DEDEdu31600 (10400 in chips) 
+starssb766: posts small blind 100
+josef de: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5s 9c]
+DEDEdu31600 has timed out
+DEDEdu31600: folds 
+CaravanChick: calls 200
+Joel0601: folds 
+jsalinas96: folds 
+olwaly11: folds 
+Radosavlevici: calls 200
+ATR.MMT: calls 200
+starssb766: folds 
+josef de: checks 
+*** FLOP *** [2d Jd 9h]
+josef de: checks 
+CaravanChick: checks 
+Radosavlevici: checks 
+ATR.MMT: checks 
+*** TURN *** [2d Jd 9h] [7h]
+josef de: checks 
+CaravanChick: checks 
+Radosavlevici: checks 
+ATR.MMT: checks 
+*** RIVER *** [2d Jd 9h 7h] [7d]
+josef de: bets 2000
+CaravanChick: folds 
+Radosavlevici: folds 
+ATR.MMT: folds 
+Uncalled bet (2000) returned to josef de
+josef de collected 850 from pot
+*** SUMMARY ***
+Total pot 900 | Rake 50 
+Board [2d Jd 9h 7h 7d]
+Seat 1: CaravanChick folded on the River
+Seat 2: Joel0601 folded before Flop (didn't bet)
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 4: olwaly11 folded before Flop (didn't bet)
+Seat 5: Radosavlevici folded on the River
+Seat 6: ATR.MMT (button) folded on the River
+Seat 7: starssb766 (small blind) folded before Flop
+Seat 8: josef de (big blind) collected (850)
+Seat 9: DEDEdu31600 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259377120706:  Hold'em No Limit (100/200) - 2026/01/19 16:44:16 CET [2026/01/19 10:44:16 ET]
+Table 'Melpomene V' 9-max (Play Money) Seat #7 is the button
+Seat 1: CaravanChick (9100 in chips) 
+Seat 2: Joel0601 (60189 in chips) 
+Seat 3: jsalinas96 (13800 in chips) 
+Seat 4: olwaly11 (22680 in chips) 
+Seat 5: Radosavlevici (28996 in chips) 
+Seat 6: ATR.MMT (12800 in chips) 
+Seat 7: starssb766 (20000 in chips) 
+Seat 8: josef de (16160 in chips) 
+Seat 9: DEDEdu31600 (10400 in chips) 
+josef de: posts small blind 100
+DEDEdu31600: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [7h 9s]
+CaravanChick: calls 200
+Joel0601: calls 200
+jsalinas96: folds 
+olwaly11: folds 
+Radosavlevici: calls 200
+ATR.MMT: calls 200
+starssb766: calls 200
+josef de: calls 100
+DEDEdu31600: checks 
+*** FLOP *** [7c Kh 3c]
+josef de: checks 
+DEDEdu31600: bets 200
+CaravanChick: folds 
+Joel0601: folds 
+Radosavlevici: folds 
+ATR.MMT: calls 200
+starssb766: calls 200
+josef de: folds 
+*** TURN *** [7c Kh 3c] [2c]
+DEDEdu31600: bets 200
+ATR.MMT: folds 
+starssb766: folds 
+Uncalled bet (200) returned to DEDEdu31600
+DEDEdu31600 collected 1890 from pot
+DEDEdu31600: doesn't show hand 
+*** SUMMARY ***
+Total pot 2000 | Rake 110 
+Board [7c Kh 3c 2c]
+Seat 1: CaravanChick folded on the Flop
+Seat 2: Joel0601 folded on the Flop
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 4: olwaly11 folded before Flop (didn't bet)
+Seat 5: Radosavlevici folded on the Flop
+Seat 6: ATR.MMT folded on the Turn
+Seat 7: starssb766 (button) folded on the Turn
+Seat 8: josef de (small blind) folded on the Flop
+Seat 9: DEDEdu31600 (big blind) collected (1890)
+
+
+
+PokerStars Hand #259377135328:  Hold'em No Limit (100/200) - 2026/01/19 16:45:40 CET [2026/01/19 10:45:40 ET]
+Table 'Melpomene V' 9-max (Play Money) Seat #8 is the button
+Seat 1: CaravanChick (8900 in chips) 
+Seat 2: Joel0601 (59989 in chips) 
+Seat 3: jsalinas96 (13800 in chips) 
+Seat 4: olwaly11 (22680 in chips) 
+Seat 5: Radosavlevici (28796 in chips) 
+Seat 6: ATR.MMT (12400 in chips) 
+Seat 7: starssb766 (20000 in chips) 
+Seat 8: josef de (15960 in chips) 
+Seat 9: DEDEdu31600 (11890 in chips) 
+DEDEdu31600: posts small blind 100
+CaravanChick: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6d 2h]
+Joel0601: calls 200
+jsalinas96: folds 
+olwaly11: raises 600 to 800
+Radosavlevici: folds 
+ATR.MMT: calls 800
+starssb766: folds 
+josef de: calls 800
+DEDEdu31600: calls 700
+CaravanChick: calls 600
+Joel0601: calls 600
+*** FLOP *** [7c 9d 3c]
+DEDEdu31600: checks 
+CaravanChick: bets 2268
+Joel0601: calls 2268
+olwaly11: folds 
+ATR.MMT: calls 2268
+josef de: folds 
+DEDEdu31600: calls 2268
+*** TURN *** [7c 9d 3c] [7h]
+DEDEdu31600: checks 
+CaravanChick: bets 5832 and is all-in
+Joel0601: raises 5832 to 11664
+ATR.MMT: calls 9332 and is all-in
+DEDEdu31600: calls 8822 and is all-in
+Uncalled bet (2332) returned to Joel0601
+*** RIVER *** [7c 9d 3c 7h] [Qh]
+*** SHOW DOWN ***
+Joel0601: shows [Tc 7d] (three of a kind, Sevens)
+ATR.MMT: shows [7s Ah] (three of a kind, Sevens - Ace kicker)
+ATR.MMT collected 964 from side pot-2 
+DEDEdu31600: shows [2c Ac] (a pair of Sevens)
+ATR.MMT collected 8477 from side pot-1 
+CaravanChick: shows [5s 9c] (two pair, Nines and Sevens)
+ATR.MMT collected 35154 from main pot
+*** SUMMARY ***
+Total pot 47190 Main pot 35154. Side pot-1 8477. Side pot-2 964. | Rake 2595 
+Board [7c 9d 3c 7h Qh]
+Seat 1: CaravanChick (big blind) showed [5s 9c] and lost with two pair, Nines and Sevens
+Seat 2: Joel0601 showed [Tc 7d] and lost with three of a kind, Sevens
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 4: olwaly11 folded on the Flop
+Seat 5: Radosavlevici folded before Flop (didn't bet)
+Seat 6: ATR.MMT showed [7s Ah] and won (44595) with three of a kind, Sevens
+Seat 7: starssb766 folded before Flop (didn't bet)
+Seat 8: josef de (button) folded on the Flop
+Seat 9: DEDEdu31600 (small blind) showed [2c Ac] and lost with a pair of Sevens
+
+
+
+PokerStars Hand #259377153228:  Hold'em No Limit (100/200) - 2026/01/19 16:47:23 CET [2026/01/19 10:47:23 ET]
+Table 'Melpomene V' 9-max (Play Money) Seat #2 is the button
+Seat 1: CaravanChick (0 in chips) is sitting out
+Seat 9: DEDEdu31600 (0 in chips) is sitting out
+Seat 2: Joel0601 (47589 in chips) 
+Seat 3: jsalinas96 (13800 in chips) 
+Seat 4: olwaly11 (21880 in chips) 
+Seat 5: Radosavlevici (28796 in chips) 
+Seat 6: ATR.MMT (44595 in chips) 
+Seat 7: starssb766 (20000 in chips) 
+Seat 8: josef de (15160 in chips) 
+jsalinas96: posts small blind 100
+olwaly11: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4c 5h]
+Radosavlevici: calls 200
+ATR.MMT: calls 200
+starssb766: calls 200
+josef de: calls 200
+Joel0601: calls 200
+jsalinas96: folds 
+olwaly11: checks 
+*** FLOP *** [Kc 9d 9s]
+olwaly11: checks 
+Radosavlevici: checks 
+ATR.MMT: checks 
+starssb766: checks 
+josef de: checks 
+Joel0601: checks 
+*** TURN *** [Kc 9d 9s] [Td]
+olwaly11: checks 
+Radosavlevici: checks 
+ATR.MMT: checks 
+starssb766: checks 
+josef de: checks 
+Joel0601: checks 
+*** RIVER *** [Kc 9d 9s Td] [Jh]
+olwaly11: checks 
+Radosavlevici: checks 
+ATR.MMT: checks 
+starssb766: checks 
+josef de: checks 
+Joel0601: checks 
+*** SHOW DOWN ***
+olwaly11: shows [2s 5s] (a pair of Nines)
+Radosavlevici: shows [As 8c] (a pair of Nines - Ace kicker)
+ATR.MMT: shows [Qs 8s] (a straight, Nine to King)
+starssb766: mucks hand 
+josef de: shows [Jd 6h] (two pair, Jacks and Nines)
+Joel0601: shows [2c Qh] (a straight, Nine to King)
+ATR.MMT collected 614 from pot
+Joel0601 collected 614 from pot
+*** SUMMARY ***
+Total pot 1300 | Rake 72 
+Board [Kc 9d 9s Td Jh]
+Seat 1: CaravanChick
+Seat 9: DEDEdu31600
+Seat 2: Joel0601 (button) showed [2c Qh] and won (614) with a straight, Nine to King
+Seat 3: jsalinas96 (small blind) folded before Flop
+Seat 4: olwaly11 (big blind) showed [2s 5s] and lost with a pair of Nines
+Seat 5: Radosavlevici showed [As 8c] and lost with a pair of Nines
+Seat 6: ATR.MMT showed [Qs 8s] and won (614) with a straight, Nine to King
+Seat 7: starssb766 mucked [3s 3h]
+Seat 8: josef de showed [Jd 6h] and lost with two pair, Jacks and Nines
+
+
+
+PokerStars Hand #259377169312:  Hold'em No Limit (100/200) - 2026/01/19 16:48:55 CET [2026/01/19 10:48:55 ET]
+Table 'Melpomene V' 9-max (Play Money) Seat #3 is the button
+Seat 9: DEDEdu31600 (11800 in chips) is sitting out
+Seat 1: CaravanChick (20000 in chips) 
+Seat 2: Joel0601 (48003 in chips) 
+Seat 3: jsalinas96 (13700 in chips) 
+Seat 4: olwaly11 (21680 in chips) 
+Seat 5: Radosavlevici (28596 in chips) 
+Seat 6: ATR.MMT (45009 in chips) 
+Seat 7: starssb766 (20000 in chips) 
+Seat 8: josef de (14960 in chips) 
+olwaly11: posts small blind 100
+Radosavlevici: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2c Ac]
+ATR.MMT: folds 
+starssb766: folds 
+josef de: calls 200
+ATR.MMT leaves the table
+CaravanChick: raises 200 to 400
+Joel0601: raises 200 to 600
+jsalinas96: calls 600
+olwaly11: raises 800 to 1400
+Radosavlevici: folds 
+josef de: folds 
+CaravanChick: calls 1000
+Joel0601: raises 800 to 2200
+jsalinas96: calls 1600
+olwaly11: calls 800
+CaravanChick: calls 800
+*** FLOP *** [Kh 9c Qd]
+olwaly11: bets 4347
+heidi1010101 joins the table at seat #6 
+CaravanChick: raises 13453 to 17800 and is all-in
+Joel0601: folds 
+jsalinas96: folds 
+olwaly11: calls 13453
+*** TURN *** [Kh 9c Qd] [5d]
+*** RIVER *** [Kh 9c Qd 5d] [9d]
+*** SHOW DOWN ***
+olwaly11: shows [Jh Ks] (two pair, Kings and Nines)
+CaravanChick: shows [Qh Kd] (two pair, Kings and Queens)
+CaravanChick collected 42336 from pot
+*** SUMMARY ***
+Total pot 44800 | Rake 2464 
+Board [Kh 9c Qd 5d 9d]
+Seat 9: DEDEdu31600
+Seat 1: CaravanChick showed [Qh Kd] and won (42336) with two pair, Kings and Queens
+Seat 2: Joel0601 folded on the Flop
+Seat 3: jsalinas96 (button) folded on the Flop
+Seat 4: olwaly11 (small blind) showed [Jh Ks] and lost with two pair, Kings and Nines
+Seat 5: Radosavlevici (big blind) folded before Flop
+Seat 6: ATR.MMT folded before Flop (didn't bet)
+Seat 7: starssb766 folded before Flop (didn't bet)
+Seat 8: josef de folded before Flop
+
+
+
+PokerStars Hand #259377184827:  Hold'em No Limit (100/200) - 2026/01/19 16:50:24 CET [2026/01/19 10:50:24 ET]
+Table 'Melpomene V' 9-max (Play Money) Seat #4 is the button
+Seat 9: DEDEdu31600 (11800 in chips) is sitting out
+Seat 1: CaravanChick (42336 in chips) 
+Seat 2: Joel0601 (45803 in chips) 
+Seat 3: jsalinas96 (11500 in chips) 
+Seat 4: olwaly11 (1680 in chips) 
+Seat 5: Radosavlevici (28396 in chips) 
+Seat 6: heidi1010101 (8000 in chips) 
+Seat 7: starssb766 (20000 in chips) 
+Seat 8: josef de (14760 in chips) 
+Radosavlevici: posts small blind 100
+heidi1010101: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9h 6s]
+starssb766: folds 
+josef de: calls 200
+CaravanChick: calls 200
+Joel0601: calls 200
+jsalinas96: folds 
+olwaly11: raises 1480 to 1680 and is all-in
+Radosavlevici: calls 1580
+heidi1010101: calls 1480
+josef de: folds 
+CaravanChick: folds 
+Joel0601: folds 
+*** FLOP *** [2s Ad Js]
+Radosavlevici: bets 800
+heidi1010101: calls 800
+*** TURN *** [2s Ad Js] [5d]
+Radosavlevici: bets 800
+heidi1010101: calls 800
+*** RIVER *** [2s Ad Js 5d] [7c]
+Radosavlevici: bets 1200
+heidi1010101: calls 1200
+*** SHOW DOWN ***
+Radosavlevici: shows [As 7s] (two pair, Aces and Sevens)
+heidi1010101: mucks hand 
+Radosavlevici collected 5292 from side pot
+olwaly11: mucks hand 
+Radosavlevici collected 5330 from main pot
+*** SUMMARY ***
+Total pot 11240 Main pot 5330. Side pot 5292. | Rake 618 
+Board [2s Ad Js 5d 7c]
+Seat 9: DEDEdu31600
+Seat 1: CaravanChick folded before Flop
+Seat 2: Joel0601 folded before Flop
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 4: olwaly11 (button) mucked [Ac 2d]
+Seat 5: Radosavlevici (small blind) showed [As 7s] and won (10622) with two pair, Aces and Sevens
+Seat 6: heidi1010101 (big blind) mucked [Kd Ah]
+Seat 7: starssb766 folded before Flop (didn't bet)
+Seat 8: josef de folded before Flop
+
+
+
+PokerStars Hand #259377196773:  Hold'em No Limit (100/200) - 2026/01/19 16:51:33 CET [2026/01/19 10:51:33 ET]
+Table 'Melpomene V' 9-max (Play Money) Seat #5 is the button
+Seat 4: olwaly11 (0 in chips) is sitting out
+Seat 9: DEDEdu31600 (11800 in chips) is sitting out
+Seat 1: CaravanChick (42136 in chips) 
+Seat 2: Joel0601 (45603 in chips) 
+Seat 3: jsalinas96 (11500 in chips) 
+Seat 5: Radosavlevici (34538 in chips) 
+Seat 6: heidi1010101 (3520 in chips) 
+Seat 7: starssb766 (20000 in chips) 
+Seat 8: josef de (14560 in chips) 
+heidi1010101: posts small blind 100
+starssb766: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Jh 6d]
+olwaly11 leaves the table
+josef de: raises 14360 to 14560 and is all-in
+CaravanChick: folds 
+Joel0601: folds 
+jsalinas96: folds 
+Radosavlevici: folds 
+heidi1010101: folds 
+starssb766: folds 
+Uncalled bet (14360) returned to josef de
+josef de collected 500 from pot
+*** SUMMARY ***
+Total pot 500 | Rake 0 
+Seat 4: olwaly11
+Seat 9: DEDEdu31600
+Seat 1: CaravanChick folded before Flop (didn't bet)
+Seat 2: Joel0601 folded before Flop (didn't bet)
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 5: Radosavlevici (button) folded before Flop (didn't bet)
+Seat 6: heidi1010101 (small blind) folded before Flop
+Seat 7: starssb766 (big blind) folded before Flop
+Seat 8: josef de collected (500)
+
+
+
+PokerStars Hand #259377201077:  Hold'em No Limit (100/200) - 2026/01/19 16:51:58 CET [2026/01/19 10:51:58 ET]
+Table 'Melpomene V' 9-max (Play Money) Seat #7 is the button
+Seat 6: heidi1010101 (3420 in chips) is sitting out
+Seat 9: DEDEdu31600 (11800 in chips) is sitting out
+Seat 1: CaravanChick (42136 in chips) 
+Seat 2: Joel0601 (45603 in chips) 
+Seat 3: jsalinas96 (11500 in chips) 
+Seat 5: Radosavlevici (34538 in chips) 
+Seat 7: starssb766 (20000 in chips) 
+Seat 8: josef de (14860 in chips) 
+josef de: posts small blind 100
+CaravanChick: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Kh 2h]
+Joel0601: folds 
+jsalinas96: raises 400 to 600
+Radosavlevici: folds 
+starssb766: folds 
+josef de: calls 500
+CaravanChick: calls 400
+*** FLOP *** [8d 5h 3d]
+josef de: checks 
+CaravanChick: checks 
+jsalinas96: checks 
+*** TURN *** [8d 5h 3d] [7s]
+josef de: checks 
+CaravanChick: checks 
+jsalinas96: checks 
+*** RIVER *** [8d 5h 3d 7s] [4h]
+josef de: checks 
+CaravanChick: bets 2301
+jsalinas96: folds 
+mateocada joins the table at seat #4 
+josef de: folds 
+Uncalled bet (2301) returned to CaravanChick
+mateocada is disconnected 
+CaravanChick collected 1701 from pot
+*** SUMMARY ***
+Total pot 1800 | Rake 99 
+Board [8d 5h 3d 7s 4h]
+Seat 6: heidi1010101
+Seat 9: DEDEdu31600
+Seat 1: CaravanChick (big blind) collected (1701)
+Seat 2: Joel0601 folded before Flop (didn't bet)
+Seat 3: jsalinas96 folded on the River
+Seat 5: Radosavlevici folded before Flop (didn't bet)
+Seat 7: starssb766 (button) folded before Flop (didn't bet)
+Seat 8: josef de (small blind) folded on the River
+
+
+
+PokerStars Hand #259377210418:  Hold'em No Limit (100/200) - 2026/01/19 16:52:52 CET [2026/01/19 10:52:52 ET]
+Table 'Melpomene V' 9-max (Play Money) Seat #8 is the button
+Seat 6: heidi1010101 (3420 in chips) is sitting out
+Seat 9: DEDEdu31600 (11800 in chips) is sitting out
+Seat 1: CaravanChick (43237 in chips) 
+Seat 2: Joel0601 (45603 in chips) 
+Seat 3: jsalinas96 (10900 in chips) 
+Seat 4: mateocada (20000 in chips) 
+Seat 5: Radosavlevici (34538 in chips) 
+Seat 7: starssb766 (20000 in chips) 
+Seat 8: josef de (14260 in chips) 
+CaravanChick: posts small blind 100
+Joel0601: posts big blind 200
+mateocada: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ac Jh]
+jsalinas96: raises 400 to 600
+mateocada: calls 400
+Radosavlevici: calls 600
+starssb766: folds 
+josef de: calls 600
+CaravanChick: raises 400 to 1000
+Joel0601: calls 800
+jsalinas96: calls 400
+mateocada: calls 400
+Radosavlevici: calls 400
+josef de: calls 400
+*** FLOP *** [2c 7s 3s]
+CaravanChick: checks 
+Joel0601: checks 
+jsalinas96: checks 
+mateocada: bets 19000 and is all-in
+Radosavlevici: folds 
+josef de: folds 
+CaravanChick: folds 
+Joel0601: calls 19000
+jsalinas96: folds 
+*** TURN *** [2c 7s 3s] [2s]
+*** RIVER *** [2c 7s 3s 2s] [7d]
+*** SHOW DOWN ***
+Joel0601: shows [6s Js] (a flush, Jack high)
+mateocada: shows [8d Kh] (two pair, Sevens and Deuces)
+Joel0601 collected 41580 from pot
+*** SUMMARY ***
+Total pot 44000 | Rake 2420 
+Board [2c 7s 3s 2s 7d]
+Seat 6: heidi1010101
+Seat 9: DEDEdu31600
+Seat 1: CaravanChick (small blind) folded on the Flop
+Seat 2: Joel0601 (big blind) showed [6s Js] and won (41580) with a flush, Jack high
+Seat 3: jsalinas96 folded on the Flop
+Seat 4: mateocada showed [8d Kh] and lost with two pair, Sevens and Deuces
+Seat 5: Radosavlevici folded on the Flop
+Seat 7: starssb766 folded before Flop (didn't bet)
+Seat 8: josef de (button) folded on the Flop
+
+
+
+PokerStars Hand #259377225897:  Hold'em No Limit (100/200) - 2026/01/19 16:54:22 CET [2026/01/19 10:54:22 ET]
+Table 'Melpomene V' 9-max (Play Money) Seat #1 is the button
+Seat 4: mateocada (0 in chips) is sitting out
+Seat 9: DEDEdu31600 (11800 in chips) is sitting out
+Seat 1: CaravanChick (42237 in chips) 
+Seat 2: Joel0601 (67183 in chips) 
+Seat 3: jsalinas96 (9900 in chips) 
+Seat 5: Radosavlevici (33538 in chips) 
+Seat 6: heidi1010101 (3420 in chips) 
+Seat 7: starssb766 (20000 in chips) 
+Seat 8: josef de (20000 in chips) 
+Joel0601: posts small blind 100
+jsalinas96: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9d 8d]
+Radosavlevici: calls 200
+mateocada is disconnected 
+heidi1010101: folds 
+starssb766: calls 200
+josef de: calls 200
+CaravanChick: raises 600 to 800
+Joel0601: calls 700
+jsalinas96: calls 600
+Radosavlevici: calls 600
+starssb766: calls 600
+josef de: calls 600
+*** FLOP *** [6h Jh Qs]
+Joel0601: checks 
+jsalinas96: checks 
+Radosavlevici: checks 
+starssb766: checks 
+josef de: checks 
+CaravanChick: bets 1600
+Joel0601: folds 
+jsalinas96: folds 
+Radosavlevici: calls 1600
+starssb766: folds 
+josef de: folds 
+*** TURN *** [6h Jh Qs] [8h]
+Radosavlevici: checks 
+CaravanChick: bets 3000
+Radosavlevici: calls 3000
+*** RIVER *** [6h Jh Qs 8h] [2c]
+Radosavlevici: checks 
+CaravanChick: bets 6615
+Radosavlevici: raises 21523 to 28138 and is all-in
+CaravanChick: calls 21523
+*** SHOW DOWN ***
+Radosavlevici: shows [Qh 2h] (a flush, Queen high)
+CaravanChick: shows [Jd Qd] (two pair, Queens and Jacks)
+Radosavlevici collected 66411 from pot
+*** SUMMARY ***
+Total pot 70276 | Rake 3865 
+Board [6h Jh Qs 8h 2c]
+Seat 4: mateocada
+Seat 9: DEDEdu31600
+Seat 1: CaravanChick (button) showed [Jd Qd] and lost with two pair, Queens and Jacks
+Seat 2: Joel0601 (small blind) folded on the Flop
+Seat 3: jsalinas96 (big blind) folded on the Flop
+Seat 5: Radosavlevici showed [Qh 2h] and won (66411) with a flush, Queen high
+Seat 6: heidi1010101 folded before Flop (didn't bet)
+Seat 7: starssb766 folded on the Flop
+Seat 8: josef de folded on the Flop
+
+
+
+PokerStars Hand #259377243306:  Hold'em No Limit (100/200) - 2026/01/19 16:56:17 CET [2026/01/19 10:56:17 ET]
+Table 'Melpomene V' 9-max (Play Money) Seat #2 is the button
+Seat 4: mateocada (0 in chips) is sitting out
+Seat 9: DEDEdu31600 (11800 in chips) is sitting out
+Seat 1: CaravanChick (8699 in chips) 
+Seat 2: Joel0601 (66383 in chips) 
+Seat 3: jsalinas96 (9100 in chips) 
+Seat 5: Radosavlevici (66411 in chips) 
+Seat 6: heidi1010101 (3420 in chips) 
+Seat 7: starssb766 (20000 in chips) 
+Seat 8: josef de (19200 in chips) 
+jsalinas96: posts small blind 100
+Radosavlevici: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6d 3h]
+heidi1010101: folds 
+starssb766: calls 200
+josef de: calls 200
+CaravanChick: raises 200 to 400
+Joel0601: calls 400
+jsalinas96: folds 
+Radosavlevici: folds 
+starssb766: calls 200
+josef de: calls 200
+*** FLOP *** [6h 7d 9s]
+starssb766: checks 
+josef de: checks 
+CaravanChick: checks 
+Joel0601: checks 
+*** TURN *** [6h 7d 9s] [3s]
+starssb766: bets 1795
+josef de: folds 
+CaravanChick: folds 
+Joel0601: calls 1795
+*** RIVER *** [6h 7d 9s 3s] [Jd]
+starssb766: bets 5188
+Joel0601: calls 5188
+*** SHOW DOWN ***
+starssb766: shows [3d 3c] (three of a kind, Threes)
+Joel0601: mucks hand 
+starssb766 collected 14993 from pot
+*** SUMMARY ***
+Total pot 15866 | Rake 873 
+Board [6h 7d 9s 3s Jd]
+Seat 4: mateocada
+Seat 9: DEDEdu31600
+Seat 1: CaravanChick folded on the Turn
+Seat 2: Joel0601 (button) mucked [Jc 9c]
+Seat 3: jsalinas96 (small blind) folded before Flop
+Seat 5: Radosavlevici (big blind) folded before Flop
+Seat 6: heidi1010101 folded before Flop (didn't bet)
+Seat 7: starssb766 showed [3d 3c] and won (14993) with three of a kind, Threes
+Seat 8: josef de folded on the Turn
+
+
+
+PokerStars Hand #259377250483:  Hold'em No Limit (100/200) - 2026/01/19 16:57:11 CET [2026/01/19 10:57:11 ET]
+Table 'Melpomene V' 9-max (Play Money) Seat #3 is the button
+Seat 4: mateocada (0 in chips) is sitting out
+Seat 9: DEDEdu31600 (11800 in chips) is sitting out
+Seat 1: CaravanChick (8299 in chips) 
+Seat 2: Joel0601 (59000 in chips) 
+Seat 3: jsalinas96 (9000 in chips) 
+Seat 5: Radosavlevici (66211 in chips) 
+Seat 6: heidi1010101 (3420 in chips) 
+Seat 7: starssb766 (27610 in chips) 
+Seat 8: josef de (18800 in chips) 
+Radosavlevici: posts small blind 100
+heidi1010101: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Kd Ks]
+starssb766: calls 200
+josef de: calls 200
+CaravanChick: calls 200
+Joel0601: calls 200
+jsalinas96: raises 400 to 600
+Radosavlevici: folds 
+heidi1010101: folds 
+starssb766: calls 400
+josef de: calls 400
+CaravanChick: calls 400
+Joel0601: calls 400
+*** FLOP *** [9s 8h 9d]
+starssb766: checks 
+josef de: checks 
+CaravanChick: checks 
+Joel0601: bets 1559
+jsalinas96: calls 1559
+starssb766: folds 
+josef de: folds 
+CaravanChick: folds 
+*** TURN *** [9s 8h 9d] [7c]
+Joel0601: bets 3032
+jsalinas96: raises 3809 to 6841 and is all-in
+Joel0601: calls 3809
+*** RIVER *** [9s 8h 9d 7c] [Ac]
+*** SHOW DOWN ***
+Joel0601: shows [8c 8d] (a full house, Eights full of Nines)
+jsalinas96: shows [Kd Ks] (two pair, Kings and Nines)
+Joel0601 collected 18994 from pot
+*** SUMMARY ***
+Total pot 20100 | Rake 1106 
+Board [9s 8h 9d 7c Ac]
+Seat 4: mateocada
+Seat 9: DEDEdu31600
+Seat 1: CaravanChick folded on the Flop
+Seat 2: Joel0601 showed [8c 8d] and won (18994) with a full house, Eights full of Nines
+Seat 3: jsalinas96 (button) showed [Kd Ks] and lost with two pair, Kings and Nines
+Seat 5: Radosavlevici (small blind) folded before Flop
+Seat 6: heidi1010101 (big blind) folded before Flop
+Seat 7: starssb766 folded on the Flop
+Seat 8: josef de folded on the Flop
+
+
+
