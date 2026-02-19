@@ -316,3 +316,102 @@ class TestHandInsert:
                           (sample_hand.hand_id, villain_pid)).fetchone()
         assert row[0] is None
 
+
+class TestActionsInsert:
+    @pytest.fixture
+    def idb(self, tmp_path):
+        from pokerhero.database.db import init_db
+        conn = init_db(tmp_path / "test.db")
+        yield conn
+        conn.close()
+
+    @pytest.fixture
+    def setup_hand(self, idb):
+        """Insert a session, hand, and players; return (hand_id, player_id_map)."""
+        from pokerhero.database.db import insert_session, insert_hand, upsert_player
+        from pokerhero.parser.models import SessionData, HandData
+        from decimal import Decimal
+        from datetime import datetime
+        s = SessionData(
+            game_type="NLHE", limit_type="No Limit", max_seats=9,
+            small_blind=Decimal("100"), big_blind=Decimal("200"), ante=Decimal("0"),
+            is_tournament=False, table_name="T", tournament_id=None,
+        )
+        sid = insert_session(idb, s, start_time="2024-01-15T20:30:00")
+        h = HandData(
+            hand_id=111222333, timestamp=datetime(2024, 1, 15, 20, 30, 0), button_seat=1,
+            board_flop=None, board_turn=None, board_river=None,
+            total_pot=Decimal("600"), uncalled_bet_returned=Decimal("0"), rake=Decimal("0"),
+        )
+        insert_hand(idb, h, sid)
+        pid_map = {
+            "jsalinas96": upsert_player(idb, "jsalinas96"),
+            "villain1": upsert_player(idb, "villain1"),
+        }
+        return h.hand_id, pid_map
+
+    @pytest.fixture
+    def sample_actions(self):
+        from pokerhero.parser.models import ActionData
+        from decimal import Decimal
+        return [
+            ActionData(
+                sequence=1, player="villain1", is_hero=False, street="PREFLOP",
+                action_type="POST_BLIND", amount=Decimal("200"), amount_to_call=Decimal("0"),
+                pot_before=Decimal("0"), is_all_in=False, spr=None, mdf=None,
+            ),
+            ActionData(
+                sequence=2, player="jsalinas96", is_hero=True, street="PREFLOP",
+                action_type="CALL", amount=Decimal("200"), amount_to_call=Decimal("200"),
+                pot_before=Decimal("200"), is_all_in=False, spr=None, mdf=None,
+            ),
+            ActionData(
+                sequence=3, player="jsalinas96", is_hero=True, street="FLOP",
+                action_type="CHECK", amount=Decimal("0"), amount_to_call=Decimal("0"),
+                pot_before=Decimal("400"), is_all_in=False, spr=Decimal("5.5"), mdf=None,
+            ),
+        ]
+
+    def test_insert_actions_count(self, idb, setup_hand, sample_actions):
+        from pokerhero.database.db import insert_actions
+        hand_id, pid_map = setup_hand
+        insert_actions(idb, hand_id, sample_actions, pid_map)
+        count = idb.execute("SELECT COUNT(*) FROM actions WHERE hand_id=?", (hand_id,)).fetchone()[0]
+        assert count == 3
+
+    def test_insert_actions_sequence_correct(self, idb, setup_hand, sample_actions):
+        from pokerhero.database.db import insert_actions
+        hand_id, pid_map = setup_hand
+        insert_actions(idb, hand_id, sample_actions, pid_map)
+        rows = idb.execute("SELECT sequence FROM actions WHERE hand_id=? ORDER BY sequence", (hand_id,)).fetchall()
+        assert [r[0] for r in rows] == [1, 2, 3]
+
+    def test_insert_actions_values_correct(self, idb, setup_hand, sample_actions):
+        from pokerhero.database.db import insert_actions
+        hand_id, pid_map = setup_hand
+        insert_actions(idb, hand_id, sample_actions, pid_map)
+        row = idb.execute(
+            "SELECT street, action_type, amount, pot_before, is_hero FROM actions WHERE hand_id=? AND sequence=2",
+            (hand_id,)
+        ).fetchone()
+        assert row[0] == "PREFLOP"
+        assert row[1] == "CALL"
+        assert row[2] == 200.0
+        assert row[3] == 200.0
+        assert row[4] == 1  # is_hero True
+
+    def test_insert_actions_spr_stored(self, idb, setup_hand, sample_actions):
+        from pokerhero.database.db import insert_actions
+        hand_id, pid_map = setup_hand
+        insert_actions(idb, hand_id, sample_actions, pid_map)
+        row = idb.execute("SELECT spr FROM actions WHERE hand_id=? AND sequence=3", (hand_id,)).fetchone()
+        assert row[0] == pytest.approx(5.5)
+
+    def test_insert_actions_null_spr_mdf(self, idb, setup_hand, sample_actions):
+        from pokerhero.database.db import insert_actions
+        hand_id, pid_map = setup_hand
+        insert_actions(idb, hand_id, sample_actions, pid_map)
+        row = idb.execute("SELECT spr, mdf FROM actions WHERE hand_id=? AND sequence=1", (hand_id,)).fetchone()
+        assert row[0] is None
+        assert row[1] is None
+
