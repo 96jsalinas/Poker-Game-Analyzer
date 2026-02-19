@@ -96,3 +96,53 @@ class TestConnection:
         tables = {row[0] for row in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")}
         assert len([t for t in tables if t in {"players", "sessions", "hands", "hand_players", "actions"}]) == 5
         conn.close()
+
+
+class TestPlayerInsert:
+    @pytest.fixture
+    def idb(self, tmp_path):
+        from pokerhero.database.db import init_db
+        conn = init_db(tmp_path / "test.db")
+        yield conn
+        conn.close()
+
+    def test_upsert_returns_int_id(self, idb):
+        from pokerhero.database.db import upsert_player
+        pid = upsert_player(idb, "hero")
+        assert isinstance(pid, int)
+        assert pid > 0
+
+    def test_upsert_inserts_row(self, idb):
+        from pokerhero.database.db import upsert_player
+        upsert_player(idb, "villain")
+        row = idb.execute("SELECT username, preferred_name FROM players WHERE username='villain'").fetchone()
+        assert row is not None
+        assert row[0] == "villain"
+        assert row[1] == "villain"
+
+    def test_preferred_name_defaults_to_username(self, idb):
+        from pokerhero.database.db import upsert_player
+        upsert_player(idb, "jsalinas96")
+        row = idb.execute("SELECT preferred_name FROM players WHERE username='jsalinas96'").fetchone()
+        assert row[0] == "jsalinas96"
+
+    def test_upsert_idempotent_same_id(self, idb):
+        from pokerhero.database.db import upsert_player
+        id1 = upsert_player(idb, "player1")
+        id2 = upsert_player(idb, "player1")
+        assert id1 == id2
+
+    def test_upsert_does_not_overwrite_preferred_name(self, idb):
+        from pokerhero.database.db import upsert_player
+        upsert_player(idb, "player1")
+        idb.execute("UPDATE players SET preferred_name='My Villain' WHERE username='player1'")
+        upsert_player(idb, "player1")  # second call
+        row = idb.execute("SELECT preferred_name FROM players WHERE username='player1'").fetchone()
+        assert row[0] == "My Villain"  # not overwritten
+
+    def test_multiple_players_unique_ids(self, idb):
+        from pokerhero.database.db import upsert_player
+        id1 = upsert_player(idb, "alpha")
+        id2 = upsert_player(idb, "beta")
+        assert id1 != id2
+
