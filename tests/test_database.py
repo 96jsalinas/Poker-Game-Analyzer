@@ -213,3 +213,106 @@ class TestSessionInsert:
         id2 = insert_session(idb, sample_session, start_time="2024-01-15T21:30:00")
         assert id1 != id2
 
+
+class TestHandInsert:
+    @pytest.fixture
+    def idb(self, tmp_path):
+        from pokerhero.database.db import init_db
+        conn = init_db(tmp_path / "test.db")
+        yield conn
+        conn.close()
+
+    @pytest.fixture
+    def session_id(self, idb):
+        from pokerhero.database.db import insert_session
+        from pokerhero.parser.models import SessionData
+        from decimal import Decimal
+        s = SessionData(
+            game_type="NLHE", limit_type="No Limit", max_seats=9,
+            small_blind=Decimal("100"), big_blind=Decimal("200"), ante=Decimal("0"),
+            is_tournament=False, table_name="T", tournament_id=None,
+        )
+        return insert_session(idb, s, start_time="2024-01-15T20:30:00")
+
+    @pytest.fixture
+    def sample_hand(self):
+        from pokerhero.parser.models import HandData
+        from decimal import Decimal
+        from datetime import datetime
+        return HandData(
+            hand_id=123456789,
+            timestamp=datetime(2024, 1, 15, 20, 30, 0),
+            button_seat=1,
+            board_flop="Ah Kh Qh",
+            board_turn="Js",
+            board_river="Td",
+            total_pot=Decimal("1200"),
+            uncalled_bet_returned=Decimal("0"),
+            rake=Decimal("60"),
+        )
+
+    @pytest.fixture
+    def sample_players(self):
+        from pokerhero.parser.models import HandPlayerData
+        from decimal import Decimal
+        return [
+            HandPlayerData(
+                username="jsalinas96", seat=1, starting_stack=Decimal("10000"),
+                position="BTN", hole_cards="As Kd", net_result=Decimal("600"),
+                vpip=True, pfr=True, went_to_showdown=True, is_hero=True,
+            ),
+            HandPlayerData(
+                username="villain1", seat=2, starting_stack=Decimal("8000"),
+                position="BB", hole_cards=None, net_result=Decimal("-600"),
+                vpip=True, pfr=False, went_to_showdown=False, is_hero=False,
+            ),
+        ]
+
+    def test_insert_hand_row_exists(self, idb, session_id, sample_hand):
+        from pokerhero.database.db import insert_hand
+        insert_hand(idb, sample_hand, session_id)
+        row = idb.execute("SELECT id FROM hands WHERE id=?", (sample_hand.hand_id,)).fetchone()
+        assert row is not None
+
+    def test_insert_hand_values_correct(self, idb, session_id, sample_hand):
+        from pokerhero.database.db import insert_hand
+        insert_hand(idb, sample_hand, session_id)
+        row = idb.execute("SELECT total_pot, rake, board_flop FROM hands WHERE id=?", (sample_hand.hand_id,)).fetchone()
+        assert row[0] == 1200.0
+        assert row[1] == 60.0
+        assert row[2] == "Ah Kh Qh"
+
+    def test_insert_hand_players_rows_exist(self, idb, session_id, sample_hand, sample_players):
+        from pokerhero.database.db import insert_hand, insert_hand_players, upsert_player
+        insert_hand(idb, sample_hand, session_id)
+        pid_map = {p.username: upsert_player(idb, p.username) for p in sample_players}
+        insert_hand_players(idb, sample_hand.hand_id, sample_players, pid_map)
+        count = idb.execute("SELECT COUNT(*) FROM hand_players WHERE hand_id=?", (sample_hand.hand_id,)).fetchone()[0]
+        assert count == 2
+
+    def test_insert_hand_players_values_correct(self, idb, session_id, sample_hand, sample_players):
+        from pokerhero.database.db import insert_hand, insert_hand_players, upsert_player
+        insert_hand(idb, sample_hand, session_id)
+        pid_map = {p.username: upsert_player(idb, p.username) for p in sample_players}
+        insert_hand_players(idb, sample_hand.hand_id, sample_players, pid_map)
+        hero_pid = pid_map["jsalinas96"]
+        row = idb.execute(
+            "SELECT position, vpip, pfr, went_to_showdown, net_result FROM hand_players WHERE hand_id=? AND player_id=?",
+            (sample_hand.hand_id, hero_pid)
+        ).fetchone()
+        assert row[0] == "BTN"
+        assert row[1] == 1   # vpip True
+        assert row[2] == 1   # pfr True
+        assert row[3] == 1   # went_to_showdown True
+        assert row[4] == 600.0
+
+    def test_insert_hand_players_null_hole_cards(self, idb, session_id, sample_hand, sample_players):
+        from pokerhero.database.db import insert_hand, insert_hand_players, upsert_player
+        insert_hand(idb, sample_hand, session_id)
+        pid_map = {p.username: upsert_player(idb, p.username) for p in sample_players}
+        insert_hand_players(idb, sample_hand.hand_id, sample_players, pid_map)
+        villain_pid = pid_map["villain1"]
+        row = idb.execute("SELECT hole_cards FROM hand_players WHERE hand_id=? AND player_id=?",
+                          (sample_hand.hand_id, villain_pid)).fetchone()
+        assert row[0] is None
+
