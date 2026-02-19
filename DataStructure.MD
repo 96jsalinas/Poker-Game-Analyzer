@@ -30,7 +30,7 @@ A specific deal of cards. Includes "Uncalled Bet" logic for financial balancing.
 | `board_flop` | String | e.g., "Ah Kh Qh". |
 | `board_turn` | String | e.g., "Js". |
 | `board_river` | String | e.g., "Td". |
-| `total_pot` | Decimal | Final pot size (Total invested - Uncalled Bet). |
+| `total_pot` | Decimal | Pre-rake pot size (Total invested - Uncalled Bet). To get the net pot, use `Pot_Net = total_pot - rake`. |
 | `uncalled_bet_returned` | Decimal | Excess bet returned to the last aggressor. |
 | `rake` | Decimal | House fee taken. |
 | `timestamp` | DateTime | When the hand occurred. |
