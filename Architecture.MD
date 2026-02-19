@@ -10,7 +10,7 @@ This document outlines the high-level architecture, technology stack, and data f
 | **DB Access** | Raw SQL (`sqlite3`) | Eliminates ORM overhead. Allows for highly optimized, complex analytical queries tailored specifically to our schema. |
 | **Data Manipulation** | Pandas & NumPy | Industry standards for aggregating session data, calculating win rates, and manipulating time-series data for the frontend. |
 | **Poker Engine** | PokerKit | Handles state management, hand evaluation, and equity calculations. Provides robust foundations for complex poker math. |
-| **Frontend UI** | Web-Based (TBD) | A decoupled web frontend (e.g., Streamlit, Dash, or custom API + JS) allows for a modern, responsive interface while keeping the Python backend modular. |
+| **Frontend UI** | Reflex | A decoupled web frontend allows for a modern, responsive interface while keeping the Python backend modular. |
 
 ## 🔄 Data Flow Pipeline
 
