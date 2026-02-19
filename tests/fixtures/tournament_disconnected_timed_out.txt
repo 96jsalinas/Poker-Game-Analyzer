@@ -1,0 +1,59 @@
+PokerStars Hand #259615555574: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level I (10/20) - 2026/02/06 16:04:41 CET [2026/02/06 10:04:41 ET]
+Table '3970436932 1' 9-max Seat #4 is the button
+Seat 1: Heron1960 (1494 in chips)
+Seat 2: JazzWill (1500 in chips) 
+Seat 3: AldairRRDR (1439 in chips)
+Seat 4: MantisNN (1434 in chips)
+Seat 5: jsalinas96 (1454 in chips)
+Seat 7: MMc2112 (1870 in chips)
+Seat 8: Bush1962 (1354 in chips)
+Seat 9: Montana9797 (1499 in chips)
+Heron1960: posts the ante 2
+JazzWill: posts the ante 2
+AldairRRDR: posts the ante 2
+MantisNN: posts the ante 2
+jsalinas96: posts the ante 2
+MMc2112: posts the ante 2
+Bush1962: posts the ante 2
+Montana9797: posts the ante 2
+jsalinas96: posts small blind 10
+MMc2112: posts big blind 20
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4d Kh]
+Bush1962: calls 20
+Montana9797: folds
+Heron1960: calls 20
+JazzWill: calls 20
+AldairRRDR: folds
+MantisNN: calls 20
+jsalinas96: folds
+MMc2112: checks
+*** FLOP *** [6c Kc Ac]
+MMc2112: checks
+Bush1962: bets 126
+Heron1960: folds
+JazzWill: calls 126
+MantisNN: calls 126
+MMc2112: folds
+*** TURN *** [6c Kc Ac] [Ks]
+JazzWill is disconnected
+Bush1962: bets 20
+JazzWill has timed out while disconnected
+JazzWill: folds
+MantisNN: raises 1266 to 1286 and is all-in
+Bush1962: folds
+Uncalled bet (1266) returned to MantisNN
+MantisNN collected 544 from pot
+MantisNN: doesn't show hand
+JazzWill is disconnected
+*** SUMMARY ***
+Total pot 544 | Rake 0
+Board [6c Kc Ac Ks]
+Seat 1: Heron1960 folded on the Flop
+Seat 2: JazzWill folded on the Turn
+Seat 3: AldairRRDR folded before Flop (didn't bet)
+Seat 4: MantisNN (button) collected (544)
+Seat 5: jsalinas96 (small blind) folded before Flop
+Seat 7: MMc2112 (big blind) folded on the Flop
+Seat 8: Bush1962 folded on the Turn
+Seat 9: Montana9797 folded before Flop (didn't bet)

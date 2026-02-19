@@ -1,0 +1,42 @@
+PokerStars Hand #259603186728:  Hold'em No Limit (100/200) - 2026/02/05 18:39:25 CET [2026/02/05 12:39:25 ET]
+Table 'Vigdis' 9-max (Play Money) Seat #6 is the button
+Seat 1: Marghita72 (40566 in chips)
+Seat 2: Lalaudalela (15403 in chips)
+Seat 3: gabrielbasilis (38461 in chips)
+Seat 4: milchka259 (67825 in chips)
+Seat 5: jsalinas96 (16458 in chips)
+Seat 6: Rick Mart500 (18200 in chips)
+Seat 8: albertoch353 (34055 in chips)
+Seat 9: firefly2005 (19800 in chips)
+albertoch353: posts small blind 100
+firefly2005: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6h 4s]
+Marghita72: folds
+Lalaudalela: calls 200
+gabrielbasilis: folds
+milchka259: calls 200
+jsalinas96: folds
+Rick Mart500: folds
+albertoch353: folds
+firefly2005: checks
+*** FLOP *** [Ah 2d Jd]
+firefly2005: checks
+Lalaudalela: checks
+milchka259: bets 400
+firefly2005: folds
+Lalaudalela: folds 
+Uncalled bet (400) returned to milchka259
+milchka259 collected 661 from pot
+milchka259: doesn't show hand
+*** SUMMARY ***
+Total pot 700 | Rake 39
+Board [Ah 2d Jd]
+Seat 1: Marghita72 folded before Flop (didn't bet)
+Seat 2: Lalaudalela folded on the Flop
+Seat 3: gabrielbasilis folded before Flop (didn't bet)
+Seat 4: milchka259 collected (661)
+Seat 5: jsalinas96 folded before Flop (didn't bet)
+Seat 6: Rick Mart500 (button) folded before Flop (didn't bet)
+Seat 8: albertoch353 (small blind) folded before Flop
+Seat 9: firefly2005 (big blind) folded on the Flop

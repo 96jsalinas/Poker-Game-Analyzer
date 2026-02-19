@@ -1,0 +1,53 @@
+PokerStars Hand #259603207505:  Hold'em No Limit (100/200) - 2026/02/05 18:41:05 CET [2026/02/05 12:41:05 ET]
+Table 'Vigdis' 9-max (Play Money) Seat #9 is the button
+Seat 1: Marghita72 (39069 in chips)
+Seat 3: gabrielbasilis (38461 in chips)
+Seat 4: milchka259 (68286 in chips)
+Seat 5: jsalinas96 (14961 in chips)
+Seat 6: Rick Mart500 (18200 in chips)
+Seat 7: antonio347 (22841 in chips)
+Seat 8: albertoch353 (33955 in chips)
+Seat 9: firefly2005 (19700 in chips)
+Marghita72: posts small blind 100
+gabrielbasilis: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8c Td]
+milchka259: calls 200
+jsalinas96: folds
+Rick Mart500: calls 200
+antonio347: folds
+albertoch353: folds
+firefly2005: calls 200
+Marghita72: calls 100
+gabrielbasilis: checks
+*** FLOP *** [Kc 2s 9s]
+Marghita72: checks
+gabrielbasilis: bets 600
+milchka259: calls 600
+Rick Mart500: folds
+firefly2005: folds
+Marghita72: calls 600
+*** TURN *** [Kc 2s 9s] [Qs]
+Marghita72: checks
+gabrielbasilis: bets 600
+milchka259: folds
+Marghita72: calls 600
+*** RIVER *** [Kc 2s 9s Qs] [3d]
+Marghita72: bets 1890
+gabrielbasilis: raises 1890 to 3780
+Marghita72: calls 1890
+*** SHOW DOWN ***
+gabrielbasilis: shows [As 7s] (a flush, Ace high)
+Marghita72: mucks hand
+gabrielbasilis collected 10924 from pot
+*** SUMMARY ***
+Total pot 11560 | Rake 636
+Board [Kc 2s 9s Qs 3d]
+Seat 1: Marghita72 (small blind) mucked [Jc Ts]
+Seat 3: gabrielbasilis (big blind) showed [As 7s] and won (10924) with a flush, Ace high
+Seat 4: milchka259 folded on the Turn
+Seat 5: jsalinas96 folded before Flop (didn't bet)
+Seat 6: Rick Mart500 folded on the Flop
+Seat 7: antonio347 folded before Flop (didn't bet)
+Seat 8: albertoch353 folded before Flop (didn't bet)
+Seat 9: firefly2005 (button) folded on the Flop

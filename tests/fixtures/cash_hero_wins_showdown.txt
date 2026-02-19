@@ -1,0 +1,58 @@
+PokerStars Hand #259603158926:  Hold'em No Limit (100/200) - 2026/02/05 18:37:11 CET [2026/02/05 12:37:11 ET]
+Table 'Vigdis' 9-max (Play Money) Seat #1 is the button
+Seat 2: Stevo7372518 (25728 in chips) is sitting out
+Seat 3: gabrielbasilis (0 in chips) is sitting out
+Seat 8: albertoch353 (34555 in chips) is sitting out
+Seat 9: firefly2005 (0 in chips) is sitting out
+Seat 1: Marghita72 (41166 in chips) 
+Seat 4: milchka259 (68425 in chips) 
+Seat 5: jsalinas96 (19800 in chips) 
+Seat 6: Rick Mart500 (19100 in chips) 
+Seat 7: DuarteEu (117201 in chips) 
+milchka259: posts small blind 100
+jsalinas96: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ad Qs]
+Rick Mart500: calls 200
+DuarteEu: calls 200
+Marghita72: calls 200
+milchka259: calls 100
+jsalinas96: checks
+*** FLOP *** [6s 9h Qd]
+milchka259: checks
+jsalinas96: checks
+Rick Mart500: checks
+DuarteEu: bets 400
+Marghita72: calls 400
+milchka259: calls 400
+jsalinas96: calls 400
+Rick Mart500: calls 400
+*** TURN *** [6s 9h Qd] [5s]
+milchka259: checks
+jsalinas96: checks
+Rick Mart500: checks
+DuarteEu: checks
+Marghita72: checks
+*** RIVER *** [6s 9h Qd 5s] [Ac]
+milchka259: checks
+jsalinas96: bets 2835
+Rick Mart500: folds
+DuarteEu: calls 2835
+Marghita72: folds
+milchka259: folds
+*** SHOW DOWN ***
+jsalinas96: shows [Ad Qs] (two pair, Aces and Queens)
+DuarteEu: mucks hand
+jsalinas96 collected 8193 from pot
+*** SUMMARY ***
+Total pot 8670 | Rake 477
+Board [6s 9h Qd 5s Ac]
+Seat 2: Stevo7372518
+Seat 3: gabrielbasilis
+Seat 8: albertoch353
+Seat 9: firefly2005
+Seat 1: Marghita72 (button) folded on the River
+Seat 4: milchka259 (small blind) folded on the River
+Seat 5: jsalinas96 (big blind) showed [Ad Qs] and won (8193) with two pair, Aces and Queens
+Seat 6: Rick Mart500 folded on the River
+Seat 7: DuarteEu mucked [Jc Ah]

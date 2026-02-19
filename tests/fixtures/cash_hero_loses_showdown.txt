@@ -1,0 +1,40 @@
+PokerStars Hand #259603181121:  Hold'em No Limit (100/200) - 2026/02/05 18:38:58 CET [2026/02/05 12:38:58 ET]
+Table 'Vigdis' 9-max (Play Money) Seat #5 is the button
+Seat 9: firefly2005 (100 in chips) is sitting out
+Seat 1: Marghita72 (40566 in chips)
+Seat 2: Lalaudalela (8000 in chips)
+Seat 3: gabrielbasilis (38461 in chips)
+Seat 4: milchka259 (67825 in chips)
+Seat 5: jsalinas96 (24458 in chips)
+Seat 6: Rick Mart500 (18300 in chips)
+Seat 8: albertoch353 (34255 in chips)
+Rick Mart500: posts small blind 100
+albertoch353: posts big blind 200
+Lalaudalela: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9c Tc]
+Marghita72: folds
+Lalaudalela: raises 7800 to 8000 and is all-in
+gabrielbasilis: folds
+milchka259: folds
+jsalinas96: calls 8000
+Rick Mart500: folds
+albertoch353: folds
+*** FLOP *** [Jh Ac 7c]
+*** TURN *** [Jh Ac 7c] [Kd]
+*** RIVER *** [Jh Ac 7c Kd] [Jd]
+*** SHOW DOWN ***
+Lalaudalela: shows [Ah As] (a full house, Aces full of Jacks)
+jsalinas96: shows [9c Tc] (a pair of Jacks)
+Lalaudalela collected 15403 from pot
+*** SUMMARY ***
+Total pot 16300 | Rake 897
+Board [Jh Ac 7c Kd Jd]
+Seat 9: firefly2005
+Seat 1: Marghita72 folded before Flop (didn't bet)
+Seat 2: Lalaudalela showed [Ah As] and won (15403) with a full house, Aces full of Jacks
+Seat 3: gabrielbasilis folded before Flop (didn't bet)
+Seat 4: milchka259 folded before Flop (didn't bet)
+Seat 5: jsalinas96 (button) showed [9c Tc] and lost with a pair of Jacks
+Seat 6: Rick Mart500 (small blind) folded before Flop
+Seat 8: albertoch353 (big blind) folded before Flop

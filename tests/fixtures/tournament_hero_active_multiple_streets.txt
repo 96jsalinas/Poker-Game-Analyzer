@@ -1,0 +1,68 @@
+PokerStars Hand #259615545499: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level I (10/20) - 2026/02/06 16:03:38 CET [2026/02/06 10:03:38 ET]
+Table '3970436932 1' 9-max Seat #3 is the button
+Seat 1: Heron1960 (1496 in chips)
+Seat 2: JazzWill (1502 in chips)
+Seat 3: AldairRRDR (1461 in chips)
+Seat 4: MantisNN (1456 in chips)
+Seat 5: jsalinas96 (1496 in chips)
+Seat 6: juhubx (1458 in chips)
+Seat 7: MMc2112 (1496 in chips)
+Seat 8: Bush1962 (1634 in chips)
+Seat 9: Montana9797 (1501 in chips)
+Heron1960: posts the ante 2
+JazzWill: posts the ante 2
+AldairRRDR: posts the ante 2
+MantisNN: posts the ante 2
+jsalinas96: posts the ante 2
+juhubx: posts the ante 2
+MMc2112: posts the ante 2
+Bush1962: posts the ante 2
+Montana9797: posts the ante 2
+MantisNN: posts small blind 10
+jsalinas96: posts big blind 20
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8d 6d]
+juhubx: folds
+MMc2112: calls 20
+Bush1962: calls 20
+Montana9797: folds
+Heron1960: folds
+JazzWill: folds
+AldairRRDR: calls 20
+MantisNN: calls 10
+jsalinas96: checks
+*** FLOP *** [4d Ah 8c]
+MantisNN: checks
+jsalinas96: checks
+MMc2112: checks
+Bush1962: bets 20
+AldairRRDR: folds
+MantisNN: folds
+jsalinas96: calls 20
+MMc2112: calls 20
+*** TURN *** [4d Ah 8c] [Tc]
+jsalinas96: checks
+MMc2112: checks
+Bush1962: bets 20
+jsalinas96: folds
+MMc2112: calls 20
+*** RIVER *** [4d Ah 8c Tc] [6h]
+MMc2112: checks
+Bush1962: bets 218
+MMc2112: calls 218
+*** SHOW DOWN ***
+Bush1962: shows [5h 4h] (a pair of Fours)
+MMc2112: shows [Ac 2c] (a pair of Aces)
+MMc2112 collected 654 from pot
+*** SUMMARY ***
+Total pot 654 | Rake 0
+Board [4d Ah 8c Tc 6h]
+Seat 1: Heron1960 folded before Flop (didn't bet)
+Seat 2: JazzWill folded before Flop (didn't bet)
+Seat 3: AldairRRDR (button) folded on the Flop
+Seat 4: MantisNN (small blind) folded on the Flop
+Seat 5: jsalinas96 (big blind) folded on the Turn
+Seat 6: juhubx folded before Flop (didn't bet)
+Seat 7: MMc2112 showed [Ac 2c] and won (654) with a pair of Aces
+Seat 8: Bush1962 showed [5h 4h] and lost with a pair of Fours
+Seat 9: Montana9797 folded before Flop (didn't bet)

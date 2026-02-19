@@ -1,0 +1,57 @@
+PokerStars Hand #259615569503: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level II (15/30) - 2026/02/06 16:06:07 CET [2026/02/06 10:06:07 ET]
+Table '3970436932 1' 9-max Seat #5 is the button
+Seat 1: Heron1960 (1472 in chips)
+Seat 2: JazzWill (1352 in chips) is sitting out
+Seat 3: AldairRRDR (1437 in chips)
+Seat 4: MantisNN (1810 in chips)
+Seat 5: jsalinas96 (1442 in chips)
+Seat 6: RockRac24 (1500 in chips) out of hand (moved from another table into small blind)
+Seat 7: MMc2112 (1848 in chips)
+Seat 8: Bush1962 (1186 in chips)
+Seat 9: Montana9797 (1497 in chips)
+RockRac24 will be allowed to play after the button
+Heron1960: posts the ante 3
+JazzWill: posts the ante 3
+AldairRRDR: posts the ante 3
+MantisNN: posts the ante 3
+jsalinas96: posts the ante 3
+MMc2112: posts the ante 3
+Bush1962: posts the ante 3
+Montana9797: posts the ante 3
+MMc2112: posts small blind 15
+Bush1962: posts big blind 30
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4s 3d]
+JazzWill is disconnected
+JazzWill is disconnected
+Montana9797: calls 30
+Heron1960: calls 30
+JazzWill: folds
+AldairRRDR: folds
+MantisNN: calls 30
+jsalinas96: folds
+MMc2112: calls 15
+Bush1962: raises 1153 to 1183 and is all-in
+Montana9797: folds
+Heron1960: folds
+MantisNN: calls 1153
+MMc2112: folds
+*** FLOP *** [8c 8h 6s]
+*** TURN *** [8c 8h 6s] [2h]
+*** RIVER *** [8c 8h 6s 2h] [6c]
+*** SHOW DOWN ***
+Bush1962: shows [2d Ad] (two pair, Eights and Sixes)
+MantisNN: shows [Kd As] (two pair, Eights and Sixes)
+Bush1962 collected 1240 from pot
+MantisNN collected 1240 from pot
+*** SUMMARY ***
+Total pot 2480 | Rake 0
+Board [8c 8h 6s 2h 6c]
+Seat 1: Heron1960 folded before Flop
+Seat 2: JazzWill folded before Flop (didn't bet)
+Seat 3: AldairRRDR folded before Flop (didn't bet)
+Seat 4: MantisNN showed [Kd As] and won (1240) with two pair, Eights and Sixes
+Seat 5: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 7: MMc2112 (small blind) folded before Flop
+Seat 8: Bush1962 (big blind) showed [2d Ad] and won (1240) with two pair, Eights and Sixes
+Seat 9: Montana9797 folded before Flop

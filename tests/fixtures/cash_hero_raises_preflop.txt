@@ -1,0 +1,51 @@
+PokerStars Hand #259603195521:  Hold'em No Limit (100/200) - 2026/02/05 18:40:08 CET [2026/02/05 12:40:08 ET]
+Table 'Vigdis' 9-max (Play Money) Seat #8 is the button
+Seat 1: Marghita72 (40566 in chips)
+Seat 3: gabrielbasilis (38461 in chips)
+Seat 4: milchka259 (68286 in chips)
+Seat 5: jsalinas96 (16458 in chips)
+Seat 6: Rick Mart500 (18200 in chips)
+Seat 7: antonio347 (20000 in chips)
+Seat 8: albertoch353 (33955 in chips)
+Seat 9: firefly2005 (19800 in chips)
+firefly2005: posts small blind 100
+Marghita72: posts big blind 200
+antonio347: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ac Th]
+gabrielbasilis: folds
+milchka259: folds
+jsalinas96: raises 400 to 600
+Rick Mart500: folds
+antonio347: calls 400
+albertoch353: folds
+firefly2005: folds
+Marghita72: calls 400
+*** FLOP *** [8s Tc 3s]
+Marghita72: checks
+jsalinas96: checks
+antonio347: checks
+*** TURN *** [8s Tc 3s] [Qh]
+Marghita72: bets 897
+jsalinas96: calls 897
+antonio347: calls 897
+*** RIVER *** [8s Tc 3s Qh] [4c]
+Marghita72: checks
+jsalinas96: checks
+antonio347: bets 4338
+Marghita72: folds
+jsalinas96: folds
+Uncalled bet (4338) returned to antonio347
+antonio347 collected 4338 from pot
+antonio347: doesn't show hand
+*** SUMMARY ***
+Total pot 4591 | Rake 253
+Board [8s Tc 3s Qh 4c]
+Seat 1: Marghita72 (big blind) folded on the River
+Seat 3: gabrielbasilis folded before Flop (didn't bet)
+Seat 4: milchka259 folded before Flop (didn't bet)
+Seat 5: jsalinas96 folded on the River
+Seat 6: Rick Mart500 folded before Flop (didn't bet)
+Seat 7: antonio347 collected (4338)
+Seat 8: albertoch353 (button) folded before Flop (didn't bet)
+Seat 9: firefly2005 (small blind) folded before Flop

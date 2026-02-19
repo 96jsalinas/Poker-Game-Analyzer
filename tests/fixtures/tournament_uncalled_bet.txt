@@ -1,0 +1,58 @@
+PokerStars Hand #259615533078: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level I (10/20) - 2026/02/06 16:02:20 CET [2026/02/06 10:02:20 ET]
+Table '3970436932 1' 9-max Seat #2 is the button
+Seat 1: Heron1960 (1498 in chips)
+Seat 2: JazzWill (1504 in chips)
+Seat 3: AldairRRDR (1503 in chips)
+Seat 4: MantisNN (1498 in chips)
+Seat 5: jsalinas96 (1498 in chips)
+Seat 6: juhubx (1500 in chips)
+Seat 7: MMc2112 (1498 in chips)
+Seat 8: Bush1962 (1498 in chips)
+Seat 9: Montana9797 (1503 in chips)
+Heron1960: posts the ante 2
+JazzWill: posts the ante 2
+AldairRRDR: posts the ante 2
+MantisNN: posts the ante 2
+jsalinas96: posts the ante 2
+juhubx: posts the ante 2
+MMc2112: posts the ante 2
+Bush1962: posts the ante 2
+Montana9797: posts the ante 2
+AldairRRDR: posts small blind 10
+MantisNN: posts big blind 20
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5h 8s]
+jsalinas96: folds
+juhubx: calls 20
+MMc2112: folds
+Bush1962: raises 20 to 40
+Montana9797: folds
+Heron1960: folds
+JazzWill: folds
+AldairRRDR: calls 30
+MantisNN: calls 20
+juhubx: calls 20
+*** FLOP *** [7s Kh 7c]
+AldairRRDR: checks
+MantisNN has timed out
+MantisNN: checks
+juhubx: checks
+Bush1962: bets 178
+AldairRRDR: folds
+MantisNN: folds
+juhubx: folds
+Uncalled bet (178) returned to Bush1962
+Bush1962 collected 178 from pot
+Bush1962: doesn't show hand
+*** SUMMARY ***
+Total pot 178 | Rake 0
+Board [7s Kh 7c]
+Seat 1: Heron1960 folded before Flop (didn't bet)
+Seat 2: JazzWill (button) folded before Flop (didn't bet)
+Seat 3: AldairRRDR (small blind) folded on the Flop
+Seat 4: MantisNN (big blind) folded on the Flop
+Seat 5: jsalinas96 folded before Flop (didn't bet)
+Seat 6: juhubx folded on the Flop
+Seat 7: MMc2112 folded before Flop (didn't bet)
+Seat 8: Bush1962 collected (178)
+Seat 9: Montana9797 folded before Flop (didn't bet)

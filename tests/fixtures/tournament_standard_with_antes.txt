@@ -1,0 +1,65 @@
+PokerStars Hand #259615520628: Tournament #3970436932, 13200+1800 Hold'em No Limit - Level I (10/20) - 2026/02/06 16:01:00 CET [2026/02/06 10:01:00 ET]
+Table '3970436932 1' 9-max Seat #1 is the button
+Seat 1: Heron1960 (1500 in chips) 
+Seat 2: JazzWill (1500 in chips) 
+Seat 3: AldairRRDR (1500 in chips) 
+Seat 4: MantisNN (1500 in chips) 
+Seat 5: jsalinas96 (1500 in chips) 
+Seat 7: MMc2112 (1500 in chips) 
+Seat 8: Bush1962 (1500 in chips) 
+Seat 9: Montana9797 (1500 in chips) 
+Heron1960: posts the ante 2
+JazzWill: posts the ante 2
+AldairRRDR: posts the ante 2
+MantisNN: posts the ante 2
+jsalinas96: posts the ante 2
+MMc2112: posts the ante 2
+Bush1962: posts the ante 2
+Montana9797: posts the ante 2
+JazzWill: posts small blind 10
+AldairRRDR: posts big blind 20
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4d 9d]
+juhubx is disconnected 
+MantisNN: folds 
+jsalinas96: folds 
+MMc2112: folds 
+Bush1962 has timed out
+Bush1962: folds 
+Montana9797: calls 20
+Heron1960: folds 
+JazzWill: calls 10
+AldairRRDR has timed out
+AldairRRDR: checks 
+*** FLOP *** [Qd 5c 6s]
+JazzWill: bets 20
+AldairRRDR: calls 20
+Montana9797: calls 20
+*** TURN *** [Qd 5c 6s] [Ah]
+JazzWill: checks 
+AldairRRDR: bets 20
+Montana9797: calls 20
+JazzWill: calls 20
+*** RIVER *** [Qd 5c 6s Ah] [5d]
+JazzWill: checks 
+AldairRRDR: bets 20
+Montana9797: calls 20
+JazzWill: calls 20
+*** SHOW DOWN ***
+AldairRRDR: shows [7s Qs] (two pair, Queens and Fives)
+Montana9797: shows [Kd Qh] (two pair, Queens and Fives)
+JazzWill: shows [Qc 2d] (two pair, Queens and Fives)
+JazzWill collected 86 from pot
+AldairRRDR collected 85 from pot
+Montana9797 collected 85 from pot
+*** SUMMARY ***
+Total pot 256 | Rake 0 
+Board [Qd 5c 6s Ah 5d]
+Seat 1: Heron1960 (button) folded before Flop (didn't bet)
+Seat 2: JazzWill (small blind) showed [Qc 2d] and won (86) with two pair, Queens and Fives
+Seat 3: AldairRRDR (big blind) showed [7s Qs] and won (85) with two pair, Queens and Fives
+Seat 4: MantisNN folded before Flop (didn't bet)
+Seat 5: jsalinas96 folded before Flop (didn't bet)
+Seat 7: MMc2112 folded before Flop (didn't bet)
+Seat 8: Bush1962 folded before Flop (didn't bet)
+Seat 9: Montana9797 showed [Kd Qh] and won (85) with two pair, Queens and Fives

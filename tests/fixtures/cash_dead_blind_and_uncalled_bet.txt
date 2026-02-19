@@ -1,0 +1,48 @@
+PokerStars Hand #259603171740:  Hold'em No Limit (100/200) - 2026/02/05 18:38:12 CET [2026/02/05 12:38:12 ET]
+Table 'Vigdis' 9-max (Play Money) Seat #4 is the button
+Seat 1: Marghita72 (40566 in chips)
+Seat 3: gabrielbasilis (20000 in chips)
+Seat 4: milchka259 (67825 in chips)
+Seat 5: jsalinas96 (24558 in chips)
+Seat 6: Rick Mart500 (18500 in chips)
+Seat 7: DuarteEu (113766 in chips)
+Seat 8: albertoch353 (34555 in chips)
+Seat 9: firefly2005 (20000 in chips)
+jsalinas96: posts small blind 100
+Rick Mart500: posts big blind 200
+albertoch353: posts small & big blinds 300
+gabrielbasilis: posts small blind 100
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9s 3h]
+DuarteEu: calls 200
+Lalaudalela joins the table at seat #2
+albertoch353: checks
+Lalaudalela is disconnected
+firefly2005: raises 19800 to 20000 and is all-in
+Marghita72: folds
+gabrielbasilis: calls 19900 and is all-in
+milchka259: folds
+jsalinas96: folds
+Rick Mart500: folds
+DuarteEu: folds
+albertoch353: folds
+Uncalled bet (100) returned to firefly2005
+DuarteEu leaves the table
+*** FLOP *** [Ts Th Kh]
+*** TURN *** [Ts Th Kh] [7h]
+*** RIVER *** [Ts Th Kh 7h] [2c]
+*** SHOW DOWN ***
+firefly2005: shows [4s 8h] (a pair of Tens)
+gabrielbasilis: shows [6s Ad] (a pair of Tens - Ace kicker)
+gabrielbasilis collected 38461 from pot
+*** SUMMARY ***
+Total pot 40700 | Rake 2239
+Board [Ts Th Kh 7h 2c]
+Seat 1: Marghita72 folded before Flop (didn't bet)
+Seat 3: gabrielbasilis showed [6s Ad] and won (38461) with a pair of Tens
+Seat 4: milchka259 (button) folded before Flop (didn't bet)
+Seat 5: jsalinas96 (small blind) folded before Flop
+Seat 6: Rick Mart500 (big blind) folded before Flop
+Seat 7: DuarteEu folded before Flop
+Seat 8: albertoch353 folded before Flop (didn't bet)
+Seat 9: firefly2005 showed [4s 8h] and lost with a pair of Tens
