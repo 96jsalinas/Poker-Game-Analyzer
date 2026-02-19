@@ -1,0 +1,25 @@
+# Copilot Instructions: PokerHero-Analyzer
+
+## Documentation
+
+All design decisions, conventions, and formulas are documented in the `.MD` files at the repository root. Read the relevant file before working on any area:
+
+| File | covers |
+|------|--------|
+| `Architecture.MD` | Tech stack, data flow pipeline, proposed directory structure |
+| `DataStructure.MD` | SQLite schema |
+| `AnalysisLogic.MD` | Source-of-truth math formulas (EV, SPR, MDF, Pot Odds, VPIP, PFR, AF, etc.) and data processing rules |
+| `TestingStrategy.MD` | TDD policy, testing pyramid, required fixture scenarios, tooling |
+| `Contributing.MD` | Toolchain commands, `src/` layout, type hint rules, naming conventions, docstring style, commit protocol |
+| `UserExperience.MD` | UI navigation structure, drill-down flow, dashboard KPIs, state/logic rules |
+
+## Commands
+
+```bash
+ruff check --fix .   # lint
+ruff format .        # format
+mypy src/            # type check
+pytest               # all tests
+pytest tests/path/to/test_file.py::test_function_name  # single test
+pre-commit install   # required once before first commit
+```
