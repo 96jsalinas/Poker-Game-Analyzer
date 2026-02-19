@@ -1,5 +1,8 @@
 import sqlite3
+from decimal import Decimal
 from pathlib import Path
+
+from pokerhero.parser.models import SessionData
 
 _SCHEMA_PATH = Path(__file__).parent / "schema.sql"
 
@@ -25,3 +28,29 @@ def upsert_player(conn: sqlite3.Connection, username: str) -> int:
     )
     row = conn.execute("SELECT id FROM players WHERE username = ?", (username,)).fetchone()
     return row[0]
+
+def insert_session(
+    conn: sqlite3.Connection,
+    session: SessionData,
+    start_time: str | None = None,
+    hero_buy_in: Decimal | None = None,
+    hero_cash_out: Decimal | None = None,
+) -> int:
+    """Insert a session row and return its id."""
+    cur = conn.execute(
+        """INSERT INTO sessions
+           (game_type, limit_type, max_seats, small_blind, big_blind, ante, start_time, hero_buy_in, hero_cash_out)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+        (
+            session.game_type,
+            session.limit_type,
+            session.max_seats,
+            float(session.small_blind),
+            float(session.big_blind),
+            float(session.ante),
+            start_time,
+            float(hero_buy_in) if hero_buy_in is not None else None,
+            float(hero_cash_out) if hero_cash_out is not None else None,
+        ),
+    )
+    return cur.lastrowid
