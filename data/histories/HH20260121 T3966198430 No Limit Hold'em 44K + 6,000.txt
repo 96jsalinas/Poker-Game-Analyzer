@@ -1,0 +1,3531 @@
+﻿PokerStars Hand #259400562169: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level I (15/30) - 2026/01/21 11:15:00 CET [2026/01/21 5:15:00 ET]
+Table '3966198430 5' 8-max Seat #1 is the button
+Seat 1: Gjergji525 (5000 in chips, 22000 bounty) 
+Seat 2: heat hunter (5000 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (5000 in chips, 22000 bounty) 
+Seat 4: GEGE970 (5000 in chips, 22000 bounty) is sitting out
+Seat 5: 2myflop (5000 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (5000 in chips, 22000 bounty) 
+Seat 8: Taurus57 (5000 in chips, 22000 bounty) 
+Gjergji525: posts the ante 4
+heat hunter: posts the ante 4
+jsalinas96: posts the ante 4
+GEGE970: posts the ante 4
+2myflop: posts the ante 4
+FinalExperiment: posts the ante 4
+Taurus57: posts the ante 4
+heat hunter: posts small blind 15
+jsalinas96: posts big blind 30
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8d Kd]
+GEGE970: folds 
+2myflop: calls 30
+FinalExperiment: folds 
+Taurus57: calls 30
+Gjergji525: calls 30
+heat hunter: calls 15
+jsalinas96: raises 60 to 90
+2myflop: calls 60
+Taurus57: calls 60
+Gjergji525: calls 60
+heat hunter: folds 
+*** FLOP *** [Jd Th 5h]
+jsalinas96: checks 
+2myflop is disconnected 
+2myflop has timed out while disconnected
+2myflop: checks 
+Taurus57: checks 
+Gjergji525: checks 
+*** TURN *** [Jd Th 5h] [3d]
+2myflop is disconnected 
+jsalinas96: checks 
+2myflop is connected 
+2myflop: bets 209
+Taurus57: calls 209
+Gjergji525: folds 
+jsalinas96: calls 209
+*** RIVER *** [Jd Th 5h 3d] [7d]
+jsalinas96: checks 
+2myflop: bets 523
+Taurus57: folds 
+jsalinas96: calls 523
+*** SHOW DOWN ***
+2myflop: shows [5s Ac] (a pair of Fives)
+jsalinas96: shows [8d Kd] (a flush, King high)
+jsalinas96 collected 2091 from pot
+*** SUMMARY ***
+Total pot 2091 | Rake 0 
+Board [Jd Th 5h 3d 7d]
+Seat 1: Gjergji525 (button) folded on the Turn
+Seat 2: heat hunter (small blind) folded before Flop
+Seat 3: jsalinas96 (big blind) showed [8d Kd] and won (2091) with a flush, King high
+Seat 4: GEGE970 folded before Flop (didn't bet)
+Seat 5: 2myflop showed [5s Ac] and lost with a pair of Fives
+Seat 6: FinalExperiment folded before Flop (didn't bet)
+Seat 8: Taurus57 folded on the River
+
+
+
+PokerStars Hand #259400570199: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level I (15/30) - 2026/01/21 11:16:30 CET [2026/01/21 5:16:30 ET]
+Table '3966198430 5' 8-max Seat #2 is the button
+Seat 1: Gjergji525 (4906 in chips, 22000 bounty) 
+Seat 2: heat hunter (4966 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (6265 in chips, 22000 bounty) 
+Seat 4: GEGE970 (4996 in chips, 22000 bounty) is sitting out
+Seat 5: 2myflop (4174 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (4996 in chips, 22000 bounty) 
+Seat 8: Taurus57 (4697 in chips, 22000 bounty) 
+Gjergji525: posts the ante 4
+heat hunter: posts the ante 4
+jsalinas96: posts the ante 4
+GEGE970: posts the ante 4
+2myflop: posts the ante 4
+FinalExperiment: posts the ante 4
+Taurus57: posts the ante 4
+jsalinas96: posts small blind 15
+GEGE970: posts big blind 30
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3c Jh]
+2myflop: folds 
+FinalExperiment: folds 
+Taurus57: folds 
+Gjergji525: raises 30 to 60
+heat hunter: folds 
+jsalinas96: folds 
+GEGE970: folds 
+Uncalled bet (30) returned to Gjergji525
+Gjergji525 collected 103 from pot
+Gjergji525: doesn't show hand 
+*** SUMMARY ***
+Total pot 103 | Rake 0 
+Seat 1: Gjergji525 collected (103)
+Seat 2: heat hunter (button) folded before Flop (didn't bet)
+Seat 3: jsalinas96 (small blind) folded before Flop
+Seat 4: GEGE970 (big blind) folded before Flop
+Seat 5: 2myflop folded before Flop (didn't bet)
+Seat 6: FinalExperiment folded before Flop (didn't bet)
+Seat 8: Taurus57 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259400574444: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level I (15/30) - 2026/01/21 11:17:17 CET [2026/01/21 5:17:17 ET]
+Table '3966198430 5' 8-max Seat #3 is the button
+Seat 1: Gjergji525 (4975 in chips, 22000 bounty) 
+Seat 2: heat hunter (4962 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (6246 in chips, 22000 bounty) 
+Seat 4: GEGE970 (4962 in chips, 22000 bounty) is sitting out
+Seat 5: 2myflop (4170 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (4992 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (5000 in chips, 22000 bounty) 
+Seat 8: Taurus57 (4693 in chips, 22000 bounty) 
+Gjergji525: posts the ante 4
+heat hunter: posts the ante 4
+jsalinas96: posts the ante 4
+GEGE970: posts the ante 4
+2myflop: posts the ante 4
+FinalExperiment: posts the ante 4
+mixa7771992: posts the ante 4
+Taurus57: posts the ante 4
+GEGE970: posts small blind 15
+2myflop: posts big blind 30
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Jd 4d]
+FinalExperiment: calls 30
+mixa7771992 has timed out
+mixa7771992: folds 
+Taurus57: raises 90 to 120
+Gjergji525: calls 120
+heat hunter: folds 
+jsalinas96: folds 
+GEGE970: folds 
+2myflop: calls 90
+FinalExperiment: folds 
+*** FLOP *** [Kc 4h Qs]
+2myflop: bets 30
+Taurus57: calls 30
+Gjergji525: calls 30
+*** TURN *** [Kc 4h Qs] [8c]
+2myflop: bets 30
+Taurus57: folds 
+Gjergji525: calls 30
+*** RIVER *** [Kc 4h Qs 8c] [6c]
+2myflop: bets 294
+Gjergji525: calls 294
+*** SHOW DOWN ***
+2myflop: shows [Qh 6h] (two pair, Queens and Sixes)
+Gjergji525: mucks hand 
+2myflop collected 1175 from pot
+*** SUMMARY ***
+Total pot 1175 | Rake 0 
+Board [Kc 4h Qs 8c 6c]
+Seat 1: Gjergji525 mucked [2d 2c]
+Seat 2: heat hunter folded before Flop (didn't bet)
+Seat 3: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 4: GEGE970 (small blind) folded before Flop
+Seat 5: 2myflop (big blind) showed [Qh 6h] and won (1175) with two pair, Queens and Sixes
+Seat 6: FinalExperiment folded before Flop
+Seat 7: mixa7771992 folded before Flop (didn't bet)
+Seat 8: Taurus57 folded on the Turn
+
+
+
+PokerStars Hand #259400584316: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level I (15/30) - 2026/01/21 11:19:06 CET [2026/01/21 5:19:06 ET]
+Table '3966198430 5' 8-max Seat #4 is the button
+Seat 1: Gjergji525 (4497 in chips, 22000 bounty) 
+Seat 2: heat hunter (4958 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (6242 in chips, 22000 bounty) 
+Seat 4: GEGE970 (4943 in chips, 22000 bounty) is sitting out
+Seat 5: 2myflop (4867 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (4958 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (4996 in chips, 22000 bounty) 
+Seat 8: Taurus57 (4539 in chips, 22000 bounty) 
+Gjergji525: posts the ante 4
+heat hunter: posts the ante 4
+jsalinas96: posts the ante 4
+GEGE970: posts the ante 4
+2myflop: posts the ante 4
+FinalExperiment: posts the ante 4
+mixa7771992: posts the ante 4
+Taurus57: posts the ante 4
+2myflop: posts small blind 15
+FinalExperiment: posts big blind 30
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5s 8s]
+mixa7771992: folds 
+Taurus57: folds 
+Gjergji525: raises 60 to 90
+heat hunter: calls 90
+jsalinas96: folds 
+GEGE970: folds 
+2myflop: calls 75
+FinalExperiment: folds 
+*** FLOP *** [Tc Kh 9c]
+2myflop: bets 30
+Gjergji525: calls 30
+heat hunter: calls 30
+*** TURN *** [Tc Kh 9c] [Ac]
+2myflop: bets 30
+Gjergji525: raises 30 to 60
+heat hunter: folds 
+2myflop: calls 30
+*** RIVER *** [Tc Kh 9c Ac] [4d]
+2myflop: bets 30
+Gjergji525: raises 301 to 331
+2myflop: folds 
+Uncalled bet (301) returned to Gjergji525
+Gjergji525 collected 602 from pot
+Gjergji525: doesn't show hand 
+*** SUMMARY ***
+Total pot 602 | Rake 0 
+Board [Tc Kh 9c Ac 4d]
+Seat 1: Gjergji525 collected (602)
+Seat 2: heat hunter folded on the Turn
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 4: GEGE970 (button) folded before Flop (didn't bet)
+Seat 5: 2myflop (small blind) folded on the River
+Seat 6: FinalExperiment (big blind) folded before Flop
+Seat 7: mixa7771992 folded before Flop (didn't bet)
+Seat 8: Taurus57 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259400592723: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level I (15/30) - 2026/01/21 11:20:39 CET [2026/01/21 5:20:39 ET]
+Table '3966198430 5' 8-max Seat #5 is the button
+Seat 1: Gjergji525 (4885 in chips, 22000 bounty) 
+Seat 2: heat hunter (4834 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (6238 in chips, 22000 bounty) 
+Seat 4: GEGE970 (4939 in chips, 22000 bounty) is sitting out
+Seat 5: 2myflop (4653 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (4924 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (4992 in chips, 22000 bounty) 
+Seat 8: Taurus57 (4535 in chips, 22000 bounty) 
+Gjergji525: posts the ante 4
+heat hunter: posts the ante 4
+jsalinas96: posts the ante 4
+GEGE970: posts the ante 4
+2myflop: posts the ante 4
+FinalExperiment: posts the ante 4
+mixa7771992: posts the ante 4
+Taurus57: posts the ante 4
+FinalExperiment: posts small blind 15
+mixa7771992: posts big blind 30
+*** HOLE CARDS ***
+Dealt to jsalinas96 [7c 4s]
+Taurus57: calls 30
+Gjergji525: folds 
+heat hunter: folds 
+jsalinas96: folds 
+GEGE970: folds 
+2myflop: folds 
+FinalExperiment: folds 
+mixa7771992: raises 90 to 120
+Taurus57: calls 90
+*** FLOP *** [8h 7d 5s]
+mixa7771992: bets 120
+Taurus57: calls 120
+*** TURN *** [8h 7d 5s] [2c]
+mixa7771992: bets 174
+Taurus57: calls 174
+*** RIVER *** [8h 7d 5s 2c] [Ks]
+mixa7771992: bets 210
+Taurus57: calls 210
+*** SHOW DOWN ***
+mixa7771992: shows [Tc Jd] (high card King)
+Taurus57: shows [9c 7s] (a pair of Sevens)
+Taurus57 collected 1295 from pot
+*** SUMMARY ***
+Total pot 1295 | Rake 0 
+Board [8h 7d 5s 2c Ks]
+Seat 1: Gjergji525 folded before Flop (didn't bet)
+Seat 2: heat hunter folded before Flop (didn't bet)
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 4: GEGE970 folded before Flop (didn't bet)
+Seat 5: 2myflop (button) folded before Flop (didn't bet)
+Seat 6: FinalExperiment (small blind) folded before Flop
+Seat 7: mixa7771992 (big blind) showed [Tc Jd] and lost with high card King
+Seat 8: Taurus57 showed [9c 7s] and won (1295) with a pair of Sevens
+
+
+
+PokerStars Hand #259400597618: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level I (15/30) - 2026/01/21 11:21:34 CET [2026/01/21 5:21:34 ET]
+Table '3966198430 5' 8-max Seat #6 is the button
+Seat 1: Gjergji525 (4881 in chips, 22000 bounty) 
+Seat 2: heat hunter (4830 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (6234 in chips, 22000 bounty) 
+Seat 4: GEGE970 (4935 in chips, 22000 bounty) is sitting out
+Seat 5: 2myflop (4649 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (4905 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (4364 in chips, 22000 bounty) 
+Seat 8: Taurus57 (5202 in chips, 22000 bounty) 
+Gjergji525: posts the ante 4
+heat hunter: posts the ante 4
+jsalinas96: posts the ante 4
+GEGE970: posts the ante 4
+2myflop: posts the ante 4
+FinalExperiment: posts the ante 4
+mixa7771992: posts the ante 4
+Taurus57: posts the ante 4
+mixa7771992: posts small blind 15
+Taurus57: posts big blind 30
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4c 8c]
+Gjergji525: raises 30 to 60
+heat hunter: folds 
+jsalinas96: folds 
+GEGE970: folds 
+2myflop: folds 
+FinalExperiment: folds 
+mixa7771992: calls 45
+Taurus57: calls 30
+*** FLOP *** [Kd 2c 8h]
+mixa7771992: checks 
+Taurus57: checks 
+Gjergji525: bets 106
+mixa7771992: calls 106
+Taurus57: folds 
+*** TURN *** [Kd 2c 8h] [Jc]
+mixa7771992: checks 
+Gjergji525: checks 
+*** RIVER *** [Kd 2c 8h Jc] [Ts]
+mixa7771992: checks 
+Gjergji525: checks 
+*** SHOW DOWN ***
+mixa7771992: shows [Ah 2s] (a pair of Deuces)
+Gjergji525: shows [Kh 9c] (a pair of Kings)
+Gjergji525 collected 424 from pot
+*** SUMMARY ***
+Total pot 424 | Rake 0 
+Board [Kd 2c 8h Jc Ts]
+Seat 1: Gjergji525 showed [Kh 9c] and won (424) with a pair of Kings
+Seat 2: heat hunter folded before Flop (didn't bet)
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 4: GEGE970 folded before Flop (didn't bet)
+Seat 5: 2myflop folded before Flop (didn't bet)
+Seat 6: FinalExperiment (button) folded before Flop (didn't bet)
+Seat 7: mixa7771992 (small blind) showed [Ah 2s] and lost with a pair of Deuces
+Seat 8: Taurus57 (big blind) folded on the Flop
+
+
+
+PokerStars Hand #259400602689: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level II (20/40) - 2026/01/21 11:22:29 CET [2026/01/21 5:22:29 ET]
+Table '3966198430 5' 8-max Seat #7 is the button
+Seat 1: Gjergji525 (5135 in chips, 22000 bounty) 
+Seat 2: heat hunter (4826 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (6230 in chips, 22000 bounty) 
+Seat 4: GEGE970 (4931 in chips, 22000 bounty) is sitting out
+Seat 5: 2myflop (4645 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (4901 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (4194 in chips, 22000 bounty) 
+Seat 8: Taurus57 (5138 in chips, 22000 bounty) 
+Gjergji525: posts the ante 5
+heat hunter: posts the ante 5
+jsalinas96: posts the ante 5
+GEGE970: posts the ante 5
+2myflop: posts the ante 5
+FinalExperiment: posts the ante 5
+mixa7771992: posts the ante 5
+Taurus57: posts the ante 5
+Taurus57: posts small blind 20
+Gjergji525: posts big blind 40
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4s Jc]
+heat hunter: folds 
+jsalinas96: folds 
+GEGE970: folds 
+2myflop: calls 40
+FinalExperiment: raises 40 to 80
+mixa7771992: calls 80
+Taurus57: calls 60
+Gjergji525: raises 40 to 120
+2myflop: calls 80
+FinalExperiment: raises 40 to 160
+mixa7771992: calls 80
+Taurus57: calls 80
+Gjergji525: calls 40
+2myflop: calls 40
+*** FLOP *** [Ks 7h 3c]
+Taurus57: bets 160
+Gjergji525: folds 
+2myflop: folds 
+FinalExperiment: folds 
+mixa7771992: folds 
+Uncalled bet (160) returned to Taurus57
+Taurus57 collected 840 from pot
+Taurus57: doesn't show hand 
+*** SUMMARY ***
+Total pot 840 | Rake 0 
+Board [Ks 7h 3c]
+Seat 1: Gjergji525 (big blind) folded on the Flop
+Seat 2: heat hunter folded before Flop (didn't bet)
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 4: GEGE970 folded before Flop (didn't bet)
+Seat 5: 2myflop folded on the Flop
+Seat 6: FinalExperiment folded on the Flop
+Seat 7: mixa7771992 (button) folded on the Flop
+Seat 8: Taurus57 (small blind) collected (840)
+
+
+
+PokerStars Hand #259400608321: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level II (20/40) - 2026/01/21 11:23:32 CET [2026/01/21 5:23:32 ET]
+Table '3966198430 5' 8-max Seat #8 is the button
+Seat 1: Gjergji525 (4970 in chips, 22000 bounty) 
+Seat 2: heat hunter (4821 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (6225 in chips, 22000 bounty) 
+Seat 4: GEGE970 (4926 in chips, 22000 bounty) is sitting out
+Seat 5: 2myflop (4480 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (4736 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (4029 in chips, 22000 bounty) 
+Seat 8: Taurus57 (5813 in chips, 22000 bounty) 
+Gjergji525: posts the ante 5
+heat hunter: posts the ante 5
+jsalinas96: posts the ante 5
+GEGE970: posts the ante 5
+2myflop: posts the ante 5
+FinalExperiment: posts the ante 5
+mixa7771992: posts the ante 5
+Taurus57: posts the ante 5
+Gjergji525: posts small blind 20
+heat hunter: posts big blind 40
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Jh 6c]
+jsalinas96: folds 
+GEGE970: folds 
+2myflop: calls 40
+FinalExperiment: folds 
+mixa7771992: raises 120 to 160
+Taurus57: calls 160
+Gjergji525: folds 
+heat hunter: folds 
+2myflop: calls 120
+*** FLOP *** [2d Kd 2c]
+2myflop: bets 40
+mixa7771992: calls 40
+Taurus57: calls 40
+*** TURN *** [2d Kd 2c] [5s]
+2myflop: bets 40
+mixa7771992: calls 40
+Taurus57: calls 40
+*** RIVER *** [2d Kd 2c 5s] [Kh]
+2myflop: checks 
+mixa7771992: bets 40
+Taurus57: calls 40
+2myflop: folds 
+*** SHOW DOWN ***
+mixa7771992: shows [Ad 3h] (two pair, Kings and Deuces)
+Taurus57: shows [3c 5c] (two pair, Kings and Fives)
+Taurus57 collected 900 from pot
+*** SUMMARY ***
+Total pot 900 | Rake 0 
+Board [2d Kd 2c 5s Kh]
+Seat 1: Gjergji525 (small blind) folded before Flop
+Seat 2: heat hunter (big blind) folded before Flop
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 4: GEGE970 folded before Flop (didn't bet)
+Seat 5: 2myflop folded on the River
+Seat 6: FinalExperiment folded before Flop (didn't bet)
+Seat 7: mixa7771992 showed [Ad 3h] and lost with two pair, Kings and Deuces
+Seat 8: Taurus57 (button) showed [3c 5c] and won (900) with two pair, Kings and Fives
+
+
+
+PokerStars Hand #259400615853: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level II (20/40) - 2026/01/21 11:24:55 CET [2026/01/21 5:24:55 ET]
+Table '3966198430 5' 8-max Seat #1 is the button
+Seat 1: Gjergji525 (4945 in chips, 22000 bounty) 
+Seat 2: heat hunter (4776 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (6220 in chips, 22000 bounty) 
+Seat 4: GEGE970 (4921 in chips, 22000 bounty) is sitting out
+Seat 5: 2myflop (4235 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (4731 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (3744 in chips, 22000 bounty) 
+Seat 8: Taurus57 (6428 in chips, 22000 bounty) 
+Gjergji525: posts the ante 5
+heat hunter: posts the ante 5
+jsalinas96: posts the ante 5
+GEGE970: posts the ante 5
+2myflop: posts the ante 5
+FinalExperiment: posts the ante 5
+mixa7771992: posts the ante 5
+Taurus57: posts the ante 5
+heat hunter: posts small blind 20
+jsalinas96: posts big blind 40
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6c Kc]
+GEGE970: folds 
+2myflop: calls 40
+FinalExperiment: calls 40
+mixa7771992: folds 
+Taurus57: calls 40
+Gjergji525: calls 40
+heat hunter: calls 20
+jsalinas96: checks 
+*** FLOP *** [Js 5d 9c]
+heat hunter: checks 
+jsalinas96: checks 
+2myflop: bets 40
+FinalExperiment: folds 
+Taurus57: folds 
+Gjergji525: raises 40 to 80
+heat hunter: folds 
+jsalinas96: calls 80
+2myflop: calls 40
+*** TURN *** [Js 5d 9c] [Ks]
+jsalinas96: checks 
+2myflop: checks 
+Gjergji525: checks 
+*** RIVER *** [Js 5d 9c Ks] [Jd]
+jsalinas96: checks 
+2myflop: checks 
+Gjergji525: bets 260
+jsalinas96: calls 260
+2myflop: folds 
+*** SHOW DOWN ***
+Gjergji525: shows [3c Jc] (three of a kind, Jacks)
+jsalinas96: mucks hand 
+Gjergji525 collected 1040 from pot
+*** SUMMARY ***
+Total pot 1040 | Rake 0 
+Board [Js 5d 9c Ks Jd]
+Seat 1: Gjergji525 (button) showed [3c Jc] and won (1040) with three of a kind, Jacks
+Seat 2: heat hunter (small blind) folded on the Flop
+Seat 3: jsalinas96 (big blind) mucked [6c Kc]
+Seat 4: GEGE970 folded before Flop (didn't bet)
+Seat 5: 2myflop folded on the River
+Seat 6: FinalExperiment folded on the Flop
+Seat 7: mixa7771992 folded before Flop (didn't bet)
+Seat 8: Taurus57 folded on the Flop
+
+
+
+PokerStars Hand #259400623615: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level II (20/40) - 2026/01/21 11:26:22 CET [2026/01/21 5:26:22 ET]
+Table '3966198430 5' 8-max Seat #2 is the button
+Seat 1: Gjergji525 (5600 in chips, 22000 bounty) 
+Seat 2: heat hunter (4731 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (5835 in chips, 22000 bounty) 
+Seat 5: 2myflop (4110 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (4686 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (3739 in chips, 22000 bounty) 
+Seat 8: Taurus57 (6383 in chips, 22000 bounty) 
+Gjergji525: posts the ante 5
+heat hunter: posts the ante 5
+jsalinas96: posts the ante 5
+2myflop: posts the ante 5
+FinalExperiment: posts the ante 5
+mixa7771992: posts the ante 5
+Taurus57: posts the ante 5
+jsalinas96: posts small blind 20
+2myflop: posts big blind 40
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Td Ad]
+FinalExperiment: calls 40
+mixa7771992: folds 
+Taurus57: calls 40
+Gjergji525: raises 40 to 80
+heat hunter: calls 80
+jsalinas96: calls 60
+2myflop: calls 40
+FinalExperiment: calls 40
+Taurus57: calls 40
+*** FLOP *** [8s 9c Qc]
+jsalinas96: checks 
+2myflop: checks 
+FinalExperiment: checks 
+Taurus57: bets 240
+Gjergji525: folds 
+heat hunter: folds 
+jsalinas96: folds 
+2myflop: folds 
+FinalExperiment: folds 
+Uncalled bet (240) returned to Taurus57
+Taurus57 collected 515 from pot
+Taurus57: doesn't show hand 
+*** SUMMARY ***
+Total pot 515 | Rake 0 
+Board [8s 9c Qc]
+Seat 1: Gjergji525 folded on the Flop
+Seat 2: heat hunter (button) folded on the Flop
+Seat 3: jsalinas96 (small blind) folded on the Flop
+Seat 5: 2myflop (big blind) folded on the Flop
+Seat 6: FinalExperiment folded on the Flop
+Seat 7: mixa7771992 folded before Flop (didn't bet)
+Seat 8: Taurus57 collected (515)
+
+
+
+PokerStars Hand #259400630005: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level II (20/40) - 2026/01/21 11:27:30 CET [2026/01/21 5:27:30 ET]
+Table '3966198430 5' 8-max Seat #3 is the button
+Seat 1: Gjergji525 (5515 in chips, 22000 bounty) 
+Seat 2: heat hunter (4646 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (5750 in chips, 22000 bounty) 
+Seat 5: 2myflop (4025 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (4601 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (3734 in chips, 22000 bounty) 
+Seat 8: Taurus57 (6813 in chips, 22000 bounty) 
+Gjergji525: posts the ante 5
+heat hunter: posts the ante 5
+jsalinas96: posts the ante 5
+2myflop: posts the ante 5
+FinalExperiment: posts the ante 5
+mixa7771992: posts the ante 5
+Taurus57: posts the ante 5
+2myflop: posts small blind 20
+FinalExperiment: posts big blind 40
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5c Jh]
+mixa7771992: folds 
+Taurus57: folds 
+Gjergji525: calls 40
+heat hunter: calls 40
+jsalinas96: folds 
+2myflop: calls 20
+FinalExperiment: checks 
+*** FLOP *** [As 8d Kh]
+2myflop: bets 40
+FinalExperiment: folds 
+Gjergji525: calls 40
+heat hunter: calls 40
+*** TURN *** [As 8d Kh] [4s]
+2myflop: bets 40
+Gjergji525: calls 40
+heat hunter: calls 40
+*** RIVER *** [As 8d Kh 4s] [Ks]
+2myflop: checks 
+Gjergji525: checks 
+heat hunter: checks 
+*** SHOW DOWN ***
+2myflop: shows [Jd 7h] (a pair of Kings)
+Gjergji525: shows [4h Qd] (two pair, Kings and Fours)
+heat hunter: shows [9s 9d] (two pair, Kings and Nines)
+heat hunter collected 435 from pot
+*** SUMMARY ***
+Total pot 435 | Rake 0 
+Board [As 8d Kh 4s Ks]
+Seat 1: Gjergji525 showed [4h Qd] and lost with two pair, Kings and Fours
+Seat 2: heat hunter showed [9s 9d] and won (435) with two pair, Kings and Nines
+Seat 3: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 5: 2myflop (small blind) showed [Jd 7h] and lost with a pair of Kings
+Seat 6: FinalExperiment (big blind) folded on the Flop
+Seat 7: mixa7771992 folded before Flop (didn't bet)
+Seat 8: Taurus57 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259400636650: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level II (20/40) - 2026/01/21 11:28:42 CET [2026/01/21 5:28:42 ET]
+Table '3966198430 5' 8-max Seat #5 is the button
+Seat 1: Gjergji525 (5390 in chips, 22000 bounty) 
+Seat 2: heat hunter (4956 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (5745 in chips, 22000 bounty) 
+Seat 5: 2myflop (3900 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (4556 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (3729 in chips, 22000 bounty) 
+Seat 8: Taurus57 (6808 in chips, 22000 bounty) 
+Gjergji525: posts the ante 5
+heat hunter: posts the ante 5
+jsalinas96: posts the ante 5
+2myflop: posts the ante 5
+FinalExperiment: posts the ante 5
+mixa7771992: posts the ante 5
+Taurus57: posts the ante 5
+FinalExperiment: posts small blind 20
+mixa7771992: posts big blind 40
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9c 2h]
+Taurus57: calls 40
+Gjergji525: raises 40 to 80
+heat hunter: calls 80
+jsalinas96: folds 
+2myflop: calls 80
+FinalExperiment: raises 435 to 515
+mixa7771992: folds 
+Taurus57: calls 475
+clasestravel is disconnected 
+Gjergji525: calls 435
+heat hunter: folds 
+2myflop: folds 
+*** FLOP *** [4c Tc Qs]
+FinalExperiment: bets 440
+Taurus57: calls 440
+Gjergji525: calls 440
+*** TURN *** [4c Tc Qs] [7s]
+FinalExperiment: checks 
+Taurus57: bets 240
+Gjergji525: raises 1790 to 2030
+FinalExperiment: folds 
+Taurus57: calls 1790
+*** RIVER *** [4c Tc Qs 7s] [2d]
+Taurus57: checks 
+Gjergji525: checks 
+*** SHOW DOWN ***
+Taurus57: shows [9s Qd] (a pair of Queens)
+Gjergji525: shows [7h Th] (two pair, Tens and Sevens)
+Gjergji525 collected 7160 from pot
+*** SUMMARY ***
+Total pot 7160 | Rake 0 
+Board [4c Tc Qs 7s 2d]
+Seat 1: Gjergji525 showed [7h Th] and won (7160) with two pair, Tens and Sevens
+Seat 2: heat hunter folded before Flop
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 5: 2myflop (button) folded before Flop
+Seat 6: FinalExperiment (small blind) folded on the Turn
+Seat 7: mixa7771992 (big blind) folded before Flop
+Seat 8: Taurus57 showed [9s Qd] and lost with a pair of Queens
+
+
+
+PokerStars Hand #259400643258: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level III (25/50) - 2026/01/21 11:29:53 CET [2026/01/21 5:29:53 ET]
+Table '3966198430 5' 8-max Seat #6 is the button
+Seat 1: Gjergji525 (9560 in chips, 22000 bounty) 
+Seat 2: heat hunter (4871 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (5740 in chips, 22000 bounty) 
+Seat 4: clasestravel (5000 in chips, 22000 bounty) 
+Seat 5: 2myflop (3815 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3596 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (3684 in chips, 22000 bounty) 
+Seat 8: Taurus57 (3818 in chips, 22000 bounty) 
+Gjergji525: posts the ante 6
+heat hunter: posts the ante 6
+jsalinas96: posts the ante 6
+clasestravel: posts the ante 6
+2myflop: posts the ante 6
+FinalExperiment: posts the ante 6
+mixa7771992: posts the ante 6
+Taurus57: posts the ante 6
+mixa7771992: posts small blind 25
+Taurus57: posts big blind 50
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qd 6s]
+Gjergji525: folds 
+heat hunter: folds 
+jsalinas96: calls 50
+clasestravel: folds 
+2myflop: calls 50
+FinalExperiment: folds 
+mixa7771992: folds 
+Taurus57: checks 
+*** FLOP *** [Qs 4d 9s]
+Taurus57: checks 
+jsalinas96: checks 
+2myflop: bets 50
+Taurus57: folds 
+jsalinas96: calls 50
+*** TURN *** [Qs 4d 9s] [6h]
+jsalinas96: checks 
+2myflop: bets 50
+jsalinas96: raises 423 to 473
+2myflop: folds 
+Uncalled bet (423) returned to jsalinas96
+jsalinas96 collected 423 from pot
+jsalinas96: doesn't show hand 
+*** SUMMARY ***
+Total pot 423 | Rake 0 
+Board [Qs 4d 9s 6h]
+Seat 1: Gjergji525 folded before Flop (didn't bet)
+Seat 2: heat hunter folded before Flop (didn't bet)
+Seat 3: jsalinas96 collected (423)
+Seat 4: clasestravel folded before Flop (didn't bet)
+Seat 5: 2myflop folded on the Turn
+Seat 6: FinalExperiment (button) folded before Flop (didn't bet)
+Seat 7: mixa7771992 (small blind) folded before Flop
+Seat 8: Taurus57 (big blind) folded on the Flop
+
+
+
+PokerStars Hand #259400654146: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level III (25/50) - 2026/01/21 11:31:51 CET [2026/01/21 5:31:51 ET]
+Table '3966198430 5' 8-max Seat #7 is the button
+Seat 1: Gjergji525 (9554 in chips, 22000 bounty) 
+Seat 2: heat hunter (4865 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (6007 in chips, 22000 bounty) 
+Seat 4: clasestravel (4994 in chips, 22000 bounty) 
+Seat 5: 2myflop (3659 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3590 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (3653 in chips, 22000 bounty) 
+Seat 8: Taurus57 (3762 in chips, 22000 bounty) 
+Gjergji525: posts the ante 6
+heat hunter: posts the ante 6
+jsalinas96: posts the ante 6
+clasestravel: posts the ante 6
+2myflop: posts the ante 6
+FinalExperiment: posts the ante 6
+mixa7771992: posts the ante 6
+Taurus57: posts the ante 6
+Taurus57: posts small blind 25
+Gjergji525: posts big blind 50
+*** HOLE CARDS ***
+Dealt to jsalinas96 [7h Ac]
+heat hunter: folds 
+jsalinas96: calls 50
+clasestravel: folds 
+2myflop: folds 
+FinalExperiment: folds 
+mixa7771992: raises 200 to 250
+Taurus57: folds 
+Gjergji525: folds 
+jsalinas96: calls 200
+*** FLOP *** [6d 9c 9d]
+jsalinas96: checks 
+mixa7771992: bets 200
+jsalinas96: calls 200
+*** TURN *** [6d 9c 9d] [4c]
+jsalinas96: checks 
+mixa7771992: bets 700
+jsalinas96: calls 700
+*** RIVER *** [6d 9c 9d 4c] [4s]
+jsalinas96: checks 
+mixa7771992: bets 1050
+jsalinas96: calls 1050
+*** SHOW DOWN ***
+mixa7771992: shows [8c 7s] (two pair, Nines and Fours)
+jsalinas96: shows [7h Ac] (two pair, Nines and Fours - Ace kicker)
+jsalinas96 collected 4523 from pot
+*** SUMMARY ***
+Total pot 4523 | Rake 0 
+Board [6d 9c 9d 4c 4s]
+Seat 1: Gjergji525 (big blind) folded before Flop
+Seat 2: heat hunter folded before Flop (didn't bet)
+Seat 3: jsalinas96 showed [7h Ac] and won (4523) with two pair, Nines and Fours
+Seat 4: clasestravel folded before Flop (didn't bet)
+Seat 5: 2myflop folded before Flop (didn't bet)
+Seat 6: FinalExperiment folded before Flop (didn't bet)
+Seat 7: mixa7771992 (button) showed [8c 7s] and lost with two pair, Nines and Fours
+Seat 8: Taurus57 (small blind) folded before Flop
+
+
+
+PokerStars Hand #259400663357: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level III (25/50) - 2026/01/21 11:33:32 CET [2026/01/21 5:33:32 ET]
+Table '3966198430 5' 8-max Seat #8 is the button
+Seat 1: Gjergji525 (9498 in chips, 22000 bounty) 
+Seat 2: heat hunter (4859 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (8324 in chips, 22000 bounty) 
+Seat 4: clasestravel (4988 in chips, 22000 bounty) 
+Seat 5: 2myflop (3653 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3584 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (1447 in chips, 22000 bounty) 
+Seat 8: Taurus57 (3731 in chips, 22000 bounty) 
+Gjergji525: posts the ante 6
+heat hunter: posts the ante 6
+jsalinas96: posts the ante 6
+clasestravel: posts the ante 6
+2myflop: posts the ante 6
+FinalExperiment: posts the ante 6
+mixa7771992: posts the ante 6
+Taurus57: posts the ante 6
+Gjergji525: posts small blind 25
+heat hunter: posts big blind 50
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Jd 9d]
+jsalinas96: calls 50
+clasestravel: calls 50
+2myflop: calls 50
+FinalExperiment: folds 
+mixa7771992: raises 150 to 200
+Taurus57: calls 200
+Gjergji525: calls 175
+heat hunter: calls 150
+jsalinas96: calls 150
+clasestravel: calls 150
+2myflop: calls 150
+*** FLOP *** [9c 7h Ah]
+Gjergji525: bets 50
+heat hunter: folds 
+jsalinas96: folds 
+clasestravel: folds 
+2myflop: calls 50
+mixa7771992: calls 50
+Taurus57: calls 50
+*** TURN *** [9c 7h Ah] [Th]
+Gjergji525: checks 
+2myflop: bets 50
+mixa7771992: calls 50
+Taurus57: calls 50
+Gjergji525: calls 50
+*** RIVER *** [9c 7h Ah Th] [6s]
+Gjergji525: checks 
+2myflop: bets 50
+mixa7771992: calls 50
+Taurus57: calls 50
+Gjergji525: calls 50
+*** SHOW DOWN ***
+2myflop: shows [Ks Qc] (high card Ace)
+mixa7771992: shows [Jh Td] (a pair of Tens)
+Taurus57: shows [4c As] (a pair of Aces)
+Gjergji525: shows [Ad 4d] (a pair of Aces)
+Gjergji525 collected 1024 from pot
+Taurus57 collected 1024 from pot
+*** SUMMARY ***
+Total pot 2048 | Rake 0 
+Board [9c 7h Ah Th 6s]
+Seat 1: Gjergji525 (small blind) showed [Ad 4d] and won (1024) with a pair of Aces
+Seat 2: heat hunter (big blind) folded on the Flop
+Seat 3: jsalinas96 folded on the Flop
+Seat 4: clasestravel folded on the Flop
+Seat 5: 2myflop showed [Ks Qc] and lost with high card Ace
+Seat 6: FinalExperiment folded before Flop (didn't bet)
+Seat 7: mixa7771992 showed [Jh Td] and lost with a pair of Tens
+Seat 8: Taurus57 (button) showed [4c As] and won (1024) with a pair of Aces
+
+
+
+PokerStars Hand #259400670627: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level III (25/50) - 2026/01/21 11:34:52 CET [2026/01/21 5:34:52 ET]
+Table '3966198430 5' 8-max Seat #1 is the button
+Seat 1: Gjergji525 (10166 in chips, 22000 bounty) 
+Seat 2: heat hunter (4653 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (8118 in chips, 22000 bounty) 
+Seat 4: clasestravel (4782 in chips, 22000 bounty) 
+Seat 5: 2myflop (3297 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3578 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (1091 in chips, 22000 bounty) 
+Seat 8: Taurus57 (4399 in chips, 22000 bounty) 
+Gjergji525: posts the ante 6
+heat hunter: posts the ante 6
+jsalinas96: posts the ante 6
+clasestravel: posts the ante 6
+2myflop: posts the ante 6
+FinalExperiment: posts the ante 6
+mixa7771992: posts the ante 6
+Taurus57: posts the ante 6
+heat hunter: posts small blind 25
+jsalinas96: posts big blind 50
+*** HOLE CARDS ***
+Dealt to jsalinas96 [7h 9d]
+clasestravel: folds 
+2myflop: folds 
+FinalExperiment: folds 
+mixa7771992: folds 
+Taurus57: folds 
+Gjergji525: folds 
+heat hunter: calls 25
+jsalinas96: checks 
+*** FLOP *** [8h 9c 4c]
+heat hunter: checks 
+jsalinas96: checks 
+*** TURN *** [8h 9c 4c] [5d]
+heat hunter: checks 
+jsalinas96: checks 
+*** RIVER *** [8h 9c 4c 5d] [Tc]
+heat hunter: bets 50
+jsalinas96: calls 50
+*** SHOW DOWN ***
+heat hunter: shows [6c 5h] (a pair of Fives)
+jsalinas96: shows [7h 9d] (a pair of Nines)
+jsalinas96 collected 248 from pot
+*** SUMMARY ***
+Total pot 248 | Rake 0 
+Board [8h 9c 4c 5d Tc]
+Seat 1: Gjergji525 (button) folded before Flop (didn't bet)
+Seat 2: heat hunter (small blind) showed [6c 5h] and lost with a pair of Fives
+Seat 3: jsalinas96 (big blind) showed [7h 9d] and won (248) with a pair of Nines
+Seat 4: clasestravel folded before Flop (didn't bet)
+Seat 5: 2myflop folded before Flop (didn't bet)
+Seat 6: FinalExperiment folded before Flop (didn't bet)
+Seat 7: mixa7771992 folded before Flop (didn't bet)
+Seat 8: Taurus57 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259400674861: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level III (25/50) - 2026/01/21 11:35:38 CET [2026/01/21 5:35:38 ET]
+Table '3966198430 5' 8-max Seat #2 is the button
+Seat 1: Gjergji525 (10160 in chips, 22000 bounty) 
+Seat 2: heat hunter (4547 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (8260 in chips, 22000 bounty) 
+Seat 4: clasestravel (4776 in chips, 22000 bounty) 
+Seat 5: 2myflop (3291 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3572 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (1085 in chips, 22000 bounty) 
+Seat 8: Taurus57 (4393 in chips, 22000 bounty) 
+Gjergji525: posts the ante 6
+heat hunter: posts the ante 6
+jsalinas96: posts the ante 6
+clasestravel: posts the ante 6
+2myflop: posts the ante 6
+FinalExperiment: posts the ante 6
+mixa7771992: posts the ante 6
+Taurus57: posts the ante 6
+jsalinas96: posts small blind 25
+clasestravel: posts big blind 50
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ad Jh]
+2myflop: calls 50
+FinalExperiment: folds 
+mixa7771992: folds 
+Taurus57: raises 50 to 100
+Gjergji525: raises 50 to 150
+heat hunter: folds 
+jsalinas96: calls 125
+clasestravel: calls 100
+2myflop: calls 100
+Taurus57: calls 50
+*** FLOP *** [4s Ac 5h]
+jsalinas96: checks 
+clasestravel: checks 
+2myflop: bets 50
+Taurus57: folds 
+Gjergji525: calls 50
+jsalinas96 is disconnected 
+jsalinas96 is connected 
+jsalinas96 is connected 
+jsalinas96: calls 50
+clasestravel: calls 50
+*** TURN *** [4s Ac 5h] [Ts]
+jsalinas96: checks 
+clasestravel: bets 50
+2myflop: calls 50
+Gjergji525: calls 50
+jsalinas96: calls 50
+*** RIVER *** [4s Ac 5h Ts] [7d]
+jsalinas96: checks 
+clasestravel: checks 
+2myflop: bets 50
+Gjergji525: folds 
+jsalinas96: raises 3000 to 3050
+clasestravel: folds 
+2myflop: folds 
+Uncalled bet (3000) returned to jsalinas96
+jsalinas96 collected 1298 from pot
+jsalinas96: doesn't show hand 
+*** SUMMARY ***
+Total pot 1298 | Rake 0 
+Board [4s Ac 5h Ts 7d]
+Seat 1: Gjergji525 folded on the River
+Seat 2: heat hunter (button) folded before Flop (didn't bet)
+Seat 3: jsalinas96 (small blind) collected (1298)
+Seat 4: clasestravel (big blind) folded on the River
+Seat 5: 2myflop folded on the River
+Seat 6: FinalExperiment folded before Flop (didn't bet)
+Seat 7: mixa7771992 folded before Flop (didn't bet)
+Seat 8: Taurus57 folded on the Flop
+
+
+
+PokerStars Hand #259400689991: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level IV (30/60) - 2026/01/21 11:38:19 CET [2026/01/21 5:38:19 ET]
+Table '3966198430 5' 8-max Seat #3 is the button
+Seat 1: Gjergji525 (9904 in chips, 22000 bounty) 
+Seat 2: heat hunter (4541 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (9252 in chips, 22000 bounty) 
+Seat 4: clasestravel (4520 in chips, 22000 bounty) 
+Seat 5: 2myflop (2985 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3566 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (1079 in chips, 22000 bounty) 
+Seat 8: Taurus57 (4237 in chips, 22000 bounty) 
+Gjergji525: posts the ante 8
+heat hunter: posts the ante 8
+jsalinas96: posts the ante 8
+clasestravel: posts the ante 8
+2myflop: posts the ante 8
+FinalExperiment: posts the ante 8
+mixa7771992: posts the ante 8
+Taurus57: posts the ante 8
+clasestravel: posts small blind 30
+2myflop: posts big blind 60
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Kc 5d]
+FinalExperiment: folds 
+mixa7771992: raises 180 to 240
+Taurus57: folds 
+Gjergji525: calls 240
+heat hunter: folds 
+jsalinas96: calls 240
+clasestravel: folds 
+2myflop: calls 180
+*** FLOP *** [Ad Jc 9c]
+2myflop: bets 60
+mixa7771992: raises 771 to 831 and is all-in
+Gjergji525: folds 
+jsalinas96: folds 
+jsalinas96 is disconnected 
+2myflop: folds 
+Uncalled bet (771) returned to mixa7771992
+mixa7771992 collected 1174 from pot
+*** SUMMARY ***
+Total pot 1174 | Rake 0 
+Board [Ad Jc 9c]
+Seat 1: Gjergji525 folded on the Flop
+Seat 2: heat hunter folded before Flop (didn't bet)
+Seat 3: jsalinas96 (button) folded on the Flop
+Seat 4: clasestravel (small blind) folded before Flop
+Seat 5: 2myflop (big blind) folded on the Flop
+Seat 6: FinalExperiment folded before Flop (didn't bet)
+Seat 7: mixa7771992 collected (1174)
+Seat 8: Taurus57 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259400696739: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level IV (30/60) - 2026/01/21 11:39:30 CET [2026/01/21 5:39:30 ET]
+Table '3966198430 5' 8-max Seat #4 is the button
+Seat 1: Gjergji525 (9656 in chips, 22000 bounty) 
+Seat 2: heat hunter (4533 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (9004 in chips, 22000 bounty) 
+Seat 4: clasestravel (4482 in chips, 22000 bounty) 
+Seat 5: 2myflop (2677 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3558 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (1945 in chips, 22000 bounty) 
+Seat 8: Taurus57 (4229 in chips, 22000 bounty) 
+Gjergji525: posts the ante 8
+heat hunter: posts the ante 8
+jsalinas96: posts the ante 8
+clasestravel: posts the ante 8
+2myflop: posts the ante 8
+FinalExperiment: posts the ante 8
+mixa7771992: posts the ante 8
+Taurus57: posts the ante 8
+2myflop: posts small blind 30
+FinalExperiment: posts big blind 60
+*** HOLE CARDS ***
+Dealt to jsalinas96 [7c Ac]
+mixa7771992: raises 180 to 240
+Taurus57: folds 
+Gjergji525: calls 240
+heat hunter: folds 
+jsalinas96: calls 240
+clasestravel: calls 240
+2myflop: calls 210
+FinalExperiment: folds 
+*** FLOP *** [2c Kd 7d]
+2myflop: bets 60
+mixa7771992: calls 60
+Gjergji525: calls 60
+jsalinas96: calls 60
+clasestravel: calls 60
+*** TURN *** [2c Kd 7d] [As]
+2myflop: bets 60
+mixa7771992: calls 60
+Gjergji525: calls 60
+jsalinas96: raises 932 to 992
+clasestravel: folds 
+2myflop: folds 
+mixa7771992: folds 
+Gjergji525: folds 
+Uncalled bet (932) returned to jsalinas96
+jsalinas96 collected 1864 from pot
+jsalinas96: doesn't show hand 
+*** SUMMARY ***
+Total pot 1864 | Rake 0 
+Board [2c Kd 7d As]
+Seat 1: Gjergji525 folded on the Turn
+Seat 2: heat hunter folded before Flop (didn't bet)
+Seat 3: jsalinas96 collected (1864)
+Seat 4: clasestravel (button) folded on the Turn
+Seat 5: 2myflop (small blind) folded on the Turn
+Seat 6: FinalExperiment (big blind) folded before Flop
+Seat 7: mixa7771992 folded on the Turn
+Seat 8: Taurus57 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259400703739: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level IV (30/60) - 2026/01/21 11:40:43 CET [2026/01/21 5:40:43 ET]
+Table '3966198430 5' 8-max Seat #5 is the button
+Seat 1: Gjergji525 (9288 in chips, 22000 bounty) 
+Seat 2: heat hunter (4525 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (10500 in chips, 22000 bounty) 
+Seat 4: clasestravel (4174 in chips, 22000 bounty) 
+Seat 5: 2myflop (2309 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3490 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (1577 in chips, 22000 bounty) 
+Seat 8: Taurus57 (4221 in chips, 22000 bounty) 
+Gjergji525: posts the ante 8
+heat hunter: posts the ante 8
+jsalinas96: posts the ante 8
+clasestravel: posts the ante 8
+2myflop: posts the ante 8
+FinalExperiment: posts the ante 8
+mixa7771992: posts the ante 8
+Taurus57: posts the ante 8
+FinalExperiment: posts small blind 30
+mixa7771992: posts big blind 60
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9c 7c]
+Taurus57: calls 60
+Gjergji525: raises 60 to 120
+heat hunter: folds 
+jsalinas96: calls 120
+clasestravel: calls 120
+2myflop: raises 60 to 180
+FinalExperiment: folds 
+mixa7771992: calls 120
+Taurus57: calls 120
+Gjergji525: calls 60
+jsalinas96: calls 60
+clasestravel: calls 60
+*** FLOP *** [Ad 7d Qs]
+mixa7771992: checks 
+Taurus57: checks 
+Gjergji525: checks 
+jsalinas96: checks 
+clasestravel: bets 180
+2myflop: raises 180 to 360
+mixa7771992: folds 
+Taurus57: folds 
+Gjergji525: folds 
+jsalinas96: folds 
+clasestravel: calls 180
+*** TURN *** [Ad 7d Qs] [3d]
+clasestravel: bets 180
+2myflop: calls 180
+*** RIVER *** [Ad 7d Qs 3d] [8s]
+clasestravel: bets 180
+2myflop: calls 180
+*** SHOW DOWN ***
+clasestravel: shows [Ac 2h] (a pair of Aces)
+2myflop: shows [Tc As] (a pair of Aces - Queen+Ten kicker)
+2myflop collected 2614 from pot
+*** SUMMARY ***
+Total pot 2614 | Rake 0 
+Board [Ad 7d Qs 3d 8s]
+Seat 1: Gjergji525 folded on the Flop
+Seat 2: heat hunter folded before Flop (didn't bet)
+Seat 3: jsalinas96 folded on the Flop
+Seat 4: clasestravel showed [Ac 2h] and lost with a pair of Aces
+Seat 5: 2myflop (button) showed [Tc As] and won (2614) with a pair of Aces
+Seat 6: FinalExperiment (small blind) folded before Flop
+Seat 7: mixa7771992 (big blind) folded on the Flop
+Seat 8: Taurus57 folded on the Flop
+
+
+
+PokerStars Hand #259400710076: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level IV (30/60) - 2026/01/21 11:41:50 CET [2026/01/21 5:41:50 ET]
+Table '3966198430 5' 8-max Seat #6 is the button
+Seat 1: Gjergji525 (9100 in chips, 22000 bounty) 
+Seat 2: heat hunter (4517 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (10312 in chips, 22000 bounty) 
+Seat 4: clasestravel (3266 in chips, 22000 bounty) 
+Seat 5: 2myflop (4015 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3452 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (1389 in chips, 22000 bounty) 
+Seat 8: Taurus57 (4033 in chips, 22000 bounty) 
+Gjergji525: posts the ante 8
+heat hunter: posts the ante 8
+jsalinas96: posts the ante 8
+clasestravel: posts the ante 8
+2myflop: posts the ante 8
+FinalExperiment: posts the ante 8
+mixa7771992: posts the ante 8
+Taurus57: posts the ante 8
+mixa7771992: posts small blind 30
+Taurus57: posts big blind 60
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qs Ad]
+Gjergji525: raises 120 to 180
+heat hunter: folds 
+jsalinas96: calls 180
+clasestravel: raises 180 to 360
+2myflop: folds 
+FinalExperiment: folds 
+mixa7771992: calls 330
+Taurus57: folds 
+Gjergji525: calls 180
+jsalinas96: calls 180
+*** FLOP *** [8c 9s Ah]
+mixa7771992: checks 
+Gjergji525: bets 782
+jsalinas96: calls 782
+clasestravel: calls 782
+mixa7771992: folds 
+*** TURN *** [8c 9s Ah] [Jc]
+Gjergji525: bets 1955
+jsalinas96: calls 1955
+clasestravel: folds 
+*** RIVER *** [8c 9s Ah Jc] [Th]
+Gjergji525: checks 
+jsalinas96: bets 6000
+Gjergji525: calls 5995 and is all-in
+Uncalled bet (5) returned to jsalinas96
+*** SHOW DOWN ***
+jsalinas96: shows [Qs Ad] (a straight, Eight to Queen)
+Gjergji525: shows [Ac Jd] (two pair, Aces and Jacks)
+jsalinas96 collected 19810 from pot
+jsalinas96 wins 11000 for eliminating Gjergji525 and their own bounty increases by 11000 to 33000
+Gjergji525 finished the tournament
+*** SUMMARY ***
+Total pot 19810 | Rake 0 
+Board [8c 9s Ah Jc Th]
+Seat 1: Gjergji525 showed [Ac Jd] and lost with two pair, Aces and Jacks
+Seat 2: heat hunter folded before Flop (didn't bet)
+Seat 3: jsalinas96 showed [Qs Ad] and won (19810) with a straight, Eight to Queen
+Seat 4: clasestravel folded on the Turn
+Seat 5: 2myflop folded before Flop (didn't bet)
+Seat 6: FinalExperiment (button) folded before Flop (didn't bet)
+Seat 7: mixa7771992 (small blind) folded on the Flop
+Seat 8: Taurus57 (big blind) folded before Flop
+
+
+
+PokerStars Hand #259400716045: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level IV (30/60) - 2026/01/21 11:42:52 CET [2026/01/21 5:42:52 ET]
+Table '3966198430 5' 8-max Seat #7 is the button
+Seat 2: heat hunter (4509 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (21022 in chips, 33000 bounty) 
+Seat 4: clasestravel (2116 in chips, 22000 bounty) 
+Seat 5: 2myflop (4007 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3444 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (1021 in chips, 22000 bounty) 
+Seat 8: Taurus57 (3965 in chips, 22000 bounty) 
+heat hunter: posts the ante 8
+jsalinas96: posts the ante 8
+clasestravel: posts the ante 8
+2myflop: posts the ante 8
+FinalExperiment: posts the ante 8
+mixa7771992: posts the ante 8
+Taurus57: posts the ante 8
+Taurus57: posts small blind 30
+heat hunter: posts big blind 60
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9s Qs]
+jsalinas96: calls 60
+clasestravel: calls 60
+2myflop: calls 60
+FinalExperiment: folds 
+mixa7771992: raises 953 to 1013 and is all-in
+Taurus57: calls 983
+heat hunter: folds 
+jsalinas96: calls 953
+clasestravel: calls 953
+2myflop: folds 
+*** FLOP *** [2d Ad Kh]
+Taurus57: checks 
+jsalinas96: checks 
+clasestravel: checks 
+*** TURN *** [2d Ad Kh] [7c]
+Taurus57: checks 
+jsalinas96: checks 
+clasestravel: checks 
+*** RIVER *** [2d Ad Kh 7c] [Ts]
+Taurus57: checks 
+jsalinas96: checks 
+clasestravel: checks 
+*** SHOW DOWN ***
+Taurus57: shows [9c 8c] (high card Ace)
+jsalinas96: shows [9s Qs] (high card Ace - King+Queen kicker)
+clasestravel: shows [3c 3d] (a pair of Threes)
+mixa7771992: shows [As Jc] (a pair of Aces)
+mixa7771992 collected 4228 from pot
+*** SUMMARY ***
+Total pot 4228 | Rake 0 
+Board [2d Ad Kh 7c Ts]
+Seat 2: heat hunter (big blind) folded before Flop
+Seat 3: jsalinas96 showed [9s Qs] and lost with high card Ace
+Seat 4: clasestravel showed [3c 3d] and lost with a pair of Threes
+Seat 5: 2myflop folded before Flop
+Seat 6: FinalExperiment folded before Flop (didn't bet)
+Seat 7: mixa7771992 (button) showed [As Jc] and won (4228) with a pair of Aces
+Seat 8: Taurus57 (small blind) showed [9c 8c] and lost with high card Ace
+
+
+
+PokerStars Hand #259400721799: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level V (40/80) - 2026/01/21 11:43:51 CET [2026/01/21 5:43:51 ET]
+Table '3966198430 5' 8-max Seat #8 is the button
+Seat 2: heat hunter (4441 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (20001 in chips, 33000 bounty) 
+Seat 4: clasestravel (1095 in chips, 22000 bounty) 
+Seat 5: 2myflop (3939 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3436 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (4228 in chips, 22000 bounty) 
+Seat 8: Taurus57 (2944 in chips, 22000 bounty) 
+heat hunter: posts the ante 10
+jsalinas96: posts the ante 10
+clasestravel: posts the ante 10
+2myflop: posts the ante 10
+FinalExperiment: posts the ante 10
+mixa7771992: posts the ante 10
+Taurus57: posts the ante 10
+heat hunter: posts small blind 40
+jsalinas96: posts big blind 80
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ks Ts]
+clasestravel: raises 1005 to 1085 and is all-in
+2myflop: folds 
+FinalExperiment: folds 
+mixa7771992: folds 
+Taurus57: raises 1849 to 2934 and is all-in
+heat hunter: folds 
+jsalinas96: calls 2854
+*** FLOP *** [6s 2s Jc]
+*** TURN *** [6s 2s Jc] [4c]
+*** RIVER *** [6s 2s Jc 4c] [7h]
+*** SHOW DOWN ***
+jsalinas96: shows [Ks Ts] (high card King)
+Taurus57: shows [Ad Qh] (high card Ace)
+Taurus57 collected 3698 from side pot
+clasestravel: shows [5h 5d] (a pair of Fives)
+clasestravel collected 3365 from main pot
+*** SUMMARY ***
+Total pot 7063 Main pot 3365. Side pot 3698. | Rake 0 
+Board [6s 2s Jc 4c 7h]
+Seat 2: heat hunter (small blind) folded before Flop
+Seat 3: jsalinas96 (big blind) showed [Ks Ts] and lost with high card King
+Seat 4: clasestravel showed [5h 5d] and won (3365) with a pair of Fives
+Seat 5: 2myflop folded before Flop (didn't bet)
+Seat 6: FinalExperiment folded before Flop (didn't bet)
+Seat 7: mixa7771992 folded before Flop (didn't bet)
+Seat 8: Taurus57 (button) showed [Ad Qh] and won (3698) with high card Ace
+
+
+
+PokerStars Hand #259400725140: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level V (40/80) - 2026/01/21 11:44:27 CET [2026/01/21 5:44:27 ET]
+Table '3966198430 5' 8-max Seat #2 is the button
+Seat 2: heat hunter (4391 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (17057 in chips, 33000 bounty) 
+Seat 4: clasestravel (3365 in chips, 22000 bounty) 
+Seat 5: 2myflop (3929 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3426 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (4218 in chips, 22000 bounty) 
+Seat 8: Taurus57 (3698 in chips, 22000 bounty) 
+heat hunter: posts the ante 10
+jsalinas96: posts the ante 10
+clasestravel: posts the ante 10
+2myflop: posts the ante 10
+FinalExperiment: posts the ante 10
+mixa7771992: posts the ante 10
+Taurus57: posts the ante 10
+jsalinas96: posts small blind 40
+clasestravel: posts big blind 80
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4s 7s]
+2myflop: raises 80 to 160
+FinalExperiment: folds 
+mixa7771992: folds 
+Taurus57: folds 
+heat hunter: folds 
+jsalinas96: folds 
+clasestravel: calls 80
+*** FLOP *** [3h 7d Kd]
+clasestravel: checks 
+2myflop: bets 80
+clasestravel: folds 
+Uncalled bet (80) returned to 2myflop
+2myflop collected 430 from pot
+*** SUMMARY ***
+Total pot 430 | Rake 0 
+Board [3h 7d Kd]
+Seat 2: heat hunter (button) folded before Flop (didn't bet)
+Seat 3: jsalinas96 (small blind) folded before Flop
+Seat 4: clasestravel (big blind) folded on the Flop
+Seat 5: 2myflop collected (430)
+Seat 6: FinalExperiment folded before Flop (didn't bet)
+Seat 7: mixa7771992 folded before Flop (didn't bet)
+Seat 8: Taurus57 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259400727701: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level V (40/80) - 2026/01/21 11:44:53 CET [2026/01/21 5:44:53 ET]
+Table '3966198430 5' 8-max Seat #3 is the button
+Seat 2: heat hunter (4381 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (17007 in chips, 33000 bounty) 
+Seat 4: clasestravel (3195 in chips, 22000 bounty) 
+Seat 5: 2myflop (4189 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3416 in chips, 22000 bounty) 
+Seat 7: mixa7771992 (4208 in chips, 22000 bounty) 
+Seat 8: Taurus57 (3688 in chips, 22000 bounty) 
+heat hunter: posts the ante 10
+jsalinas96: posts the ante 10
+clasestravel: posts the ante 10
+2myflop: posts the ante 10
+FinalExperiment: posts the ante 10
+mixa7771992: posts the ante 10
+Taurus57: posts the ante 10
+clasestravel: posts small blind 40
+2myflop: posts big blind 80
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8h 5c]
+FinalExperiment: folds 
+mixa7771992: folds 
+Taurus57: calls 80
+heat hunter: folds 
+jsalinas96: folds 
+clasestravel: calls 40
+2myflop: checks 
+*** FLOP *** [Ts 2d 2s]
+clasestravel: checks 
+2myflop: bets 80
+Taurus57: raises 400 to 480
+clasestravel: folds 
+2myflop: folds 
+Uncalled bet (400) returned to Taurus57
+Taurus57 collected 470 from pot
+Taurus57: doesn't show hand 
+*** SUMMARY ***
+Total pot 470 | Rake 0 
+Board [Ts 2d 2s]
+Seat 2: heat hunter folded before Flop (didn't bet)
+Seat 3: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 4: clasestravel (small blind) folded on the Flop
+Seat 5: 2myflop (big blind) folded on the Flop
+Seat 6: FinalExperiment folded before Flop (didn't bet)
+Seat 7: mixa7771992 folded before Flop (didn't bet)
+Seat 8: Taurus57 collected (470)
+
+
+
+PokerStars Hand #259400730441: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level V (40/80) - 2026/01/21 11:45:23 CET [2026/01/21 5:45:23 ET]
+Table '3966198430 5' 8-max Seat #4 is the button
+Seat 1: L.M219 (5000 in chips, 22000 bounty) 
+Seat 2: heat hunter (4371 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (16997 in chips, 33000 bounty) 
+Seat 4: clasestravel (3105 in chips, 22000 bounty) 
+Seat 5: 2myflop (4019 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3406 in chips, 22000 bounty) 
+Seat 8: Taurus57 (3988 in chips, 22000 bounty) 
+L.M219: posts the ante 10
+heat hunter: posts the ante 10
+jsalinas96: posts the ante 10
+clasestravel: posts the ante 10
+2myflop: posts the ante 10
+FinalExperiment: posts the ante 10
+Taurus57: posts the ante 10
+2myflop: posts small blind 40
+FinalExperiment: posts big blind 80
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ac 2c]
+Taurus57: folds 
+L.M219: calls 80
+heat hunter: folds 
+jsalinas96: raises 160 to 240
+clasestravel: folds 
+2myflop: calls 200
+tristanmauricio is disconnected 
+FinalExperiment: folds 
+L.M219: raises 880 to 1120
+jsalinas96: calls 880
+2myflop: calls 880
+*** FLOP *** [9c 5c Th]
+2myflop: bets 1755
+L.M219: raises 2115 to 3870 and is all-in
+jsalinas96: calls 3870
+2myflop: calls 1134 and is all-in
+*** TURN *** [9c 5c Th] [Ks]
+*** RIVER *** [9c 5c Th Ks] [6s]
+*** SHOW DOWN ***
+L.M219: shows [7d 4s] (high card King)
+jsalinas96: shows [Ac 2c] (high card Ace)
+jsalinas96 collected 1962 from side pot
+2myflop: shows [Qh 9h] (a pair of Nines)
+2myflop collected 12177 from main pot
+jsalinas96 wins 11000 for eliminating L.M219 and their own bounty increases by 11000 to 44000
+L.M219 finished the tournament
+*** SUMMARY ***
+Total pot 14139 Main pot 12177. Side pot 1962. | Rake 0 
+Board [9c 5c Th Ks 6s]
+Seat 1: L.M219 showed [7d 4s] and lost with high card King
+Seat 2: heat hunter folded before Flop (didn't bet)
+Seat 3: jsalinas96 showed [Ac 2c] and won (1962) with high card Ace
+Seat 4: clasestravel (button) folded before Flop (didn't bet)
+Seat 5: 2myflop (small blind) showed [Qh 9h] and won (12177) with a pair of Nines
+Seat 6: FinalExperiment (big blind) folded before Flop
+Seat 8: Taurus57 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259400736642: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level V (40/80) - 2026/01/21 11:46:27 CET [2026/01/21 5:46:27 ET]
+Table '3966198430 5' 8-max Seat #5 is the button
+Seat 2: heat hunter (4361 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (13959 in chips, 44000 bounty) 
+Seat 4: clasestravel (3095 in chips, 22000 bounty) 
+Seat 5: 2myflop (12177 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3316 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (5000 in chips, 22000 bounty) 
+Seat 8: Taurus57 (3978 in chips, 22000 bounty) 
+heat hunter: posts the ante 10
+jsalinas96: posts the ante 10
+clasestravel: posts the ante 10
+2myflop: posts the ante 10
+FinalExperiment: posts the ante 10
+tristanmauricio: posts the ante 10
+Taurus57: posts the ante 10
+FinalExperiment: posts small blind 40
+tristanmauricio: posts big blind 80
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9c 2s]
+Taurus57: folds 
+heat hunter: folds 
+jsalinas96: folds 
+clasestravel: calls 80
+2myflop: folds 
+FinalExperiment: folds 
+tristanmauricio: checks 
+*** FLOP *** [Ac Qh Ks]
+tristanmauricio: checks 
+clasestravel: bets 80
+tristanmauricio: folds 
+Uncalled bet (80) returned to clasestravel
+clasestravel collected 270 from pot
+clasestravel: doesn't show hand 
+*** SUMMARY ***
+Total pot 270 | Rake 0 
+Board [Ac Qh Ks]
+Seat 2: heat hunter folded before Flop (didn't bet)
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 4: clasestravel collected (270)
+Seat 5: 2myflop (button) folded before Flop (didn't bet)
+Seat 6: FinalExperiment (small blind) folded before Flop
+Seat 7: tristanmauricio (big blind) folded on the Flop
+Seat 8: Taurus57 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259400740863: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level V (40/80) - 2026/01/21 11:47:11 CET [2026/01/21 5:47:11 ET]
+Table '3966198430 5' 8-max Seat #6 is the button
+Seat 2: heat hunter (4351 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (13949 in chips, 44000 bounty) 
+Seat 4: clasestravel (3275 in chips, 22000 bounty) 
+Seat 5: 2myflop (12167 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3266 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (4910 in chips, 22000 bounty) 
+Seat 8: Taurus57 (3968 in chips, 22000 bounty) 
+heat hunter: posts the ante 10
+jsalinas96: posts the ante 10
+clasestravel: posts the ante 10
+2myflop: posts the ante 10
+FinalExperiment: posts the ante 10
+tristanmauricio: posts the ante 10
+Taurus57: posts the ante 10
+tristanmauricio: posts small blind 40
+Taurus57: posts big blind 80
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2h 7h]
+heat hunter: calls 80
+jsalinas96: folds 
+clasestravel: calls 80
+2myflop: calls 80
+FinalExperiment: folds 
+tristanmauricio: calls 40
+Taurus57: checks 
+*** FLOP *** [9d As Kh]
+tristanmauricio: checks 
+brdko494 is disconnected 
+Taurus57: bets 160
+heat hunter: calls 160
+clasestravel: calls 160
+2myflop: folds 
+tristanmauricio: calls 160
+*** TURN *** [9d As Kh] [7d]
+tristanmauricio: checks 
+Taurus57: bets 80
+heat hunter: calls 80
+clasestravel: calls 80
+tristanmauricio: calls 80
+*** RIVER *** [9d As Kh 7d] [Jc]
+tristanmauricio: checks 
+Taurus57: bets 80
+heat hunter: calls 80
+clasestravel: calls 80
+tristanmauricio: raises 240 to 320
+Taurus57: calls 240
+heat hunter: folds 
+clasestravel: folds 
+*** SHOW DOWN ***
+tristanmauricio: shows [Qh Tc] (a straight, Ten to Ace)
+Taurus57: mucks hand 
+tristanmauricio collected 2230 from pot
+*** SUMMARY ***
+Total pot 2230 | Rake 0 
+Board [9d As Kh 7d Jc]
+Seat 2: heat hunter folded on the River
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 4: clasestravel folded on the River
+Seat 5: 2myflop folded on the Flop
+Seat 6: FinalExperiment (button) folded before Flop (didn't bet)
+Seat 7: tristanmauricio (small blind) showed [Qh Tc] and won (2230) with a straight, Ten to Ace
+Seat 8: Taurus57 (big blind) mucked [3d Ks]
+
+
+
+PokerStars Hand #259400751312: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level V (40/80) - 2026/01/21 11:48:59 CET [2026/01/21 5:48:59 ET]
+Table '3966198430 5' 8-max Seat #7 is the button
+Seat 1: brdko494 (5000 in chips, 22000 bounty) 
+Seat 2: heat hunter (3941 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (13939 in chips, 44000 bounty) 
+Seat 4: clasestravel (2865 in chips, 22000 bounty) 
+Seat 5: 2myflop (12077 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3256 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (6490 in chips, 22000 bounty) 
+Seat 8: Taurus57 (3318 in chips, 22000 bounty) 
+brdko494: posts the ante 10
+heat hunter: posts the ante 10
+jsalinas96: posts the ante 10
+clasestravel: posts the ante 10
+2myflop: posts the ante 10
+FinalExperiment: posts the ante 10
+tristanmauricio: posts the ante 10
+Taurus57: posts the ante 10
+Taurus57: posts small blind 40
+brdko494: posts big blind 80
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2c 9s]
+heat hunter: folds 
+jsalinas96: folds 
+clasestravel: folds 
+2myflop: calls 80
+FinalExperiment: folds 
+tristanmauricio: folds 
+Taurus57: calls 40
+brdko494: checks 
+*** FLOP *** [Jh 6d Ad]
+Taurus57: checks 
+brdko494: bets 240
+2myflop: folds 
+Taurus57: folds 
+Uncalled bet (240) returned to brdko494
+brdko494 collected 320 from pot
+brdko494: doesn't show hand 
+*** SUMMARY ***
+Total pot 320 | Rake 0 
+Board [Jh 6d Ad]
+Seat 1: brdko494 (big blind) collected (320)
+Seat 2: heat hunter folded before Flop (didn't bet)
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 4: clasestravel folded before Flop (didn't bet)
+Seat 5: 2myflop folded on the Flop
+Seat 6: FinalExperiment folded before Flop (didn't bet)
+Seat 7: tristanmauricio (button) folded before Flop (didn't bet)
+Seat 8: Taurus57 (small blind) folded on the Flop
+
+
+
+PokerStars Hand #259400755064: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level V (40/80) - 2026/01/21 11:49:38 CET [2026/01/21 5:49:38 ET]
+Table '3966198430 5' 8-max Seat #8 is the button
+Seat 1: brdko494 (5230 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (13929 in chips, 44000 bounty) 
+Seat 4: clasestravel (2855 in chips, 22000 bounty) 
+Seat 5: 2myflop (11987 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3246 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (6480 in chips, 22000 bounty) 
+Seat 8: Taurus57 (3228 in chips, 22000 bounty) 
+brdko494: posts the ante 10
+jsalinas96: posts the ante 10
+clasestravel: posts the ante 10
+2myflop: posts the ante 10
+FinalExperiment: posts the ante 10
+tristanmauricio: posts the ante 10
+Taurus57: posts the ante 10
+brdko494: posts small blind 40
+jsalinas96: posts big blind 80
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4s 5s]
+clasestravel: calls 80
+2myflop: calls 80
+FlakeyPapa is disconnected 
+FinalExperiment: folds 
+tristanmauricio: folds 
+Taurus57: folds 
+brdko494: calls 40
+jsalinas96: checks 
+*** FLOP *** [3s 8c Kc]
+brdko494: checks 
+jsalinas96: checks 
+clasestravel: bets 240
+2myflop: folds 
+brdko494: folds 
+jsalinas96: folds 
+Uncalled bet (240) returned to clasestravel
+clasestravel collected 390 from pot
+clasestravel: doesn't show hand 
+*** SUMMARY ***
+Total pot 390 | Rake 0 
+Board [3s 8c Kc]
+Seat 1: brdko494 (small blind) folded on the Flop
+Seat 3: jsalinas96 (big blind) folded on the Flop
+Seat 4: clasestravel collected (390)
+Seat 5: 2myflop folded on the Flop
+Seat 6: FinalExperiment folded before Flop (didn't bet)
+Seat 7: tristanmauricio folded before Flop (didn't bet)
+Seat 8: Taurus57 (button) folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259400760066: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VI (50/100) - 2026/01/21 11:50:30 CET [2026/01/21 5:50:30 ET]
+Table '3966198430 5' 8-max Seat #1 is the button
+Seat 1: brdko494 (5140 in chips, 22000 bounty) 
+Seat 2: FlakeyPapa (5000 in chips) out of hand (moved from another table into small blind)
+Seat 3: jsalinas96 (13839 in chips, 44000 bounty) 
+Seat 4: clasestravel (3155 in chips, 22000 bounty) 
+Seat 5: 2myflop (11897 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3236 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (6470 in chips, 22000 bounty) 
+Seat 8: Taurus57 (3218 in chips, 22000 bounty) 
+FlakeyPapa will be allowed to play after the button
+brdko494: posts the ante 12
+jsalinas96: posts the ante 12
+clasestravel: posts the ante 12
+2myflop: posts the ante 12
+FinalExperiment: posts the ante 12
+tristanmauricio: posts the ante 12
+Taurus57: posts the ante 12
+jsalinas96: posts small blind 50
+clasestravel: posts big blind 100
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9h 9d]
+2myflop: folds 
+FinalExperiment: folds 
+tristanmauricio: calls 100
+Taurus57: calls 100
+brdko494: folds 
+jsalinas96: raises 900 to 1000
+clasestravel: folds 
+tristanmauricio: folds 
+Taurus57: raises 2206 to 3206 and is all-in
+jsalinas96: calls 2206
+*** FLOP *** [7s Th 6h]
+*** TURN *** [7s Th 6h] [9s]
+*** RIVER *** [7s Th 6h 9s] [Ad]
+*** SHOW DOWN ***
+jsalinas96: shows [9h 9d] (three of a kind, Nines)
+Taurus57: shows [As Td] (two pair, Aces and Tens)
+jsalinas96 collected 6696 from pot
+jsalinas96 wins 11000 for eliminating Taurus57 and their own bounty increases by 11000 to 55000
+Taurus57 finished the tournament
+*** SUMMARY ***
+Total pot 6696 | Rake 0 
+Board [7s Th 6h 9s Ad]
+Seat 1: brdko494 (button) folded before Flop (didn't bet)
+Seat 3: jsalinas96 (small blind) showed [9h 9d] and won (6696) with three of a kind, Nines
+Seat 4: clasestravel (big blind) folded before Flop
+Seat 5: 2myflop folded before Flop (didn't bet)
+Seat 6: FinalExperiment folded before Flop (didn't bet)
+Seat 7: tristanmauricio folded before Flop
+Seat 8: Taurus57 showed [As Td] and lost with two pair, Aces and Tens
+
+
+
+PokerStars Hand #259400764138: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VI (50/100) - 2026/01/21 11:51:11 CET [2026/01/21 5:51:11 ET]
+Table '3966198430 5' 8-max Seat #3 is the button
+Seat 1: brdko494 (5128 in chips, 22000 bounty) 
+Seat 2: FlakeyPapa (5000 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (17317 in chips, 55000 bounty) 
+Seat 4: clasestravel (3043 in chips, 22000 bounty) 
+Seat 5: 2myflop (11885 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (3224 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (6358 in chips, 22000 bounty) 
+brdko494: posts the ante 12
+FlakeyPapa: posts the ante 12
+jsalinas96: posts the ante 12
+clasestravel: posts the ante 12
+2myflop: posts the ante 12
+FinalExperiment: posts the ante 12
+tristanmauricio: posts the ante 12
+clasestravel: posts small blind 50
+2myflop: posts big blind 100
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6c Kh]
+FinalExperiment: raises 100 to 200
+tristanmauricio: calls 200
+brdko494: folds 
+FlakeyPapa: folds 
+jsalinas96: folds 
+clasestravel: calls 150
+2myflop: calls 100
+*** FLOP *** [Js 7d 3h]
+clasestravel: bets 500
+2myflop: folds 
+FinalExperiment: calls 500
+tristanmauricio: calls 500
+*** TURN *** [Js 7d 3h] [2c]
+clasestravel: bets 400
+FinalExperiment: folds 
+tristanmauricio: folds 
+Uncalled bet (400) returned to clasestravel
+clasestravel collected 2384 from pot
+clasestravel: doesn't show hand 
+*** SUMMARY ***
+Total pot 2384 | Rake 0 
+Board [Js 7d 3h 2c]
+Seat 1: brdko494 folded before Flop (didn't bet)
+Seat 2: FlakeyPapa folded before Flop (didn't bet)
+Seat 3: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 4: clasestravel (small blind) collected (2384)
+Seat 5: 2myflop (big blind) folded on the Flop
+Seat 6: FinalExperiment folded on the Turn
+Seat 7: tristanmauricio folded on the Turn
+
+
+
+PokerStars Hand #259400769674: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VI (50/100) - 2026/01/21 11:52:09 CET [2026/01/21 5:52:09 ET]
+Table '3966198430 5' 8-max Seat #4 is the button
+Seat 1: brdko494 (5116 in chips, 22000 bounty) 
+Seat 2: FlakeyPapa (4988 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (17305 in chips, 55000 bounty) 
+Seat 4: clasestravel (4715 in chips, 22000 bounty) 
+Seat 5: 2myflop (11673 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (2512 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (5646 in chips, 22000 bounty) 
+Seat 8: kajacko (5000 in chips, 22000 bounty) 
+brdko494: posts the ante 12
+FlakeyPapa: posts the ante 12
+jsalinas96: posts the ante 12
+clasestravel: posts the ante 12
+2myflop: posts the ante 12
+FinalExperiment: posts the ante 12
+tristanmauricio: posts the ante 12
+kajacko: posts the ante 12
+2myflop: posts small blind 50
+FinalExperiment: posts big blind 100
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9s 7s]
+tristanmauricio: calls 100
+kajacko: folds 
+brdko494: calls 100
+FlakeyPapa: calls 100
+jsalinas96: calls 100
+clasestravel: folds 
+2myflop: calls 50
+FinalExperiment: checks 
+*** FLOP *** [5h 5d 3c]
+2myflop: bets 100
+FinalExperiment: folds 
+tristanmauricio: folds 
+brdko494: calls 100
+FlakeyPapa: folds 
+jsalinas96: folds 
+*** TURN *** [5h 5d 3c] [3s]
+2myflop: bets 100
+brdko494: folds 
+Uncalled bet (100) returned to 2myflop
+2myflop collected 896 from pot
+*** SUMMARY ***
+Total pot 896 | Rake 0 
+Board [5h 5d 3c 3s]
+Seat 1: brdko494 folded on the Turn
+Seat 2: FlakeyPapa folded on the Flop
+Seat 3: jsalinas96 folded on the Flop
+Seat 4: clasestravel (button) folded before Flop (didn't bet)
+Seat 5: 2myflop (small blind) collected (896)
+Seat 6: FinalExperiment (big blind) folded on the Flop
+Seat 7: tristanmauricio folded on the Flop
+Seat 8: kajacko folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259400773699: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VI (50/100) - 2026/01/21 11:52:50 CET [2026/01/21 5:52:50 ET]
+Table '3966198430 5' 8-max Seat #5 is the button
+Seat 1: brdko494 (4904 in chips, 22000 bounty) 
+Seat 2: FlakeyPapa (4876 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (17193 in chips, 55000 bounty) 
+Seat 4: clasestravel (4703 in chips, 22000 bounty) 
+Seat 5: 2myflop (12357 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (2400 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (5534 in chips, 22000 bounty) 
+Seat 8: kajacko (4988 in chips, 22000 bounty) 
+brdko494: posts the ante 12
+FlakeyPapa: posts the ante 12
+jsalinas96: posts the ante 12
+clasestravel: posts the ante 12
+2myflop: posts the ante 12
+FinalExperiment: posts the ante 12
+tristanmauricio: posts the ante 12
+kajacko: posts the ante 12
+FinalExperiment: posts small blind 50
+tristanmauricio: posts big blind 100
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qh Qd]
+kajacko: folds 
+brdko494: folds 
+FlakeyPapa: calls 100
+jsalinas96: calls 100
+clasestravel: calls 100
+2myflop: folds 
+FinalExperiment: raises 1100 to 1200
+tristanmauricio: folds 
+FlakeyPapa: folds 
+jsalinas96: raises 1100 to 2300
+clasestravel: folds 
+FinalExperiment: raises 88 to 2388 and is all-in
+jsalinas96: calls 88
+*** FLOP *** [Jh Js 5h]
+*** TURN *** [Jh Js 5h] [7d]
+*** RIVER *** [Jh Js 5h 7d] [9c]
+*** SHOW DOWN ***
+FinalExperiment: shows [Jd Jc] (four of a kind, Jacks)
+jsalinas96: shows [Qh Qd] (two pair, Queens and Jacks)
+FinalExperiment collected 5172 from pot
+*** SUMMARY ***
+Total pot 5172 | Rake 0 
+Board [Jh Js 5h 7d 9c]
+Seat 1: brdko494 folded before Flop (didn't bet)
+Seat 2: FlakeyPapa folded before Flop
+Seat 3: jsalinas96 showed [Qh Qd] and lost with two pair, Queens and Jacks
+Seat 4: clasestravel folded before Flop
+Seat 5: 2myflop (button) folded before Flop (didn't bet)
+Seat 6: FinalExperiment (small blind) showed [Jd Jc] and won (5172) with four of a kind, Jacks
+Seat 7: tristanmauricio (big blind) folded before Flop
+Seat 8: kajacko folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259400778424: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VI (50/100) - 2026/01/21 11:53:39 CET [2026/01/21 5:53:39 ET]
+Table '3966198430 5' 8-max Seat #6 is the button
+Seat 1: brdko494 (4892 in chips, 22000 bounty) 
+Seat 2: FlakeyPapa (4764 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (14793 in chips, 55000 bounty) 
+Seat 4: clasestravel (4591 in chips, 22000 bounty) 
+Seat 5: 2myflop (12345 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (5172 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (5422 in chips, 22000 bounty) is sitting out
+Seat 8: kajacko (4976 in chips, 22000 bounty) 
+brdko494: posts the ante 12
+FlakeyPapa: posts the ante 12
+jsalinas96: posts the ante 12
+clasestravel: posts the ante 12
+2myflop: posts the ante 12
+FinalExperiment: posts the ante 12
+tristanmauricio: posts the ante 12
+kajacko: posts the ante 12
+tristanmauricio: posts small blind 50
+kajacko: posts big blind 100
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ks 3h]
+brdko494: folds 
+FlakeyPapa: calls 100
+jsalinas96: calls 100
+clasestravel: calls 100
+2myflop: calls 100
+FinalExperiment: folds 
+tristanmauricio: folds 
+kajacko: checks 
+*** FLOP *** [6s 5c 2c]
+kajacko: checks 
+FlakeyPapa: checks 
+jsalinas96: checks 
+clasestravel: checks 
+2myflop: bets 100
+kajacko: calls 100
+FlakeyPapa: calls 100
+jsalinas96: folds 
+clasestravel: calls 100
+*** TURN *** [6s 5c 2c] [4c]
+kajacko: checks 
+FlakeyPapa: bets 1046
+clasestravel: calls 1046
+2myflop: folds 
+kajacko: calls 1046
+*** RIVER *** [6s 5c 2c 4c] [Ac]
+kajacko: checks 
+FlakeyPapa: bets 3506 and is all-in
+clasestravel: folds 
+kajacko: calls 3506
+*** SHOW DOWN ***
+FlakeyPapa: shows [8c 7d] (a flush, Ace high)
+kajacko: shows [Jc Ah] (a flush, Ace high - Jack higher)
+kajacko collected 11196 from pot
+kajacko wins 11000 for eliminating FlakeyPapa and their own bounty increases by 11000 to 33000
+FlakeyPapa finished the tournament
+*** SUMMARY ***
+Total pot 11196 | Rake 0 
+Board [6s 5c 2c 4c Ac]
+Seat 1: brdko494 folded before Flop (didn't bet)
+Seat 2: FlakeyPapa showed [8c 7d] and lost with a flush, Ace high
+Seat 3: jsalinas96 folded on the Flop
+Seat 4: clasestravel folded on the River
+Seat 5: 2myflop folded on the Turn
+Seat 6: FinalExperiment (button) folded before Flop (didn't bet)
+Seat 7: tristanmauricio (small blind) folded before Flop
+Seat 8: kajacko (big blind) showed [Jc Ah] and won (11196) with a flush, Ace high
+
+
+
+PokerStars Hand #259400785928: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VI (50/100) - 2026/01/21 11:54:55 CET [2026/01/21 5:54:55 ET]
+Table '3966198430 5' 8-max Seat #7 is the button
+Seat 1: brdko494 (4880 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (14681 in chips, 55000 bounty) 
+Seat 4: clasestravel (3333 in chips, 22000 bounty) 
+Seat 5: 2myflop (12133 in chips, 22000 bounty) 
+Seat 6: FinalExperiment (5160 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (5360 in chips, 22000 bounty) is sitting out
+Seat 8: kajacko (11408 in chips, 33000 bounty) 
+brdko494: posts the ante 12
+jsalinas96: posts the ante 12
+clasestravel: posts the ante 12
+2myflop: posts the ante 12
+FinalExperiment: posts the ante 12
+tristanmauricio: posts the ante 12
+kajacko: posts the ante 12
+kajacko: posts small blind 50
+brdko494: posts big blind 100
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Kh 9s]
+jsalinas96: calls 100
+clasestravel: calls 100
+2myflop: raises 200 to 300
+FinalExperiment: raises 4848 to 5148 and is all-in
+tristanmauricio: folds 
+kajacko: folds 
+brdko494: folds 
+jsalinas96: folds 
+clasestravel: folds 
+2myflop: calls 4848
+*** FLOP *** [9d 8d Ks]
+*** TURN *** [9d 8d Ks] [5s]
+*** RIVER *** [9d 8d Ks 5s] [6d]
+*** SHOW DOWN ***
+2myflop: shows [Jc Ad] (high card Ace)
+FinalExperiment: shows [As Th] (high card Ace - lower kicker)
+2myflop collected 10730 from pot
+2myflop wins 11000 for eliminating FinalExperiment and their own bounty increases by 11000 to 33000
+FinalExperiment finished the tournament
+*** SUMMARY ***
+Total pot 10730 | Rake 0 
+Board [9d 8d Ks 5s 6d]
+Seat 1: brdko494 (big blind) folded before Flop
+Seat 3: jsalinas96 folded before Flop
+Seat 4: clasestravel folded before Flop
+Seat 5: 2myflop showed [Jc Ad] and won (10730) with high card Ace
+Seat 6: FinalExperiment showed [As Th] and lost with high card Ace
+Seat 7: tristanmauricio (button) folded before Flop (didn't bet)
+Seat 8: kajacko (small blind) folded before Flop
+
+
+
+PokerStars Hand #259400817997: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VI (50/100) - 2026/01/21 12:01:27 CET [2026/01/21 6:01:27 ET]
+Table '3966198430 5' 8-max Seat #8 is the button
+Seat 1: brdko494 (4768 in chips, 22000 bounty) 
+Seat 2: FinalExperiment (5000 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (14569 in chips, 55000 bounty) 
+Seat 5: 2myflop (17703 in chips, 33000 bounty) 
+Seat 6: 24Swidog (5000 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (5348 in chips, 22000 bounty) 
+Seat 8: kajacko (11346 in chips, 33000 bounty) 
+brdko494: posts the ante 12
+FinalExperiment: posts the ante 12
+jsalinas96: posts the ante 12
+2myflop: posts the ante 12
+24Swidog: posts the ante 12
+tristanmauricio: posts the ante 12
+kajacko: posts the ante 12
+brdko494: posts small blind 50
+FinalExperiment: posts big blind 100
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2h Qs]
+jsalinas96: folds 
+2myflop has timed out while disconnected
+2myflop: folds 
+24Swidog: calls 100
+tristanmauricio: calls 100
+kajacko: calls 100
+brdko494: calls 50
+FinalExperiment: raises 4888 to 4988 and is all-in
+24Swidog: folds 
+tristanmauricio: folds 
+kajacko: folds 
+brdko494: folds 
+Uncalled bet (4888) returned to FinalExperiment
+FinalExperiment collected 584 from pot
+FinalExperiment: doesn't show hand 
+*** SUMMARY ***
+Total pot 584 | Rake 0 
+Seat 1: brdko494 (small blind) folded before Flop
+Seat 2: FinalExperiment (big blind) collected (584)
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 5: 2myflop folded before Flop (didn't bet)
+Seat 6: 24Swidog folded before Flop
+Seat 7: tristanmauricio folded before Flop
+Seat 8: kajacko (button) folded before Flop
+
+
+
+PokerStars Hand #259400823273: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VI (50/100) - 2026/01/21 12:02:21 CET [2026/01/21 6:02:21 ET]
+Table '3966198430 5' 8-max Seat #1 is the button
+Seat 1: brdko494 (4656 in chips, 22000 bounty) 
+Seat 2: FinalExperiment (5472 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (14557 in chips, 55000 bounty) 
+Seat 4: vasi 888688 (5000 in chips, 22000 bounty) 
+Seat 5: 2myflop (17691 in chips, 33000 bounty) is sitting out
+Seat 6: 24Swidog (4888 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (5236 in chips, 22000 bounty) 
+Seat 8: kajacko (11234 in chips, 33000 bounty) 
+brdko494: posts the ante 12
+FinalExperiment: posts the ante 12
+jsalinas96: posts the ante 12
+vasi 888688: posts the ante 12
+2myflop: posts the ante 12
+24Swidog: posts the ante 12
+tristanmauricio: posts the ante 12
+kajacko: posts the ante 12
+FinalExperiment: posts small blind 50
+jsalinas96: posts big blind 100
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2d 9s]
+vasi 888688: calls 100
+2myflop: folds 
+24Swidog: calls 100
+tristanmauricio: folds 
+kajacko: calls 100
+brdko494: calls 100
+FinalExperiment: raises 5360 to 5460 and is all-in
+jsalinas96: folds 
+vasi 888688: folds 
+24Swidog: folds 
+kajacko: folds 
+brdko494: calls 4544 and is all-in
+Uncalled bet (816) returned to FinalExperiment
+*** FLOP *** [6h 5h 4d]
+*** TURN *** [6h 5h 4d] [2c]
+*** RIVER *** [6h 5h 4d 2c] [7d]
+*** SHOW DOWN ***
+FinalExperiment: shows [8s 8d] (a straight, Four to Eight)
+brdko494: shows [8h Ac] (a straight, Four to Eight)
+FinalExperiment collected 4892 from pot
+brdko494 collected 4892 from pot
+*** SUMMARY ***
+Total pot 9784 | Rake 0 
+Board [6h 5h 4d 2c 7d]
+Seat 1: brdko494 (button) showed [8h Ac] and won (4892) with a straight, Four to Eight
+Seat 2: FinalExperiment (small blind) showed [8s 8d] and won (4892) with a straight, Four to Eight
+Seat 3: jsalinas96 (big blind) folded before Flop
+Seat 4: vasi 888688 folded before Flop
+Seat 5: 2myflop folded before Flop (didn't bet)
+Seat 6: 24Swidog folded before Flop
+Seat 7: tristanmauricio folded before Flop (didn't bet)
+Seat 8: kajacko folded before Flop
+
+
+
+PokerStars Hand #259400828210: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VI (50/100) - 2026/01/21 12:03:11 CET [2026/01/21 6:03:11 ET]
+Table '3966198430 5' 8-max Seat #2 is the button
+Seat 1: brdko494 (4892 in chips, 22000 bounty) 
+Seat 2: FinalExperiment (5708 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (14445 in chips, 55000 bounty) 
+Seat 4: vasi 888688 (4888 in chips, 22000 bounty) 
+Seat 5: 2myflop (17679 in chips, 33000 bounty) is sitting out
+Seat 6: 24Swidog (4776 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (5224 in chips, 22000 bounty) 
+Seat 8: kajacko (11122 in chips, 33000 bounty) 
+brdko494: posts the ante 12
+FinalExperiment: posts the ante 12
+jsalinas96: posts the ante 12
+vasi 888688: posts the ante 12
+2myflop: posts the ante 12
+24Swidog: posts the ante 12
+tristanmauricio: posts the ante 12
+kajacko: posts the ante 12
+jsalinas96: posts small blind 50
+vasi 888688: posts big blind 100
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6s 8s]
+2myflop: folds 
+24Swidog: calls 100
+tristanmauricio: calls 100
+kajacko: folds 
+brdko494: folds 
+FinalExperiment: calls 100
+jsalinas96: calls 50
+vasi 888688: checks 
+*** FLOP *** [7c Qh Jc]
+jsalinas96: checks 
+vasi 888688: checks 
+24Swidog: checks 
+tristanmauricio: checks 
+FinalExperiment: bets 5596 and is all-in
+jsalinas96: folds 
+vasi 888688: calls 4776 and is all-in
+24Swidog: calls 4664 and is all-in
+tristanmauricio: folds 
+Uncalled bet (820) returned to FinalExperiment
+*** TURN *** [7c Qh Jc] [Tc]
+*** RIVER *** [7c Qh Jc Tc] [9h]
+*** SHOW DOWN ***
+vasi 888688: shows [3d Jh] (a pair of Jacks)
+FinalExperiment: shows [9s Th] (two pair, Tens and Nines)
+FinalExperiment collected 224 from side pot
+24Swidog: shows [5h Qc] (a pair of Queens)
+FinalExperiment collected 14588 from main pot
+FinalExperiment wins 11000 for eliminating vasi 888688 and their own bounty increases by 11000 to 33000
+FinalExperiment wins 11000 for eliminating 24Swidog and their own bounty increases by 11000 to 44000
+vasi 888688 finished the tournament
+24Swidog finished the tournament
+*** SUMMARY ***
+Total pot 14812 Main pot 14588. Side pot 224. | Rake 0 
+Board [7c Qh Jc Tc 9h]
+Seat 1: brdko494 folded before Flop (didn't bet)
+Seat 2: FinalExperiment (button) showed [9s Th] and won (14812) with two pair, Tens and Nines
+Seat 3: jsalinas96 (small blind) folded on the Flop
+Seat 4: vasi 888688 (big blind) showed [3d Jh] and lost with a pair of Jacks
+Seat 5: 2myflop folded before Flop (didn't bet)
+Seat 6: 24Swidog showed [5h Qc] and lost with a pair of Queens
+Seat 7: tristanmauricio folded on the Flop
+Seat 8: kajacko folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259400834710: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VII (60/120) - 2026/01/21 12:04:16 CET [2026/01/21 6:04:16 ET]
+Table '3966198430 5' 8-max Seat #3 is the button
+Seat 1: brdko494 (4880 in chips, 22000 bounty) 
+Seat 2: FinalExperiment (15632 in chips, 44000 bounty) 
+Seat 3: jsalinas96 (14333 in chips, 55000 bounty) 
+Seat 5: 2myflop (17667 in chips, 33000 bounty) is sitting out
+Seat 7: tristanmauricio (5112 in chips, 22000 bounty) 
+Seat 8: kajacko (11110 in chips, 33000 bounty) 
+brdko494: posts the ante 15
+FinalExperiment: posts the ante 15
+jsalinas96: posts the ante 15
+2myflop: posts the ante 15
+tristanmauricio: posts the ante 15
+kajacko: posts the ante 15
+2myflop: posts small blind 60
+tristanmauricio: posts big blind 120
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2c 6s]
+angesdemons8930 is disconnected 
+kajacko: calls 120
+brdko494: folds 
+FinalExperiment: calls 120
+jsalinas96: folds 
+2myflop: folds 
+tristanmauricio: checks 
+*** FLOP *** [Th Qc 3s]
+tristanmauricio: checks 
+kajacko: checks 
+FinalExperiment: bets 510
+tristanmauricio: calls 510
+kajacko: folds 
+*** TURN *** [Th Qc 3s] [Jd]
+tristanmauricio: checks 
+FinalExperiment: bets 480
+tristanmauricio: raises 3987 to 4467 and is all-in
+FinalExperiment: folds 
+Uncalled bet (3987) returned to tristanmauricio
+tristanmauricio collected 2490 from pot
+tristanmauricio: doesn't show hand 
+*** SUMMARY ***
+Total pot 2490 | Rake 0 
+Board [Th Qc 3s Jd]
+Seat 1: brdko494 folded before Flop (didn't bet)
+Seat 2: FinalExperiment folded on the Turn
+Seat 3: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 5: 2myflop (small blind) folded before Flop
+Seat 7: tristanmauricio (big blind) collected (2490)
+Seat 8: kajacko folded on the Flop
+
+
+
+PokerStars Hand #259400839514: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VII (60/120) - 2026/01/21 12:05:03 CET [2026/01/21 6:05:03 ET]
+Table '3966198430 5' 8-max Seat #5 is the button
+Seat 1: brdko494 (4865 in chips, 22000 bounty) 
+Seat 2: FinalExperiment (14507 in chips, 44000 bounty) 
+Seat 3: jsalinas96 (14318 in chips, 55000 bounty) 
+Seat 4: angesdemons8930 (10102 in chips, 44000 bounty) 
+Seat 5: 2myflop (17592 in chips, 33000 bounty) is sitting out
+Seat 6: danirrona17 (5000 in chips) out of hand (moved from another table into small blind)
+Seat 7: tristanmauricio (6477 in chips, 22000 bounty) 
+Seat 8: kajacko (10975 in chips, 33000 bounty) 
+danirrona17 will be allowed to play after the button
+brdko494: posts the ante 15
+FinalExperiment: posts the ante 15
+jsalinas96: posts the ante 15
+angesdemons8930: posts the ante 15
+2myflop: posts the ante 15
+tristanmauricio: posts the ante 15
+kajacko: posts the ante 15
+tristanmauricio: posts small blind 60
+kajacko: posts big blind 120
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3c 4s]
+brdko494: folds 
+FinalExperiment: folds 
+jsalinas96: folds 
+angesdemons8930: calls 120
+2myflop: folds 
+tristanmauricio: folds 
+kajacko: raises 240 to 360
+angesdemons8930: calls 240
+*** FLOP *** [5h Qs 9s]
+kajacko: bets 443
+angesdemons8930: calls 443
+*** TURN *** [5h Qs 9s] [Ts]
+kajacko: bets 886
+angesdemons8930: calls 886
+*** RIVER *** [5h Qs 9s Ts] [8h]
+kajacko: bets 1772
+angesdemons8930: calls 1772
+*** SHOW DOWN ***
+kajacko: shows [Ac Ks] (high card Ace)
+angesdemons8930: shows [9c 7s] (a pair of Nines)
+angesdemons8930 collected 7087 from pot
+*** SUMMARY ***
+Total pot 7087 | Rake 0 
+Board [5h Qs 9s Ts 8h]
+Seat 1: brdko494 folded before Flop (didn't bet)
+Seat 2: FinalExperiment folded before Flop (didn't bet)
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 4: angesdemons8930 showed [9c 7s] and won (7087) with a pair of Nines
+Seat 5: 2myflop (button) folded before Flop (didn't bet)
+Seat 7: tristanmauricio (small blind) folded before Flop
+Seat 8: kajacko (big blind) showed [Ac Ks] and lost with high card Ace
+
+
+
+PokerStars Hand #259400843055: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VII (60/120) - 2026/01/21 12:05:38 CET [2026/01/21 6:05:38 ET]
+Table '3966198430 5' 8-max Seat #7 is the button
+Seat 1: brdko494 (4850 in chips, 22000 bounty) 
+Seat 2: FinalExperiment (14492 in chips, 44000 bounty) 
+Seat 3: jsalinas96 (14303 in chips, 55000 bounty) 
+Seat 4: angesdemons8930 (13713 in chips, 44000 bounty) 
+Seat 5: 2myflop (17577 in chips, 33000 bounty) is sitting out
+Seat 6: danirrona17 (5000 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (6402 in chips, 22000 bounty) 
+Seat 8: kajacko (7499 in chips, 33000 bounty) 
+brdko494: posts the ante 15
+FinalExperiment: posts the ante 15
+jsalinas96: posts the ante 15
+angesdemons8930: posts the ante 15
+2myflop: posts the ante 15
+danirrona17: posts the ante 15
+tristanmauricio: posts the ante 15
+kajacko: posts the ante 15
+kajacko: posts small blind 60
+brdko494: posts big blind 120
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Jc Jh]
+FinalExperiment: raises 120 to 240
+jsalinas96: calls 240
+angesdemons8930: raises 1020 to 1260
+2myflop: folds 
+danirrona17: folds 
+tristanmauricio: folds 
+kajacko: folds 
+brdko494: folds 
+FinalExperiment: calls 1020
+jsalinas96: calls 1020
+*** FLOP *** [7c 6s 4d]
+FinalExperiment: bets 13217 and is all-in
+jsalinas96: folds 
+angesdemons8930: calls 12438 and is all-in
+Uncalled bet (779) returned to FinalExperiment
+*** TURN *** [7c 6s 4d] [5h]
+*** RIVER *** [7c 6s 4d 5h] [9d]
+*** SHOW DOWN ***
+FinalExperiment: shows [4h Kh] (a pair of Fours)
+angesdemons8930: shows [Qh Qs] (a pair of Queens)
+angesdemons8930 collected 28956 from pot
+*** SUMMARY ***
+Total pot 28956 | Rake 0 
+Board [7c 6s 4d 5h 9d]
+Seat 1: brdko494 (big blind) folded before Flop
+Seat 2: FinalExperiment showed [4h Kh] and lost with a pair of Fours
+Seat 3: jsalinas96 folded on the Flop
+Seat 4: angesdemons8930 showed [Qh Qs] and won (28956) with a pair of Queens
+Seat 5: 2myflop folded before Flop (didn't bet)
+Seat 6: danirrona17 folded before Flop (didn't bet)
+Seat 7: tristanmauricio (button) folded before Flop (didn't bet)
+Seat 8: kajacko (small blind) folded before Flop
+
+
+
+PokerStars Hand #259400848334: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VII (60/120) - 2026/01/21 12:06:30 CET [2026/01/21 6:06:30 ET]
+Table '3966198430 5' 8-max Seat #8 is the button
+Seat 1: brdko494 (4715 in chips, 22000 bounty) 
+Seat 2: FinalExperiment (779 in chips, 44000 bounty) 
+Seat 3: jsalinas96 (13028 in chips, 55000 bounty) 
+Seat 4: angesdemons8930 (28956 in chips, 44000 bounty) 
+Seat 5: 2myflop (17562 in chips, 33000 bounty) is sitting out
+Seat 6: danirrona17 (4985 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (6387 in chips, 22000 bounty) 
+Seat 8: kajacko (7424 in chips, 33000 bounty) 
+brdko494: posts the ante 15
+FinalExperiment: posts the ante 15
+jsalinas96: posts the ante 15
+angesdemons8930: posts the ante 15
+2myflop: posts the ante 15
+danirrona17: posts the ante 15
+tristanmauricio: posts the ante 15
+kajacko: posts the ante 15
+brdko494: posts small blind 60
+FinalExperiment: posts big blind 120
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2d 6h]
+jsalinas96: calls 120
+angesdemons8930: raises 120 to 240
+2myflop: folds 
+danirrona17: folds 
+tristanmauricio: folds 
+kajacko: calls 240
+brdko494: folds 
+FinalExperiment: raises 524 to 764 and is all-in
+jsalinas96: folds 
+angesdemons8930: calls 524
+kajacko: raises 6645 to 7409 and is all-in
+angesdemons8930: folds 
+Uncalled bet (6645) returned to kajacko
+*** FLOP *** [Js 8s 7d]
+*** TURN *** [Js 8s 7d] [Th]
+*** RIVER *** [Js 8s 7d Th] [Ah]
+*** SHOW DOWN ***
+FinalExperiment: shows [Tc 5s] (a pair of Tens)
+kajacko: shows [As Ks] (a pair of Aces)
+kajacko collected 2592 from pot
+kajacko wins 22000 for eliminating FinalExperiment and their own bounty increases by 22000 to 55000
+FinalExperiment finished the tournament
+*** SUMMARY ***
+Total pot 2592 | Rake 0 
+Board [Js 8s 7d Th Ah]
+Seat 1: brdko494 (small blind) folded before Flop
+Seat 2: FinalExperiment (big blind) showed [Tc 5s] and lost with a pair of Tens
+Seat 3: jsalinas96 folded before Flop
+Seat 4: angesdemons8930 folded before Flop
+Seat 5: 2myflop folded before Flop (didn't bet)
+Seat 6: danirrona17 folded before Flop (didn't bet)
+Seat 7: tristanmauricio folded before Flop (didn't bet)
+Seat 8: kajacko (button) showed [As Ks] and won (2592) with a pair of Aces
+
+
+
+PokerStars Hand #259400852330: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VII (60/120) - 2026/01/21 12:07:09 CET [2026/01/21 6:07:09 ET]
+Table '3966198430 5' 8-max Seat #1 is the button
+Seat 1: brdko494 (4640 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (12893 in chips, 55000 bounty) 
+Seat 4: angesdemons8930 (28177 in chips, 44000 bounty) 
+Seat 5: 2myflop (17547 in chips, 33000 bounty) is sitting out
+Seat 6: danirrona17 (4970 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (6372 in chips, 22000 bounty) 
+Seat 8: kajacko (9237 in chips, 55000 bounty) 
+brdko494: posts the ante 15
+jsalinas96: posts the ante 15
+angesdemons8930: posts the ante 15
+2myflop: posts the ante 15
+danirrona17: posts the ante 15
+tristanmauricio: posts the ante 15
+kajacko: posts the ante 15
+jsalinas96: posts small blind 60
+angesdemons8930: posts big blind 120
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3d 7s]
+2myflop: folds 
+danirrona17: folds 
+tristanmauricio: calls 120
+kajacko: calls 120
+brdko494: calls 120
+jsalinas96: folds 
+angesdemons8930: checks 
+*** FLOP *** [Kc 4c Jc]
+angesdemons8930: checks 
+tristanmauricio: checks 
+kajacko: checks 
+brdko494: bets 240
+angesdemons8930: calls 240
+tristanmauricio: raises 5997 to 6237 and is all-in
+kajacko: folds 
+brdko494: folds 
+angesdemons8930: folds 
+Uncalled bet (5997) returned to tristanmauricio
+tristanmauricio collected 1365 from pot
+tristanmauricio: doesn't show hand 
+*** SUMMARY ***
+Total pot 1365 | Rake 0 
+Board [Kc 4c Jc]
+Seat 1: brdko494 (button) folded on the Flop
+Seat 3: jsalinas96 (small blind) folded before Flop
+Seat 4: angesdemons8930 (big blind) folded on the Flop
+Seat 5: 2myflop folded before Flop (didn't bet)
+Seat 6: danirrona17 folded before Flop (didn't bet)
+Seat 7: tristanmauricio collected (1365)
+Seat 8: kajacko folded on the Flop
+
+
+
+PokerStars Hand #259400857080: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VII (60/120) - 2026/01/21 12:07:56 CET [2026/01/21 6:07:56 ET]
+Table '3966198430 5' 8-max Seat #3 is the button
+Seat 1: brdko494 (4265 in chips, 22000 bounty) 
+Seat 2: tomaai928282 (5000 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (12818 in chips, 55000 bounty) 
+Seat 4: angesdemons8930 (27802 in chips, 44000 bounty) 
+Seat 5: 2myflop (17532 in chips, 33000 bounty) is sitting out
+Seat 6: danirrona17 (4955 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (7362 in chips, 22000 bounty) 
+Seat 8: kajacko (9102 in chips, 55000 bounty) 
+brdko494: posts the ante 15
+tomaai928282: posts the ante 15
+jsalinas96: posts the ante 15
+angesdemons8930: posts the ante 15
+2myflop: posts the ante 15
+danirrona17: posts the ante 15
+tristanmauricio: posts the ante 15
+kajacko: posts the ante 15
+angesdemons8930: posts small blind 60
+2myflop: posts big blind 120
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Js 8s]
+danirrona17: calls 120
+tristanmauricio: folds 
+kajacko: calls 120
+brdko494: folds 
+tomaai928282: raises 4865 to 4985 and is all-in
+jsalinas96: folds 
+angesdemons8930: folds 
+2myflop: folds 
+danirrona17: folds 
+kajacko: calls 4865
+*** FLOP *** [6c Jh 2s]
+*** TURN *** [6c Jh 2s] [9c]
+*** RIVER *** [6c Jh 2s 9c] [Kh]
+*** SHOW DOWN ***
+kajacko: shows [Kd Qs] (a pair of Kings)
+tomaai928282: shows [4d 3s] (high card King)
+kajacko collected 10390 from pot
+kajacko wins 11000 for eliminating tomaai928282 and their own bounty increases by 11000 to 66000
+tomaai928282 finished the tournament
+*** SUMMARY ***
+Total pot 10390 | Rake 0 
+Board [6c Jh 2s 9c Kh]
+Seat 1: brdko494 folded before Flop (didn't bet)
+Seat 2: tomaai928282 showed [4d 3s] and lost with high card King
+Seat 3: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 4: angesdemons8930 (small blind) folded before Flop
+Seat 5: 2myflop (big blind) folded before Flop
+Seat 6: danirrona17 folded before Flop
+Seat 7: tristanmauricio folded before Flop (didn't bet)
+Seat 8: kajacko showed [Kd Qs] and won (10390) with a pair of Kings
+
+
+
+PokerStars Hand #259400860332: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VII (60/120) - 2026/01/21 12:08:27 CET [2026/01/21 6:08:27 ET]
+Table '3966198430 5' 8-max Seat #4 is the button
+Seat 1: brdko494 (4250 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (12803 in chips, 55000 bounty) 
+Seat 4: angesdemons8930 (27727 in chips, 44000 bounty) 
+Seat 5: 2myflop (17397 in chips, 33000 bounty) is sitting out
+Seat 6: danirrona17 (4820 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (7347 in chips, 22000 bounty) 
+Seat 8: kajacko (14492 in chips, 66000 bounty) 
+brdko494: posts the ante 15
+jsalinas96: posts the ante 15
+angesdemons8930: posts the ante 15
+2myflop: posts the ante 15
+danirrona17: posts the ante 15
+tristanmauricio: posts the ante 15
+kajacko: posts the ante 15
+2myflop: posts small blind 60
+danirrona17: posts big blind 120
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Jc 3d]
+tristanmauricio: calls 120
+kajacko: folds 
+brdko494: calls 120
+jsalinas96: folds 
+angesdemons8930: folds 
+2myflop: folds 
+danirrona17: checks 
+*** FLOP *** [2d Qc 8c]
+danirrona17: checks 
+tristanmauricio: bets 120
+brdko494: calls 120
+danirrona17: folds 
+*** TURN *** [2d Qc 8c] [2h]
+tristanmauricio: bets 240
+brdko494: calls 240
+*** RIVER *** [2d Qc 8c 2h] [Tc]
+tristanmauricio: bets 240
+brdko494: calls 240
+*** SHOW DOWN ***
+tristanmauricio: shows [Td Qh] (two pair, Queens and Tens)
+brdko494: shows [Js 9d] (a straight, Eight to Queen)
+brdko494 collected 1725 from pot
+*** SUMMARY ***
+Total pot 1725 | Rake 0 
+Board [2d Qc 8c 2h Tc]
+Seat 1: brdko494 showed [Js 9d] and won (1725) with a straight, Eight to Queen
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 4: angesdemons8930 (button) folded before Flop (didn't bet)
+Seat 5: 2myflop (small blind) folded before Flop
+Seat 6: danirrona17 (big blind) folded on the Flop
+Seat 7: tristanmauricio showed [Td Qh] and lost with two pair, Queens and Tens
+Seat 8: kajacko folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259400865494: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VII (60/120) - 2026/01/21 12:09:17 CET [2026/01/21 6:09:17 ET]
+Table '3966198430 5' 8-max Seat #5 is the button
+Seat 1: brdko494 (5240 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (12788 in chips, 55000 bounty) 
+Seat 4: angesdemons8930 (27712 in chips, 44000 bounty) 
+Seat 5: 2myflop (17322 in chips, 33000 bounty) is sitting out
+Seat 6: danirrona17 (4685 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (6612 in chips, 22000 bounty) 
+Seat 8: kajacko (14477 in chips, 66000 bounty) 
+brdko494: posts the ante 15
+jsalinas96: posts the ante 15
+angesdemons8930: posts the ante 15
+2myflop: posts the ante 15
+danirrona17: posts the ante 15
+tristanmauricio: posts the ante 15
+kajacko: posts the ante 15
+danirrona17: posts small blind 60
+tristanmauricio: posts big blind 120
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9h Kc]
+kajacko: folds 
+brdko494: calls 120
+jsalinas96: calls 120
+angesdemons8930: folds 
+2myflop: folds 
+danirrona17: calls 60
+tristanmauricio: checks 
+*** FLOP *** [8s 7s Ac]
+danirrona17: checks 
+tristanmauricio: checks 
+brdko494: bets 240
+jsalinas96: folds 
+danirrona17: calls 240
+tristanmauricio: folds 
+*** TURN *** [8s 7s Ac] [Jd]
+danirrona17: checks 
+brdko494: bets 600
+danirrona17: folds 
+Uncalled bet (600) returned to brdko494
+brdko494 collected 1065 from pot
+brdko494: doesn't show hand 
+*** SUMMARY ***
+Total pot 1065 | Rake 0 
+Board [8s 7s Ac Jd]
+Seat 1: brdko494 collected (1065)
+Seat 3: jsalinas96 folded on the Flop
+Seat 4: angesdemons8930 folded before Flop (didn't bet)
+Seat 5: 2myflop (button) folded before Flop (didn't bet)
+Seat 6: danirrona17 (small blind) folded on the Turn
+Seat 7: tristanmauricio (big blind) folded on the Flop
+Seat 8: kajacko folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259400870053: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VII (60/120) - 2026/01/21 12:10:01 CET [2026/01/21 6:10:01 ET]
+Table '3966198430 5' 8-max Seat #6 is the button
+Seat 1: brdko494 (5930 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (12653 in chips, 55000 bounty) 
+Seat 4: angesdemons8930 (27697 in chips, 44000 bounty) 
+Seat 5: 2myflop (17307 in chips, 33000 bounty) is sitting out
+Seat 6: danirrona17 (4310 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (6477 in chips, 22000 bounty) 
+Seat 8: kajacko (14462 in chips, 66000 bounty) 
+brdko494: posts the ante 15
+jsalinas96: posts the ante 15
+angesdemons8930: posts the ante 15
+2myflop: posts the ante 15
+danirrona17: posts the ante 15
+tristanmauricio: posts the ante 15
+kajacko: posts the ante 15
+tristanmauricio: posts small blind 60
+kajacko: posts big blind 120
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ah 3s]
+brdko494: calls 120
+jsalinas96: calls 120
+angesdemons8930: folds 
+2myflop: folds 
+danirrona17: raises 4175 to 4295 and is all-in
+tristanmauricio: folds 
+kajacko: folds 
+brdko494: folds 
+jsalinas96: calls 4175
+*** FLOP *** [Qc 7h 7d]
+*** TURN *** [Qc 7h 7d] [Jh]
+*** RIVER *** [Qc 7h 7d Jh] [2h]
+*** SHOW DOWN ***
+jsalinas96: shows [Ah 3s] (a pair of Sevens)
+danirrona17: shows [Qd Qh] (a full house, Queens full of Sevens)
+danirrona17 collected 8995 from pot
+*** SUMMARY ***
+Total pot 8995 | Rake 0 
+Board [Qc 7h 7d Jh 2h]
+Seat 1: brdko494 folded before Flop
+Seat 3: jsalinas96 showed [Ah 3s] and lost with a pair of Sevens
+Seat 4: angesdemons8930 folded before Flop (didn't bet)
+Seat 5: 2myflop folded before Flop (didn't bet)
+Seat 6: danirrona17 (button) showed [Qd Qh] and won (8995) with a full house, Queens full of Sevens
+Seat 7: tristanmauricio (small blind) folded before Flop
+Seat 8: kajacko (big blind) folded before Flop
+
+
+
+PokerStars Hand #259400877085: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VIII (75/150) - 2026/01/21 12:11:09 CET [2026/01/21 6:11:09 ET]
+Table '3966198430 5' 8-max Seat #7 is the button
+Seat 1: brdko494 (5795 in chips, 22000 bounty) 
+Seat 2: pastele19 (5000 in chips, 22000 bounty) 
+Seat 3: jsalinas96 (8343 in chips, 55000 bounty) 
+Seat 4: angesdemons8930 (27682 in chips, 44000 bounty) 
+Seat 5: 2myflop (17292 in chips, 33000 bounty) is sitting out
+Seat 6: danirrona17 (8995 in chips, 22000 bounty) 
+Seat 7: tristanmauricio (6402 in chips, 22000 bounty) 
+Seat 8: kajacko (14327 in chips, 66000 bounty) 
+brdko494: posts the ante 20
+pastele19: posts the ante 20
+jsalinas96: posts the ante 20
+angesdemons8930: posts the ante 20
+2myflop: posts the ante 20
+danirrona17: posts the ante 20
+tristanmauricio: posts the ante 20
+kajacko: posts the ante 20
+kajacko: posts small blind 75
+brdko494: posts big blind 150
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9h Qc]
+pastele19: calls 150
+jsalinas96: folds 
+angesdemons8930: calls 150
+2myflop: folds 
+danirrona17: calls 150
+tristanmauricio: calls 150
+kajacko: calls 75
+brdko494: checks 
+*** FLOP *** [3c Ah 8c]
+kajacko: checks 
+brdko494: checks 
+pastele19: bets 150
+angesdemons8930: folds 
+danirrona17: calls 150
+tristanmauricio: folds 
+kajacko: folds 
+brdko494: calls 150
+*** TURN *** [3c Ah 8c] [7c]
+brdko494: checks 
+pastele19: bets 150
+danirrona17: calls 150
+brdko494: calls 150
+*** RIVER *** [3c Ah 8c 7c] [7h]
+brdko494: checks 
+pastele19: bets 980
+danirrona17: folds 
+brdko494: folds 
+Uncalled bet (980) returned to pastele19
+pastele19 collected 1960 from pot
+*** SUMMARY ***
+Total pot 1960 | Rake 0 
+Board [3c Ah 8c 7c 7h]
+Seat 1: brdko494 (big blind) folded on the River
+Seat 2: pastele19 collected (1960)
+Seat 3: jsalinas96 folded before Flop (didn't bet)
+Seat 4: angesdemons8930 folded on the Flop
+Seat 5: 2myflop folded before Flop (didn't bet)
+Seat 6: danirrona17 folded on the River
+Seat 7: tristanmauricio (button) folded on the Flop
+Seat 8: kajacko (small blind) folded on the Flop
+
+
+
+PokerStars Hand #259400888025: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VIII (75/150) - 2026/01/21 12:12:54 CET [2026/01/21 6:12:54 ET]
+Table '3966198430 22' 8-max Seat #2 is the button
+Seat 1: vinnyvinyard (10669 in chips, 22000 bounty) 
+Seat 2: GeneralJackMac (5875 in chips, 22000 bounty) 
+Seat 3: xxRa_76_CHxx (3188 in chips, 22000 bounty) is sitting out
+Seat 4: PrimeLive5 (10283 in chips, 22000 bounty) 
+Seat 5: Garden2017 (7921 in chips, 22000 bounty) 
+Seat 6: jsalinas96 (8323 in chips, 55000 bounty) 
+Seat 7: biskydive (4980 in chips, 22000 bounty) 
+vinnyvinyard: posts the ante 20
+GeneralJackMac: posts the ante 20
+xxRa_76_CHxx: posts the ante 20
+PrimeLive5: posts the ante 20
+Garden2017: posts the ante 20
+jsalinas96: posts the ante 20
+biskydive: posts the ante 20
+xxRa_76_CHxx: posts small blind 75
+PrimeLive5: posts big blind 150
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ts Qd]
+Garden2017: folds 
+jsalinas96: calls 150
+biskydive: calls 150
+vinnyvinyard: raises 525 to 675
+GeneralJackMac: raises 5180 to 5855 and is all-in
+xxRa_76_CHxx: folds 
+PrimeLive5: folds 
+jsalinas96: folds 
+biskydive: folds 
+vinnyvinyard: folds 
+Uncalled bet (5180) returned to GeneralJackMac
+GeneralJackMac collected 2015 from pot
+GeneralJackMac: doesn't show hand 
+*** SUMMARY ***
+Total pot 2015 | Rake 0 
+Seat 1: vinnyvinyard folded before Flop
+Seat 2: GeneralJackMac (button) collected (2015)
+Seat 3: xxRa_76_CHxx (small blind) folded before Flop
+Seat 4: PrimeLive5 (big blind) folded before Flop
+Seat 5: Garden2017 folded before Flop (didn't bet)
+Seat 6: jsalinas96 folded before Flop
+Seat 7: biskydive folded before Flop
+
+
+
+PokerStars Hand #259400891526: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VIII (75/150) - 2026/01/21 12:13:28 CET [2026/01/21 6:13:28 ET]
+Table '3966198430 22' 8-max Seat #3 is the button
+Seat 1: vinnyvinyard (9974 in chips, 22000 bounty) 
+Seat 2: GeneralJackMac (7195 in chips, 22000 bounty) 
+Seat 3: xxRa_76_CHxx (3093 in chips, 22000 bounty) is sitting out
+Seat 4: PrimeLive5 (10113 in chips, 22000 bounty) 
+Seat 5: Garden2017 (7901 in chips, 22000 bounty) 
+Seat 6: jsalinas96 (8153 in chips, 55000 bounty) 
+Seat 7: biskydive (4810 in chips, 22000 bounty) 
+vinnyvinyard: posts the ante 20
+GeneralJackMac: posts the ante 20
+xxRa_76_CHxx: posts the ante 20
+PrimeLive5: posts the ante 20
+Garden2017: posts the ante 20
+jsalinas96: posts the ante 20
+biskydive: posts the ante 20
+PrimeLive5: posts small blind 75
+Garden2017: posts big blind 150
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8s 9h]
+jsalinas96: folds 
+biskydive: folds 
+vinnyvinyard: folds 
+GeneralJackMac: calls 150
+xxRa_76_CHxx: folds 
+PrimeLive5: calls 75
+Garden2017: raises 1350 to 1500
+GeneralJackMac: folds 
+PrimeLive5: folds 
+Uncalled bet (1350) returned to Garden2017
+Garden2017 collected 590 from pot
+Garden2017: doesn't show hand 
+*** SUMMARY ***
+Total pot 590 | Rake 0 
+Seat 1: vinnyvinyard folded before Flop (didn't bet)
+Seat 2: GeneralJackMac folded before Flop
+Seat 3: xxRa_76_CHxx (button) folded before Flop (didn't bet)
+Seat 4: PrimeLive5 (small blind) folded before Flop
+Seat 5: Garden2017 (big blind) collected (590)
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: biskydive folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259400894360: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VIII (75/150) - 2026/01/21 12:13:56 CET [2026/01/21 6:13:56 ET]
+Table '3966198430 22' 8-max Seat #4 is the button
+Seat 1: vinnyvinyard (9954 in chips, 22000 bounty) 
+Seat 2: GeneralJackMac (7025 in chips, 22000 bounty) 
+Seat 3: xxRa_76_CHxx (3073 in chips, 22000 bounty) is sitting out
+Seat 4: PrimeLive5 (9943 in chips, 22000 bounty) 
+Seat 5: Garden2017 (8321 in chips, 22000 bounty) 
+Seat 6: jsalinas96 (8133 in chips, 55000 bounty) 
+Seat 7: biskydive (4790 in chips, 22000 bounty) 
+vinnyvinyard: posts the ante 20
+GeneralJackMac: posts the ante 20
+xxRa_76_CHxx: posts the ante 20
+PrimeLive5: posts the ante 20
+Garden2017: posts the ante 20
+jsalinas96: posts the ante 20
+biskydive: posts the ante 20
+Garden2017: posts small blind 75
+jsalinas96: posts big blind 150
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4d 9s]
+biskydive: calls 150
+vinnyvinyard: folds 
+GeneralJackMac: calls 150
+xxRa_76_CHxx: folds 
+PrimeLive5: folds 
+Garden2017: calls 75
+jsalinas96: checks 
+*** FLOP *** [Ks Qs 3c]
+Garden2017: checks 
+jsalinas96: checks 
+biskydive: bets 150
+GeneralJackMac: folds 
+Garden2017: calls 150
+jsalinas96: folds 
+*** TURN *** [Ks Qs 3c] [8d]
+Garden2017: checks 
+biskydive: bets 150
+Garden2017: calls 150
+*** RIVER *** [Ks Qs 3c 8d] [Jc]
+Garden2017: checks 
+biskydive: checks 
+*** SHOW DOWN ***
+Garden2017: shows [3h 6h] (a pair of Threes)
+biskydive: mucks hand 
+Garden2017 collected 1340 from pot
+*** SUMMARY ***
+Total pot 1340 | Rake 0 
+Board [Ks Qs 3c 8d Jc]
+Seat 1: vinnyvinyard folded before Flop (didn't bet)
+Seat 2: GeneralJackMac folded on the Flop
+Seat 3: xxRa_76_CHxx folded before Flop (didn't bet)
+Seat 4: PrimeLive5 (button) folded before Flop (didn't bet)
+Seat 5: Garden2017 (small blind) showed [3h 6h] and won (1340) with a pair of Threes
+Seat 6: jsalinas96 (big blind) folded on the Flop
+Seat 7: biskydive mucked [2s As]
+
+
+
+PokerStars Hand #259400898099: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VIII (75/150) - 2026/01/21 12:14:32 CET [2026/01/21 6:14:32 ET]
+Table '3966198430 22' 8-max Seat #5 is the button
+Seat 1: vinnyvinyard (9934 in chips, 22000 bounty) 
+Seat 2: GeneralJackMac (6855 in chips, 22000 bounty) 
+Seat 3: xxRa_76_CHxx (3053 in chips, 22000 bounty) is sitting out
+Seat 4: PrimeLive5 (9923 in chips, 22000 bounty) 
+Seat 5: Garden2017 (9191 in chips, 22000 bounty) 
+Seat 6: jsalinas96 (7963 in chips, 55000 bounty) 
+Seat 7: biskydive (4320 in chips, 22000 bounty) 
+vinnyvinyard: posts the ante 20
+GeneralJackMac: posts the ante 20
+xxRa_76_CHxx: posts the ante 20
+PrimeLive5: posts the ante 20
+Garden2017: posts the ante 20
+jsalinas96: posts the ante 20
+biskydive: posts the ante 20
+jsalinas96: posts small blind 75
+biskydive: posts big blind 150
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6c 2d]
+vinnyvinyard: raises 150 to 300
+GeneralJackMac: raises 6535 to 6835 and is all-in
+xxRa_76_CHxx: folds 
+PrimeLive5: folds 
+Garden2017: folds 
+jsalinas96: folds 
+biskydive: folds 
+vinnyvinyard: calls 6535
+*** FLOP *** [8c Js 8s]
+*** TURN *** [8c Js 8s] [6h]
+*** RIVER *** [8c Js 8s 6h] [Qh]
+*** SHOW DOWN ***
+vinnyvinyard: shows [Jh Kh] (two pair, Jacks and Eights)
+GeneralJackMac: shows [Jc As] (two pair, Jacks and Eights - Ace kicker)
+GeneralJackMac collected 14035 from pot
+*** SUMMARY ***
+Total pot 14035 | Rake 0 
+Board [8c Js 8s 6h Qh]
+Seat 1: vinnyvinyard showed [Jh Kh] and lost with two pair, Jacks and Eights
+Seat 2: GeneralJackMac showed [Jc As] and won (14035) with two pair, Jacks and Eights
+Seat 3: xxRa_76_CHxx folded before Flop (didn't bet)
+Seat 4: PrimeLive5 folded before Flop (didn't bet)
+Seat 5: Garden2017 (button) folded before Flop (didn't bet)
+Seat 6: jsalinas96 (small blind) folded before Flop
+Seat 7: biskydive (big blind) folded before Flop
+
+
+
+PokerStars Hand #259400900576: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VIII (75/150) - 2026/01/21 12:14:57 CET [2026/01/21 6:14:57 ET]
+Table '3966198430 22' 8-max Seat #6 is the button
+Seat 1: vinnyvinyard (3079 in chips, 22000 bounty) 
+Seat 2: GeneralJackMac (14035 in chips, 22000 bounty) 
+Seat 3: xxRa_76_CHxx (3033 in chips, 22000 bounty) is sitting out
+Seat 4: PrimeLive5 (9903 in chips, 22000 bounty) 
+Seat 5: Garden2017 (9171 in chips, 22000 bounty) 
+Seat 6: jsalinas96 (7868 in chips, 55000 bounty) 
+Seat 7: biskydive (4150 in chips, 22000 bounty) 
+Seat 8: picklesdorf (5000 in chips, 22000 bounty) 
+vinnyvinyard: posts the ante 20
+GeneralJackMac: posts the ante 20
+xxRa_76_CHxx: posts the ante 20
+PrimeLive5: posts the ante 20
+Garden2017: posts the ante 20
+jsalinas96: posts the ante 20
+biskydive: posts the ante 20
+picklesdorf: posts the ante 20
+biskydive: posts small blind 75
+picklesdorf: posts big blind 150
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5c 6h]
+vinnyvinyard: raises 150 to 300
+GeneralJackMac: folds 
+xxRa_76_CHxx: folds 
+PrimeLive5: folds 
+Garden2017: folds 
+jsalinas96: folds 
+biskydive: calls 225
+picklesdorf: calls 150
+*** FLOP *** [Ad 2d 2s]
+biskydive: checks 
+picklesdorf: checks 
+vinnyvinyard: bets 150
+biskydive: folds 
+picklesdorf: folds 
+Uncalled bet (150) returned to vinnyvinyard
+vinnyvinyard collected 1060 from pot
+vinnyvinyard: doesn't show hand 
+*** SUMMARY ***
+Total pot 1060 | Rake 0 
+Board [Ad 2d 2s]
+Seat 1: vinnyvinyard collected (1060)
+Seat 2: GeneralJackMac folded before Flop (didn't bet)
+Seat 3: xxRa_76_CHxx folded before Flop (didn't bet)
+Seat 4: PrimeLive5 folded before Flop (didn't bet)
+Seat 5: Garden2017 folded before Flop (didn't bet)
+Seat 6: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 7: biskydive (small blind) folded on the Flop
+Seat 8: picklesdorf (big blind) folded on the Flop
+
+
+
+PokerStars Hand #259400903187: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VIII (75/150) - 2026/01/21 12:15:23 CET [2026/01/21 6:15:23 ET]
+Table '3966198430 22' 8-max Seat #7 is the button
+Seat 1: vinnyvinyard (3819 in chips, 22000 bounty) 
+Seat 2: GeneralJackMac (14015 in chips, 22000 bounty) 
+Seat 3: xxRa_76_CHxx (3013 in chips, 22000 bounty) is sitting out
+Seat 4: PrimeLive5 (9883 in chips, 22000 bounty) 
+Seat 5: Garden2017 (9151 in chips, 22000 bounty) 
+Seat 6: jsalinas96 (7848 in chips, 55000 bounty) 
+Seat 7: biskydive (3830 in chips, 22000 bounty) 
+Seat 8: picklesdorf (4680 in chips, 22000 bounty) 
+vinnyvinyard: posts the ante 20
+GeneralJackMac: posts the ante 20
+xxRa_76_CHxx: posts the ante 20
+PrimeLive5: posts the ante 20
+Garden2017: posts the ante 20
+jsalinas96: posts the ante 20
+biskydive: posts the ante 20
+picklesdorf: posts the ante 20
+picklesdorf: posts small blind 75
+vinnyvinyard: posts big blind 150
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4d Qh]
+GeneralJackMac: folds 
+xxRa_76_CHxx: folds 
+PrimeLive5: folds 
+Garden2017: folds 
+jsalinas96: folds 
+biskydive: raises 3660 to 3810 and is all-in
+picklesdorf: folds 
+vinnyvinyard: folds 
+Uncalled bet (3660) returned to biskydive
+biskydive collected 535 from pot
+*** SUMMARY ***
+Total pot 535 | Rake 0 
+Seat 1: vinnyvinyard (big blind) folded before Flop
+Seat 2: GeneralJackMac folded before Flop (didn't bet)
+Seat 3: xxRa_76_CHxx folded before Flop (didn't bet)
+Seat 4: PrimeLive5 folded before Flop (didn't bet)
+Seat 5: Garden2017 folded before Flop (didn't bet)
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: biskydive (button) collected (535)
+Seat 8: picklesdorf (small blind) folded before Flop
+
+
+
+PokerStars Hand #259400905391: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VIII (75/150) - 2026/01/21 12:15:45 CET [2026/01/21 6:15:45 ET]
+Table '3966198430 22' 8-max Seat #8 is the button
+Seat 1: vinnyvinyard (3649 in chips, 22000 bounty) 
+Seat 2: GeneralJackMac (13995 in chips, 22000 bounty) 
+Seat 3: xxRa_76_CHxx (2993 in chips, 22000 bounty) is sitting out
+Seat 4: PrimeLive5 (9863 in chips, 22000 bounty) 
+Seat 5: Garden2017 (9131 in chips, 22000 bounty) 
+Seat 6: jsalinas96 (7828 in chips, 55000 bounty) 
+Seat 7: biskydive (4195 in chips, 22000 bounty) 
+Seat 8: picklesdorf (4585 in chips, 22000 bounty) 
+vinnyvinyard: posts the ante 20
+GeneralJackMac: posts the ante 20
+xxRa_76_CHxx: posts the ante 20
+PrimeLive5: posts the ante 20
+Garden2017: posts the ante 20
+jsalinas96: posts the ante 20
+biskydive: posts the ante 20
+picklesdorf: posts the ante 20
+vinnyvinyard: posts small blind 75
+GeneralJackMac: posts big blind 150
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3s 9d]
+xxRa_76_CHxx: folds 
+PrimeLive5: calls 150
+Garden2017: raises 300 to 450
+jsalinas96: folds 
+biskydive: folds 
+picklesdorf: folds 
+vinnyvinyard: folds 
+GeneralJackMac: folds 
+PrimeLive5: calls 300
+*** FLOP *** [Ks 2c Th]
+PrimeLive5: checks 
+Garden2017: bets 450
+PrimeLive5: folds 
+Uncalled bet (450) returned to Garden2017
+Garden2017 collected 1285 from pot
+Garden2017: doesn't show hand 
+*** SUMMARY ***
+Total pot 1285 | Rake 0 
+Board [Ks 2c Th]
+Seat 1: vinnyvinyard (small blind) folded before Flop
+Seat 2: GeneralJackMac (big blind) folded before Flop
+Seat 3: xxRa_76_CHxx folded before Flop (didn't bet)
+Seat 4: PrimeLive5 folded on the Flop
+Seat 5: Garden2017 collected (1285)
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: biskydive folded before Flop (didn't bet)
+Seat 8: picklesdorf (button) folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259400909008: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VIII (75/150) - 2026/01/21 12:16:20 CET [2026/01/21 6:16:20 ET]
+Table '3966198430 22' 8-max Seat #1 is the button
+Seat 1: vinnyvinyard (3554 in chips, 22000 bounty) 
+Seat 2: GeneralJackMac (13825 in chips, 22000 bounty) 
+Seat 4: PrimeLive5 (9393 in chips, 22000 bounty) 
+Seat 5: Garden2017 (9946 in chips, 22000 bounty) 
+Seat 6: jsalinas96 (7808 in chips, 55000 bounty) 
+Seat 7: biskydive (4175 in chips, 22000 bounty) 
+Seat 8: picklesdorf (4565 in chips, 22000 bounty) 
+vinnyvinyard: posts the ante 20
+GeneralJackMac: posts the ante 20
+PrimeLive5: posts the ante 20
+Garden2017: posts the ante 20
+jsalinas96: posts the ante 20
+biskydive: posts the ante 20
+picklesdorf: posts the ante 20
+GeneralJackMac: posts small blind 75
+PrimeLive5: posts big blind 150
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Js 6h]
+Garden2017: raises 150 to 300
+jsalinas96: folds 
+biskydive: folds 
+picklesdorf: folds 
+vinnyvinyard: calls 300
+GeneralJackMac: folds 
+PrimeLive5: folds 
+*** FLOP *** [7c 5d 5h]
+Garden2017: checks 
+vinnyvinyard: checks 
+*** TURN *** [7c 5d 5h] [9s]
+Garden2017: bets 483
+vinnyvinyard: folds 
+Uncalled bet (483) returned to Garden2017
+Garden2017 collected 965 from pot
+Garden2017: doesn't show hand 
+jaxjan is disconnected 
+*** SUMMARY ***
+Total pot 965 | Rake 0 
+Board [7c 5d 5h 9s]
+Seat 1: vinnyvinyard (button) folded on the Turn
+Seat 2: GeneralJackMac (small blind) folded before Flop
+Seat 4: PrimeLive5 (big blind) folded before Flop
+Seat 5: Garden2017 collected (965)
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: biskydive folded before Flop (didn't bet)
+Seat 8: picklesdorf folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259400913728: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level VIII (75/150) - 2026/01/21 12:17:06 CET [2026/01/21 6:17:06 ET]
+Table '3966198430 22' 8-max Seat #2 is the button
+Seat 1: vinnyvinyard (3234 in chips, 22000 bounty) 
+Seat 2: GeneralJackMac (13730 in chips, 22000 bounty) 
+Seat 3: jaxjan (5000 in chips) out of hand (moved from another table into small blind)
+Seat 4: PrimeLive5 (9223 in chips, 22000 bounty) 
+Seat 5: Garden2017 (10591 in chips, 22000 bounty) 
+Seat 6: jsalinas96 (7788 in chips, 55000 bounty) 
+Seat 7: biskydive (4155 in chips, 22000 bounty) 
+Seat 8: picklesdorf (4545 in chips, 22000 bounty) 
+jaxjan will be allowed to play after the button
+vinnyvinyard: posts the ante 20
+GeneralJackMac: posts the ante 20
+PrimeLive5: posts the ante 20
+Garden2017: posts the ante 20
+jsalinas96: posts the ante 20
+biskydive: posts the ante 20
+picklesdorf: posts the ante 20
+PrimeLive5: posts small blind 75
+Garden2017: posts big blind 150
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3c 8c]
+jsalinas96: folds 
+biskydive: calls 150
+picklesdorf: calls 150
+vinnyvinyard: folds 
+GeneralJackMac: folds 
+PrimeLive5: calls 75
+Garden2017: checks 
+*** FLOP *** [2d 5c 3d]
+PrimeLive5: bets 9053 and is all-in
+Garden2017: calls 9053
+biskydive: folds 
+picklesdorf: folds 
+*** TURN *** [2d 5c 3d] [Tc]
+*** RIVER *** [2d 5c 3d Tc] [5d]
+*** SHOW DOWN ***
+PrimeLive5: shows [2c 2h] (a full house, Deuces full of Fives)
+Garden2017: shows [4c Qc] (a pair of Fives)
+PrimeLive5 collected 18846 from pot
+*** SUMMARY ***
+Total pot 18846 | Rake 0 
+Board [2d 5c 3d Tc 5d]
+Seat 1: vinnyvinyard folded before Flop (didn't bet)
+Seat 2: GeneralJackMac (button) folded before Flop (didn't bet)
+Seat 4: PrimeLive5 (small blind) showed [2c 2h] and won (18846) with a full house, Deuces full of Fives
+Seat 5: Garden2017 (big blind) showed [4c Qc] and lost with a pair of Fives
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: biskydive folded on the Flop
+Seat 8: picklesdorf folded on the Flop
+
+
+
+PokerStars Hand #259400918961: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level IX (100/200) - 2026/01/21 12:17:58 CET [2026/01/21 6:17:58 ET]
+Table '3966198430 22' 8-max Seat #4 is the button
+Seat 1: vinnyvinyard (3214 in chips, 22000 bounty) 
+Seat 2: GeneralJackMac (13710 in chips, 22000 bounty) 
+Seat 3: jaxjan (5000 in chips, 22000 bounty) 
+Seat 4: PrimeLive5 (18846 in chips, 22000 bounty) 
+Seat 5: Garden2017 (1368 in chips, 22000 bounty) 
+Seat 6: jsalinas96 (7768 in chips, 55000 bounty) 
+Seat 7: biskydive (3985 in chips, 22000 bounty) 
+Seat 8: picklesdorf (4375 in chips, 22000 bounty) 
+vinnyvinyard: posts the ante 25
+GeneralJackMac: posts the ante 25
+jaxjan: posts the ante 25
+PrimeLive5: posts the ante 25
+Garden2017: posts the ante 25
+jsalinas96: posts the ante 25
+biskydive: posts the ante 25
+picklesdorf: posts the ante 25
+Garden2017: posts small blind 100
+jsalinas96: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [7d Ac]
+biskydive: calls 200
+picklesdorf: calls 200
+vinnyvinyard: folds 
+GeneralJackMac: folds 
+jaxjan: folds 
+PrimeLive5: calls 200
+Garden2017: calls 100
+jsalinas96: checks 
+*** FLOP *** [9c Qd 9h]
+Garden2017: checks 
+jsalinas96: checks 
+biskydive: checks 
+picklesdorf: checks 
+PrimeLive5: checks 
+*** TURN *** [9c Qd 9h] [2d]
+Garden2017: bets 1143 and is all-in
+jsalinas96: folds 
+biskydive: folds 
+picklesdorf: folds 
+PrimeLive5: folds 
+Uncalled bet (1143) returned to Garden2017
+Garden2017 collected 1200 from pot
+Garden2017: doesn't show hand 
+*** SUMMARY ***
+Total pot 1200 | Rake 0 
+Board [9c Qd 9h 2d]
+Seat 1: vinnyvinyard folded before Flop (didn't bet)
+Seat 2: GeneralJackMac folded before Flop (didn't bet)
+Seat 3: jaxjan folded before Flop (didn't bet)
+Seat 4: PrimeLive5 (button) folded on the Turn
+Seat 5: Garden2017 (small blind) collected (1200)
+Seat 6: jsalinas96 (big blind) folded on the Turn
+Seat 7: biskydive folded on the Turn
+Seat 8: picklesdorf folded on the Turn
+
+
+
+PokerStars Hand #259400925561: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level IX (100/200) - 2026/01/21 12:19:01 CET [2026/01/21 6:19:01 ET]
+Table '3966198430 22' 8-max Seat #5 is the button
+Seat 1: vinnyvinyard (3189 in chips, 22000 bounty) 
+Seat 2: GeneralJackMac (13685 in chips, 22000 bounty) 
+Seat 3: jaxjan (4975 in chips, 22000 bounty) 
+Seat 4: PrimeLive5 (18621 in chips, 22000 bounty) 
+Seat 5: Garden2017 (2343 in chips, 22000 bounty) 
+Seat 6: jsalinas96 (7543 in chips, 55000 bounty) 
+Seat 7: biskydive (3760 in chips, 22000 bounty) 
+Seat 8: picklesdorf (4150 in chips, 22000 bounty) 
+vinnyvinyard: posts the ante 25
+GeneralJackMac: posts the ante 25
+jaxjan: posts the ante 25
+PrimeLive5: posts the ante 25
+Garden2017: posts the ante 25
+jsalinas96: posts the ante 25
+biskydive: posts the ante 25
+picklesdorf: posts the ante 25
+jsalinas96: posts small blind 100
+biskydive: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6d 4h]
+picklesdorf: calls 200
+vinnyvinyard: folds 
+GeneralJackMac: folds 
+jaxjan: calls 200
+PrimeLive5: folds 
+Garden2017: raises 2118 to 2318 and is all-in
+jsalinas96: folds 
+biskydive: folds 
+picklesdorf: calls 2118
+jaxjan: calls 2118
+*** FLOP *** [Tc 2d 3s]
+picklesdorf: bets 1807 and is all-in
+jaxjan: calls 1807
+*** TURN *** [Tc 2d 3s] [5h]
+*** RIVER *** [Tc 2d 3s 5h] [3d]
+*** SHOW DOWN ***
+picklesdorf: shows [9s Ts] (two pair, Tens and Threes)
+jaxjan: shows [7d 7c] (two pair, Sevens and Threes)
+picklesdorf collected 3614 from side pot
+Garden2017: shows [Ac 7h] (a pair of Threes)
+picklesdorf collected 7454 from main pot
+picklesdorf wins 11000 for eliminating Garden2017 and their own bounty increases by 11000 to 33000
+Garden2017 finished the tournament
+*** SUMMARY ***
+Total pot 11068 Main pot 7454. Side pot 3614. | Rake 0 
+Board [Tc 2d 3s 5h 3d]
+Seat 1: vinnyvinyard folded before Flop (didn't bet)
+Seat 2: GeneralJackMac folded before Flop (didn't bet)
+Seat 3: jaxjan showed [7d 7c] and lost with two pair, Sevens and Threes
+Seat 4: PrimeLive5 folded before Flop (didn't bet)
+Seat 5: Garden2017 (button) showed [Ac 7h] and lost with a pair of Threes
+Seat 6: jsalinas96 (small blind) folded before Flop
+Seat 7: biskydive (big blind) folded before Flop
+Seat 8: picklesdorf showed [9s Ts] and won (11068) with two pair, Tens and Threes
+
+
+
+PokerStars Hand #259400934141: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level IX (100/200) - 2026/01/21 12:20:24 CET [2026/01/21 6:20:24 ET]
+Table '3966198430 22' 8-max Seat #6 is the button
+Seat 1: vinnyvinyard (3164 in chips, 22000 bounty) 
+Seat 2: GeneralJackMac (13660 in chips, 22000 bounty) 
+Seat 3: jaxjan (825 in chips, 22000 bounty) 
+Seat 4: PrimeLive5 (18596 in chips, 22000 bounty) 
+Seat 6: jsalinas96 (7418 in chips, 55000 bounty) 
+Seat 7: biskydive (3535 in chips, 22000 bounty) 
+Seat 8: picklesdorf (11068 in chips, 33000 bounty) 
+vinnyvinyard: posts the ante 25
+GeneralJackMac: posts the ante 25
+jaxjan: posts the ante 25
+PrimeLive5: posts the ante 25
+jsalinas96: posts the ante 25
+biskydive: posts the ante 25
+picklesdorf: posts the ante 25
+biskydive: posts small blind 100
+picklesdorf: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9d 6d]
+vinnyvinyard: folds 
+GeneralJackMac: folds 
+jaxjan: raises 600 to 800 and is all-in
+PrimeLive5: folds 
+jsalinas96: calls 800
+biskydive: calls 700
+picklesdorf: calls 600
+*** FLOP *** [2h Jc 2c]
+biskydive: checks 
+picklesdorf: checks 
+jsalinas96: checks 
+*** TURN *** [2h Jc 2c] [8d]
+biskydive: checks 
+picklesdorf: bets 1000
+jsalinas96: folds 
+biskydive: calls 1000
+*** RIVER *** [2h Jc 2c 8d] [8s]
+biskydive: checks 
+picklesdorf: bets 1000
+biskydive: folds 
+Uncalled bet (1000) returned to picklesdorf
+*** SHOW DOWN ***
+picklesdorf: shows [Tc Jh] (two pair, Jacks and Eights)
+picklesdorf collected 2000 from side pot
+jaxjan: shows [Kh Kc] (two pair, Kings and Eights)
+jaxjan collected 3375 from main pot
+*** SUMMARY ***
+Total pot 5375 Main pot 3375. Side pot 2000. | Rake 0 
+Board [2h Jc 2c 8d 8s]
+Seat 1: vinnyvinyard folded before Flop (didn't bet)
+Seat 2: GeneralJackMac folded before Flop (didn't bet)
+Seat 3: jaxjan showed [Kh Kc] and won (3375) with two pair, Kings and Eights
+Seat 4: PrimeLive5 folded before Flop (didn't bet)
+Seat 6: jsalinas96 (button) folded on the Turn
+Seat 7: biskydive (small blind) folded on the River
+Seat 8: picklesdorf (big blind) showed [Tc Jh] and won (2000) with two pair, Jacks and Eights
+
+
+
+PokerStars Hand #259400939685: Tournament #3966198430, 22000+22000+6000 Hold'em No Limit - Level IX (100/200) - 2026/01/21 12:21:17 CET [2026/01/21 6:21:17 ET]
+Table '3966198430 22' 8-max Seat #7 is the button
+Seat 1: vinnyvinyard (3139 in chips, 22000 bounty) 
+Seat 2: GeneralJackMac (13635 in chips, 22000 bounty) 
+Seat 3: jaxjan (3375 in chips, 22000 bounty) 
+Seat 4: PrimeLive5 (18571 in chips, 22000 bounty) 
+Seat 5: stalkbeauty (5000 in chips, 22000 bounty) 
+Seat 6: jsalinas96 (6593 in chips, 55000 bounty) 
+Seat 7: biskydive (1710 in chips, 22000 bounty) 
+Seat 8: picklesdorf (11243 in chips, 33000 bounty) 
+vinnyvinyard: posts the ante 25
+GeneralJackMac: posts the ante 25
+jaxjan: posts the ante 25
+PrimeLive5: posts the ante 25
+stalkbeauty: posts the ante 25
+jsalinas96: posts the ante 25
+biskydive: posts the ante 25
+picklesdorf: posts the ante 25
+picklesdorf: posts small blind 100
+vinnyvinyard: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4c As]
+GeneralJackMac: folds 
+jaxjan: calls 200
+PrimeLive5: folds 
+stalkbeauty: calls 200
+jsalinas96: calls 200
+biskydive: raises 1485 to 1685 and is all-in
+picklesdorf: calls 1585
+vinnyvinyard: folds 
+jaxjan: calls 1485
+stalkbeauty: folds 
+jsalinas96: calls 1485
+*** FLOP *** [5c 4s 6c]
+picklesdorf: checks 
+jaxjan: bets 1665 and is all-in
+jsalinas96: calls 1665
+picklesdorf: calls 1665
+*** TURN *** [5c 4s 6c] [3c]
+picklesdorf: bets 1400
+jsalinas96: calls 1400
+*** RIVER *** [5c 4s 6c 3c] [6s]
+picklesdorf: bets 2000
+jsalinas96: calls 1818 and is all-in
+Uncalled bet (182) returned to picklesdorf
+*** SHOW DOWN ***
+picklesdorf: shows [3h 3s] (a full house, Threes full of Sixes)
+jsalinas96: shows [4c As] (two pair, Sixes and Fours)
+picklesdorf collected 6436 from side pot-2 
+jaxjan: shows [5h 5d] (a full house, Fives full of Sixes)
+jaxjan collected 4995 from side pot-1 
+biskydive: shows [7h 7d] (a straight, Three to Seven)
+jaxjan collected 7340 from main pot
+picklesdorf wins 27500 for eliminating jsalinas96 and their own bounty increases by 27500 to 60500
+jaxjan wins 11000 for eliminating biskydive and their own bounty increases by 11000 to 33000
+jsalinas96 finished the tournament
+biskydive finished the tournament
+*** SUMMARY ***
+Total pot 18771 Main pot 7340. Side pot-1 4995. Side pot-2 6436. | Rake 0 
+Board [5c 4s 6c 3c 6s]
+Seat 1: vinnyvinyard (big blind) folded before Flop
+Seat 2: GeneralJackMac folded before Flop (didn't bet)
+Seat 3: jaxjan showed [5h 5d] and won (12335) with a full house, Fives full of Sixes
+Seat 4: PrimeLive5 folded before Flop (didn't bet)
+Seat 5: stalkbeauty folded before Flop
+Seat 6: jsalinas96 showed [4c As] and lost with two pair, Sixes and Fours
+Seat 7: biskydive (button) showed [7h 7d] and lost with a straight, Three to Seven
+Seat 8: picklesdorf (small blind) showed [3h 3s] and won (6436) with a full house, Threes full of Sixes
+
+
+

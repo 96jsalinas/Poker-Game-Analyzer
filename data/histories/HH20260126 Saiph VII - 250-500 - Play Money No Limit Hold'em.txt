@@ -1,0 +1,876 @@
+﻿PokerStars Hand #259471613892:  Hold'em No Limit (250/500) - 2026/01/26 18:50:15 CET [2026/01/26 12:50:15 ET]
+Table 'Saiph VII' 9-max (Play Money) Seat #7 is the button
+Seat 1: TexasDiddy1 (39624 in chips) is sitting out
+Seat 2: djika1969 (63773 in chips) is sitting out
+Seat 3: motc59 (64143 in chips) 
+Seat 4: Turttlle (48500 in chips) 
+Seat 5: samysamx (71470 in chips) 
+Seat 6: jsalinas96 (50000 in chips) 
+Seat 7: Maguu0811 (3841 in chips) 
+Seat 8: EusaVeloso (75724 in chips) 
+Seat 9: magnetud (20254 in chips) 
+EusaVeloso: posts small blind 250
+magnetud: posts big blind 500
+Turttlle: posts small & big blinds 750
+jsalinas96: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [As 4h]
+motc59: folds 
+Turttlle: checks 
+samysamx: folds 
+jsalinas96: checks 
+Maguu0811 has timed out
+Maguu0811: folds 
+EusaVeloso: calls 250
+magnetud: checks 
+*** FLOP *** [Ah Ts 3s]
+EusaVeloso: checks 
+magnetud: checks 
+Turttlle: checks 
+jsalinas96: checks 
+*** TURN *** [Ah Ts 3s] [6s]
+EusaVeloso: checks 
+magnetud: bets 500
+Turttlle: folds 
+jsalinas96: calls 500
+EusaVeloso: calls 500
+*** RIVER *** [Ah Ts 3s 6s] [Ks]
+EusaVeloso: checks 
+magnetud: bets 3544
+jsalinas96: raises 13544 to 17088
+EusaVeloso: folds 
+magnetud: calls 13544
+*** SHOW DOWN ***
+jsalinas96: shows [As 4h] (a flush, Ace high)
+magnetud: mucks hand 
+jsalinas96 collected 35840 from pot
+*** SUMMARY ***
+Total pot 37926 | Rake 2086 
+Board [Ah Ts 3s 6s Ks]
+Seat 1: TexasDiddy1
+Seat 2: djika1969
+Seat 3: motc59 folded before Flop (didn't bet)
+Seat 4: Turttlle folded on the Turn (didn't bet)
+Seat 5: samysamx folded before Flop (didn't bet)
+Seat 6: jsalinas96 showed [As 4h] and won (35840) with a flush, Ace high
+Seat 7: Maguu0811 (button) folded before Flop (didn't bet)
+Seat 8: EusaVeloso (small blind) folded on the River
+Seat 9: magnetud (big blind) mucked [Js 6h]
+
+
+
+PokerStars Hand #259471634076:  Hold'em No Limit (250/500) - 2026/01/26 18:51:47 CET [2026/01/26 12:51:47 ET]
+Table 'Saiph VII' 9-max (Play Money) Seat #8 is the button
+Seat 1: TexasDiddy1 (39624 in chips) is sitting out
+Seat 2: djika1969 (63773 in chips) is sitting out
+Seat 7: Maguu0811 (3841 in chips) is sitting out
+Seat 3: motc59 (64143 in chips) 
+Seat 4: Turttlle (47750 in chips) 
+Seat 5: samysamx (71470 in chips) 
+Seat 6: jsalinas96 (67752 in chips) 
+Seat 8: EusaVeloso (74724 in chips) 
+Seat 9: magnetud (2166 in chips) 
+magnetud: posts small blind 250
+motc59: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Js 2s]
+Turttlle: folds 
+samysamx: folds 
+jsalinas96: folds 
+EusaVeloso: calls 500
+Turttlle leaves the table
+magnetud: raises 1666 to 2166 and is all-in
+motc59: folds 
+EusaVeloso: calls 1666
+*** FLOP *** [7s Qc Ts]
+*** TURN *** [7s Qc Ts] [8d]
+*** RIVER *** [7s Qc Ts 8d] [Kh]
+*** SHOW DOWN ***
+magnetud: shows [Kd Jd] (a pair of Kings)
+EusaVeloso: shows [Ah Kc] (a pair of Kings - Ace kicker)
+EusaVeloso collected 4566 from pot
+*** SUMMARY ***
+Total pot 4832 | Rake 266 
+Board [7s Qc Ts 8d Kh]
+Seat 1: TexasDiddy1
+Seat 2: djika1969
+Seat 7: Maguu0811
+Seat 3: motc59 (big blind) folded before Flop
+Seat 4: Turttlle folded before Flop (didn't bet)
+Seat 5: samysamx folded before Flop (didn't bet)
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 8: EusaVeloso (button) showed [Ah Kc] and won (4566) with a pair of Kings
+Seat 9: magnetud (small blind) showed [Kd Jd] and lost with a pair of Kings
+
+
+
+PokerStars Hand #259471639391:  Hold'em No Limit (250/500) - 2026/01/26 18:52:11 CET [2026/01/26 12:52:11 ET]
+Table 'Saiph VII' 9-max (Play Money) Seat #3 is the button
+Seat 1: TexasDiddy1 (39624 in chips) is sitting out
+Seat 2: djika1969 (63773 in chips) is sitting out
+Seat 7: Maguu0811 (3841 in chips) is sitting out
+Seat 9: magnetud (0 in chips) is sitting out
+Seat 3: motc59 (63643 in chips) 
+Seat 5: samysamx (71470 in chips) 
+Seat 6: jsalinas96 (67752 in chips) 
+Seat 8: EusaVeloso (77124 in chips) 
+samysamx: posts small blind 250
+jsalinas96: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ah 9c]
+EusaVeloso: calls 500
+motc59: folds 
+samysamx: folds 
+jsalinas96: checks 
+*** FLOP *** [2c Jd 3s]
+vinver joins the table at seat #4 
+vinver is disconnected 
+jsalinas96: checks 
+EusaVeloso: checks 
+*** TURN *** [2c Jd 3s] [2d]
+jsalinas96: checks 
+EusaVeloso: checks 
+*** RIVER *** [2c Jd 3s 2d] [3h]
+jsalinas96: checks 
+EusaVeloso: checks 
+*** SHOW DOWN ***
+jsalinas96: shows [Ah 9c] (two pair, Threes and Deuces)
+EusaVeloso: mucks hand 
+jsalinas96 collected 1181 from pot
+*** SUMMARY ***
+Total pot 1250 | Rake 69 
+Board [2c Jd 3s 2d 3h]
+Seat 1: TexasDiddy1
+Seat 2: djika1969
+Seat 7: Maguu0811
+Seat 9: magnetud
+Seat 3: motc59 (button) folded before Flop (didn't bet)
+Seat 5: samysamx (small blind) folded before Flop
+Seat 6: jsalinas96 (big blind) showed [Ah 9c] and won (1181) with two pair, Threes and Deuces
+Seat 8: EusaVeloso mucked [Qd Ks]
+
+
+
+PokerStars Hand #259471645459:  Hold'em No Limit (250/500) - 2026/01/26 18:52:38 CET [2026/01/26 12:52:38 ET]
+Table 'Saiph VII' 9-max (Play Money) Seat #5 is the button
+Seat 1: TexasDiddy1 (39624 in chips) is sitting out
+Seat 2: djika1969 (63773 in chips) is sitting out
+Seat 7: Maguu0811 (3841 in chips) is sitting out
+Seat 3: motc59 (63643 in chips) 
+Seat 4: vinver (50000 in chips) 
+Seat 5: samysamx (71220 in chips) 
+Seat 6: jsalinas96 (68433 in chips) 
+Seat 8: EusaVeloso (76624 in chips) 
+Seat 9: magnetud (20845 in chips) 
+jsalinas96: posts small blind 250
+EusaVeloso: posts big blind 500
+vinver: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6h 6c]
+magnetud: calls 500
+motc59: folds 
+vinver: checks 
+samysamx: calls 500
+jsalinas96: raises 1000 to 1500
+EusaVeloso: folds 
+magnetud: calls 1000
+vinver: raises 5500 to 7000
+samysamx: folds 
+jsalinas96: calls 5500
+magnetud: calls 5500
+*** FLOP *** [Ks 7c 7d]
+jsalinas96: checks 
+magnetud: checks 
+vinver: checks 
+*** TURN *** [Ks 7c 7d] [Qh]
+jsalinas96: checks 
+magnetud: checks 
+vinver: bets 10395
+jsalinas96: calls 10395
+magnetud: calls 10395
+*** RIVER *** [Ks 7c 7d Qh] [2d]
+jsalinas96: checks 
+magnetud: checks 
+vinver: bets 25130
+jsalinas96: calls 25130
+magnetud: calls 3450 and is all-in
+*** SHOW DOWN ***
+vinver: shows [Kd Kh] (a full house, Kings full of Sevens)
+jsalinas96: mucks hand 
+vinver collected 40975 from side pot
+magnetud: mucks hand 
+vinver collected 60041 from main pot
+*** SUMMARY ***
+Total pot 106895 Main pot 60041. Side pot 40975. | Rake 5879 
+Board [Ks 7c 7d Qh 2d]
+Seat 1: TexasDiddy1
+Seat 2: djika1969
+Seat 7: Maguu0811
+Seat 3: motc59 folded before Flop (didn't bet)
+Seat 4: vinver showed [Kd Kh] and won (101016) with a full house, Kings full of Sevens
+Seat 5: samysamx (button) folded before Flop
+Seat 6: jsalinas96 (small blind) mucked [6h 6c]
+Seat 8: EusaVeloso (big blind) folded before Flop
+Seat 9: magnetud mucked [5c 5s]
+
+
+
+PokerStars Hand #259471661657:  Hold'em No Limit (250/500) - 2026/01/26 18:53:51 CET [2026/01/26 12:53:51 ET]
+Table 'Saiph VII' 9-max (Play Money) Seat #6 is the button
+Seat 2: djika1969 (63773 in chips) is sitting out
+Seat 3: motc59 (63643 in chips) is sitting out
+Seat 7: Maguu0811 (3841 in chips) is sitting out
+Seat 9: magnetud (0 in chips) is sitting out
+Seat 1: TexasDiddy1 (39624 in chips) 
+Seat 4: vinver (108491 in chips) 
+Seat 5: samysamx (70720 in chips) 
+Seat 6: jsalinas96 (25908 in chips) 
+Seat 8: EusaVeloso (76124 in chips) 
+EusaVeloso: posts small blind 250
+TexasDiddy1: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3d 6d]
+vinver: folds 
+samysamx: folds 
+jsalinas96: folds 
+EusaVeloso: calls 250
+TexasDiddy1: checks 
+*** FLOP *** [5d 9s 2c]
+EusaVeloso: folds 
+EusaVeloso leaves the table
+TexasDiddy1 collected 945 from pot
+EusaVeloso joins the table at seat #8 
+*** SUMMARY ***
+Total pot 1000 | Rake 55 
+Board [5d 9s 2c]
+Seat 2: djika1969
+Seat 3: motc59
+Seat 7: Maguu0811
+Seat 9: magnetud
+Seat 1: TexasDiddy1 (big blind) collected (945)
+Seat 4: vinver folded before Flop (didn't bet)
+Seat 5: samysamx folded before Flop (didn't bet)
+Seat 6: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 8: EusaVeloso (small blind) folded on the Flop
+
+
+
+PokerStars Hand #259471667553:  Hold'em No Limit (250/500) - 2026/01/26 18:54:18 CET [2026/01/26 12:54:18 ET]
+Table 'Saiph VII' 9-max (Play Money) Seat #1 is the button
+Seat 2: djika1969 (63773 in chips) is sitting out
+Seat 3: motc59 (63643 in chips) is sitting out
+Seat 7: Maguu0811 (3841 in chips) is sitting out
+Seat 9: magnetud (0 in chips) is sitting out
+Seat 1: TexasDiddy1 (40069 in chips) 
+Seat 4: vinver (108491 in chips) 
+Seat 5: samysamx (70720 in chips) 
+Seat 6: jsalinas96 (25908 in chips) 
+Seat 8: EusaVeloso (50000 in chips) 
+vinver: posts small blind 250
+samysamx: posts big blind 500
+EusaVeloso is connected 
+EusaVeloso: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6s 4h]
+jsalinas96: folds 
+EusaVeloso: checks 
+TexasDiddy1: calls 500
+vinver: calls 250
+samysamx: checks 
+*** FLOP *** [4s 5d 7h]
+vinver: checks 
+samysamx: bets 1890
+EusaVeloso: calls 1890
+TexasDiddy1: folds 
+vinver: calls 1890
+*** TURN *** [4s 5d 7h] [8c]
+vinver: checks 
+samysamx: bets 1000
+EusaVeloso: calls 1000
+vinver: folds 
+*** RIVER *** [4s 5d 7h 8c] [6d]
+samysamx: bets 2000
+EusaVeloso: calls 2000
+*** SHOW DOWN ***
+samysamx: shows [Jc Js] (a straight, Four to Eight)
+EusaVeloso: shows [5s Ad] (a straight, Four to Eight)
+samysamx collected 6459 from pot
+EusaVeloso collected 6459 from pot
+*** SUMMARY ***
+Total pot 13670 | Rake 752 
+Board [4s 5d 7h 8c 6d]
+Seat 2: djika1969
+Seat 3: motc59
+Seat 7: Maguu0811
+Seat 9: magnetud
+Seat 1: TexasDiddy1 (button) folded on the Flop
+Seat 4: vinver (small blind) folded on the Turn
+Seat 5: samysamx (big blind) showed [Jc Js] and won (6459) with a straight, Four to Eight
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 8: EusaVeloso showed [5s Ad] and won (6459) with a straight, Four to Eight
+
+
+
+PokerStars Hand #259471679483:  Hold'em No Limit (250/500) - 2026/01/26 18:55:15 CET [2026/01/26 12:55:15 ET]
+Table 'Saiph VII' 9-max (Play Money) Seat #4 is the button
+Seat 2: djika1969 (63773 in chips) is sitting out
+Seat 9: magnetud (0 in chips) is sitting out
+Seat 1: TexasDiddy1 (39569 in chips) 
+Seat 3: motc59 (63643 in chips) 
+Seat 4: vinver (106101 in chips) 
+Seat 5: samysamx (71789 in chips) 
+Seat 6: jsalinas96 (25908 in chips) 
+Seat 7: Maguu0811 (3841 in chips) 
+Seat 8: EusaVeloso (51069 in chips) 
+samysamx: posts small blind 250
+jsalinas96: posts big blind 500
+Maguu0811: posts small & big blinds 750
+motc59: posts small blind 250
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5h 6d]
+Maguu0811: checks 
+EusaVeloso: calls 500
+TexasDiddy1: folds 
+motc59: calls 500
+vinver: folds 
+samysamx: folds 
+jsalinas96: checks 
+*** FLOP *** [9h Qs 4c]
+jsalinas96: checks 
+Maguu0811: bets 2599
+EusaVeloso: calls 2599
+motc59: folds 
+jsalinas96: folds 
+*** TURN *** [9h Qs 4c] [Kh]
+Maguu0811: bets 492 and is all-in
+EusaVeloso: calls 492
+*** RIVER *** [9h Qs 4c Kh] [3h]
+*** SHOW DOWN ***
+Maguu0811: shows [Qc Ts] (a pair of Queens)
+EusaVeloso: shows [3c 9c] (two pair, Nines and Threes)
+EusaVeloso collected 8441 from pot
+*** SUMMARY ***
+Total pot 8932 | Rake 491 
+Board [9h Qs 4c Kh 3h]
+Seat 2: djika1969
+Seat 9: magnetud
+Seat 1: TexasDiddy1 folded before Flop (didn't bet)
+Seat 3: motc59 folded on the Flop
+Seat 4: vinver (button) folded before Flop (didn't bet)
+Seat 5: samysamx (small blind) folded before Flop
+Seat 6: jsalinas96 (big blind) folded on the Flop
+Seat 7: Maguu0811 showed [Qc Ts] and lost with a pair of Queens
+Seat 8: EusaVeloso showed [3c 9c] and won (8441) with two pair, Nines and Threes
+
+
+
+PokerStars Hand #259471687588:  Hold'em No Limit (250/500) - 2026/01/26 18:56:06 CET [2026/01/26 12:56:06 ET]
+Table 'Saiph VII' 9-max (Play Money) Seat #5 is the button
+Seat 2: djika1969 (63773 in chips) is sitting out
+Seat 7: Maguu0811 (0 in chips) is sitting out
+Seat 9: magnetud (0 in chips) is sitting out
+Seat 1: TexasDiddy1 (39569 in chips) 
+Seat 3: motc59 (62893 in chips) 
+Seat 4: vinver (106101 in chips) 
+Seat 5: samysamx (71539 in chips) 
+Seat 6: jsalinas96 (25408 in chips) 
+Seat 8: EusaVeloso (55919 in chips) 
+jsalinas96: posts small blind 250
+EusaVeloso: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3h Qc]
+TexasDiddy1: calls 500
+motc59: calls 500
+vinver: folds 
+samysamx: calls 500
+jsalinas96: folds 
+EusaVeloso: checks 
+*** FLOP *** [8d 8h Td]
+EusaVeloso: checks 
+TexasDiddy1: checks 
+magnetud leaves the table
+motc59: checks 
+samysamx: checks 
+*** TURN *** [8d 8h Td] [Tc]
+EusaVeloso: checks 
+TexasDiddy1: checks 
+motc59: checks 
+samysamx: checks 
+*** RIVER *** [8d 8h Td Tc] [Th]
+EusaVeloso: checks 
+TexasDiddy1: bets 500
+motc59: calls 500
+pops4100 joins the table at seat #9 
+samysamx: calls 500
+EusaVeloso: calls 500
+*** SHOW DOWN ***
+TexasDiddy1: shows [Qh 9c] (a full house, Tens full of Eights)
+motc59: shows [As 9s] (a full house, Tens full of Eights)
+samysamx: shows [5s Qs] (a full house, Tens full of Eights)
+EusaVeloso: shows [Ks Jh] (a full house, Tens full of Eights)
+EusaVeloso collected 1004 from pot
+TexasDiddy1 collected 1004 from pot
+motc59 collected 1004 from pot
+samysamx collected 1004 from pot
+*** SUMMARY ***
+Total pot 4250 | Rake 234 
+Board [8d 8h Td Tc Th]
+Seat 2: djika1969
+Seat 7: Maguu0811
+Seat 9: magnetud
+Seat 1: TexasDiddy1 showed [Qh 9c] and won (1004) with a full house, Tens full of Eights
+Seat 3: motc59 showed [As 9s] and won (1004) with a full house, Tens full of Eights
+Seat 4: vinver folded before Flop (didn't bet)
+Seat 5: samysamx (button) showed [5s Qs] and won (1004) with a full house, Tens full of Eights
+Seat 6: jsalinas96 (small blind) folded before Flop
+Seat 8: EusaVeloso (big blind) showed [Ks Jh] and won (1004) with a full house, Tens full of Eights
+
+
+
+PokerStars Hand #259471699384:  Hold'em No Limit (250/500) - 2026/01/26 18:57:21 CET [2026/01/26 12:57:21 ET]
+Table 'Saiph VII' 9-max (Play Money) Seat #6 is the button
+Seat 2: djika1969 (63773 in chips) is sitting out
+Seat 7: Maguu0811 (20000 in chips) is sitting out
+Seat 1: TexasDiddy1 (39573 in chips) 
+Seat 3: motc59 (62897 in chips) 
+Seat 4: vinver (106101 in chips) 
+Seat 5: samysamx (71543 in chips) 
+Seat 6: jsalinas96 (25158 in chips) 
+Seat 8: EusaVeloso (55923 in chips) 
+Seat 9: pops4100 (20000 in chips) 
+EusaVeloso: posts small blind 250
+pops4100: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3c Qd]
+TexasDiddy1: folds 
+motc59: calls 500
+vinver: calls 500
+samysamx: calls 500
+jsalinas96: folds 
+EusaVeloso: calls 250
+pops4100: checks 
+*** FLOP *** [6d Qh 4c]
+EusaVeloso: checks 
+pops4100: checks 
+motc59: checks 
+vinver: bets 2362
+samysamx: folds 
+EusaVeloso: folds 
+EusaVeloso leaves the table
+pops4100: folds 
+motc59: folds 
+Uncalled bet (2362) returned to vinver
+vinver collected 2362 from pot
+*** SUMMARY ***
+Total pot 2500 | Rake 138 
+Board [6d Qh 4c]
+Seat 2: djika1969
+Seat 7: Maguu0811
+Seat 1: TexasDiddy1 folded before Flop (didn't bet)
+Seat 3: motc59 folded on the Flop
+Seat 4: vinver collected (2362)
+Seat 5: samysamx folded on the Flop
+Seat 6: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 8: EusaVeloso (small blind) folded on the Flop
+Seat 9: pops4100 (big blind) folded on the Flop
+
+
+
+PokerStars Hand #259471705328:  Hold'em No Limit (250/500) - 2026/01/26 18:57:58 CET [2026/01/26 12:57:58 ET]
+Table 'Saiph VII' 9-max (Play Money) Seat #9 is the button
+Seat 2: djika1969 (63773 in chips) is sitting out
+Seat 1: TexasDiddy1 (39573 in chips) 
+Seat 3: motc59 (62397 in chips) 
+Seat 4: vinver (107963 in chips) 
+Seat 5: samysamx (71043 in chips) 
+Seat 6: jsalinas96 (25158 in chips) 
+Seat 7: Maguu0811 (20000 in chips) 
+Seat 9: pops4100 (19500 in chips) 
+TexasDiddy1: posts small blind 250
+motc59: posts big blind 500
+Maguu0811: posts small & big blinds 750
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8s 9c]
+vinver: folds 
+samysamx: folds 
+jsalinas96: folds 
+Maguu0811: checks 
+pops4100: calls 500
+TexasDiddy1: calls 250
+motc59: checks 
+*** FLOP *** [7s Ts Kh]
+TexasDiddy1: bets 500
+motc59: folds 
+Maguu0811: calls 500
+pops4100: calls 500
+*** TURN *** [7s Ts Kh] [As]
+TexasDiddy1: bets 500
+Maguu0811: calls 500
+roger,s705 joins the table at seat #8 
+pops4100: folds 
+*** RIVER *** [7s Ts Kh As] [3h]
+TexasDiddy1: checks 
+Maguu0811: checks 
+*** SHOW DOWN ***
+TexasDiddy1: shows [7h 8h] (a pair of Sevens)
+Maguu0811: shows [Kd Js] (a pair of Kings)
+Maguu0811 collected 4489 from pot
+djika1969 leaves the table
+*** SUMMARY ***
+Total pot 4750 | Rake 261 
+Board [7s Ts Kh As 3h]
+Seat 2: djika1969
+Seat 1: TexasDiddy1 (small blind) showed [7h 8h] and lost with a pair of Sevens
+Seat 3: motc59 (big blind) folded on the Flop
+Seat 4: vinver folded before Flop (didn't bet)
+Seat 5: samysamx folded before Flop (didn't bet)
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: Maguu0811 showed [Kd Js] and won (4489) with a pair of Kings
+Seat 9: pops4100 (button) folded on the Turn
+
+
+
+PokerStars Hand #259471718263:  Hold'em No Limit (250/500) - 2026/01/26 18:59:19 CET [2026/01/26 12:59:19 ET]
+Table 'Saiph VII' 9-max (Play Money) Seat #1 is the button
+Seat 1: TexasDiddy1 (38073 in chips) 
+Seat 3: motc59 (61897 in chips) 
+Seat 4: vinver (107963 in chips) 
+Seat 5: samysamx (71043 in chips) 
+Seat 6: jsalinas96 (25158 in chips) 
+Seat 7: Maguu0811 (22739 in chips) 
+Seat 8: roger,s705 (20000 in chips) 
+Seat 9: pops4100 (18500 in chips) 
+motc59: posts small blind 250
+vinver: posts big blind 500
+roger,s705: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4s Kh]
+samysamx: calls 500
+jsalinas96: folds 
+Maguu0811: folds 
+roger,s705: checks 
+pops4100: calls 500
+TexasDiddy1: calls 500
+motc59: calls 250
+vinver: checks 
+*** FLOP *** [7d 9h 5h]
+motc59: checks 
+vinver: checks 
+samysamx: checks 
+roger,s705: checks 
+pops4100: checks 
+TexasDiddy1: checks 
+*** TURN *** [7d 9h 5h] [9c]
+motc59: checks 
+vinver: bets 2835
+samysamx: folds 
+roger,s705: folds 
+pops4100: folds 
+TexasDiddy1: folds 
+motc59: calls 2835
+*** RIVER *** [7d 9h 5h 9c] [3c]
+69marc69706969 joins the table at seat #2 
+motc59: checks 
+vinver: bets 8193
+motc59: calls 8193
+*** SHOW DOWN ***
+vinver: shows [3d 9d] (a full house, Nines full of Threes)
+motc59: mucks hand 
+vinver collected 23678 from pot
+*** SUMMARY ***
+Total pot 25056 | Rake 1378 
+Board [7d 9h 5h 9c 3c]
+Seat 1: TexasDiddy1 (button) folded on the Turn
+Seat 3: motc59 (small blind) mucked [7s 8s]
+Seat 4: vinver (big blind) showed [3d 9d] and won (23678) with a full house, Nines full of Threes
+Seat 5: samysamx folded on the Turn
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: Maguu0811 folded before Flop (didn't bet)
+Seat 8: roger,s705 folded on the Turn (didn't bet)
+Seat 9: pops4100 folded on the Turn
+
+
+
+PokerStars Hand #259471732090:  Hold'em No Limit (250/500) - 2026/01/26 19:00:41 CET [2026/01/26 13:00:41 ET]
+Table 'Saiph VII' 9-max (Play Money) Seat #3 is the button
+Seat 5: samysamx (70543 in chips) is sitting out
+Seat 1: TexasDiddy1 (37573 in chips) 
+Seat 2: 69marc69706969 (50000 in chips) 
+Seat 3: motc59 (50369 in chips) 
+Seat 4: vinver (120113 in chips) 
+Seat 6: jsalinas96 (25158 in chips) 
+Seat 7: Maguu0811 (22739 in chips) 
+Seat 8: roger,s705 (19500 in chips) 
+Seat 9: pops4100 (18000 in chips) 
+vinver: posts small blind 250
+jsalinas96: posts big blind 500
+69marc69706969: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Kh Jh]
+Maguu0811: calls 500
+roger,s705: calls 500
+pops4100: calls 500
+TexasDiddy1: folds 
+samysamx leaves the table
+69marc69706969: checks 
+motc59: calls 500
+vinver: calls 250
+jsalinas96: checks 
+*** FLOP *** [4h 6h 2s]
+vinver: checks 
+jsalinas96: checks 
+Maguu0811: checks 
+roger,s705: checks 
+pops4100: checks 
+69marc69706969: checks 
+motc59: bets 3307
+vinver: folds 
+jsalinas96: calls 3307
+Maguu0811: folds 
+roger,s705: folds 
+pops4100: calls 3307
+69marc69706969: calls 3307
+*** TURN *** [4h 6h 2s] [3d]
+jsalinas96: checks 
+pops4100: bets 500
+69marc69706969: folds 
+motc59: calls 500
+jsalinas96: calls 500
+*** RIVER *** [4h 6h 2s 3d] [Th]
+jsalinas96: bets 20851 and is all-in
+pops4100: folds 
+motc59: folds 
+Uncalled bet (20851) returned to jsalinas96
+jsalinas96 collected 17225 from pot
+jsalinas96: doesn't show hand 
+*** SUMMARY ***
+Total pot 18228 | Rake 1003 
+Board [4h 6h 2s 3d Th]
+Seat 5: samysamx
+Seat 1: TexasDiddy1 folded before Flop (didn't bet)
+Seat 2: 69marc69706969 folded on the Turn
+Seat 3: motc59 (button) folded on the River
+Seat 4: vinver (small blind) folded on the Flop
+Seat 6: jsalinas96 (big blind) collected (17225)
+Seat 7: Maguu0811 folded on the Flop
+Seat 8: roger,s705 folded on the Flop
+Seat 9: pops4100 folded on the River
+
+
+
+PokerStars Hand #259471749390:  Hold'em No Limit (250/500) - 2026/01/26 19:02:07 CET [2026/01/26 13:02:07 ET]
+Table 'Saiph VII' 9-max (Play Money) Seat #4 is the button
+Seat 9: pops4100 (13693 in chips) is sitting out
+Seat 1: TexasDiddy1 (37573 in chips) 
+Seat 2: 69marc69706969 (50000 in chips) 
+Seat 3: motc59 (46062 in chips) 
+Seat 4: vinver (119613 in chips) 
+Seat 6: jsalinas96 (38076 in chips) 
+Seat 7: Maguu0811 (22239 in chips) 
+Seat 8: roger,s705 (19000 in chips) 
+jsalinas96: posts small blind 250
+Maguu0811: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Tc 2h]
+roger,s705: calls 500
+TexasDiddy1: calls 500
+69marc69706969: calls 500
+motc59: folds 
+vinver: calls 500
+jsalinas96: folds 
+Maguu0811: raises 2750 to 3250
+roger,s705: folds 
+TexasDiddy1: folds 
+69marc69706969: calls 2750
+vinver: folds 
+*** FLOP *** [8s Ad 5h]
+Maguu0811: bets 7796
+69marc69706969: folds 
+Uncalled bet (7796) returned to Maguu0811
+Maguu0811 collected 7796 from pot
+Maguu0811: doesn't show hand 
+*** SUMMARY ***
+Total pot 8250 | Rake 454 
+Board [8s Ad 5h]
+Seat 9: pops4100
+Seat 1: TexasDiddy1 folded before Flop
+Seat 2: 69marc69706969 folded on the Flop
+Seat 3: motc59 folded before Flop (didn't bet)
+Seat 4: vinver (button) folded before Flop
+Seat 6: jsalinas96 (small blind) folded before Flop
+Seat 7: Maguu0811 (big blind) collected (7796)
+Seat 8: roger,s705 folded before Flop
+
+
+
+PokerStars Hand #259471758772:  Hold'em No Limit (250/500) - 2026/01/26 19:02:51 CET [2026/01/26 13:02:51 ET]
+Table 'Saiph VII' 9-max (Play Money) Seat #6 is the button
+Seat 9: pops4100 (13693 in chips) is sitting out
+Seat 1: TexasDiddy1 (37073 in chips) 
+Seat 2: 69marc69706969 (46750 in chips) 
+Seat 3: motc59 (46062 in chips) 
+Seat 4: vinver (119113 in chips) 
+Seat 6: jsalinas96 (37826 in chips) 
+Seat 7: Maguu0811 (26785 in chips) 
+Seat 8: roger,s705 (18500 in chips) 
+Maguu0811: posts small blind 250
+roger,s705: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ac Qh]
+TexasDiddy1: folds 
+69marc69706969: calls 500
+motc59: calls 500
+vinver: calls 500
+jsalinas96: calls 500
+Maguu0811: calls 250
+roger,s705: checks 
+*** FLOP *** [Qs 5s 4d]
+Maguu0811: checks 
+roger,s705: checks 
+69marc69706969: checks 
+motc59: checks 
+vinver: checks 
+jsalinas96: bets 2835
+Maguu0811: folds 
+roger,s705: folds 
+69marc69706969: calls 2835
+motc59: folds 
+vinver: calls 2835
+*** TURN *** [Qs 5s 4d] [9h]
+69marc69706969: checks 
+vinver: checks 
+jsalinas96: checks 
+*** RIVER *** [Qs 5s 4d 9h] [Qc]
+69marc69706969: checks 
+vinver: checks 
+jsalinas96: bets 10872
+69marc69706969: folds 
+vinver: calls 10872
+*** SHOW DOWN ***
+jsalinas96: shows [Ac Qh] (three of a kind, Queens)
+vinver: mucks hand 
+jsalinas96 collected 31420 from pot
+*** SUMMARY ***
+Total pot 33249 | Rake 1829 
+Board [Qs 5s 4d 9h Qc]
+Seat 9: pops4100
+Seat 1: TexasDiddy1 folded before Flop (didn't bet)
+Seat 2: 69marc69706969 folded on the River
+Seat 3: motc59 folded on the Flop
+Seat 4: vinver mucked [5h Ad]
+Seat 6: jsalinas96 (button) showed [Ac Qh] and won (31420) with three of a kind, Queens
+Seat 7: Maguu0811 (small blind) folded on the Flop
+Seat 8: roger,s705 (big blind) folded on the Flop
+
+
+
+PokerStars Hand #259471777965:  Hold'em No Limit (250/500) - 2026/01/26 19:04:15 CET [2026/01/26 13:04:15 ET]
+Table 'Saiph VII' 9-max (Play Money) Seat #7 is the button
+Seat 9: pops4100 (13693 in chips) is sitting out
+Seat 1: TexasDiddy1 (37073 in chips) 
+Seat 2: 69marc69706969 (50000 in chips) 
+Seat 3: motc59 (45562 in chips) 
+Seat 4: vinver (104906 in chips) 
+Seat 6: jsalinas96 (55039 in chips) 
+Seat 7: Maguu0811 (26285 in chips) 
+Seat 8: roger,s705 (18000 in chips) 
+roger,s705: posts small blind 250
+TexasDiddy1: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6d Td]
+69marc69706969: calls 500
+Ron Steelman joins the table at seat #5 
+motc59: calls 500
+vinver: calls 500
+jsalinas96: folds 
+Maguu0811: calls 500
+roger,s705: folds 
+TexasDiddy1: checks 
+*** FLOP *** [Qd Jd 3h]
+TexasDiddy1: bets 500
+69marc69706969: raises 49000 to 49500 and is all-in
+motc59: folds 
+vinver: folds 
+Maguu0811: folds 
+TexasDiddy1: folds 
+Uncalled bet (49000) returned to 69marc69706969
+69marc69706969 collected 3544 from pot
+69marc69706969: doesn't show hand 
+*** SUMMARY ***
+Total pot 3750 | Rake 206 
+Board [Qd Jd 3h]
+Seat 9: pops4100
+Seat 1: TexasDiddy1 (big blind) folded on the Flop
+Seat 2: 69marc69706969 collected (3544)
+Seat 3: motc59 folded on the Flop
+Seat 4: vinver folded on the Flop
+Seat 6: jsalinas96 folded before Flop (didn't bet)
+Seat 7: Maguu0811 (button) folded on the Flop
+Seat 8: roger,s705 (small blind) folded before Flop
+
+
+
+PokerStars Hand #259471788381:  Hold'em No Limit (250/500) - 2026/01/26 19:05:01 CET [2026/01/26 13:05:01 ET]
+Table 'Saiph VII' 9-max (Play Money) Seat #8 is the button
+Seat 9: pops4100 (13693 in chips) is sitting out
+Seat 1: TexasDiddy1 (36073 in chips) 
+Seat 2: 69marc69706969 (52544 in chips) 
+Seat 3: motc59 (45062 in chips) 
+Seat 4: vinver (104406 in chips) 
+Seat 5: Ron Steelman (50000 in chips) 
+Seat 6: jsalinas96 (55039 in chips) 
+Seat 7: Maguu0811 (25785 in chips) 
+Seat 8: roger,s705 (17750 in chips) 
+TexasDiddy1: posts small blind 250
+69marc69706969: posts big blind 500
+Ron Steelman: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qd 2h]
+motc59: calls 500
+vinver: folds 
+Ron Steelman: checks 
+jsalinas96: calls 500
+Maguu0811: calls 500
+roger,s705: folds 
+TexasDiddy1: folds 
+69marc69706969: checks 
+*** FLOP *** [4d 7d 7c]
+69marc69706969: checks 
+motc59: checks 
+Ron Steelman: checks 
+jsalinas96: checks 
+Maguu0811: checks 
+*** TURN *** [4d 7d 7c] [Ah]
+69marc69706969: checks 
+motc59: checks 
+Ron Steelman: checks 
+jsalinas96: checks 
+Maguu0811: checks 
+*** RIVER *** [4d 7d 7c Ah] [6d]
+69marc69706969: checks 
+motc59: checks 
+Ron Steelman: checks 
+jsalinas96: checks 
+Maguu0811: checks 
+*** SHOW DOWN ***
+69marc69706969: shows [Tc 3d] (a pair of Sevens)
+motc59: shows [6s 6c] (a full house, Sixes full of Sevens)
+Ron Steelman: mucks hand 
+jsalinas96: mucks hand 
+Maguu0811: mucks hand 
+motc59 collected 2599 from pot
+*** SUMMARY ***
+Total pot 2750 | Rake 151 
+Board [4d 7d 7c Ah 6d]
+Seat 9: pops4100
+Seat 1: TexasDiddy1 (small blind) folded before Flop
+Seat 2: 69marc69706969 (big blind) showed [Tc 3d] and lost with a pair of Sevens
+Seat 3: motc59 showed [6s 6c] and won (2599) with a full house, Sixes full of Sevens
+Seat 4: vinver folded before Flop (didn't bet)
+Seat 5: Ron Steelman mucked [Kd 9c]
+Seat 6: jsalinas96 mucked [Qd 2h]
+Seat 7: Maguu0811 mucked [6h Kh]
+Seat 8: roger,s705 (button) folded before Flop (didn't bet)
+
+
+

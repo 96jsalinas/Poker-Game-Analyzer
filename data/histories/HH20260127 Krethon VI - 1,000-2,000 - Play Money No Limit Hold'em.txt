@@ -1,0 +1,2333 @@
+﻿PokerStars Hand #259482740981:  Hold'em No Limit (1000/2000) - 2026/01/27 15:42:37 CET [2026/01/27 9:42:37 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #2 is the button
+Seat 1: lovcan111 (144320 in chips) 
+Seat 2: ffflllnnn (516650 in chips) 
+Seat 3: HKBE27 (70000 in chips) 
+Seat 4: WollfSTreet (198000 in chips) 
+Seat 5: goki1902 (198000 in chips) 
+Seat 6: hand4hire (432990 in chips) 
+Seat 7: mea717nomore (135120 in chips) 
+Seat 8: jsalinas96 (154880 in chips) 
+Seat 9: hatchman1655 (200000 in chips) 
+HKBE27: posts small blind 1000
+WollfSTreet: posts big blind 2000
+jsalinas96: posts big blind 2000
+hatchman1655: posts big blind 2000
+lovcan111: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ac 8d]
+goki1902: folds 
+hand4hire: folds 
+mea717nomore: calls 2000
+jsalinas96: checks 
+hatchman1655: checks 
+lovcan111: checks 
+ffflllnnn: calls 2000
+HKBE27: calls 1000
+WollfSTreet: checks 
+*** FLOP *** [Ts Tc Kh]
+HKBE27: checks 
+WollfSTreet: bets 4000
+mea717nomore: folds 
+jsalinas96: calls 4000
+hatchman1655: folds 
+lovcan111: calls 4000
+ffflllnnn: folds 
+HKBE27: folds 
+*** TURN *** [Ts Tc Kh] [5s]
+WollfSTreet: checks 
+jsalinas96: checks 
+lovcan111: checks 
+*** RIVER *** [Ts Tc Kh 5s] [7d]
+WollfSTreet: bets 12280
+jsalinas96: folds 
+lovcan111: folds 
+Uncalled bet (12280) returned to WollfSTreet
+WollfSTreet collected 24570 from pot
+WollfSTreet: doesn't show hand 
+*** SUMMARY ***
+Total pot 26000 | Rake 1430 
+Board [Ts Tc Kh 5s 7d]
+Seat 1: lovcan111 folded on the River
+Seat 2: ffflllnnn (button) folded on the Flop
+Seat 3: HKBE27 (small blind) folded on the Flop
+Seat 4: WollfSTreet (big blind) collected (24570)
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire folded before Flop (didn't bet)
+Seat 7: mea717nomore folded on the Flop
+Seat 8: jsalinas96 folded on the River
+Seat 9: hatchman1655 folded on the Flop (didn't bet)
+
+
+
+PokerStars Hand #259482749277:  Hold'em No Limit (1000/2000) - 2026/01/27 15:43:30 CET [2026/01/27 9:43:30 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #3 is the button
+Seat 1: lovcan111 (138320 in chips) 
+Seat 2: ffflllnnn (514650 in chips) 
+Seat 3: HKBE27 (68000 in chips) 
+Seat 4: WollfSTreet (216570 in chips) 
+Seat 5: goki1902 (198000 in chips) 
+Seat 6: hand4hire (432990 in chips) 
+Seat 7: mea717nomore (133120 in chips) 
+Seat 8: jsalinas96 (148880 in chips) 
+Seat 9: hatchman1655 (198000 in chips) 
+WollfSTreet: posts small blind 1000
+goki1902: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Jh Ah]
+hand4hire: folds 
+mea717nomore: calls 2000
+jsalinas96: raises 4000 to 6000
+hatchman1655: calls 6000
+lovcan111: folds 
+ffflllnnn: calls 6000
+HKBE27: folds 
+WollfSTreet: folds 
+goki1902: calls 4000
+mea717nomore: folds 
+*** FLOP *** [2c Qd Qs]
+goki1902: checks 
+jsalinas96: checks 
+hatchman1655: checks 
+ffflllnnn: checks 
+*** TURN *** [2c Qd Qs] [4d]
+goki1902: checks 
+jsalinas96: checks 
+hatchman1655: checks 
+ffflllnnn: checks 
+*** RIVER *** [2c Qd Qs 4d] [Ts]
+goki1902: checks 
+jsalinas96: checks 
+hatchman1655: checks 
+ffflllnnn: checks 
+*** SHOW DOWN ***
+goki1902: shows [6d 2s] (two pair, Queens and Deuces)
+jsalinas96: mucks hand 
+hatchman1655: mucks hand 
+ffflllnnn: mucks hand 
+goki1902 collected 25510 from pot
+*** SUMMARY ***
+Total pot 27000 | Rake 1490 
+Board [2c Qd Qs 4d Ts]
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn mucked [Kh 7s]
+Seat 3: HKBE27 (button) folded before Flop (didn't bet)
+Seat 4: WollfSTreet (small blind) folded before Flop
+Seat 5: goki1902 (big blind) showed [6d 2s] and won (25510) with two pair, Queens and Deuces
+Seat 6: hand4hire folded before Flop (didn't bet)
+Seat 7: mea717nomore folded before Flop
+Seat 8: jsalinas96 mucked [Jh Ah]
+Seat 9: hatchman1655 mucked [8s 5d]
+
+
+
+PokerStars Hand #259482757253:  Hold'em No Limit (1000/2000) - 2026/01/27 15:44:22 CET [2026/01/27 9:44:22 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #4 is the button
+Seat 1: lovcan111 (138320 in chips) 
+Seat 2: ffflllnnn (508650 in chips) 
+Seat 3: HKBE27 (68000 in chips) 
+Seat 4: WollfSTreet (215570 in chips) 
+Seat 5: goki1902 (217510 in chips) 
+Seat 6: hand4hire (432990 in chips) 
+Seat 7: mea717nomore (131120 in chips) 
+Seat 8: jsalinas96 (142880 in chips) 
+Seat 9: hatchman1655 (192000 in chips) 
+goki1902: posts small blind 1000
+hand4hire: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qs 7s]
+mea717nomore: calls 2000
+jsalinas96: calls 2000
+hatchman1655: calls 2000
+lovcan111: folds 
+ffflllnnn: calls 2000
+HKBE27: calls 2000
+WollfSTreet: calls 2000
+goki1902: calls 1000
+hand4hire: checks 
+*** FLOP *** [8s Td 8c]
+goki1902: checks 
+hand4hire: checks 
+mea717nomore: bets 2000
+jsalinas96: calls 2000
+hatchman1655: calls 2000
+ffflllnnn: calls 2000
+HKBE27: calls 2000
+WollfSTreet: raises 3000 to 5000
+goki1902: folds 
+hand4hire: folds 
+mea717nomore: calls 3000
+jsalinas96: calls 3000
+hatchman1655: calls 3000
+ffflllnnn: calls 3000
+HKBE27: folds 
+*** TURN *** [8s Td 8c] [Kd]
+mea717nomore: checks 
+jsalinas96: checks 
+hatchman1655: bets 10000
+ffflllnnn: calls 10000
+WollfSTreet: raises 50000 to 60000
+mea717nomore: folds 
+jsalinas96: folds 
+hatchman1655: calls 50000
+ffflllnnn: folds 
+*** RIVER *** [8s Td 8c Kd] [7h]
+mea717nomore leaves the table
+hatchman1655: checks 
+circujano joins the table at seat #7 
+WollfSTreet: checks 
+*** SHOW DOWN ***
+hatchman1655: shows [8d 6c] (three of a kind, Eights)
+WollfSTreet: mucks hand 
+hatchman1655 collected 163480 from pot
+*** SUMMARY ***
+Total pot 173000 | Rake 9520 
+Board [8s Td 8c Kd 7h]
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn folded on the Turn
+Seat 3: HKBE27 folded on the Flop
+Seat 4: WollfSTreet (button) mucked [9c 5h]
+Seat 5: goki1902 (small blind) folded on the Flop
+Seat 6: hand4hire (big blind) folded on the Flop
+Seat 7: mea717nomore folded on the Turn
+Seat 8: jsalinas96 folded on the Turn
+Seat 9: hatchman1655 showed [8d 6c] and won (163480) with three of a kind, Eights
+
+
+
+PokerStars Hand #259482775765:  Hold'em No Limit (1000/2000) - 2026/01/27 15:46:20 CET [2026/01/27 9:46:20 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #5 is the button
+Seat 1: lovcan111 (138320 in chips) 
+Seat 2: ffflllnnn (491650 in chips) 
+Seat 3: HKBE27 (64000 in chips) 
+Seat 4: WollfSTreet (148570 in chips) 
+Seat 5: goki1902 (215510 in chips) 
+Seat 6: hand4hire (430990 in chips) 
+Seat 7: circujano (200000 in chips) 
+Seat 8: jsalinas96 (135880 in chips) 
+Seat 9: hatchman1655 (288480 in chips) 
+hand4hire: posts small blind 1000
+circujano: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [7d 5s]
+jsalinas96: folds 
+hatchman1655: calls 2000
+lovcan111: folds 
+ffflllnnn: calls 2000
+HKBE27: folds 
+WollfSTreet: calls 2000
+goki1902: calls 2000
+hand4hire: calls 1000
+circujano: checks 
+*** FLOP *** [Kh 9c Jd]
+hand4hire: checks 
+circujano: bets 11340
+hatchman1655: calls 11340
+ffflllnnn: calls 11340
+WollfSTreet: folds 
+goki1902: folds 
+hand4hire: folds 
+*** TURN *** [Kh 9c Jd] [Kd]
+circujano: bets 43490
+hatchman1655: folds 
+ffflllnnn: calls 43490
+*** RIVER *** [Kh 9c Jd Kd] [5c]
+circujano: bets 125680
+ffflllnnn: raises 125680 to 251360
+circujano: calls 17490 and is all-in
+Uncalled bet (108190) returned to ffflllnnn
+*** SHOW DOWN ***
+ffflllnnn: shows [7s Kc] (three of a kind, Kings)
+circujano: shows [Ts Ks] (three of a kind, Kings - Jack+Ten kicker)
+circujano collected 396280 from pot
+*** SUMMARY ***
+Total pot 419340 | Rake 23060 
+Board [Kh 9c Jd Kd 5c]
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn showed [7s Kc] and lost with three of a kind, Kings
+Seat 3: HKBE27 folded before Flop (didn't bet)
+Seat 4: WollfSTreet folded on the Flop
+Seat 5: goki1902 (button) folded on the Flop
+Seat 6: hand4hire (small blind) folded on the Flop
+Seat 7: circujano (big blind) showed [Ts Ks] and won (396280) with three of a kind, Kings
+Seat 8: jsalinas96 folded before Flop (didn't bet)
+Seat 9: hatchman1655 folded on the Turn
+
+
+
+PokerStars Hand #259482787215:  Hold'em No Limit (1000/2000) - 2026/01/27 15:47:33 CET [2026/01/27 9:47:33 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #6 is the button
+Seat 1: lovcan111 (138320 in chips) 
+Seat 2: ffflllnnn (291650 in chips) 
+Seat 3: HKBE27 (64000 in chips) 
+Seat 4: WollfSTreet (146570 in chips) 
+Seat 5: goki1902 (213510 in chips) 
+Seat 6: hand4hire (428990 in chips) 
+Seat 7: circujano (396280 in chips) 
+Seat 8: jsalinas96 (135880 in chips) 
+Seat 9: hatchman1655 (275140 in chips) 
+circujano: posts small blind 1000
+jsalinas96: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3s Ah]
+hatchman1655: calls 2000
+lovcan111: folds 
+ffflllnnn: calls 2000
+HKBE27: calls 2000
+WollfSTreet: calls 2000
+goki1902: folds 
+hand4hire: folds 
+circujano: folds 
+jsalinas96: checks 
+*** FLOP *** [8h 8s Ts]
+jsalinas96: checks 
+hatchman1655: checks 
+ffflllnnn: checks 
+HKBE27: checks 
+WollfSTreet: checks 
+*** TURN *** [8h 8s Ts] [Jc]
+jsalinas96: checks 
+hatchman1655: bets 6000
+ffflllnnn: folds 
+HKBE27: raises 6000 to 12000
+WollfSTreet: calls 12000
+jsalinas96: folds 
+hatchman1655: calls 6000
+*** RIVER *** [8h 8s Ts Jc] [Qc]
+hatchman1655: checks 
+HKBE27: checks 
+WollfSTreet: bets 44410
+hatchman1655: folds 
+HKBE27: folds 
+Uncalled bet (44410) returned to WollfSTreet
+WollfSTreet collected 44410 from pot
+WollfSTreet: doesn't show hand 
+*** SUMMARY ***
+Total pot 47000 | Rake 2590 
+Board [8h 8s Ts Jc Qc]
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn folded on the Turn
+Seat 3: HKBE27 folded on the River
+Seat 4: WollfSTreet collected (44410)
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire (button) folded before Flop (didn't bet)
+Seat 7: circujano (small blind) folded before Flop
+Seat 8: jsalinas96 (big blind) folded on the Turn
+Seat 9: hatchman1655 folded on the River
+
+
+
+PokerStars Hand #259482801811:  Hold'em No Limit (1000/2000) - 2026/01/27 15:49:08 CET [2026/01/27 9:49:08 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #7 is the button
+Seat 1: lovcan111 (138320 in chips) 
+Seat 2: ffflllnnn (289650 in chips) 
+Seat 3: HKBE27 (50000 in chips) 
+Seat 4: WollfSTreet (176980 in chips) 
+Seat 5: goki1902 (213510 in chips) 
+Seat 6: hand4hire (428990 in chips) 
+Seat 7: circujano (395280 in chips) 
+Seat 8: jsalinas96 (133880 in chips) 
+Seat 9: hatchman1655 (261140 in chips) 
+jsalinas96: posts small blind 1000
+hatchman1655: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qd Ts]
+lovcan111: folds 
+ffflllnnn: folds 
+HKBE27: calls 2000
+WollfSTreet: calls 2000
+goki1902: folds 
+hand4hire: folds 
+circujano: calls 2000
+jsalinas96: calls 1000
+hatchman1655: checks 
+*** FLOP *** [Js Ad 7h]
+jsalinas96: checks 
+hatchman1655: checks 
+HKBE27: checks 
+WollfSTreet: checks 
+circujano: checks 
+*** TURN *** [Js Ad 7h] [Jc]
+jsalinas96: checks 
+hatchman1655: bets 6000
+HKBE27: folds 
+WollfSTreet: folds 
+circujano: calls 6000
+jsalinas96: calls 6000
+*** RIVER *** [Js Ad 7h Jc] [7d]
+jsalinas96: checks 
+hatchman1655: bets 14000
+circujano has timed out
+circujano: folds 
+circujano is disconnected 
+jsalinas96: calls 14000
+*** SHOW DOWN ***
+hatchman1655: shows [7s 6h] (a full house, Sevens full of Jacks)
+jsalinas96: mucks hand 
+hatchman1655 collected 52920 from pot
+*** SUMMARY ***
+Total pot 56000 | Rake 3080 
+Board [Js Ad 7h Jc 7d]
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn folded before Flop (didn't bet)
+Seat 3: HKBE27 folded on the Turn
+Seat 4: WollfSTreet folded on the Turn
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire folded before Flop (didn't bet)
+Seat 7: circujano (button) folded on the River
+Seat 8: jsalinas96 (small blind) mucked [Qd Ts]
+Seat 9: hatchman1655 (big blind) showed [7s 6h] and won (52920) with a full house, Sevens full of Jacks
+
+
+
+PokerStars Hand #259482815370:  Hold'em No Limit (1000/2000) - 2026/01/27 15:50:34 CET [2026/01/27 9:50:34 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #8 is the button
+Seat 7: circujano (387280 in chips) is sitting out
+Seat 1: lovcan111 (138320 in chips) 
+Seat 2: ffflllnnn (289650 in chips) 
+Seat 3: HKBE27 (48000 in chips) 
+Seat 4: WollfSTreet (174980 in chips) 
+Seat 5: goki1902 (213510 in chips) 
+Seat 6: hand4hire (428990 in chips) 
+Seat 8: jsalinas96 (111880 in chips) 
+Seat 9: hatchman1655 (292060 in chips) 
+hatchman1655: posts small blind 1000
+lovcan111: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [As Td]
+ffflllnnn: folds 
+HKBE27: folds 
+WollfSTreet: calls 2000
+goki1902: calls 2000
+hand4hire: calls 2000
+jsalinas96: calls 2000
+hatchman1655: calls 1000
+lovcan111: checks 
+*** FLOP *** [2c Ks 8d]
+hatchman1655: checks 
+lovcan111: checks 
+WollfSTreet: checks 
+goki1902: bets 11340
+hand4hire: folds 
+jsalinas96: folds 
+hatchman1655: folds 
+lovcan111: folds 
+WollfSTreet: folds 
+Uncalled bet (11340) returned to goki1902
+circujano is disconnected 
+goki1902 collected 11340 from pot
+goki1902: doesn't show hand 
+*** SUMMARY ***
+Total pot 12000 | Rake 660 
+Board [2c Ks 8d]
+Seat 7: circujano
+Seat 1: lovcan111 (big blind) folded on the Flop
+Seat 2: ffflllnnn folded before Flop (didn't bet)
+Seat 3: HKBE27 folded before Flop (didn't bet)
+Seat 4: WollfSTreet folded on the Flop
+Seat 5: goki1902 collected (11340)
+Seat 6: hand4hire folded on the Flop
+Seat 8: jsalinas96 (button) folded on the Flop
+Seat 9: hatchman1655 (small blind) folded on the Flop
+
+
+
+PokerStars Hand #259482823212:  Hold'em No Limit (1000/2000) - 2026/01/27 15:51:25 CET [2026/01/27 9:51:25 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #9 is the button
+Seat 7: circujano (387280 in chips) is sitting out
+Seat 1: lovcan111 (136320 in chips) 
+Seat 2: ffflllnnn (289650 in chips) 
+Seat 3: HKBE27 (48000 in chips) 
+Seat 4: WollfSTreet (172980 in chips) 
+Seat 5: goki1902 (222850 in chips) 
+Seat 6: hand4hire (426990 in chips) 
+Seat 8: jsalinas96 (109880 in chips) 
+Seat 9: hatchman1655 (290060 in chips) 
+lovcan111: posts small blind 1000
+ffflllnnn: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4d 3d]
+HKBE27: folds 
+WollfSTreet: calls 2000
+goki1902: folds 
+hand4hire: folds 
+jsalinas96: folds 
+hatchman1655: raises 8000 to 10000
+lovcan111: folds 
+ffflllnnn: folds 
+WollfSTreet: calls 8000
+*** FLOP *** [Td 7s Ac]
+WollfSTreet: checks 
+hatchman1655: bets 12000
+WollfSTreet: folds 
+Uncalled bet (12000) returned to hatchman1655
+hatchman1655 collected 21730 from pot
+hatchman1655: doesn't show hand 
+*** SUMMARY ***
+Total pot 23000 | Rake 1270 
+Board [Td 7s Ac]
+Seat 7: circujano
+Seat 1: lovcan111 (small blind) folded before Flop
+Seat 2: ffflllnnn (big blind) folded before Flop
+Seat 3: HKBE27 folded before Flop (didn't bet)
+Seat 4: WollfSTreet folded on the Flop
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire folded before Flop (didn't bet)
+Seat 8: jsalinas96 folded before Flop (didn't bet)
+Seat 9: hatchman1655 (button) collected (21730)
+
+
+
+PokerStars Hand #259482830864:  Hold'em No Limit (1000/2000) - 2026/01/27 15:52:14 CET [2026/01/27 9:52:14 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #1 is the button
+Seat 7: circujano (387280 in chips) is sitting out
+Seat 1: lovcan111 (135320 in chips) 
+Seat 2: ffflllnnn (287650 in chips) 
+Seat 3: HKBE27 (48000 in chips) 
+Seat 4: WollfSTreet (162980 in chips) 
+Seat 5: goki1902 (222850 in chips) 
+Seat 6: hand4hire (426990 in chips) 
+Seat 8: jsalinas96 (109880 in chips) 
+Seat 9: hatchman1655 (301790 in chips) 
+ffflllnnn: posts small blind 1000
+HKBE27: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Js 5c]
+WollfSTreet: raises 2000 to 4000
+goki1902: calls 4000
+hand4hire: folds 
+jsalinas96: folds 
+hatchman1655: calls 4000
+lovcan111: folds 
+ffflllnnn: folds 
+HKBE27: folds 
+*** FLOP *** [Jd 3c Qd]
+WollfSTreet: bets 4000
+goki1902: folds 
+hatchman1655: calls 4000
+*** TURN *** [Jd 3c Qd] [4h]
+WollfSTreet: bets 6000
+hatchman1655: calls 6000
+*** RIVER *** [Jd 3c Qd 4h] [9s]
+WollfSTreet: checks 
+hatchman1655: checks 
+*** SHOW DOWN ***
+WollfSTreet: shows [Th Ac] (high card Ace)
+hatchman1655: shows [Td Qs] (a pair of Queens)
+hatchman1655 collected 33070 from pot
+*** SUMMARY ***
+Total pot 35000 | Rake 1930 
+Board [Jd 3c Qd 4h 9s]
+Seat 7: circujano
+Seat 1: lovcan111 (button) folded before Flop (didn't bet)
+Seat 2: ffflllnnn (small blind) folded before Flop
+Seat 3: HKBE27 (big blind) folded before Flop
+Seat 4: WollfSTreet showed [Th Ac] and lost with high card Ace
+Seat 5: goki1902 folded on the Flop
+Seat 6: hand4hire folded before Flop (didn't bet)
+Seat 8: jsalinas96 folded before Flop (didn't bet)
+Seat 9: hatchman1655 showed [Td Qs] and won (33070) with a pair of Queens
+
+
+
+PokerStars Hand #259482840348:  Hold'em No Limit (1000/2000) - 2026/01/27 15:53:16 CET [2026/01/27 9:53:16 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #2 is the button
+Seat 7: circujano (387280 in chips) is sitting out
+Seat 1: lovcan111 (135320 in chips) 
+Seat 2: ffflllnnn (286650 in chips) 
+Seat 3: HKBE27 (46000 in chips) 
+Seat 4: WollfSTreet (148980 in chips) 
+Seat 5: goki1902 (218850 in chips) 
+Seat 6: hand4hire (426990 in chips) 
+Seat 8: jsalinas96 (109880 in chips) 
+Seat 9: hatchman1655 (320860 in chips) 
+HKBE27: posts small blind 1000
+WollfSTreet: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3s 4d]
+goki1902: calls 2000
+hand4hire: folds 
+jsalinas96: folds 
+hatchman1655: calls 2000
+lovcan111: folds 
+ffflllnnn: calls 2000
+HKBE27: calls 1000
+WollfSTreet: checks 
+*** FLOP *** [Ks Tc 7c]
+HKBE27: checks 
+WollfSTreet: bets 3000
+goki1902: calls 3000
+hatchman1655: calls 3000
+ffflllnnn: calls 3000
+HKBE27: folds 
+*** TURN *** [Ks Tc 7c] [Jc]
+WollfSTreet: bets 10000
+goki1902: folds 
+hatchman1655: folds 
+ffflllnnn: calls 10000
+*** RIVER *** [Ks Tc 7c Jc] [2d]
+WollfSTreet: checks 
+ffflllnnn: bets 22000
+WollfSTreet: calls 22000
+*** SHOW DOWN ***
+ffflllnnn: shows [Qs Ad] (a straight, Ten to Ace)
+WollfSTreet: mucks hand 
+ffflllnnn collected 81270 from pot
+*** SUMMARY ***
+Total pot 86000 | Rake 4730 
+Board [Ks Tc 7c Jc 2d]
+Seat 7: circujano
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn (button) showed [Qs Ad] and won (81270) with a straight, Ten to Ace
+Seat 3: HKBE27 (small blind) folded on the Flop
+Seat 4: WollfSTreet (big blind) mucked [6h Kh]
+Seat 5: goki1902 folded on the Turn
+Seat 6: hand4hire folded before Flop (didn't bet)
+Seat 8: jsalinas96 folded before Flop (didn't bet)
+Seat 9: hatchman1655 folded on the Turn
+
+
+
+PokerStars Hand #259482853123:  Hold'em No Limit (1000/2000) - 2026/01/27 15:54:38 CET [2026/01/27 9:54:38 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #3 is the button
+Seat 7: circujano (387280 in chips) is sitting out
+Seat 1: lovcan111 (135320 in chips) 
+Seat 2: ffflllnnn (330920 in chips) 
+Seat 3: HKBE27 (44000 in chips) 
+Seat 4: WollfSTreet (111980 in chips) 
+Seat 5: goki1902 (213850 in chips) 
+Seat 6: hand4hire (426990 in chips) 
+Seat 8: jsalinas96 (109880 in chips) 
+Seat 9: hatchman1655 (315860 in chips) 
+WollfSTreet: posts small blind 1000
+goki1902: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9c 9h]
+hand4hire: folds 
+jsalinas96: calls 2000
+hatchman1655: raises 4000 to 6000
+lovcan111: folds 
+ffflllnnn: calls 6000
+HKBE27: folds 
+WollfSTreet: calls 5000
+goki1902: calls 4000
+jsalinas96: calls 4000
+*** FLOP *** [9s 5c Kd]
+WollfSTreet: bets 10000
+goki1902: folds 
+jsalinas96: calls 10000
+hatchman1655: folds 
+ffflllnnn: folds 
+*** TURN *** [9s 5c Kd] [4s]
+WollfSTreet: bets 23620
+jsalinas96: calls 23620
+*** RIVER *** [9s 5c Kd 4s] [Tc]
+WollfSTreet: bets 72360 and is all-in
+jsalinas96: calls 70260 and is all-in
+Uncalled bet (2100) returned to WollfSTreet
+*** SHOW DOWN ***
+WollfSTreet: shows [5d Ks] (two pair, Kings and Fives)
+jsalinas96: shows [9c 9h] (three of a kind, Nines)
+jsalinas96 collected 224680 from pot
+*** SUMMARY ***
+Total pot 237760 | Rake 13080 
+Board [9s 5c Kd 4s Tc]
+Seat 7: circujano
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn folded on the Flop
+Seat 3: HKBE27 (button) folded before Flop (didn't bet)
+Seat 4: WollfSTreet (small blind) showed [5d Ks] and lost with two pair, Kings and Fives
+Seat 5: goki1902 (big blind) folded on the Flop
+Seat 6: hand4hire folded before Flop (didn't bet)
+Seat 8: jsalinas96 showed [9c 9h] and won (224680) with three of a kind, Nines
+Seat 9: hatchman1655 folded on the Flop
+
+
+
+PokerStars Hand #259482862589:  Hold'em No Limit (1000/2000) - 2026/01/27 15:55:49 CET [2026/01/27 9:55:49 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #4 is the button
+Seat 7: circujano (387280 in chips) is sitting out
+Seat 1: lovcan111 (135320 in chips) 
+Seat 2: ffflllnnn (324920 in chips) 
+Seat 3: HKBE27 (44000 in chips) 
+Seat 4: WollfSTreet (2100 in chips) 
+Seat 5: goki1902 (207850 in chips) 
+Seat 6: hand4hire (426990 in chips) 
+Seat 8: jsalinas96 (224680 in chips) 
+Seat 9: hatchman1655 (309860 in chips) 
+goki1902: posts small blind 1000
+hand4hire: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8c Kc]
+jsalinas96: raises 4000 to 6000
+hatchman1655: calls 6000
+lovcan111: folds 
+ffflllnnn: raises 4000 to 10000
+HKBE27: folds 
+WollfSTreet: calls 2100 and is all-in
+goki1902: folds 
+hand4hire: folds 
+jsalinas96: calls 4000
+hatchman1655: calls 4000
+*** FLOP *** [Td Ac 4d]
+jsalinas96: checks 
+hatchman1655: checks 
+ffflllnnn: bets 72000
+jsalinas96: folds 
+hatchman1655: folds 
+Uncalled bet (72000) returned to ffflllnnn
+*** TURN *** [Td Ac 4d] [3c]
+*** RIVER *** [Td Ac 4d 3c] [Qc]
+*** SHOW DOWN ***
+ffflllnnn: shows [Ah Ks] (a pair of Aces)
+ffflllnnn collected 22400 from side pot
+WollfSTreet: shows [Js 8d] (high card Ace)
+ffflllnnn collected 10770 from main pot
+*** SUMMARY ***
+Total pot 35100 Main pot 10770. Side pot 22400. | Rake 1930 
+Board [Td Ac 4d 3c Qc]
+Seat 7: circujano
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn showed [Ah Ks] and won (33170) with a pair of Aces
+Seat 3: HKBE27 folded before Flop (didn't bet)
+Seat 4: WollfSTreet (button) showed [Js 8d] and lost with high card Ace
+Seat 5: goki1902 (small blind) folded before Flop
+Seat 6: hand4hire (big blind) folded before Flop
+Seat 8: jsalinas96 folded on the Flop
+Seat 9: hatchman1655 folded on the Flop
+
+
+
+PokerStars Hand #259482868040:  Hold'em No Limit (1000/2000) - 2026/01/27 15:56:34 CET [2026/01/27 9:56:34 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #5 is the button
+Seat 4: WollfSTreet (0 in chips) is sitting out
+Seat 7: circujano (387280 in chips) is sitting out
+Seat 1: lovcan111 (135320 in chips) 
+Seat 2: ffflllnnn (348090 in chips) 
+Seat 3: HKBE27 (44000 in chips) 
+Seat 5: goki1902 (206850 in chips) 
+Seat 6: hand4hire (424990 in chips) 
+Seat 8: jsalinas96 (214680 in chips) 
+Seat 9: hatchman1655 (299860 in chips) 
+hand4hire: posts small blind 1000
+jsalinas96: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5d Tc]
+hatchman1655: folds 
+lovcan111: folds 
+ffflllnnn: raises 10000 to 12000
+HKBE27: folds 
+goki1902: folds 
+hand4hire: folds 
+jsalinas96: folds 
+Uncalled bet (10000) returned to ffflllnnn
+ffflllnnn collected 5000 from pot
+ffflllnnn: doesn't show hand 
+*** SUMMARY ***
+Total pot 5000 | Rake 0 
+Seat 4: WollfSTreet
+Seat 7: circujano
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn collected (5000)
+Seat 3: HKBE27 folded before Flop (didn't bet)
+Seat 5: goki1902 (button) folded before Flop (didn't bet)
+Seat 6: hand4hire (small blind) folded before Flop
+Seat 8: jsalinas96 (big blind) folded before Flop
+Seat 9: hatchman1655 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259482871596:  Hold'em No Limit (1000/2000) - 2026/01/27 15:57:03 CET [2026/01/27 9:57:03 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #6 is the button
+Seat 7: circujano (387280 in chips) is sitting out
+Seat 1: lovcan111 (135320 in chips) 
+Seat 2: ffflllnnn (351090 in chips) 
+Seat 3: HKBE27 (44000 in chips) 
+Seat 4: WollfSTreet (200000 in chips) 
+Seat 5: goki1902 (206850 in chips) 
+Seat 6: hand4hire (423990 in chips) 
+Seat 8: jsalinas96 (212680 in chips) 
+Seat 9: hatchman1655 (299860 in chips) 
+jsalinas96: posts small blind 1000
+hatchman1655: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4s 5c]
+lovcan111: folds 
+ffflllnnn: folds 
+HKBE27: calls 2000
+WollfSTreet: raises 2000 to 4000
+goki1902: calls 4000
+hand4hire: calls 4000
+jsalinas96: folds 
+hatchman1655: calls 2000
+HKBE27: calls 2000
+*** FLOP *** [6h 7d Kd]
+hatchman1655: checks 
+HKBE27: checks 
+WollfSTreet: checks 
+goki1902: checks 
+hand4hire: checks 
+*** TURN *** [6h 7d Kd] [6s]
+hatchman1655: checks 
+HKBE27: checks 
+WollfSTreet: checks 
+goki1902: checks 
+hand4hire: checks 
+*** RIVER *** [6h 7d Kd 6s] [Js]
+hatchman1655: checks 
+HKBE27: checks 
+WollfSTreet: checks 
+goki1902: checks 
+hand4hire: checks 
+*** SHOW DOWN ***
+hatchman1655: shows [2s 5h] (a pair of Sixes)
+HKBE27: shows [9d 8h] (a pair of Sixes - King+Jack+Nine kicker)
+WollfSTreet: shows [Ac 2h] (a pair of Sixes - Ace kicker)
+goki1902: shows [As 5s] (a pair of Sixes)
+hand4hire: shows [8s 8d] (two pair, Eights and Sixes)
+hand4hire collected 19840 from pot
+*** SUMMARY ***
+Total pot 21000 | Rake 1160 
+Board [6h 7d Kd 6s Js]
+Seat 7: circujano
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn folded before Flop (didn't bet)
+Seat 3: HKBE27 showed [9d 8h] and lost with a pair of Sixes
+Seat 4: WollfSTreet showed [Ac 2h] and lost with a pair of Sixes
+Seat 5: goki1902 showed [As 5s] and lost with a pair of Sixes
+Seat 6: hand4hire (button) showed [8s 8d] and won (19840) with two pair, Eights and Sixes
+Seat 8: jsalinas96 (small blind) folded before Flop
+Seat 9: hatchman1655 (big blind) showed [2s 5h] and lost with a pair of Sixes
+
+
+
+PokerStars Hand #259482879795:  Hold'em No Limit (1000/2000) - 2026/01/27 15:58:11 CET [2026/01/27 9:58:11 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #8 is the button
+Seat 7: circujano (387280 in chips) is sitting out
+Seat 1: lovcan111 (135320 in chips) 
+Seat 2: ffflllnnn (351090 in chips) 
+Seat 3: HKBE27 (40000 in chips) 
+Seat 4: WollfSTreet (196000 in chips) 
+Seat 5: goki1902 (202850 in chips) 
+Seat 6: hand4hire (439830 in chips) 
+Seat 8: jsalinas96 (211680 in chips) 
+Seat 9: hatchman1655 (295860 in chips) 
+hatchman1655: posts small blind 1000
+lovcan111: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8s 6c]
+ffflllnnn: folds 
+HKBE27: calls 2000
+WollfSTreet: calls 2000
+goki1902: folds 
+hand4hire: folds 
+jsalinas96: folds 
+hatchman1655: raises 8000 to 10000
+lovcan111: folds 
+HKBE27: calls 8000
+WollfSTreet: calls 8000
+*** FLOP *** [9h 9s 2d]
+hatchman1655: bets 10000
+HKBE27: folds 
+WollfSTreet: raises 10000 to 20000
+hatchman1655: calls 10000
+*** TURN *** [9h 9s 2d] [4d]
+hatchman1655: checks 
+WollfSTreet has timed out
+WollfSTreet: checks 
+*** RIVER *** [9h 9s 2d 4d] [As]
+hatchman1655: checks 
+WollfSTreet: bets 34020
+hatchman1655: folds 
+Uncalled bet (34020) returned to WollfSTreet
+WollfSTreet collected 68040 from pot
+WollfSTreet: doesn't show hand 
+*** SUMMARY ***
+Total pot 72000 | Rake 3960 
+Board [9h 9s 2d 4d As]
+Seat 7: circujano
+Seat 1: lovcan111 (big blind) folded before Flop
+Seat 2: ffflllnnn folded before Flop (didn't bet)
+Seat 3: HKBE27 folded on the Flop
+Seat 4: WollfSTreet collected (68040)
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire folded before Flop (didn't bet)
+Seat 8: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 9: hatchman1655 (small blind) folded on the River
+
+
+
+PokerStars Hand #259482891012:  Hold'em No Limit (1000/2000) - 2026/01/27 15:59:43 CET [2026/01/27 9:59:43 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #9 is the button
+Seat 7: circujano (387280 in chips) is sitting out
+Seat 1: lovcan111 (133320 in chips) 
+Seat 2: ffflllnnn (351090 in chips) 
+Seat 3: HKBE27 (30000 in chips) 
+Seat 4: WollfSTreet (234040 in chips) 
+Seat 5: goki1902 (202850 in chips) 
+Seat 6: hand4hire (439830 in chips) 
+Seat 8: jsalinas96 (211680 in chips) 
+Seat 9: hatchman1655 (265860 in chips) 
+lovcan111: posts small blind 1000
+ffflllnnn: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ks 6h]
+HKBE27: calls 2000
+WollfSTreet: calls 2000
+goki1902: folds 
+hand4hire: folds 
+jsalinas96: folds 
+hatchman1655: calls 2000
+lovcan111: folds 
+ffflllnnn: checks 
+*** FLOP *** [Kc 5s 3h]
+ffflllnnn: bets 2000
+HKBE27: calls 2000
+WollfSTreet: folds 
+hatchman1655: calls 2000
+*** TURN *** [Kc 5s 3h] [8s]
+ffflllnnn: bets 2000
+HKBE27: calls 2000
+hatchman1655: calls 2000
+*** RIVER *** [Kc 5s 3h 8s] [Js]
+ffflllnnn: bets 2000
+WollfSTreet leaves the table
+HKBE27: calls 2000
+hatchman1655: calls 2000
+*** SHOW DOWN ***
+ffflllnnn: shows [Jh 3d] (two pair, Jacks and Threes)
+HKBE27: mucks hand 
+hatchman1655: mucks hand 
+ffflllnnn collected 25510 from pot
+*** SUMMARY ***
+Total pot 27000 | Rake 1490 
+Board [Kc 5s 3h 8s Js]
+Seat 7: circujano
+Seat 1: lovcan111 (small blind) folded before Flop
+Seat 2: ffflllnnn (big blind) showed [Jh 3d] and won (25510) with two pair, Jacks and Threes
+Seat 3: HKBE27 mucked [Th Kd]
+Seat 4: WollfSTreet folded on the Flop
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire folded before Flop (didn't bet)
+Seat 8: jsalinas96 folded before Flop (didn't bet)
+Seat 9: hatchman1655 (button) mucked [6d 5h]
+
+
+
+PokerStars Hand #259482899780:  Hold'em No Limit (1000/2000) - 2026/01/27 16:00:51 CET [2026/01/27 10:00:51 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #1 is the button
+Seat 7: circujano (387280 in chips) is sitting out
+Seat 1: lovcan111 (132320 in chips) 
+Seat 2: ffflllnnn (368600 in chips) 
+Seat 3: HKBE27 (22000 in chips) 
+Seat 5: goki1902 (202850 in chips) 
+Seat 6: hand4hire (439830 in chips) 
+Seat 8: jsalinas96 (211680 in chips) 
+Seat 9: hatchman1655 (257860 in chips) 
+ffflllnnn: posts small blind 1000
+HKBE27: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4h 9s]
+goki1902: folds 
+hand4hire: calls 2000
+jsalinas96: folds 
+Tonecas joins the table at seat #4 
+hatchman1655: raises 8000 to 10000
+lovcan111: calls 10000
+ffflllnnn: calls 9000
+HKBE27: folds 
+hand4hire: folds 
+*** FLOP *** [As 7s Qd]
+circujano leaves the table
+ffflllnnn: checks 
+hatchman1655: bets 10000
+salvoG2 joins the table at seat #7 
+salvoG2 is disconnected 
+lovcan111: calls 10000
+ffflllnnn: calls 10000
+*** TURN *** [As 7s Qd] [7d]
+ffflllnnn: checks 
+hatchman1655: bets 20000
+lovcan111: calls 20000
+ffflllnnn: calls 20000
+*** RIVER *** [As 7s Qd 7d] [Th]
+ffflllnnn: checks 
+hatchman1655: checks 
+lovcan111: checks 
+*** SHOW DOWN ***
+ffflllnnn: shows [2s 5s] (a pair of Sevens)
+hatchman1655: shows [Kd Ad] (two pair, Aces and Sevens)
+lovcan111: shows [Ah Kh] (two pair, Aces and Sevens)
+hatchman1655 collected 58590 from pot
+lovcan111 collected 58590 from pot
+*** SUMMARY ***
+Total pot 124000 | Rake 6820 
+Board [As 7s Qd 7d Th]
+Seat 7: circujano
+Seat 1: lovcan111 (button) showed [Ah Kh] and won (58590) with two pair, Aces and Sevens
+Seat 2: ffflllnnn (small blind) showed [2s 5s] and lost with a pair of Sevens
+Seat 3: HKBE27 (big blind) folded before Flop
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire folded before Flop
+Seat 8: jsalinas96 folded before Flop (didn't bet)
+Seat 9: hatchman1655 showed [Kd Ad] and won (58590) with two pair, Aces and Sevens
+
+
+
+PokerStars Hand #259482909745:  Hold'em No Limit (1000/2000) - 2026/01/27 16:01:57 CET [2026/01/27 10:01:57 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #2 is the button
+Seat 3: HKBE27 (20000 in chips) is sitting out
+Seat 4: Tonecas (200000 in chips) is sitting out
+Seat 1: lovcan111 (150910 in chips) 
+Seat 2: ffflllnnn (328600 in chips) 
+Seat 5: goki1902 (202850 in chips) 
+Seat 6: hand4hire (437830 in chips) 
+Seat 7: salvoG2 (200000 in chips) 
+Seat 8: jsalinas96 (211680 in chips) 
+Seat 9: hatchman1655 (276450 in chips) 
+goki1902: posts small blind 1000
+hand4hire: posts big blind 2000
+salvoG2: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8s 5d]
+salvoG2: raises 4000 to 6000
+jsalinas96: folds 
+hatchman1655: calls 6000
+lovcan111: folds 
+ffflllnnn: calls 6000
+goki1902: folds 
+hand4hire: calls 4000
+*** FLOP *** [8h 9d 2s]
+hand4hire: checks 
+salvoG2: checks 
+hatchman1655: checks 
+ffflllnnn: checks 
+*** TURN *** [8h 9d 2s] [Jh]
+hand4hire: checks 
+salvoG2: checks 
+hatchman1655: bets 6000
+ffflllnnn: calls 6000
+hand4hire: folds 
+salvoG2: folds 
+*** RIVER *** [8h 9d 2s Jh] [Qs]
+hatchman1655: bets 10000
+ffflllnnn: folds 
+Uncalled bet (10000) returned to hatchman1655
+hatchman1655 collected 34960 from pot
+hatchman1655: doesn't show hand 
+*** SUMMARY ***
+Total pot 37000 | Rake 2040 
+Board [8h 9d 2s Jh Qs]
+Seat 3: HKBE27
+Seat 4: Tonecas
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn (button) folded on the River
+Seat 5: goki1902 (small blind) folded before Flop
+Seat 6: hand4hire (big blind) folded on the Turn
+Seat 7: salvoG2 folded on the Turn
+Seat 8: jsalinas96 folded before Flop (didn't bet)
+Seat 9: hatchman1655 collected (34960)
+
+
+
+PokerStars Hand #259482920743:  Hold'em No Limit (1000/2000) - 2026/01/27 16:03:08 CET [2026/01/27 10:03:08 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #5 is the button
+Seat 3: HKBE27 (20000 in chips) is sitting out
+Seat 1: lovcan111 (150910 in chips) 
+Seat 2: ffflllnnn (316600 in chips) 
+Seat 4: Tonecas (200000 in chips) 
+Seat 5: goki1902 (201850 in chips) 
+Seat 6: hand4hire (431830 in chips) 
+Seat 7: salvoG2 (194000 in chips) 
+Seat 8: jsalinas96 (211680 in chips) 
+Seat 9: hatchman1655 (299410 in chips) 
+hand4hire: posts small blind 1000
+salvoG2: posts big blind 2000
+Tonecas: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Td Th]
+jsalinas96: raises 4000 to 6000
+hatchman1655: calls 6000
+lovcan111: folds 
+ffflllnnn: folds 
+Tonecas: folds 
+goki1902: folds 
+hand4hire: folds 
+salvoG2: folds 
+*** FLOP *** [Qs Qh 4h]
+jsalinas96: checks 
+hatchman1655: checks 
+*** TURN *** [Qs Qh 4h] [7c]
+jsalinas96: checks 
+hatchman1655: bets 10000
+jsalinas96: calls 10000
+*** RIVER *** [Qs Qh 4h 7c] [4c]
+jsalinas96: bets 17480
+hatchman1655: folds 
+Uncalled bet (17480) returned to jsalinas96
+jsalinas96 collected 34960 from pot
+jsalinas96: doesn't show hand 
+*** SUMMARY ***
+Total pot 37000 | Rake 2040 
+Board [Qs Qh 4h 7c 4c]
+Seat 3: HKBE27
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn folded before Flop (didn't bet)
+Seat 4: Tonecas folded before Flop (didn't bet)
+Seat 5: goki1902 (button) folded before Flop (didn't bet)
+Seat 6: hand4hire (small blind) folded before Flop
+Seat 7: salvoG2 (big blind) folded before Flop
+Seat 8: jsalinas96 collected (34960)
+Seat 9: hatchman1655 folded on the River
+
+
+
+PokerStars Hand #259482929314:  Hold'em No Limit (1000/2000) - 2026/01/27 16:04:03 CET [2026/01/27 10:04:03 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #6 is the button
+Seat 3: HKBE27 (20000 in chips) is sitting out
+Seat 1: lovcan111 (150910 in chips) 
+Seat 2: ffflllnnn (316600 in chips) 
+Seat 4: Tonecas (200000 in chips) 
+Seat 5: goki1902 (201850 in chips) 
+Seat 6: hand4hire (430830 in chips) 
+Seat 7: salvoG2 (192000 in chips) 
+Seat 8: jsalinas96 (230640 in chips) 
+Seat 9: hatchman1655 (283410 in chips) 
+salvoG2: posts small blind 1000
+jsalinas96: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4d 6d]
+hatchman1655: calls 2000
+lovcan111: folds 
+ffflllnnn: calls 2000
+Tonecas: folds 
+goki1902: calls 2000
+hand4hire: calls 2000
+salvoG2: calls 1000
+jsalinas96: checks 
+*** FLOP *** [Ac 3s 6c]
+salvoG2: checks 
+jsalinas96: checks 
+hatchman1655: checks 
+ffflllnnn: checks 
+goki1902: checks 
+hand4hire: checks 
+*** TURN *** [Ac 3s 6c] [Jd]
+salvoG2: bets 6000
+jsalinas96: folds 
+hatchman1655: calls 6000
+ffflllnnn: calls 6000
+goki1902: folds 
+hand4hire: folds 
+*** RIVER *** [Ac 3s 6c Jd] [4h]
+salvoG2: checks 
+hatchman1655: bets 22000
+ffflllnnn: folds 
+salvoG2: folds 
+Uncalled bet (22000) returned to hatchman1655
+hatchman1655 collected 28350 from pot
+hatchman1655: doesn't show hand 
+*** SUMMARY ***
+Total pot 30000 | Rake 1650 
+Board [Ac 3s 6c Jd 4h]
+Seat 3: HKBE27
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn folded on the River
+Seat 4: Tonecas folded before Flop (didn't bet)
+Seat 5: goki1902 folded on the Turn
+Seat 6: hand4hire (button) folded on the Turn
+Seat 7: salvoG2 (small blind) folded on the River
+Seat 8: jsalinas96 (big blind) folded on the Turn
+Seat 9: hatchman1655 collected (28350)
+
+
+
+PokerStars Hand #259482941076:  Hold'em No Limit (1000/2000) - 2026/01/27 16:05:18 CET [2026/01/27 10:05:18 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #7 is the button
+Seat 3: HKBE27 (20000 in chips) is sitting out
+Seat 1: lovcan111 (150910 in chips) 
+Seat 2: ffflllnnn (308600 in chips) 
+Seat 4: Tonecas (200000 in chips) 
+Seat 5: goki1902 (199850 in chips) 
+Seat 6: hand4hire (428830 in chips) 
+Seat 7: salvoG2 (184000 in chips) 
+Seat 8: jsalinas96 (228640 in chips) 
+Seat 9: hatchman1655 (303760 in chips) 
+jsalinas96: posts small blind 1000
+hatchman1655: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6d 5h]
+lovcan111: folds 
+ffflllnnn: calls 2000
+Tonecas: folds 
+goki1902: folds 
+hand4hire: folds 
+salvoG2: folds 
+jsalinas96: folds 
+hatchman1655: checks 
+*** FLOP *** [4d 8s 3d]
+hatchman1655: checks 
+ffflllnnn: bets 2000
+hatchman1655: calls 2000
+*** TURN *** [4d 8s 3d] [8h]
+hatchman1655: checks 
+ffflllnnn: checks 
+*** RIVER *** [4d 8s 3d 8h] [5c]
+hatchman1655: bets 10000
+ffflllnnn: calls 10000
+*** SHOW DOWN ***
+hatchman1655: shows [Th 9s] (a pair of Eights)
+ffflllnnn: shows [2s 2c] (two pair, Eights and Deuces)
+ffflllnnn collected 27400 from pot
+*** SUMMARY ***
+Total pot 29000 | Rake 1600 
+Board [4d 8s 3d 8h 5c]
+Seat 3: HKBE27
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn showed [2s 2c] and won (27400) with two pair, Eights and Deuces
+Seat 4: Tonecas folded before Flop (didn't bet)
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire folded before Flop (didn't bet)
+Seat 7: salvoG2 (button) folded before Flop (didn't bet)
+Seat 8: jsalinas96 (small blind) folded before Flop
+Seat 9: hatchman1655 (big blind) showed [Th 9s] and lost with a pair of Eights
+
+
+
+PokerStars Hand #259482947094:  Hold'em No Limit (1000/2000) - 2026/01/27 16:05:56 CET [2026/01/27 10:05:56 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #8 is the button
+Seat 3: HKBE27 (20000 in chips) is sitting out
+Seat 1: lovcan111 (150910 in chips) 
+Seat 2: ffflllnnn (322000 in chips) 
+Seat 4: Tonecas (200000 in chips) 
+Seat 5: goki1902 (199850 in chips) 
+Seat 6: hand4hire (428830 in chips) 
+Seat 7: salvoG2 (184000 in chips) 
+Seat 8: jsalinas96 (227640 in chips) 
+Seat 9: hatchman1655 (289760 in chips) 
+hatchman1655: posts small blind 1000
+lovcan111: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2h Ts]
+ffflllnnn: calls 2000
+Tonecas: folds 
+goki1902: folds 
+hand4hire: folds 
+salvoG2: raises 6000 to 8000
+jsalinas96: folds 
+hatchman1655: calls 7000
+lovcan111: folds 
+ffflllnnn: calls 6000
+*** FLOP *** [4c 5h 6h]
+hatchman1655: checks 
+ffflllnnn: checks 
+salvoG2: checks 
+*** TURN *** [4c 5h 6h] [8d]
+hatchman1655: checks 
+ffflllnnn: checks 
+salvoG2: bets 6000
+hatchman1655: calls 6000
+ffflllnnn: folds 
+*** RIVER *** [4c 5h 6h 8d] [3s]
+hatchman1655: checks 
+salvoG2: checks 
+*** SHOW DOWN ***
+hatchman1655: shows [9d Tc] (high card Ten)
+salvoG2: shows [Kd Qs] (high card King)
+salvoG2 collected 35910 from pot
+*** SUMMARY ***
+Total pot 38000 | Rake 2090 
+Board [4c 5h 6h 8d 3s]
+Seat 3: HKBE27
+Seat 1: lovcan111 (big blind) folded before Flop
+Seat 2: ffflllnnn folded on the Turn
+Seat 4: Tonecas folded before Flop (didn't bet)
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire folded before Flop (didn't bet)
+Seat 7: salvoG2 showed [Kd Qs] and won (35910) with high card King
+Seat 8: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 9: hatchman1655 (small blind) showed [9d Tc] and lost with high card Ten
+
+
+
+PokerStars Hand #259482956939:  Hold'em No Limit (1000/2000) - 2026/01/27 16:06:59 CET [2026/01/27 10:06:59 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #9 is the button
+Seat 3: HKBE27 (20000 in chips) is sitting out
+Seat 1: lovcan111 (148910 in chips) 
+Seat 2: ffflllnnn (314000 in chips) 
+Seat 4: Tonecas (200000 in chips) 
+Seat 5: goki1902 (199850 in chips) 
+Seat 6: hand4hire (428830 in chips) 
+Seat 7: salvoG2 (205910 in chips) 
+Seat 8: jsalinas96 (227640 in chips) 
+Seat 9: hatchman1655 (275760 in chips) 
+lovcan111: posts small blind 1000
+ffflllnnn: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4s Kd]
+Tonecas: raises 10000 to 12000
+goki1902: folds 
+hand4hire: folds 
+salvoG2: calls 12000
+jsalinas96: folds 
+hatchman1655: folds 
+lovcan111: folds 
+ffflllnnn: calls 10000
+*** FLOP *** [Ah 7s Qd]
+ffflllnnn: bets 18000
+Tonecas: folds 
+salvoG2: folds 
+Uncalled bet (18000) returned to ffflllnnn
+ffflllnnn collected 34960 from pot
+ffflllnnn: doesn't show hand 
+*** SUMMARY ***
+Total pot 37000 | Rake 2040 
+Board [Ah 7s Qd]
+Seat 3: HKBE27
+Seat 1: lovcan111 (small blind) folded before Flop
+Seat 2: ffflllnnn (big blind) collected (34960)
+Seat 4: Tonecas folded on the Flop
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire folded before Flop (didn't bet)
+Seat 7: salvoG2 folded on the Flop
+Seat 8: jsalinas96 folded before Flop (didn't bet)
+Seat 9: hatchman1655 (button) folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259482962623:  Hold'em No Limit (1000/2000) - 2026/01/27 16:07:36 CET [2026/01/27 10:07:36 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #1 is the button
+Seat 3: HKBE27 (20000 in chips) is sitting out
+Seat 1: lovcan111 (147910 in chips) 
+Seat 2: ffflllnnn (336960 in chips) 
+Seat 4: Tonecas (200000 in chips) 
+Seat 5: goki1902 (199850 in chips) 
+Seat 6: hand4hire (428830 in chips) 
+Seat 7: salvoG2 (193910 in chips) 
+Seat 8: jsalinas96 (227640 in chips) 
+Seat 9: hatchman1655 (275760 in chips) 
+ffflllnnn: posts small blind 1000
+Tonecas: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Tc 7c]
+goki1902: folds 
+hand4hire: calls 2000
+salvoG2: folds 
+jsalinas96: calls 2000
+hatchman1655: raises 8000 to 10000
+lovcan111: folds 
+ffflllnnn: calls 9000
+Tonecas: folds 
+hand4hire: folds 
+jsalinas96: folds 
+*** FLOP *** [4h 2s 3d]
+ffflllnnn: bets 14000
+hatchman1655: calls 14000
+*** TURN *** [4h 2s 3d] [3s]
+ffflllnnn: bets 26000
+hatchman1655: folds 
+Uncalled bet (26000) returned to ffflllnnn
+ffflllnnn collected 51030 from pot
+ffflllnnn: doesn't show hand 
+*** SUMMARY ***
+Total pot 54000 | Rake 2970 
+Board [4h 2s 3d 3s]
+Seat 3: HKBE27
+Seat 1: lovcan111 (button) folded before Flop (didn't bet)
+Seat 2: ffflllnnn (small blind) collected (51030)
+Seat 4: Tonecas (big blind) folded before Flop
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire folded before Flop
+Seat 7: salvoG2 folded before Flop (didn't bet)
+Seat 8: jsalinas96 folded before Flop
+Seat 9: hatchman1655 folded on the Turn
+
+
+
+PokerStars Hand #259482972726:  Hold'em No Limit (1000/2000) - 2026/01/27 16:08:40 CET [2026/01/27 10:08:40 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #2 is the button
+Seat 3: HKBE27 (20000 in chips) is sitting out
+Seat 1: lovcan111 (147910 in chips) 
+Seat 2: ffflllnnn (363990 in chips) 
+Seat 4: Tonecas (200000 in chips) 
+Seat 5: goki1902 (199850 in chips) 
+Seat 6: hand4hire (426830 in chips) 
+Seat 7: salvoG2 (193910 in chips) 
+Seat 8: jsalinas96 (225640 in chips) 
+Seat 9: hatchman1655 (251760 in chips) 
+Tonecas: posts small blind 1000
+goki1902: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8d Jh]
+hand4hire: calls 2000
+salvoG2: folds 
+jsalinas96: folds 
+hatchman1655: raises 8000 to 10000
+lovcan111: folds 
+ffflllnnn: raises 22000 to 32000
+Tonecas: folds 
+goki1902: folds 
+hand4hire: folds 
+hatchman1655: calls 22000
+*** FLOP *** [4s 6h 3s]
+hatchman1655: checks 
+ffflllnnn: bets 331990 and is all-in
+hatchman1655: calls 219760 and is all-in
+Uncalled bet (112230) returned to ffflllnnn
+*** TURN *** [4s 6h 3s] [8c]
+*** RIVER *** [4s 6h 3s 8c] [5s]
+*** SHOW DOWN ***
+hatchman1655: shows [6s Ac] (a pair of Sixes)
+ffflllnnn: shows [Kd Ah] (high card Ace)
+hatchman1655 collected 480550 from pot
+*** SUMMARY ***
+Total pot 508520 | Rake 27970 
+Board [4s 6h 3s 8c 5s]
+Seat 3: HKBE27
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn (button) showed [Kd Ah] and lost with high card Ace
+Seat 4: Tonecas (small blind) folded before Flop
+Seat 5: goki1902 (big blind) folded before Flop
+Seat 6: hand4hire folded before Flop
+Seat 7: salvoG2 folded before Flop (didn't bet)
+Seat 8: jsalinas96 folded before Flop (didn't bet)
+Seat 9: hatchman1655 showed [6s Ac] and won (480550) with a pair of Sixes
+
+
+
+PokerStars Hand #259482980128:  Hold'em No Limit (1000/2000) - 2026/01/27 16:09:27 CET [2026/01/27 10:09:27 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #4 is the button
+Seat 3: HKBE27 (20000 in chips) is sitting out
+Seat 1: lovcan111 (147910 in chips) 
+Seat 2: ffflllnnn (112230 in chips) 
+Seat 4: Tonecas (200000 in chips) 
+Seat 5: goki1902 (197850 in chips) 
+Seat 6: hand4hire (424830 in chips) 
+Seat 7: salvoG2 (193910 in chips) 
+Seat 8: jsalinas96 (225640 in chips) 
+Seat 9: hatchman1655 (480550 in chips) 
+goki1902: posts small blind 1000
+hand4hire: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [As Kd]
+salvoG2: folds 
+jsalinas96: raises 4000 to 6000
+hatchman1655: folds 
+lovcan111: folds 
+ffflllnnn: folds 
+Tonecas: folds 
+goki1902: folds 
+hand4hire: calls 4000
+*** FLOP *** [9h 4h 8h]
+hand4hire: checks 
+jsalinas96: checks 
+*** TURN *** [9h 4h 8h] [6s]
+hand4hire: checks 
+jsalinas96: checks 
+*** RIVER *** [9h 4h 8h 6s] [Ts]
+hand4hire: bets 14000
+jsalinas96: folds 
+Uncalled bet (14000) returned to hand4hire
+hand4hire collected 12280 from pot
+*** SUMMARY ***
+Total pot 13000 | Rake 720 
+Board [9h 4h 8h 6s Ts]
+Seat 3: HKBE27
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn folded before Flop (didn't bet)
+Seat 4: Tonecas (button) folded before Flop (didn't bet)
+Seat 5: goki1902 (small blind) folded before Flop
+Seat 6: hand4hire (big blind) collected (12280)
+Seat 7: salvoG2 folded before Flop (didn't bet)
+Seat 8: jsalinas96 folded on the River
+Seat 9: hatchman1655 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259482989708:  Hold'em No Limit (1000/2000) - 2026/01/27 16:10:27 CET [2026/01/27 10:10:27 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #5 is the button
+Seat 3: HKBE27 (20000 in chips) is sitting out
+Seat 1: lovcan111 (147910 in chips) 
+Seat 2: ffflllnnn (112230 in chips) 
+Seat 4: Tonecas (200000 in chips) 
+Seat 5: goki1902 (196850 in chips) 
+Seat 6: hand4hire (431110 in chips) 
+Seat 7: salvoG2 (193910 in chips) 
+Seat 8: jsalinas96 (219640 in chips) 
+Seat 9: hatchman1655 (480550 in chips) 
+hand4hire: posts small blind 1000
+salvoG2: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Jd 7d]
+jsalinas96: calls 2000
+hatchman1655: folds 
+lovcan111: calls 2000
+ffflllnnn: calls 2000
+Tonecas: folds 
+HKBE27 leaves the table
+goki1902: raises 14000 to 16000
+hand4hire: folds 
+salvoG2: folds 
+jsalinas96: folds 
+lovcan111: folds 
+ffflllnnn: raises 96230 to 112230 and is all-in
+goki1902: calls 96230
+*** FLOP *** [6d 6s 5s]
+*** TURN *** [6d 6s 5s] [9h]
+rjohn1958 joins the table at seat #3 
+rjohn1958 is disconnected 
+*** RIVER *** [6d 6s 5s 9h] [Qd]
+*** SHOW DOWN ***
+ffflllnnn: shows [4s Ah] (a pair of Sixes)
+goki1902: shows [Ac As] (two pair, Aces and Sixes)
+goki1902 collected 218730 from pot
+*** SUMMARY ***
+Total pot 231460 | Rake 12730 
+Board [6d 6s 5s 9h Qd]
+Seat 3: HKBE27
+Seat 1: lovcan111 folded before Flop
+Seat 2: ffflllnnn showed [4s Ah] and lost with a pair of Sixes
+Seat 4: Tonecas folded before Flop (didn't bet)
+Seat 5: goki1902 (button) showed [Ac As] and won (218730) with two pair, Aces and Sixes
+Seat 6: hand4hire (small blind) folded before Flop
+Seat 7: salvoG2 (big blind) folded before Flop
+Seat 8: jsalinas96 folded before Flop
+Seat 9: hatchman1655 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259482999531:  Hold'em No Limit (1000/2000) - 2026/01/27 16:11:29 CET [2026/01/27 10:11:29 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #6 is the button
+Seat 2: ffflllnnn (0 in chips) is sitting out
+Seat 1: lovcan111 (145910 in chips) 
+Seat 3: rjohn1958 (200000 in chips) 
+Seat 4: Tonecas (200000 in chips) 
+Seat 5: goki1902 (303350 in chips) 
+Seat 6: hand4hire (430110 in chips) 
+Seat 7: salvoG2 (191910 in chips) 
+Seat 8: jsalinas96 (217640 in chips) 
+Seat 9: hatchman1655 (480550 in chips) 
+salvoG2: posts small blind 1000
+jsalinas96: posts big blind 2000
+rjohn1958: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qd 3c]
+hatchman1655: raises 8000 to 10000
+lovcan111: folds 
+rjohn1958: folds 
+Tonecas: folds 
+goki1902: folds 
+hand4hire: folds 
+salvoG2: folds 
+jsalinas96: folds 
+Uncalled bet (8000) returned to hatchman1655
+hatchman1655 collected 7000 from pot
+hatchman1655: doesn't show hand 
+*** SUMMARY ***
+Total pot 7000 | Rake 0 
+Seat 2: ffflllnnn
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 3: rjohn1958 folded before Flop (didn't bet)
+Seat 4: Tonecas folded before Flop (didn't bet)
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire (button) folded before Flop (didn't bet)
+Seat 7: salvoG2 (small blind) folded before Flop
+Seat 8: jsalinas96 (big blind) folded before Flop
+Seat 9: hatchman1655 collected (7000)
+
+
+
+PokerStars Hand #259483003378:  Hold'em No Limit (1000/2000) - 2026/01/27 16:11:54 CET [2026/01/27 10:11:54 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #7 is the button
+Seat 1: lovcan111 (145910 in chips) 
+Seat 2: ffflllnnn (137230 in chips) 
+Seat 3: rjohn1958 (198000 in chips) 
+Seat 4: Tonecas (200000 in chips) 
+Seat 5: goki1902 (303350 in chips) 
+Seat 6: hand4hire (430110 in chips) 
+Seat 7: salvoG2 (190910 in chips) 
+Seat 8: jsalinas96 (215640 in chips) 
+Seat 9: hatchman1655 (485550 in chips) 
+jsalinas96: posts small blind 1000
+hatchman1655: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9s Qs]
+lovcan111: folds 
+ffflllnnn: calls 2000
+rjohn1958: raises 2000 to 4000
+Tonecas: folds 
+goki1902: folds 
+hand4hire: folds 
+salvoG2: folds 
+jsalinas96: raises 2000 to 6000
+hatchman1655: calls 4000
+ffflllnnn: calls 4000
+rjohn1958: raises 24000 to 30000
+jsalinas96: calls 24000
+hatchman1655: calls 24000
+ffflllnnn: folds 
+*** FLOP *** [Td Kd Th]
+jsalinas96: checks 
+hatchman1655: bets 455550 and is all-in
+rjohn1958: calls 168000 and is all-in
+jsalinas96: folds 
+Uncalled bet (287550) returned to hatchman1655
+*** TURN *** [Td Kd Th] [8d]
+*** RIVER *** [Td Kd Th 8d] [2d]
+*** SHOW DOWN ***
+hatchman1655: shows [Tc Jh] (three of a kind, Tens)
+rjohn1958: shows [Ac Ad] (a flush, Ace high)
+rjohn1958 collected 408240 from pot
+*** SUMMARY ***
+Total pot 432000 | Rake 23760 
+Board [Td Kd Th 8d 2d]
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn folded before Flop
+Seat 3: rjohn1958 showed [Ac Ad] and won (408240) with a flush, Ace high
+Seat 4: Tonecas folded before Flop (didn't bet)
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire folded before Flop (didn't bet)
+Seat 7: salvoG2 (button) folded before Flop (didn't bet)
+Seat 8: jsalinas96 (small blind) folded on the Flop
+Seat 9: hatchman1655 (big blind) showed [Tc Jh] and lost with three of a kind, Tens
+
+
+
+PokerStars Hand #259483015318:  Hold'em No Limit (1000/2000) - 2026/01/27 16:13:08 CET [2026/01/27 10:13:08 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #8 is the button
+Seat 1: lovcan111 (145910 in chips) 
+Seat 2: ffflllnnn (131230 in chips) 
+Seat 3: rjohn1958 (408240 in chips) 
+Seat 4: Tonecas (200000 in chips) 
+Seat 5: goki1902 (303350 in chips) 
+Seat 6: hand4hire (430110 in chips) 
+Seat 7: salvoG2 (190910 in chips) 
+Seat 8: jsalinas96 (185640 in chips) 
+Seat 9: hatchman1655 (287550 in chips) 
+hatchman1655: posts small blind 1000
+lovcan111: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5s 8s]
+ffflllnnn: calls 2000
+rjohn1958: folds 
+Tonecas: raises 14000 to 16000
+goki1902: folds 
+hand4hire: folds 
+salvoG2: folds 
+jsalinas96: folds 
+hatchman1655: raises 14000 to 30000
+lovcan111: folds 
+ffflllnnn: folds 
+Tonecas: raises 48000 to 78000
+hatchman1655: calls 48000
+*** FLOP *** [9s Jd 9h]
+hatchman1655: checks 
+Tonecas: bets 88000
+hatchman1655: calls 88000
+*** TURN *** [9s Jd 9h] [6h]
+hatchman1655: checks 
+Tonecas: bets 34000 and is all-in
+hatchman1655: calls 34000
+*** RIVER *** [9s Jd 9h 6h] [4d]
+*** SHOW DOWN ***
+hatchman1655: shows [Qh Th] (a pair of Nines)
+Tonecas: shows [Ah Ad] (two pair, Aces and Nines)
+Tonecas collected 381780 from pot
+*** SUMMARY ***
+Total pot 404000 | Rake 22220 
+Board [9s Jd 9h 6h 4d]
+Seat 1: lovcan111 (big blind) folded before Flop
+Seat 2: ffflllnnn folded before Flop
+Seat 3: rjohn1958 folded before Flop (didn't bet)
+Seat 4: Tonecas showed [Ah Ad] and won (381780) with two pair, Aces and Nines
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire folded before Flop (didn't bet)
+Seat 7: salvoG2 folded before Flop (didn't bet)
+Seat 8: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 9: hatchman1655 (small blind) showed [Qh Th] and lost with a pair of Nines
+
+
+
+PokerStars Hand #259483024966:  Hold'em No Limit (1000/2000) - 2026/01/27 16:14:09 CET [2026/01/27 10:14:09 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #9 is the button
+Seat 1: lovcan111 (143910 in chips) 
+Seat 2: ffflllnnn (129230 in chips) 
+Seat 3: rjohn1958 (408240 in chips) 
+Seat 4: Tonecas (381780 in chips) 
+Seat 5: goki1902 (303350 in chips) 
+Seat 6: hand4hire (430110 in chips) 
+Seat 7: salvoG2 (190910 in chips) 
+Seat 8: jsalinas96 (185640 in chips) 
+Seat 9: hatchman1655 (87550 in chips) 
+lovcan111: posts small blind 1000
+ffflllnnn: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Kh 2c]
+rjohn1958: calls 2000
+Tonecas: calls 2000
+goki1902: folds 
+hand4hire: folds 
+salvoG2: folds 
+jsalinas96: folds 
+hatchman1655: folds 
+hatchman1655 leaves the table
+lovcan111: folds 
+ffflllnnn: checks 
+*** FLOP *** [7s 3s 8c]
+ffflllnnn: checks 
+rjohn1958: checks 
+tripathome2 joins the table at seat #9 
+Tonecas: checks 
+*** TURN *** [7s 3s 8c] [Ts]
+ffflllnnn: checks 
+rjohn1958: bets 2000
+Tonecas: folds 
+ffflllnnn: folds 
+Uncalled bet (2000) returned to rjohn1958
+rjohn1958 collected 6610 from pot
+*** SUMMARY ***
+Total pot 7000 | Rake 390 
+Board [7s 3s 8c Ts]
+Seat 1: lovcan111 (small blind) folded before Flop
+Seat 2: ffflllnnn (big blind) folded on the Turn
+Seat 3: rjohn1958 collected (6610)
+Seat 4: Tonecas folded on the Turn
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire folded before Flop (didn't bet)
+Seat 7: salvoG2 folded before Flop (didn't bet)
+Seat 8: jsalinas96 folded before Flop (didn't bet)
+Seat 9: hatchman1655 (button) folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259483035629:  Hold'em No Limit (1000/2000) - 2026/01/27 16:15:16 CET [2026/01/27 10:15:16 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #1 is the button
+Seat 1: lovcan111 (142910 in chips) 
+Seat 2: ffflllnnn (127230 in chips) 
+Seat 3: rjohn1958 (412850 in chips) 
+Seat 4: Tonecas (379780 in chips) 
+Seat 5: goki1902 (303350 in chips) 
+Seat 6: hand4hire (430110 in chips) 
+Seat 7: salvoG2 (190910 in chips) 
+Seat 8: jsalinas96 (185640 in chips) 
+Seat 9: tripathome2 (200000 in chips) 
+ffflllnnn: posts small blind 1000
+rjohn1958: posts big blind 2000
+tripathome2: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5d 9c]
+Tonecas: folds 
+goki1902: folds 
+hand4hire: calls 2000
+salvoG2: folds 
+jsalinas96: folds 
+tripathome2: checks 
+lovcan111: folds 
+ffflllnnn: calls 1000
+rjohn1958: checks 
+*** FLOP *** [Kd 6s Jh]
+ffflllnnn: bets 2000
+rjohn1958: folds 
+hand4hire: calls 2000
+tripathome2: calls 2000
+*** TURN *** [Kd 6s Jh] [9h]
+ffflllnnn: bets 2000
+hand4hire: calls 2000
+tripathome2: calls 2000
+*** RIVER *** [Kd 6s Jh 9h] [9s]
+ffflllnnn: bets 34000
+hand4hire: folds 
+tripathome2: folds 
+Uncalled bet (34000) returned to ffflllnnn
+ffflllnnn collected 18900 from pot
+ffflllnnn: doesn't show hand 
+*** SUMMARY ***
+Total pot 20000 | Rake 1100 
+Board [Kd 6s Jh 9h 9s]
+Seat 1: lovcan111 (button) folded before Flop (didn't bet)
+Seat 2: ffflllnnn (small blind) collected (18900)
+Seat 3: rjohn1958 (big blind) folded on the Flop
+Seat 4: Tonecas folded before Flop (didn't bet)
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire folded on the River
+Seat 7: salvoG2 folded before Flop (didn't bet)
+Seat 8: jsalinas96 folded before Flop (didn't bet)
+Seat 9: tripathome2 folded on the River
+
+
+
+PokerStars Hand #259483045397:  Hold'em No Limit (1000/2000) - 2026/01/27 16:16:17 CET [2026/01/27 10:16:17 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #2 is the button
+Seat 1: lovcan111 (142910 in chips) 
+Seat 2: ffflllnnn (140130 in chips) 
+Seat 3: rjohn1958 (410850 in chips) 
+Seat 4: Tonecas (379780 in chips) 
+Seat 5: goki1902 (303350 in chips) 
+Seat 6: hand4hire (424110 in chips) 
+Seat 7: salvoG2 (190910 in chips) 
+Seat 8: jsalinas96 (185640 in chips) 
+Seat 9: tripathome2 (194000 in chips) 
+rjohn1958: posts small blind 1000
+Tonecas: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Td 7d]
+goki1902: folds 
+hand4hire: calls 2000
+salvoG2: folds 
+jsalinas96: calls 2000
+tripathome2: folds 
+lovcan111: folds 
+ffflllnnn: calls 2000
+rjohn1958: calls 1000
+Tonecas: checks 
+*** FLOP *** [Jd 4c 6h]
+rjohn1958: checks 
+Tonecas: checks 
+hand4hire: checks 
+jsalinas96: checks 
+ffflllnnn: checks 
+*** TURN *** [Jd 4c 6h] [7s]
+rjohn1958: checks 
+Tonecas: checks 
+hand4hire: checks 
+jsalinas96: checks 
+ffflllnnn: checks 
+*** RIVER *** [Jd 4c 6h 7s] [Ah]
+rjohn1958: checks 
+Tonecas: checks 
+hand4hire: checks 
+jsalinas96: checks 
+ffflllnnn: bets 14000
+rjohn1958: folds 
+Tonecas: folds 
+hand4hire: folds 
+jsalinas96: folds 
+Uncalled bet (14000) returned to ffflllnnn
+ffflllnnn collected 9450 from pot
+ffflllnnn: doesn't show hand 
+*** SUMMARY ***
+Total pot 10000 | Rake 550 
+Board [Jd 4c 6h 7s Ah]
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn (button) collected (9450)
+Seat 3: rjohn1958 (small blind) folded on the River
+Seat 4: Tonecas (big blind) folded on the River
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire folded on the River
+Seat 7: salvoG2 folded before Flop (didn't bet)
+Seat 8: jsalinas96 folded on the River
+Seat 9: tripathome2 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259483064550:  Hold'em No Limit (1000/2000) - 2026/01/27 16:18:13 CET [2026/01/27 10:18:13 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #3 is the button
+Seat 1: lovcan111 (142910 in chips) 
+Seat 2: ffflllnnn (147580 in chips) 
+Seat 3: rjohn1958 (408850 in chips) 
+Seat 4: Tonecas (377780 in chips) 
+Seat 5: goki1902 (303350 in chips) 
+Seat 6: hand4hire (422110 in chips) 
+Seat 7: salvoG2 (190910 in chips) 
+Seat 8: jsalinas96 (183640 in chips) 
+Seat 9: tripathome2 (194000 in chips) 
+Tonecas: posts small blind 1000
+goki1902: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ac 4h]
+hand4hire: folds 
+salvoG2: raises 6000 to 8000
+jsalinas96: calls 8000
+tripathome2: folds 
+lovcan111: folds 
+ffflllnnn: folds 
+rjohn1958: folds 
+Tonecas: folds 
+goki1902: raises 295350 to 303350 and is all-in
+salvoG2: calls 182910 and is all-in
+jsalinas96: folds 
+Uncalled bet (112440) returned to goki1902
+*** FLOP *** [8d Js 3h]
+*** TURN *** [8d Js 3h] [7d]
+*** RIVER *** [8d Js 3h 7d] [6h]
+*** SHOW DOWN ***
+goki1902: shows [As Ah] (a pair of Aces)
+salvoG2: shows [Jd Jc] (three of a kind, Jacks)
+salvoG2 collected 369320 from pot
+*** SUMMARY ***
+Total pot 390820 | Rake 21500 
+Board [8d Js 3h 7d 6h]
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn folded before Flop (didn't bet)
+Seat 3: rjohn1958 (button) folded before Flop (didn't bet)
+Seat 4: Tonecas (small blind) folded before Flop
+Seat 5: goki1902 (big blind) showed [As Ah] and lost with a pair of Aces
+Seat 6: hand4hire folded before Flop (didn't bet)
+Seat 7: salvoG2 showed [Jd Jc] and won (369320) with three of a kind, Jacks
+Seat 8: jsalinas96 folded before Flop
+Seat 9: tripathome2 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259483073486:  Hold'em No Limit (1000/2000) - 2026/01/27 16:19:06 CET [2026/01/27 10:19:06 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #4 is the button
+Seat 1: lovcan111 (142910 in chips) 
+Seat 2: ffflllnnn (147580 in chips) 
+Seat 3: rjohn1958 (408850 in chips) 
+Seat 4: Tonecas (376780 in chips) 
+Seat 5: goki1902 (112440 in chips) 
+Seat 6: hand4hire (422110 in chips) 
+Seat 7: salvoG2 (369320 in chips) 
+Seat 8: jsalinas96 (175640 in chips) 
+Seat 9: tripathome2 (194000 in chips) 
+goki1902: posts small blind 1000
+hand4hire: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Jd 3c]
+salvoG2: folds 
+jsalinas96: folds 
+tripathome2: folds 
+lovcan111: folds 
+ffflllnnn: calls 2000
+rjohn1958: folds 
+Tonecas: folds 
+goki1902: calls 1000
+hand4hire: checks 
+*** FLOP *** [4c Ah 8c]
+goki1902: checks 
+salvoG2 leaves the table
+hand4hire has timed out
+hand4hire: checks 
+ffflllnnn: checks 
+*** TURN *** [4c Ah 8c] [2d]
+goki1902: checks 
+hand4hire: checks 
+ffflllnnn: checks 
+*** RIVER *** [4c Ah 8c 2d] [3s]
+goki1902: checks 
+Skynard99319 joins the table at seat #7 
+hand4hire: checks 
+ffflllnnn: checks 
+*** SHOW DOWN ***
+goki1902: shows [Ts 9h] (high card Ace)
+hand4hire: shows [9s 5c] (a straight, Ace to Five)
+ffflllnnn: mucks hand 
+hand4hire collected 5670 from pot
+*** SUMMARY ***
+Total pot 6000 | Rake 330 
+Board [4c Ah 8c 2d 3s]
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn mucked [Kc Td]
+Seat 3: rjohn1958 folded before Flop (didn't bet)
+Seat 4: Tonecas (button) folded before Flop (didn't bet)
+Seat 5: goki1902 (small blind) showed [Ts 9h] and lost with high card Ace
+Seat 6: hand4hire (big blind) showed [9s 5c] and won (5670) with a straight, Ace to Five
+Seat 7: salvoG2 folded before Flop (didn't bet)
+Seat 8: jsalinas96 folded before Flop (didn't bet)
+Seat 9: tripathome2 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259483088531:  Hold'em No Limit (1000/2000) - 2026/01/27 16:20:37 CET [2026/01/27 10:20:37 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #5 is the button
+Seat 1: lovcan111 (142910 in chips) 
+Seat 2: ffflllnnn (145580 in chips) 
+Seat 3: rjohn1958 (408850 in chips) 
+Seat 4: Tonecas (376780 in chips) 
+Seat 5: goki1902 (110440 in chips) 
+Seat 6: hand4hire (425780 in chips) 
+Seat 7: Skynard99319 (200000 in chips) 
+Seat 8: jsalinas96 (175640 in chips) 
+Seat 9: tripathome2 (194000 in chips) 
+hand4hire: posts small blind 1000
+Skynard99319: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ac 7d]
+jsalinas96: folds 
+tripathome2: calls 2000
+lovcan111: folds 
+ffflllnnn: calls 2000
+rjohn1958: folds 
+Tonecas: calls 2000
+goki1902: folds 
+hand4hire: calls 1000
+Skynard99319: checks 
+*** FLOP *** [5c 2s 4c]
+hand4hire: checks 
+Skynard99319: checks 
+tripathome2: checks 
+ffflllnnn: checks 
+Tonecas: checks 
+*** TURN *** [5c 2s 4c] [8d]
+hand4hire: checks 
+Skynard99319: checks 
+tripathome2: checks 
+ffflllnnn: bets 10000
+Tonecas: folds 
+hand4hire: folds 
+Skynard99319: folds 
+tripathome2: folds 
+Uncalled bet (10000) returned to ffflllnnn
+ffflllnnn collected 9450 from pot
+ffflllnnn: doesn't show hand 
+*** SUMMARY ***
+Total pot 10000 | Rake 550 
+Board [5c 2s 4c 8d]
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn collected (9450)
+Seat 3: rjohn1958 folded before Flop (didn't bet)
+Seat 4: Tonecas folded on the Turn
+Seat 5: goki1902 (button) folded before Flop (didn't bet)
+Seat 6: hand4hire (small blind) folded on the Turn
+Seat 7: Skynard99319 (big blind) folded on the Turn
+Seat 8: jsalinas96 folded before Flop (didn't bet)
+Seat 9: tripathome2 folded on the Turn
+
+
+
+PokerStars Hand #259483105491:  Hold'em No Limit (1000/2000) - 2026/01/27 16:22:17 CET [2026/01/27 10:22:17 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #6 is the button
+Seat 1: lovcan111 (142910 in chips) 
+Seat 2: ffflllnnn (153030 in chips) 
+Seat 3: rjohn1958 (408850 in chips) 
+Seat 4: Tonecas (374780 in chips) 
+Seat 5: goki1902 (110440 in chips) 
+Seat 6: hand4hire (423780 in chips) 
+Seat 7: Skynard99319 (198000 in chips) 
+Seat 8: jsalinas96 (175640 in chips) 
+Seat 9: tripathome2 (192000 in chips) 
+Skynard99319: posts small blind 1000
+jsalinas96: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3c 8s]
+tripathome2: folds 
+lovcan111: calls 2000
+ffflllnnn: calls 2000
+rjohn1958: calls 2000
+Tonecas: raises 22000 to 24000
+goki1902: folds 
+hand4hire: folds 
+Skynard99319: folds 
+jsalinas96: folds 
+lovcan111: folds 
+ffflllnnn: calls 22000
+rjohn1958: folds 
+*** FLOP *** [5d 3h Jc]
+ffflllnnn: checks 
+Tonecas: bets 30000
+ffflllnnn: folds 
+Uncalled bet (30000) returned to Tonecas
+Tonecas collected 51970 from pot
+Tonecas: doesn't show hand 
+*** SUMMARY ***
+Total pot 55000 | Rake 3030 
+Board [5d 3h Jc]
+Seat 1: lovcan111 folded before Flop
+Seat 2: ffflllnnn folded on the Flop
+Seat 3: rjohn1958 folded before Flop
+Seat 4: Tonecas collected (51970)
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire (button) folded before Flop (didn't bet)
+Seat 7: Skynard99319 (small blind) folded before Flop
+Seat 8: jsalinas96 (big blind) folded before Flop
+Seat 9: tripathome2 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259483115571:  Hold'em No Limit (1000/2000) - 2026/01/27 16:23:17 CET [2026/01/27 10:23:17 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #7 is the button
+Seat 1: lovcan111 (140910 in chips) 
+Seat 2: ffflllnnn (129030 in chips) 
+Seat 3: rjohn1958 (406850 in chips) 
+Seat 4: Tonecas (402750 in chips) 
+Seat 5: goki1902 (110440 in chips) 
+Seat 6: hand4hire (423780 in chips) 
+Seat 7: Skynard99319 (197000 in chips) 
+Seat 8: jsalinas96 (173640 in chips) 
+Seat 9: tripathome2 (192000 in chips) 
+jsalinas96: posts small blind 1000
+tripathome2: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8d 7d]
+lovcan111: folds 
+ffflllnnn: calls 2000
+rjohn1958: folds 
+Tonecas: folds 
+goki1902: folds 
+hand4hire: calls 2000
+Skynard99319: folds 
+jsalinas96: calls 1000
+tripathome2: checks 
+*** FLOP *** [Ah As 7h]
+jsalinas96: checks 
+tripathome2: checks 
+ffflllnnn: bets 2000
+hand4hire: folds 
+jsalinas96: calls 2000
+tripathome2: folds 
+*** TURN *** [Ah As 7h] [4h]
+jsalinas96: checks 
+ffflllnnn: bets 2000
+jsalinas96: calls 2000
+*** RIVER *** [Ah As 7h 4h] [2c]
+jsalinas96: checks 
+ffflllnnn: bets 2000
+jsalinas96: raises 19120 to 21120
+ffflllnnn: calls 19120
+*** SHOW DOWN ***
+jsalinas96: shows [8d 7d] (two pair, Aces and Sevens)
+ffflllnnn: shows [3c Ac] (three of a kind, Aces)
+ffflllnnn collected 55040 from pot
+*** SUMMARY ***
+Total pot 58240 | Rake 3200 
+Board [Ah As 7h 4h 2c]
+Seat 1: lovcan111 folded before Flop (didn't bet)
+Seat 2: ffflllnnn showed [3c Ac] and won (55040) with three of a kind, Aces
+Seat 3: rjohn1958 folded before Flop (didn't bet)
+Seat 4: Tonecas folded before Flop (didn't bet)
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire folded on the Flop
+Seat 7: Skynard99319 (button) folded before Flop (didn't bet)
+Seat 8: jsalinas96 (small blind) showed [8d 7d] and lost with two pair, Aces and Sevens
+Seat 9: tripathome2 (big blind) folded on the Flop
+
+
+
+PokerStars Hand #259483129396:  Hold'em No Limit (1000/2000) - 2026/01/27 16:24:38 CET [2026/01/27 10:24:38 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #8 is the button
+Seat 1: lovcan111 (140910 in chips) 
+Seat 2: ffflllnnn (156950 in chips) 
+Seat 3: rjohn1958 (406850 in chips) 
+Seat 4: Tonecas (402750 in chips) 
+Seat 5: goki1902 (110440 in chips) 
+Seat 6: hand4hire (421780 in chips) 
+Seat 7: Skynard99319 (197000 in chips) 
+Seat 8: jsalinas96 (146520 in chips) 
+Seat 9: tripathome2 (190000 in chips) 
+tripathome2: posts small blind 1000
+lovcan111: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2h 2d]
+ffflllnnn: calls 2000
+rjohn1958: folds 
+Tonecas: calls 2000
+goki1902: folds 
+hand4hire: folds 
+Skynard99319: folds 
+jsalinas96: folds 
+tripathome2: calls 1000
+lovcan111: checks 
+*** FLOP *** [Ks Kh Jc]
+tripathome2: checks 
+lovcan111: checks 
+ffflllnnn: bets 2000
+Tonecas: folds 
+tripathome2: folds 
+lovcan111: folds 
+Uncalled bet (2000) returned to ffflllnnn
+ffflllnnn collected 7560 from pot
+ffflllnnn: doesn't show hand 
+*** SUMMARY ***
+Total pot 8000 | Rake 440 
+Board [Ks Kh Jc]
+Seat 1: lovcan111 (big blind) folded on the Flop
+Seat 2: ffflllnnn collected (7560)
+Seat 3: rjohn1958 folded before Flop (didn't bet)
+Seat 4: Tonecas folded on the Flop
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire folded before Flop (didn't bet)
+Seat 7: Skynard99319 folded before Flop (didn't bet)
+Seat 8: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 9: tripathome2 (small blind) folded on the Flop
+
+
+
+PokerStars Hand #259483136795:  Hold'em No Limit (1000/2000) - 2026/01/27 16:25:22 CET [2026/01/27 10:25:22 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #9 is the button
+Seat 1: lovcan111 (138910 in chips) 
+Seat 2: ffflllnnn (162510 in chips) 
+Seat 3: rjohn1958 (406850 in chips) 
+Seat 4: Tonecas (400750 in chips) 
+Seat 5: goki1902 (110440 in chips) 
+Seat 6: hand4hire (421780 in chips) 
+Seat 7: Skynard99319 (197000 in chips) 
+Seat 8: jsalinas96 (146520 in chips) 
+Seat 9: tripathome2 (188000 in chips) 
+lovcan111: posts small blind 1000
+ffflllnnn: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [7c 3c]
+rjohn1958: folds 
+Tonecas: calls 2000
+goki1902: folds 
+hand4hire: calls 2000
+Skynard99319: folds 
+jsalinas96: folds 
+tripathome2: calls 2000
+lovcan111: folds 
+ffflllnnn: checks 
+*** FLOP *** [6s Qs Ks]
+ffflllnnn: checks 
+Tonecas: checks 
+hand4hire: checks 
+tripathome2: checks 
+*** TURN *** [6s Qs Ks] [4s]
+ffflllnnn: checks 
+Tonecas: checks 
+hand4hire: checks 
+tripathome2: checks 
+*** RIVER *** [6s Qs Ks 4s] [9s]
+ffflllnnn: checks 
+Tonecas: checks 
+hand4hire: checks 
+tripathome2: checks 
+*** SHOW DOWN ***
+ffflllnnn: shows [Ad 4d] (a flush, King high)
+Tonecas: shows [Ah 6h] (a flush, King high)
+hand4hire: shows [Td Jc] (a flush, King high)
+tripathome2: shows [8h Tc] (a flush, King high)
+ffflllnnn collected 2130 from pot
+Tonecas collected 2130 from pot
+hand4hire collected 2120 from pot
+tripathome2 collected 2120 from pot
+*** SUMMARY ***
+Total pot 9000 | Rake 500 
+Board [6s Qs Ks 4s 9s]
+Seat 1: lovcan111 (small blind) folded before Flop
+Seat 2: ffflllnnn (big blind) showed [Ad 4d] and won (2130) with a flush, King high
+Seat 3: rjohn1958 folded before Flop (didn't bet)
+Seat 4: Tonecas showed [Ah 6h] and won (2130) with a flush, King high
+Seat 5: goki1902 folded before Flop (didn't bet)
+Seat 6: hand4hire showed [Td Jc] and won (2120) with a flush, King high
+Seat 7: Skynard99319 folded before Flop (didn't bet)
+Seat 8: jsalinas96 folded before Flop (didn't bet)
+Seat 9: tripathome2 (button) showed [8h Tc] and won (2120) with a flush, King high
+
+
+
+PokerStars Hand #259483153681:  Hold'em No Limit (1000/2000) - 2026/01/27 16:27:02 CET [2026/01/27 10:27:02 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #1 is the button
+Seat 1: lovcan111 (137910 in chips) 
+Seat 2: ffflllnnn (162640 in chips) 
+Seat 3: rjohn1958 (406850 in chips) 
+Seat 4: Tonecas (400880 in chips) 
+Seat 5: goki1902 (110440 in chips) 
+Seat 6: hand4hire (421900 in chips) 
+Seat 7: Skynard99319 (197000 in chips) 
+Seat 8: jsalinas96 (146520 in chips) 
+Seat 9: tripathome2 (188120 in chips) 
+ffflllnnn: posts small blind 1000
+rjohn1958: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ad Qd]
+Tonecas: raises 2000 to 4000
+goki1902: calls 4000
+hand4hire: folds 
+Skynard99319: folds 
+jsalinas96: raises 2000 to 6000
+tripathome2: folds 
+lovcan111: calls 6000
+ffflllnnn: folds 
+rjohn1958: folds 
+Tonecas: calls 2000
+goki1902: calls 2000
+*** FLOP *** [8c 7d Qh]
+Tonecas: checks 
+goki1902: checks 
+jsalinas96: checks 
+lovcan111: checks 
+*** TURN *** [8c 7d Qh] [7c]
+Tonecas: checks 
+goki1902: checks 
+jsalinas96: bets 25510
+lovcan111: folds 
+Tonecas: folds 
+goki1902: calls 25510
+*** RIVER *** [8c 7d Qh 7c] [4h]
+goki1902: checks 
+jsalinas96: bets 81730
+goki1902: folds 
+Uncalled bet (81730) returned to jsalinas96
+jsalinas96 collected 73730 from pot
+jsalinas96: doesn't show hand 
+*** SUMMARY ***
+Total pot 78020 | Rake 4290 
+Board [8c 7d Qh 7c 4h]
+Seat 1: lovcan111 (button) folded on the Turn
+Seat 2: ffflllnnn (small blind) folded before Flop
+Seat 3: rjohn1958 (big blind) folded before Flop
+Seat 4: Tonecas folded on the Turn
+Seat 5: goki1902 folded on the River
+Seat 6: hand4hire folded before Flop (didn't bet)
+Seat 7: Skynard99319 folded before Flop (didn't bet)
+Seat 8: jsalinas96 collected (73730)
+Seat 9: tripathome2 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259483167065:  Hold'em No Limit (1000/2000) - 2026/01/27 16:28:21 CET [2026/01/27 10:28:21 ET]
+Table 'Krethon VI' 9-max (Play Money) Seat #2 is the button
+Seat 1: lovcan111 (131910 in chips) 
+Seat 2: ffflllnnn (161640 in chips) 
+Seat 3: rjohn1958 (404850 in chips) 
+Seat 4: Tonecas (394880 in chips) 
+Seat 5: goki1902 (78930 in chips) 
+Seat 6: hand4hire (421900 in chips) 
+Seat 7: Skynard99319 (197000 in chips) 
+Seat 8: jsalinas96 (188740 in chips) 
+Seat 9: tripathome2 (188120 in chips) 
+rjohn1958: posts small blind 1000
+Tonecas: posts big blind 2000
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Kc Ac]
+goki1902: calls 2000
+hand4hire: folds 
+Skynard99319: calls 2000
+jsalinas96: raises 4000 to 6000
+tripathome2: folds 
+lovcan111: calls 6000
+ffflllnnn: calls 6000
+rjohn1958: folds 
+Tonecas: folds 
+goki1902: calls 4000
+Skynard99319: calls 4000
+*** FLOP *** [9c 2s Jd]
+goki1902: checks 
+Skynard99319: checks 
+jsalinas96: checks 
+lovcan111: checks 
+ffflllnnn: checks 
+*** TURN *** [9c 2s Jd] [3d]
+goki1902: checks 
+Skynard99319: checks 
+jsalinas96: checks 
+lovcan111: checks 
+ffflllnnn: checks 
+*** RIVER *** [9c 2s Jd 3d] [Jc]
+goki1902: checks 
+Skynard99319: checks 
+jsalinas96: checks 
+lovcan111: checks 
+ffflllnnn: checks 
+*** SHOW DOWN ***
+goki1902: shows [9h Ah] (two pair, Jacks and Nines)
+Skynard99319: mucks hand 
+jsalinas96: mucks hand 
+lovcan111: mucks hand 
+ffflllnnn: mucks hand 
+goki1902 collected 31180 from pot
+*** SUMMARY ***
+Total pot 33000 | Rake 1820 
+Board [9c 2s Jd 3d Jc]
+Seat 1: lovcan111 mucked [8d Ad]
+Seat 2: ffflllnnn (button) mucked [6h 5h]
+Seat 3: rjohn1958 (small blind) folded before Flop
+Seat 4: Tonecas (big blind) folded before Flop
+Seat 5: goki1902 showed [9h Ah] and won (31180) with two pair, Jacks and Nines
+Seat 6: hand4hire folded before Flop (didn't bet)
+Seat 7: Skynard99319 mucked [5c 5s]
+Seat 8: jsalinas96 mucked [Kc Ac]
+Seat 9: tripathome2 folded before Flop (didn't bet)
+
+
+

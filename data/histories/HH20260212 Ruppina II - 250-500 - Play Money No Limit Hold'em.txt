@@ -1,0 +1,1566 @@
+﻿PokerStars Hand #259701047283:  Hold'em No Limit (250/500) - 2026/02/12 22:20:47 CET [2026/02/12 16:20:47 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #3 is the button
+Seat 2: skyhawk465 (110337 in chips) is sitting out
+Seat 6: Oldiddi (0 in chips) is sitting out
+Seat 1: 2007Sampei (34312 in chips) 
+Seat 3: mmartins525 (177260 in chips) 
+Seat 4: 1931jb (21851 in chips) 
+Seat 5: rutra2801 (30628 in chips) 
+Seat 7: jsalinas96 (50000 in chips) 
+Seat 8: abueloman0 (78101 in chips) 
+1931jb: posts small blind 250
+rutra2801: posts big blind 500
+jsalinas96: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9d 8d]
+jsalinas96: checks 
+abueloman0: calls 500
+2007Sampei: calls 500
+mmartins525: calls 500
+1931jb: calls 250
+rutra2801: checks 
+*** FLOP *** [5s 2h 6s]
+kingcobra447 joins the table at seat #9 
+1931jb: checks 
+rutra2801: bets 2835
+jsalinas96: calls 2835
+kingcobra447 leaves the table
+abueloman0: calls 2835
+2007Sampei: folds 
+mmartins525: folds 
+1931jb: folds 
+*** TURN *** [5s 2h 6s] [5c]
+rutra2801: checks 
+jsalinas96: checks 
+abueloman0: checks 
+*** RIVER *** [5s 2h 6s 5c] [7d]
+rutra2801: checks 
+jsalinas96: bets 10872
+abueloman0: folds 
+rutra2801: folds 
+Uncalled bet (10872) returned to jsalinas96
+jsalinas96 collected 10872 from pot
+jsalinas96: doesn't show hand 
+*** SUMMARY ***
+Total pot 11505 | Rake 633 
+Board [5s 2h 6s 5c 7d]
+Seat 2: skyhawk465
+Seat 6: Oldiddi
+Seat 1: 2007Sampei folded on the Flop
+Seat 3: mmartins525 (button) folded on the Flop
+Seat 4: 1931jb (small blind) folded on the Flop
+Seat 5: rutra2801 (big blind) folded on the River
+Seat 7: jsalinas96 collected (10872)
+Seat 8: abueloman0 folded on the River
+
+
+
+PokerStars Hand #259701069960:  Hold'em No Limit (250/500) - 2026/02/12 22:22:03 CET [2026/02/12 16:22:03 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #4 is the button
+Seat 2: skyhawk465 (110337 in chips) is sitting out
+Seat 6: Oldiddi (0 in chips) is sitting out
+Seat 1: 2007Sampei (33812 in chips) 
+Seat 3: mmartins525 (176760 in chips) 
+Seat 4: 1931jb (21351 in chips) 
+Seat 5: rutra2801 (27293 in chips) 
+Seat 7: jsalinas96 (57537 in chips) 
+Seat 8: abueloman0 (74766 in chips) 
+rutra2801: posts small blind 250
+jsalinas96: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Td Jd]
+abueloman0: calls 500
+2007Sampei: folds 
+mmartins525: folds 
+PL20031959 joins the table at seat #9 
+1931jb: calls 500
+rutra2801: calls 250
+jsalinas96: checks 
+*** FLOP *** [4s Jh Kc]
+rutra2801: checks 
+jsalinas96: bets 1000
+abueloman0: folds 
+1931jb: folds 
+rutra2801: folds 
+Uncalled bet (1000) returned to jsalinas96
+jsalinas96 collected 1890 from pot
+jsalinas96: doesn't show hand 
+*** SUMMARY ***
+Total pot 2000 | Rake 110 
+Board [4s Jh Kc]
+Seat 2: skyhawk465
+Seat 6: Oldiddi
+Seat 1: 2007Sampei folded before Flop (didn't bet)
+Seat 3: mmartins525 folded before Flop (didn't bet)
+Seat 4: 1931jb (button) folded on the Flop
+Seat 5: rutra2801 (small blind) folded on the Flop
+Seat 7: jsalinas96 (big blind) collected (1890)
+Seat 8: abueloman0 folded on the Flop
+
+
+
+PokerStars Hand #259701081631:  Hold'em No Limit (250/500) - 2026/02/12 22:22:42 CET [2026/02/12 16:22:42 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #5 is the button
+Seat 2: skyhawk465 (110337 in chips) is sitting out
+Seat 6: Oldiddi (0 in chips) is sitting out
+Seat 1: 2007Sampei (33812 in chips) 
+Seat 3: mmartins525 (176760 in chips) 
+Seat 4: 1931jb (20851 in chips) 
+Seat 5: rutra2801 (26793 in chips) 
+Seat 7: jsalinas96 (58927 in chips) 
+Seat 8: abueloman0 (74266 in chips) 
+Seat 9: PL20031959 (41211 in chips) 
+jsalinas96: posts small blind 250
+abueloman0: posts big blind 500
+PL20031959: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [8c 4c]
+PL20031959: raises 2500 to 3000
+2007Sampei: folds 
+mmartins525: folds 
+1931jb: calls 3000
+rutra2801: calls 3000
+jsalinas96: folds 
+abueloman0: folds 
+*** FLOP *** [5s Tc 4h]
+PL20031959: checks 
+1931jb: checks 
+rutra2801: checks 
+*** TURN *** [5s Tc 4h] [Kd]
+PL20031959: bets 3500
+1931jb: calls 3500
+rutra2801: calls 3500
+*** RIVER *** [5s Tc 4h Kd] [Ac]
+PL20031959: bets 19136
+1931jb: calls 14351 and is all-in
+rutra2801: folds 
+Uncalled bet (4785) returned to PL20031959
+*** SHOW DOWN ***
+PL20031959: shows [Qh Ad] (a pair of Aces)
+1931jb: shows [Ks As] (two pair, Aces and Kings)
+1931jb collected 46260 from pot
+*** SUMMARY ***
+Total pot 48952 | Rake 2692 
+Board [5s Tc 4h Kd Ac]
+Seat 2: skyhawk465
+Seat 6: Oldiddi
+Seat 1: 2007Sampei folded before Flop (didn't bet)
+Seat 3: mmartins525 folded before Flop (didn't bet)
+Seat 4: 1931jb showed [Ks As] and won (46260) with two pair, Aces and Kings
+Seat 5: rutra2801 (button) folded on the River
+Seat 7: jsalinas96 (small blind) folded before Flop
+Seat 8: abueloman0 (big blind) folded before Flop
+Seat 9: PL20031959 showed [Qh Ad] and lost with a pair of Aces
+
+
+
+PokerStars Hand #259701099555:  Hold'em No Limit (250/500) - 2026/02/12 22:23:43 CET [2026/02/12 16:23:43 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #7 is the button
+Seat 2: skyhawk465 (110337 in chips) is sitting out
+Seat 6: Oldiddi (0 in chips) is sitting out
+Seat 1: 2007Sampei (33812 in chips) 
+Seat 3: mmartins525 (176760 in chips) 
+Seat 4: 1931jb (46260 in chips) 
+Seat 5: rutra2801 (20293 in chips) 
+Seat 7: jsalinas96 (58677 in chips) 
+Seat 8: abueloman0 (73766 in chips) 
+Seat 9: PL20031959 (20360 in chips) 
+abueloman0: posts small blind 250
+PL20031959: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Jd 6c]
+2007Sampei: calls 500
+mmartins525: calls 500
+1931jb: raises 1722 to 2222
+rutra2801: raises 18071 to 20293 and is all-in
+jsalinas96: folds 
+abueloman0: folds 
+PL20031959: raises 67 to 20360 and is all-in
+2007Sampei: folds 
+mmartins525: folds 
+1931jb: calls 18138
+*** FLOP *** [4d 3s Jc]
+*** TURN *** [4d 3s Jc] [5h]
+*** RIVER *** [4d 3s Jc 5h] [3d]
+*** SHOW DOWN ***
+PL20031959: shows [Ks Kh] (two pair, Kings and Threes)
+1931jb: shows [5c 5d] (a full house, Fives full of Threes)
+1931jb collected 127 from side pot
+rutra2801: shows [Td Ah] (a pair of Threes)
+1931jb collected 58712 from main pot
+*** SUMMARY ***
+Total pot 62263 Main pot 58712. Side pot 127. | Rake 3424 
+Board [4d 3s Jc 5h 3d]
+Seat 2: skyhawk465
+Seat 6: Oldiddi
+Seat 1: 2007Sampei folded before Flop
+Seat 3: mmartins525 folded before Flop
+Seat 4: 1931jb showed [5c 5d] and won (58839) with a full house, Fives full of Threes
+Seat 5: rutra2801 showed [Td Ah] and lost with a pair of Threes
+Seat 7: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 8: abueloman0 (small blind) folded before Flop
+Seat 9: PL20031959 (big blind) showed [Ks Kh] and lost with two pair, Kings and Threes
+
+
+
+PokerStars Hand #259701111547:  Hold'em No Limit (250/500) - 2026/02/12 22:24:25 CET [2026/02/12 16:24:25 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #8 is the button
+Seat 5: rutra2801 (0 in chips) is sitting out
+Seat 6: Oldiddi (0 in chips) is sitting out
+Seat 1: 2007Sampei (33312 in chips) 
+Seat 2: skyhawk465 (110337 in chips) 
+Seat 3: mmartins525 (176260 in chips) 
+Seat 4: 1931jb (84739 in chips) 
+Seat 7: jsalinas96 (58677 in chips) 
+Seat 8: abueloman0 (73516 in chips) 
+2007Sampei: posts small blind 250
+skyhawk465: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2c 4s]
+mmartins525: folds 
+1931jb: calls 500
+jsalinas96: folds 
+abueloman0 has timed out
+abueloman0: folds 
+2007Sampei: calls 250
+skyhawk465: checks 
+*** FLOP *** [4d Kh 6c]
+abueloman0 leaves the table
+2007Sampei: bets 500
+skyhawk465: folds 
+1931jb: folds 
+Uncalled bet (500) returned to 2007Sampei
+2007Sampei collected 1417 from pot
+2007Sampei: doesn't show hand 
+*** SUMMARY ***
+Total pot 1500 | Rake 83 
+Board [4d Kh 6c]
+Seat 5: rutra2801
+Seat 6: Oldiddi
+Seat 1: 2007Sampei (small blind) collected (1417)
+Seat 2: skyhawk465 (big blind) folded on the Flop
+Seat 3: mmartins525 folded before Flop (didn't bet)
+Seat 4: 1931jb folded on the Flop
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: abueloman0 (button) folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259701124086:  Hold'em No Limit (250/500) - 2026/02/12 22:25:08 CET [2026/02/12 16:25:08 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #1 is the button
+Seat 6: Oldiddi (0 in chips) is sitting out
+Seat 1: 2007Sampei (34229 in chips) 
+Seat 2: skyhawk465 (109837 in chips) 
+Seat 3: mmartins525 (176260 in chips) 
+Seat 4: 1931jb (84239 in chips) 
+Seat 5: rutra2801 (50000 in chips) 
+Seat 7: jsalinas96 (58677 in chips) 
+skyhawk465: posts small blind 250
+mmartins525: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Td Ad]
+1931jb: calls 500
+rutra2801: calls 500
+jsalinas96: raises 1000 to 1500
+2007Sampei: calls 1500
+skyhawk465: folds 
+mmartins525: calls 1000
+1931jb: calls 1000
+rutra2801: calls 1000
+*** FLOP *** [Ac 8s Ks]
+mmartins525: checks 
+1931jb: checks 
+rutra2801: bets 7324
+jsalinas96: calls 7324
+2007Sampei: folds 
+maaaark13 joins the table at seat #8 
+mmartins525: folds 
+1931jb: folds 
+*** TURN *** [Ac 8s Ks] [3d]
+rutra2801: bets 21166
+ATRIA123 joins the table at seat #9 
+jsalinas96: folds 
+Uncalled bet (21166) returned to rutra2801
+rutra2801 collected 21166 from pot
+*** SUMMARY ***
+Total pot 22398 | Rake 1232 
+Board [Ac 8s Ks 3d]
+Seat 6: Oldiddi
+Seat 1: 2007Sampei (button) folded on the Flop
+Seat 2: skyhawk465 (small blind) folded before Flop
+Seat 3: mmartins525 (big blind) folded on the Flop
+Seat 4: 1931jb folded on the Flop
+Seat 5: rutra2801 collected (21166)
+Seat 7: jsalinas96 folded on the Turn
+
+
+
+PokerStars Hand #259701143335:  Hold'em No Limit (250/500) - 2026/02/12 22:26:15 CET [2026/02/12 16:26:15 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #2 is the button
+Seat 6: Oldiddi (0 in chips) is sitting out
+Seat 1: 2007Sampei (32729 in chips) 
+Seat 2: skyhawk465 (109587 in chips) 
+Seat 3: mmartins525 (174760 in chips) 
+Seat 4: 1931jb (82739 in chips) 
+Seat 5: rutra2801 (62342 in chips) 
+Seat 7: jsalinas96 (49853 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+Seat 9: ATRIA123 (50000 in chips) 
+mmartins525: posts small blind 250
+1931jb: posts big blind 500
+maaaark13: posts big blind 500
+ATRIA123: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ad 5d]
+rutra2801: calls 500
+jsalinas96: raises 1000 to 1500
+maaaark13: raises 1000 to 2500
+ATRIA123: folds 
+2007Sampei: folds 
+skyhawk465: folds 
+mmartins525: folds 
+1931jb: folds 
+skyhawk465 leaves the table
+rutra2801: calls 2000
+jsalinas96: calls 1000
+*** FLOP *** [7h Ks 9c]
+rutra2801: checks 
+jsalinas96: checks 
+maaaark13: bets 4634
+rutra2801: calls 4634
+jsalinas96: folds 
+*** TURN *** [7h Ks 9c] [6s]
+rutra2801: checks 
+maaaark13: bets 9013
+rutra2801: raises 35053 to 44066
+maaaark13: folds 
+Uncalled bet (35053) returned to rutra2801
+rutra2801 collected 34062 from pot
+*** SUMMARY ***
+Total pot 36044 | Rake 1982 
+Board [7h Ks 9c 6s]
+Seat 6: Oldiddi
+Seat 1: 2007Sampei folded before Flop (didn't bet)
+Seat 2: skyhawk465 (button) folded before Flop (didn't bet)
+Seat 3: mmartins525 (small blind) folded before Flop
+Seat 4: 1931jb (big blind) folded before Flop
+Seat 5: rutra2801 collected (34062)
+Seat 7: jsalinas96 folded on the Flop
+Seat 8: maaaark13 folded on the Turn
+Seat 9: ATRIA123 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259701163278:  Hold'em No Limit (250/500) - 2026/02/12 22:27:23 CET [2026/02/12 16:27:23 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #3 is the button
+Seat 6: Oldiddi (0 in chips) is sitting out
+Seat 1: 2007Sampei (32729 in chips) 
+Seat 3: mmartins525 (174510 in chips) 
+Seat 4: 1931jb (82239 in chips) 
+Seat 5: rutra2801 (80257 in chips) 
+Seat 7: jsalinas96 (47353 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+Seat 9: ATRIA123 (49500 in chips) 
+1931jb: posts small blind 250
+rutra2801: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2c 4h]
+jsalinas96: folds 
+maaaark13: raises 500 to 1000
+ATRIA123: folds 
+2007Sampei: calls 1000
+mmartins525: folds 
+1931jb: calls 750
+rutra2801: calls 500
+*** FLOP *** [6h Qh 4d]
+1931jb: checks 
+rutra2801: checks 
+maaaark13: checks 
+2007Sampei: checks 
+*** TURN *** [6h Qh 4d] [As]
+Oldiddi leaves the table
+1931jb: checks 
+rutra2801: checks 
+ATRIA123 leaves the table
+maaaark13: checks 
+2007Sampei: checks 
+*** RIVER *** [6h Qh 4d As] [Qc]
+1931jb: checks 
+rutra2801: checks 
+maaaark13: checks 
+2007Sampei: checks 
+*** SHOW DOWN ***
+1931jb: shows [7d Ts] (a pair of Queens)
+rutra2801: mucks hand 
+maaaark13: shows [Jc Th] (a pair of Queens - Ace+Jack kicker)
+2007Sampei: shows [7h 7s] (two pair, Queens and Sevens)
+2007Sampei collected 3780 from pot
+*** SUMMARY ***
+Total pot 4000 | Rake 220 
+Board [6h Qh 4d As Qc]
+Seat 6: Oldiddi
+Seat 1: 2007Sampei showed [7h 7s] and won (3780) with two pair, Queens and Sevens
+Seat 3: mmartins525 (button) folded before Flop (didn't bet)
+Seat 4: 1931jb (small blind) showed [7d Ts] and lost with a pair of Queens
+Seat 5: rutra2801 (big blind) mucked [5h 9d]
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: maaaark13 showed [Jc Th] and lost with a pair of Queens
+Seat 9: ATRIA123 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259701173717:  Hold'em No Limit (250/500) - 2026/02/12 22:27:59 CET [2026/02/12 16:27:59 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #4 is the button
+Seat 1: 2007Sampei (35509 in chips) 
+Seat 3: mmartins525 (174510 in chips) 
+Seat 4: 1931jb (81239 in chips) 
+Seat 5: rutra2801 (79257 in chips) 
+Seat 7: jsalinas96 (47353 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+rutra2801: posts small blind 250
+jsalinas96: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5d 8c]
+maaaark13: folds 
+2007Sampei: calls 500
+mmartins525: folds 
+1931jb: calls 500
+rutra2801: calls 250
+jsalinas96: checks 
+*** FLOP *** [4c 5s 9s]
+rutra2801: bets 1890
+jsalinas96: folds 
+2007Sampei: folds 
+1931jb: calls 1890
+*** TURN *** [4c 5s 9s] [3s]
+rutra2801: bets 5462
+1931jb: folds 
+Uncalled bet (5462) returned to rutra2801
+rutra2801 collected 5462 from pot
+*** SUMMARY ***
+Total pot 5780 | Rake 318 
+Board [4c 5s 9s 3s]
+Seat 1: 2007Sampei folded on the Flop
+Seat 3: mmartins525 folded before Flop (didn't bet)
+Seat 4: 1931jb (button) folded on the Turn
+Seat 5: rutra2801 (small blind) collected (5462)
+Seat 7: jsalinas96 (big blind) folded on the Flop
+Seat 8: maaaark13 folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259701183532:  Hold'em No Limit (250/500) - 2026/02/12 22:28:33 CET [2026/02/12 16:28:33 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #5 is the button
+Seat 1: 2007Sampei (35009 in chips) 
+Seat 3: mmartins525 (174510 in chips) 
+Seat 4: 1931jb (78849 in chips) 
+Seat 5: rutra2801 (82329 in chips) 
+Seat 7: jsalinas96 (46853 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+jsalinas96: posts small blind 250
+maaaark13: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6h 3s]
+2007Sampei: calls 500
+mmartins525: folds 
+1931jb: calls 500
+rutra2801: calls 500
+jsalinas96: folds 
+maaaark13: checks 
+*** FLOP *** [4d 2s 5h]
+siriusGT911 joins the table at seat #9 
+DIDASAGA joins the table at seat #2 
+maaaark13: checks 
+2007Sampei: checks 
+1931jb: checks 
+rutra2801: checks 
+*** TURN *** [4d 2s 5h] [9s]
+maaaark13: checks 
+Patchwork34 joins the table at seat #6 
+2007Sampei: checks 
+1931jb: bets 1063
+rutra2801: calls 1063
+maaaark13: calls 1063
+2007Sampei: folds 
+*** RIVER *** [4d 2s 5h 9s] [Jh]
+maaaark13: checks 
+1931jb: bets 2570
+Patchwork34 leaves the table
+rutra2801: folds 
+maaaark13: folds 
+Uncalled bet (2570) returned to 1931jb
+1931jb collected 5140 from pot
+1931jb: doesn't show hand 
+*** SUMMARY ***
+Total pot 5439 | Rake 299 
+Board [4d 2s 5h 9s Jh]
+Seat 1: 2007Sampei folded on the Turn
+Seat 3: mmartins525 folded before Flop (didn't bet)
+Seat 4: 1931jb collected (5140)
+Seat 5: rutra2801 (button) folded on the River
+Seat 7: jsalinas96 (small blind) folded before Flop
+Seat 8: maaaark13 (big blind) folded on the River
+
+
+
+PokerStars Hand #259701207823:  Hold'em No Limit (250/500) - 2026/02/12 22:29:56 CET [2026/02/12 16:29:56 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #7 is the button
+Seat 4: 1931jb (82426 in chips) is sitting out
+Seat 1: 2007Sampei (34509 in chips) 
+Seat 2: DIDASAGA (50000 in chips) 
+Seat 3: mmartins525 (174510 in chips) 
+Seat 5: rutra2801 (80766 in chips) 
+Seat 7: jsalinas96 (46603 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+Seat 9: siriusGT911 (50000 in chips) 
+maaaark13: posts small blind 250
+siriusGT911: posts big blind 500
+DIDASAGA: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Th Jd]
+2007Sampei: calls 500
+DIDASAGA: checks 
+Vamiré joins the table at seat #6 
+mmartins525: folds 
+rutra2801: calls 500
+jsalinas96: calls 500
+maaaark13: folds 
+siriusGT911: checks 
+*** FLOP *** [9c 4s Qd]
+siriusGT911: checks 
+2007Sampei: checks 
+DIDASAGA: checks 
+rutra2801: checks 
+jsalinas96: checks 
+*** TURN *** [9c 4s Qd] [5d]
+siriusGT911: checks 
+2007Sampei: checks 
+DIDASAGA: bets 1000
+rutra2801: calls 1000
+jsalinas96: calls 1000
+siriusGT911: calls 1000
+2007Sampei: calls 1000
+*** RIVER *** [9c 4s Qd 5d] [Td]
+siriusGT911: checks 
+2007Sampei: checks 
+DIDASAGA: bets 1000
+rutra2801: folds 
+jsalinas96: calls 1000
+siriusGT911: folds 
+2007Sampei: calls 1000
+*** SHOW DOWN ***
+DIDASAGA: shows [3d 6d] (a flush, Queen high)
+jsalinas96: mucks hand 
+2007Sampei: mucks hand 
+DIDASAGA collected 10159 from pot
+*** SUMMARY ***
+Total pot 10750 | Rake 591 
+Board [9c 4s Qd 5d Td]
+Seat 4: 1931jb
+Seat 1: 2007Sampei mucked [7d Qs]
+Seat 2: DIDASAGA showed [3d 6d] and won (10159) with a flush, Queen high
+Seat 3: mmartins525 folded before Flop (didn't bet)
+Seat 5: rutra2801 folded on the River
+Seat 7: jsalinas96 (button) mucked [Th Jd]
+Seat 8: maaaark13 (small blind) folded before Flop
+Seat 9: siriusGT911 (big blind) folded on the River
+
+
+
+PokerStars Hand #259701231195:  Hold'em No Limit (250/500) - 2026/02/12 22:31:16 CET [2026/02/12 16:31:16 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #8 is the button
+Seat 4: 1931jb (82426 in chips) is sitting out
+Seat 1: 2007Sampei (32009 in chips) 
+Seat 2: DIDASAGA (57659 in chips) 
+Seat 3: mmartins525 (174510 in chips) 
+Seat 5: rutra2801 (79266 in chips) 
+Seat 6: Vamiré (20000 in chips) 
+Seat 7: jsalinas96 (44103 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+Seat 9: siriusGT911 (48500 in chips) 
+siriusGT911: posts small blind 250
+2007Sampei: posts big blind 500
+Vamiré: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Jd 9s]
+DIDASAGA: calls 500
+mmartins525: calls 500
+rutra2801: calls 500
+Vamiré: checks 
+jsalinas96: folds 
+maaaark13: folds 
+siriusGT911: calls 250
+2007Sampei: checks 
+*** FLOP *** [Ks 3h 3c]
+siriusGT911: checks 
+2007Sampei: checks 
+DIDASAGA: checks 
+mmartins525: checks 
+rutra2801: checks 
+Vamiré: checks 
+*** TURN *** [Ks 3h 3c] [9c]
+siriusGT911: checks 
+2007Sampei: checks 
+DIDASAGA: checks 
+mmartins525: checks 
+rutra2801: checks 
+Vamiré: checks 
+*** RIVER *** [Ks 3h 3c 9c] [Td]
+siriusGT911: checks 
+2007Sampei: checks 
+DIDASAGA: checks 
+mmartins525: checks 
+rutra2801: checks 
+Vamiré: checks 
+*** SHOW DOWN ***
+siriusGT911: shows [8d 7h] (a pair of Threes)
+2007Sampei: shows [6h Qd] (a pair of Threes - King+Queen kicker)
+DIDASAGA: shows [Tc 8s] (two pair, Tens and Threes)
+mmartins525: mucks hand 
+rutra2801: shows [2c Th] (two pair, Tens and Threes)
+Vamiré: mucks hand 
+DIDASAGA collected 1418 from pot
+rutra2801 collected 1417 from pot
+*** SUMMARY ***
+Total pot 3000 | Rake 165 
+Board [Ks 3h 3c 9c Td]
+Seat 4: 1931jb
+Seat 1: 2007Sampei (big blind) showed [6h Qd] and lost with a pair of Threes
+Seat 2: DIDASAGA showed [Tc 8s] and won (1418) with two pair, Tens and Threes
+Seat 3: mmartins525 mucked [9d Ah]
+Seat 5: rutra2801 showed [2c Th] and won (1417) with two pair, Tens and Threes
+Seat 6: Vamiré mucked [As 6d]
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: maaaark13 (button) folded before Flop (didn't bet)
+Seat 9: siriusGT911 (small blind) showed [8d 7h] and lost with a pair of Threes
+
+
+
+PokerStars Hand #259701248564:  Hold'em No Limit (250/500) - 2026/02/12 22:32:16 CET [2026/02/12 16:32:16 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #9 is the button
+Seat 4: 1931jb (82426 in chips) is sitting out
+Seat 1: 2007Sampei (31509 in chips) 
+Seat 2: DIDASAGA (58577 in chips) 
+Seat 3: mmartins525 (174010 in chips) 
+Seat 5: rutra2801 (80183 in chips) 
+Seat 6: Vamiré (19500 in chips) 
+Seat 7: jsalinas96 (44103 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+Seat 9: siriusGT911 (48000 in chips) 
+2007Sampei: posts small blind 250
+DIDASAGA: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [6h 8c]
+mmartins525: folds 
+rutra2801: calls 500
+Vamiré: folds 
+jsalinas96: folds 
+Vamiré leaves the table
+maaaark13: folds 
+siriusGT911: calls 500
+2007Sampei: calls 250
+DIDASAGA: raises 500 to 1000
+rutra2801: calls 500
+siriusGT911: calls 500
+2007Sampei: calls 500
+*** FLOP *** [8d Kc Kd]
+2007Sampei: checks 
+DIDASAGA: checks 
+rutra2801: checks 
+siriusGT911: checks 
+*** TURN *** [8d Kc Kd] [7c]
+2007Sampei: checks 
+DIDASAGA: checks 
+rutra2801: checks 
+siriusGT911: checks 
+*** RIVER *** [8d Kc Kd 7c] [8h]
+2007Sampei: checks 
+DIDASAGA: checks 
+rutra2801: bets 3780
+siriusGT911: folds 
+2007Sampei: folds 
+siriusGT911 leaves the table
+DIDASAGA: folds 
+Uncalled bet (3780) returned to rutra2801
+rutra2801 collected 3780 from pot
+*** SUMMARY ***
+Total pot 4000 | Rake 220 
+Board [8d Kc Kd 7c 8h]
+Seat 4: 1931jb
+Seat 1: 2007Sampei (small blind) folded on the River
+Seat 2: DIDASAGA (big blind) folded on the River
+Seat 3: mmartins525 folded before Flop (didn't bet)
+Seat 5: rutra2801 collected (3780)
+Seat 6: Vamiré folded before Flop (didn't bet)
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: maaaark13 folded before Flop (didn't bet)
+Seat 9: siriusGT911 (button) folded on the River
+
+
+
+PokerStars Hand #259701276312:  Hold'em No Limit (250/500) - 2026/02/12 22:33:51 CET [2026/02/12 16:33:51 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #1 is the button
+Seat 4: 1931jb (82426 in chips) is sitting out
+Seat 1: 2007Sampei (30509 in chips) 
+Seat 2: DIDASAGA (57577 in chips) 
+Seat 3: mmartins525 (174010 in chips) 
+Seat 5: rutra2801 (82963 in chips) 
+Seat 7: jsalinas96 (44103 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+DIDASAGA: posts small blind 250
+mmartins525: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Kd 6h]
+rutra2801: calls 500
+jsalinas96: calls 500
+maaaark13: calls 500
+2007Sampei: calls 500
+DIDASAGA: folds 
+mmartins525: checks 
+*** FLOP *** [7d 7s 2c]
+mmartins525: checks 
+rutra2801: checks 
+jsalinas96: checks 
+maaaark13: checks 
+2007Sampei: checks 
+*** TURN *** [7d 7s 2c] [2d]
+mmartins525: checks 
+rutra2801: checks 
+jsalinas96: bets 2299
+maaaark13: folds 
+2007Sampei: raises 2299 to 4598
+mmartins525: folds 
+rutra2801: folds 
+jsalinas96: calls 2299
+*** RIVER *** [7d 7s 2c 2d] [2s]
+jsalinas96: checks 
+2007Sampei: bets 500
+jsalinas96: calls 500
+*** SHOW DOWN ***
+2007Sampei: shows [7c Ad] (a full house, Sevens full of Deuces)
+jsalinas96: mucks hand 
+2007Sampei collected 12234 from pot
+*** SUMMARY ***
+Total pot 12946 | Rake 712 
+Board [7d 7s 2c 2d 2s]
+Seat 4: 1931jb
+Seat 1: 2007Sampei (button) showed [7c Ad] and won (12234) with a full house, Sevens full of Deuces
+Seat 2: DIDASAGA (small blind) folded before Flop
+Seat 3: mmartins525 (big blind) folded on the Turn
+Seat 5: rutra2801 folded on the Turn
+Seat 7: jsalinas96 mucked [Kd 6h]
+Seat 8: maaaark13 folded on the Turn
+
+
+
+PokerStars Hand #259701296669:  Hold'em No Limit (250/500) - 2026/02/12 22:35:02 CET [2026/02/12 16:35:02 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #2 is the button
+Seat 4: 1931jb (82426 in chips) is sitting out
+Seat 1: 2007Sampei (37145 in chips) 
+Seat 2: DIDASAGA (57327 in chips) 
+Seat 3: mmartins525 (173510 in chips) 
+Seat 5: rutra2801 (82463 in chips) 
+Seat 7: jsalinas96 (38505 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+mmartins525: posts small blind 250
+rutra2801: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3s 9h]
+jsalinas96: folds 
+maaaark13: calls 500
+2007Sampei: folds 
+DIDASAGA: folds 
+mmartins525: calls 250
+rutra2801: checks 
+*** FLOP *** [8h 6d 6s]
+mmartins525: checks 
+rutra2801: bets 1417
+maaaark13: folds 
+mmartins525: folds 
+Uncalled bet (1417) returned to rutra2801
+rutra2801 collected 1417 from pot
+*** SUMMARY ***
+Total pot 1500 | Rake 83 
+Board [8h 6d 6s]
+Seat 4: 1931jb
+Seat 1: 2007Sampei folded before Flop (didn't bet)
+Seat 2: DIDASAGA (button) folded before Flop (didn't bet)
+Seat 3: mmartins525 (small blind) folded on the Flop
+Seat 5: rutra2801 (big blind) collected (1417)
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: maaaark13 folded on the Flop
+
+
+
+PokerStars Hand #259701307589:  Hold'em No Limit (250/500) - 2026/02/12 22:35:39 CET [2026/02/12 16:35:39 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #3 is the button
+Seat 4: 1931jb (82426 in chips) is sitting out
+Seat 1: 2007Sampei (37145 in chips) 
+Seat 2: DIDASAGA (57327 in chips) 
+Seat 3: mmartins525 (173010 in chips) 
+Seat 5: rutra2801 (83380 in chips) 
+Seat 7: jsalinas96 (38505 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+rutra2801: posts small blind 250
+jsalinas96: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qd 4h]
+maaaark13: calls 500
+2007Sampei: calls 500
+DIDASAGA: calls 500
+mmartins525: folds 
+rutra2801: calls 250
+jsalinas96: checks 
+*** FLOP *** [8d Qs Kc]
+rutra2801: bets 500
+jsalinas96: calls 500
+maaaark13: folds 
+2007Sampei: calls 500
+DIDASAGA: calls 500
+*** TURN *** [8d Qs Kc] [Ts]
+rutra2801: bets 500
+jsalinas96: calls 500
+2007Sampei: calls 500
+DIDASAGA: calls 500
+*** RIVER *** [8d Qs Kc Ts] [Qh]
+rutra2801: bets 6142
+jsalinas96: raises 6142 to 12284
+2007Sampei: folds 
+DIDASAGA: folds 
+rutra2801: calls 6142
+*** SHOW DOWN ***
+jsalinas96: shows [Qd 4h] (three of a kind, Queens)
+rutra2801: shows [Qc 7d] (three of a kind, Queens)
+rutra2801 collected 14680 from pot
+jsalinas96 collected 14679 from pot
+*** SUMMARY ***
+Total pot 31068 | Rake 1709 
+Board [8d Qs Kc Ts Qh]
+Seat 4: 1931jb
+Seat 1: 2007Sampei folded on the River
+Seat 2: DIDASAGA folded on the River
+Seat 3: mmartins525 (button) folded before Flop (didn't bet)
+Seat 5: rutra2801 (small blind) showed [Qc 7d] and won (14680) with three of a kind, Queens
+Seat 7: jsalinas96 (big blind) showed [Qd 4h] and won (14679) with three of a kind, Queens
+Seat 8: maaaark13 folded on the Flop
+
+
+
+PokerStars Hand #259701329866:  Hold'em No Limit (250/500) - 2026/02/12 22:36:56 CET [2026/02/12 16:36:56 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #5 is the button
+Seat 1: 2007Sampei (35645 in chips) 
+Seat 2: DIDASAGA (55827 in chips) 
+Seat 3: mmartins525 (173010 in chips) 
+Seat 4: 1931jb (82426 in chips) 
+Seat 5: rutra2801 (84276 in chips) 
+Seat 7: jsalinas96 (39400 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+jsalinas96: posts small blind 250
+maaaark13: posts big blind 500
+1931jb: posts small & big blinds 750
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4c 5d]
+2007Sampei: folds 
+DIDASAGA: folds 
+miakatt joins the table at seat #9 
+VlastOfZvuk joins the table at seat #6 
+mmartins525: calls 500
+1931jb: checks 
+rutra2801: calls 500
+jsalinas96: folds 
+maaaark13: checks 
+*** FLOP *** [8s 8d Ks]
+maaaark13: checks 
+mmartins525: checks 
+1931jb: checks 
+rutra2801: bets 2362
+maaaark13: folds 
+mmartins525: folds 
+1931jb: folds 
+Uncalled bet (2362) returned to rutra2801
+rutra2801 collected 2362 from pot
+*** SUMMARY ***
+Total pot 2500 | Rake 138 
+Board [8s 8d Ks]
+Seat 1: 2007Sampei folded before Flop (didn't bet)
+Seat 2: DIDASAGA folded before Flop (didn't bet)
+Seat 3: mmartins525 folded on the Flop
+Seat 4: 1931jb folded on the Flop (didn't bet)
+Seat 5: rutra2801 (button) collected (2362)
+Seat 7: jsalinas96 (small blind) folded before Flop
+Seat 8: maaaark13 (big blind) folded on the Flop
+
+
+
+PokerStars Hand #259701341127:  Hold'em No Limit (250/500) - 2026/02/12 22:37:34 CET [2026/02/12 16:37:34 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #7 is the button
+Seat 1: 2007Sampei (35645 in chips) 
+Seat 2: DIDASAGA (55827 in chips) 
+Seat 3: mmartins525 (172510 in chips) 
+Seat 4: 1931jb (81676 in chips) 
+Seat 5: rutra2801 (86138 in chips) 
+Seat 6: VlastOfZvuk (50000 in chips) 
+Seat 7: jsalinas96 (39150 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+Seat 9: miakatt (50000 in chips) 
+maaaark13: posts small blind 250
+miakatt: posts big blind 500
+VlastOfZvuk: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9h Ks]
+2007Sampei: folds 
+DIDASAGA: raises 500 to 1000
+mmartins525: folds 
+1931jb: calls 1000
+rutra2801: raises 85138 to 86138 and is all-in
+VlastOfZvuk: folds 
+jsalinas96: folds 
+maaaark13: folds 
+miakatt: folds 
+DIDASAGA: folds 
+1931jb: folds 
+Uncalled bet (85138) returned to rutra2801
+rutra2801 collected 4250 from pot
+*** SUMMARY ***
+Total pot 4250 | Rake 0 
+Seat 1: 2007Sampei folded before Flop (didn't bet)
+Seat 2: DIDASAGA folded before Flop
+Seat 3: mmartins525 folded before Flop (didn't bet)
+Seat 4: 1931jb folded before Flop
+Seat 5: rutra2801 collected (4250)
+Seat 6: VlastOfZvuk folded before Flop (didn't bet)
+Seat 7: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 8: maaaark13 (small blind) folded before Flop
+Seat 9: miakatt (big blind) folded before Flop
+
+
+
+PokerStars Hand #259701362301:  Hold'em No Limit (250/500) - 2026/02/12 22:38:46 CET [2026/02/12 16:38:46 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #8 is the button
+Seat 1: 2007Sampei (35645 in chips) 
+Seat 2: DIDASAGA (54827 in chips) 
+Seat 3: mmartins525 (172510 in chips) 
+Seat 4: 1931jb (80676 in chips) 
+Seat 5: rutra2801 (89388 in chips) 
+Seat 6: VlastOfZvuk (49500 in chips) 
+Seat 7: jsalinas96 (39150 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+Seat 9: miakatt (49500 in chips) 
+miakatt: posts small blind 250
+2007Sampei: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Td Jh]
+DIDASAGA: calls 500
+mmartins525: folds 
+1931jb: calls 500
+rutra2801: calls 500
+VlastOfZvuk: folds 
+jsalinas96: calls 500
+maaaark13: calls 500
+miakatt: calls 250
+2007Sampei: checks 
+*** FLOP *** [8c 6d 2d]
+miakatt: checks 
+2007Sampei: bets 1500
+DIDASAGA: calls 1500
+1931jb: folds 
+rutra2801: calls 1500
+jsalinas96: folds 
+maaaark13: folds 
+miakatt: folds 
+*** TURN *** [8c 6d 2d] [4s]
+2007Sampei: bets 1500
+DIDASAGA: calls 1500
+rutra2801: calls 1500
+*** RIVER *** [8c 6d 2d 4s] [8d]
+2007Sampei: bets 1000
+DIDASAGA: folds 
+rutra2801: raises 13812 to 14812
+2007Sampei: folds 
+Uncalled bet (13812) returned to rutra2801
+rutra2801 collected 13702 from pot
+*** SUMMARY ***
+Total pot 14500 | Rake 798 
+Board [8c 6d 2d 4s 8d]
+Seat 1: 2007Sampei (big blind) folded on the River
+Seat 2: DIDASAGA folded on the River
+Seat 3: mmartins525 folded before Flop (didn't bet)
+Seat 4: 1931jb folded on the Flop
+Seat 5: rutra2801 collected (13702)
+Seat 6: VlastOfZvuk folded before Flop (didn't bet)
+Seat 7: jsalinas96 folded on the Flop
+Seat 8: maaaark13 (button) folded on the Flop
+Seat 9: miakatt (small blind) folded on the Flop
+
+
+
+PokerStars Hand #259701389478:  Hold'em No Limit (250/500) - 2026/02/12 22:40:19 CET [2026/02/12 16:40:19 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #9 is the button
+Seat 1: 2007Sampei (31145 in chips) 
+Seat 2: DIDASAGA (51327 in chips) 
+Seat 3: mmartins525 (172510 in chips) 
+Seat 4: 1931jb (80176 in chips) 
+Seat 5: rutra2801 (98590 in chips) 
+Seat 6: VlastOfZvuk (49500 in chips) 
+Seat 7: jsalinas96 (38650 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+Seat 9: miakatt (49000 in chips) 
+2007Sampei: posts small blind 250
+DIDASAGA: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5s 9d]
+mmartins525: folds 
+1931jb: folds 
+rutra2801: calls 500
+VlastOfZvuk: folds 
+jsalinas96: folds 
+maaaark13: calls 500
+miakatt: raises 500 to 1000
+2007Sampei: calls 750
+DIDASAGA: calls 500
+rutra2801: calls 500
+maaaark13: calls 500
+*** FLOP *** [9h Qc Ad]
+2007Sampei: checks 
+DIDASAGA: bets 500
+rutra2801: folds 
+maaaark13: calls 500
+miakatt: calls 500
+2007Sampei: folds 
+*** TURN *** [9h Qc Ad] [2c]
+DIDASAGA: bets 1000
+maaaark13: calls 1000
+miakatt: folds 
+*** RIVER *** [9h Qc Ad 2c] [5h]
+DIDASAGA has timed out
+DIDASAGA: checks 
+maaaark13: bets 4016
+DIDASAGA: calls 4016
+*** SHOW DOWN ***
+maaaark13: shows [8c Td] (high card Ace)
+DIDASAGA: shows [Ac 4s] (a pair of Aces)
+DIDASAGA collected 15623 from pot
+*** SUMMARY ***
+Total pot 16532 | Rake 909 
+Board [9h Qc Ad 2c 5h]
+Seat 1: 2007Sampei (small blind) folded on the Flop
+Seat 2: DIDASAGA (big blind) showed [Ac 4s] and won (15623) with a pair of Aces
+Seat 3: mmartins525 folded before Flop (didn't bet)
+Seat 4: 1931jb folded before Flop (didn't bet)
+Seat 5: rutra2801 folded on the Flop
+Seat 6: VlastOfZvuk folded before Flop (didn't bet)
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: maaaark13 showed [8c Td] and lost with high card Ace
+Seat 9: miakatt (button) folded on the Turn
+
+
+
+PokerStars Hand #259701417654:  Hold'em No Limit (250/500) - 2026/02/12 22:41:56 CET [2026/02/12 16:41:56 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #1 is the button
+Seat 1: 2007Sampei (30145 in chips) 
+Seat 2: DIDASAGA (60434 in chips) 
+Seat 3: mmartins525 (172510 in chips) 
+Seat 4: 1931jb (80176 in chips) 
+Seat 5: rutra2801 (97590 in chips) 
+Seat 6: VlastOfZvuk (49500 in chips) 
+Seat 7: jsalinas96 (38650 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+Seat 9: miakatt (47500 in chips) 
+DIDASAGA: posts small blind 250
+mmartins525: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Tc Ac]
+1931jb: folds 
+rutra2801: calls 500
+VlastOfZvuk: calls 500
+jsalinas96: raises 1000 to 1500
+maaaark13: folds 
+miakatt: calls 1500
+2007Sampei: calls 1500
+DIDASAGA: calls 1250
+mmartins525: folds 
+rutra2801: raises 1000 to 2500
+VlastOfZvuk: folds 
+jsalinas96: calls 1000
+miakatt: calls 1000
+2007Sampei: calls 1000
+DIDASAGA: calls 1000
+*** FLOP *** [2h Jc 7h]
+DIDASAGA has timed out
+DIDASAGA: checks 
+rutra2801: checks 
+jsalinas96: checks 
+miakatt: checks 
+2007Sampei: checks 
+*** TURN *** [2h Jc 7h] [Qh]
+DIDASAGA: checks 
+rutra2801: bets 500
+jsalinas96: raises 5650 to 6150
+miakatt: folds 
+2007Sampei: folds 
+DIDASAGA: folds 
+rutra2801: calls 5650
+*** RIVER *** [2h Jc 7h Qh] [4h]
+rutra2801: bets 30881
+jsalinas96: folds 
+Uncalled bet (30881) returned to rutra2801
+rutra2801 collected 24381 from pot
+*** SUMMARY ***
+Total pot 25800 | Rake 1419 
+Board [2h Jc 7h Qh 4h]
+Seat 1: 2007Sampei (button) folded on the Turn
+Seat 2: DIDASAGA (small blind) folded on the Turn
+Seat 3: mmartins525 (big blind) folded before Flop
+Seat 4: 1931jb folded before Flop (didn't bet)
+Seat 5: rutra2801 collected (24381)
+Seat 6: VlastOfZvuk folded before Flop
+Seat 7: jsalinas96 folded on the River
+Seat 8: maaaark13 folded before Flop (didn't bet)
+Seat 9: miakatt folded on the Turn
+
+
+
+PokerStars Hand #259701455908:  Hold'em No Limit (250/500) - 2026/02/12 22:44:10 CET [2026/02/12 16:44:10 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #2 is the button
+Seat 1: 2007Sampei (27645 in chips) 
+Seat 2: DIDASAGA (57934 in chips) 
+Seat 3: mmartins525 (172010 in chips) 
+Seat 4: 1931jb (80176 in chips) 
+Seat 5: rutra2801 (113321 in chips) 
+Seat 6: VlastOfZvuk (49000 in chips) 
+Seat 7: jsalinas96 (30000 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+Seat 9: miakatt (45000 in chips) 
+mmartins525: posts small blind 250
+1931jb: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [4s 6c]
+rutra2801: calls 500
+VlastOfZvuk: calls 500
+jsalinas96: folds 
+maaaark13: folds 
+miakatt: calls 500
+2007Sampei: calls 500
+DIDASAGA: calls 500
+mmartins525: folds 
+1931jb: checks 
+*** FLOP *** [7h 5h Jd]
+1931jb: checks 
+rutra2801: checks 
+VlastOfZvuk: checks 
+miakatt: bets 3071
+2007Sampei: calls 3071
+DIDASAGA: folds 
+1931jb: folds 
+rutra2801: folds 
+VlastOfZvuk: folds 
+*** TURN *** [7h 5h Jd] [Ts]
+miakatt: bets 500
+2007Sampei: calls 500
+*** RIVER *** [7h 5h Jd Ts] [3h]
+miakatt: bets 40929 and is all-in
+2007Sampei: folds 
+Uncalled bet (40929) returned to miakatt
+miakatt collected 9820 from pot
+*** SUMMARY ***
+Total pot 10392 | Rake 572 
+Board [7h 5h Jd Ts 3h]
+Seat 1: 2007Sampei folded on the River
+Seat 2: DIDASAGA (button) folded on the Flop
+Seat 3: mmartins525 (small blind) folded before Flop
+Seat 4: 1931jb (big blind) folded on the Flop
+Seat 5: rutra2801 folded on the Flop
+Seat 6: VlastOfZvuk folded on the Flop
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: maaaark13 folded before Flop (didn't bet)
+Seat 9: miakatt collected (9820)
+
+
+
+PokerStars Hand #259701479166:  Hold'em No Limit (250/500) - 2026/02/12 22:45:32 CET [2026/02/12 16:45:32 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #3 is the button
+Seat 1: 2007Sampei (23574 in chips) 
+Seat 2: DIDASAGA (57434 in chips) 
+Seat 3: mmartins525 (171760 in chips) 
+Seat 4: 1931jb (79676 in chips) 
+Seat 5: rutra2801 (112821 in chips) 
+Seat 6: VlastOfZvuk (48500 in chips) 
+Seat 7: jsalinas96 (30000 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+Seat 9: miakatt (50749 in chips) 
+1931jb: posts small blind 250
+rutra2801: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5d 8s]
+VlastOfZvuk: folds 
+jsalinas96: folds 
+maaaark13: folds 
+miakatt: calls 500
+2007Sampei: calls 500
+DIDASAGA: calls 500
+mmartins525: calls 500
+1931jb: calls 250
+rutra2801: checks 
+*** FLOP *** [Ah Qc 5h]
+1931jb: checks 
+rutra2801: checks 
+miakatt: bets 2835
+2007Sampei: folds 
+DIDASAGA: calls 2835
+mmartins525: folds 
+1931jb: calls 2835
+rutra2801: calls 2835
+*** TURN *** [Ah Qc 5h] [4d]
+1931jb: checks 
+rutra2801: checks 
+miakatt: bets 13551
+DIDASAGA: calls 13551
+1931jb: folds 
+rutra2801: folds 
+*** RIVER *** [Ah Qc 5h 4d] [Qs]
+miakatt: bets 33863 and is all-in
+DIDASAGA: folds 
+Uncalled bet (33863) returned to miakatt
+miakatt collected 39163 from pot
+*** SUMMARY ***
+Total pot 41442 | Rake 2279 
+Board [Ah Qc 5h 4d Qs]
+Seat 1: 2007Sampei folded on the Flop
+Seat 2: DIDASAGA folded on the River
+Seat 3: mmartins525 (button) folded on the Flop
+Seat 4: 1931jb (small blind) folded on the Turn
+Seat 5: rutra2801 (big blind) folded on the Turn
+Seat 6: VlastOfZvuk folded before Flop (didn't bet)
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: maaaark13 folded before Flop (didn't bet)
+Seat 9: miakatt collected (39163)
+
+
+
+PokerStars Hand #259701505195:  Hold'em No Limit (250/500) - 2026/02/12 22:47:03 CET [2026/02/12 16:47:03 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #4 is the button
+Seat 1: 2007Sampei (23074 in chips) 
+Seat 2: DIDASAGA (40548 in chips) 
+Seat 3: mmartins525 (171260 in chips) 
+Seat 4: 1931jb (76341 in chips) 
+Seat 5: rutra2801 (109486 in chips) 
+Seat 6: VlastOfZvuk (48500 in chips) 
+Seat 7: jsalinas96 (30000 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+Seat 9: miakatt (73026 in chips) 
+rutra2801: posts small blind 250
+VlastOfZvuk: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [9c 6c]
+jsalinas96: raises 1000 to 1500
+maaaark13: folds 
+miakatt: folds 
+2007Sampei: calls 1500
+DIDASAGA: folds 
+mmartins525: folds 
+1931jb: folds 
+rutra2801: calls 1250
+VlastOfZvuk: calls 1000
+*** FLOP *** [2d 2s 4h]
+rutra2801: checks 
+VlastOfZvuk: checks 
+jsalinas96: checks 
+2007Sampei: checks 
+*** TURN *** [2d 2s 4h] [Jh]
+rutra2801: bets 5670
+VlastOfZvuk: folds 
+jsalinas96: folds 
+2007Sampei: folds 
+Uncalled bet (5670) returned to rutra2801
+rutra2801 collected 5670 from pot
+*** SUMMARY ***
+Total pot 6000 | Rake 330 
+Board [2d 2s 4h Jh]
+Seat 1: 2007Sampei folded on the Turn
+Seat 2: DIDASAGA folded before Flop (didn't bet)
+Seat 3: mmartins525 folded before Flop (didn't bet)
+Seat 4: 1931jb (button) folded before Flop (didn't bet)
+Seat 5: rutra2801 (small blind) collected (5670)
+Seat 6: VlastOfZvuk (big blind) folded on the Turn
+Seat 7: jsalinas96 folded on the Turn
+Seat 8: maaaark13 folded before Flop (didn't bet)
+Seat 9: miakatt folded before Flop (didn't bet)
+
+
+
+PokerStars Hand #259701523503:  Hold'em No Limit (250/500) - 2026/02/12 22:48:07 CET [2026/02/12 16:48:07 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #5 is the button
+Seat 1: 2007Sampei (21574 in chips) 
+Seat 2: DIDASAGA (40548 in chips) 
+Seat 3: mmartins525 (171260 in chips) 
+Seat 4: 1931jb (76341 in chips) 
+Seat 5: rutra2801 (113656 in chips) 
+Seat 6: VlastOfZvuk (47000 in chips) 
+Seat 7: jsalinas96 (28500 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+Seat 9: miakatt (73026 in chips) 
+VlastOfZvuk: posts small blind 250
+jsalinas96: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [As Jc]
+maaaark13: folds 
+miakatt: calls 500
+2007Sampei: calls 500
+DIDASAGA: calls 500
+mmartins525: calls 500
+1931jb: folds 
+rutra2801: calls 500
+VlastOfZvuk: calls 250
+jsalinas96: checks 
+*** FLOP *** [8d 2s 9d]
+VlastOfZvuk: checks 
+jsalinas96: checks 
+miakatt: bets 500
+2007Sampei: calls 500
+DIDASAGA: folds 
+mmartins525: raises 170260 to 170760 and is all-in
+rutra2801 has timed out
+rutra2801: folds 
+VlastOfZvuk: folds 
+jsalinas96: folds 
+miakatt has timed out
+miakatt: folds 
+2007Sampei: folds 
+Uncalled bet (170260) returned to mmartins525
+mmartins525 collected 4725 from pot
+mmartins525: doesn't show hand 
+*** SUMMARY ***
+Total pot 5000 | Rake 275 
+Board [8d 2s 9d]
+Seat 1: 2007Sampei folded on the Flop
+Seat 2: DIDASAGA folded on the Flop
+Seat 3: mmartins525 collected (4725)
+Seat 4: 1931jb folded before Flop (didn't bet)
+Seat 5: rutra2801 (button) folded on the Flop
+Seat 6: VlastOfZvuk (small blind) folded on the Flop
+Seat 7: jsalinas96 (big blind) folded on the Flop
+Seat 8: maaaark13 folded before Flop (didn't bet)
+Seat 9: miakatt folded on the Flop
+
+
+
+PokerStars Hand #259701555061:  Hold'em No Limit (250/500) - 2026/02/12 22:49:59 CET [2026/02/12 16:49:59 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #6 is the button
+Seat 9: miakatt (72026 in chips) is sitting out
+Seat 1: 2007Sampei (20574 in chips) 
+Seat 2: DIDASAGA (40048 in chips) 
+Seat 3: mmartins525 (174985 in chips) 
+Seat 4: 1931jb (76341 in chips) 
+Seat 5: rutra2801 (113156 in chips) 
+Seat 6: VlastOfZvuk (46500 in chips) 
+Seat 7: jsalinas96 (28000 in chips) 
+Seat 8: maaaark13 (50000 in chips) 
+jsalinas96: posts small blind 250
+maaaark13: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2s 5s]
+2007Sampei: calls 500
+DIDASAGA: raises 500 to 1000
+mmartins525: folds 
+1931jb: folds 
+rutra2801: calls 1000
+VlastOfZvuk: folds 
+jsalinas96: calls 750
+maaaark13: raises 1000 to 2000
+2007Sampei: folds 
+DIDASAGA: calls 1000
+rutra2801: calls 1000
+jsalinas96: calls 1000
+*** FLOP *** [2c 6d 9c]
+jsalinas96: checks 
+maaaark13: bets 4516
+DIDASAGA: calls 4516
+rutra2801: calls 4516
+jsalinas96: folds 
+*** TURN *** [2c 6d 9c] [Qd]
+maaaark13: bets 11917
+DIDASAGA: folds 
+rutra2801: folds 
+Uncalled bet (11917) returned to maaaark13
+maaaark13 collected 20835 from pot
+*** SUMMARY ***
+Total pot 22048 | Rake 1213 
+Board [2c 6d 9c Qd]
+Seat 9: miakatt
+Seat 1: 2007Sampei folded before Flop
+Seat 2: DIDASAGA folded on the Turn
+Seat 3: mmartins525 folded before Flop (didn't bet)
+Seat 4: 1931jb folded before Flop (didn't bet)
+Seat 5: rutra2801 folded on the Turn
+Seat 6: VlastOfZvuk (button) folded before Flop (didn't bet)
+Seat 7: jsalinas96 (small blind) folded on the Flop
+Seat 8: maaaark13 (big blind) collected (20835)
+
+
+
+PokerStars Hand #259701572267:  Hold'em No Limit (250/500) - 2026/02/12 22:51:00 CET [2026/02/12 16:51:00 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #7 is the button
+Seat 1: 2007Sampei (20074 in chips) 
+Seat 2: DIDASAGA (33532 in chips) 
+Seat 3: mmartins525 (174985 in chips) 
+Seat 4: 1931jb (76341 in chips) 
+Seat 5: rutra2801 (106640 in chips) 
+Seat 6: VlastOfZvuk (46500 in chips) 
+Seat 7: jsalinas96 (26000 in chips) 
+Seat 8: maaaark13 (64319 in chips) 
+Seat 9: miakatt (72026 in chips) 
+maaaark13: posts small blind 250
+miakatt: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Js 4c]
+2007Sampei: folds 
+DIDASAGA: calls 500
+mmartins525: folds 
+1931jb: folds 
+rutra2801: calls 500
+VlastOfZvuk: folds 
+jsalinas96: folds 
+maaaark13: calls 250
+miakatt: checks 
+*** FLOP *** [8s Kd Ks]
+maaaark13: checks 
+miakatt: checks 
+DIDASAGA: checks 
+rutra2801: checks 
+*** TURN *** [8s Kd Ks] [7d]
+maaaark13: checks 
+miakatt: checks 
+DIDASAGA: bets 1000
+rutra2801: folds 
+maaaark13: folds 
+miakatt: folds 
+Uncalled bet (1000) returned to DIDASAGA
+DIDASAGA collected 1890 from pot
+*** SUMMARY ***
+Total pot 2000 | Rake 110 
+Board [8s Kd Ks 7d]
+Seat 1: 2007Sampei folded before Flop (didn't bet)
+Seat 2: DIDASAGA collected (1890)
+Seat 3: mmartins525 folded before Flop (didn't bet)
+Seat 4: 1931jb folded before Flop (didn't bet)
+Seat 5: rutra2801 folded on the Turn
+Seat 6: VlastOfZvuk folded before Flop (didn't bet)
+Seat 7: jsalinas96 (button) folded before Flop (didn't bet)
+Seat 8: maaaark13 (small blind) folded on the Turn
+Seat 9: miakatt (big blind) folded on the Turn
+
+
+
+PokerStars Hand #259701592641:  Hold'em No Limit (250/500) - 2026/02/12 22:52:12 CET [2026/02/12 16:52:12 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #8 is the button
+Seat 1: 2007Sampei (20074 in chips) 
+Seat 2: DIDASAGA (34922 in chips) 
+Seat 3: mmartins525 (174985 in chips) 
+Seat 4: 1931jb (76341 in chips) 
+Seat 5: rutra2801 (106140 in chips) 
+Seat 6: VlastOfZvuk (46500 in chips) 
+Seat 7: jsalinas96 (26000 in chips) 
+Seat 8: maaaark13 (63819 in chips) 
+Seat 9: miakatt (71526 in chips) 
+miakatt: posts small blind 250
+2007Sampei: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [3s Qc]
+DIDASAGA: calls 500
+mmartins525: folds 
+1931jb: calls 500
+rutra2801: calls 500
+VlastOfZvuk: folds 
+jsalinas96: folds 
+maaaark13: folds 
+miakatt: raises 500 to 1000
+2007Sampei has timed out
+2007Sampei: folds 
+DIDASAGA: calls 500
+1931jb: calls 500
+rutra2801: calls 500
+*** FLOP *** [Ac Tc 8c]
+miakatt: checks 
+DIDASAGA: checks 
+1931jb: checks 
+rutra2801: bets 4252
+miakatt: folds 
+DIDASAGA: folds 
+1931jb: folds 
+Uncalled bet (4252) returned to rutra2801
+rutra2801 collected 4252 from pot
+*** SUMMARY ***
+Total pot 4500 | Rake 248 
+Board [Ac Tc 8c]
+Seat 1: 2007Sampei (big blind) folded before Flop
+Seat 2: DIDASAGA folded on the Flop
+Seat 3: mmartins525 folded before Flop (didn't bet)
+Seat 4: 1931jb folded on the Flop
+Seat 5: rutra2801 collected (4252)
+Seat 6: VlastOfZvuk folded before Flop (didn't bet)
+Seat 7: jsalinas96 folded before Flop (didn't bet)
+Seat 8: maaaark13 (button) folded before Flop (didn't bet)
+Seat 9: miakatt (small blind) folded on the Flop
+
+
+
+PokerStars Hand #259701615986:  Hold'em No Limit (250/500) - 2026/02/12 22:53:35 CET [2026/02/12 16:53:35 ET]
+Table 'Ruppina II' 9-max (Play Money) Seat #9 is the button
+Seat 1: 2007Sampei (19574 in chips) is sitting out
+Seat 2: DIDASAGA (33922 in chips) 
+Seat 3: mmartins525 (174985 in chips) 
+Seat 4: 1931jb (75341 in chips) 
+Seat 5: rutra2801 (109392 in chips) 
+Seat 6: VlastOfZvuk (46500 in chips) 
+Seat 7: jsalinas96 (26000 in chips) 
+Seat 8: maaaark13 (63819 in chips) 
+Seat 9: miakatt (70526 in chips) 
+DIDASAGA: posts small blind 250
+mmartins525: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [5h 9h]
+1931jb: calls 500
+rutra2801: calls 500
+VlastOfZvuk: calls 500
+jsalinas96: calls 500
+maaaark13: raises 3250 to 3750
+miakatt: calls 3750
+DIDASAGA: folds 
+mmartins525: folds 
+1931jb: folds 
+rutra2801: calls 3250
+VlastOfZvuk: calls 3250
+jsalinas96: calls 3250
+*** FLOP *** [Jc 6h 9c]
+rutra2801: bets 18900
+VlastOfZvuk: folds 
+jsalinas96: raises 3350 to 22250 and is all-in
+maaaark13: calls 22250
+miakatt: folds 
+rutra2801: calls 3350
+*** TURN *** [Jc 6h 9c] [Ts]
+rutra2801: bets 40989
+maaaark13: calls 37819 and is all-in
+Uncalled bet (3170) returned to rutra2801
+*** RIVER *** [Jc 6h 9c Ts] [9d]
+*** SHOW DOWN ***
+rutra2801: shows [7h Jh] (two pair, Jacks and Nines)
+maaaark13: shows [8c Ac] (a pair of Nines)
+rutra2801 collected 71478 from side pot
+jsalinas96: shows [5h 9h] (three of a kind, Nines)
+jsalinas96 collected 81979 from main pot
+*** SUMMARY ***
+Total pot 162388 Main pot 81979. Side pot 71478. | Rake 8931 
+Board [Jc 6h 9c Ts 9d]
+Seat 1: 2007Sampei
+Seat 2: DIDASAGA (small blind) folded before Flop
+Seat 3: mmartins525 (big blind) folded before Flop
+Seat 4: 1931jb folded before Flop
+Seat 5: rutra2801 showed [7h Jh] and won (71478) with two pair, Jacks and Nines
+Seat 6: VlastOfZvuk folded on the Flop
+Seat 7: jsalinas96 showed [5h 9h] and won (81979) with three of a kind, Nines
+Seat 8: maaaark13 showed [8c Ac] and lost with a pair of Nines
+Seat 9: miakatt (button) folded on the Flop
+
+
+
