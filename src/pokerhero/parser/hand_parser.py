@@ -450,7 +450,6 @@ class HandParser:
             if is_all_in and action_type in ("BET", "RAISE"):
                 facing_allin = True
 
-            pot_before = pot - (amount if verb in ("bets",) else Decimal("0"))
             if verb == "calls":
                 pot_before = pot - amount
             elif verb == "raises":
