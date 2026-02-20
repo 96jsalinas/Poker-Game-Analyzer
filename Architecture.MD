@@ -19,6 +19,7 @@ This document outlines the high-level architecture, technology stack, and data f
 The application follows a strictly linear data processing pipeline, moving from raw text to interactive web insights.
 
 1. **Ingestion:** The user selects a directory containing PokerStars `.txt` hand history files.
+   > ⚠️ **Known format quirk:** PokerStars `.txt` exports are UTF-8 encoded with a BOM (`\ufeff`) prepended. The splitter discards any content before the first `PokerStars Hand #` header to handle this transparently. Always open these files with `encoding="utf-8"` (not `utf-8-sig`) — the splitter filters the BOM as a by-product of its header-prefix check.
 2. **Parsing & Validation:** A Python parsing module reads the raw text, uses regex to extract hand actions, and validates the sequence (ensuring pots balance and actions make logical sense).
 3. **Storage:** The parsed, structured data is committed to the SQLite database using raw SQL `INSERT` statements, adhering to the atomic relational schema.
 4. **Analysis Engine:** Upon a frontend request, the Python backend queries the SQLite database. Data is loaded into Pandas DataFrames.
