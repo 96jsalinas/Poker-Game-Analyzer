@@ -19,7 +19,7 @@ This project strictly adheres to a **Fail-First (Red-Green-Refactor)** methodolo
 
 ### B. Integration Tests (Database & Pipeline)
 * **In-Memory SQLite:** All database tests will use an in-memory SQLite database (`sqlite3.connect(':memory:')`) to ensure tests run instantly and don't corrupt the main database.
-* **Pipeline Integrity:** Test the flow of `Raw Text -> Parser -> SQL Insert -> Pandas Read`. Ensure that a complete, simple hand history accurately populates all 5 relational tables (`Sessions`, `Hands`, `Players`, `Hand_Players`, `Actions`).
+* **Pipeline Integrity:** Test the flow of `Raw Text -> Parser -> SQL Insert -> Pandas Read`. Ensure that a complete, simple hand history accurately populates all 6 relational tables (`Sessions`, `Hands`, `Players`, `Hand_Players`, `Actions`, `Settings`).
 
 ### C. End-to-End (E2E) & System Tests
 * **Session Processing:** Feed an entire 500-hand `.txt` session file into the ingestion pipeline and verify total `hero_cash_out` matches the mathematical sum of all `net_result` rows.

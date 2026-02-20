@@ -5,53 +5,59 @@ This document defines the navigation structure and user interface logic for the 
 ---
 
 ## 🗺️ 1. Main Navigation Menu
-The entry point of the application.
+The entry point of the application (`/`). Currently a simple hub page.
 
-* **[1] Upload Files**: The "Ingestion" hub.
-* **[2] Review Sessions**: Historical log of all processed games.
-* **[3] Overall Stats**: The "Hero Dashboard."
-* **[4] Settings**: User and App configuration.
+* **[1] Upload Files** (`/upload`): The "Ingestion" hub. ✅ Implemented.
+* **[2] Review Sessions** (`/sessions`): Historical log of all processed games. ✅ Implemented.
+* **[3] Overall Stats** (`/dashboard`): The "Hero Dashboard." 🔲 Planned.
+* **[4] Settings** (`/settings`): User and App configuration. 🔲 Planned.
 
 ---
 
 ## ⚙️ 2. Settings
-* **Hero Username**: The primary identifier used to distinguish "Hero" from "Villains" in PokerStars logs.
+* **Hero Username**: Persisted in the `settings` DB table. Currently set on the Upload page — a dedicated Settings page is planned.
 * **Preferred Currency**: (Optional) Toggle between USD, EUR, or Play Money.
 * **Data Management**: Option to "Clear Database" or "Export Data to CSV."
 
 ---
 
-## 📤 3. Upload Files
+## 📤 3. Upload Files ✅ Implemented
 * **Upload Interface**: A drag-and-drop zone or file picker for `.txt` files.
+* **Hero Username Input**: Entered once; auto-saved to the `settings` table and pre-populated on return visits.
 * **Processing Feedback**:
-    * Progress bar showing parsing status.
-    * Summary of upload: *"Successfully imported 1,200 hands from 3 sessions. 4 duplicates skipped."*
-* **Error Log**: If a file is corrupted or in an unsupported format, show a "Warning" log.
+    * Summary of upload: *"✅ 24 imported, 0 skipped"* or *"⚠️ 2 skipped (duplicates)"*.
+* **Error Log**: If a file is corrupted or in an unsupported format, shows a red error message.
 
 ---
 
-## 🔍 4. Review Sessions (The Drill-Down)
+## 🔍 4. Review Sessions (The Drill-Down) ✅ Implemented
 
-### Level 1: Session History
+Navigation uses a **breadcrumb** pattern — only one level is visible at a time. Clicking a row advances the view; clicking a breadcrumb crumb navigates back.
+
+```
+Sessions  →  Sessions › 2026-02-16 250/500  →  Sessions › 2026-02-16 250/500 › Hand #2597...
+```
+
+### Level 1: Session History ✅
 A table view showing all played sessions.
-* **Columns**: Date, Table Name, Stakes (e.g., $0.10/$0.25), Hands Played, Net Profit/Loss.
-* **Action**: Clicking a row opens the **Hand List**.
+* **Columns**: Date, Stakes (e.g., 100/200), Hands Played, Net Profit/Loss (green/red).
+* **Action**: Clicking a row navigates to the **Hand List** for that session.
 
-### Level 2: Hand List (Within a Session)
+### Level 2: Hand List (Within a Session) ✅
 A detailed list of every hand dealt in that session.
-* **Columns**: Hand ID, Hero Cards (Hole Cards), Final Pot, Result (Net), Biggest Action (e.g., "All-in").
-* **Visual Indicator**: Green text for winning hands, red for losing hands.
-* **Action**: Clicking a row opens the **Hand Replayer/Viewer**.
+* **Columns**: Hand ID, Hero Cards (Hole Cards), Final Pot, Net Result (green/red).
+* **Action**: Clicking a row navigates to the **Hand Action View**.
 
-### Level 3: Hand Action View
+### Level 3: Hand Action View ✅
 A chronological breakdown of the specific hand.
-* **Header**: Shows the "Board" (Flop, Turn, River) as card icons.
-* **Body**: A list of all actions (e.g., "Hero raised to $5.00", "Villain called").
-* **Math Sidebar**: Displays **SPR** for the flop and **Pot Odds** for every decision point the Hero faced.
+* **Header**: Hand # and board cards (Flop | Turn | River).
+* **Body**: Actions grouped by street (colour-coded headers), showing player username, position (e.g. `jsalinas96 (BTN)`), action type, amount, and pot size.
+* **Math Column**: SPR shown on the first Flop action; Pot Odds % shown for every decision point Hero faces.
 
 ---
 
-## 📊 5. Overall Stats (The Dashboard)
+## 📊 5. Overall Stats (The Dashboard) 🔲 Planned
+
 A high-level overview of the Hero's performance across all time.
 
 ### A. Key Performance Indicators (KPIs)
