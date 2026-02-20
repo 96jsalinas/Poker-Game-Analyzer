@@ -9,6 +9,7 @@ We use a consolidated, modern toolchain. All developers must ensure their code p
 * **Formatting & Linting:** [Ruff](https://docs.astral.sh/ruff/)
     * *Why:* Ruff is a highly performant Rust-based tool that replaces Black, Flake8, isort, and pyupgrade. It enforces consistent PEP-8 styling automatically.
     * *Command:* Run `ruff check --fix .` and `ruff format .` before committing.
+    * ⚠️ **Scope rule:** Both commands run project-wide by default and will reformat files you didn't touch. Always stage and commit formatting changes **together** with the feature/fix changes that triggered them — never as a separate commit. If you have unrelated uncommitted changes in your working tree, scope the commands to only the files you changed (e.g. `ruff format src/pokerhero/ingestion/ tests/test_ingestion.py`) to avoid picking up unrelated diffs.
 * **Static Type Checking:** [Mypy](https://mypy.readthedocs.io/)
     * *Why:* Poker math requires absolute certainty about data types (e.g., distinguishing a `Decimal` from a `float`).
     * *Command:* Run `mypy src/` to verify type safety.
