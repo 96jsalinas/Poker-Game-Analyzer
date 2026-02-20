@@ -152,3 +152,36 @@ class TestUploadPageLayout:
 
         comp = layout() if callable(layout) else layout
         assert "upload-data" in str(comp)
+
+
+class TestSessionsPageLayout:
+    def test_sessions_page_registered(self):
+        """Sessions page must be registered at path '/sessions'."""
+        import dash
+
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+        paths = [p["path"] for p in dash.page_registry.values()]
+        assert "/sessions" in paths
+
+    def test_layout_has_sessions_table(self):
+        """Sessions page layout must include a sessions-table component."""
+        from pokerhero.frontend.pages.sessions import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "sessions-table" in str(comp)
+
+    def test_layout_has_hand_list_panel(self):
+        """Sessions page layout must include a hands-table component."""
+        from pokerhero.frontend.pages.sessions import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "hands-table" in str(comp)
+
+    def test_layout_has_back_link(self):
+        """Sessions page layout must have a link back to home."""
+        from pokerhero.frontend.pages.sessions import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "/" in str(comp)
