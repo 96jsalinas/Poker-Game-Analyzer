@@ -45,8 +45,12 @@ layout = html.Div(
         html.Hr(style={"marginTop": "30px"}),
         # Hand list panel (populated when a session row is clicked)
         html.Div(id="hands-table"),
+        html.Hr(style={"marginTop": "30px"}),
+        # Actions panel (populated when a hand row is clicked)
+        html.Div(id="actions-panel"),
         # Hidden stores
         dcc.Store(id="selected-session-id"),
+        dcc.Store(id="selected-hand-id"),
     ],
 )
 
@@ -198,7 +202,9 @@ def _load_hands(session_id: int | None) -> html.Div | str:
         pnl = float(row["net_result"]) if row["net_result"] is not None else 0.0
         rows.append(
             html.Tr(
-                [
+                id={"type": "hand-row", "index": int(row["id"])},
+                style={"cursor": "pointer"},
+                children=[
                     html.Td(str(row["source_hand_id"]), style=_CELL_STYLE),
                     html.Td(str(row["hole_cards"] or "—"), style=_CELL_STYLE),
                     html.Td(f"{float(row['total_pot']):,.0f}", style=_CELL_STYLE),
@@ -206,7 +212,7 @@ def _load_hands(session_id: int | None) -> html.Div | str:
                         f"{'+' if pnl >= 0 else ''}{pnl:,.0f}",
                         style={**_CELL_STYLE, **_pnl_style(pnl)},
                     ),
-                ]
+                ],
             )
         )
 
@@ -217,5 +223,158 @@ def _load_hands(session_id: int | None) -> html.Div | str:
                 [html.Thead(header), html.Tbody(rows)],
                 style={"width": "100%", "borderCollapse": "collapse"},
             ),
+        ]
+    )
+
+
+@callback(
+    Output("selected-hand-id", "data"),
+    Input({"type": "hand-row", "index": dash.ALL}, "n_clicks"),
+    State({"type": "hand-row", "index": dash.ALL}, "id"),
+    prevent_initial_call=True,
+)
+def _select_hand(
+    n_clicks: list[int | None],
+    row_ids: list[dict[str, int]],
+) -> int | None:
+    """Store the hand_id when a hand row is clicked."""
+    ctx = dash.callback_context
+    if not ctx.triggered:
+        raise dash.exceptions.PreventUpdate
+    import json
+
+    triggered_id = ctx.triggered[0]["prop_id"].split(".")[0]
+    parsed = json.loads(triggered_id)
+    return int(parsed["index"])
+
+
+_STREET_COLOURS = {
+    "PREFLOP": "#6c757d",
+    "FLOP": "#0074D9",
+    "TURN": "#2ECC40",
+    "RIVER": "#FF4136",
+}
+
+
+@callback(
+    Output("actions-panel", "children"),
+    Input("selected-hand-id", "data"),
+    prevent_initial_call=True,
+)
+def _load_actions(hand_id: int | None) -> html.Div | str:
+    """Render the action breakdown for the selected hand."""
+    if hand_id is None:
+        raise dash.exceptions.PreventUpdate
+    db_path = _get_db_path()
+
+    from pokerhero.analysis.queries import get_actions
+
+    conn = get_connection(db_path)
+    try:
+        df = get_actions(conn, hand_id)
+        # Fetch board cards for the header
+        hand_row = conn.execute(
+            "SELECT source_hand_id, board_flop, board_turn, board_river"
+            " FROM hands WHERE id = ?",
+            (hand_id,),
+        ).fetchone()
+    finally:
+        conn.close()
+
+    if df.empty or hand_row is None:
+        return html.Div("No actions found for this hand.")
+
+    source_id, flop, turn, river = hand_row
+    board_parts = [b for b in (flop, turn, river) if b]
+    board_str = "  |  ".join(board_parts) if board_parts else "—"
+
+    sections: list[html.Div] = []
+    current_street = None
+    street_rows: list[html.Tr] = []
+
+    def _flush_street(street: str, rows: list[html.Tr]) -> html.Div:
+        colour = _STREET_COLOURS.get(street, "#333")
+        return html.Div(
+            [
+                html.H5(
+                    street,
+                    style={
+                        "color": colour,
+                        "borderBottom": f"2px solid {colour}",
+                        "paddingBottom": "4px",
+                        "marginBottom": "4px",
+                    },
+                ),
+                html.Table(
+                    rows,
+                    style={
+                        "width": "100%",
+                        "borderCollapse": "collapse",
+                        "marginBottom": "12px",
+                    },
+                ),
+            ]
+        )
+
+    for _, action in df.iterrows():
+        street = str(action["street"])
+        if street != current_street:
+            if current_street is not None:
+                sections.append(_flush_street(current_street, street_rows))
+            current_street = street
+            street_rows = []
+
+        actor = "🦸 Hero" if action["is_hero"] else "👤 Villain"
+        action_type = str(action["action_type"])
+        amount = float(action["amount"])
+        pot_before = float(action["pot_before"])
+        amount_to_call = float(action["amount_to_call"])
+
+        label = action_type
+        if amount > 0:
+            label += f"  {amount:,.0f}"
+        if action["is_all_in"]:
+            label += "  🚨 ALL-IN"
+
+        # Pot odds for hero facing a bet
+        extra = ""
+        if action["is_hero"] and amount_to_call > 0:
+            pot_odds = amount_to_call / (pot_before + amount_to_call) * 100
+            extra = f"Pot odds: {pot_odds:.1f}%"
+        if action["spr"] is not None:
+            extra = f"SPR: {float(action['spr']):.2f}" + (
+                f"  |  {extra}" if extra else ""
+            )
+
+        street_rows.append(
+            html.Tr(
+                [
+                    html.Td(
+                        actor,
+                        style={**_CELL_STYLE, "width": "120px", "fontWeight": "600"},
+                    ),
+                    html.Td(label, style=_CELL_STYLE),
+                    html.Td(
+                        f"Pot: {pot_before:,.0f}",
+                        style={**_CELL_STYLE, "color": "#888", "fontSize": "12px"},
+                    ),
+                    html.Td(
+                        extra,
+                        style={**_CELL_STYLE, "color": "#555", "fontSize": "12px"},
+                    ),
+                ]
+            )
+        )
+
+    if current_street is not None:
+        sections.append(_flush_street(current_street, street_rows))
+
+    return html.Div(
+        [
+            html.H3(f"Hand #{source_id}", style={"marginTop": "0"}),
+            html.P(
+                f"Board: {board_str}", style={"color": "#555", "marginBottom": "12px"}
+            ),
+            *sections,
         ]
     )
