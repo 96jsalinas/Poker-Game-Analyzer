@@ -136,4 +136,4 @@ def calculate_mdf(pot_size: Decimal, bet_size: Decimal) -> float:
   | `refactor` | Code restructuring with no behaviour change |
 
   Examples: `feat(parser): add uncalled bet handling`, `fix(database): correct hero net_result calculation`, `test(database): add TestSessionInsert class`
-* **Testing:** All new features or bug fixes must include a passing test in the `tests/` directory following our TDD Fail-First methodology.
+* **Testing:** All new features or bug fixes must follow the **red-green-refactor** order: write and commit the failing test(s) first (`test` commit type), then implement the code to make them pass (`feat` or `fix` commit). Never write implementation code before the test exists and has been confirmed to fail.
