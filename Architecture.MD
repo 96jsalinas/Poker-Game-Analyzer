@@ -22,6 +22,7 @@ The application follows a strictly linear data processing pipeline, moving from 
    > ⚠️ **Known format quirk:** PokerStars `.txt` exports are UTF-8 encoded with a BOM (`\ufeff`) prepended. The splitter discards any content before the first `PokerStars Hand #` header to handle this transparently. Always open these files with `encoding="utf-8"` (not `utf-8-sig`) — the splitter filters the BOM as a by-product of its header-prefix check.
 2. **Parsing & Validation:** A Python parsing module reads the raw text, uses regex to extract hand actions, and validates the sequence (ensuring pots balance and actions make logical sense).
 3. **Storage:** The parsed, structured data is committed to the SQLite database using raw SQL `INSERT` statements, adhering to the atomic relational schema.
+  > ⚠️ **np.int64 parameter bug:** All query functions cast `player_id`, `session_id`, and `hand_id` parameters to Python `int()` before passing to `pd.read_sql_query`. SQLite3 does not reliably accept `numpy.int64` (the type pandas returns for integer columns) as bind parameters — it silently returns empty results in some versions.
 4. **Analysis Engine:** Upon a frontend request, the Python backend queries the SQLite database. Data is loaded into Pandas DataFrames.
 5. **Mathematical Evaluation:** PokerKit and Pandas process the data to calculate complex metrics (EV, Pot Odds, SPR, MDF) for specific hands or aggregate sessions.
 6. **Presentation:** The analyzed DataFrames are passed to the web frontend for rendering charts, tables, and hand replayers.
