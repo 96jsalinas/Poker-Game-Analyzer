@@ -130,3 +130,43 @@ class TestIngestDirectory:
     def test_empty_directory_returns_empty_list(self, db, tmp_path):
         from pokerhero.ingestion.pipeline import ingest_directory
         assert ingest_directory(tmp_path, "jsalinas96", db) == []
+
+
+class TestIngestFileLogging:
+    @pytest.fixture
+    def db(self, tmp_path):
+        from pokerhero.database.db import init_db
+        conn = init_db(tmp_path / "test.db")
+        yield conn
+        conn.close()
+
+    def test_logs_info_on_start(self, db, caplog):
+        import logging
+        from pokerhero.ingestion.pipeline import ingest_file
+        with caplog.at_level(logging.INFO, logger="pokerhero.ingestion.pipeline"):
+            ingest_file(FRATERNITAS, "jsalinas96", db)
+        assert any("Starting ingestion" in r.message for r in caplog.records)
+
+    def test_logs_info_on_completion(self, db, caplog):
+        import logging
+        from pokerhero.ingestion.pipeline import ingest_file
+        with caplog.at_level(logging.INFO, logger="pokerhero.ingestion.pipeline"):
+            ingest_file(FRATERNITAS, "jsalinas96", db)
+        assert any("Ingestion complete" in r.message for r in caplog.records)
+
+    def test_logs_warning_on_skipped_duplicate(self, db, caplog):
+        import logging
+        from pokerhero.ingestion.pipeline import ingest_file
+        ingest_file(FRATERNITAS, "jsalinas96", db)
+        with caplog.at_level(logging.WARNING, logger="pokerhero.ingestion.pipeline"):
+            ingest_file(FRATERNITAS, "jsalinas96", db)
+        assert any("duplicate" in r.message.lower() for r in caplog.records)
+
+    def test_logs_error_on_failed_hand(self, db, caplog, monkeypatch):
+        import logging
+        from pokerhero.ingestion import pipeline
+        from pokerhero.ingestion.pipeline import ingest_file
+        monkeypatch.setattr(pipeline, "save_parsed_hand", lambda *a, **kw: (_ for _ in ()).throw(RuntimeError("injected")))
+        with caplog.at_level(logging.ERROR, logger="pokerhero.ingestion.pipeline"):
+            ingest_file(FRATERNITAS, "jsalinas96", db)
+        assert any("Failed" in r.message for r in caplog.records)

@@ -62,3 +62,21 @@ class TestUploadHandler:
         app = create_app(db_path=":memory:")
         assert app is not None
         assert app.layout is not None
+
+
+class TestUploadHandlerLogging:
+    def test_logs_info_on_upload_received(self, db, caplog):
+        import logging
+        from pokerhero.frontend.upload_handler import handle_upload
+        content = _encode_file(FRATERNITAS)
+        with caplog.at_level(logging.INFO, logger="pokerhero.frontend.upload_handler"):
+            handle_upload(content, FRATERNITAS.name, "jsalinas96", db)
+        assert any(FRATERNITAS.name in r.message for r in caplog.records)
+
+    def test_logs_info_on_upload_result(self, db, caplog):
+        import logging
+        from pokerhero.frontend.upload_handler import handle_upload
+        content = _encode_file(FRATERNITAS)
+        with caplog.at_level(logging.INFO, logger="pokerhero.frontend.upload_handler"):
+            handle_upload(content, FRATERNITAS.name, "jsalinas96", db)
+        assert any("imported" in r.message for r in caplog.records)
