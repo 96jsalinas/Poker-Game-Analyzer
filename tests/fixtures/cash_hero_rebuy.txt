@@ -1,0 +1,107 @@
+PokerStars Hand #259748533188:  Hold'em No Limit (250/500) - 2026/02/16 14:32:21 CET [2026/02/16 8:32:21 ET]
+Table 'Brixia III' 9-max (Play Money) Seat #3 is the button
+Seat 1: Glamma444 (40358 in chips) 
+Seat 2: antoniett597 (16441 in chips) 
+Seat 3: Theozzz (44245 in chips) 
+Seat 4: grumalhão (49448 in chips) 
+Seat 5: Pacopin59 (64698 in chips) 
+Seat 6: negrojosee (49500 in chips) 
+Seat 7: jsalinas96 (42368 in chips) 
+Seat 9: boci20133806 (61318 in chips) 
+grumalhão: posts small blind 250
+Pacopin59: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ah 6h]
+negrojosee: folds 
+jsalinas96: calls 500
+boci20133806: raises 500 to 1000
+Glamma444: calls 1000
+antoniett597: folds 
+Theozzz: calls 1000
+grumalhão: calls 750
+Pacopin59: calls 500
+jsalinas96: calls 500
+*** FLOP *** [9s 3d 9c]
+grumalhão: checks 
+Pacopin59: checks 
+jsalinas96: checks 
+boci20133806: bets 500
+Glamma444: calls 500
+Theozzz: raises 500 to 1000
+grumalhão: calls 1000
+Pacopin59: folds 
+jsalinas96: calls 1000
+boci20133806: calls 500
+Glamma444: calls 500
+*** TURN *** [9s 3d 9c] [3c]
+grumalhão: checks 
+jsalinas96: checks 
+boci20133806: bets 500
+Glamma444 has timed out
+Glamma444: folds 
+Theozzz: raises 11395 to 11895
+grumalhão: folds 
+jsalinas96: calls 11895
+boci20133806: folds 
+*** RIVER *** [9s 3d 9c 3c] [5d]
+jsalinas96: checks 
+Theozzz: bets 30350 and is all-in
+jsalinas96: calls 28473 and is all-in
+Uncalled bet (1877) returned to Theozzz
+*** SHOW DOWN ***
+Theozzz: shows [Jh 9h] (a full house, Nines full of Threes)
+jsalinas96: shows [Ah 6h] (two pair, Nines and Threes)
+Theozzz collected 87163 from pot
+*** SUMMARY ***
+Total pot 92236 | Rake 5073 
+Board [9s 3d 9c 3c 5d]
+Seat 1: Glamma444 folded on the Turn
+Seat 2: antoniett597 folded before Flop (didn't bet)
+Seat 3: Theozzz (button) showed [Jh 9h] and won (87163) with a full house, Nines full of Threes
+Seat 4: grumalhão (small blind) folded on the Turn
+Seat 5: Pacopin59 (big blind) folded on the Flop
+Seat 6: negrojosee folded before Flop (didn't bet)
+Seat 7: jsalinas96 showed [Ah 6h] and lost with two pair, Nines and Threes
+Seat 9: boci20133806 folded on the Turn
+
+
+
+PokerStars Hand #259748555325:  Hold'em No Limit (250/500) - 2026/02/16 14:35:05 CET [2026/02/16 8:35:05 ET]
+Table 'Brixia III' 9-max (Play Money) Seat #5 is the button
+Seat 1: Glamma444 (36358 in chips) 
+Seat 2: antoniett597 (16441 in chips) 
+Seat 3: Theozzz (89040 in chips) 
+Seat 4: grumalhão (47448 in chips) 
+Seat 5: Pacopin59 (63198 in chips) 
+Seat 6: negrojosee (49000 in chips) 
+Seat 7: jsalinas96 (50000 in chips) 
+Seat 8: figueiroa54 (24000 in chips) 
+Seat 9: boci20133806 (62960 in chips) 
+negrojosee: posts small blind 250
+jsalinas96: posts big blind 500
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Qs 4d]
+figueiroa54: folds 
+boci20133806: calls 500
+Glamma444: folds 
+antoniett597: folds 
+Theozzz: calls 500
+grumalhão: raises 2250 to 2750
+Pacopin59: folds 
+negrojosee: folds 
+jsalinas96: folds 
+boci20133806: folds 
+Theozzz: folds 
+Uncalled bet (2250) returned to grumalhão
+grumalhão collected 2250 from pot
+*** SUMMARY ***
+Total pot 2250 | Rake 0
+Seat 1: Glamma444 folded before Flop (didn't bet)
+Seat 2: antoniett597 folded before Flop (didn't bet)
+Seat 3: Theozzz folded before Flop
+Seat 4: grumalhão (small blind) collected (2250)
+Seat 5: Pacopin59 (button) folded before Flop (didn't bet)
+Seat 6: negrojosee folded before Flop
+Seat 7: jsalinas96 (big blind) folded before Flop
+Seat 8: figueiroa54 folded before Flop (didn't bet)
+Seat 9: boci20133806 folded before Flop

@@ -35,6 +35,7 @@ Poker hand histories contain hundreds of edge cases. The `tests/fixtures/` direc
 | `cash_hero_raises_preflop.txt` | Cash | Hero raises preflop; used for SPR and MDF calculations |
 | `cash_standard_hero_folds_preflop.txt` | Cash | Hero folds preflop; tests zero net_result and VPIP=False |
 | `cash_uncalled_bet_returned.txt` | Cash | Aggressor's uncalled bet returned; tests `uncalled_bet_returned` field |
+| `cash_hero_rebuy.txt` | Cash | Hero goes all-in and loses (starting_stack=42368), then re-buys 50000 in the next hand; tests re-buy detection and hero_buy_in accumulation |
 | `cash_dead_blind_and_uncalled_bet.txt` | Cash | Dead blind + uncalled bet combined edge case |
 | `cash_side_pot_multiway_allin.txt` | Cash | Multiway all-in with side pot; tests `total_pot` vs eligible pot |
 | `cash_decimal_blinds.txt` | Cash | Real-money micro-stakes hand with `$0.01/$0.02` blinds; tests decimal blind parsing |

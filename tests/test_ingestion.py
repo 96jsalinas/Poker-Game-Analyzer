@@ -9,6 +9,7 @@ FRATERNITAS = (
     HISTORIES / "HH20260129 Fraternitas VII - 100-200 - Play Money No Limit Hold'em.txt"
 )
 FIXTURES = Path(__file__).parent / "fixtures"
+REBUY_FIXTURE = FIXTURES / "cash_hero_rebuy.txt"
 
 
 class TestSplitHands:
@@ -154,6 +155,52 @@ class TestIngestDirectory:
         from pokerhero.ingestion.pipeline import ingest_directory
 
         assert ingest_directory(tmp_path, "jsalinas96", db) == []
+
+
+class TestHeroBuyInWithRebuy:
+    @pytest.fixture
+    def db(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        conn = init_db(tmp_path / "test.db")
+        yield conn
+        conn.close()
+
+    def test_hero_buy_in_includes_rebuy(self, db):
+        from pokerhero.ingestion.pipeline import ingest_file
+
+        ingest_file(REBUY_FIXTURE, "jsalinas96", db)
+        db.commit()
+        row = db.execute("SELECT hero_buy_in FROM sessions WHERE id=1").fetchone()
+        # Hand 1 starting_stack=42368 + re-buy of 50000 = 92368
+        assert row[0] == pytest.approx(92368.0)
+
+    def test_hero_cash_out_is_final_stack(self, db):
+        from pokerhero.ingestion.pipeline import ingest_file
+
+        ingest_file(REBUY_FIXTURE, "jsalinas96", db)
+        db.commit()
+        row = db.execute("SELECT hero_cash_out FROM sessions WHERE id=1").fetchone()
+        # Hand 2: starting_stack=50000, net_result=-500 → 49500
+        assert row[0] == pytest.approx(49500.0)
+
+    def test_net_profit_equals_cash_out_minus_buy_in(self, db):
+        from pokerhero.ingestion.pipeline import ingest_file
+
+        ingest_file(REBUY_FIXTURE, "jsalinas96", db)
+        db.commit()
+        row = db.execute(
+            "SELECT hero_buy_in, hero_cash_out FROM sessions WHERE id=1"
+        ).fetchone()
+        net_row = db.execute(
+            """SELECT SUM(hp.net_result)
+               FROM hand_players hp
+               JOIN players p ON p.id = hp.player_id
+               WHERE p.username = 'jsalinas96'"""
+        ).fetchone()
+        # cash_out - buy_in should equal sum of hand net_results
+        # (42368 - 42368) + (49500 - 50000) = -500
+        assert abs((row[1] - row[0]) - net_row[0]) < 0.01
 
 
 class TestSessionFinancials:
