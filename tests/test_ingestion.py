@@ -156,6 +156,48 @@ class TestIngestDirectory:
         assert ingest_directory(tmp_path, "jsalinas96", db) == []
 
 
+class TestSessionFinancials:
+    @pytest.fixture
+    def db(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        conn = init_db(tmp_path / "test.db")
+        yield conn
+        conn.close()
+
+    def test_hero_buy_in_is_not_null(self, db):
+        from pokerhero.ingestion.pipeline import ingest_file
+
+        ingest_file(FRATERNITAS, "jsalinas96", db)
+        db.commit()
+        row = db.execute("SELECT hero_buy_in FROM sessions WHERE id=1").fetchone()
+        assert row[0] is not None
+
+    def test_hero_cash_out_is_not_null(self, db):
+        from pokerhero.ingestion.pipeline import ingest_file
+
+        ingest_file(FRATERNITAS, "jsalinas96", db)
+        db.commit()
+        row = db.execute("SELECT hero_cash_out FROM sessions WHERE id=1").fetchone()
+        assert row[0] is not None
+
+    def test_hero_cash_out_minus_buy_in_equals_sum_of_net_results(self, db):
+        from pokerhero.ingestion.pipeline import ingest_file
+
+        ingest_file(FRATERNITAS, "jsalinas96", db)
+        db.commit()
+        row = db.execute(
+            "SELECT hero_buy_in, hero_cash_out FROM sessions WHERE id=1"
+        ).fetchone()
+        net_row = db.execute(
+            """SELECT SUM(hp.net_result)
+               FROM hand_players hp
+               JOIN players p ON p.id = hp.player_id
+               WHERE p.username = 'jsalinas96'"""
+        ).fetchone()
+        assert abs((row[1] - row[0]) - net_row[0]) < 0.01
+
+
 class TestIngestFileLogging:
     @pytest.fixture
     def db(self, tmp_path):

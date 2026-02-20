@@ -331,6 +331,81 @@ class TestSessionInsert:
         assert id1 != id2
 
 
+class TestUpdateSessionFinancials:
+    @pytest.fixture
+    def idb(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        conn = init_db(tmp_path / "test.db")
+        yield conn
+        conn.close()
+
+    @pytest.fixture
+    def session_id(self, idb):
+        from decimal import Decimal
+
+        from pokerhero.database.db import insert_session
+        from pokerhero.parser.models import SessionData
+
+        s = SessionData(
+            game_type="NLHE",
+            limit_type="NL",
+            max_seats=9,
+            small_blind=Decimal("100"),
+            big_blind=Decimal("200"),
+            ante=Decimal("0"),
+            is_tournament=False,
+            table_name="TestTable",
+        )
+        return insert_session(idb, s, start_time="2024-01-15T20:30:00")
+
+    def test_sets_hero_buy_in(self, idb, session_id):
+        from decimal import Decimal
+
+        from pokerhero.database.db import update_session_financials
+
+        update_session_financials(idb, session_id, Decimal("10000"), Decimal("12500"))
+        row = idb.execute(
+            "SELECT hero_buy_in FROM sessions WHERE id=?", (session_id,)
+        ).fetchone()
+        assert row[0] == 10000.0
+
+    def test_sets_hero_cash_out(self, idb, session_id):
+        from decimal import Decimal
+
+        from pokerhero.database.db import update_session_financials
+
+        update_session_financials(idb, session_id, Decimal("10000"), Decimal("12500"))
+        row = idb.execute(
+            "SELECT hero_cash_out FROM sessions WHERE id=?", (session_id,)
+        ).fetchone()
+        assert row[0] == 12500.0
+
+    def test_does_not_affect_other_sessions(self, idb, session_id):
+        from decimal import Decimal
+
+        from pokerhero.database.db import insert_session, update_session_financials
+        from pokerhero.parser.models import SessionData
+
+        other = SessionData(
+            game_type="NLHE",
+            limit_type="NL",
+            max_seats=9,
+            small_blind=Decimal("100"),
+            big_blind=Decimal("200"),
+            ante=Decimal("0"),
+            is_tournament=False,
+            table_name="OtherTable",
+        )
+        other_id = insert_session(idb, other, start_time="2024-02-01T10:00:00")
+        update_session_financials(idb, session_id, Decimal("10000"), Decimal("12500"))
+        row = idb.execute(
+            "SELECT hero_buy_in, hero_cash_out FROM sessions WHERE id=?", (other_id,)
+        ).fetchone()
+        assert row[0] is None
+        assert row[1] is None
+
+
 class TestHandInsert:
     @pytest.fixture
     def idb(self, tmp_path):
