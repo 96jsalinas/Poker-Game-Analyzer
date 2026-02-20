@@ -81,8 +81,10 @@ def get_hands(
 def get_actions(conn: sqlite3.Connection, hand_id: int) -> pd.DataFrame:
     """Return all actions for a hand ordered by sequence.
 
+    Includes player username and position via JOIN with players and hand_players.
+
     Columns: sequence, player_id, is_hero, street, action_type, amount,
-             amount_to_call, pot_before, is_all_in, spr, mdf.
+             amount_to_call, pot_before, is_all_in, spr, mdf, username, position.
 
     Args:
         conn: Open SQLite connection.
@@ -93,20 +95,25 @@ def get_actions(conn: sqlite3.Connection, hand_id: int) -> pd.DataFrame:
     """
     sql = """
         SELECT
-            sequence,
-            player_id,
-            is_hero,
-            street,
-            action_type,
-            amount,
-            amount_to_call,
-            pot_before,
-            is_all_in,
-            spr,
-            mdf
-        FROM actions
-        WHERE hand_id = ?
-        ORDER BY sequence ASC
+            a.sequence,
+            a.player_id,
+            a.is_hero,
+            a.street,
+            a.action_type,
+            a.amount,
+            a.amount_to_call,
+            a.pot_before,
+            a.is_all_in,
+            a.spr,
+            a.mdf,
+            p.username,
+            hp.position
+        FROM actions a
+        JOIN players p ON p.id = a.player_id
+        LEFT JOIN hand_players hp
+            ON hp.hand_id = a.hand_id AND hp.player_id = a.player_id
+        WHERE a.hand_id = ?
+        ORDER BY a.sequence ASC
     """
     return pd.read_sql_query(sql, conn, params=(int(hand_id),))
 
