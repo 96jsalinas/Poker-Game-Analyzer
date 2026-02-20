@@ -30,3 +30,9 @@ pytest               # all tests
 pytest tests/path/to/test_file.py::test_function_name  # single test
 pre-commit install   # required once before first commit
 ```
+
+## Ruff Scope Rule
+
+`ruff check --fix` and `ruff format` run project-wide and will reformat files you didn't touch. Always:
+- Stage and commit formatting changes **together** with the feature/fix in the same commit — never as a separate commit.
+- If there are unrelated uncommitted changes in the working tree, scope the commands to only your changed files (e.g. `ruff format src/pokerhero/ingestion/ tests/test_ingestion.py`) to avoid picking up unrelated diffs.
