@@ -27,7 +27,8 @@ def upsert_player(conn: sqlite3.Connection, username: str) -> int:
         (username, username),
     )
     row = conn.execute("SELECT id FROM players WHERE username = ?", (username,)).fetchone()
-    return row[0]
+    assert row is not None  # guaranteed: INSERT above ensures the row exists
+    return int(row[0])
 
 def insert_session(
     conn: sqlite3.Connection,
@@ -53,6 +54,7 @@ def insert_session(
             float(hero_cash_out) if hero_cash_out is not None else None,
         ),
     )
+    assert cur.lastrowid is not None
     return cur.lastrowid
 
 
@@ -78,7 +80,7 @@ def insert_hand(conn: sqlite3.Connection, hand: HandData, session_id: int) -> No
 
 def insert_hand_players(
     conn: sqlite3.Connection,
-    hand_id: int,
+    hand_id: str,
     players: list[HandPlayerData],
     player_id_map: dict[str, int],
 ) -> None:
@@ -107,7 +109,7 @@ def insert_hand_players(
 
 def insert_actions(
     conn: sqlite3.Connection,
-    hand_id: int,
+    hand_id: str,
     actions: list[ActionData],
     player_id_map: dict[str, int],
 ) -> None:
