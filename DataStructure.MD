@@ -81,6 +81,20 @@ Stores players.
 
 ---
 
+## ⚙️ 6. Settings Table
+A simple key/value store for persistent application configuration.
+| Column | Type | Description |
+| :--- | :--- | :--- |
+| `key` | TEXT PK | Setting name (e.g. `hero_username`). |
+| `value` | TEXT NOT NULL | Setting value as a string. |
+
+**Known keys:**
+| Key | Description |
+| :--- | :--- |
+| `hero_username` | The PokerStars username of the hero player. Set via the Upload page and used by the Sessions page to resolve the hero `player_id`. |
+
+---
+
 ## 🐍 6. Python Models (`src/pokerhero/parser/models.py`)
 
 These dataclasses are what `HandParser.parse()` returns. Field names differ from the DB schema in several places — the mapping is noted below.

@@ -29,7 +29,7 @@ The application follows a strictly linear data processing pipeline, moving from 
 
 ## 📂 Current Directory Structure
 
-Parser and database modules are implemented. Analysis and frontend are pending.
+All modules are implemented. The frontend uses Dash multi-page routing.
 
 ```text
 pokerhero-analyzer/
@@ -42,25 +42,33 @@ pokerhero-analyzer/
 │       │   └── hand_parser.py    # HandParser — regex-based PokerStars text parser
 │       ├── database/             # ✅ Implemented
 │       │   ├── __init__.py
-│       │   ├── schema.sql        # CREATE TABLE statements for all 5 tables
-│       │   └── db.py             # get_connection, init_db, upsert_player, insert_*, save_parsed_hand
+│       │   ├── schema.sql        # CREATE TABLE statements for all 6 tables (incl. settings)
+│       │   └── db.py             # get_connection, init_db, upsert_player, insert_*, save_parsed_hand,
+│       │                         # update_session_financials, get_setting, set_setting
 │       ├── ingestion/            # ✅ Implemented
 │       │   ├── __init__.py
 │       │   ├── splitter.py       # split_hands — splits raw session text into hand blocks
-│       │   └── pipeline.py       # IngestResult, ingest_file, ingest_directory
-│       ├── analysis/             # ✅ Implemented (basic layer)
+│       │   └── pipeline.py       # IngestResult, ingest_file — with re-buy detection
+│       ├── analysis/             # ✅ Implemented
 │       │   ├── __init__.py
 │       │   ├── queries.py        # get_sessions, get_hands, get_actions, get_hero_hand_players → DataFrames
 │       │   └── stats.py          # vpip_pct, pfr_pct, win_rate_bb100, aggression_factor, wtsd_pct, total_profit
-│       ├── frontend/             # ✅ Implemented (upload page)
+│       ├── frontend/             # ✅ Implemented (multi-page Dash app)
 │       │   ├── __init__.py
-│       │   ├── app.py            # create_app() factory — Dash layout + upload callback
-│       │   └── upload_handler.py # handle_upload() — decode base64, call ingest_file
-│       └── config.py             # DB_PATH (overridable via POKERHERO_DB_PATH env var)
+│       │   ├── app.py            # create_app() — use_pages=True shell, exposes DB_PATH via Flask config
+│       │   ├── upload_handler.py # handle_upload() — decode base64, call ingest_file
+│       │   └── pages/
+│       │       ├── __init__.py
+│       │       ├── home.py       # "/" — navigation hub with links to Upload and Sessions
+│       │       ├── upload.py     # "/upload" — drag-and-drop ingestion; hero username persisted to settings
+│       │       └── sessions.py   # "/sessions" — session list → hand list drill-down
+│       └── config.py             # DB_PATH (overridable via POKERHERO_DB_PATH env var), setup_logging()
 ├── tests/
-│   ├── fixtures/                 # 14 .txt hand history snippets (see TestingStrategy.MD)
+│   ├── fixtures/                 # 15 .txt hand history snippets (see TestingStrategy.MD)
 │   ├── test_parser.py            # 150 tests across 14 classes
-│   └── test_database.py          # 44 tests across 7 classes
+│   ├── test_database.py          # 265 tests across 8 classes (incl. TestSettings)
+│   ├── test_ingestion.py         # tests for pipeline, financials, re-buy detection, logging
+│   └── test_frontend.py          # tests for upload handler, multi-page app, page layouts
 ├── data/
 │   └── histories/                # Raw .txt session files (git-ignored)
 └── pyproject.toml
