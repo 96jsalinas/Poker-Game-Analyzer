@@ -137,3 +137,12 @@ def calculate_mdf(pot_size: Decimal, bet_size: Decimal) -> float:
 
   Examples: `feat(parser): add uncalled bet handling`, `fix(database): correct hero net_result calculation`, `test(database): add TestSessionInsert class`
 * **Testing:** All new features or bug fixes must follow the **red-green-refactor** order: write and commit the failing test(s) first (`test` commit type), then implement the code to make them pass (`feat` or `fix` commit). Never write implementation code before the test exists and has been confirmed to fail.
+* **Document discoveries immediately:** Any non-obvious finding made during implementation — format quirks, edge cases, data assumptions, design decisions, known limitations — must be recorded in the appropriate `.MD` file in the same commit as the code that handles it. The right file to use:
+
+  | Discovery type | Document in |
+  | :--- | :--- |
+  | Input data format / encoding quirks | `Architecture.MD` |
+  | Schema decisions or field type rationale | `DataStructure.MD` |
+  | Formula definitions or math edge cases | `AnalysisLogic.MD` |
+  | New fixtures or testing edge cases | `TestingStrategy.MD` |
+  | Style, type, or tooling rules | `Contributing.MD` |
