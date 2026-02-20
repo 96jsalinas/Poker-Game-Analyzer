@@ -1,8 +1,9 @@
 """Tests for the analysis layer: DB query functions and stat calculations."""
 
 from pathlib import Path
-import pytest
+
 import pandas as pd
+import pytest
 
 FRATERNITAS = (
     Path(__file__).parent.parent
@@ -45,77 +46,123 @@ def hero_player_id(db_with_data):
 class TestQueries:
     def test_get_sessions_returns_dataframe(self, db_with_data, hero_player_id):
         from pokerhero.analysis.queries import get_sessions
+
         result = get_sessions(db_with_data, hero_player_id)
         assert isinstance(result, pd.DataFrame)
 
     def test_get_sessions_has_expected_columns(self, db_with_data, hero_player_id):
         from pokerhero.analysis.queries import get_sessions
-        df = get_sessions(db_with_data, hero_player_id)
-        assert {"id", "start_time", "game_type", "small_blind", "big_blind",
-                "hands_played", "net_profit"} <= set(df.columns)
 
-    def test_get_sessions_returns_one_row_for_one_file(self, db_with_data, hero_player_id):
+        df = get_sessions(db_with_data, hero_player_id)
+        assert {
+            "id",
+            "start_time",
+            "game_type",
+            "small_blind",
+            "big_blind",
+            "hands_played",
+            "net_profit",
+        } <= set(df.columns)
+
+    def test_get_sessions_returns_one_row_for_one_file(
+        self, db_with_data, hero_player_id
+    ):
         from pokerhero.analysis.queries import get_sessions
+
         assert len(get_sessions(db_with_data, hero_player_id)) == 1
 
     def test_get_hands_returns_dataframe(self, db_with_data, hero_player_id):
-        from pokerhero.analysis.queries import get_sessions, get_hands
+        from pokerhero.analysis.queries import get_hands, get_sessions
+
         session_id = get_sessions(db_with_data, hero_player_id)["id"].iloc[0]
         result = get_hands(db_with_data, session_id, hero_player_id)
         assert isinstance(result, pd.DataFrame)
 
     def test_get_hands_has_expected_columns(self, db_with_data, hero_player_id):
-        from pokerhero.analysis.queries import get_sessions, get_hands
+        from pokerhero.analysis.queries import get_hands, get_sessions
+
         session_id = get_sessions(db_with_data, hero_player_id)["id"].iloc[0]
         df = get_hands(db_with_data, session_id, hero_player_id)
-        assert {"id", "source_hand_id", "timestamp", "total_pot",
-                "net_result", "hole_cards"} <= set(df.columns)
+        assert {
+            "id",
+            "source_hand_id",
+            "timestamp",
+            "total_pot",
+            "net_result",
+            "hole_cards",
+        } <= set(df.columns)
 
     def test_get_hands_returns_correct_count(self, db_with_data, hero_player_id):
-        from pokerhero.analysis.queries import get_sessions, get_hands
+        from pokerhero.analysis.queries import get_hands, get_sessions
+
         session_id = get_sessions(db_with_data, hero_player_id)["id"].iloc[0]
         assert len(get_hands(db_with_data, session_id, hero_player_id)) == 2
 
     def test_get_actions_returns_dataframe(self, db_with_data, hero_player_id):
-        from pokerhero.analysis.queries import get_sessions, get_hands, get_actions
+        from pokerhero.analysis.queries import get_actions, get_hands, get_sessions
+
         session_id = get_sessions(db_with_data, hero_player_id)["id"].iloc[0]
         hand_id = get_hands(db_with_data, session_id, hero_player_id)["id"].iloc[0]
         result = get_actions(db_with_data, hand_id)
         assert isinstance(result, pd.DataFrame)
 
     def test_get_actions_has_expected_columns(self, db_with_data, hero_player_id):
-        from pokerhero.analysis.queries import get_sessions, get_hands, get_actions
+        from pokerhero.analysis.queries import get_actions, get_hands, get_sessions
+
         session_id = get_sessions(db_with_data, hero_player_id)["id"].iloc[0]
         hand_id = get_hands(db_with_data, session_id, hero_player_id)["id"].iloc[0]
         df = get_actions(db_with_data, hand_id)
-        assert {"sequence", "is_hero", "street", "action_type",
-                "amount", "pot_before"} <= set(df.columns)
+        assert {
+            "sequence",
+            "is_hero",
+            "street",
+            "action_type",
+            "amount",
+            "pot_before",
+        } <= set(df.columns)
 
     def test_get_actions_is_ordered_by_sequence(self, db_with_data, hero_player_id):
-        from pokerhero.analysis.queries import get_sessions, get_hands, get_actions
+        from pokerhero.analysis.queries import get_actions, get_hands, get_sessions
+
         session_id = get_sessions(db_with_data, hero_player_id)["id"].iloc[0]
         hand_id = get_hands(db_with_data, session_id, hero_player_id)["id"].iloc[1]
         df = get_actions(db_with_data, hand_id)
         assert list(df["sequence"]) == sorted(df["sequence"].tolist())
 
-    def test_get_hero_hand_players_returns_dataframe(self, db_with_data, hero_player_id):
+    def test_get_hero_hand_players_returns_dataframe(
+        self, db_with_data, hero_player_id
+    ):
         from pokerhero.analysis.queries import get_hero_hand_players
+
         result = get_hero_hand_players(db_with_data, hero_player_id)
         assert isinstance(result, pd.DataFrame)
 
-    def test_get_hero_hand_players_has_expected_columns(self, db_with_data, hero_player_id):
+    def test_get_hero_hand_players_has_expected_columns(
+        self, db_with_data, hero_player_id
+    ):
         from pokerhero.analysis.queries import get_hero_hand_players
-        df = get_hero_hand_players(db_with_data, hero_player_id)
-        assert {"vpip", "pfr", "went_to_showdown", "net_result",
-                "big_blind", "saw_flop"} <= set(df.columns)
 
-    def test_get_hero_hand_players_returns_all_hands(self, db_with_data, hero_player_id):
+        df = get_hero_hand_players(db_with_data, hero_player_id)
+        assert {
+            "vpip",
+            "pfr",
+            "went_to_showdown",
+            "net_result",
+            "big_blind",
+            "saw_flop",
+        } <= set(df.columns)
+
+    def test_get_hero_hand_players_returns_all_hands(
+        self, db_with_data, hero_player_id
+    ):
         from pokerhero.analysis.queries import get_hero_hand_players
+
         assert len(get_hero_hand_players(db_with_data, hero_player_id)) == 2
 
     def test_get_hero_hand_players_saw_flop_correct(self, db_with_data, hero_player_id):
         """Hand 1: hero folds preflop (saw_flop=0). Hand 2: hero plays flop (saw_flop=1)."""
         from pokerhero.analysis.queries import get_hero_hand_players
+
         df = get_hero_hand_players(db_with_data, hero_player_id)
         assert df["saw_flop"].sum() == 1
 
@@ -126,85 +173,106 @@ class TestQueries:
 class TestStats:
     def test_vpip_pct_basic(self):
         from pokerhero.analysis.stats import vpip_pct
+
         df = pd.DataFrame({"vpip": [1, 0, 1, 1, 0]})
         assert vpip_pct(df) == pytest.approx(0.6)
 
     def test_vpip_pct_all_vpip(self):
         from pokerhero.analysis.stats import vpip_pct
+
         df = pd.DataFrame({"vpip": [1, 1, 1]})
         assert vpip_pct(df) == pytest.approx(1.0)
 
     def test_vpip_pct_empty_returns_zero(self):
         from pokerhero.analysis.stats import vpip_pct
+
         assert vpip_pct(pd.DataFrame({"vpip": []})) == 0.0
 
     def test_pfr_pct_basic(self):
         from pokerhero.analysis.stats import pfr_pct
+
         df = pd.DataFrame({"pfr": [1, 0, 0, 1]})
         assert pfr_pct(df) == pytest.approx(0.5)
 
     def test_pfr_pct_empty_returns_zero(self):
         from pokerhero.analysis.stats import pfr_pct
+
         assert pfr_pct(pd.DataFrame({"pfr": []})) == 0.0
 
     def test_win_rate_bb100_positive(self):
         from pokerhero.analysis.stats import win_rate_bb100
+
         # +200 and -100 at 200 BB → +1BB and -0.5BB = +0.5BB / 2 hands * 100 = +25 bb/100
         df = pd.DataFrame({"net_result": [200.0, -100.0], "big_blind": [200.0, 200.0]})
         assert win_rate_bb100(df) == pytest.approx(25.0)
 
     def test_win_rate_bb100_negative(self):
         from pokerhero.analysis.stats import win_rate_bb100
+
         df = pd.DataFrame({"net_result": [-400.0], "big_blind": [200.0]})
         assert win_rate_bb100(df) == pytest.approx(-200.0)
 
     def test_win_rate_bb100_empty_returns_zero(self):
         from pokerhero.analysis.stats import win_rate_bb100
+
         df = pd.DataFrame({"net_result": [], "big_blind": []})
         assert win_rate_bb100(df) == 0.0
 
     def test_aggression_factor_basic(self):
         from pokerhero.analysis.stats import aggression_factor
-        df = pd.DataFrame({
-            "action_type": ["BET", "RAISE", "CALL", "CALL", "FOLD"],
-            "street": ["FLOP", "TURN", "FLOP", "RIVER", "FLOP"],
-        })
+
+        df = pd.DataFrame(
+            {
+                "action_type": ["BET", "RAISE", "CALL", "CALL", "FOLD"],
+                "street": ["FLOP", "TURN", "FLOP", "RIVER", "FLOP"],
+            }
+        )
         # post-flop: 2 aggressive (BET+RAISE), 2 calls → AF = 2/2 = 1.0
         assert aggression_factor(df) == pytest.approx(1.0)
 
     def test_aggression_factor_no_calls_returns_infinity(self):
         from pokerhero.analysis.stats import aggression_factor
-        df = pd.DataFrame({
-            "action_type": ["BET", "RAISE"],
-            "street": ["FLOP", "TURN"],
-        })
+
+        df = pd.DataFrame(
+            {
+                "action_type": ["BET", "RAISE"],
+                "street": ["FLOP", "TURN"],
+            }
+        )
         assert aggression_factor(df) == float("inf")
 
     def test_aggression_factor_preflop_excluded(self):
         from pokerhero.analysis.stats import aggression_factor
-        df = pd.DataFrame({
-            "action_type": ["RAISE", "CALL"],
-            "street": ["PREFLOP", "PREFLOP"],
-        })
+
+        df = pd.DataFrame(
+            {
+                "action_type": ["RAISE", "CALL"],
+                "street": ["PREFLOP", "PREFLOP"],
+            }
+        )
         # All preflop — no post-flop actions → infinite aggression (0 calls post-flop)
         assert aggression_factor(df) == float("inf")
 
     def test_wtsd_pct_basic(self):
         from pokerhero.analysis.stats import wtsd_pct
+
         # 2 saw flop, 1 went to showdown → 50%
         df = pd.DataFrame({"went_to_showdown": [1, 0], "saw_flop": [1, 1]})
         assert wtsd_pct(df) == pytest.approx(0.5)
 
     def test_wtsd_pct_no_flops_returns_zero(self):
         from pokerhero.analysis.stats import wtsd_pct
+
         df = pd.DataFrame({"went_to_showdown": [0, 0], "saw_flop": [0, 0]})
         assert wtsd_pct(df) == 0.0
 
     def test_total_profit_positive(self):
         from pokerhero.analysis.stats import total_profit
+
         df = pd.DataFrame({"net_result": [500.0, -200.0, 100.0]})
         assert total_profit(df) == pytest.approx(400.0)
 
     def test_total_profit_empty_returns_zero(self):
         from pokerhero.analysis.stats import total_profit
+
         assert total_profit(pd.DataFrame({"net_result": []})) == 0.0

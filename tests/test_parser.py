@@ -6,7 +6,6 @@ All tests are expected to fail until the parser is implemented.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
 from decimal import Decimal
 from pathlib import Path
 
@@ -15,10 +14,8 @@ import pytest
 from pokerhero.parser.hand_parser import HandParser
 from pokerhero.parser.models import (
     ActionData,
-    HandData,
     HandPlayerData,
     ParsedHand,
-    SessionData,
 )
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
@@ -318,7 +315,9 @@ class TestHandMetadataParsing:
     def test_uncalled_bet_returned_zero(self, cash_folds_preflop: ParsedHand) -> None:
         assert cash_folds_preflop.hand.uncalled_bet_returned == Decimal("0")
 
-    def test_uncalled_bet_returned_positive(self, cash_uncalled_bet: ParsedHand) -> None:
+    def test_uncalled_bet_returned_positive(
+        self, cash_uncalled_bet: ParsedHand
+    ) -> None:
         assert cash_uncalled_bet.hand.uncalled_bet_returned == Decimal("400")
 
     def test_rake_cash_uncalled_bet(self, cash_uncalled_bet: ParsedHand) -> None:
@@ -377,7 +376,9 @@ class TestPlayerParsing:
     def test_hero_hole_cards_parsed(self, cash_folds_preflop: ParsedHand) -> None:
         assert hero_player(cash_folds_preflop).hole_cards == "8c Td"
 
-    def test_hero_hole_cards_wins_showdown(self, cash_wins_showdown: ParsedHand) -> None:
+    def test_hero_hole_cards_wins_showdown(
+        self, cash_wins_showdown: ParsedHand
+    ) -> None:
         assert hero_player(cash_wins_showdown).hole_cards == "Ad Qs"
 
     def test_villain_hole_cards_at_showdown(
@@ -398,9 +399,7 @@ class TestPlayerParsing:
         assert antonio.hole_cards is None
 
     def test_position_btn(self, cash_folds_preflop: ParsedHand) -> None:
-        btn = next(
-            p for p in cash_folds_preflop.players if p.username == "firefly2005"
-        )
+        btn = next(p for p in cash_folds_preflop.players if p.username == "firefly2005")
         assert btn.position == "BTN"
 
     def test_position_sb(self, cash_folds_preflop: ParsedHand) -> None:
@@ -444,7 +443,9 @@ class TestPlayerParsing:
     ) -> None:
         assert hero_player(cash_folds_preflop).went_to_showdown is False
 
-    def test_villain_went_to_showdown_true(self, cash_wins_showdown: ParsedHand) -> None:
+    def test_villain_went_to_showdown_true(
+        self, cash_wins_showdown: ParsedHand
+    ) -> None:
         duarte = next(p for p in cash_wins_showdown.players if p.username == "DuarteEu")
         assert duarte.went_to_showdown is True
 
@@ -483,7 +484,9 @@ class TestVPIPParsing:
         """Hero is BB and checks; that is NOT voluntary."""
         assert hero_player(cash_wins_showdown).vpip is False
 
-    def test_vpip_true_hero_calls_preflop(self, cash_loses_showdown: ParsedHand) -> None:
+    def test_vpip_true_hero_calls_preflop(
+        self, cash_loses_showdown: ParsedHand
+    ) -> None:
         """Hero calls 8000 preflop — that is voluntary."""
         assert hero_player(cash_loses_showdown).vpip is True
 
@@ -522,10 +525,14 @@ class TestVPIPParsing:
 class TestPFRParsing:
     """Pre-Flop Raise flag."""
 
-    def test_pfr_true_hero_raises_preflop(self, cash_raises_preflop: ParsedHand) -> None:
+    def test_pfr_true_hero_raises_preflop(
+        self, cash_raises_preflop: ParsedHand
+    ) -> None:
         assert hero_player(cash_raises_preflop).pfr is True
 
-    def test_pfr_false_hero_calls_preflop(self, cash_loses_showdown: ParsedHand) -> None:
+    def test_pfr_false_hero_calls_preflop(
+        self, cash_loses_showdown: ParsedHand
+    ) -> None:
         assert hero_player(cash_loses_showdown).pfr is False
 
     def test_pfr_false_hero_folds_preflop(self, cash_folds_preflop: ParsedHand) -> None:
@@ -549,14 +556,14 @@ class TestActionParsing:
     # --- action_type ---
 
     def test_fold_action_type(self, cash_folds_preflop: ParsedHand) -> None:
-        folds = [
-            a for a in cash_folds_preflop.actions if a.action_type == "FOLD"
-        ]
+        folds = [a for a in cash_folds_preflop.actions if a.action_type == "FOLD"]
         assert len(folds) > 0
 
     def test_fold_amount_zero(self, cash_folds_preflop: ParsedHand) -> None:
         hero_fold = next(
-            a for a in cash_folds_preflop.actions if a.is_hero and a.action_type == "FOLD"
+            a
+            for a in cash_folds_preflop.actions
+            if a.is_hero and a.action_type == "FOLD"
         )
         assert hero_fold.amount == Decimal("0")
 
@@ -604,7 +611,9 @@ class TestActionParsing:
     def test_allin_flag_true(self, cash_loses_showdown: ParsedHand) -> None:
         """Hero calls all-in for 8000."""
         hero_call = next(
-            a for a in cash_loses_showdown.actions if a.is_hero and a.action_type == "CALL"
+            a
+            for a in cash_loses_showdown.actions
+            if a.is_hero and a.action_type == "CALL"
         )
         assert hero_call.is_all_in is True
 
@@ -645,9 +654,7 @@ class TestActionParsing:
         assert len(blind_posts) >= 2  # at least SB and BB
 
     def test_ante_posts_included(self, tourn_standard: ParsedHand) -> None:
-        ante_posts = [
-            a for a in tourn_standard.actions if a.action_type == "POST_ANTE"
-        ]
+        ante_posts = [a for a in tourn_standard.actions if a.action_type == "POST_ANTE"]
         assert len(ante_posts) == 8  # 8 players each post 2
 
     def test_ante_post_amount(self, tourn_standard: ParsedHand) -> None:
@@ -741,9 +748,7 @@ class TestActionParsing:
     def test_disconnected_lines_no_action(self, tourn_disconnected: ParsedHand) -> None:
         """'JazzWill is disconnected' lines produce no ActionData."""
         # Count actions attributed to JazzWill
-        jw_actions = [
-            a for a in tourn_disconnected.actions if a.player == "JazzWill"
-        ]
+        jw_actions = [a for a in tourn_disconnected.actions if a.player == "JazzWill"]
         # JazzWill should have: POST_ANTE, POST_BLIND(calls), CALL (preflop), FOLD (turn)
         # "is disconnected" should NOT add extra actions
         action_types = {a.action_type for a in jw_actions}
@@ -768,7 +773,8 @@ class TestActionParsing:
         noise = [
             a
             for a in tourn_actions
-            if a.action_type not in {
+            if a.action_type
+            not in {
                 "POST_ANTE",
                 "POST_BLIND",
                 "CALL",
@@ -783,9 +789,7 @@ class TestActionParsing:
 
     def test_leaves_table_no_action(self, cash_dead_blind: ParsedHand) -> None:
         """'DuarteEu leaves the table' must not produce an ActionData."""
-        duarte_actions = [
-            a for a in cash_dead_blind.actions if a.player == "DuarteEu"
-        ]
+        duarte_actions = [a for a in cash_dead_blind.actions if a.player == "DuarteEu"]
         for a in duarte_actions:
             assert a.action_type in {
                 "POST_ANTE",
@@ -800,9 +804,7 @@ class TestActionParsing:
 
     def test_joins_table_no_action(self, cash_dead_blind: ParsedHand) -> None:
         """'Lalaudalela joins the table at seat #2' must not produce an ActionData."""
-        lala_actions = [
-            a for a in cash_dead_blind.actions if a.player == "Lalaudalela"
-        ]
+        lala_actions = [a for a in cash_dead_blind.actions if a.player == "Lalaudalela"]
         for a in lala_actions:
             assert a.action_type in {
                 "POST_ANTE",
@@ -837,7 +839,9 @@ class TestUncalledBetParsing:
     def test_uncalled_bet_returned_value(self, cash_uncalled_bet: ParsedHand) -> None:
         assert cash_uncalled_bet.hand.uncalled_bet_returned == Decimal("400")
 
-    def test_total_pot_excludes_uncalled_bet(self, cash_uncalled_bet: ParsedHand) -> None:
+    def test_total_pot_excludes_uncalled_bet(
+        self, cash_uncalled_bet: ParsedHand
+    ) -> None:
         """milchka259 collected 661; rake=39; total_pot=700 (not 1100)."""
         assert cash_uncalled_bet.hand.total_pot == Decimal("700")
 
@@ -890,8 +894,12 @@ class TestSplitPotParsing:
         """Bush1962 + MantisNN each collect 1240 = total_pot 2480."""
         bush = next(p for p in tourn_split_pot.players if p.username == "Bush1962")
         mantis = next(p for p in tourn_split_pot.players if p.username == "MantisNN")
-        total_collected = bush.net_result + mantis.net_result + (
-            bush.starting_stack - bush.starting_stack  # net contributions cancel
+        total_collected = (
+            bush.net_result
+            + mantis.net_result
+            + (
+                bush.starting_stack - bush.starting_stack  # net contributions cancel
+            )
         )
         assert tourn_split_pot.hand.total_pot == Decimal("2480")
 
@@ -934,7 +942,9 @@ class TestSidePotParsing:
 class TestSPRAndMDFParsing:
     """SPR and MDF calculations."""
 
-    def test_spr_none_for_preflop_actions(self, cash_raises_preflop: ParsedHand) -> None:
+    def test_spr_none_for_preflop_actions(
+        self, cash_raises_preflop: ParsedHand
+    ) -> None:
         for action in cash_raises_preflop.actions:
             if action.street == "PREFLOP":
                 assert action.spr is None
@@ -944,9 +954,7 @@ class TestSPRAndMDFParsing:
     ) -> None:
         """Hero is active on flop; spr must be set on the first flop action."""
         hero_flop = next(
-            a
-            for a in cash_raises_preflop.actions
-            if a.is_hero and a.street == "FLOP"
+            a for a in cash_raises_preflop.actions if a.is_hero and a.street == "FLOP"
         )
         assert hero_flop.spr is not None
 
@@ -960,9 +968,7 @@ class TestSPRAndMDFParsing:
         SPR = min(15858, 39966, 19400) / 1900 = 15858/1900 ≈ 8.35.
         """
         hero_flop = next(
-            a
-            for a in cash_raises_preflop.actions
-            if a.is_hero and a.street == "FLOP"
+            a for a in cash_raises_preflop.actions if a.is_hero and a.street == "FLOP"
         )
         # Verify type and approximate value
         assert isinstance(hero_flop.spr, Decimal)
@@ -974,9 +980,7 @@ class TestSPRAndMDFParsing:
     ) -> None:
         """spr is only set on the FIRST hero flop action, not subsequent ones."""
         hero_flop_actions = [
-            a
-            for a in cash_raises_preflop.actions
-            if a.is_hero and a.street == "FLOP"
+            a for a in cash_raises_preflop.actions if a.is_hero and a.street == "FLOP"
         ]
         for action in hero_flop_actions[1:]:
             assert action.spr is None
@@ -1066,9 +1070,7 @@ class TestTournamentParsing:
         assert tourn_standard.session.tournament_level == "Level I"
         assert tourn_split_pot.session.tournament_level == "Level II"
 
-    def test_out_of_hand_player_not_active(
-        self, tourn_split_pot: ParsedHand
-    ) -> None:
+    def test_out_of_hand_player_not_active(self, tourn_split_pot: ParsedHand) -> None:
         """RockRac24 is out of hand; they should have no voluntary actions."""
         rockrac_actions = [
             a
@@ -1088,26 +1090,26 @@ class TestTournamentParsing:
 
     def test_hero_ante_amount_tournament(self, tourn_standard: ParsedHand) -> None:
         hero_ante = next(
-            a for a in tourn_standard.actions if a.is_hero and a.action_type == "POST_ANTE"
+            a
+            for a in tourn_standard.actions
+            if a.is_hero and a.action_type == "POST_ANTE"
         )
         assert hero_ante.amount == Decimal("2")
 
     def test_hero_active_flop_and_turn(self, tourn_hero_active: ParsedHand) -> None:
         """Hero checks on flop, calls on flop, then checks on turn, folds on turn."""
         hero_flop = [
-            a
-            for a in tourn_hero_active.actions
-            if a.is_hero and a.street == "FLOP"
+            a for a in tourn_hero_active.actions if a.is_hero and a.street == "FLOP"
         ]
         hero_turn = [
-            a
-            for a in tourn_hero_active.actions
-            if a.is_hero and a.street == "TURN"
+            a for a in tourn_hero_active.actions if a.is_hero and a.street == "TURN"
         ]
         assert len(hero_flop) >= 1
         assert len(hero_turn) >= 1
 
-    def test_hero_folds_turn_in_active_hand(self, tourn_hero_active: ParsedHand) -> None:
+    def test_hero_folds_turn_in_active_hand(
+        self, tourn_hero_active: ParsedHand
+    ) -> None:
         hero_turn_fold = next(
             (
                 a
@@ -1175,7 +1177,9 @@ class TestDecimalBlinds:
         hp = hero_player(cash_decimal_blinds)
         assert hp.net_result == Decimal("0.08")
 
-    def test_uncalled_bet_returned_decimal(self, cash_decimal_blinds: ParsedHand) -> None:
+    def test_uncalled_bet_returned_decimal(
+        self, cash_decimal_blinds: ParsedHand
+    ) -> None:
         assert cash_decimal_blinds.hand.uncalled_bet_returned == Decimal("0.18")
 
     def test_hero_pfr_true(self, cash_decimal_blinds: ParsedHand) -> None:

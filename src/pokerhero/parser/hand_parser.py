@@ -54,6 +54,7 @@ class _SummaryData(TypedDict):
     collected: dict[str, Decimal]
     shown_cards: dict[str, str]
 
+
 # ---------------------------------------------------------------------------
 # Regex patterns
 # ---------------------------------------------------------------------------
@@ -67,18 +68,12 @@ _RE_TOURN_HEADER = re.compile(
     r" - (Level [IVX]+) \((\d+)/(\d+)\)"
     r" - (\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2})"
 )
-_RE_TABLE = re.compile(
-    r"Table '(.+?)' (\d+)-max.*Seat #(\d+) is the button"
-)
-_RE_SEAT = re.compile(
-    r"Seat (\d+): (.+?) \(([\d.]+) in chips\)(.*)"
-)
+_RE_TABLE = re.compile(r"Table '(.+?)' (\d+)-max.*Seat #(\d+) is the button")
+_RE_SEAT = re.compile(r"Seat (\d+): (.+?) \(([\d.]+) in chips\)(.*)")
 _RE_POST_BLIND = re.compile(
     r"^(.+?): posts (?:small blind|big blind|small & big blinds) ([\d.]+)"
 )
-_RE_POST_ANTE = re.compile(
-    r"^(.+?): posts the ante ([\d.]+)"
-)
+_RE_POST_ANTE = re.compile(r"^(.+?): posts the ante ([\d.]+)")
 _RE_DEALT = re.compile(r"Dealt to (.+?) \[(.+?)\]")
 _RE_ACTION = re.compile(
     r"^(.+?): (folds|checks|calls|bets|raises)(?: ([\d.]+))?(?: to ([\d.]+))?(?: and is all-in)?"
@@ -131,9 +126,7 @@ def _parse_timestamp(ts_str: str) -> datetime:
     return datetime.strptime(ts_str, "%Y/%m/%d %H:%M:%S")
 
 
-def _positions_for_seats(
-    seat_order: list[int], btn_seat: int
-) -> dict[int, str]:
+def _positions_for_seats(seat_order: list[int], btn_seat: int) -> dict[int, str]:
     """Assign position labels clockwise from BTN for the given seat list."""
     n = len(seat_order)
     if n == 0:
@@ -169,9 +162,13 @@ class HandParser:
 
         session, hand_meta = self._parse_headers(lines)
         seats = self._parse_seats(lines)
-        actions_raw, showdown_cards, showdown_players, total_committed, uncalled_bet_total = self._parse_body(
-            lines, session, seats
-        )
+        (
+            actions_raw,
+            showdown_cards,
+            showdown_players,
+            total_committed,
+            uncalled_bet_total,
+        ) = self._parse_body(lines, session, seats)
         summary = self._parse_summary(lines)
 
         # Merge showdown cards into seats
@@ -179,7 +176,9 @@ class HandParser:
             if username in seats and seats[username]["hole_cards"] is None:
                 seats[username]["hole_cards"] = cards
 
-        players = self._build_players(seats, session, hand_meta, summary, showdown_players, total_committed)
+        players = self._build_players(
+            seats, session, hand_meta, summary, showdown_players, total_committed
+        )
         actions = self._build_actions(actions_raw, players)
 
         hand = HandData(
@@ -357,7 +356,9 @@ class HandParser:
                 unc_player = m_unc.group(2).strip()
                 pot -= unc_amount
                 uncalled_bet_total += unc_amount
-                total_committed[unc_player] = total_committed.get(unc_player, Decimal("0")) - unc_amount
+                total_committed[unc_player] = (
+                    total_committed.get(unc_player, Decimal("0")) - unc_amount
+                )
                 continue
 
             # --- Collected (non-summary) ---
@@ -388,17 +389,21 @@ class HandParser:
                     session.ante = amount
                 seq += 1
                 pot += amount
-                total_committed[username] = total_committed.get(username, Decimal("0")) + amount
-                actions_raw.append({
-                    "seq": seq,
-                    "player": username,
-                    "street": "PREFLOP",
-                    "action_type": "POST_ANTE",
-                    "amount": amount,
-                    "amount_to_call": Decimal("0"),
-                    "pot_before": pot - amount,
-                    "is_all_in": False,
-                })
+                total_committed[username] = (
+                    total_committed.get(username, Decimal("0")) + amount
+                )
+                actions_raw.append(
+                    {
+                        "seq": seq,
+                        "player": username,
+                        "street": "PREFLOP",
+                        "action_type": "POST_ANTE",
+                        "amount": amount,
+                        "amount_to_call": Decimal("0"),
+                        "pot_before": pot - amount,
+                        "is_all_in": False,
+                    }
+                )
                 continue
 
             # --- Blind posts ---
@@ -410,21 +415,27 @@ class HandParser:
                     blind_posters.append(username)
                 seq += 1
                 pot += amount
-                total_committed[username] = total_committed.get(username, Decimal("0")) + amount
-                street_committed[username] = street_committed.get(username, Decimal("0")) + amount
+                total_committed[username] = (
+                    total_committed.get(username, Decimal("0")) + amount
+                )
+                street_committed[username] = (
+                    street_committed.get(username, Decimal("0")) + amount
+                )
                 # Update street_bet (BB sets the facing bet)
                 if amount > street_bet:
                     street_bet = amount
-                actions_raw.append({
-                    "seq": seq,
-                    "player": username,
-                    "street": "PREFLOP",
-                    "action_type": "POST_BLIND",
-                    "amount": amount,
-                    "amount_to_call": Decimal("0"),
-                    "pot_before": pot - amount,
-                    "is_all_in": False,
-                })
+                actions_raw.append(
+                    {
+                        "seq": seq,
+                        "player": username,
+                        "street": "PREFLOP",
+                        "action_type": "POST_BLIND",
+                        "amount": amount,
+                        "amount_to_call": Decimal("0"),
+                        "pot_before": pot - amount,
+                        "is_all_in": False,
+                    }
+                )
                 continue
 
             # --- Regular actions ---
@@ -458,20 +469,32 @@ class HandParser:
                 if atc < Decimal("0"):
                     atc = Decimal("0")
                 pot += amount
-                total_committed[username] = total_committed.get(username, Decimal("0")) + amount
-                street_committed[username] = street_committed.get(username, Decimal("0")) + amount
+                total_committed[username] = (
+                    total_committed.get(username, Decimal("0")) + amount
+                )
+                street_committed[username] = (
+                    street_committed.get(username, Decimal("0")) + amount
+                )
             elif verb == "bets":
                 action_type = "BET"
                 amount = num1 if num1 is not None else Decimal("0")
                 atc = Decimal("0")
                 street_bet = amount
                 pot += amount
-                total_committed[username] = total_committed.get(username, Decimal("0")) + amount
-                street_committed[username] = street_committed.get(username, Decimal("0")) + amount
+                total_committed[username] = (
+                    total_committed.get(username, Decimal("0")) + amount
+                )
+                street_committed[username] = (
+                    street_committed.get(username, Decimal("0")) + amount
+                )
             elif verb == "raises":
                 action_type = "RAISE"
                 # "raises X to Y" → amount=Y (total size)
-                amount = num2 if num2 is not None else (num1 if num1 is not None else Decimal("0"))
+                amount = (
+                    num2
+                    if num2 is not None
+                    else (num1 if num1 is not None else Decimal("0"))
+                )
                 atc = street_bet - street_committed.get(username, Decimal("0"))
                 if atc < Decimal("0"):
                     atc = Decimal("0")
@@ -479,7 +502,9 @@ class HandParser:
                 if incremental < Decimal("0"):
                     incremental = Decimal("0")
                 pot += incremental
-                total_committed[username] = total_committed.get(username, Decimal("0")) + incremental
+                total_committed[username] = (
+                    total_committed.get(username, Decimal("0")) + incremental
+                )
                 street_committed[username] = amount
                 street_bet = amount
             else:
@@ -499,18 +524,26 @@ class HandParser:
                 pot_before = pot
 
             seq += 1
-            actions_raw.append({
-                "seq": seq,
-                "player": username,
-                "street": current_street,
-                "action_type": action_type,
-                "amount": amount,
-                "amount_to_call": atc,
-                "pot_before": pot_before,
-                "is_all_in": is_all_in,
-            })
+            actions_raw.append(
+                {
+                    "seq": seq,
+                    "player": username,
+                    "street": current_street,
+                    "action_type": action_type,
+                    "amount": amount,
+                    "amount_to_call": atc,
+                    "pot_before": pot_before,
+                    "is_all_in": is_all_in,
+                }
+            )
 
-        return actions_raw, showdown_cards, showdown_players, total_committed, uncalled_bet_total
+        return (
+            actions_raw,
+            showdown_cards,
+            showdown_players,
+            total_committed,
+            uncalled_bet_total,
+        )
 
     # ------------------------------------------------------------------
     # Summary parsing
@@ -523,7 +556,7 @@ class HandParser:
             "board_flop": None,
             "board_turn": None,
             "board_river": None,
-            "collected": {},   # {username: total_won}
+            "collected": {},  # {username: total_won}
             "shown_cards": {},  # {username: cards}
         }
 
@@ -564,9 +597,9 @@ class HandParser:
                     uname = after_seat.split(" showed ")[0].strip()
                     # strip position tags like "(button)", "(small blind)", "(big blind)"
                     uname = re.sub(r"\s*\([^)]+\)\s*$", "", uname).strip()
-                    result["collected"][uname] = (
-                        result["collected"].get(uname, Decimal("0")) + Decimal(m_won.group(1))
-                    )
+                    result["collected"][uname] = result["collected"].get(
+                        uname, Decimal("0")
+                    ) + Decimal(m_won.group(1))
                     # cards shown
                     m_cards = re.search(r"showed \[(.+?)\]", stripped)
                     if m_cards:
@@ -579,9 +612,9 @@ class HandParser:
                     after_seat = re.sub(r"^Seat \d+: ", "", stripped)
                     uname = after_seat.split(" collected")[0].strip()
                     uname = re.sub(r"\s*\([^)]+\)\s*$", "", uname).strip()
-                    result["collected"][uname] = (
-                        result["collected"].get(uname, Decimal("0")) + Decimal(m_coll.group(1))
-                    )
+                    result["collected"][uname] = result["collected"].get(
+                        uname, Decimal("0")
+                    ) + Decimal(m_coll.group(1))
                     continue
 
                 # mucked cards
@@ -628,18 +661,20 @@ class HandParser:
             if hole_cards is None:
                 hole_cards = summary["shown_cards"].get(username)
 
-            players.append(HandPlayerData(
-                username=username,
-                seat=seat,
-                starting_stack=info["starting_stack"],
-                position=position,
-                hole_cards=hole_cards,
-                net_result=net_result,
-                vpip=False,  # computed in _build_actions
-                pfr=False,
-                went_to_showdown=username in showdown_players,
-                is_hero=username == self.hero,
-            ))
+            players.append(
+                HandPlayerData(
+                    username=username,
+                    seat=seat,
+                    starting_stack=info["starting_stack"],
+                    position=position,
+                    hole_cards=hole_cards,
+                    net_result=net_result,
+                    vpip=False,  # computed in _build_actions
+                    pfr=False,
+                    went_to_showdown=username in showdown_players,
+                    is_hero=username == self.hero,
+                )
+            )
 
         return players
 
@@ -668,7 +703,9 @@ class HandParser:
             if raw["action_type"] == "POST_BLIND" and raw["street"] == "PREFLOP":
                 if raw["player"] not in natural_blind_posters:
                     natural_blind_posters.append(raw["player"])
-        natural_bb = natural_blind_posters[1] if len(natural_blind_posters) >= 2 else None
+        natural_bb = (
+            natural_blind_posters[1] if len(natural_blind_posters) >= 2 else None
+        )
 
         for raw in actions_raw:
             if raw["street"] != "PREFLOP":
@@ -701,17 +738,25 @@ class HandParser:
             if atype == "FOLD":
                 preflop_folders.add(username)
             elif atype in ("POST_BLIND", "POST_ANTE", "CALL", "BET"):
-                preflop_invested[username] = preflop_invested.get(username, Decimal("0")) + amount
-                street_committed_pf[username] = street_committed_pf.get(username, Decimal("0")) + amount
+                preflop_invested[username] = (
+                    preflop_invested.get(username, Decimal("0")) + amount
+                )
+                street_committed_pf[username] = (
+                    street_committed_pf.get(username, Decimal("0")) + amount
+                )
             elif atype == "RAISE":
                 # amount is the total raise size; incremental = amount - already committed
                 prior = street_committed_pf.get(username, Decimal("0"))
                 inc = amount - prior
-                preflop_invested[username] = preflop_invested.get(username, Decimal("0")) + inc
+                preflop_invested[username] = (
+                    preflop_invested.get(username, Decimal("0")) + inc
+                )
                 street_committed_pf[username] = amount
 
         for p in players:
-            stacks_at_flop[p.username] = p.starting_stack - preflop_invested.get(p.username, Decimal("0"))
+            stacks_at_flop[p.username] = p.starting_stack - preflop_invested.get(
+                p.username, Decimal("0")
+            )
 
         # Build ActionData list
         result: list[ActionData] = []
@@ -747,19 +792,21 @@ class HandParser:
             if is_hero and atc > Decimal("0"):
                 mdf = pot_before / (pot_before + atc)
 
-            result.append(ActionData(
-                sequence=raw["seq"],
-                player=username,
-                is_hero=is_hero,
-                street=street,
-                action_type=atype,
-                amount=amount,
-                amount_to_call=atc,
-                pot_before=pot_before,
-                is_all_in=is_all_in,
-                spr=spr,
-                mdf=mdf,
-            ))
+            result.append(
+                ActionData(
+                    sequence=raw["seq"],
+                    player=username,
+                    is_hero=is_hero,
+                    street=street,
+                    action_type=atype,
+                    amount=amount,
+                    amount_to_call=atc,
+                    pot_before=pot_before,
+                    is_all_in=is_all_in,
+                    spr=spr,
+                    mdf=mdf,
+                )
+            )
 
         # Apply VPIP/PFR to players
         for p in players:

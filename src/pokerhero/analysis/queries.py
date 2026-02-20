@@ -43,7 +43,9 @@ def get_sessions(conn: sqlite3.Connection, player_id: int) -> pd.DataFrame:
     return pd.read_sql_query(sql, conn, params=(int(player_id),))
 
 
-def get_hands(conn: sqlite3.Connection, session_id: int, player_id: int) -> pd.DataFrame:
+def get_hands(
+    conn: sqlite3.Connection, session_id: int, player_id: int
+) -> pd.DataFrame:
     """Return all hands for a session with hero net result and hole cards.
 
     Columns: id, source_hand_id, timestamp, board_flop, board_turn,

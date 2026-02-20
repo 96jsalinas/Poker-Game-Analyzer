@@ -30,11 +30,15 @@ def create_app(db_path: str | Path = "data/pokerhero.db") -> dash.Dash:
     app = dash.Dash(__name__, title="PokerHero Analyzer")
 
     app.layout = html.Div(
-        style={"fontFamily": "sans-serif", "maxWidth": "800px", "margin": "40px auto", "padding": "0 20px"},
+        style={
+            "fontFamily": "sans-serif",
+            "maxWidth": "800px",
+            "margin": "40px auto",
+            "padding": "0 20px",
+        },
         children=[
             html.H1("♠ PokerHero Analyzer"),
             html.Hr(),
-
             # --- Hero username ---
             html.H3("1. Enter your PokerStars username"),
             dcc.Input(
@@ -44,19 +48,26 @@ def create_app(db_path: str | Path = "data/pokerhero.db") -> dash.Dash:
                 debounce=True,
                 style={"width": "300px", "padding": "8px", "fontSize": "14px"},
             ),
-
-            html.Br(), html.Br(),
-
+            html.Br(),
+            html.Br(),
             # --- File upload ---
             html.H3("2. Upload hand history files (.txt)"),
             dcc.Upload(
                 id="upload-data",
-                children=html.Div([
-                    "Drag and drop or ",
-                    html.A("click to select", style={"cursor": "pointer", "color": "#0074D9"}),
-                    html.Br(),
-                    html.Small("PokerStars .txt hand history files", style={"color": "#888"}),
-                ]),
+                children=html.Div(
+                    [
+                        "Drag and drop or ",
+                        html.A(
+                            "click to select",
+                            style={"cursor": "pointer", "color": "#0074D9"},
+                        ),
+                        html.Br(),
+                        html.Small(
+                            "PokerStars .txt hand history files",
+                            style={"color": "#888"},
+                        ),
+                    ]
+                ),
                 multiple=True,
                 style={
                     "width": "100%",
@@ -70,9 +81,7 @@ def create_app(db_path: str | Path = "data/pokerhero.db") -> dash.Dash:
                     "cursor": "pointer",
                 },
             ),
-
             html.Br(),
-
             # --- Results ---
             html.Div(id="upload-output"),
         ],
@@ -99,9 +108,7 @@ def create_app(db_path: str | Path = "data/pokerhero.db") -> dash.Dash:
             )
 
         conn: sqlite3.Connection = (
-            get_connection(db_path)
-            if db_path != ":memory:"
-            else init_db(":memory:")
+            get_connection(db_path) if db_path != ":memory:" else init_db(":memory:")
         )
 
         messages = []
@@ -112,7 +119,9 @@ def create_app(db_path: str | Path = "data/pokerhero.db") -> dash.Dash:
             except Exception as exc:  # noqa: BLE001
                 msg = f"❌ {filename} — unexpected error: {exc}"
                 color = "red"
-            messages.append(html.Div(msg, style={"color": color, "marginBottom": "6px"}))
+            messages.append(
+                html.Div(msg, style={"color": color, "marginBottom": "6px"})
+            )
 
         conn.close()
         return messages
