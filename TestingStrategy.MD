@@ -37,6 +37,7 @@ Poker hand histories contain hundreds of edge cases. The `tests/fixtures/` direc
 | `cash_uncalled_bet_returned.txt` | Cash | Aggressor's uncalled bet returned; tests `uncalled_bet_returned` field |
 | `cash_dead_blind_and_uncalled_bet.txt` | Cash | Dead blind + uncalled bet combined edge case |
 | `cash_side_pot_multiway_allin.txt` | Cash | Multiway all-in with side pot; tests `total_pot` vs eligible pot |
+| `cash_decimal_blinds.txt` | Cash | Real-money micro-stakes hand with `$0.01/$0.02` blinds; tests decimal blind parsing |
 | `tournament_standard_with_antes.txt` | Tournament | Standard tournament hand with antes; tests `ante` parsing |
 | `tournament_uncalled_bet.txt` | Tournament | Tournament uncalled bet returned |
 | `tournament_two_way_split_pot.txt` | Tournament | Split pot divided evenly between two players |

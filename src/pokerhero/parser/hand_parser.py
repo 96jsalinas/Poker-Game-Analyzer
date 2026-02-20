@@ -20,7 +20,7 @@ from pokerhero.parser.models import (
 # ---------------------------------------------------------------------------
 
 _RE_CASH_HEADER = re.compile(
-    r"PokerStars Hand #(\d+):\s+Hold'em No Limit \((\d+)/(\d+)\)"
+    r"PokerStars Hand #(\d+):\s+Hold'em No Limit \(\$?([\d.]+)/\$?([\d.]+)\)"
     r" - (\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2})"
 )
 _RE_TOURN_HEADER = re.compile(
@@ -32,28 +32,28 @@ _RE_TABLE = re.compile(
     r"Table '(.+?)' (\d+)-max.*Seat #(\d+) is the button"
 )
 _RE_SEAT = re.compile(
-    r"Seat (\d+): (.+?) \((\d+) in chips\)(.*)"
+    r"Seat (\d+): (.+?) \(([\d.]+) in chips\)(.*)"
 )
 _RE_POST_BLIND = re.compile(
-    r"^(.+?): posts (?:small blind|big blind|small & big blinds) (\d+)"
+    r"^(.+?): posts (?:small blind|big blind|small & big blinds) ([\d.]+)"
 )
 _RE_POST_ANTE = re.compile(
-    r"^(.+?): posts the ante (\d+)"
+    r"^(.+?): posts the ante ([\d.]+)"
 )
 _RE_DEALT = re.compile(r"Dealt to (.+?) \[(.+?)\]")
 _RE_ACTION = re.compile(
-    r"^(.+?): (folds|checks|calls|bets|raises)(?: (\d+))?(?: to (\d+))?(?: and is all-in)?"
+    r"^(.+?): (folds|checks|calls|bets|raises)(?: ([\d.]+))?(?: to ([\d.]+))?(?: and is all-in)?"
 )
 _RE_ALLIN = re.compile(r"and is all-in")
-_RE_UNCALLED = re.compile(r"Uncalled bet \((\d+)\) returned to (.+)")
-_RE_COLLECTED = re.compile(r"^(.+?) collected (\d+) from (?:pot|main pot|side pot)")
-_RE_SUMMARY_POT = re.compile(r"Total pot (\d+).*\| Rake (\d+)")
+_RE_UNCALLED = re.compile(r"Uncalled bet \(([\d.]+)\) returned to (.+)")
+_RE_COLLECTED = re.compile(r"^(.+?) collected ([\d.]+) from (?:pot|main pot|side pot)")
+_RE_SUMMARY_POT = re.compile(r"Total pot ([\d.]+).*\| Rake ([\d.]+)")
 _RE_BOARD = re.compile(r"Board \[(.+?)\]")
 _RE_SUMMARY_SEAT = re.compile(
-    r"Seat \d+: (.+?) (?:showed \[(.+?)\] and (won|lost)|mucked \[(.+?)\]|collected \((\d+)\)|(folded|didn't))"
+    r"Seat \d+: (.+?) (?:showed \[(.+?)\] and (won|lost)|mucked \[(.+?)\]|collected \(([\d.]+)\)|(folded|didn't))"
 )
-_RE_SUMMARY_WON = re.compile(r"showed \[.+?\] and won \((\d+)\)")
-_RE_SUMMARY_COLLECTED = re.compile(r"collected \((\d+)\)")
+_RE_SUMMARY_WON = re.compile(r"showed \[.+?\] and won \(([\d.]+)\)")
+_RE_SUMMARY_COLLECTED = re.compile(r"collected \(([\d.]+)\)")
 _RE_MUCKS_SHOWDOWN = re.compile(r"^(.+?): mucks hand")
 _RE_SHOWS_SHOWDOWN = re.compile(r"^(.+?): shows \[(.+?)\]")
 _RE_MUCKED_SUMMARY = re.compile(r"mucked \[(.+?)\]")

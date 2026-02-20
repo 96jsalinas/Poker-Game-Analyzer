@@ -114,6 +114,13 @@ def tourn_split_pot() -> ParsedHand:
     return HandParser(hero_username=HERO).parse(text)
 
 
+@pytest.fixture
+def cash_decimal_blinds() -> ParsedHand:
+    """cash_decimal_blinds — real-money micro-stakes hand with $0.01/$0.02 blinds."""
+    text = (FIXTURES_DIR / "cash_decimal_blinds.txt").read_text()
+    return HandParser(hero_username=HERO).parse(text)
+
+
 # ---------------------------------------------------------------------------
 # Helper
 # ---------------------------------------------------------------------------
@@ -1131,3 +1138,41 @@ class TestTournamentParsing:
     ) -> None:
         """Summary says Total pot 178; uncalled 178 returned. Pot is preflop only."""
         assert tourn_uncalled_bet.hand.total_pot == Decimal("178")
+
+
+# ===========================================================================
+# TestDecimalBlinds
+# ===========================================================================
+
+
+class TestDecimalBlinds:
+    """Real-money micro-stakes hands with decimal blind amounts."""
+
+    def test_small_blind_decimal(self, cash_decimal_blinds: ParsedHand) -> None:
+        assert cash_decimal_blinds.session.small_blind == Decimal("0.01")
+
+    def test_big_blind_decimal(self, cash_decimal_blinds: ParsedHand) -> None:
+        assert cash_decimal_blinds.session.big_blind == Decimal("0.02")
+
+    def test_is_not_tournament(self, cash_decimal_blinds: ParsedHand) -> None:
+        assert cash_decimal_blinds.session.is_tournament is False
+
+    def test_hand_id_parsed(self, cash_decimal_blinds: ParsedHand) -> None:
+        assert cash_decimal_blinds.hand.hand_id == "259700000001"
+
+    def test_hero_net_result_decimal(self, cash_decimal_blinds: ParsedHand) -> None:
+        """Hero 3-bets, villain folds; uncalled bet returned. Net = collected - invested.
+        Hero posted SB 0.01, raised to 0.24 (incremental over SB = 0.23), total = 0.24.
+        0.18 uncalled returned → net invested = 0.06. Collected 0.14. Net = 0.08.
+        """
+        hp = hero_player(cash_decimal_blinds)
+        assert hp.net_result == Decimal("0.08")
+
+    def test_uncalled_bet_returned_decimal(self, cash_decimal_blinds: ParsedHand) -> None:
+        assert cash_decimal_blinds.hand.uncalled_bet_returned == Decimal("0.18")
+
+    def test_hero_pfr_true(self, cash_decimal_blinds: ParsedHand) -> None:
+        assert hero_player(cash_decimal_blinds).pfr is True
+
+    def test_hero_vpip_true(self, cash_decimal_blinds: ParsedHand) -> None:
+        assert hero_player(cash_decimal_blinds).vpip is True

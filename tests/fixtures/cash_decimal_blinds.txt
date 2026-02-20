@@ -1,0 +1,30 @@
+PokerStars Hand #259700000001:  Hold'em No Limit ($0.01/$0.02) - 2026/02/10 14:22:10 CET [2026/02/10 08:22:10 ET]
+Table 'Cygnus IV' 6-max Seat #3 is the button
+Seat 1: villain1 (2.50 in chips)
+Seat 2: villain2 (1.80 in chips)
+Seat 3: BluffKing (3.10 in chips)
+Seat 4: jsalinas96 (2.00 in chips)
+Seat 5: villain3 (1.25 in chips)
+Seat 6: villain4 (4.00 in chips)
+jsalinas96: posts small blind 0.01
+villain3: posts big blind 0.02
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Kh Qh]
+villain4: folds
+villain1: folds
+villain2: folds
+BluffKing: raises 0.04 to 0.06
+jsalinas96: raises 0.18 to 0.24
+villain3: folds
+BluffKing: folds
+Uncalled bet (0.18) returned to jsalinas96
+jsalinas96 collected 0.14 from pot
+*** SUMMARY ***
+Total pot 0.14 | Rake 0
+Board [Jd 8c 2h]
+Seat 1: villain1 folded before Flop (didn't bet)
+Seat 2: villain2 folded before Flop (didn't bet)
+Seat 3: BluffKing (button) folded before Flop
+Seat 4: jsalinas96 (small blind) collected (0.14)
+Seat 5: villain3 (big blind) folded before Flop
+Seat 6: villain4 folded before Flop (didn't bet)
