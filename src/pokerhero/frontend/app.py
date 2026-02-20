@@ -9,7 +9,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import dash
-from dash import dcc, html
+from dash import html
 
 from pokerhero.database.db import init_db
 
@@ -42,7 +42,6 @@ def create_app(db_path: str | Path = "data/pokerhero.db") -> dash.Dash:
     app.layout = html.Div(
         style={"fontFamily": "sans-serif"},
         children=[
-            dcc.Location(id="_pages_location"),
             dash.page_container,
         ],
     )
