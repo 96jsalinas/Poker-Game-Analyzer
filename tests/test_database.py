@@ -816,3 +816,43 @@ class TestSaveParsedHand:
         idb.commit()
         with pytest.raises(Exception):
             save_parsed_hand(idb, parsed, session_id)
+
+
+class TestSettings:
+    @pytest.fixture
+    def idb(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        conn = init_db(tmp_path / "test.db")
+        yield conn
+        conn.close()
+
+    def test_settings_table_exists(self, idb):
+        row = idb.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name='settings'"
+        ).fetchone()
+        assert row is not None
+
+    def test_get_setting_returns_default_when_missing(self, idb):
+        from pokerhero.database.db import get_setting
+
+        assert get_setting(idb, "hero_username", default="") == ""
+
+    def test_set_and_get_setting(self, idb):
+        from pokerhero.database.db import get_setting, set_setting
+
+        set_setting(idb, "hero_username", "jsalinas96")
+        assert get_setting(idb, "hero_username", default="") == "jsalinas96"
+
+    def test_set_setting_overwrites_existing(self, idb):
+        from pokerhero.database.db import get_setting, set_setting
+
+        set_setting(idb, "hero_username", "jsalinas96")
+        set_setting(idb, "hero_username", "newname")
+        assert get_setting(idb, "hero_username", default="") == "newname"
+
+    def test_set_setting_does_not_affect_other_keys(self, idb):
+        from pokerhero.database.db import get_setting, set_setting
+
+        set_setting(idb, "hero_username", "jsalinas96")
+        assert get_setting(idb, "other_key", default="fallback") == "fallback"
