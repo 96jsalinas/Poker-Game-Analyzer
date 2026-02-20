@@ -7,7 +7,11 @@ import sqlite3
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from pokerhero.database.db import insert_session, save_parsed_hand
+from pokerhero.database.db import (
+    insert_session,
+    save_parsed_hand,
+    update_session_financials,
+)
 from pokerhero.ingestion.splitter import split_hands
 from pokerhero.parser.hand_parser import HandParser
 
@@ -33,9 +37,11 @@ def ingest_file(
     """Parse a .txt session file and persist all hands to the database.
 
     One session row is created per file using the first hand's metadata and
-    timestamp. Hands whose source_hand_id already exists in the database are
-    silently skipped (duplicate import protection). Any hand that fails to
-    parse or insert for any other reason is counted as failed.
+    timestamp. hero_buy_in is set to the hero's starting stack in the first
+    hand; hero_cash_out is set to the hero's stack after the last hand
+    (starting_stack + net_result). Hands whose source_hand_id already exists
+    in the database are silently skipped (duplicate import protection). Any
+    hand that fails to parse or insert for any other reason is counted as failed.
 
     Args:
         path: Path to the .txt session file.
@@ -74,6 +80,9 @@ def ingest_file(
     conn.commit()
     logger.info("Session %d created for %s", session_id, path.name)
 
+    hero_buy_in = None
+    hero_cash_out = None
+
     for block in blocks:
         try:
             parsed = parser.parse(block)
@@ -81,6 +90,13 @@ def ingest_file(
             conn.commit()
             result.ingested += 1
             logger.debug("Ingested hand %s", parsed.hand.hand_id)
+
+            hero = next((p for p in parsed.players if p.is_hero), None)
+            if hero is not None:
+                if hero_buy_in is None:
+                    hero_buy_in = hero.starting_stack
+                hero_cash_out = hero.starting_stack + hero.net_result
+
         except sqlite3.IntegrityError:
             conn.rollback()
             result.skipped += 1
@@ -90,6 +106,14 @@ def ingest_file(
             result.failed += 1
             result.errors.append(str(exc))
             logger.error("Failed to ingest hand from %s: %s", path.name, exc)
+
+    if hero_buy_in is not None and hero_cash_out is not None:
+        update_session_financials(conn, session_id, hero_buy_in, hero_cash_out)
+        conn.commit()
+        logger.debug(
+            "Session %d financials: buy_in=%s, cash_out=%s",
+            session_id, hero_buy_in, hero_cash_out,
+        )
 
     logger.info(
         "Ingestion complete — %s: %d ingested, %d skipped, %d failed",

@@ -77,6 +77,26 @@ def insert_session(
     return cur.lastrowid
 
 
+def update_session_financials(
+    conn: sqlite3.Connection,
+    session_id: int,
+    hero_buy_in: Decimal,
+    hero_cash_out: Decimal,
+) -> None:
+    """Update hero_buy_in and hero_cash_out on an existing session row.
+
+    Args:
+        conn: An open SQLite connection.
+        session_id: The session to update.
+        hero_buy_in: Hero's starting stack at the beginning of the session.
+        hero_cash_out: Hero's final stack at the end of the session.
+    """
+    conn.execute(
+        "UPDATE sessions SET hero_buy_in = ?, hero_cash_out = ? WHERE id = ?",
+        (float(hero_buy_in), float(hero_cash_out), session_id),
+    )
+
+
 def insert_hand(conn: sqlite3.Connection, hand: HandData, session_id: int) -> int:
     """Insert a hand row. Returns the autoincrement integer id."""
     cur = conn.execute(
