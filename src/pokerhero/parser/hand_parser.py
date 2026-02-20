@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 from datetime import datetime
 from decimal import Decimal
+from typing import Any
 
 from pokerhero.parser.models import (
     ActionData,
@@ -160,7 +161,7 @@ class HandParser:
     # Header parsing
     # ------------------------------------------------------------------
 
-    def _parse_headers(self, lines: list[str]) -> tuple[SessionData, dict]:
+    def _parse_headers(self, lines: list[str]) -> tuple[SessionData, dict[str, Any]]:
         hand_line = lines[0]
         table_line = lines[1]
 
@@ -208,7 +209,7 @@ class HandParser:
             tournament_level=tournament_level,
         )
 
-        hand_meta: dict = {
+        hand_meta: dict[str, Any] = {
             "hand_id": hand_id,
             "timestamp": ts,
             "button_seat": button_seat,
@@ -220,9 +221,9 @@ class HandParser:
     # Seat parsing
     # ------------------------------------------------------------------
 
-    def _parse_seats(self, lines: list[str]) -> dict[str, dict]:
+    def _parse_seats(self, lines: list[str]) -> dict[str, dict[str, Any]]:
         """Return {username: {seat, starting_stack, hole_cards, sitting_out}}."""
-        seats: dict[str, dict] = {}
+        seats: dict[str, dict[str, Any]] = {}
         for line in lines:
             m = _RE_SEAT.match(line)
             if m:
@@ -247,15 +248,17 @@ class HandParser:
         self,
         lines: list[str],
         session: SessionData,
-        seats: dict[str, dict],
-    ) -> tuple[list[dict], dict[str, str], set[str]]:
+        seats: dict[str, dict[str, Any]],
+    ) -> tuple[list[dict[str, Any]], dict[str, str], set[str], dict[str, Decimal], Decimal]:
         """
         Walk the hand body and collect:
         - actions_raw: list of raw action dicts
         - showdown_cards: {username: cards_str} for cards revealed at showdown
         - showdown_players: set of usernames that reached showdown
+        - total_committed: {username: total chips invested}
+        - uncalled_bet_total: total uncalled bet returned
         """
-        actions_raw: list[dict] = []
+        actions_raw: list[dict[str, Any]] = []
         showdown_cards: dict[str, str] = {}
         showdown_players: set[str] = set()
 
@@ -475,8 +478,8 @@ class HandParser:
     # Summary parsing
     # ------------------------------------------------------------------
 
-    def _parse_summary(self, lines: list[str]) -> dict:
-        result: dict = {
+    def _parse_summary(self, lines: list[str]) -> dict[str, Any]:
+        result: dict[str, Any] = {
             "total_pot": Decimal("0"),
             "rake": Decimal("0"),
             "board_flop": None,
@@ -559,10 +562,10 @@ class HandParser:
 
     def _build_players(
         self,
-        seats: dict[str, dict],
+        seats: dict[str, dict[str, Any]],
         session: SessionData,
-        hand_meta: dict,
-        summary: dict,
+        hand_meta: dict[str, Any],
+        summary: dict[str, Any],
         showdown_players: set[str],
         total_committed: dict[str, Decimal],
     ) -> list[HandPlayerData]:
@@ -608,7 +611,7 @@ class HandParser:
 
     def _build_actions(
         self,
-        actions_raw: list[dict],
+        actions_raw: list[dict[str, Any]],
         players: list[HandPlayerData],
     ) -> list[ActionData]:
         player_map = {p.username: p for p in players}
