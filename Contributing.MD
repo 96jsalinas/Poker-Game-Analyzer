@@ -56,6 +56,36 @@ def calculate_pot_odds(amount_to_call: Decimal, pot_size: Decimal) -> float:
 
 ```
 
+### 3a. No `Any` — Use `TypedDict` for heterogeneous dicts
+
+**`typing.Any` is banned.** It silences mypy without providing safety, defeating the purpose of static typing entirely.
+
+When an internal function passes around a dict with a fixed set of keys of different types, define a `TypedDict` instead:
+
+**❌ Bad:**
+```python
+from typing import Any
+
+def _build_action(...) -> dict[str, Any]:
+    return {"seq": 1, "amount": Decimal("100"), "is_all_in": False}
+```
+
+**✅ Good:**
+```python
+from typing import TypedDict
+from decimal import Decimal
+
+class _RawAction(TypedDict):
+    seq: int
+    amount: Decimal
+    is_all_in: bool
+
+def _build_action(...) -> _RawAction:
+    return {"seq": 1, "amount": Decimal("100"), "is_all_in": False}
+```
+
+> **Convention:** Internal `TypedDict` classes used only within a single module are prefixed with `_` (e.g. `_RawAction`, `_SeatInfo`). Public `TypedDict` classes exported from a module use `PascalCase` without a prefix.
+
 ## 📝 4. Naming Conventions
 
 We follow strict PEP-8 naming conventions:

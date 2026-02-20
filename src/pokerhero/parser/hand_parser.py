@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 from datetime import datetime
 from decimal import Decimal
-from typing import Any
+from typing import TypedDict
 
 from pokerhero.parser.models import (
     ActionData,
@@ -14,6 +14,45 @@ from pokerhero.parser.models import (
     ParsedHand,
     SessionData,
 )
+
+# ---------------------------------------------------------------------------
+# Internal TypedDicts — private to this module
+# ---------------------------------------------------------------------------
+
+
+class _SeatInfo(TypedDict):
+    seat: int
+    starting_stack: Decimal
+    hole_cards: str | None
+    sitting_out: bool
+
+
+class _HandMeta(TypedDict):
+    hand_id: str
+    timestamp: datetime
+    button_seat: int
+    uncalled_bet: Decimal
+
+
+class _RawAction(TypedDict):
+    seq: int
+    player: str
+    street: str
+    action_type: str
+    amount: Decimal
+    amount_to_call: Decimal
+    pot_before: Decimal
+    is_all_in: bool
+
+
+class _SummaryData(TypedDict):
+    total_pot: Decimal
+    rake: Decimal
+    board_flop: str | None
+    board_turn: str | None
+    board_river: str | None
+    collected: dict[str, Decimal]
+    shown_cards: dict[str, str]
 
 # ---------------------------------------------------------------------------
 # Regex patterns
@@ -161,7 +200,7 @@ class HandParser:
     # Header parsing
     # ------------------------------------------------------------------
 
-    def _parse_headers(self, lines: list[str]) -> tuple[SessionData, dict[str, Any]]:
+    def _parse_headers(self, lines: list[str]) -> tuple[SessionData, _HandMeta]:
         hand_line = lines[0]
         table_line = lines[1]
 
@@ -209,7 +248,7 @@ class HandParser:
             tournament_level=tournament_level,
         )
 
-        hand_meta: dict[str, Any] = {
+        hand_meta: _HandMeta = {
             "hand_id": hand_id,
             "timestamp": ts,
             "button_seat": button_seat,
@@ -221,9 +260,9 @@ class HandParser:
     # Seat parsing
     # ------------------------------------------------------------------
 
-    def _parse_seats(self, lines: list[str]) -> dict[str, dict[str, Any]]:
+    def _parse_seats(self, lines: list[str]) -> dict[str, _SeatInfo]:
         """Return {username: {seat, starting_stack, hole_cards, sitting_out}}."""
-        seats: dict[str, dict[str, Any]] = {}
+        seats: dict[str, _SeatInfo] = {}
         for line in lines:
             m = _RE_SEAT.match(line)
             if m:
@@ -248,8 +287,8 @@ class HandParser:
         self,
         lines: list[str],
         session: SessionData,
-        seats: dict[str, dict[str, Any]],
-    ) -> tuple[list[dict[str, Any]], dict[str, str], set[str], dict[str, Decimal], Decimal]:
+        seats: dict[str, _SeatInfo],
+    ) -> tuple[list[_RawAction], dict[str, str], set[str], dict[str, Decimal], Decimal]:
         """
         Walk the hand body and collect:
         - actions_raw: list of raw action dicts
@@ -258,7 +297,7 @@ class HandParser:
         - total_committed: {username: total chips invested}
         - uncalled_bet_total: total uncalled bet returned
         """
-        actions_raw: list[dict[str, Any]] = []
+        actions_raw: list[_RawAction] = []
         showdown_cards: dict[str, str] = {}
         showdown_players: set[str] = set()
 
@@ -477,8 +516,8 @@ class HandParser:
     # Summary parsing
     # ------------------------------------------------------------------
 
-    def _parse_summary(self, lines: list[str]) -> dict[str, Any]:
-        result: dict[str, Any] = {
+    def _parse_summary(self, lines: list[str]) -> _SummaryData:
+        result: _SummaryData = {
             "total_pot": Decimal("0"),
             "rake": Decimal("0"),
             "board_flop": None,
@@ -561,10 +600,10 @@ class HandParser:
 
     def _build_players(
         self,
-        seats: dict[str, dict[str, Any]],
+        seats: dict[str, _SeatInfo],
         session: SessionData,
-        hand_meta: dict[str, Any],
-        summary: dict[str, Any],
+        hand_meta: _HandMeta,
+        summary: _SummaryData,
         showdown_players: set[str],
         total_committed: dict[str, Decimal],
     ) -> list[HandPlayerData]:
@@ -610,7 +649,7 @@ class HandParser:
 
     def _build_actions(
         self,
-        actions_raw: list[dict[str, Any]],
+        actions_raw: list[_RawAction],
         players: list[HandPlayerData],
     ) -> list[ActionData]:
         player_map = {p.username: p for p in players}
@@ -632,8 +671,6 @@ class HandParser:
         natural_bb = natural_blind_posters[1] if len(natural_blind_posters) >= 2 else None
 
         for raw in actions_raw:
-            if "type" in raw:
-                continue
             if raw["street"] != "PREFLOP":
                 continue
             atype = raw["action_type"]
@@ -656,8 +693,6 @@ class HandParser:
         preflop_folders: set[str] = set()
         street_committed_pf: dict[str, Decimal] = {}
         for raw in actions_raw:
-            if "type" in raw:
-                continue
             if raw["street"] != "PREFLOP":
                 break
             atype = raw["action_type"]
@@ -681,8 +716,6 @@ class HandParser:
         # Build ActionData list
         result: list[ActionData] = []
         for raw in actions_raw:
-            if "type" in raw:
-                continue
             username = raw["player"]
             is_hero = username == self.hero
             atype = raw["action_type"]
