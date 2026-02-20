@@ -185,3 +185,17 @@ class TestSessionsPageLayout:
 
         comp = layout() if callable(layout) else layout
         assert "/" in str(comp)
+
+    def test_layout_has_actions_panel(self):
+        """Sessions page layout must have an actions-panel component for hand drill-down."""
+        from pokerhero.frontend.pages.sessions import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "actions-panel" in str(comp)
+
+    def test_layout_has_selected_hand_store(self):
+        """Sessions page layout must have a selected-hand-id dcc.Store."""
+        from pokerhero.frontend.pages.sessions import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "selected-hand-id" in str(comp)
