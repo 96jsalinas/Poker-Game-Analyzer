@@ -165,19 +165,26 @@ class TestSessionsPageLayout:
         paths = [p["path"] for p in dash.page_registry.values()]
         assert "/sessions" in paths
 
-    def test_layout_has_sessions_table(self):
-        """Sessions page layout must include a sessions-table component."""
+    def test_layout_has_drill_down_content(self):
+        """Sessions page layout must have a drill-down-content container."""
         from pokerhero.frontend.pages.sessions import layout
 
         comp = layout() if callable(layout) else layout
-        assert "sessions-table" in str(comp)
+        assert "drill-down-content" in str(comp)
 
-    def test_layout_has_hand_list_panel(self):
-        """Sessions page layout must include a hands-table component."""
+    def test_layout_has_breadcrumb(self):
+        """Sessions page layout must have a breadcrumb component."""
         from pokerhero.frontend.pages.sessions import layout
 
         comp = layout() if callable(layout) else layout
-        assert "hands-table" in str(comp)
+        assert "breadcrumb" in str(comp)
+
+    def test_layout_has_drill_down_state_store(self):
+        """Sessions page layout must have a drill-down-state dcc.Store."""
+        from pokerhero.frontend.pages.sessions import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "drill-down-state" in str(comp)
 
     def test_layout_has_back_link(self):
         """Sessions page layout must have a link back to home."""
@@ -185,17 +192,3 @@ class TestSessionsPageLayout:
 
         comp = layout() if callable(layout) else layout
         assert "/" in str(comp)
-
-    def test_layout_has_actions_panel(self):
-        """Sessions page layout must have an actions-panel component for hand drill-down."""
-        from pokerhero.frontend.pages.sessions import layout
-
-        comp = layout() if callable(layout) else layout
-        assert "actions-panel" in str(comp)
-
-    def test_layout_has_selected_hand_store(self):
-        """Sessions page layout must have a selected-hand-id dcc.Store."""
-        from pokerhero.frontend.pages.sessions import layout
-
-        comp = layout() if callable(layout) else layout
-        assert "selected-hand-id" in str(comp)

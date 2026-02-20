@@ -119,6 +119,8 @@ class TestQueries:
             "action_type",
             "amount",
             "pot_before",
+            "username",
+            "position",
         } <= set(df.columns)
 
     def test_get_actions_is_ordered_by_sequence(self, db_with_data, hero_player_id):
