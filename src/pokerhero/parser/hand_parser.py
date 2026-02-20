@@ -650,8 +650,11 @@ class HandParser:
         hero_first_flop_done = False
         stacks_at_flop: dict[str, Decimal] = {}
 
-        # Compute stacks at flop start: starting_stack - invested_preflop
+        # Compute stacks at flop start: starting_stack - invested_preflop.
+        # Track street_committed_pf to correctly compute incremental cost for raises.
         preflop_invested: dict[str, Decimal] = {}
+        preflop_folders: set[str] = set()
+        street_committed_pf: dict[str, Decimal] = {}
         for raw in actions_raw:
             if "type" in raw:
                 continue
@@ -660,10 +663,17 @@ class HandParser:
             atype = raw["action_type"]
             username = raw["player"]
             amount = raw["amount"]
-            if atype in ("POST_BLIND", "POST_ANTE", "CALL", "BET"):
+            if atype == "FOLD":
+                preflop_folders.add(username)
+            elif atype in ("POST_BLIND", "POST_ANTE", "CALL", "BET"):
                 preflop_invested[username] = preflop_invested.get(username, Decimal("0")) + amount
+                street_committed_pf[username] = street_committed_pf.get(username, Decimal("0")) + amount
             elif atype == "RAISE":
-                preflop_invested[username] = preflop_invested.get(username, Decimal("0")) + raw.get("raise_incremental", amount)
+                # amount is the total raise size; incremental = amount - already committed
+                prior = street_committed_pf.get(username, Decimal("0"))
+                inc = amount - prior
+                preflop_invested[username] = preflop_invested.get(username, Decimal("0")) + inc
+                street_committed_pf[username] = amount
 
         for p in players:
             stacks_at_flop[p.username] = p.starting_stack - preflop_invested.get(p.username, Decimal("0"))
@@ -687,11 +697,13 @@ class HandParser:
             if is_hero and street == "FLOP" and not hero_first_flop_done:
                 hero_first_flop_done = True
                 hero_stack = stacks_at_flop.get(self.hero, Decimal("0"))
-                # Effective stack = min of hero and all other active stacks
+                # Effective stack = min of hero and active villain stacks (exclude folds)
                 active_stacks = [
                     stacks_at_flop[u]
                     for u in stacks_at_flop
-                    if u != self.hero and stacks_at_flop[u] > Decimal("0")
+                    if u != self.hero
+                    and stacks_at_flop[u] > Decimal("0")
+                    and u not in preflop_folders
                 ]
                 if active_stacks and pot_before > Decimal("0"):
                     effective = min(hero_stack, min(active_stacks))

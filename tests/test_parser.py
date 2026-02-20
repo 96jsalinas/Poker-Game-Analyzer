@@ -121,6 +121,13 @@ def cash_decimal_blinds() -> ParsedHand:
     return HandParser(hero_username=HERO).parse(text)
 
 
+@pytest.fixture
+def cash_hero_bb_3bets() -> ParsedHand:
+    """cash_hero_bb_3bets — hero posts BB then 3-bets preflop; tests SPR when BB raises."""
+    text = (FIXTURES_DIR / "cash_hero_bb_3bets.txt").read_text()
+    return HandParser(hero_username=HERO).parse(text)
+
+
 # ---------------------------------------------------------------------------
 # Helper
 # ---------------------------------------------------------------------------
@@ -1176,3 +1183,51 @@ class TestDecimalBlinds:
 
     def test_hero_vpip_true(self, cash_decimal_blinds: ParsedHand) -> None:
         assert hero_player(cash_decimal_blinds).vpip is True
+
+
+# ===========================================================================
+# TestSPRBBRaises
+# ===========================================================================
+
+
+class TestSPRBBRaises:
+    """SPR is correct when hero posts BB and then 3-bets preflop."""
+
+    def test_spr_set_on_first_hero_flop_action(
+        self, cash_hero_bb_3bets: ParsedHand
+    ) -> None:
+        hero_flop = next(
+            a for a in cash_hero_bb_3bets.actions if a.is_hero and a.street == "FLOP"
+        )
+        assert hero_flop.spr is not None
+
+    def test_spr_value_correct_when_bb_3bets(
+        self, cash_hero_bb_3bets: ParsedHand
+    ) -> None:
+        """Hero posts BB 200, 3-bets to 1800 (incremental = 1600).
+        Hero total preflop invested = 200 + 1600 = 1800.
+        Hero stack at flop = 20000 - 1800 = 18200.
+        villain1 started 18000, called 1800 (incremental 1200 over their 600) = 18000 - 1800 = 16200.
+        Effective stack = min(18200, 16200) = 16200.
+        Pot at flop = SB 100 (folded) + 1800*2 = 3700. Wait villain2 folded SB.
+        Pot = villain2 SB 100 + hero 1800 + villain1 1800 = 3700.
+        SPR = 16200 / 3700 ≈ 4.378.
+        """
+        hero_flop = next(
+            a for a in cash_hero_bb_3bets.actions if a.is_hero and a.street == "FLOP"
+        )
+        assert isinstance(hero_flop.spr, Decimal)
+        expected_spr = Decimal("16200") / Decimal("3700")
+        assert abs(hero_flop.spr - expected_spr) < Decimal("0.01")
+
+    def test_hero_net_result_bb_3bets(self, cash_hero_bb_3bets: ParsedHand) -> None:
+        """Hero invested BB 200 + 3bet incremental 1600 + flop call 800 = 2600.
+        River bet 2000 returned uncalled. Collected 4100. Net = 4100 - 2600 = 1500.
+        """
+        assert hero_player(cash_hero_bb_3bets).net_result == Decimal("1500")
+
+    def test_hero_pfr_true_bb_3bets(self, cash_hero_bb_3bets: ParsedHand) -> None:
+        assert hero_player(cash_hero_bb_3bets).pfr is True
+
+    def test_hero_vpip_true_bb_3bets(self, cash_hero_bb_3bets: ParsedHand) -> None:
+        assert hero_player(cash_hero_bb_3bets).vpip is True

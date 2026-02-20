@@ -1,0 +1,34 @@
+PokerStars Hand #259700000002:  Hold'em No Limit (100/200) - 2026/02/12 19:05:30 CET [2026/02/12 13:05:30 ET]
+Table 'Auriga' 6-max (Play Money) Seat #1 is the button
+Seat 1: villain1 (18000 in chips)
+Seat 2: villain2 (22500 in chips)
+Seat 3: jsalinas96 (20000 in chips)
+Seat 4: villain3 (15000 in chips)
+villain2: posts small blind 100
+jsalinas96: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ac Kd]
+villain3: folds
+villain1: raises 400 to 600
+villain2: folds
+jsalinas96: raises 1200 to 1800
+villain1: calls 1200
+*** FLOP *** [Qh 7d 2c]
+jsalinas96: checks
+villain1: bets 800
+jsalinas96: calls 800
+*** TURN *** [Qh 7d 2c] [Js]
+jsalinas96: checks
+villain1: checks
+*** RIVER *** [Qh 7d 2c Js] [Kh]
+jsalinas96: bets 2000
+villain1: folds
+Uncalled bet (2000) returned to jsalinas96
+jsalinas96 collected 4100 from pot
+*** SUMMARY ***
+Total pot 4100 | Rake 0
+Board [Qh 7d 2c Js Kh]
+Seat 1: villain1 (button) folded on the River
+Seat 2: villain2 (small blind) folded before Flop
+Seat 3: jsalinas96 (big blind) collected (4100)
+Seat 4: villain3 folded before Flop (didn't bet)
