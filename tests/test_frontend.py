@@ -89,3 +89,66 @@ class TestUploadHandlerLogging:
         with caplog.at_level(logging.INFO, logger="pokerhero.frontend.upload_handler"):
             handle_upload(content, FRATERNITAS.name, "jsalinas96", db)
         assert any("imported" in r.message for r in caplog.records)
+
+
+class TestMultiPageApp:
+    def test_app_uses_pages(self):
+        """create_app() must register at least one page (use_pages=True)."""
+        import dash
+
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+        assert len(dash.page_registry) > 0
+
+    def test_home_page_registered(self):
+        """Home page must be registered at path '/'."""
+        import dash
+
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+        paths = [p["path"] for p in dash.page_registry.values()]
+        assert "/" in paths
+
+    def test_upload_page_registered(self):
+        """Upload page must be registered at path '/upload'."""
+        import dash
+
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+        paths = [p["path"] for p in dash.page_registry.values()]
+        assert "/upload" in paths
+
+
+class TestHomePageLayout:
+    def test_has_link_to_upload(self):
+        """Home layout must contain an href to /upload."""
+        from pokerhero.frontend.pages.home import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "/upload" in str(comp)
+
+    def test_has_link_to_sessions(self):
+        """Home layout must contain an href to /sessions."""
+        from pokerhero.frontend.pages.home import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "/sessions" in str(comp)
+
+
+class TestUploadPageLayout:
+    def test_has_username_input(self):
+        """Upload page layout must have a hero-username input component."""
+        from pokerhero.frontend.pages.upload import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "hero-username" in str(comp)
+
+    def test_has_upload_component(self):
+        """Upload page layout must have an upload-data dcc.Upload component."""
+        from pokerhero.frontend.pages.upload import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "upload-data" in str(comp)
