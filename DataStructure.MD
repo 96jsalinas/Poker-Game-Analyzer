@@ -8,7 +8,7 @@ This schema is optimized for high-speed numerical analysis. It follows a **"Numb
 Defines the environment and stakes for a block of hands.
 | Column | Type | Description |
 | :--- | :--- | :--- |
-| `id` | PK | Unique session identifier. |
+| `id` | INTEGER PK (autoincrement) | Unique session identifier. |
 | `game_type` | Enum | NLHE (No Limit Hold'em), PLO (Pot Limit Omaha), etc. |
 | `limit_type` | Enum | No Limit, Pot Limit, Fixed Limit. |
 | `max_seats` | Integer | Table size (e.g., 2, 6, 9). |
@@ -25,8 +25,8 @@ Defines the environment and stakes for a block of hands.
 A specific deal of cards. Includes "Uncalled Bet" logic for financial balancing.
 | Column | Type | Description |
 | :--- | :--- | :--- |
-| `id` | PK | Unique Hand ID (from PokerStars log). |
-| `session_id` | FK | Link to `Sessions`. |
+| `id` | TEXT PK | Unique Hand ID (from PokerStars log). PokerStars assigns string IDs (e.g. `"259603207505"`). |
+| `session_id` | INTEGER FK | Link to `Sessions`. |
 | `board_flop` | String | e.g., "Ah Kh Qh". |
 | `board_turn` | String | e.g., "Js". |
 | `board_river` | String | e.g., "Td". |
@@ -41,8 +41,8 @@ A specific deal of cards. Includes "Uncalled Bet" logic for financial balancing.
 The "State" of a player for a specific hand. Stores flags for fast stat-checking.
 | Column | Type | Description |
 | :--- | :--- | :--- |
-| `hand_id` | FK | Link to `Hands`. |
-| `player_id` | FK | Link to `Players`. |
+| `hand_id` | TEXT FK | Link to `Hands`. |
+| `player_id` | INTEGER FK | Link to `Players`. Composite PK with `hand_id`. |
 | `position` | Enum | BTN, SB, BB, UTG, MP, CO, etc. |
 | `starting_stack` | Decimal | Chips at the very start of the hand. |
 | `hole_cards` | String | Hero's cards (or villain cards if shown). |
@@ -57,10 +57,9 @@ The "State" of a player for a specific hand. Stores flags for fast stat-checking
 Atomic actions. Stores "Contextual Math" to allow for instant Pot Odds analysis.
 | Column | Type | Description |
 | :--- | :--- | :--- |
-| `id` | PK | Internal ID. |
-| `hand_id` | FK | Link to `Hands`. |
-| `player_id` | FK | Link to `Players`. |
-| `is_hero` | Boolean | Optimization flag for Hero-only queries. |
+| `id` | INTEGER PK (autoincrement) | Internal ID. |
+| `hand_id` | TEXT FK | Link to `Hands`. |
+| `player_id` | INTEGER FK | Link to `Players`. |
 | `street` | Enum | PREFLOP, FLOP, TURN, RIVER. |
 | `action_type` | Enum | FOLD, CHECK, CALL, BET, RAISE, ALL_IN. |
 | `amount` | Decimal | Total bet/raise size on the current street (not the incremental cost). e.g., if Hero raises to $35 over a $10 bet, `amount = 35`. |
@@ -75,7 +74,7 @@ Atomic actions. Stores "Contextual Math" to allow for instant Pot Odds analysis.
 Stores players.
 | Column | Type | Description |
 | :--- | :--- | :--- |
-| `id` | PK | Internal ID. |
+| `id` | INTEGER PK (autoincrement) | Internal ID. |
 | `username` | String | Player username to check on the logs. |
 | `preferred_name` | String | Preferred name defined by user for interface. |
 

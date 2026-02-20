@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS sessions (
 );
 
 CREATE TABLE IF NOT EXISTS hands (
-    id INTEGER NOT NULL PRIMARY KEY,
+    id TEXT NOT NULL PRIMARY KEY,
     session_id INTEGER NOT NULL REFERENCES sessions(id),
     board_flop TEXT,
     board_turn TEXT,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS hands (
 );
 
 CREATE TABLE IF NOT EXISTS hand_players (
-    hand_id INTEGER NOT NULL REFERENCES hands(id),
+    hand_id TEXT NOT NULL REFERENCES hands(id),
     player_id INTEGER NOT NULL REFERENCES players(id),
     position TEXT NOT NULL,
     starting_stack REAL NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS hand_players (
 
 CREATE TABLE IF NOT EXISTS actions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    hand_id INTEGER NOT NULL REFERENCES hands(id),
+    hand_id TEXT NOT NULL REFERENCES hands(id),
     player_id INTEGER NOT NULL REFERENCES players(id),
     is_hero INTEGER NOT NULL DEFAULT 0,
     street TEXT NOT NULL,

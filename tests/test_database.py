@@ -240,7 +240,7 @@ class TestHandInsert:
         from decimal import Decimal
         from datetime import datetime
         return HandData(
-            hand_id=123456789,
+            hand_id="123456789",
             timestamp=datetime(2024, 1, 15, 20, 30, 0),
             button_seat=1,
             board_flop="Ah Kh Qh",
@@ -339,7 +339,7 @@ class TestActionsInsert:
         )
         sid = insert_session(idb, s, start_time="2024-01-15T20:30:00")
         h = HandData(
-            hand_id=111222333, timestamp=datetime(2024, 1, 15, 20, 30, 0), button_seat=1,
+            hand_id="111222333", timestamp=datetime(2024, 1, 15, 20, 30, 0), button_seat=1,
             board_flop=None, board_turn=None, board_river=None,
             total_pot=Decimal("600"), uncalled_bet_returned=Decimal("0"), rake=Decimal("0"),
         )
