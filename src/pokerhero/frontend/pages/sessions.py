@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from typing import Any
+from typing import NotRequired, TypedDict
 
 import dash
 from dash import Input, Output, State, callback, dcc, html
@@ -11,6 +11,14 @@ from dash import Input, Output, State, callback, dcc, html
 from pokerhero.database.db import get_connection, get_setting, upsert_player
 
 dash.register_page(__name__, path="/sessions", name="Review Sessions")  # type: ignore[no-untyped-call]
+
+
+class _DrillDownState(TypedDict, total=False):
+    level: str  # always present; "sessions" | "hands" | "actions"
+    session_id: NotRequired[int]
+    hand_id: NotRequired[int]
+    session_label: NotRequired[str]
+
 
 # ---------------------------------------------------------------------------
 # Shared styles
@@ -158,8 +166,8 @@ def _update_state(
     _session_clicks: list[int | None],
     _hand_clicks: list[int | None],
     _breadcrumb_clicks: list[int | None],
-    current_state: dict[str, Any],
-) -> dict[str, Any]:
+    current_state: _DrillDownState,
+) -> _DrillDownState:
     ctx = dash.callback_context
     if not ctx.triggered:
         raise dash.exceptions.PreventUpdate
@@ -171,18 +179,21 @@ def _update_state(
 
     t = parsed.get("type")
     if t == "session-row":
-        return {**current_state, "level": "hands", "session_id": int(parsed["index"])}
+        return _DrillDownState(level="hands", session_id=int(parsed["index"]))
     if t == "hand-row":
-        return {**current_state, "level": "actions", "hand_id": int(parsed["index"])}
+        return _DrillDownState(
+            level="actions",
+            session_id=int(current_state.get("session_id") or 0),
+            hand_id=int(parsed["index"]),
+        )
     if t == "breadcrumb-btn":
         if parsed["level"] == "sessions":
-            return {"level": "sessions"}
+            return _DrillDownState(level="sessions")
         if parsed["level"] == "hands":
-            return {
-                **current_state,
-                "level": "hands",
-                "session_id": int(parsed["session_id"]),
-            }
+            return _DrillDownState(
+                level="hands",
+                session_id=int(parsed["session_id"]),
+            )
     raise dash.exceptions.PreventUpdate
 
 
@@ -197,15 +208,15 @@ def _update_state(
     prevent_initial_call=False,
 )
 def _render(
-    state: dict[str, Any] | None,
+    state: _DrillDownState | None,
     pathname: str,
 ) -> tuple[html.Div | str, html.Div]:
     if pathname != "/sessions":
         raise dash.exceptions.PreventUpdate
 
     if state is None:
-        state = {"level": "sessions"}
-    level = str(state.get("level", "sessions"))
+        state = _DrillDownState(level="sessions")
+    level = state.get("level", "sessions")
 
     db_path = _get_db_path()
 
@@ -218,7 +229,7 @@ def _render(
         return content, _breadcrumb("hands", session_label=label, session_id=session_id)
 
     hand_id = int(state.get("hand_id") or 0)
-    session_label = str(state.get("session_label", f"Session #{session_id}"))
+    session_label = state.get("session_label") or f"Session #{session_id}"
     content, hand_label = _render_actions(db_path, hand_id)
     return content, _breadcrumb(
         "actions",
