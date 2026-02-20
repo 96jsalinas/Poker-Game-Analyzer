@@ -58,3 +58,8 @@ CREATE TABLE IF NOT EXISTS actions (
     spr REAL,
     mdf REAL
 );
+
+CREATE TABLE IF NOT EXISTS settings (
+    key TEXT PRIMARY KEY,
+    value TEXT NOT NULL
+);

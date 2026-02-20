@@ -77,6 +77,36 @@ def insert_session(
     return cur.lastrowid
 
 
+def get_setting(conn: sqlite3.Connection, key: str, default: str = "") -> str:
+    """Return the value for a settings key, or default if not set.
+
+    Args:
+        conn: An open SQLite connection.
+        key: The settings key to look up.
+        default: Value to return if the key does not exist.
+
+    Returns:
+        Stored value as a string, or default.
+    """
+    row = conn.execute("SELECT value FROM settings WHERE key = ?", (key,)).fetchone()
+    return row[0] if row is not None else default
+
+
+def set_setting(conn: sqlite3.Connection, key: str, value: str) -> None:
+    """Persist a key/value pair in the settings table (upsert).
+
+    Args:
+        conn: An open SQLite connection.
+        key: The settings key.
+        value: The value to store.
+    """
+    conn.execute(
+        "INSERT INTO settings (key, value) VALUES (?, ?)"
+        " ON CONFLICT(key) DO UPDATE SET value = excluded.value",
+        (key, value),
+    )
+
+
 def update_session_financials(
     conn: sqlite3.Connection,
     session_id: int,
