@@ -81,6 +81,7 @@ def ingest_file(
     logger.info("Session %d created for %s", session_id, path.name)
 
     hero_buy_in = None
+    hero_end_stack = None  # tracks starting_stack + net_result after each hand
     hero_cash_out = None
 
     for block in blocks:
@@ -94,8 +95,13 @@ def ingest_file(
             hero = next((p for p in parsed.players if p.is_hero), None)
             if hero is not None:
                 if hero_buy_in is None:
+                    # First hand: initialise buy-in from starting stack
                     hero_buy_in = hero.starting_stack
-                hero_cash_out = hero.starting_stack + hero.net_result
+                elif hero.starting_stack > hero_end_stack:
+                    # Re-buy detected: hero's stack is higher than where they left off
+                    hero_buy_in += hero.starting_stack - hero_end_stack
+                hero_end_stack = hero.starting_stack + hero.net_result
+                hero_cash_out = hero_end_stack
 
         except sqlite3.IntegrityError:
             conn.rollback()
