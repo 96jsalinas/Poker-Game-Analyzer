@@ -42,11 +42,12 @@ pokerhero-analyzer/
 │       │   ├── __init__.py
 │       │   ├── schema.sql        # CREATE TABLE statements for all 5 tables
 │       │   └── db.py             # get_connection, init_db, upsert_player, insert_*, save_parsed_hand
+│       ├── ingestion/            # 🔲 Pending — pipeline: .txt files → parser → DB
 │       ├── analysis/             # 🔲 Pending — math engine (EV, SPR, MDF, VPIP, PFR, AF)
 │       └── frontend/             # 🔲 Pending — Dash app
 ├── tests/
-│   ├── fixtures/                 # 12 .txt hand history snippets (see TestingStrategy.MD)
-│   ├── test_parser.py            # 137 tests across 12 classes
+│   ├── fixtures/                 # 14 .txt hand history snippets (see TestingStrategy.MD)
+│   ├── test_parser.py            # 150 tests across 14 classes
 │   └── test_database.py          # 44 tests across 7 classes
 ├── data/
 │   └── histories/                # Raw .txt session files (git-ignored)
