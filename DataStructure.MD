@@ -16,8 +16,8 @@ Defines the environment and stakes for a block of hands.
 | `big_blind` | Decimal | Big blind value. |
 | `ante` | Decimal | Value of ante (0 if no ante). |
 | `start_time` | DateTime | Timestamp of session start. |
-| `hero_buy_in` | Decimal | Total chips Hero started with. |
-| `hero_cash_out` | Decimal | Total chips Hero finished with. |
+| `hero_buy_in` | Decimal | Total chips invested across the session (initial buy-in + all re-buys). A re-buy is detected when hero's `starting_stack` at hand N exceeds `starting_stack + net_result` from hand N-1. |
+| `hero_cash_out` | Decimal | Total chips Hero finished with (final hand's `starting_stack + net_result`). |
 
 ---
 
