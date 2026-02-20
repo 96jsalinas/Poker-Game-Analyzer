@@ -52,7 +52,11 @@ pokerhero-analyzer/
 │       │   ├── __init__.py
 │       │   ├── queries.py        # get_sessions, get_hands, get_actions, get_hero_hand_players → DataFrames
 │       │   └── stats.py          # vpip_pct, pfr_pct, win_rate_bb100, aggression_factor, wtsd_pct, total_profit
-│       └── frontend/             # 🔲 Pending — Dash app
+│       ├── frontend/             # ✅ Implemented (upload page)
+│       │   ├── __init__.py
+│       │   ├── app.py            # create_app() factory — Dash layout + upload callback
+│       │   └── upload_handler.py # handle_upload() — decode base64, call ingest_file
+│       └── config.py             # DB_PATH (overridable via POKERHERO_DB_PATH env var)
 ├── tests/
 │   ├── fixtures/                 # 14 .txt hand history snippets (see TestingStrategy.MD)
 │   ├── test_parser.py            # 150 tests across 14 classes
