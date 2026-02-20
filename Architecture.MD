@@ -42,7 +42,10 @@ pokerhero-analyzer/
 │       │   ├── __init__.py
 │       │   ├── schema.sql        # CREATE TABLE statements for all 5 tables
 │       │   └── db.py             # get_connection, init_db, upsert_player, insert_*, save_parsed_hand
-│       ├── ingestion/            # 🔲 Pending — pipeline: .txt files → parser → DB
+│       ├── ingestion/            # ✅ Implemented
+│       │   ├── __init__.py
+│       │   ├── splitter.py       # split_hands — splits raw session text into hand blocks
+│       │   └── pipeline.py       # IngestResult, ingest_file, ingest_directory
 │       ├── analysis/             # 🔲 Pending — math engine (EV, SPR, MDF, VPIP, PFR, AF)
 │       └── frontend/             # 🔲 Pending — Dash app
 ├── tests/
