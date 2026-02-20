@@ -5,11 +5,14 @@ a running Dash server.
 """
 
 import base64
+import logging
 import os
 import sqlite3
 import tempfile
 
 from pokerhero.ingestion.pipeline import ingest_file
+
+logger = logging.getLogger(__name__)
 
 
 def handle_upload(
@@ -34,6 +37,8 @@ def handle_upload(
     _header, b64_data = content_string.split(",", 1)
     decoded = base64.b64decode(b64_data)
 
+    logger.info("Upload received: %s", filename)
+
     # Write to a temp file so ingest_file can read it normally.
     tmp_fd, tmp_path = tempfile.mkstemp(suffix=".txt")
     try:
@@ -45,10 +50,13 @@ def handle_upload(
         os.unlink(tmp_path)
 
     if result.failed == 0 and result.skipped == 0:
-        return f"✅ {filename} — {result.ingested} imported"
-    return (
-        f"{'✅' if result.ingested > 0 else '⚠️'} {filename} — "
-        f"{result.ingested} imported, {result.skipped} skipped, "
-        f"{result.failed} failed"
-        + (f"\n{chr(10).join(result.errors)}" if result.errors else "")
-    )
+        status = f"✅ {filename} — {result.ingested} imported"
+    else:
+        status = (
+            f"{'✅' if result.ingested > 0 else '⚠️'} {filename} — "
+            f"{result.ingested} imported, {result.skipped} skipped, "
+            f"{result.failed} failed"
+            + (f"\n{chr(10).join(result.errors)}" if result.errors else "")
+        )
+    logger.info("Upload result: %s", status)
+    return status

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 import sqlite3
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -9,6 +10,8 @@ from pathlib import Path
 from pokerhero.database.db import insert_session, save_parsed_hand
 from pokerhero.ingestion.splitter import split_hands
 from pokerhero.parser.hand_parser import HandParser
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -45,8 +48,11 @@ def ingest_file(
     path = Path(path)
     result = IngestResult(file_path=str(path))
 
+    logger.info("Starting ingestion: %s", path)
+
     blocks = split_hands(path.read_text(encoding="utf-8"))
     if not blocks:
+        logger.info("Ingestion complete — %s: no hand blocks found", path.name)
         return result
 
     parser = HandParser(hero_username=hero_username)
@@ -57,6 +63,7 @@ def ingest_file(
     except Exception as exc:
         result.failed = len(blocks)
         result.errors.append(f"Could not parse first hand for session metadata: {exc}")
+        logger.error("Failed to parse session metadata from %s: %s", path.name, exc)
         return result
 
     session_id = insert_session(
@@ -65,6 +72,7 @@ def ingest_file(
         start_time=first_parsed.hand.timestamp.isoformat(),
     )
     conn.commit()
+    logger.info("Session %d created for %s", session_id, path.name)
 
     for block in blocks:
         try:
@@ -72,14 +80,24 @@ def ingest_file(
             save_parsed_hand(conn, parsed, session_id)
             conn.commit()
             result.ingested += 1
+            logger.debug("Ingested hand %s", parsed.hand.hand_id)
         except sqlite3.IntegrityError:
             conn.rollback()
             result.skipped += 1
+            logger.warning("Skipped duplicate hand in %s", path.name)
         except Exception as exc:
             conn.rollback()
             result.failed += 1
             result.errors.append(str(exc))
+            logger.error("Failed to ingest hand from %s: %s", path.name, exc)
 
+    logger.info(
+        "Ingestion complete — %s: %d ingested, %d skipped, %d failed",
+        path.name,
+        result.ingested,
+        result.skipped,
+        result.failed,
+    )
     return result
 
 
