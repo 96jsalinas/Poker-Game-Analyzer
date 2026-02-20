@@ -47,7 +47,10 @@ pokerhero-analyzer/
 │       │   ├── __init__.py
 │       │   ├── splitter.py       # split_hands — splits raw session text into hand blocks
 │       │   └── pipeline.py       # IngestResult, ingest_file, ingest_directory
-│       ├── analysis/             # 🔲 Pending — math engine (EV, SPR, MDF, VPIP, PFR, AF)
+│       ├── analysis/             # ✅ Implemented (basic layer)
+│       │   ├── __init__.py
+│       │   ├── queries.py        # get_sessions, get_hands, get_actions, get_hero_hand_players → DataFrames
+│       │   └── stats.py          # vpip_pct, pfr_pct, win_rate_bb100, aggression_factor, wtsd_pct, total_profit
 │       └── frontend/             # 🔲 Pending — Dash app
 ├── tests/
 │   ├── fixtures/                 # 14 .txt hand history snippets (see TestingStrategy.MD)

@@ -43,58 +43,58 @@ def hero_player_id(db_with_data):
 # TestQueries
 # ---------------------------------------------------------------------------
 class TestQueries:
-    def test_get_sessions_returns_dataframe(self, db_with_data):
+    def test_get_sessions_returns_dataframe(self, db_with_data, hero_player_id):
         from pokerhero.analysis.queries import get_sessions
-        result = get_sessions(db_with_data)
+        result = get_sessions(db_with_data, hero_player_id)
         assert isinstance(result, pd.DataFrame)
 
-    def test_get_sessions_has_expected_columns(self, db_with_data):
+    def test_get_sessions_has_expected_columns(self, db_with_data, hero_player_id):
         from pokerhero.analysis.queries import get_sessions
-        df = get_sessions(db_with_data)
+        df = get_sessions(db_with_data, hero_player_id)
         assert {"id", "start_time", "game_type", "small_blind", "big_blind",
                 "hands_played", "net_profit"} <= set(df.columns)
 
-    def test_get_sessions_returns_one_row_for_one_file(self, db_with_data):
+    def test_get_sessions_returns_one_row_for_one_file(self, db_with_data, hero_player_id):
         from pokerhero.analysis.queries import get_sessions
-        assert len(get_sessions(db_with_data)) == 1
+        assert len(get_sessions(db_with_data, hero_player_id)) == 1
 
-    def test_get_hands_returns_dataframe(self, db_with_data):
+    def test_get_hands_returns_dataframe(self, db_with_data, hero_player_id):
         from pokerhero.analysis.queries import get_sessions, get_hands
-        session_id = get_sessions(db_with_data)["id"].iloc[0]
-        result = get_hands(db_with_data, session_id)
+        session_id = get_sessions(db_with_data, hero_player_id)["id"].iloc[0]
+        result = get_hands(db_with_data, session_id, hero_player_id)
         assert isinstance(result, pd.DataFrame)
 
-    def test_get_hands_has_expected_columns(self, db_with_data):
+    def test_get_hands_has_expected_columns(self, db_with_data, hero_player_id):
         from pokerhero.analysis.queries import get_sessions, get_hands
-        session_id = get_sessions(db_with_data)["id"].iloc[0]
-        df = get_hands(db_with_data, session_id)
+        session_id = get_sessions(db_with_data, hero_player_id)["id"].iloc[0]
+        df = get_hands(db_with_data, session_id, hero_player_id)
         assert {"id", "source_hand_id", "timestamp", "total_pot",
                 "net_result", "hole_cards"} <= set(df.columns)
 
-    def test_get_hands_returns_correct_count(self, db_with_data):
+    def test_get_hands_returns_correct_count(self, db_with_data, hero_player_id):
         from pokerhero.analysis.queries import get_sessions, get_hands
-        session_id = get_sessions(db_with_data)["id"].iloc[0]
-        assert len(get_hands(db_with_data, session_id)) == 2
+        session_id = get_sessions(db_with_data, hero_player_id)["id"].iloc[0]
+        assert len(get_hands(db_with_data, session_id, hero_player_id)) == 2
 
-    def test_get_actions_returns_dataframe(self, db_with_data):
+    def test_get_actions_returns_dataframe(self, db_with_data, hero_player_id):
         from pokerhero.analysis.queries import get_sessions, get_hands, get_actions
-        session_id = get_sessions(db_with_data)["id"].iloc[0]
-        hand_id = get_hands(db_with_data, session_id)["id"].iloc[0]
+        session_id = get_sessions(db_with_data, hero_player_id)["id"].iloc[0]
+        hand_id = get_hands(db_with_data, session_id, hero_player_id)["id"].iloc[0]
         result = get_actions(db_with_data, hand_id)
         assert isinstance(result, pd.DataFrame)
 
-    def test_get_actions_has_expected_columns(self, db_with_data):
+    def test_get_actions_has_expected_columns(self, db_with_data, hero_player_id):
         from pokerhero.analysis.queries import get_sessions, get_hands, get_actions
-        session_id = get_sessions(db_with_data)["id"].iloc[0]
-        hand_id = get_hands(db_with_data, session_id)["id"].iloc[0]
+        session_id = get_sessions(db_with_data, hero_player_id)["id"].iloc[0]
+        hand_id = get_hands(db_with_data, session_id, hero_player_id)["id"].iloc[0]
         df = get_actions(db_with_data, hand_id)
         assert {"sequence", "is_hero", "street", "action_type",
                 "amount", "pot_before"} <= set(df.columns)
 
-    def test_get_actions_is_ordered_by_sequence(self, db_with_data):
+    def test_get_actions_is_ordered_by_sequence(self, db_with_data, hero_player_id):
         from pokerhero.analysis.queries import get_sessions, get_hands, get_actions
-        session_id = get_sessions(db_with_data)["id"].iloc[0]
-        hand_id = get_hands(db_with_data, session_id)["id"].iloc[1]
+        session_id = get_sessions(db_with_data, hero_player_id)["id"].iloc[0]
+        hand_id = get_hands(db_with_data, session_id, hero_player_id)["id"].iloc[1]
         df = get_actions(db_with_data, hand_id)
         assert list(df["sequence"]) == sorted(df["sequence"].tolist())
 
