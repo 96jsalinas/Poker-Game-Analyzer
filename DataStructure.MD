@@ -25,7 +25,8 @@ Defines the environment and stakes for a block of hands.
 A specific deal of cards. Includes "Uncalled Bet" logic for financial balancing.
 | Column | Type | Description |
 | :--- | :--- | :--- |
-| `id` | TEXT PK | Unique Hand ID (from PokerStars log). PokerStars assigns string IDs (e.g. `"259603207505"`). |
+| `id` | INTEGER PK (autoincrement) | Internal hand identifier, generated on ingestion. |
+| `source_hand_id` | TEXT UNIQUE NOT NULL | Original hand ID from the source app (e.g. PokerStars). Used for deduplication — prevents importing the same hand twice. Not exposed in the UI. |
 | `session_id` | INTEGER FK | Link to `Sessions`. |
 | `board_flop` | String | e.g., "Ah Kh Qh". |
 | `board_turn` | String | e.g., "Js". |
@@ -41,10 +42,10 @@ A specific deal of cards. Includes "Uncalled Bet" logic for financial balancing.
 The "State" of a player for a specific hand. Stores flags for fast stat-checking.
 | Column | Type | Description |
 | :--- | :--- | :--- |
-| `hand_id` | TEXT FK | Link to `Hands`. |
+| `hand_id` | INTEGER FK | Link to `Hands`. |
 | `player_id` | INTEGER FK | Link to `Players`. Composite PK with `hand_id`. |
 | `position` | Enum | BTN, SB, BB, UTG, MP, CO, etc. |
-| `starting_stack` | Decimal | Chips at the very start of the hand. |
+| `starting_stack` |Decimal | Chips at the very start of the hand. |
 | `hole_cards` | String | Hero's cards (or villain cards if shown). |
 | `vpip` | Boolean | Did the player voluntarily put money in? |
 | `pfr` | Boolean | Did the player raise pre-flop? |
@@ -58,7 +59,7 @@ Atomic actions. Stores "Contextual Math" to allow for instant Pot Odds analysis.
 | Column | Type | Description |
 | :--- | :--- | :--- |
 | `id` | INTEGER PK (autoincrement) | Internal ID. |
-| `hand_id` | TEXT FK | Link to `Hands`. |
+| `hand_id` | INTEGER FK | Link to `Hands`. |
 | `player_id` | INTEGER FK | Link to `Players`. |
 | `street` | Enum | PREFLOP, FLOP, TURN, RIVER. |
 | `action_type` | Enum | FOLD, CHECK, CALL, BET, RAISE, ALL_IN. |
@@ -102,7 +103,7 @@ These dataclasses are what `HandParser.parse()` returns. Field names differ from
 ### `HandData`
 | Field | Type | DB column |
 | :--- | :--- | :--- |
-| `hand_id` | `str` | `hands.id` (PK) |
+| `hand_id` | `str` | `hands.source_hand_id` (source app ID, used for deduplication) |
 | `timestamp` | `datetime` | `hands.timestamp` |
 | `button_seat` | `int` | not stored in DB |
 | `board_flop` | `str \| None` | |

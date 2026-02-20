@@ -58,10 +58,10 @@ def insert_session(
     return cur.lastrowid
 
 
-def insert_hand(conn: sqlite3.Connection, hand: HandData, session_id: int) -> None:
-    """Insert a hand row. hand.hand_id is the PK from PokerStars."""
-    conn.execute(
-        """INSERT INTO hands (id, session_id, board_flop, board_turn, board_river,
+def insert_hand(conn: sqlite3.Connection, hand: HandData, session_id: int) -> int:
+    """Insert a hand row. Returns the autoincrement integer id."""
+    cur = conn.execute(
+        """INSERT INTO hands (source_hand_id, session_id, board_flop, board_turn, board_river,
            total_pot, uncalled_bet_returned, rake, timestamp)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
         (
@@ -76,11 +76,13 @@ def insert_hand(conn: sqlite3.Connection, hand: HandData, session_id: int) -> No
             hand.timestamp.isoformat(),
         ),
     )
+    assert cur.lastrowid is not None
+    return cur.lastrowid
 
 
 def insert_hand_players(
     conn: sqlite3.Connection,
-    hand_id: str,
+    hand_id: int,
     players: list[HandPlayerData],
     player_id_map: dict[str, int],
 ) -> None:
@@ -109,7 +111,7 @@ def insert_hand_players(
 
 def insert_actions(
     conn: sqlite3.Connection,
-    hand_id: str,
+    hand_id: int,
     actions: list[ActionData],
     player_id_map: dict[str, int],
 ) -> None:
@@ -155,11 +157,11 @@ def save_parsed_hand(
         for p in parsed.players
     }
 
-    # Insert hand
-    insert_hand(conn, parsed.hand, session_id)
+    # Insert hand and get its autoincrement id
+    hand_id = insert_hand(conn, parsed.hand, session_id)
 
     # Insert hand_players
-    insert_hand_players(conn, parsed.hand.hand_id, parsed.players, player_id_map)
+    insert_hand_players(conn, hand_id, parsed.players, player_id_map)
 
     # Insert actions
-    insert_actions(conn, parsed.hand.hand_id, parsed.actions, player_id_map)
+    insert_actions(conn, hand_id, parsed.actions, player_id_map)

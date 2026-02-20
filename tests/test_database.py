@@ -271,34 +271,34 @@ class TestHandInsert:
     def test_insert_hand_row_exists(self, idb, session_id, sample_hand):
         from pokerhero.database.db import insert_hand
         insert_hand(idb, sample_hand, session_id)
-        row = idb.execute("SELECT id FROM hands WHERE id=?", (sample_hand.hand_id,)).fetchone()
+        row = idb.execute("SELECT id FROM hands WHERE source_hand_id=?", (sample_hand.hand_id,)).fetchone()
         assert row is not None
 
     def test_insert_hand_values_correct(self, idb, session_id, sample_hand):
         from pokerhero.database.db import insert_hand
         insert_hand(idb, sample_hand, session_id)
-        row = idb.execute("SELECT total_pot, rake, board_flop FROM hands WHERE id=?", (sample_hand.hand_id,)).fetchone()
+        row = idb.execute("SELECT total_pot, rake, board_flop FROM hands WHERE source_hand_id=?", (sample_hand.hand_id,)).fetchone()
         assert row[0] == 1200.0
         assert row[1] == 60.0
         assert row[2] == "Ah Kh Qh"
 
     def test_insert_hand_players_rows_exist(self, idb, session_id, sample_hand, sample_players):
         from pokerhero.database.db import insert_hand, insert_hand_players, upsert_player
-        insert_hand(idb, sample_hand, session_id)
+        hid = insert_hand(idb, sample_hand, session_id)
         pid_map = {p.username: upsert_player(idb, p.username) for p in sample_players}
-        insert_hand_players(idb, sample_hand.hand_id, sample_players, pid_map)
-        count = idb.execute("SELECT COUNT(*) FROM hand_players WHERE hand_id=?", (sample_hand.hand_id,)).fetchone()[0]
+        insert_hand_players(idb, hid, sample_players, pid_map)
+        count = idb.execute("SELECT COUNT(*) FROM hand_players WHERE hand_id=?", (hid,)).fetchone()[0]
         assert count == 2
 
     def test_insert_hand_players_values_correct(self, idb, session_id, sample_hand, sample_players):
         from pokerhero.database.db import insert_hand, insert_hand_players, upsert_player
-        insert_hand(idb, sample_hand, session_id)
+        hid = insert_hand(idb, sample_hand, session_id)
         pid_map = {p.username: upsert_player(idb, p.username) for p in sample_players}
-        insert_hand_players(idb, sample_hand.hand_id, sample_players, pid_map)
+        insert_hand_players(idb, hid, sample_players, pid_map)
         hero_pid = pid_map["jsalinas96"]
         row = idb.execute(
             "SELECT position, vpip, pfr, went_to_showdown, net_result FROM hand_players WHERE hand_id=? AND player_id=?",
-            (sample_hand.hand_id, hero_pid)
+            (hid, hero_pid)
         ).fetchone()
         assert row[0] == "BTN"
         assert row[1] == 1   # vpip True
@@ -308,12 +308,12 @@ class TestHandInsert:
 
     def test_insert_hand_players_null_hole_cards(self, idb, session_id, sample_hand, sample_players):
         from pokerhero.database.db import insert_hand, insert_hand_players, upsert_player
-        insert_hand(idb, sample_hand, session_id)
+        hid = insert_hand(idb, sample_hand, session_id)
         pid_map = {p.username: upsert_player(idb, p.username) for p in sample_players}
-        insert_hand_players(idb, sample_hand.hand_id, sample_players, pid_map)
+        insert_hand_players(idb, hid, sample_players, pid_map)
         villain_pid = pid_map["villain1"]
         row = idb.execute("SELECT hole_cards FROM hand_players WHERE hand_id=? AND player_id=?",
-                          (sample_hand.hand_id, villain_pid)).fetchone()
+                          (hid, villain_pid)).fetchone()
         assert row[0] is None
 
 
@@ -343,12 +343,12 @@ class TestActionsInsert:
             board_flop=None, board_turn=None, board_river=None,
             total_pot=Decimal("600"), uncalled_bet_returned=Decimal("0"), rake=Decimal("0"),
         )
-        insert_hand(idb, h, sid)
+        hid = insert_hand(idb, h, sid)
         pid_map = {
             "jsalinas96": upsert_player(idb, "jsalinas96"),
             "villain1": upsert_player(idb, "villain1"),
         }
-        return h.hand_id, pid_map
+        return hid, pid_map
 
     @pytest.fixture
     def sample_actions(self):
@@ -440,7 +440,7 @@ class TestSaveParsedHand:
         from pokerhero.database.db import save_parsed_hand
         save_parsed_hand(idb, parsed, session_id)
         idb.commit()
-        row = idb.execute("SELECT id FROM hands WHERE id=?", (parsed.hand.hand_id,)).fetchone()
+        row = idb.execute("SELECT id FROM hands WHERE source_hand_id=?", (parsed.hand.hand_id,)).fetchone()
         assert row is not None
 
     def test_save_inserts_all_players(self, idb, parsed, session_id):
@@ -454,14 +454,16 @@ class TestSaveParsedHand:
         from pokerhero.database.db import save_parsed_hand
         save_parsed_hand(idb, parsed, session_id)
         idb.commit()
-        count = idb.execute("SELECT COUNT(*) FROM hand_players WHERE hand_id=?", (parsed.hand.hand_id,)).fetchone()[0]
+        hid = idb.execute("SELECT id FROM hands WHERE source_hand_id=?", (parsed.hand.hand_id,)).fetchone()[0]
+        count = idb.execute("SELECT COUNT(*) FROM hand_players WHERE hand_id=?", (hid,)).fetchone()[0]
         assert count == len(parsed.players)
 
     def test_save_inserts_all_actions(self, idb, parsed, session_id):
         from pokerhero.database.db import save_parsed_hand
         save_parsed_hand(idb, parsed, session_id)
         idb.commit()
-        count = idb.execute("SELECT COUNT(*) FROM actions WHERE hand_id=?", (parsed.hand.hand_id,)).fetchone()[0]
+        hid = idb.execute("SELECT id FROM hands WHERE source_hand_id=?", (parsed.hand.hand_id,)).fetchone()[0]
+        count = idb.execute("SELECT COUNT(*) FROM actions WHERE hand_id=?", (hid,)).fetchone()[0]
         assert count == len(parsed.actions)
 
     def test_save_hero_vpip_stored(self, idb, parsed, session_id):
@@ -470,14 +472,15 @@ class TestSaveParsedHand:
         idb.commit()
         hero_player = next(p for p in parsed.players if p.is_hero)
         hero_pid = idb.execute("SELECT id FROM players WHERE username=?", ("jsalinas96",)).fetchone()[0]
+        hid = idb.execute("SELECT id FROM hands WHERE source_hand_id=?", (parsed.hand.hand_id,)).fetchone()[0]
         row = idb.execute(
             "SELECT vpip FROM hand_players WHERE hand_id=? AND player_id=?",
-            (parsed.hand.hand_id, hero_pid)
+            (hid, hero_pid)
         ).fetchone()
         assert row[0] == int(hero_player.vpip)
 
     def test_save_twice_raises_on_duplicate_hand(self, idb, parsed, session_id):
-        """hand.id is a PK — inserting the same hand twice must raise."""
+        """source_hand_id is UNIQUE — inserting the same hand twice must raise."""
         from pokerhero.database.db import save_parsed_hand
         save_parsed_hand(idb, parsed, session_id)
         idb.commit()
