@@ -279,3 +279,69 @@ class TestStats:
         from pokerhero.analysis.stats import total_profit
 
         assert total_profit(pd.DataFrame({"net_result": []})) == 0.0
+
+
+# ---------------------------------------------------------------------------
+# TestHeroTimeline — get_hero_timeline (for bankroll graph)
+# ---------------------------------------------------------------------------
+class TestHeroTimeline:
+    def test_get_hero_timeline_returns_dataframe(self, db_with_data, hero_player_id):
+        from pokerhero.analysis.queries import get_hero_timeline
+
+        assert isinstance(get_hero_timeline(db_with_data, hero_player_id), pd.DataFrame)
+
+    def test_get_hero_timeline_has_expected_columns(self, db_with_data, hero_player_id):
+        from pokerhero.analysis.queries import get_hero_timeline
+
+        df = get_hero_timeline(db_with_data, hero_player_id)
+        assert {"timestamp", "net_result"} <= set(df.columns)
+
+    def test_get_hero_timeline_one_row_per_hand(self, db_with_data, hero_player_id):
+        """Fraternitas file has 2 hands — expect 2 timeline rows."""
+        from pokerhero.analysis.queries import get_hero_timeline
+
+        assert len(get_hero_timeline(db_with_data, hero_player_id)) == 2
+
+    def test_get_hero_timeline_ordered_by_timestamp(self, db_with_data, hero_player_id):
+        from pokerhero.analysis.queries import get_hero_timeline
+
+        df = get_hero_timeline(db_with_data, hero_player_id)
+        timestamps = df["timestamp"].tolist()
+        assert timestamps == sorted(timestamps)
+
+
+# ---------------------------------------------------------------------------
+# TestHeroActions — get_hero_actions (for per-position aggression factor)
+# ---------------------------------------------------------------------------
+class TestHeroActions:
+    def test_get_hero_actions_returns_dataframe(self, db_with_data, hero_player_id):
+        from pokerhero.analysis.queries import get_hero_actions
+
+        assert isinstance(get_hero_actions(db_with_data, hero_player_id), pd.DataFrame)
+
+    def test_get_hero_actions_has_expected_columns(self, db_with_data, hero_player_id):
+        from pokerhero.analysis.queries import get_hero_actions
+
+        df = get_hero_actions(db_with_data, hero_player_id)
+        assert {"hand_id", "street", "action_type", "position"} <= set(df.columns)
+
+    def test_get_hero_actions_only_postflop_streets(self, db_with_data, hero_player_id):
+        """Only FLOP/TURN/RIVER rows must be returned — no PREFLOP."""
+        from pokerhero.analysis.queries import get_hero_actions
+
+        df = get_hero_actions(db_with_data, hero_player_id)
+        assert set(df["street"].unique()) <= {"FLOP", "TURN", "RIVER"}
+
+    def test_get_hero_actions_no_preflop_rows(self, db_with_data, hero_player_id):
+        from pokerhero.analysis.queries import get_hero_actions
+
+        df = get_hero_actions(db_with_data, hero_player_id)
+        assert "PREFLOP" not in df["street"].values
+
+    def test_get_hero_actions_has_rows_when_flop_seen(
+        self, db_with_data, hero_player_id
+    ):
+        """Hand 2: hero sees flop → at least one post-flop action row."""
+        from pokerhero.analysis.queries import get_hero_actions
+
+        assert len(get_hero_actions(db_with_data, hero_player_id)) > 0
