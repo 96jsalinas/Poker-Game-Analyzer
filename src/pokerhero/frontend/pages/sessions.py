@@ -310,7 +310,7 @@ def _render(
         return content, _breadcrumb("hands", session_label=label, session_id=session_id)
 
     hand_id = int(state.get("hand_id") or 0)
-    session_label = state.get("session_label") or f"Session #{session_id}"
+    session_label = _get_session_label(db_path, session_id)
     content, hand_label = _render_actions(db_path, hand_id)
     return content, _breadcrumb(
         "actions",
@@ -375,6 +375,22 @@ def _render_sessions(db_path: str) -> html.Div | str:
     )
 
 
+def _get_session_label(db_path: str, session_id: int) -> str:
+    """Return a human-readable session label, e.g. '2026-01-29  100/200'."""
+    conn = get_connection(db_path)
+    try:
+        row = conn.execute(
+            "SELECT start_time, small_blind, big_blind FROM sessions WHERE id = ?",
+            (session_id,),
+        ).fetchone()
+    finally:
+        conn.close()
+    if not row:
+        return f"Session #{session_id}"
+    date = str(row[0])[:10] if row[0] else "—"
+    return f"{date}  {int(row[1])}/{int(row[2])}"
+
+
 def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
     player_id = _get_hero_player_id(db_path)
     if player_id is None:
@@ -385,17 +401,10 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
     conn = get_connection(db_path)
     try:
         df = get_hands(conn, session_id, player_id)
-        sess_row = conn.execute(
-            "SELECT start_time, small_blind, big_blind FROM sessions WHERE id = ?",
-            (session_id,),
-        ).fetchone()
     finally:
         conn.close()
 
-    session_label = ""
-    if sess_row:
-        date = str(sess_row[0])[:10] if sess_row[0] else "—"
-        session_label = f"{date}  {int(sess_row[1])}/{int(sess_row[2])}"
+    session_label = _get_session_label(db_path, session_id)
 
     if df.empty:
         return html.Div("No hands found for this session."), session_label
@@ -604,9 +613,13 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
                 (v for pid, v in all_hole_cards.items() if pid != hero_id),
                 None,
             )
-            ev_val = compute_ev(
-                hero_cards, villain_hole, board_so_far, amount, pot_before + amount
-            )
+            ev_val = None
+            try:
+                ev_val = compute_ev(
+                    hero_cards, villain_hole, board_so_far, amount, pot_before + amount
+                )
+            except Exception:
+                pass
             if ev_val is not None:
                 sign = "+" if ev_val >= 0 else ""
                 ev_cell = f"EV: {sign}{ev_val:,.0f}"
