@@ -211,3 +211,34 @@ def get_hero_hand_players(conn: sqlite3.Connection, player_id: int) -> pd.DataFr
         ORDER BY h.timestamp ASC
     """
     return pd.read_sql_query(sql, conn, params=(int(player_id),))
+
+
+def get_export_data(conn: sqlite3.Connection, player_id: int) -> pd.DataFrame:
+    """Return sessions and per-hand results joined for CSV export.
+
+    Columns: session_id, date, stakes, hand_id, position, hole_cards,
+             net_result.
+
+    Args:
+        conn: Open SQLite connection.
+        player_id: Internal integer id of the hero player row.
+
+    Returns:
+        DataFrame with one row per hand, ordered by timestamp ascending.
+    """
+    sql = """
+        SELECT
+            s.id            AS session_id,
+            s.start_time    AS date,
+            s.small_blind || '/' || s.big_blind AS stakes,
+            h.id            AS hand_id,
+            hp.position,
+            hp.hole_cards,
+            hp.net_result
+        FROM hand_players hp
+        JOIN hands h    ON h.id = hp.hand_id
+        JOIN sessions s ON s.id = h.session_id
+        WHERE hp.player_id = ?
+        ORDER BY h.timestamp ASC
+    """
+    return pd.read_sql_query(sql, conn, params=(int(player_id),))

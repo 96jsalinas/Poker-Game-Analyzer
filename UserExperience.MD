@@ -9,15 +9,14 @@ The entry point of the application (`/`). Currently a simple hub page.
 
 * **[1] Upload Files** (`/upload`): The "Ingestion" hub. ✅ Implemented.
 * **[2] Review Sessions** (`/sessions`): Historical log of all processed games. ✅ Implemented.
-* **[3] Overall Stats** (`/dashboard`): The "Hero Dashboard." 🔲 Planned.
-* **[4] Settings** (`/settings`): User and App configuration. 🔲 Planned.
+* **[3] Overall Stats** (`/dashboard`): The "Hero Dashboard." ✅ Implemented.
+* **[4] Settings** (`/settings`): User and App configuration. ✅ Implemented.
 
 ---
 
-## ⚙️ 2. Settings
-* **Hero Username**: Persisted in the `settings` DB table. Currently set on the Upload page — a dedicated Settings page is planned.
-* **Preferred Currency**: (Optional) Toggle between USD, EUR, or Play Money.
-* **Data Management**: Option to "Clear Database" or "Export Data to CSV."
+## ⚙️ 2. Settings ✅ Implemented
+* **Hero Username**: Persisted in the `settings` DB table. Set in the dedicated `/settings` page; also available on the Upload page for convenience.
+* **Data Management**: "Clear Database" deletes all hands/sessions/actions/players (settings preserved). "Export Data to CSV" downloads sessions + hands as `pokerhero_export.csv`.
 
 ---
 

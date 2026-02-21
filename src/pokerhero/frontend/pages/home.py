@@ -38,5 +38,6 @@ layout = html.Div(
         dcc.Link("📤  Upload Files", href="/upload", style=_BUTTON_STYLE),
         dcc.Link("🔍  Review Sessions", href="/sessions", style=_BUTTON_STYLE),
         dcc.Link("📊  Overall Stats", href="/dashboard", style=_BUTTON_STYLE),
+        dcc.Link("⚙️  Settings", href="/settings", style=_BUTTON_STYLE),
     ],
 )

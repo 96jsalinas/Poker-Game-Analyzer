@@ -44,7 +44,7 @@ pokerhero-analyzer/
 │       │   ├── __init__.py
 │       │   ├── schema.sql        # CREATE TABLE statements for all 6 tables (incl. settings)
 │       │   └── db.py             # get_connection, init_db, upsert_player, insert_*, save_parsed_hand,
-│       │                         # update_session_financials, get_setting, set_setting
+│       │                         # update_session_financials, get_setting, set_setting, clear_all_data
 │       ├── ingestion/            # ✅ Implemented
 │       │   ├── __init__.py
 │       │   ├── splitter.py       # split_hands — splits raw session text into hand blocks
@@ -52,7 +52,7 @@ pokerhero-analyzer/
 │       ├── analysis/             # ✅ Implemented
 │       │   ├── __init__.py
 │       │   ├── queries.py        # get_sessions, get_hands, get_actions, get_hero_hand_players,
-│       │   │                     # get_hero_timeline, get_hero_actions → DataFrames
+│       │   │                     # get_hero_timeline, get_hero_actions, get_export_data → DataFrames
 │       │   └── stats.py          # vpip_pct, pfr_pct, win_rate_bb100, aggression_factor, wtsd_pct, total_profit
 │       ├── frontend/             # ✅ Implemented (multi-page Dash app)
 │       │   ├── __init__.py
@@ -60,17 +60,18 @@ pokerhero-analyzer/
 │       │   ├── upload_handler.py # handle_upload() — decode base64, call ingest_file
 │       │   └── pages/
 │       │       ├── __init__.py
-│       │       ├── home.py       # "/" — navigation hub with links to Upload, Sessions, Dashboard
+│       │       ├── home.py       # "/" — navigation hub with links to Upload, Sessions, Dashboard, Settings
 │       │       ├── upload.py     # "/upload" — drag-and-drop ingestion; hero username persisted to settings
 │       │       ├── sessions.py   # "/sessions" — session list → hand list drill-down
-│       │       └── dashboard.py  # "/dashboard" — KPI cards, bankroll graph, positional stats table
+│       │       ├── dashboard.py  # "/dashboard" — KPI cards, bankroll graph, positional stats table
+│       │       └── settings.py   # "/settings" — hero username, Clear DB, Export CSV
 │       └── config.py             # DB_PATH (overridable via POKERHERO_DB_PATH env var), setup_logging()
 ├── tests/
 │   ├── fixtures/                 # 15 .txt hand history snippets (see TestingStrategy.MD)
 │   ├── test_parser.py            # 150 tests across 14 classes
 │   ├── test_database.py          # 52 tests across 8 classes (incl. TestSettings)
 │   ├── test_ingestion.py         # 28 tests for pipeline, financials, re-buy detection, logging
-│   ├── test_frontend.py          # 42 tests for upload handler, multi-page app, page layouts, cards, dashboard
+│   ├── test_frontend.py          # 47 tests for upload handler, multi-page app, page layouts, cards, dashboard, settings
 │   └── test_analysis.py          # 37 tests for queries and stats (vpip, pfr, win_rate, AF, wtsd, timeline)
 ├── data/
 │   └── histories/                # Raw .txt session files (git-ignored)

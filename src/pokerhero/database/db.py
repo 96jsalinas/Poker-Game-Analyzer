@@ -215,6 +215,27 @@ def insert_actions(
     )
 
 
+def clear_all_data(conn: sqlite3.Connection) -> None:
+    """Delete all poker data while preserving the settings table.
+
+    Removes all rows from actions, hand_players, hands, sessions, and players.
+    The settings table (hero_username etc.) is left intact.
+
+    Args:
+        conn: An open SQLite connection.
+    """
+    conn.executescript(
+        """
+        DELETE FROM actions;
+        DELETE FROM hand_players;
+        DELETE FROM hands;
+        DELETE FROM sessions;
+        DELETE FROM players;
+        """
+    )
+    conn.commit()
+
+
 def save_parsed_hand(
     conn: sqlite3.Connection,
     parsed: ParsedHand,
