@@ -192,3 +192,88 @@ class TestSessionsPageLayout:
 
         comp = layout() if callable(layout) else layout
         assert "/" in str(comp)
+
+
+class TestCardRendering:
+    """Tests for the _render_card and _render_cards helper functions."""
+
+    def test_render_card_spade_symbol(self):
+        """_render_card('As') must contain the spade symbol ♠."""
+        from pokerhero.frontend.pages.sessions import _render_card
+
+        assert "♠" in str(_render_card("As"))
+
+    def test_render_card_heart_symbol(self):
+        """_render_card('Kh') must contain the heart symbol ♥."""
+        from pokerhero.frontend.pages.sessions import _render_card
+
+        assert "♥" in str(_render_card("Kh"))
+
+    def test_render_card_diamond_symbol(self):
+        """_render_card('Qd') must contain the diamond symbol ♦."""
+        from pokerhero.frontend.pages.sessions import _render_card
+
+        assert "♦" in str(_render_card("Qd"))
+
+    def test_render_card_club_symbol(self):
+        """_render_card('Jc') must contain the club symbol ♣."""
+        from pokerhero.frontend.pages.sessions import _render_card
+
+        assert "♣" in str(_render_card("Jc"))
+
+    def test_render_card_rank_shown(self):
+        """_render_card('As') must contain the rank 'A'."""
+        from pokerhero.frontend.pages.sessions import _render_card
+
+        assert "A" in str(_render_card("As"))
+
+    def test_render_card_red_for_hearts(self):
+        """Hearts must render with red colour (#cc0000)."""
+        from pokerhero.frontend.pages.sessions import _render_card
+
+        assert "#cc0000" in str(_render_card("Kh"))
+
+    def test_render_card_red_for_diamonds(self):
+        """Diamonds must render with red colour (#cc0000)."""
+        from pokerhero.frontend.pages.sessions import _render_card
+
+        assert "#cc0000" in str(_render_card("Qd"))
+
+    def test_render_card_dark_for_spades(self):
+        """Spades must NOT render with red colour."""
+        from pokerhero.frontend.pages.sessions import _render_card
+
+        assert "#cc0000" not in str(_render_card("As"))
+
+    def test_render_card_dark_for_clubs(self):
+        """Clubs must NOT render with red colour."""
+        from pokerhero.frontend.pages.sessions import _render_card
+
+        assert "#cc0000" not in str(_render_card("Jc"))
+
+    def test_render_cards_multiple(self):
+        """_render_cards('As Kd') must render both suit symbols."""
+        from pokerhero.frontend.pages.sessions import _render_cards
+
+        result = str(_render_cards("As Kd"))
+        assert "♠" in result
+        assert "♦" in result
+
+    def test_render_cards_three_cards(self):
+        """_render_cards for a flop string must render all three suit symbols."""
+        from pokerhero.frontend.pages.sessions import _render_cards
+
+        result = str(_render_cards("Ah Kh Qh"))
+        assert result.count("♥") == 3
+
+    def test_render_cards_none_shows_dash(self):
+        """_render_cards(None) must show the em-dash fallback."""
+        from pokerhero.frontend.pages.sessions import _render_cards
+
+        assert "—" in str(_render_cards(None))
+
+    def test_render_cards_empty_shows_dash(self):
+        """_render_cards('') must show the em-dash fallback."""
+        from pokerhero.frontend.pages.sessions import _render_cards
+
+        assert "—" in str(_render_cards(""))
