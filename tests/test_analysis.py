@@ -605,3 +605,68 @@ class TestEV:
         assert result is not None
         # Result is some finite float (not trivially 300 or -100)
         assert isinstance(result, float)
+
+
+# ---------------------------------------------------------------------------
+# TestDateFilter — since_date parameter on query functions
+# ---------------------------------------------------------------------------
+class TestDateFilter:
+    """since_date filters rows older than the cutoff; None returns everything."""
+
+    def test_get_sessions_since_far_future_returns_empty(
+        self, db_with_data, hero_player_id
+    ):
+        from pokerhero.analysis.queries import get_sessions
+
+        df = get_sessions(db_with_data, hero_player_id, since_date="2099-01-01")
+        assert df.empty
+
+    def test_get_sessions_since_past_returns_all(self, db_with_data, hero_player_id):
+        from pokerhero.analysis.queries import get_sessions
+
+        all_df = get_sessions(db_with_data, hero_player_id)
+        filtered = get_sessions(db_with_data, hero_player_id, since_date="2000-01-01")
+        assert len(filtered) == len(all_df)
+
+    def test_get_sessions_since_none_returns_all(self, db_with_data, hero_player_id):
+        from pokerhero.analysis.queries import get_sessions
+
+        all_df = get_sessions(db_with_data, hero_player_id)
+        filtered = get_sessions(db_with_data, hero_player_id, since_date=None)
+        assert len(filtered) == len(all_df)
+
+    def test_get_hero_hand_players_since_far_future_returns_empty(
+        self, db_with_data, hero_player_id
+    ):
+        from pokerhero.analysis.queries import get_hero_hand_players
+
+        df = get_hero_hand_players(
+            db_with_data, hero_player_id, since_date="2099-01-01"
+        )
+        assert df.empty
+
+    def test_get_hero_timeline_since_far_future_returns_empty(
+        self, db_with_data, hero_player_id
+    ):
+        from pokerhero.analysis.queries import get_hero_timeline
+
+        df = get_hero_timeline(db_with_data, hero_player_id, since_date="2099-01-01")
+        assert df.empty
+
+    def test_get_hero_actions_since_far_future_returns_empty(
+        self, db_with_data, hero_player_id
+    ):
+        from pokerhero.analysis.queries import get_hero_actions
+
+        df = get_hero_actions(db_with_data, hero_player_id, since_date="2099-01-01")
+        assert df.empty
+
+    def test_get_hero_opportunity_actions_since_far_future_returns_empty(
+        self, db_with_data, hero_player_id
+    ):
+        from pokerhero.analysis.queries import get_hero_opportunity_actions
+
+        df = get_hero_opportunity_actions(
+            db_with_data, hero_player_id, since_date="2099-01-01"
+        )
+        assert df.empty
