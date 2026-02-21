@@ -194,6 +194,46 @@ class TestSessionsPageLayout:
         assert "/" in str(comp)
 
 
+class TestDashboardPageLayout:
+    def test_dashboard_page_registered(self):
+        """Dashboard page must be registered at path '/dashboard'."""
+        import dash
+
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+        paths = [p["path"] for p in dash.page_registry.values()]
+        assert "/dashboard" in paths
+
+    def test_layout_has_kpi_section(self):
+        """Dashboard layout must contain a kpi-section container."""
+        from pokerhero.frontend.pages.dashboard import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "kpi-section" in str(comp)
+
+    def test_layout_has_bankroll_graph(self):
+        """Dashboard layout must contain a bankroll-graph dcc.Graph."""
+        from pokerhero.frontend.pages.dashboard import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "bankroll-graph" in str(comp)
+
+    def test_layout_has_positional_table(self):
+        """Dashboard layout must contain a positional-stats container."""
+        from pokerhero.frontend.pages.dashboard import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "positional-stats" in str(comp)
+
+    def test_home_links_to_dashboard(self):
+        """Home page layout must contain a link to /dashboard."""
+        from pokerhero.frontend.pages.home import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "/dashboard" in str(comp)
+
+
 class TestCardRendering:
     """Tests for the _render_card and _render_cards helper functions."""
 
