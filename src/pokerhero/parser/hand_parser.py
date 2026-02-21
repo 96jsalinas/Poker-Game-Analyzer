@@ -76,7 +76,8 @@ _RE_POST_BLIND = re.compile(
 _RE_POST_ANTE = re.compile(r"^(.+?): posts the ante ([\d.]+)")
 _RE_DEALT = re.compile(r"Dealt to (.+?) \[(.+?)\]")
 _RE_ACTION = re.compile(
-    r"^(.+?): (folds|checks|calls|bets|raises)(?: ([\d.]+))?(?: to ([\d.]+))?(?: and is all-in)?"
+    r"^(.+?): (folds|checks|calls|bets|raises)"
+    r"(?: ([\d.]+))?(?: to ([\d.]+))?(?: and is all-in)?"
 )
 _RE_ALLIN = re.compile(r"and is all-in")
 _RE_UNCALLED = re.compile(r"Uncalled bet \(([\d.]+)\) returned to (.+)")
@@ -84,7 +85,8 @@ _RE_COLLECTED = re.compile(r"^(.+?) collected ([\d.]+) from (?:pot|main pot|side
 _RE_SUMMARY_POT = re.compile(r"Total pot ([\d.]+).*\| Rake ([\d.]+)")
 _RE_BOARD = re.compile(r"Board \[(.+?)\]")
 _RE_SUMMARY_SEAT = re.compile(
-    r"Seat \d+: (.+?) (?:showed \[(.+?)\] and (won|lost)|mucked \[(.+?)\]|collected \(([\d.]+)\)|(folded|didn't))"
+    r"Seat \d+: (.+?) (?:showed \[(.+?)\] and (won|lost)"
+    r"|mucked \[(.+?)\]|collected \(([\d.]+)\)|(folded|didn't))"
 )
 _RE_SUMMARY_WON = re.compile(r"showed \[.+?\] and won \(([\d.]+)\)")
 _RE_SUMMARY_COLLECTED = re.compile(r"collected \(([\d.]+)\)")
@@ -595,7 +597,7 @@ class HandParser:
                     after_seat = re.sub(r"^Seat \d+: ", "", stripped)
                     # username is everything before " showed"
                     uname = after_seat.split(" showed ")[0].strip()
-                    # strip position tags like "(button)", "(small blind)", "(big blind)"
+                    # strip position tags like "(button)", "(small blind)"
                     uname = re.sub(r"\s*\([^)]+\)\s*$", "", uname).strip()
                     result["collected"][uname] = result["collected"].get(
                         uname, Decimal("0")
@@ -687,15 +689,12 @@ class HandParser:
         actions_raw: list[_RawAction],
         players: list[HandPlayerData],
     ) -> list[ActionData]:
-        player_map = {p.username: p for p in players}
-
         # net_result is already correctly set in _build_players via total_committed.
         # This method only needs to build ActionData, compute SPR/MDF, and set VPIP/PFR.
 
         # VPIP / PFR
         vpip_set: set[str] = set()
         pfr_set: set[str] = set()
-        bb_checker: str | None = None  # username of BB who just checks preflop
 
         # Find natural BB (second blind poster)
         natural_blind_posters: list[str] = []
@@ -718,7 +717,7 @@ class HandParser:
                 vpip_set.add(username)
                 pfr_set.add(username)
             elif atype == "CHECK" and username == natural_bb:
-                bb_checker = username  # BB checks — not VPIP
+                pass  # BB checks — not VPIP
 
         # SPR / MDF tracking
         hero_first_flop_done = False
@@ -745,7 +744,7 @@ class HandParser:
                     street_committed_pf.get(username, Decimal("0")) + amount
                 )
             elif atype == "RAISE":
-                # amount is the total raise size; incremental = amount - already committed
+                # amount = total raise; incremental = amount - already committed
                 prior = street_committed_pf.get(username, Decimal("0"))
                 inc = amount - prior
                 preflop_invested[username] = (
@@ -775,7 +774,7 @@ class HandParser:
             if is_hero and street == "FLOP" and not hero_first_flop_done:
                 hero_first_flop_done = True
                 hero_stack = stacks_at_flop.get(self.hero, Decimal("0"))
-                # Effective stack = min of hero and active villain stacks (exclude folds)
+                # Effective stack = min of hero and active villain stacks
                 active_stacks = [
                     stacks_at_flop[u]
                     for u in stacks_at_flop

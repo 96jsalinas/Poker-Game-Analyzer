@@ -118,7 +118,9 @@ def ingest_file(
         conn.commit()
         logger.debug(
             "Session %d financials: buy_in=%s, cash_out=%s",
-            session_id, hero_buy_in, hero_cash_out,
+            session_id,
+            hero_buy_in,
+            hero_cash_out,
         )
 
     logger.info(

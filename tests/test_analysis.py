@@ -162,7 +162,8 @@ class TestQueries:
         assert len(get_hero_hand_players(db_with_data, hero_player_id)) == 2
 
     def test_get_hero_hand_players_saw_flop_correct(self, db_with_data, hero_player_id):
-        """Hand 1: hero folds preflop (saw_flop=0). Hand 2: hero plays flop (saw_flop=1)."""
+        """Hand 1: hero folds preflop (saw_flop=0).
+        Hand 2: hero plays flop (saw_flop=1)."""
         from pokerhero.analysis.queries import get_hero_hand_players
 
         df = get_hero_hand_players(db_with_data, hero_player_id)
@@ -204,7 +205,7 @@ class TestStats:
     def test_win_rate_bb100_positive(self):
         from pokerhero.analysis.stats import win_rate_bb100
 
-        # +200 and -100 at 200 BB → +1BB and -0.5BB = +0.5BB / 2 hands * 100 = +25 bb/100
+        # +200 and -100 at BB=200 → +1 and -0.5 BB = +0.5BB / 2 hands * 100 = 25 bb/100
         df = pd.DataFrame({"net_result": [200.0, -100.0], "big_blind": [200.0, 200.0]})
         assert win_rate_bb100(df) == pytest.approx(25.0)
 

@@ -288,7 +288,8 @@ class TestSessionInsert:
 
         sid = insert_session(idb, sample_session, start_time="2024-01-15T20:30:00")
         row = idb.execute(
-            "SELECT game_type, limit_type, max_seats, small_blind, big_blind FROM sessions WHERE id=?",
+            "SELECT game_type, limit_type, max_seats, small_blind, big_blind"
+            " FROM sessions WHERE id=?",
             (sid,),
         ).fetchone()
         assert row[0] == "NLHE"
@@ -539,7 +540,8 @@ class TestHandInsert:
         insert_hand_players(idb, hid, sample_players, pid_map)
         hero_pid = pid_map["jsalinas96"]
         row = idb.execute(
-            "SELECT position, vpip, pfr, went_to_showdown, net_result FROM hand_players WHERE hand_id=? AND player_id=?",
+            "SELECT position, vpip, pfr, went_to_showdown, net_result"
+            " FROM hand_players WHERE hand_id=? AND player_id=?",
             (hid, hero_pid),
         ).fetchone()
         assert row[0] == "BTN"
@@ -690,7 +692,8 @@ class TestActionsInsert:
         hand_id, pid_map = setup_hand
         insert_actions(idb, hand_id, sample_actions, pid_map)
         row = idb.execute(
-            "SELECT street, action_type, amount, pot_before, is_hero FROM actions WHERE hand_id=? AND sequence=2",
+            "SELECT street, action_type, amount, pot_before, is_hero"
+            " FROM actions WHERE hand_id=? AND sequence=2",
             (hand_id,),
         ).fetchone()
         assert row[0] == "PREFLOP"

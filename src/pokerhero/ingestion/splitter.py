@@ -1,4 +1,5 @@
-"""Utility for splitting a multi-hand PokerStars session file into individual hand blocks."""
+"""Utility for splitting a multi-hand PokerStars session file into individual
+hand blocks."""
 
 import re
 

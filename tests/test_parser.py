@@ -120,7 +120,8 @@ def cash_decimal_blinds() -> ParsedHand:
 
 @pytest.fixture
 def cash_hero_bb_3bets() -> ParsedHand:
-    """cash_hero_bb_3bets — hero posts BB then 3-bets preflop; tests SPR when BB raises."""
+    """cash_hero_bb_3bets — hero posts BB then 3-bets preflop;
+    tests SPR when BB raises."""
     text = (FIXTURES_DIR / "cash_hero_bb_3bets.txt").read_text()
     return HandParser(hero_username=HERO).parse(text)
 
@@ -749,7 +750,7 @@ class TestActionParsing:
         """'JazzWill is disconnected' lines produce no ActionData."""
         # Count actions attributed to JazzWill
         jw_actions = [a for a in tourn_disconnected.actions if a.player == "JazzWill"]
-        # JazzWill should have: POST_ANTE, POST_BLIND(calls), CALL (preflop), FOLD (turn)
+        # JazzWill: POST_ANTE, POST_BLIND(calls), CALL (preflop), FOLD (turn)
         # "is disconnected" should NOT add extra actions
         action_types = {a.action_type for a in jw_actions}
         assert "DISCONNECTED" not in action_types
@@ -892,15 +893,6 @@ class TestSplitPotParsing:
         self, tourn_split_pot: ParsedHand
     ) -> None:
         """Bush1962 + MantisNN each collect 1240 = total_pot 2480."""
-        bush = next(p for p in tourn_split_pot.players if p.username == "Bush1962")
-        mantis = next(p for p in tourn_split_pot.players if p.username == "MantisNN")
-        total_collected = (
-            bush.net_result
-            + mantis.net_result
-            + (
-                bush.starting_stack - bush.starting_stack  # net contributions cancel
-            )
-        )
         assert tourn_split_pot.hand.total_pot == Decimal("2480")
 
     def test_total_pot_two_way_split(self, tourn_split_pot: ParsedHand) -> None:
@@ -929,7 +921,8 @@ class TestSidePotParsing:
         assert duarte.net_result == Decimal("94154") - Decimal("39667")
 
     def test_hero_net_result_side_pot(self, cash_side_pot: ParsedHand) -> None:
-        """Hero folded preflop (after posting dead BB); net_result should reflect loss."""
+        """Hero folded preflop (after posting dead BB);
+        net_result should reflect loss."""
         # Hero posted BB 200 and then folded; net = -200
         assert hero_player(cash_side_pot).net_result == Decimal("-200")
 
@@ -1066,7 +1059,8 @@ class TestTournamentParsing:
         tourn_standard: ParsedHand,
         tourn_split_pot: ParsedHand,
     ) -> None:
-        """tournament_standard_with_antes is Level I; tournament_two_way_split_pot is Level II."""
+        """tournament_standard_with_antes is Level I;
+        tournament_two_way_split_pot is Level II."""
         assert tourn_standard.session.tournament_level == "Level I"
         assert tourn_split_pot.session.tournament_level == "Level II"
 
@@ -1170,7 +1164,8 @@ class TestDecimalBlinds:
         assert cash_decimal_blinds.hand.hand_id == "259700000001"
 
     def test_hero_net_result_decimal(self, cash_decimal_blinds: ParsedHand) -> None:
-        """Hero 3-bets, villain folds; uncalled bet returned. Net = collected - invested.
+        """Hero 3-bets, villain folds; uncalled bet returned.
+        Net = collected - invested.
         Hero posted SB 0.01, raised to 0.24 (incremental over SB = 0.23), total = 0.24.
         0.18 uncalled returned → net invested = 0.06. Collected 0.14. Net = 0.08.
         """
@@ -1211,7 +1206,8 @@ class TestSPRBBRaises:
         """Hero posts BB 200, 3-bets to 1800 (incremental = 1600).
         Hero total preflop invested = 200 + 1600 = 1800.
         Hero stack at flop = 20000 - 1800 = 18200.
-        villain1 started 18000, called 1800 (incremental 1200 over their 600) = 18000 - 1800 = 16200.
+        villain1 started 18000, called 1800 (incremental 1200 over their 600)
+        = 18000 - 1800 = 16200.
         Effective stack = min(18200, 16200) = 16200.
         Pot at flop = SB 100 (folded) + 1800*2 = 3700. Wait villain2 folded SB.
         Pot = villain2 SB 100 + hero 1800 + villain1 1800 = 3700.

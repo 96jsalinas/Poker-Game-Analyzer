@@ -16,7 +16,8 @@ logger = logging.getLogger(__name__)
 
 
 def get_connection(db_path: str | Path) -> sqlite3.Connection:
-    """Return a sqlite3 connection with foreign keys enabled and row_factory set to sqlite3.Row."""
+    """Return a sqlite3 connection with foreign keys enabled
+    and row_factory set to sqlite3.Row."""
     conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
@@ -32,9 +33,11 @@ def init_db(db_path: str | Path) -> sqlite3.Connection:
 
 
 def upsert_player(conn: sqlite3.Connection, username: str) -> int:
-    """Insert player if not exists, return their id. preferred_name defaults to username."""
+    """Insert player if not exists, return their id.
+    preferred_name defaults to username."""
     conn.execute(
-        "INSERT INTO players (username, preferred_name) VALUES (?, ?) ON CONFLICT(username) DO NOTHING",
+        "INSERT INTO players (username, preferred_name) VALUES (?, ?)"
+        " ON CONFLICT(username) DO NOTHING",
         (username, username),
     )
     row = conn.execute(
@@ -59,7 +62,8 @@ def insert_session(
     )
     cur = conn.execute(
         """INSERT INTO sessions
-           (game_type, limit_type, max_seats, small_blind, big_blind, ante, start_time, hero_buy_in, hero_cash_out)
+           (game_type, limit_type, max_seats, small_blind, big_blind,
+            ante, start_time, hero_buy_in, hero_cash_out)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
         (
             session.game_type,
@@ -130,8 +134,9 @@ def update_session_financials(
 def insert_hand(conn: sqlite3.Connection, hand: HandData, session_id: int) -> int:
     """Insert a hand row. Returns the autoincrement integer id."""
     cur = conn.execute(
-        """INSERT INTO hands (source_hand_id, session_id, board_flop, board_turn, board_river,
-           total_pot, uncalled_bet_returned, rake, timestamp)
+        """INSERT INTO hands
+           (source_hand_id, session_id, board_flop, board_turn, board_river,
+            total_pot, uncalled_bet_returned, rake, timestamp)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
         (
             hand.hand_id,
