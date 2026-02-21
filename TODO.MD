@@ -23,17 +23,13 @@ Full Dash multi-page app with:
 - Hero action rows highlighted with a light-blue background and left accent border for instant visual identification
 - Pure HTML/CSS implementation — no external icon libraries, fully open-source
 
----
-## 🔲 Next: Dashboard Page (`/dashboard`)
-The most impactful next feature. Requires:
-- New Dash page `pages/dashboard.py` at `/dashboard`
-- `get_hero_hand_players()` already implemented in `queries.py`
-- `stats.py` already has: `vpip_pct`, `pfr_pct`, `win_rate_bb100`, `aggression_factor`, `wtsd_pct`, `total_profit`
-- Display: total P&L (big number), win rate bb/100, volume (sessions + hands), VPIP%, PFR%
-- Bankroll graph: cumulative profit over time (line chart via Plotly)
-- Positional stats table: VPIP/PFR/AF/Net per position (BTN, SB, BB, UTG, etc.)
+### Dashboard Page (`/dashboard`)
+- KPI cards: total P&L, win rate bb/100, sessions count, hands count, VPIP%, PFR%
+- Bankroll graph: cumulative profit over time (Plotly line chart)
+- Positional stats table: VPIP/PFR/AF/Net per position
 
-## 🔲 Settings Page (`/settings`)
+---
+## 🔲 Next: Settings Page (`/settings`)
 - Move hero username input from Upload page to a dedicated `/settings` page
 - Add "Clear Database" button
 - Add "Export to CSV" button (sessions + hands tables)
