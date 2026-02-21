@@ -434,6 +434,7 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
 
 def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
     from pokerhero.analysis.queries import get_actions
+    from pokerhero.analysis.stats import compute_ev
 
     hero_id = _get_hero_player_id(db_path)
 
@@ -446,6 +447,8 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             (hand_id,),
         ).fetchone()
         hero_cards: str | None = None
+        # Map player_id → hole_cards for EV calculation at all-in spots
+        all_hole_cards: dict[int, str] = {}
         if hero_id is not None:
             hole_row = conn.execute(
                 "SELECT hole_cards FROM hand_players"
@@ -454,6 +457,12 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             ).fetchone()
             if hole_row:
                 hero_cards = hole_row[0]
+        for row in conn.execute(
+            "SELECT player_id, hole_cards FROM hand_players"
+            " WHERE hand_id = ? AND hole_cards IS NOT NULL",
+            (hand_id,),
+        ).fetchall():
+            all_hole_cards[int(row[0])] = row[1]
     finally:
         conn.close()
 
@@ -578,6 +587,30 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             spr_str = f"SPR: {float(action['spr']):.2f}"
             extra = f"{spr_str}  |  {extra}" if extra else spr_str
 
+        # EV for hero all-in actions when villain cards are known
+        ev_cell: str = "—"
+        if action["is_hero"] and action["is_all_in"] and hero_cards:
+            board_so_far = " ".join(
+                filter(
+                    None,
+                    [
+                        flop if street in ("FLOP", "TURN", "RIVER") else None,
+                        turn if street in ("TURN", "RIVER") else None,
+                        river if street == "RIVER" else None,
+                    ],
+                )
+            )
+            villain_hole: str | None = next(
+                (v for pid, v in all_hole_cards.items() if pid != hero_id),
+                None,
+            )
+            ev_val = compute_ev(
+                hero_cards, villain_hole, board_so_far, amount, pot_before + amount
+            )
+            if ev_val is not None:
+                sign = "+" if ev_val >= 0 else ""
+                ev_cell = f"EV: {sign}{ev_val:,.0f}"
+
         street_rows.append(
             html.Tr(
                 [
@@ -590,6 +623,18 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
                         style={**_TD, "color": "#888", "fontSize": "12px"},
                     ),
                     html.Td(extra, style={**_TD, "color": "#555", "fontSize": "12px"}),
+                    html.Td(
+                        ev_cell,
+                        style={
+                            **_TD,
+                            "fontSize": "12px",
+                            "color": (
+                                "green"
+                                if ev_cell.startswith("EV: +")
+                                else ("red" if ev_cell.startswith("EV: -") else "#bbb")
+                            ),
+                        },
+                    ),
                 ],
                 style=_action_row_style(bool(action["is_hero"])),
             )

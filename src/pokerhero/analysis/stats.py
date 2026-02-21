@@ -189,3 +189,53 @@ def cbet_pct(opp_df: pd.DataFrame) -> float:
     if opportunities == 0:
         return 0.0
     return made / opportunities
+
+
+def compute_ev(
+    hero_cards: str,
+    villain_cards: str | None,
+    board: str,
+    amount_risked: float,
+    pot_to_win: float,
+    sample_count: int = 5000,
+) -> float | None:
+    """Compute Expected Value of hero's all-in action using PokerKit equity.
+
+    EV = (equity × pot_to_win) − ((1 − equity) × amount_risked)
+
+    Equity is calculated via Monte Carlo simulation using PokerKit's
+    calculate_equities function.
+
+    Args:
+        hero_cards: Hero hole cards as stored in DB (e.g. "Ah Kh").
+        villain_cards: Villain hole cards as stored in DB (e.g. "2c 3d"),
+                       or None / empty string if unknown.
+        board: Space-separated board cards seen so far (e.g. "Qh Jh Th").
+               Pass empty string for preflop all-ins.
+        amount_risked: The amount hero is wagering in this action.
+        pot_to_win: The total pot hero wins if they win the hand.
+        sample_count: Monte Carlo samples for equity estimation.
+
+    Returns:
+        Float EV value, or None when villain cards are unknown.
+    """
+    if not villain_cards or not villain_cards.strip():
+        return None
+
+    from pokerkit import Card, Deck, StandardHighHand, calculate_equities, parse_range
+
+    hero_range = parse_range(hero_cards.replace(" ", ""))
+    villain_range = parse_range(villain_cards.replace(" ", ""))
+    board_cards = list(Card.parse(board)) if board.strip() else []
+
+    equities = calculate_equities(
+        (hero_range, villain_range),
+        board_cards,
+        hole_dealing_count=2,
+        board_dealing_count=5,
+        deck=Deck.STANDARD,
+        hand_types=(StandardHighHand,),
+        sample_count=sample_count,
+    )
+    equity = equities[0]
+    return equity * pot_to_win - (1.0 - equity) * amount_risked
