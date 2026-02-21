@@ -277,3 +277,37 @@ class TestCardRendering:
         from pokerhero.frontend.pages.sessions import _render_cards
 
         assert "—" in str(_render_cards(""))
+
+
+class TestHeroRowHighlighting:
+    """Tests for _action_row_style — hero row visual distinction."""
+
+    def test_hero_row_has_background_color(self):
+        """Hero rows must have a backgroundColor style."""
+        from pokerhero.frontend.pages.sessions import _action_row_style
+
+        assert "backgroundColor" in _action_row_style(True)
+
+    def test_hero_row_has_left_border(self):
+        """Hero rows must have a left-border accent."""
+        from pokerhero.frontend.pages.sessions import _action_row_style
+
+        assert "borderLeft" in _action_row_style(True)
+
+    def test_non_hero_row_no_background(self):
+        """Non-hero rows must not have a backgroundColor override."""
+        from pokerhero.frontend.pages.sessions import _action_row_style
+
+        assert "backgroundColor" not in _action_row_style(False)
+
+    def test_non_hero_row_no_border(self):
+        """Non-hero rows must not have a left-border override."""
+        from pokerhero.frontend.pages.sessions import _action_row_style
+
+        assert "borderLeft" not in _action_row_style(False)
+
+    def test_hero_and_non_hero_styles_differ(self):
+        """Hero and non-hero row styles must be different dicts."""
+        from pokerhero.frontend.pages.sessions import _action_row_style
+
+        assert _action_row_style(True) != _action_row_style(False)
