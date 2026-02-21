@@ -29,11 +29,12 @@ Full Dash multi-page app with:
 - Positional stats table: VPIP/PFR/AF/Net per position
 
 ---
-## 🔲 Next: Settings Page (`/settings`)
-- Move hero username input from Upload page to a dedicated `/settings` page
-- Add "Clear Database" button
-- Add "Export to CSV" button (sessions + hands tables)
+### Settings Page (`/settings`)
+- Hero username input (reads/saves from settings table; Upload page retains it for convenience)
+- Clear Database button (deletes all hands/sessions/actions/players; settings preserved)
+- Export to CSV button (downloads sessions + hands as `pokerhero_export.csv`)
 
+---
 ## 🔲 Deferred Analysis Features
 - **3-Bet%** — requires action sequence traversal (detect raise-over-raise preflop)
 - **C-Bet%** — requires last-aggressor tracking per street
