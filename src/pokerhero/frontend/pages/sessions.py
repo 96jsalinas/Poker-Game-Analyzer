@@ -43,6 +43,70 @@ _STREET_COLOURS = {
     "TURN": "#2ECC40",
     "RIVER": "#FF4136",
 }
+_SUIT_SYMBOLS: dict[str, str] = {"s": "♠", "h": "♥", "d": "♦", "c": "♣"}
+_SUIT_COLORS: dict[str, str] = {
+    "s": "#111111",
+    "h": "#cc0000",
+    "d": "#cc0000",
+    "c": "#111111",
+}
+
+
+# ---------------------------------------------------------------------------
+# Card rendering helpers
+# ---------------------------------------------------------------------------
+def _render_card(card: str) -> html.Span:
+    """Render a single PokerStars card code as a styled card element.
+
+    Args:
+        card: Card string in PokerStars format, e.g. 'As', 'Kh', 'Td'.
+
+    Returns:
+        A styled html.Span resembling a playing card face.
+    """
+    if not card or len(card) < 2:
+        return html.Span()
+    rank = card[:-1]
+    suit_char = card[-1].lower()
+    suit_sym = _SUIT_SYMBOLS.get(suit_char, suit_char)
+    color = _SUIT_COLORS.get(suit_char, "#111111")
+    return html.Span(
+        f"{rank}{suit_sym}",
+        style={
+            "display": "inline-block",
+            "background": "#fff",
+            "border": "1px solid #bbb",
+            "borderRadius": "4px",
+            "padding": "2px 7px",
+            "fontWeight": "700",
+            "fontSize": "14px",
+            "color": color,
+            "fontFamily": "monospace",
+            "boxShadow": "1px 1px 2px rgba(0,0,0,0.15)",
+            "marginRight": "3px",
+            "lineHeight": "1.5",
+        },
+    )
+
+
+def _render_cards(cards_str: str | None) -> html.Span:
+    """Render a space-separated card string as inline card elements.
+
+    Args:
+        cards_str: Space-separated card codes, e.g. 'As Kd' or 'Ah Kh Qh'.
+                   None or empty string returns an em-dash placeholder.
+
+    Returns:
+        An html.Span containing one _render_card element per card,
+        or an em-dash span when the input is absent.
+    """
+    if not cards_str:
+        return html.Span("—")
+    cards = [c.strip() for c in str(cards_str).split() if c.strip()]
+    if not cards:
+        return html.Span("—")
+    return html.Span([_render_card(c) for c in cards])
+
 
 # ---------------------------------------------------------------------------
 # Layout — all content lives inside drill-down-content
@@ -328,7 +392,7 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
                 style={"cursor": "pointer"},
                 children=[
                     html.Td(str(row["source_hand_id"]), style=_TD),
-                    html.Td(str(row["hole_cards"] or "—"), style=_TD),
+                    html.Td(_render_cards(row["hole_cards"]), style=_TD),
                     html.Td(f"{float(row['total_pot']):,.0f}", style=_TD),
                     html.Td(
                         f"{'+' if pnl >= 0 else ''}{pnl:,.0f}",
@@ -354,6 +418,8 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
 def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
     from pokerhero.analysis.queries import get_actions
 
+    hero_id = _get_hero_player_id(db_path)
+
     conn = get_connection(db_path)
     try:
         df = get_actions(conn, hand_id)
@@ -362,6 +428,15 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             " FROM hands WHERE id = ?",
             (hand_id,),
         ).fetchone()
+        hero_cards: str | None = None
+        if hero_id is not None:
+            hole_row = conn.execute(
+                "SELECT hole_cards FROM hand_players"
+                " WHERE hand_id = ? AND player_id = ?",
+                (hand_id, hero_id),
+            ).fetchone()
+            if hole_row:
+                hero_cards = hole_row[0]
     finally:
         conn.close()
 
@@ -369,9 +444,61 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
         return html.Div("No actions found for this hand."), ""
 
     source_id, flop, turn, river = hand_row
-    board_parts = [b for b in (flop, turn, river) if b]
-    board_str = "  |  ".join(board_parts) if board_parts else "—"
     hand_label = f"Hand #{source_id}"
+
+    # --- Hero hole cards row ---
+    hero_row: html.Div | None = None
+    if hero_cards:
+        hero_row = html.Div(
+            [
+                html.Span(
+                    "Hero: ",
+                    style={
+                        "fontWeight": "600",
+                        "fontSize": "13px",
+                        "marginRight": "6px",
+                        "color": "#555",
+                    },
+                ),
+                _render_cards(hero_cards),
+            ],
+            style={"marginBottom": "8px"},
+        )
+
+    # --- Board row ---
+    _sep = html.Span(
+        "│",
+        style={"color": "#ccc", "margin": "0 8px", "fontWeight": "300"},
+    )
+    board_elems: list[html.Span] = [
+        html.Span(
+            "Board: ",
+            style={
+                "fontWeight": "600",
+                "color": "#555",
+                "fontSize": "13px",
+                "marginRight": "6px",
+            },
+        )
+    ]
+    if flop:
+        board_elems.append(_render_cards(flop))
+        if turn:
+            board_elems.append(_sep)
+            board_elems.append(_render_cards(turn))
+            if river:
+                board_elems.append(_sep)
+                board_elems.append(_render_cards(river))
+    else:
+        board_elems.append(html.Span("—", style={"color": "#888"}))
+    board_div = html.Div(
+        board_elems,
+        style={
+            "display": "flex",
+            "alignItems": "center",
+            "marginBottom": "12px",
+        },
+    )
 
     sections: list[html.Div] = []
     current_street: str | None = None
@@ -453,16 +580,12 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
     if current_street is not None:
         sections.append(_flush(current_street, street_rows))
 
+    header_children: list[html.H3 | html.Div] = [
+        html.H3(hand_label, style={"marginTop": "0"}),
+        *([] if hero_row is None else [hero_row]),
+        board_div,
+    ]
     return (
-        html.Div(
-            [
-                html.H3(hand_label, style={"marginTop": "0"}),
-                html.P(
-                    f"Board: {board_str}",
-                    style={"color": "#555", "marginBottom": "12px"},
-                ),
-                *sections,
-            ]
-        ),
+        html.Div([*header_children, *sections]),
         hand_label,
     )
