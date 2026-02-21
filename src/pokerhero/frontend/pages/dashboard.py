@@ -9,6 +9,13 @@ from pokerhero.database.db import get_connection, get_setting, upsert_player
 
 dash.register_page(__name__, path="/dashboard", name="Overall Stats")  # type: ignore[no-untyped-call]
 
+_PERIOD_OPTIONS = [
+    {"label": "7 days", "value": "7d"},
+    {"label": "1 month", "value": "1m"},
+    {"label": "1 year", "value": "1y"},
+    {"label": "All time", "value": "all"},
+]
+
 # ---------------------------------------------------------------------------
 # Layout
 # ---------------------------------------------------------------------------
@@ -27,6 +34,23 @@ layout = html.Div(
             style={"fontSize": "13px", "color": "#0074D9"},
         ),
         html.Hr(),
+        html.Div(
+            [
+                html.Span(
+                    "Period: ",
+                    style={"fontSize": "13px", "color": "#555", "marginRight": "8px"},
+                ),
+                dcc.RadioItems(
+                    id="dashboard-period",
+                    options=_PERIOD_OPTIONS,
+                    value="all",
+                    inline=True,
+                    inputStyle={"marginRight": "4px"},
+                    labelStyle={"marginRight": "16px", "fontSize": "13px"},
+                ),
+            ],
+            style={"marginBottom": "16px"},
+        ),
         dcc.Loading(
             html.Div(id="dashboard-content"),
         ),
@@ -51,6 +75,20 @@ def _get_hero_player_id(db_path: str) -> int | None:
         return upsert_player(conn, username) if username else None
     finally:
         conn.close()
+
+
+def _period_to_since_date(period: str) -> str | None:
+    """Convert a period key to an ISO date string cutoff, or None for all-time."""
+    from datetime import date, timedelta
+
+    today = date.today()
+    if period == "7d":
+        return (today - timedelta(days=7)).isoformat()
+    if period == "1m":
+        return (today - timedelta(days=30)).isoformat()
+    if period == "1y":
+        return (today - timedelta(days=365)).isoformat()
+    return None  # "all"
 
 
 def _kpi_card(label: str, value: str, color: str = "#333") -> html.Div:
@@ -87,9 +125,10 @@ def _kpi_card(label: str, value: str, color: str = "#333") -> html.Div:
 @callback(
     Output("dashboard-content", "children"),
     Input("_pages_location", "pathname"),
+    Input("dashboard-period", "value"),
     prevent_initial_call=False,
 )
-def _render(pathname: str) -> html.Div | str:
+def _render(pathname: str, period: str) -> html.Div | str:
     if pathname != "/dashboard":
         raise dash.exceptions.PreventUpdate
 
@@ -103,6 +142,8 @@ def _render(pathname: str) -> html.Div | str:
             "⚠️ No hero username set. Please set it on the Upload page first.",
             style={"color": "orange"},
         )
+
+    since_date = _period_to_since_date(period)
 
     from pokerhero.analysis.queries import (
         get_hero_actions,
@@ -123,11 +164,11 @@ def _render(pathname: str) -> html.Div | str:
 
     conn = get_connection(db_path)
     try:
-        hp_df = get_hero_hand_players(conn, player_id)
-        sessions_df = get_sessions(conn, player_id)
-        timeline_df = get_hero_timeline(conn, player_id)
-        actions_df = get_hero_actions(conn, player_id)
-        opp_df = get_hero_opportunity_actions(conn, player_id)
+        hp_df = get_hero_hand_players(conn, player_id, since_date=since_date)
+        sessions_df = get_sessions(conn, player_id, since_date=since_date)
+        timeline_df = get_hero_timeline(conn, player_id, since_date=since_date)
+        actions_df = get_hero_actions(conn, player_id, since_date=since_date)
+        opp_df = get_hero_opportunity_actions(conn, player_id, since_date=since_date)
     finally:
         conn.close()
 

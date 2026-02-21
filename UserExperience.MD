@@ -79,6 +79,12 @@ Breakdown of how the user plays in different seats (BTN, SB, BB, etc.).
 ### D. Highlights
 * Shows biggest hands in user history, biggest blunders or wins.
 
+### E. Time-Period Filtering ✅ Implemented
+* Radio selector: **7 days**, **1 month**, **1 year**, **All time** (default).
+* All KPIs, the bankroll graph, and the positional stats table are filtered
+  to the selected window. Implemented via an optional `since_date` parameter
+  on all five dashboard query functions.
+
 ---
 
 ## 🔄 6. Logic & State Rules
