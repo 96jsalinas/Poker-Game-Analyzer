@@ -58,11 +58,11 @@ $$VPIP = \frac{Count(\text{Hands where Hero calls/raises Pre-flop})}{Total\_Hand
 ### B. PFR (Pre-Flop Raise)
 $$PFR = \frac{Count(\text{Hands where Hero raises/3-bets Pre-flop})}{Total\_Hands}$$
 
-### C. 3-Bet %
+### C. 3-Bet % ✅ Implemented
 $$3Bet\% = \frac{Count(\text{Hero raises vs a previous raiser})}{Count(\text{Opportunities to 3-bet})}$$
 * **Opportunity**: Occurs if a player opened the pot with a raise before Hero's action.
 
-### D. C-Bet % (Continuation Bet)
+### D. C-Bet % (Continuation Bet) ✅ Implemented
 $$CBet\% = \frac{Count(\text{Hero bets Flop})}{Count(\text{Opportunities to C-bet})}$$
 * **Opportunity**: Hero was the **last aggressor** on the Pre-flop street and the hand reached the Flop.
 

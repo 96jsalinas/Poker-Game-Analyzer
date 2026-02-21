@@ -107,12 +107,15 @@ def _render(pathname: str) -> html.Div | str:
     from pokerhero.analysis.queries import (
         get_hero_actions,
         get_hero_hand_players,
+        get_hero_opportunity_actions,
         get_hero_timeline,
         get_sessions,
     )
     from pokerhero.analysis.stats import (
         aggression_factor,
+        cbet_pct,
         pfr_pct,
+        three_bet_pct,
         total_profit,
         vpip_pct,
         win_rate_bb100,
@@ -124,6 +127,7 @@ def _render(pathname: str) -> html.Div | str:
         sessions_df = get_sessions(conn, player_id)
         timeline_df = get_hero_timeline(conn, player_id)
         actions_df = get_hero_actions(conn, player_id)
+        opp_df = get_hero_opportunity_actions(conn, player_id)
     finally:
         conn.close()
 
@@ -225,8 +229,12 @@ def _render(pathname: str) -> html.Div | str:
         if pos_hp.empty:
             continue
         pos_actions = actions_df[actions_df["position"] == pos]
+        pos_hand_ids = set(pos_hp["hand_id"].tolist())
+        pos_opp = opp_df[opp_df["hand_id"].isin(pos_hand_ids)]
         pos_vpip = vpip_pct(pos_hp) * 100
         pos_pfr = pfr_pct(pos_hp) * 100
+        pos_3bet = three_bet_pct(pos_opp) * 100
+        pos_cbet = cbet_pct(pos_opp) * 100
         pos_af = aggression_factor(pos_actions)
         pos_pnl = total_profit(pos_hp)
         af_str = f"{pos_af:.2f}" if pos_af != float("inf") else "∞"
@@ -238,6 +246,8 @@ def _render(pathname: str) -> html.Div | str:
                     html.Td(len(pos_hp), style=_TD),
                     html.Td(f"{pos_vpip:.1f}%", style=_TD),
                     html.Td(f"{pos_pfr:.1f}%", style=_TD),
+                    html.Td(f"{pos_3bet:.1f}%", style=_TD),
+                    html.Td(f"{pos_cbet:.1f}%", style=_TD),
                     html.Td(af_str, style=_TD),
                     html.Td(
                         f"{'+' if pos_pnl >= 0 else ''}{pos_pnl:,.0f}",
@@ -265,6 +275,8 @@ def _render(pathname: str) -> html.Div | str:
                                     "Hands",
                                     "VPIP%",
                                     "PFR%",
+                                    "3-Bet%",
+                                    "C-Bet%",
                                     "AF",
                                     "Net P&L",
                                 )
