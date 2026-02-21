@@ -51,7 +51,7 @@ All dependencies are open-source.
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/your-username/poker-game-analyzer.git
+git clone https://github.com/96jsalinas/poker-game-analyzer.git
 cd poker-game-analyzer
 
 # 2. Install the package and dev dependencies
