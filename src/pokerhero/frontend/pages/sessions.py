@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 from typing import NotRequired, TypedDict
 
 import dash
@@ -592,7 +593,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
         if action["is_hero"] and amount_to_call > 0:
             pot_odds = amount_to_call / (pot_before + amount_to_call) * 100
             extra = f"Pot odds: {pot_odds:.1f}%"
-        if action["spr"] is not None:
+        if action["spr"] is not None and not math.isnan(float(action["spr"])):
             spr_str = f"SPR: {float(action['spr']):.2f}"
             extra = f"{spr_str}  |  {extra}" if extra else spr_str
 
