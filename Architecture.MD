@@ -52,8 +52,7 @@ pokerhero-analyzer/
 │       ├── analysis/             # ✅ Implemented
 │       │   ├── __init__.py
 │       │   ├── queries.py        # get_sessions, get_hands, get_actions, get_hero_hand_players → DataFrames
-│       │   └── stats.py          # vpip_pct, pfr_pct, win_rate_bb100, aggression_factor, wtsd_pct, total_profit
-│       ├── frontend/             # ✅ Implemented (multi-page Dash app)
+│       │   └── stats.py          # vpip_pct, pfr_pct, win_rate_bb100, aggression_factor, wtsd_pct, total_profit│       ├── frontend/             # ✅ Implemented (multi-page Dash app)
 │       │   ├── __init__.py
 │       │   ├── app.py            # create_app() — use_pages=True shell, exposes DB_PATH via Flask config
 │       │   ├── upload_handler.py # handle_upload() — decode base64, call ingest_file
@@ -66,9 +65,10 @@ pokerhero-analyzer/
 ├── tests/
 │   ├── fixtures/                 # 15 .txt hand history snippets (see TestingStrategy.MD)
 │   ├── test_parser.py            # 150 tests across 14 classes
-│   ├── test_database.py          # 265 tests across 8 classes (incl. TestSettings)
-│   ├── test_ingestion.py         # tests for pipeline, financials, re-buy detection, logging
-│   └── test_frontend.py          # tests for upload handler, multi-page app, page layouts
+│   ├── test_database.py          # 52 tests across 8 classes (incl. TestSettings)
+│   ├── test_ingestion.py         # 28 tests for pipeline, financials, re-buy detection, logging
+│   ├── test_frontend.py          # 19 tests for upload handler, multi-page app, page layouts
+│   └── test_analysis.py          # 28 tests for queries and stats (vpip, pfr, win_rate, AF, wtsd)
 ├── data/
 │   └── histories/                # Raw .txt session files (git-ignored)
 └── pyproject.toml
