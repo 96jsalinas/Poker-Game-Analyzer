@@ -118,6 +118,60 @@ def get_actions(conn: sqlite3.Connection, hand_id: int) -> pd.DataFrame:
     return pd.read_sql_query(sql, conn, params=(int(hand_id),))
 
 
+def get_hero_timeline(conn: sqlite3.Connection, player_id: int) -> pd.DataFrame:
+    """Return one row per hand with timestamp and net_result for the bankroll graph.
+
+    Columns: timestamp, net_result.
+
+    Args:
+        conn: Open SQLite connection.
+        player_id: Internal integer id of the hero player row.
+
+    Returns:
+        DataFrame ordered by timestamp ascending, one row per hand.
+    """
+    sql = """
+        SELECT
+            h.timestamp,
+            hp.net_result
+        FROM hand_players hp
+        JOIN hands h ON h.id = hp.hand_id
+        WHERE hp.player_id = ?
+        ORDER BY h.timestamp ASC
+    """
+    return pd.read_sql_query(sql, conn, params=(int(player_id),))
+
+
+def get_hero_actions(conn: sqlite3.Connection, player_id: int) -> pd.DataFrame:
+    """Return all post-flop actions by hero with position context.
+
+    Used to compute per-position Aggression Factor (AF).
+    Only FLOP, TURN, and RIVER streets are returned.
+
+    Columns: hand_id, street, action_type, position.
+
+    Args:
+        conn: Open SQLite connection.
+        player_id: Internal integer id of the hero player row.
+
+    Returns:
+        DataFrame of hero's post-flop actions across all hands.
+    """
+    sql = """
+        SELECT
+            a.hand_id,
+            a.street,
+            a.action_type,
+            hp.position
+        FROM actions a
+        JOIN hand_players hp
+            ON hp.hand_id = a.hand_id AND hp.player_id = a.player_id
+        WHERE a.player_id = ?
+          AND a.street IN ('FLOP', 'TURN', 'RIVER')
+    """
+    return pd.read_sql_query(sql, conn, params=(int(player_id),))
+
+
 def get_hero_hand_players(conn: sqlite3.Connection, player_id: int) -> pd.DataFrame:
     """Return all hand_player rows for hero with session context and saw_flop flag.
 
