@@ -52,9 +52,26 @@ _SUIT_COLORS: dict[str, str] = {
 }
 
 
-# ---------------------------------------------------------------------------
-# Card rendering helpers
-# ---------------------------------------------------------------------------
+def _action_row_style(is_hero: bool) -> dict[str, str]:
+    """Return the tr style for an action row.
+
+    Hero rows get a light-blue background and a left-border accent so they
+    stand out at a glance in the action table.
+
+    Args:
+        is_hero: True when the row belongs to the hero player.
+
+    Returns:
+        A style dict to pass to html.Tr(style=...).
+    """
+    if is_hero:
+        return {
+            "backgroundColor": "#edf5ff",
+            "borderLeft": "3px solid #0074D9",
+        }
+    return {}
+
+
 def _render_card(card: str) -> html.Span:
     """Render a single PokerStars card code as a styled card element.
 
@@ -573,7 +590,8 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
                         style={**_TD, "color": "#888", "fontSize": "12px"},
                     ),
                     html.Td(extra, style={**_TD, "color": "#555", "fontSize": "12px"}),
-                ]
+                ],
+                style=_action_row_style(bool(action["is_hero"])),
             )
         )
 
