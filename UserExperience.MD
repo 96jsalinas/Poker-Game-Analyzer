@@ -55,29 +55,29 @@ A chronological breakdown of the specific hand.
 
 ---
 
-## 📊 5. Overall Stats (The Dashboard) 🔲 Planned
+## 📊 5. Overall Stats (The Dashboard) ✅ Implemented
 
 A high-level overview of the Hero's performance across all time.
 
-### A. Key Performance Indicators (KPIs)
+### A. Key Performance Indicators (KPIs) ✅
 * **Total Profit/Loss**: Large focal number.
 * **Win Rate**: Measured in `bb/100` (Big Blinds won per 100 hands).
 * **Volume**: Total sessions and total hands played.
-* **Filtering**: Allow's user to define time period for which stats apply (7 days, 1 month, 1 year, all-time, custom)
+* **VPIP / PFR**: Shown as headline KPI cards.
 
-### B. Positional Stats Table
+### B. Positional Stats Table ✅
 Breakdown of how the user plays in different seats (BTN, SB, BB, etc.).
-| Position | VPIP% | PFR% | 3-Bet% | Net Profit |
-| :--- | :--- | :--- | :--- | :--- |
-| Button | 25% | 22% | 8% | +$150.00 |
-| ... | ... | ... | ... | ... |
+| Position | Hands | VPIP% | PFR% | 3-Bet% | C-Bet% | AF | Net P&L |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Button | 45 | 25% | 22% | 8% | 60% | 2.50 | +$150 |
+| ... | ... | ... | ... | ... | ... | ... | ... |
 
-### C. Visualizations
-* **Bankroll Graph**: A line chart showing cumulative profit over time/hands.
-* **VPIP/PFR Gap**: A gauge chart showing the relationship between playing and raising.
+### C. Visualizations ✅
+* **Bankroll Graph**: A line chart showing cumulative profit over hands played.
+* **VPIP/PFR Gap**: 🔲 Planned gauge chart (not yet implemented).
 
-### D. Highlights
-* Shows biggest hands in user history, biggest blunders or wins.
+### D. Highlights 🔲 Planned
+* Biggest single-hand win/loss and best/worst session.
 
 ### E. Time-Period Filtering ✅ Implemented
 * Radio selector: **7 days**, **1 month**, **1 year**, **All time** (default).
