@@ -112,3 +112,80 @@ def total_profit(hp_df: pd.DataFrame) -> float:
     if hp_df.empty:
         return 0.0
     return float(hp_df["net_result"].sum())
+
+
+def three_bet_pct(opp_df: pd.DataFrame) -> float:
+    """Fraction of 3-bet opportunities where hero re-raised preflop.
+
+    An opportunity exists when a non-hero player has raised before hero's
+    first preflop action. Hero making a 3-bet means hero raised after that.
+
+    3Bet% = COUNT(hands where hero raised vs prior raiser)
+            / COUNT(opportunities)
+
+    Args:
+        opp_df: DataFrame from get_hero_opportunity_actions with columns
+                hand_id, saw_flop, sequence, is_hero, street, action_type.
+
+    Returns:
+        Float in [0.0, 1.0]. Returns 0.0 when no opportunities exist.
+    """
+    if opp_df.empty:
+        return 0.0
+    preflop = opp_df[opp_df["street"] == "PREFLOP"]
+    opportunities = 0
+    made = 0
+    for _, hand in preflop.groupby("hand_id"):
+        hand = hand.sort_values("sequence")
+        hero_rows = hand[hand["is_hero"] == 1]
+        if hero_rows.empty:
+            continue
+        hero_first_seq = int(hero_rows["sequence"].iloc[0])
+        pre_hero = hand[(hand["is_hero"] == 0) & (hand["sequence"] < hero_first_seq)]
+        if pre_hero["action_type"].eq("RAISE").any():
+            opportunities += 1
+            if (hero_rows["action_type"] == "RAISE").any():
+                made += 1
+    if opportunities == 0:
+        return 0.0
+    return made / opportunities
+
+
+def cbet_pct(opp_df: pd.DataFrame) -> float:
+    """Fraction of c-bet opportunities where hero bet the flop.
+
+    An opportunity exists when hero was the last pre-flop raiser and the
+    hand reached the flop. Hero c-bets by placing the first BET action on
+    the flop.
+
+    CBet% = COUNT(hero bet flop as first aggressor)
+            / COUNT(opportunities)
+
+    Args:
+        opp_df: DataFrame from get_hero_opportunity_actions with columns
+                hand_id, saw_flop, sequence, is_hero, street, action_type.
+
+    Returns:
+        Float in [0.0, 1.0]. Returns 0.0 when no opportunities exist.
+    """
+    if opp_df.empty:
+        return 0.0
+    opportunities = 0
+    made = 0
+    for _, hand in opp_df.groupby("hand_id"):
+        saw_flop = hand["saw_flop"].iloc[0] == 1
+        preflop = hand[hand["street"] == "PREFLOP"].sort_values("sequence")
+        flop = hand[hand["street"] == "FLOP"].sort_values("sequence")
+        pf_raises = preflop[preflop["action_type"] == "RAISE"]
+        if pf_raises.empty:
+            continue
+        if int(pf_raises.iloc[-1]["is_hero"]) != 1:
+            continue
+        if saw_flop and not flop.empty:
+            opportunities += 1
+            first_bets = flop[flop["action_type"] == "BET"]
+            if not first_bets.empty and int(first_bets.iloc[0]["is_hero"]) == 1:
+                made += 1
+    if opportunities == 0:
+        return 0.0
+    return made / opportunities

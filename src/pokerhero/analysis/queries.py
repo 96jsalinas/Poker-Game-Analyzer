@@ -213,6 +213,42 @@ def get_hero_hand_players(conn: sqlite3.Connection, player_id: int) -> pd.DataFr
     return pd.read_sql_query(sql, conn, params=(int(player_id),))
 
 
+def get_hero_opportunity_actions(
+    conn: sqlite3.Connection, player_id: int
+) -> pd.DataFrame:
+    """Return PREFLOP and FLOP actions for all hands hero played.
+
+    Used to compute 3-Bet% and C-Bet%. Returns ALL players' actions (not
+    just hero's) so that sequence analysis can detect raises before hero acts.
+
+    Columns: hand_id, saw_flop, sequence, is_hero, street, action_type.
+
+    Args:
+        conn: Open SQLite connection.
+        player_id: Internal integer id of the hero player row.
+
+    Returns:
+        DataFrame ordered by hand_id then sequence ascending.
+    """
+    sql = """
+        SELECT
+            h.id AS hand_id,
+            CASE WHEN h.board_flop IS NOT NULL THEN 1 ELSE 0 END AS saw_flop,
+            a.sequence,
+            a.is_hero,
+            a.street,
+            a.action_type
+        FROM actions a
+        JOIN hands h ON h.id = a.hand_id
+        WHERE h.id IN (
+            SELECT DISTINCT hand_id FROM hand_players WHERE player_id = ?
+        )
+          AND a.street IN ('PREFLOP', 'FLOP')
+        ORDER BY a.hand_id, a.sequence
+    """
+    return pd.read_sql_query(sql, conn, params=(int(player_id),))
+
+
 def get_export_data(conn: sqlite3.Connection, player_id: int) -> pd.DataFrame:
     """Return sessions and per-hand results joined for CSV export.
 
