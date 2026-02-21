@@ -78,14 +78,15 @@ $$WTSD\% = \frac{Count(Hand\_Players.went\_to\_showdown = True)}{Count(\text{Han
 
 ---
 
-## 🧪 4. Expected Value (EV) Logic
+## 🧪 4. Expected Value (EV) Logic ✅ Implemented
 
 When the Hero goes **All-in**, or the hand reaches **Showdown**:
 $$EV_{Action} = (Equity \times Pot_{to\_Win}) - ((1 - Equity) \times Amount_{to\_Lose})$$
 
-* **Equity**: The % chance of winning based on Hero's cards vs. Villain's cards (or range).
+* **Equity**: The % chance of winning based on Hero's cards vs. Villain's cards (or range), calculated via PokerKit `calculate_equities` (Monte Carlo).
 * **Pot to Win**: The current pot + Villain's call/bet.
 * **Amount to Lose**: The amount Hero must risk to make the play.
+* **Display**: Shown in the EV column of the action view for hero all-in spots. Green = positive EV, Red = negative EV, `—` when villain cards unknown.
 
 ---
 
