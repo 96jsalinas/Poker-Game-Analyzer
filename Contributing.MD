@@ -122,7 +122,7 @@ def calculate_mdf(pot_size: Decimal, bet_size: Decimal) -> float:
 
 ## 🚨 6. Git & Commit Protocol
 
-* **Pre-commit Hooks:** You must install the repository's pre-commit hooks (`pre-commit install`). This will automatically run Ruff and Mypy on your code when you commit. If they fail, the commit is aborted.
+* **Pre-commit Hooks:** The repository ships a `.pre-commit-config.yaml` that defines `ruff check`, `ruff format`, and `mypy` hooks using the local Python environment. Run `pre-commit install` once after cloning to activate them. On every commit, the hooks run automatically and abort if any check fails.
 * **Commit Messages:** Use the **Conventional Commits** format with imperative mood:
   ```
   <type>(<scope>): <short description>
