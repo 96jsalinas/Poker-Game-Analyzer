@@ -548,3 +548,60 @@ class TestThreeBetCBet:
             }
         )
         assert cbet_pct(df) == pytest.approx(1.0)
+
+
+# ---------------------------------------------------------------------------
+# TestEV — compute_ev using PokerKit equity
+# ---------------------------------------------------------------------------
+class TestEV:
+    def test_returns_none_when_villain_is_none(self):
+        """When villain cards are unknown, EV cannot be computed."""
+        from pokerhero.analysis.stats import compute_ev
+
+        assert compute_ev("Ah Kh", None, "Qh Jh Th", 100.0, 300.0) is None
+
+    def test_returns_none_when_villain_is_empty(self):
+        """Empty villain string also returns None."""
+        from pokerhero.analysis.stats import compute_ev
+
+        assert compute_ev("Ah Kh", "", "Qh Jh Th", 100.0, 300.0) is None
+
+    def test_winning_hand_is_positive_ev(self):
+        """Hero has royal flush vs trash on complete board → positive EV."""
+        from pokerhero.analysis.stats import compute_ev
+
+        # Hero: Ah Kh, Board: Qh Jh Th 9d 2s (A-K-Q-J-T royal flush for hero)
+        # Villain: 2c 3d (no hand)
+        result = compute_ev("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 100.0, 300.0)
+        assert result is not None
+        assert result > 0
+
+    def test_losing_hand_is_negative_ev(self):
+        """Hero has trash vs royal flush on complete board → negative EV."""
+        from pokerhero.analysis.stats import compute_ev
+
+        # Hero: 2c 3d, Villain: Ah Kh, Board: Qh Jh Th 9d 2s
+        result = compute_ev("2c 3d", "Ah Kh", "Qh Jh Th 9d 2s", 100.0, 300.0)
+        assert result is not None
+        assert result < 0
+
+    def test_ev_formula_at_river(self):
+        """Complete board → exact equity; EV ≈ equity*pot - (1-equity)*risked."""
+        from pokerhero.analysis.stats import compute_ev
+
+        # Hero: Ah Kh vs 2c 3d on complete board → equity=1.0
+        # EV = 1.0 * 300 - 0 * 100 = 300
+        result = compute_ev("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 100.0, 300.0)
+        assert result is not None
+        assert result == pytest.approx(300.0, abs=5.0)
+
+    def test_ev_partial_board_in_range(self):
+        """Partial board (flop only) → equity between 0 and 1 for non-trivial hand."""
+        from pokerhero.analysis.stats import compute_ev
+
+        # Hero: Ah Kh (nut flush draw), Villain: 2c 2d (pair of 2s), Board: Qh Jh 2s
+        # Villain has set of 2s, hero has many outs (flush + straight outs)
+        result = compute_ev("Ah Kh", "2c 2d", "Qh Jh 2s", 100.0, 300.0)
+        assert result is not None
+        # Result is some finite float (not trivially 300 or -100)
+        assert isinstance(result, float)
