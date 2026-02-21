@@ -345,3 +345,206 @@ class TestHeroActions:
         from pokerhero.analysis.queries import get_hero_actions
 
         assert len(get_hero_actions(db_with_data, hero_player_id)) > 0
+
+
+# ---------------------------------------------------------------------------
+# TestOpportunityActions — get_hero_opportunity_actions (for 3-Bet%/C-Bet%)
+# ---------------------------------------------------------------------------
+class TestOpportunityActions:
+    def test_returns_dataframe(self, db_with_data, hero_player_id):
+        from pokerhero.analysis.queries import get_hero_opportunity_actions
+
+        result = get_hero_opportunity_actions(db_with_data, hero_player_id)
+        assert isinstance(result, pd.DataFrame)
+
+    def test_has_expected_columns(self, db_with_data, hero_player_id):
+        from pokerhero.analysis.queries import get_hero_opportunity_actions
+
+        df = get_hero_opportunity_actions(db_with_data, hero_player_id)
+        assert {
+            "hand_id",
+            "saw_flop",
+            "sequence",
+            "is_hero",
+            "street",
+            "action_type",
+        } <= set(df.columns)
+
+    def test_only_preflop_and_flop_streets(self, db_with_data, hero_player_id):
+        from pokerhero.analysis.queries import get_hero_opportunity_actions
+
+        df = get_hero_opportunity_actions(db_with_data, hero_player_id)
+        assert set(df["street"].unique()) <= {"PREFLOP", "FLOP"}
+
+    def test_has_rows(self, db_with_data, hero_player_id):
+        from pokerhero.analysis.queries import get_hero_opportunity_actions
+
+        assert len(get_hero_opportunity_actions(db_with_data, hero_player_id)) > 0
+
+
+# ---------------------------------------------------------------------------
+# TestThreeBetCBet — pure unit tests with hand-crafted DataFrames
+# ---------------------------------------------------------------------------
+class TestThreeBetCBet:
+    def _make_preflop_df(self) -> pd.DataFrame:
+        """Two hands: Hand 1 hero folds to raise, Hand 2 hero re-raises."""
+        return pd.DataFrame(
+            {
+                "hand_id": [1, 1, 1, 2, 2, 2, 2],
+                "saw_flop": [0, 0, 0, 0, 0, 0, 0],
+                "sequence": [1, 2, 3, 4, 5, 6, 7],
+                "is_hero": [0, 0, 1, 0, 0, 1, 0],
+                "street": ["PREFLOP"] * 7,
+                "action_type": [
+                    "CALL",
+                    "RAISE",
+                    "FOLD",  # hand 1: raise before hero → opp, no 3-bet
+                    "CALL",
+                    "RAISE",
+                    "RAISE",
+                    "FOLD",  # hand 2: raise before hero → opp, 3-bet
+                ],
+            }
+        )
+
+    def _make_cbet_df(self) -> pd.DataFrame:
+        """Two hands: Hand 1 hero c-bets, Hand 2 hero checks flop."""
+        return pd.DataFrame(
+            {
+                "hand_id": [1, 1, 1, 1, 1, 2, 2, 2, 2, 2],
+                "saw_flop": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                "sequence": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                "is_hero": [0, 1, 0, 0, 1, 0, 1, 0, 0, 1],
+                "street": [
+                    "PREFLOP",
+                    "PREFLOP",
+                    "PREFLOP",
+                    "FLOP",
+                    "FLOP",
+                    "PREFLOP",
+                    "PREFLOP",
+                    "PREFLOP",
+                    "FLOP",
+                    "FLOP",
+                ],
+                "action_type": [
+                    "CALL",
+                    "RAISE",
+                    "CALL",
+                    "CHECK",
+                    "BET",  # hand 1: last PF raiser, bets flop
+                    "CALL",
+                    "RAISE",
+                    "CALL",
+                    "CHECK",
+                    "CHECK",  # hand 2: last PF raiser, checks flop
+                ],
+            }
+        )
+
+    def test_three_bet_pct_empty_returns_zero(self):
+        from pokerhero.analysis.stats import three_bet_pct
+
+        df = pd.DataFrame(
+            columns=[
+                "hand_id",
+                "saw_flop",
+                "sequence",
+                "is_hero",
+                "street",
+                "action_type",
+            ]
+        )
+        assert three_bet_pct(df) == 0.0
+
+    def test_three_bet_pct_no_opportunity_returns_zero(self):
+        """No raise before hero preflop → no opportunities → 0.0."""
+        from pokerhero.analysis.stats import three_bet_pct
+
+        df = pd.DataFrame(
+            {
+                "hand_id": [1, 1],
+                "saw_flop": [0, 0],
+                "sequence": [1, 2],
+                "is_hero": [0, 1],
+                "street": ["PREFLOP", "PREFLOP"],
+                "action_type": ["CALL", "RAISE"],
+            }
+        )
+        assert three_bet_pct(df) == 0.0
+
+    def test_three_bet_pct_one_of_two(self):
+        """Hand 1: opportunity, no 3-bet. Hand 2: opportunity, 3-bet → 0.5."""
+        from pokerhero.analysis.stats import three_bet_pct
+
+        assert three_bet_pct(self._make_preflop_df()) == pytest.approx(0.5)
+
+    def test_three_bet_pct_all_three_bet(self):
+        """All opportunities result in a 3-bet → 1.0."""
+        from pokerhero.analysis.stats import three_bet_pct
+
+        df = pd.DataFrame(
+            {
+                "hand_id": [1, 1, 1],
+                "saw_flop": [0, 0, 0],
+                "sequence": [1, 2, 3],
+                "is_hero": [0, 0, 1],
+                "street": ["PREFLOP", "PREFLOP", "PREFLOP"],
+                "action_type": ["CALL", "RAISE", "RAISE"],
+            }
+        )
+        assert three_bet_pct(df) == pytest.approx(1.0)
+
+    def test_cbet_pct_empty_returns_zero(self):
+        from pokerhero.analysis.stats import cbet_pct
+
+        df = pd.DataFrame(
+            columns=[
+                "hand_id",
+                "saw_flop",
+                "sequence",
+                "is_hero",
+                "street",
+                "action_type",
+            ]
+        )
+        assert cbet_pct(df) == 0.0
+
+    def test_cbet_pct_no_opportunity_returns_zero(self):
+        """Hero not preflop last-raiser → no c-bet opportunity."""
+        from pokerhero.analysis.stats import cbet_pct
+
+        df = pd.DataFrame(
+            {
+                "hand_id": [1, 1, 1, 1],
+                "saw_flop": [1, 1, 1, 1],
+                "sequence": [1, 2, 3, 4],
+                "is_hero": [0, 0, 1, 1],
+                "street": ["PREFLOP", "PREFLOP", "FLOP", "FLOP"],
+                "action_type": ["RAISE", "CALL", "CHECK", "BET"],
+            }
+        )
+        # Non-hero raised preflop last → hero is not last raiser → 0 opportunities
+        assert cbet_pct(df) == 0.0
+
+    def test_cbet_pct_one_of_two(self):
+        """Hand 1: c-bet made. Hand 2: opportunity but checks → 0.5."""
+        from pokerhero.analysis.stats import cbet_pct
+
+        assert cbet_pct(self._make_cbet_df()) == pytest.approx(0.5)
+
+    def test_cbet_pct_all_cbet(self):
+        """Single hand: hero is PF raiser, bets flop → 1.0."""
+        from pokerhero.analysis.stats import cbet_pct
+
+        df = pd.DataFrame(
+            {
+                "hand_id": [1, 1, 1],
+                "saw_flop": [1, 1, 1],
+                "sequence": [1, 2, 3],
+                "is_hero": [0, 1, 1],
+                "street": ["PREFLOP", "PREFLOP", "FLOP"],
+                "action_type": ["CALL", "RAISE", "BET"],
+            }
+        )
+        assert cbet_pct(df) == pytest.approx(1.0)
