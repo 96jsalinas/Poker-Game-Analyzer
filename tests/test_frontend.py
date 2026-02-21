@@ -356,3 +356,43 @@ class TestHeroRowHighlighting:
         from pokerhero.frontend.pages.sessions import _action_row_style
 
         assert _action_row_style(True) != _action_row_style(False)
+
+
+class TestSettingsPageLayout:
+    def test_settings_page_registered(self):
+        """Settings page must be registered at path '/settings'."""
+        import dash
+
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+        paths = [p["path"] for p in dash.page_registry.values()]
+        assert "/settings" in paths
+
+    def test_layout_has_username_input(self):
+        """Settings layout must contain a settings-username input."""
+        from pokerhero.frontend.pages.settings import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "settings-username" in str(comp)
+
+    def test_layout_has_clear_db_button(self):
+        """Settings layout must contain a clear-db-btn button."""
+        from pokerhero.frontend.pages.settings import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "clear-db-btn" in str(comp)
+
+    def test_layout_has_export_csv_button(self):
+        """Settings layout must contain an export-csv-btn button."""
+        from pokerhero.frontend.pages.settings import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "export-csv-btn" in str(comp)
+
+    def test_home_links_to_settings(self):
+        """Home page layout must contain a link to /settings."""
+        from pokerhero.frontend.pages.home import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "/settings" in str(comp)
