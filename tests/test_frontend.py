@@ -458,3 +458,105 @@ class TestSettingsPageLayout:
 
         comp = layout() if callable(layout) else layout
         assert "/settings" in str(comp)
+
+
+class TestDashboardHighlights:
+    """Tests for the _build_highlights helper and its presence on the dashboard."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def _make_hp_df(self):
+        import pandas as pd
+
+        return pd.DataFrame(
+            {
+                "net_result": [500.0, -200.0, 100.0],
+                "hole_cards": ["As Kd", "Qh Jh", None],
+                "hand_id": [1, 2, 3],
+            }
+        )
+
+    def _make_sessions_df(self):
+        import pandas as pd
+
+        return pd.DataFrame(
+            {
+                "net_profit": [800.0, -300.0],
+                "start_time": ["2026-01-01", "2026-01-02"],
+                "small_blind": [100.0, 100.0],
+                "big_blind": [200.0, 200.0],
+            }
+        )
+
+    def test_highlights_section_in_dashboard_source(self):
+        """Dashboard module source must contain a highlights-section id."""
+        import inspect
+
+        from pokerhero.frontend.pages import dashboard
+
+        assert "highlights-section" in inspect.getsource(dashboard)
+
+    def test_build_highlights_returns_div(self):
+        """_build_highlights must return a Dash html.Div."""
+        from dash import html
+
+        from pokerhero.frontend.pages.dashboard import _build_highlights
+
+        result = _build_highlights(self._make_hp_df(), self._make_sessions_df())
+        assert isinstance(result, html.Div)
+
+    def test_build_highlights_shows_biggest_win(self):
+        """_build_highlights must show the biggest single-hand win amount."""
+        from pokerhero.frontend.pages.dashboard import _build_highlights
+
+        result = str(_build_highlights(self._make_hp_df(), self._make_sessions_df()))
+        assert "500" in result
+
+    def test_build_highlights_shows_biggest_loss(self):
+        """_build_highlights must show the biggest single-hand loss amount."""
+        from pokerhero.frontend.pages.dashboard import _build_highlights
+
+        result = str(_build_highlights(self._make_hp_df(), self._make_sessions_df()))
+        assert "200" in result
+
+    def test_build_highlights_shows_best_session(self):
+        """_build_highlights must show the best session net_profit."""
+        from pokerhero.frontend.pages.dashboard import _build_highlights
+
+        result = str(_build_highlights(self._make_hp_df(), self._make_sessions_df()))
+        assert "800" in result
+
+    def test_build_highlights_shows_worst_session(self):
+        """_build_highlights must show the worst session net_profit."""
+        from pokerhero.frontend.pages.dashboard import _build_highlights
+
+        result = str(_build_highlights(self._make_hp_df(), self._make_sessions_df()))
+        assert "300" in result
+
+    def test_build_highlights_empty_returns_div(self):
+        """_build_highlights with empty DataFrames must still return html.Div."""
+        import pandas as pd
+        from dash import html
+
+        from pokerhero.frontend.pages.dashboard import _build_highlights
+
+        result = _build_highlights(pd.DataFrame(), pd.DataFrame())
+        assert isinstance(result, html.Div)
+
+    def test_build_highlights_biggest_win_is_green(self):
+        """Biggest hand win card must use green colouring."""
+        from pokerhero.frontend.pages.dashboard import _build_highlights
+
+        result = str(_build_highlights(self._make_hp_df(), self._make_sessions_df()))
+        # The +500 win and green colour must appear together in the output
+        assert "green" in result
+
+    def test_build_highlights_biggest_loss_is_red(self):
+        """Biggest hand loss card must use red colouring."""
+        from pokerhero.frontend.pages.dashboard import _build_highlights
+
+        result = str(_build_highlights(self._make_hp_df(), self._make_sessions_df()))
+        assert "red" in result
