@@ -363,7 +363,11 @@ def _breadcrumb(
 
 
 # ---------------------------------------------------------------------------
-# State updater — all row/breadcrumb clicks funnel into drill-down-state
+# State updater — row/breadcrumb clicks funnel into drill-down-state
+#
+# Split into three callbacks with allow_duplicate=True so each only registers
+# the inputs that exist in the current view (session-table and hand-table are
+# never in the DOM at the same time).
 # ---------------------------------------------------------------------------
 def _compute_state_from_cell(
     session_cell: dict[str, Any] | None,
@@ -401,43 +405,58 @@ def _compute_state_from_cell(
 
 
 @callback(
-    Output("drill-down-state", "data"),
+    Output("drill-down-state", "data", allow_duplicate=True),
     Input("session-table", "active_cell"),
-    Input("hand-table", "active_cell"),
-    Input(
-        {"type": "breadcrumb-btn", "level": dash.ALL, "session_id": dash.ALL},
-        "n_clicks",
-    ),
     State("session-table", "derived_viewport_data"),
+    State("drill-down-state", "data"),
+    prevent_initial_call=True,
+)
+def _navigate_from_session_table(
+    cell: dict[str, Any] | None,
+    data: list[dict[str, Any]] | None,
+    current_state: _DrillDownState,
+) -> _DrillDownState:
+    return _compute_state_from_cell(cell, None, data, None, current_state)
+
+
+@callback(
+    Output("drill-down-state", "data", allow_duplicate=True),
+    Input("hand-table", "active_cell"),
     State("hand-table", "derived_viewport_data"),
     State("drill-down-state", "data"),
     prevent_initial_call=True,
 )
+def _navigate_from_hand_table(
+    cell: dict[str, Any] | None,
+    data: list[dict[str, Any]] | None,
+    current_state: _DrillDownState,
+) -> _DrillDownState:
+    return _compute_state_from_cell(None, cell, None, data, current_state)
+
+
+@callback(
+    Output("drill-down-state", "data"),
+    Input(
+        {"type": "breadcrumb-btn", "level": dash.ALL, "session_id": dash.ALL},
+        "n_clicks",
+    ),
+    State("drill-down-state", "data"),
+    prevent_initial_call=True,
+)
 def _update_state(
-    session_cell: dict[str, Any] | None,
-    hand_cell: dict[str, Any] | None,
     _breadcrumb_clicks: list[int | None],
-    session_data: list[dict[str, Any]] | None,
-    hand_data: list[dict[str, Any]] | None,
     current_state: _DrillDownState,
 ) -> _DrillDownState:
     ctx = dash.callback_context
     if not ctx.triggered:
         raise dash.exceptions.PreventUpdate
-    trigger_id = ctx.triggered[0]["prop_id"]
-
-    if trigger_id in ("session-table.active_cell", "hand-table.active_cell"):
-        return _compute_state_from_cell(
-            session_cell, hand_cell, session_data, hand_data, current_state
-        )
-
-    # Breadcrumb button
-    tid = trigger_id.split(".")[0]
+    trigger = ctx.triggered[0]
+    if not trigger.get("value"):
+        raise dash.exceptions.PreventUpdate
+    tid = trigger["prop_id"].split(".")[0]
     try:
         parsed = json.loads(tid)
     except (json.JSONDecodeError, ValueError):
-        raise dash.exceptions.PreventUpdate
-    if not ctx.triggered[0].get("value"):
         raise dash.exceptions.PreventUpdate
     if parsed.get("type") == "breadcrumb-btn":
         if parsed["level"] == "sessions":
