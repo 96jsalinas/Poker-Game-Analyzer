@@ -11,7 +11,7 @@ The entry point of the application (`/`). Currently a simple hub page.
 * **[2] Review Sessions** (`/sessions`): Historical log of all processed games. ✅ Implemented.
 * **[3] Overall Stats** (`/dashboard`): The "Hero Dashboard." ✅ Implemented.
 * **[4] Settings** (`/settings`): User and App configuration. ✅ Implemented.
-* **[5] User Guide** (`/guide`): In-app guide covering all screens and stat definitions. ✅ Implemented.
+* **[5] User Guide** (`/guide`): In-app guide covering all screens and stat definitions (VPIP, PFR, 3-Bet%, C-Bet%, AF, Win Rate, SPR, Pot Odds, MDF, EV including equity method). ✅ Implemented.
 
 ---
 
@@ -55,6 +55,7 @@ A chronological breakdown of the specific hand.
 * **Header**: Hand # and board cards (Flop | Turn | River).
 * **Body**: Actions grouped by street (colour-coded headers), showing player username, position (e.g. `jsalinas96 (BTN)`), action type, amount, and pot size.
 * **Math Column**: SPR shown on the first Flop action; Pot Odds % and MDF % shown for every decision point Hero faces.
+* **Showdown Section**: ✅ Implemented — when villain hole cards are known (showdown or all-in with cards exposed), a purple "Showdown" section appears after the last street, showing each villain's name, position, and styled hole cards.
 
 ---
 

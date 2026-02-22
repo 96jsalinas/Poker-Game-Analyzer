@@ -61,10 +61,11 @@ pokerhero-analyzer/
 │       │   ├── upload_handler.py # handle_upload() — decode base64, call ingest_file
 │       │   └── pages/
 │       │       ├── __init__.py
-│       │       ├── home.py       # "/" — navigation hub with links to Upload, Sessions, Dashboard, Settings
+│       │       ├── home.py       # "/" — navigation hub with links to Upload, Sessions, Dashboard, Settings, Guide
 │       │       ├── upload.py     # "/upload" — drag-and-drop ingestion; hero username persisted to settings
 │       │       ├── sessions.py   # "/sessions" — session list → hand list drill-down
 │       │       ├── dashboard.py  # "/dashboard" — KPI cards, bankroll graph, positional stats table
+│       │       ├── guide.py      # "/guide" — in-app user guide: stat definitions, app walkthrough
 │       │       └── settings.py   # "/settings" — hero username, Clear DB, Export CSV
 │       └── config.py             # DB_PATH (overridable via POKERHERO_DB_PATH env var), setup_logging()
 ├── tests/
@@ -72,8 +73,8 @@ pokerhero-analyzer/
 │   ├── test_parser.py            # 150 tests across 14 classes
 │   ├── test_database.py          # 52 tests across 8 classes (incl. TestSettings)
 │   ├── test_ingestion.py         # 28 tests for pipeline, financials, re-buy detection, logging
-│   ├── test_frontend.py          # 54 tests for upload handler, multi-page app, page layouts, cards, action view math, dashboard, settings
-│   └── test_analysis.py          # 66 tests for queries and stats (vpip, pfr, win_rate, AF, wtsd, timeline, 3-bet, c-bet, EV, equity cache, date filter)
+│   ├── test_frontend.py          # 106 tests: upload handler, multi-page app, page layouts, action view math, dashboard, filters, guide, showdown
+│   └── test_analysis.py          # 68 tests for queries and stats (vpip, pfr, win_rate, AF, wtsd, timeline, 3-bet, c-bet, EV, equity cache, date filter, position/saw_flop flags)
 ├── data/
 │   └── histories/                # Raw .txt session files (git-ignored)
 └── pyproject.toml

@@ -50,6 +50,15 @@ Poker hand histories contain hundreds of edge cases. The `tests/fixtures/` direc
 
 * **Framework:** `pytest` will be the primary testing framework due to its concise syntax and powerful fixture management.
 * **Data Mocking:** `pandas.testing.assert_frame_equal` will be used extensively to verify analytical outputs match expected DataFrame structures.
+* **Current test count (404 total):**
+
+| File | Tests | Scope |
+| :--- | :--- | :--- |
+| `test_parser.py` | 150 | 14 classes — parser rules, SPR/MDF, re-buy, multi-street |
+| `test_frontend.py` | 106 | Upload handler, multi-page routing, page layouts, action view math, dashboard KPIs/highlights, filter controls, guide page, showdown section |
+| `test_analysis.py` | 68 | Queries and stats: VPIP, PFR, Win Rate, AF, WTSD, timeline, 3-bet, c-bet, EV, equity cache, date filter, position/saw_flop flags |
+| `test_database.py` | 52 | 8 classes — schema, inserts, deduplication, settings |
+| `test_ingestion.py` | 28 | Pipeline, financials, re-buy detection, logging |
 
 ## 🚨 5. Bug Fixing Policy
 When a bug is discovered (e.g., the app miscalculates EV on a specific river card):
