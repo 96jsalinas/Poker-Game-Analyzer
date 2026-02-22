@@ -78,3 +78,8 @@ pokerhero-analyzer/
 │   └── histories/                # Raw .txt session files (git-ignored)
 └── pyproject.toml
 ```
+
+## ⚠️ Known Limitations
+
+### PokerStars format only
+The parser (`hand_parser.py`) is tightly coupled to the PokerStars `.txt` hand history export format. No other poker platform's export format (e.g. GGPoker, 888poker, partypoker) is supported. Feeding a non-PokerStars file into the ingestion pipeline will result in parse errors or silently empty output. If multi-platform support is added in the future, the parser module will need to be refactored into a platform-specific adapter pattern.
