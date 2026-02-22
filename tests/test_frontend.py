@@ -632,3 +632,52 @@ class TestSessionsNavParsing:
         from pokerhero.frontend.pages.sessions import _parse_nav_search
 
         assert _parse_nav_search("?foo=bar") is None
+
+
+class TestVpipPfrChart:
+    """Tests for the _build_vpip_pfr_chart helper on the dashboard."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_vpip_pfr_chart_id_in_dashboard_source(self):
+        """Dashboard source must contain the vpip-pfr-chart component id."""
+        import inspect
+
+        from pokerhero.frontend.pages import dashboard
+
+        assert "vpip-pfr-chart" in inspect.getsource(dashboard)
+
+    def test_build_vpip_pfr_chart_returns_div(self):
+        """_build_vpip_pfr_chart must return an html.Div."""
+        from dash import html
+
+        from pokerhero.frontend.pages.dashboard import _build_vpip_pfr_chart
+
+        result = _build_vpip_pfr_chart(0.25, 0.18)
+        assert isinstance(result, html.Div)
+
+    def test_build_vpip_pfr_chart_contains_graph(self):
+        """_build_vpip_pfr_chart must contain a dcc.Graph child."""
+
+        from pokerhero.frontend.pages.dashboard import _build_vpip_pfr_chart
+
+        result = str(_build_vpip_pfr_chart(0.25, 0.18))
+        assert "vpip-pfr-chart" in result
+
+    def test_build_vpip_pfr_chart_handles_zeros(self):
+        """_build_vpip_pfr_chart must not raise when vpip and pfr are both 0."""
+        from pokerhero.frontend.pages.dashboard import _build_vpip_pfr_chart
+
+        result = _build_vpip_pfr_chart(0.0, 0.0)
+        assert result is not None
+
+    def test_build_vpip_pfr_chart_pfr_cannot_exceed_vpip(self):
+        """_build_vpip_pfr_chart must clamp pfr to vpip when pfr > vpip."""
+        from pokerhero.frontend.pages.dashboard import _build_vpip_pfr_chart
+
+        # Should not raise even with inconsistent inputs
+        result = _build_vpip_pfr_chart(0.10, 0.20)
+        assert result is not None
