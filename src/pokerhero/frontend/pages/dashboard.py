@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import dash
+import pandas as pd
 from dash import Input, Output, callback, dcc, html
 
 from pokerhero.database.db import get_connection, get_setting, upsert_player
@@ -116,6 +117,124 @@ def _kpi_card(label: str, value: str, color: str = "#333") -> html.Div:
             "minWidth": "130px",
             "textAlign": "center",
         },
+    )
+
+
+def _build_highlights(
+    hp_df: pd.DataFrame,
+    sessions_df: pd.DataFrame,
+) -> html.Div:
+    """Build the Highlights card showing four peak performance figures.
+
+    Displays biggest single-hand win, biggest single-hand loss, best session,
+    and worst session for the current period.
+
+    Args:
+        hp_df: DataFrame from get_hero_hand_players; requires net_result and
+            hole_cards columns.
+        sessions_df: DataFrame from get_sessions; requires net_profit,
+            start_time, small_blind, and big_blind columns.
+
+    Returns:
+        html.Div with id='highlights-section'.
+    """
+    if hp_df.empty or sessions_df.empty:
+        return html.Div(
+            "Not enough data for highlights.",
+            id="highlights-section",
+            style={"color": "#888", "fontSize": "13px"},
+        )
+
+    def _hl_card(label: str, value: str, sub: str, color: str) -> html.Div:
+        return html.Div(
+            [
+                html.Div(
+                    value,
+                    style={
+                        "fontSize": "22px",
+                        "fontWeight": "700",
+                        "color": color,
+                        "lineHeight": "1.2",
+                    },
+                ),
+                html.Div(
+                    sub,
+                    style={"fontSize": "11px", "color": "#999", "marginTop": "2px"},
+                ),
+                html.Div(
+                    label,
+                    style={"fontSize": "12px", "color": "#888", "marginTop": "4px"},
+                ),
+            ],
+            style={
+                "background": "#f8f9fa",
+                "border": "1px solid #e0e0e0",
+                "borderRadius": "8px",
+                "padding": "14px 18px",
+                "minWidth": "140px",
+                "textAlign": "center",
+            },
+        )
+
+    best_hand = hp_df.loc[hp_df["net_result"].idxmax()]
+    worst_hand = hp_df.loc[hp_df["net_result"].idxmin()]
+    best_sess = sessions_df.loc[sessions_df["net_profit"].idxmax()]
+    worst_sess = sessions_df.loc[sessions_df["net_profit"].idxmin()]
+
+    best_hand_pnl = float(best_hand["net_result"])
+    worst_hand_pnl = float(worst_hand["net_result"])
+    best_sess_pnl = float(best_sess["net_profit"])
+    worst_sess_pnl = float(worst_sess["net_profit"])
+
+    best_hand_cards = best_hand.get("hole_cards") or "—"
+    worst_hand_cards = worst_hand.get("hole_cards") or "—"
+    best_sess_label = (
+        f"{str(best_sess['start_time'])[:10]} · "
+        f"{best_sess['small_blind']:.0f}/{best_sess['big_blind']:.0f}"
+    )
+    worst_sess_label = (
+        f"{str(worst_sess['start_time'])[:10]} · "
+        f"{worst_sess['small_blind']:.0f}/{worst_sess['big_blind']:.0f}"
+    )
+
+    cards = [
+        _hl_card(
+            "Best Hand",
+            f"+{best_hand_pnl:,.0f}" if best_hand_pnl >= 0 else f"{best_hand_pnl:,.0f}",
+            best_hand_cards if isinstance(best_hand_cards, str) else "—",
+            "green",
+        ),
+        _hl_card(
+            "Worst Hand",
+            f"{worst_hand_pnl:,.0f}",
+            worst_hand_cards if isinstance(worst_hand_cards, str) else "—",
+            "red",
+        ),
+        _hl_card(
+            "Best Session",
+            f"+{best_sess_pnl:,.0f}" if best_sess_pnl >= 0 else f"{best_sess_pnl:,.0f}",
+            best_sess_label,
+            "green",
+        ),
+        _hl_card(
+            "Worst Session",
+            f"{worst_sess_pnl:,.0f}"
+            if worst_sess_pnl <= 0
+            else f"+{worst_sess_pnl:,.0f}",
+            worst_sess_label,
+            "red",
+        ),
+    ]
+
+    return html.Div(
+        id="highlights-section",
+        children=[
+            html.H4("Highlights", style={"marginBottom": "8px", "color": "#333"}),
+            html.Div(
+                cards,
+                style={"display": "flex", "gap": "12px", "flexWrap": "wrap"},
+            ),
+        ],
     )
 
 
@@ -331,4 +450,11 @@ def _render(pathname: str, period: str) -> html.Div | str:
         ],
     )
 
-    return html.Div([kpi_section, bankroll_section, positional_section])
+    return html.Div(
+        [
+            kpi_section,
+            bankroll_section,
+            positional_section,
+            _build_highlights(hp_df, sessions_df),
+        ]
+    )

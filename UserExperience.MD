@@ -76,8 +76,10 @@ Breakdown of how the user plays in different seats (BTN, SB, BB, etc.).
 * **Bankroll Graph**: A line chart showing cumulative profit over hands played.
 * **VPIP/PFR Gap**: 🔲 Planned gauge chart (not yet implemented).
 
-### D. Highlights 🔲 Planned
-* Biggest single-hand win/loss and best/worst session.
+### D. Highlights ✅ Implemented
+* Biggest single-hand win and loss (with hole cards shown as subtitle).
+* Best and worst session (with date and stakes shown as subtitle).
+* Displayed as a row of four cards below the positional stats table, respecting the active period filter.
 
 ### E. Time-Period Filtering ✅ Implemented
 * Radio selector: **7 days**, **1 month**, **1 year**, **All time** (default).
