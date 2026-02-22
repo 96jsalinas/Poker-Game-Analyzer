@@ -275,6 +275,18 @@ layout = html.Div(
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+def _fmt_blind(v: object) -> str:
+    """Format a blind/stake value: integer if whole, else strip trailing zeros."""
+    f = float(v)  # type: ignore[arg-type]
+    return f"{f:g}"
+
+
+def _fmt_pnl(pnl: float) -> str:
+    """Format a P&L value with leading sign; no trailing decimal zeros."""
+    sign = "+" if pnl >= 0 else ""
+    return f"{sign}{pnl:,.6g}"
+
+
 def _get_db_path() -> str:
     result: str = dash.get_app().server.config.get("DB_PATH", ":memory:")  # type: ignore[no-untyped-call]
     return result
@@ -594,7 +606,8 @@ def _filter_sessions_data(
         result = result[result["start_time"].astype(str) <= date_to]
     if stakes:
         labels = result.apply(
-            lambda r: f"{int(r['small_blind'])}/{int(r['big_blind'])}", axis=1
+            lambda r: f"{_fmt_blind(r['small_blind'])}/{_fmt_blind(r['big_blind'])}",
+            axis=1,
         )
         result = result[labels.isin(stakes)]
     if pnl_min is not None:
@@ -660,9 +673,11 @@ def _build_session_table(df: pd.DataFrame) -> Any:  # dash_table has no mypy stu
             {
                 "id": int(row["id"]),
                 "date": str(row["start_time"])[:10] if row["start_time"] else "—",
-                "stakes": f"{int(row['small_blind'])}/{int(row['big_blind'])}",
+                "stakes": (
+                    f"{_fmt_blind(row['small_blind'])}/{_fmt_blind(row['big_blind'])}"
+                ),
                 "hands": int(row["hands_played"]),
-                "net_pnl": f"{'+' if pnl >= 0 else ''}{pnl:,.0f}",
+                "net_pnl": _fmt_pnl(pnl),
                 "_pnl_raw": pnl,
             }
         )
@@ -717,8 +732,8 @@ def _build_hand_table(df: pd.DataFrame) -> Any:  # dash_table has no mypy stubs
                 "id": int(row["id"]),
                 "hand_num": str(row["source_hand_id"]),
                 "hole_cards": _format_cards_text(row["hole_cards"]),
-                "pot": f"{float(row['total_pot']):,.0f}",
-                "net_result": f"{'+' if pnl >= 0 else ''}{pnl:,.0f}",
+                "pot": f"{float(row['total_pot']):,.6g}",
+                "net_result": _fmt_pnl(pnl),
                 "_pnl_raw": pnl,
             }
         )
@@ -787,7 +802,10 @@ def _render_sessions(db_path: str) -> html.Div | str:
         return html.Div("No sessions found. Upload a hand history file to get started.")
 
     stakes_options = sorted(
-        {f"{int(r['small_blind'])}/{int(r['big_blind'])}" for _, r in df.iterrows()}
+        {
+            f"{_fmt_blind(r['small_blind'])}/{_fmt_blind(r['big_blind'])}"
+            for _, r in df.iterrows()
+        }
     )
 
     _input_style = {
@@ -888,7 +906,7 @@ def _get_session_label(db_path: str, session_id: int) -> str:
     if not row:
         return f"Session #{session_id}"
     date = str(row[0])[:10] if row[0] else "—"
-    return f"{date}  {int(row[1])}/{int(row[2])}"
+    return f"{date}  {_fmt_blind(row[1])}/{_fmt_blind(row[2])}"
 
 
 def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
