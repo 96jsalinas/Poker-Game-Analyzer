@@ -604,17 +604,15 @@ def _render_sessions(db_path: str) -> html.Div | str:
     filter_bar = html.Div(
         [
             html.Span("From", style={"fontSize": "12px", "color": "#666"}),
-            dcc.Input(
+            html.Input(  # type: ignore[attr-defined]
                 id="session-filter-date-from",
-                type="date",  # type: ignore[arg-type]
-                debounce=True,
+                type="date",
                 style=_input_style,
             ),
             html.Span("To", style={"fontSize": "12px", "color": "#666"}),
-            dcc.Input(
+            html.Input(  # type: ignore[attr-defined]
                 id="session-filter-date-to",
-                type="date",  # type: ignore[arg-type]
-                debounce=True,
+                type="date",
                 style=_input_style,
             ),
             dcc.Dropdown(
