@@ -859,3 +859,101 @@ class TestSettings:
 
         set_setting(idb, "hero_username", "jsalinas96")
         assert get_setting(idb, "other_key", default="fallback") == "fallback"
+
+
+class TestFavorites:
+    """Tests for is_favorite schema column and toggle functions."""
+
+    @pytest.fixture
+    def idb(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        conn = init_db(tmp_path / "test.db")
+        yield conn
+        conn.close()
+
+    @pytest.fixture
+    def session_id(self, idb):
+        cur = idb.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats, small_blind, big_blind,"
+            " ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 9, 100, 200, 0, '2024-01-01')"
+        )
+        idb.commit()
+        return cur.lastrowid
+
+    @pytest.fixture
+    def hand_id(self, idb, session_id):
+        cur = idb.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot,"
+            " uncalled_bet_returned, rake, timestamp)"
+            " VALUES ('H1', ?, 1000, 0, 50, '2024-01-01T00:00:00')",
+            (session_id,),
+        )
+        idb.commit()
+        return cur.lastrowid
+
+    def _columns(self, idb, table):
+        return {row[1] for row in idb.execute(f"PRAGMA table_info({table})")}
+
+    def test_sessions_has_is_favorite_column(self, idb):
+        assert "is_favorite" in self._columns(idb, "sessions")
+
+    def test_hands_has_is_favorite_column(self, idb):
+        assert "is_favorite" in self._columns(idb, "hands")
+
+    def test_is_favorite_defaults_to_zero_on_session(self, idb, session_id):
+        row = idb.execute(
+            "SELECT is_favorite FROM sessions WHERE id=?", (session_id,)
+        ).fetchone()
+        assert row[0] == 0
+
+    def test_is_favorite_defaults_to_zero_on_hand(self, idb, hand_id):
+        row = idb.execute(
+            "SELECT is_favorite FROM hands WHERE id=?", (hand_id,)
+        ).fetchone()
+        assert row[0] == 0
+
+    def test_toggle_session_favorite_marks_favorite(self, idb, session_id):
+        from pokerhero.database.db import toggle_session_favorite
+
+        toggle_session_favorite(idb, session_id)
+        idb.commit()
+        row = idb.execute(
+            "SELECT is_favorite FROM sessions WHERE id=?", (session_id,)
+        ).fetchone()
+        assert row[0] == 1
+
+    def test_toggle_session_favorite_unmarks_favorite(self, idb, session_id):
+        from pokerhero.database.db import toggle_session_favorite
+
+        idb.execute("UPDATE sessions SET is_favorite=1 WHERE id=?", (session_id,))
+        toggle_session_favorite(idb, session_id)
+        idb.commit()
+        row = idb.execute(
+            "SELECT is_favorite FROM sessions WHERE id=?", (session_id,)
+        ).fetchone()
+        assert row[0] == 0
+
+    def test_toggle_hand_favorite_marks_favorite(self, idb, hand_id):
+        from pokerhero.database.db import toggle_hand_favorite
+
+        toggle_hand_favorite(idb, hand_id)
+        idb.commit()
+        row = idb.execute(
+            "SELECT is_favorite FROM hands WHERE id=?", (hand_id,)
+        ).fetchone()
+        assert row[0] == 1
+
+    def test_toggle_hand_favorite_unmarks_favorite(self, idb, hand_id):
+        from pokerhero.database.db import toggle_hand_favorite
+
+        idb.execute("UPDATE hands SET is_favorite=1 WHERE id=?", (hand_id,))
+        toggle_hand_favorite(idb, hand_id)
+        idb.commit()
+        row = idb.execute(
+            "SELECT is_favorite FROM hands WHERE id=?", (hand_id,)
+        ).fetchone()
+        assert row[0] == 0
