@@ -358,6 +358,68 @@ class TestHeroRowHighlighting:
         assert _action_row_style(True) != _action_row_style(False)
 
 
+class TestMathCell:
+    """Tests for the _format_math_cell helper in the action view."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_empty_string_for_non_hero_no_spr(self):
+        """Non-hero action with no SPR and no MDF → empty string."""
+        from pokerhero.frontend.pages.sessions import _format_math_cell
+
+        assert _format_math_cell(None, None, False, 0.0, 100.0) == ""
+
+    def test_spr_shown_on_flop_action(self):
+        """SPR value present → 'SPR: X.XX' appears in result."""
+        from pokerhero.frontend.pages.sessions import _format_math_cell
+
+        result = _format_math_cell(3.5, None, False, 0.0, 100.0)
+        assert "SPR: 3.50" in result
+
+    def test_pot_odds_shown_for_hero_facing_bet(self):
+        """Hero facing a bet → 'Pot odds: X.X%' appears in result.
+
+        amount_to_call=50, pot_before=100 → 50/150 = 33.3%
+        """
+        from pokerhero.frontend.pages.sessions import _format_math_cell
+
+        result = _format_math_cell(None, None, True, 50.0, 100.0)
+        assert "Pot odds: 33.3%" in result
+
+    def test_mdf_shown_alongside_pot_odds(self):
+        """Hero facing bet with mdf set → both Pot Odds and MDF in result."""
+        from pokerhero.frontend.pages.sessions import _format_math_cell
+
+        result = _format_math_cell(None, 0.667, True, 50.0, 100.0)
+        assert "Pot odds:" in result
+        assert "MDF:" in result
+
+    def test_mdf_formats_as_percentage(self):
+        """mdf=0.5 → 'MDF: 50.0%' in result."""
+        from pokerhero.frontend.pages.sessions import _format_math_cell
+
+        result = _format_math_cell(None, 0.5, True, 50.0, 100.0)
+        assert "MDF: 50.0%" in result
+
+    def test_mdf_not_shown_when_none(self):
+        """mdf=None → 'MDF' must not appear in result."""
+        from pokerhero.frontend.pages.sessions import _format_math_cell
+
+        result = _format_math_cell(None, None, True, 50.0, 100.0)
+        assert "MDF" not in result
+
+    def test_spr_prepended_before_pot_odds_and_mdf(self):
+        """When all three are present, SPR appears before Pot Odds and MDF."""
+        from pokerhero.frontend.pages.sessions import _format_math_cell
+
+        result = _format_math_cell(2.5, 0.667, True, 50.0, 100.0)
+        assert result.index("SPR") < result.index("Pot odds")
+        assert result.index("Pot odds") < result.index("MDF")
+
+
 class TestSettingsPageLayout:
     def test_settings_page_registered(self):
         """Settings page must be registered at path '/settings'."""
