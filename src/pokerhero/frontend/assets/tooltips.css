@@ -42,3 +42,9 @@
 .stat-help:hover .stat-tip {
     display: block;
 }
+
+/* Row hover highlight for DataTable (session and hand tables) */
+.dash-spreadsheet-container .dash-spreadsheet tr:hover td.dash-cell {
+    background-color: #e8f4fd !important;
+    cursor: pointer;
+}
