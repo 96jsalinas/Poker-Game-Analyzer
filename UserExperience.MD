@@ -11,6 +11,7 @@ The entry point of the application (`/`). Currently a simple hub page.
 * **[2] Review Sessions** (`/sessions`): Historical log of all processed games. ✅ Implemented.
 * **[3] Overall Stats** (`/dashboard`): The "Hero Dashboard." ✅ Implemented.
 * **[4] Settings** (`/settings`): User and App configuration. ✅ Implemented.
+* **[5] User Guide** (`/guide`): In-app guide covering all screens and stat definitions. ✅ Implemented.
 
 ---
 
