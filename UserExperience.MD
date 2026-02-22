@@ -51,7 +51,7 @@ A detailed list of every hand dealt in that session.
 A chronological breakdown of the specific hand.
 * **Header**: Hand # and board cards (Flop | Turn | River).
 * **Body**: Actions grouped by street (colour-coded headers), showing player username, position (e.g. `jsalinas96 (BTN)`), action type, amount, and pot size.
-* **Math Column**: SPR shown on the first Flop action; Pot Odds % shown for every decision point Hero faces.
+* **Math Column**: SPR shown on the first Flop action; Pot Odds % and MDF % shown for every decision point Hero faces.
 
 ---
 

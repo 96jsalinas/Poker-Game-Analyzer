@@ -54,7 +54,7 @@ pokerhero-analyzer/
 │       │   ├── queries.py        # get_sessions, get_hands, get_actions, get_hero_hand_players,
 │       │   │                     # get_hero_timeline, get_hero_actions, get_export_data → DataFrames
 │       │   └── stats.py          # vpip_pct, pfr_pct, win_rate_bb100, aggression_factor, wtsd_pct,
-│       │                         # total_profit, three_bet_pct, cbet_pct, compute_ev
+│       │                         # total_profit, three_bet_pct, cbet_pct, compute_equity, compute_ev
 │       ├── frontend/             # ✅ Implemented (multi-page Dash app)
 │       │   ├── __init__.py
 │       │   ├── app.py            # create_app() — use_pages=True shell, exposes DB_PATH via Flask config
@@ -72,8 +72,8 @@ pokerhero-analyzer/
 │   ├── test_parser.py            # 150 tests across 14 classes
 │   ├── test_database.py          # 52 tests across 8 classes (incl. TestSettings)
 │   ├── test_ingestion.py         # 28 tests for pipeline, financials, re-buy detection, logging
-│   ├── test_frontend.py          # 47 tests for upload handler, multi-page app, page layouts, cards, dashboard, settings
-│   └── test_analysis.py          # 55 tests for queries and stats (vpip, pfr, win_rate, AF, wtsd, timeline, 3-bet, c-bet, EV)
+│   ├── test_frontend.py          # 54 tests for upload handler, multi-page app, page layouts, cards, action view math, dashboard, settings
+│   └── test_analysis.py          # 66 tests for queries and stats (vpip, pfr, win_rate, AF, wtsd, timeline, 3-bet, c-bet, EV, equity cache, date filter)
 ├── data/
 │   └── histories/                # Raw .txt session files (git-ignored)
 └── pyproject.toml
