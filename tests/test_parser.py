@@ -126,6 +126,13 @@ def cash_hero_bb_3bets() -> ParsedHand:
     return HandParser(hero_username=HERO).parse(text)
 
 
+@pytest.fixture
+def cash_eur_blinds() -> ParsedHand:
+    """cash_eur_blinds — real-money EUR cash game with €0.02/€0.05 EUR blinds."""
+    text = (FIXTURES_DIR / "cash_eur_blinds.txt").read_text()
+    return HandParser(hero_username=HERO).parse(text)
+
+
 # ---------------------------------------------------------------------------
 # Helper
 # ---------------------------------------------------------------------------
@@ -1231,3 +1238,37 @@ class TestSPRBBRaises:
 
     def test_hero_vpip_true_bb_3bets(self, cash_hero_bb_3bets: ParsedHand) -> None:
         assert hero_player(cash_hero_bb_3bets).vpip is True
+
+
+# ===========================================================================
+# TestEuroBlinds
+# ===========================================================================
+
+
+class TestEuroBlinds:
+    """EUR cash game hand: €0.02/€0.05 EUR blind format with CET timezone."""
+
+    def test_small_blind_eur(self, cash_eur_blinds: ParsedHand) -> None:
+        assert cash_eur_blinds.session.small_blind == Decimal("0.02")
+
+    def test_big_blind_eur(self, cash_eur_blinds: ParsedHand) -> None:
+        assert cash_eur_blinds.session.big_blind == Decimal("0.05")
+
+    def test_is_not_tournament(self, cash_eur_blinds: ParsedHand) -> None:
+        assert cash_eur_blinds.session.is_tournament is False
+
+    def test_hand_id_parsed(self, cash_eur_blinds: ParsedHand) -> None:
+        assert cash_eur_blinds.hand.hand_id == "259829187603"
+
+    def test_timestamp_uses_local_time(self, cash_eur_blinds: ParsedHand) -> None:
+        """Regex captures the local (CET) time, not the ET bracket."""
+        ts = cash_eur_blinds.hand.timestamp
+        assert ts.year == 2026
+        assert ts.month == 2
+        assert ts.day == 22
+        assert ts.hour == 18
+        assert ts.minute == 30
+
+    def test_hero_net_result_eur(self, cash_eur_blinds: ParsedHand) -> None:
+        """Hero posts SB 0.02 then folds; net = -0.02."""
+        assert hero_player(cash_eur_blinds).net_result == Decimal("-0.02")
