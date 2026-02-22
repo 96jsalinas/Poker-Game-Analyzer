@@ -987,6 +987,181 @@ class TestFavoriteButton:
         assert len(result) == 3
 
 
+class TestFormatCardsText:
+    """Tests for the _format_cards_text plain-text card formatter."""
+
+    def test_none_returns_dash(self):
+        """None input returns an em-dash placeholder."""
+        from pokerhero.frontend.pages.sessions import _format_cards_text
+
+        assert _format_cards_text(None) == "—"
+
+    def test_empty_string_returns_dash(self):
+        """Empty string returns an em-dash placeholder."""
+        from pokerhero.frontend.pages.sessions import _format_cards_text
+
+        assert _format_cards_text("") == "—"
+
+    def test_single_card_converted(self):
+        """A single card code is converted to rank + suit symbol."""
+        from pokerhero.frontend.pages.sessions import _format_cards_text
+
+        assert _format_cards_text("As") == "A♠"
+
+    def test_two_card_hole_hand(self):
+        """A typical two-card hole hand is formatted with suit symbols."""
+        from pokerhero.frontend.pages.sessions import _format_cards_text
+
+        assert _format_cards_text("As Kh") == "A♠ K♥"
+
+    def test_suit_mapping_all_suits(self):
+        """All four suit codes are mapped to the correct symbols."""
+        from pokerhero.frontend.pages.sessions import _format_cards_text
+
+        assert _format_cards_text("2h 3d 4c 5s") == "2♥ 3♦ 4♣ 5♠"
+
+
+class TestSessionDataTable:
+    """Tests for _build_session_table returning a dash_table.DataTable."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def _make_df(self):
+        import pandas as pd
+
+        return pd.DataFrame(
+            {
+                "id": [1, 2],
+                "start_time": ["2026-01-10", "2026-02-05"],
+                "small_blind": [50, 100],
+                "big_blind": [100, 200],
+                "hands_played": [20, 40],
+                "net_profit": [500.0, -200.0],
+                "is_favorite": [0, 0],
+            }
+        )
+
+    def test_returns_datatable(self):
+        """_build_session_table returns a DataTable component."""
+        from dash import dash_table
+
+        from pokerhero.frontend.pages.sessions import _build_session_table
+
+        result = _build_session_table(self._make_df())
+        assert isinstance(result, dash_table.DataTable)
+
+    def test_has_correct_id(self):
+        """DataTable has id 'session-table'."""
+        from pokerhero.frontend.pages.sessions import _build_session_table
+
+        result = _build_session_table(self._make_df())
+        assert result.id == "session-table"
+
+    def test_has_sort_action_native(self):
+        """DataTable has sort_action='native' for client-side sorting."""
+        from pokerhero.frontend.pages.sessions import _build_session_table
+
+        result = _build_session_table(self._make_df())
+        assert result.sort_action == "native"
+
+    def test_column_names(self):
+        """DataTable columns are Date, Stakes, Hands, Net P&L."""
+        from pokerhero.frontend.pages.sessions import _build_session_table
+
+        result = _build_session_table(self._make_df())
+        col_names = [c["name"] for c in result.columns]
+        assert col_names == ["Date", "Stakes", "Hands", "Net P&L"]
+
+    def test_data_has_id_field(self):
+        """Each data row contains an 'id' key for navigation lookups."""
+        from pokerhero.frontend.pages.sessions import _build_session_table
+
+        result = _build_session_table(self._make_df())
+        assert all("id" in row for row in result.data)
+
+    def test_data_row_count(self):
+        """DataTable data has one row per session in the DataFrame."""
+        from pokerhero.frontend.pages.sessions import _build_session_table
+
+        result = _build_session_table(self._make_df())
+        assert len(result.data) == 2
+
+
+class TestHandDataTable:
+    """Tests for _build_hand_table returning a dash_table.DataTable."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def _make_df(self):
+        import pandas as pd
+
+        return pd.DataFrame(
+            {
+                "id": [1, 2],
+                "source_hand_id": ["H1", "H2"],
+                "hole_cards": ["As Kh", "Qd Jc"],
+                "total_pot": [300.0, 150.0],
+                "net_result": [200.0, -100.0],
+                "position": ["BTN", "SB"],
+                "went_to_showdown": [1, 0],
+                "saw_flop": [1, 0],
+                "is_favorite": [0, 0],
+            }
+        )
+
+    def test_returns_datatable(self):
+        """_build_hand_table returns a DataTable component."""
+        from dash import dash_table
+
+        from pokerhero.frontend.pages.sessions import _build_hand_table
+
+        result = _build_hand_table(self._make_df())
+        assert isinstance(result, dash_table.DataTable)
+
+    def test_has_correct_id(self):
+        """DataTable has id 'hand-table'."""
+        from pokerhero.frontend.pages.sessions import _build_hand_table
+
+        result = _build_hand_table(self._make_df())
+        assert result.id == "hand-table"
+
+    def test_has_sort_action_native(self):
+        """DataTable has sort_action='native' for client-side sorting."""
+        from pokerhero.frontend.pages.sessions import _build_hand_table
+
+        result = _build_hand_table(self._make_df())
+        assert result.sort_action == "native"
+
+    def test_column_names(self):
+        """DataTable columns are Hand #, Hole Cards, Pot, Net Result."""
+        from pokerhero.frontend.pages.sessions import _build_hand_table
+
+        result = _build_hand_table(self._make_df())
+        col_names = [c["name"] for c in result.columns]
+        assert col_names == ["Hand #", "Hole Cards", "Pot", "Net Result"]
+
+    def test_hole_cards_uses_suit_symbols(self):
+        """Hole cards are formatted with suit symbols, not raw codes."""
+        from pokerhero.frontend.pages.sessions import _build_hand_table
+
+        result = _build_hand_table(self._make_df())
+        hole_col_id = next(c["id"] for c in result.columns if c["name"] == "Hole Cards")
+        assert result.data[0][hole_col_id] == "A♠ K♥"
+
+    def test_data_has_id_field(self):
+        """Each data row contains an 'id' key for navigation lookups."""
+        from pokerhero.frontend.pages.sessions import _build_hand_table
+
+        result = _build_hand_table(self._make_df())
+        assert all("id" in row for row in result.data)
+
+
 class TestGuidePage:
     """Tests for the /guide page layout."""
 
