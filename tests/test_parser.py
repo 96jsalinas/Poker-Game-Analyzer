@@ -1272,3 +1272,18 @@ class TestEuroBlinds:
     def test_hero_net_result_eur(self, cash_eur_blinds: ParsedHand) -> None:
         """Hero posts SB 0.02 then folds; net = -0.02."""
         assert hero_player(cash_eur_blinds).net_result == Decimal("-0.02")
+
+    def test_hero_starting_stack_eur(self, cash_eur_blinds: ParsedHand) -> None:
+        """Starting stack parsed from '(€5 in chips)' seat line."""
+        assert hero_player(cash_eur_blinds).starting_stack == Decimal("5")
+
+    def test_villain_collected_eur(self, cash_eur_blinds: ParsedHand) -> None:
+        """Villain net: collected €0.07 from summary, uncalled €0.10 returned."""
+        villain4 = next(p for p in cash_eur_blinds.players if p.username == "villain4")
+        assert villain4.net_result == Decimal("0.02")
+
+    def test_hero_vpip_false_eur(self, cash_eur_blinds: ParsedHand) -> None:
+        assert hero_player(cash_eur_blinds).vpip is False
+
+    def test_hero_pfr_false_eur(self, cash_eur_blinds: ParsedHand) -> None:
+        assert hero_player(cash_eur_blinds).pfr is False
