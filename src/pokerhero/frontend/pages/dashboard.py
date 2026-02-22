@@ -60,6 +60,24 @@ layout = html.Div(
 
 
 # ---------------------------------------------------------------------------
+# Shared style constants
+# ---------------------------------------------------------------------------
+_TH: dict[str, str] = {
+    "background": "#0074D9",
+    "color": "#fff",
+    "padding": "8px 12px",
+    "textAlign": "left",
+    "fontWeight": "600",
+    "fontSize": "13px",
+}
+_TD: dict[str, str] = {
+    "padding": "8px 12px",
+    "borderBottom": "1px solid #eee",
+    "fontSize": "13px",
+}
+
+
+# ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
 def _get_db_path() -> str:
@@ -90,6 +108,52 @@ def _period_to_since_date(period: str) -> str | None:
     if period == "1y":
         return (today - timedelta(days=365)).isoformat()
     return None  # "all"
+
+
+_STAT_TOOLTIPS: dict[str, str] = {
+    "VPIP%": (
+        "Voluntarily Put In Pot — % of hands where hero called or raised "
+        "pre-flop. Excludes posting blinds."
+    ),
+    "PFR%": ("Pre-Flop Raise — % of all hands where hero raised or 3-bet pre-flop."),
+    "3-Bet%": (
+        "3-Bet % — % of opportunities where hero re-raised a pre-flop opener. "
+        "Only counts hands where a raise had already been made before hero's action."
+    ),
+    "C-Bet%": (
+        "Continuation Bet % — % of flops where hero bet after being the last "
+        "pre-flop aggressor."
+    ),
+    "AF": (
+        "Aggression Factor — (Bets + Raises) ÷ Calls, post-flop streets only. "
+        "Higher = more aggressive. ∞ means hero never called post-flop."
+    ),
+}
+
+
+def _stat_header(label: str, tooltip: str) -> html.Th:
+    """Return a table header cell with a hoverable ⓘ tooltip.
+
+    The tooltip is rendered via the CSS class 'stat-help' defined in
+    assets/tooltips.css, using a CSS content: attr(data-tip) pattern.
+
+    Args:
+        label: Column header text.
+        tooltip: Explanatory text shown on hover.
+
+    Returns:
+        html.Th with the label and a small '?' badge that reveals the tooltip.
+    """
+    return html.Th(
+        [
+            label,
+            html.Span(
+                ["?", html.Span(tooltip, className="stat-tip")],
+                className="stat-help",
+            ),
+        ],
+        style=_TH,
+    )
 
 
 def _kpi_card(label: str, value: str, color: str = "#333") -> html.Div:
@@ -485,20 +549,6 @@ def _render(pathname: str, period: str) -> html.Div | str:
     )
 
     # --- Positional stats table ---
-    _TH = {
-        "background": "#0074D9",
-        "color": "#fff",
-        "padding": "8px 12px",
-        "textAlign": "left",
-        "fontWeight": "600",
-        "fontSize": "13px",
-    }
-    _TD = {
-        "padding": "8px 12px",
-        "borderBottom": "1px solid #eee",
-        "fontSize": "13px",
-    }
-
     position_order = ["BTN", "CO", "MP", "MP+1", "UTG", "UTG+1", "SB", "BB"]
     pos_rows: list[html.Tr] = []
 
@@ -547,17 +597,14 @@ def _render(pathname: str, period: str) -> html.Div | str:
                     html.Thead(
                         html.Tr(
                             [
-                                html.Th(h, style=_TH)
-                                for h in (
-                                    "Position",
-                                    "Hands",
-                                    "VPIP%",
-                                    "PFR%",
-                                    "3-Bet%",
-                                    "C-Bet%",
-                                    "AF",
-                                    "Net P&L",
-                                )
+                                html.Th("Position", style=_TH),
+                                html.Th("Hands", style=_TH),
+                                _stat_header("VPIP%", _STAT_TOOLTIPS["VPIP%"]),
+                                _stat_header("PFR%", _STAT_TOOLTIPS["PFR%"]),
+                                _stat_header("3-Bet%", _STAT_TOOLTIPS["3-Bet%"]),
+                                _stat_header("C-Bet%", _STAT_TOOLTIPS["C-Bet%"]),
+                                _stat_header("AF", _STAT_TOOLTIPS["AF"]),
+                                html.Th("Net P&L", style=_TH),
                             ]
                         )
                     ),

@@ -72,6 +72,8 @@ Breakdown of how the user plays in different seats (BTN, SB, BB, etc.).
 | Button | 45 | 25% | 22% | 8% | 60% | 2.50 | +$150 |
 | ... | ... | ... | ... | ... | ... | ... | ... |
 
+* **Formula Tooltips**: ✅ Implemented — VPIP%, PFR%, 3-Bet%, C-Bet%, and AF column headers each show a hoverable `?` badge that displays the formula and definition. Built via `_stat_header(label, tooltip)` in `dashboard.py`; styles in `assets/tooltips.css`.
+
 ### C. Visualizations ✅
 * **Bankroll Graph**: A line chart showing cumulative profit over hands played.
 * **VPIP/PFR Gap**: ✅ Implemented — stacked horizontal bar (PFR% green | Call/Limp% steel blue | Fold% gray). Placed between the bankroll graph and positional stats table. Built by `_build_vpip_pfr_chart(vpip, pfr)` in `dashboard.py`.

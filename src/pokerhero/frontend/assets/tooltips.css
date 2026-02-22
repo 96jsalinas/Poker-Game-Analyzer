@@ -1,0 +1,44 @@
+/* Tooltip for stats table column headers */
+
+.stat-help {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 1;
+    cursor: help;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+.stat-tip {
+    display: none;
+    position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: normal;
+    white-space: normal;
+    width: 220px;
+    line-height: 1.5;
+    z-index: 200;
+    pointer-events: none;
+    text-align: left;
+}
+
+.stat-help:hover .stat-tip {
+    display: block;
+}
