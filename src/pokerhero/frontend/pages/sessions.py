@@ -357,6 +357,11 @@ def _parse_nav_search(search: str) -> _DrillDownState | None:
 # Renderer — reacts to state + page navigation
 # ---------------------------------------------------------------------------
 @callback(
+    Output("drill-down-content", "children"),
+    Output("breadcrumb", "children"),
+    Input("drill-down-state", "data"),
+    Input("_pages_location", "pathname"),
+    State("_pages_location", "search"),
     prevent_initial_call=False,
 )
 def _render(
