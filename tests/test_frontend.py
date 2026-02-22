@@ -1341,3 +1341,71 @@ class TestShowdownSection:
         )
         text = str(result)
         assert "alice" in text and "bob" in text
+
+
+# ===========================================================================
+# TestFmtBlind / TestFmtPnl
+# ===========================================================================
+
+
+class TestFmtBlind:
+    """_fmt_blind formats blind/stake amounts without truncating decimals."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_integer_blind_no_decimal(self):
+        from pokerhero.frontend.pages.sessions import _fmt_blind
+
+        assert _fmt_blind(100) == "100"
+
+    def test_decimal_blind_preserves_cents(self):
+        from pokerhero.frontend.pages.sessions import _fmt_blind
+
+        assert _fmt_blind(0.02) == "0.02"
+
+    def test_decimal_bb_preserves_cents(self):
+        from pokerhero.frontend.pages.sessions import _fmt_blind
+
+        assert _fmt_blind(0.05) == "0.05"
+
+    def test_whole_float_no_trailing_dot(self):
+        from pokerhero.frontend.pages.sessions import _fmt_blind
+
+        assert _fmt_blind(200.0) == "200"
+
+
+class TestFmtPnl:
+    """_fmt_pnl formats P&L values with sign and correct decimal places."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_positive_integer_shows_plus(self):
+        from pokerhero.frontend.pages.sessions import _fmt_pnl
+
+        assert _fmt_pnl(1500.0) == "+1,500"
+
+    def test_negative_integer_shows_minus(self):
+        from pokerhero.frontend.pages.sessions import _fmt_pnl
+
+        assert _fmt_pnl(-200.0) == "-200"
+
+    def test_positive_decimal_preserves_cents(self):
+        from pokerhero.frontend.pages.sessions import _fmt_pnl
+
+        assert _fmt_pnl(0.08) == "+0.08"
+
+    def test_negative_decimal_preserves_cents(self):
+        from pokerhero.frontend.pages.sessions import _fmt_pnl
+
+        assert _fmt_pnl(-0.02) == "-0.02"
+
+    def test_zero_shows_plus_zero(self):
+        from pokerhero.frontend.pages.sessions import _fmt_pnl
+
+        assert _fmt_pnl(0.0) == "+0"
