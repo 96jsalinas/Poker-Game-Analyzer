@@ -79,6 +79,28 @@ pokerhero-analyzer/
 └── pyproject.toml
 ```
 
+## ⚠️ Dash Component Gotchas
+
+Recurring pitfalls specific to the Dash/Plotly frontend layer.
+
+### `dcc.Input` type allow-list
+`dcc.Input` only accepts these values for the `type` prop: `"text"`, `"number"`, `"password"`, `"email"`, `"range"`, `"search"`, `"tel"`, `"url"`, `"hidden"`. It does **not** support `"date"`. For date entry fields, use `dcc.Input(type="text")` with a `YYYY-MM-DD` placeholder and compare values as strings in the callback.
+
+### `dash.html` has no `Input` component
+The `dash.html` namespace mirrors common HTML block/container elements but does **not** expose `<input>`. Attempting `html.Input(...)` raises `AttributeError: module 'dash.html' has no attribute 'Input'` at runtime. Use `dcc.Input` for all interactive input fields.
+
+### Pattern-matching callbacks fire on component mount (`n_clicks=0`)
+When a callback re-renders a container that holds pattern-matching components (e.g. `{"type": "session-row"}`), Dash fires every matching callback for each newly-mounted component with `n_clicks=0`. This causes phantom navigation or side-effects. Always guard the top of pattern-matching `n_clicks` callbacks with:
+```python
+if not ctx.triggered[0].get("value"):
+    raise dash.exceptions.PreventUpdate
+```
+
+### CSS `data-*` attributes are not type-safe on Dash components
+Passing `**{"data-tip": tooltip}` as a keyword argument to `html.Span()` is rejected by mypy (incompatible type for positional arg). Use a nested child `html.Span(["?", html.Span(tooltip, className="stat-tip")])` with a CSS `:hover` rule to reveal the inner span instead.
+
+---
+
 ## ⚠️ Known Limitations
 
 ### PokerStars format only
