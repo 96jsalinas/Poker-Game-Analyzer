@@ -608,6 +608,49 @@ class TestEV:
 
 
 # ---------------------------------------------------------------------------
+# TestComputeEquity — lru_cache wrapper around PokerKit equity calculation
+# ---------------------------------------------------------------------------
+class TestComputeEquity:
+    def setup_method(self):
+        """Clear the equity cache before each test for isolation."""
+        from pokerhero.analysis.stats import compute_equity
+
+        compute_equity.cache_clear()
+
+    def test_complete_board_winner_equity_is_one(self):
+        """Hero royal flush vs trash on complete 5-card board → equity ≈ 1.0."""
+        from pokerhero.analysis.stats import compute_equity
+
+        equity = compute_equity("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 5000)
+        assert equity == pytest.approx(1.0, abs=0.01)
+
+    def test_complete_board_loser_equity_is_zero(self):
+        """Hero trash vs royal flush on complete 5-card board → equity ≈ 0.0."""
+        from pokerhero.analysis.stats import compute_equity
+
+        equity = compute_equity("2c 3d", "Ah Kh", "Qh Jh Th 9d 2s", 5000)
+        assert equity == pytest.approx(0.0, abs=0.01)
+
+    def test_partial_board_equity_in_unit_interval(self):
+        """Non-trivial flop: equity must be strictly between 0 and 1."""
+        from pokerhero.analysis.stats import compute_equity
+
+        # Hero: Ah Kh (royal flush draw), Villain: 2c 2d (set of 2s), Board: Qh Jh 2s
+        equity = compute_equity("Ah Kh", "2c 2d", "Qh Jh 2s", 200)
+        assert 0.0 < equity < 1.0
+
+    def test_result_is_cached(self):
+        """Second call with identical args must be a cache hit, not a recompute."""
+        from pokerhero.analysis.stats import compute_equity
+
+        equity1 = compute_equity("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 5000)
+        hits_before = compute_equity.cache_info().hits
+        equity2 = compute_equity("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 5000)
+        assert compute_equity.cache_info().hits == hits_before + 1
+        assert equity1 == equity2
+
+
+# ---------------------------------------------------------------------------
 # TestDateFilter — since_date parameter on query functions
 # ---------------------------------------------------------------------------
 class TestDateFilter:
