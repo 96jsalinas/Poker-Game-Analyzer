@@ -728,3 +728,156 @@ class TestStatHeader:
         from pokerhero.frontend.pages import dashboard
 
         assert "stat-help" in inspect.getsource(dashboard)
+
+
+class TestSessionFilters:
+    """Tests for the _filter_sessions_data pure helper."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def _make_df(self):
+        import pandas as pd
+
+        return pd.DataFrame(
+            {
+                "id": [1, 2, 3],
+                "start_time": ["2026-01-10", "2026-01-20", "2026-02-05"],
+                "small_blind": [50, 100, 100],
+                "big_blind": [100, 200, 200],
+                "hands_played": [20, 5, 40],
+                "net_profit": [500.0, -200.0, 1000.0],
+            }
+        )
+
+    def test_no_filters_returns_all(self):
+        """With no filter values all rows are returned."""
+        from pokerhero.frontend.pages.sessions import _filter_sessions_data
+
+        result = _filter_sessions_data(
+            self._make_df(), None, None, None, None, None, None
+        )
+        assert len(result) == 3
+
+    def test_filter_by_date_from(self):
+        """Only sessions on or after date_from are returned."""
+        from pokerhero.frontend.pages.sessions import _filter_sessions_data
+
+        result = _filter_sessions_data(
+            self._make_df(), "2026-01-15", None, None, None, None, None
+        )
+        assert len(result) == 2
+
+    def test_filter_by_date_to(self):
+        """Only sessions on or before date_to are returned."""
+        from pokerhero.frontend.pages.sessions import _filter_sessions_data
+
+        result = _filter_sessions_data(
+            self._make_df(), None, "2026-01-25", None, None, None, None
+        )
+        assert len(result) == 2
+
+    def test_filter_by_stakes(self):
+        """Only sessions matching selected stakes label are returned."""
+        from pokerhero.frontend.pages.sessions import _filter_sessions_data
+
+        result = _filter_sessions_data(
+            self._make_df(), None, None, ["50/100"], None, None, None
+        )
+        assert len(result) == 1
+
+    def test_filter_by_pnl_min(self):
+        """Only sessions with net_profit >= pnl_min are returned."""
+        from pokerhero.frontend.pages.sessions import _filter_sessions_data
+
+        result = _filter_sessions_data(self._make_df(), None, None, None, 0, None, None)
+        assert len(result) == 2
+
+    def test_filter_by_pnl_max(self):
+        """Only sessions with net_profit <= pnl_max are returned."""
+        from pokerhero.frontend.pages.sessions import _filter_sessions_data
+
+        result = _filter_sessions_data(
+            self._make_df(), None, None, None, None, 500, None
+        )
+        assert len(result) == 2
+
+    def test_filter_by_min_hands(self):
+        """Only sessions with hands_played >= min_hands are returned."""
+        from pokerhero.frontend.pages.sessions import _filter_sessions_data
+
+        result = _filter_sessions_data(
+            self._make_df(), None, None, None, None, None, 10
+        )
+        assert len(result) == 2
+
+
+class TestHandFilters:
+    """Tests for the _filter_hands_data pure helper."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def _make_df(self):
+        import pandas as pd
+
+        return pd.DataFrame(
+            {
+                "id": [1, 2, 3, 4],
+                "source_hand_id": ["H1", "H2", "H3", "H4"],
+                "hole_cards": ["As Kh", "Qd Jc", None, "7s 2d"],
+                "total_pot": [300.0, 150.0, 500.0, 80.0],
+                "net_result": [200.0, -100.0, 400.0, -50.0],
+                "position": ["BTN", "SB", "BB", "CO"],
+                "went_to_showdown": [1, 0, 1, 0],
+                "saw_flop": [1, 0, 1, 1],
+            }
+        )
+
+    def test_no_filters_returns_all(self):
+        """With no filter values all rows are returned."""
+        from pokerhero.frontend.pages.sessions import _filter_hands_data
+
+        result = _filter_hands_data(self._make_df(), None, None, None, False, False)
+        assert len(result) == 4
+
+    def test_filter_by_pnl_min(self):
+        """Only hands with net_result >= pnl_min are returned."""
+        from pokerhero.frontend.pages.sessions import _filter_hands_data
+
+        result = _filter_hands_data(self._make_df(), 0, None, None, False, False)
+        assert len(result) == 2
+
+    def test_filter_by_pnl_max(self):
+        """Only hands with net_result <= pnl_max are returned."""
+        from pokerhero.frontend.pages.sessions import _filter_hands_data
+
+        result = _filter_hands_data(self._make_df(), None, 0, None, False, False)
+        assert len(result) == 2
+
+    def test_filter_by_position(self):
+        """Only hands at the selected positions are returned."""
+        from pokerhero.frontend.pages.sessions import _filter_hands_data
+
+        result = _filter_hands_data(
+            self._make_df(), None, None, ["BTN", "CO"], False, False
+        )
+        assert len(result) == 2
+
+    def test_filter_saw_flop_only(self):
+        """Only hands where hero saw the flop are returned."""
+        from pokerhero.frontend.pages.sessions import _filter_hands_data
+
+        result = _filter_hands_data(self._make_df(), None, None, None, True, False)
+        assert len(result) == 3
+
+    def test_filter_showdown_only(self):
+        """Only hands that went to showdown are returned."""
+        from pokerhero.frontend.pages.sessions import _filter_hands_data
+
+        result = _filter_hands_data(self._make_df(), None, None, None, False, True)
+        assert len(result) == 2
