@@ -169,6 +169,15 @@ class TestQueries:
         df = get_hero_hand_players(db_with_data, hero_player_id)
         assert df["saw_flop"].sum() == 1
 
+    def test_get_hero_hand_players_includes_session_id(
+        self, db_with_data, hero_player_id
+    ):
+        """get_hero_hand_players must include a session_id column for nav links."""
+        from pokerhero.analysis.queries import get_hero_hand_players
+
+        df = get_hero_hand_players(db_with_data, hero_player_id)
+        assert "session_id" in df.columns
+
 
 # ---------------------------------------------------------------------------
 # TestStats — pure unit tests using hand-crafted DataFrames

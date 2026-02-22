@@ -476,6 +476,7 @@ class TestDashboardHighlights:
                 "net_result": [500.0, -200.0, 100.0],
                 "hole_cards": ["As Kd", "Qh Jh", None],
                 "hand_id": [1, 2, 3],
+                "session_id": [10, 20, 10],
             }
         )
 
@@ -484,6 +485,7 @@ class TestDashboardHighlights:
 
         return pd.DataFrame(
             {
+                "id": [10, 20],
                 "net_profit": [800.0, -300.0],
                 "start_time": ["2026-01-01", "2026-01-02"],
                 "small_blind": [100.0, 100.0],
@@ -560,3 +562,73 @@ class TestDashboardHighlights:
 
         result = str(_build_highlights(self._make_hp_df(), self._make_sessions_df()))
         assert "red" in result
+
+    def test_best_session_card_links_to_sessions_page(self):
+        """Best session card must be a link to /sessions with session_id param."""
+        from pokerhero.frontend.pages.dashboard import _build_highlights
+
+        result = str(_build_highlights(self._make_hp_df(), self._make_sessions_df()))
+        assert "/sessions?session_id=10" in result  # session id=10 has net_profit=800
+
+    def test_worst_session_card_links_to_sessions_page(self):
+        """Worst session card must be a link to /sessions with session_id param."""
+        from pokerhero.frontend.pages.dashboard import _build_highlights
+
+        result = str(_build_highlights(self._make_hp_df(), self._make_sessions_df()))
+        assert "/sessions?session_id=20" in result  # session id=20 has net_profit=-300
+
+    def test_best_hand_card_links_with_hand_and_session_id(self):
+        """Best hand card must link to /sessions with both hand_id and session_id."""
+        from pokerhero.frontend.pages.dashboard import _build_highlights
+
+        result = str(_build_highlights(self._make_hp_df(), self._make_sessions_df()))
+        assert "hand_id=1" in result  # hand_id=1 has net_result=500
+        assert "session_id=10" in result  # session_id of that hand
+
+    def test_worst_hand_card_links_with_hand_and_session_id(self):
+        """Worst hand card must link to /sessions with both hand_id and session_id."""
+        from pokerhero.frontend.pages.dashboard import _build_highlights
+
+        result = str(_build_highlights(self._make_hp_df(), self._make_sessions_df()))
+        assert "hand_id=2" in result  # hand_id=2 has net_result=-200
+        assert "session_id=20" in result  # session_id of that hand
+
+
+class TestSessionsNavParsing:
+    """Tests for the _parse_nav_search URL helper on the sessions page."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_empty_search_returns_none(self):
+        """Empty search string returns None (no navigation intent)."""
+        from pokerhero.frontend.pages.sessions import _parse_nav_search
+
+        assert _parse_nav_search("") is None
+
+    def test_session_id_param_sets_hands_level(self):
+        """?session_id=5 → level='hands', session_id=5."""
+        from pokerhero.frontend.pages.sessions import _parse_nav_search
+
+        state = _parse_nav_search("?session_id=5")
+        assert state is not None
+        assert state["level"] == "hands"
+        assert state["session_id"] == 5
+
+    def test_hand_id_param_sets_actions_level(self):
+        """?session_id=5&hand_id=12 → level='actions', hand_id=12, session_id=5."""
+        from pokerhero.frontend.pages.sessions import _parse_nav_search
+
+        state = _parse_nav_search("?session_id=5&hand_id=12")
+        assert state is not None
+        assert state["level"] == "actions"
+        assert state["hand_id"] == 12
+        assert state["session_id"] == 5
+
+    def test_unrelated_params_return_none(self):
+        """Search string with no recognised params returns None."""
+        from pokerhero.frontend.pages.sessions import _parse_nav_search
+
+        assert _parse_nav_search("?foo=bar") is None
