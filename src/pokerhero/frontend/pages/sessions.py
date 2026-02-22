@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import math
 from typing import NotRequired, TypedDict
+from urllib.parse import parse_qs, urlparse
 
 import dash
 from dash import Input, Output, State, callback, dcc, html
@@ -275,7 +276,7 @@ def _breadcrumb(
 # State updater — all row/breadcrumb clicks funnel into drill-down-state
 # ---------------------------------------------------------------------------
 @callback(
-    Output("drill-down-state", "data"),
+    Output("drill-down-state", "data", allow_duplicate=True),
     Input({"type": "session-row", "index": dash.ALL}, "n_clicks"),
     Input({"type": "hand-row", "index": dash.ALL}, "n_clicks"),
     Input(
@@ -318,6 +319,69 @@ def _update_state(
                 session_id=int(parsed["session_id"]),
             )
     raise dash.exceptions.PreventUpdate
+
+
+# ---------------------------------------------------------------------------
+# URL-based navigation initialiser
+# ---------------------------------------------------------------------------
+def _parse_nav_search(search: str) -> _DrillDownState | None:
+    """Parse a URL query string into a drill-down state for deep linking.
+
+    Handles two URL patterns produced by the dashboard highlight cards:
+      - ``?session_id=X``              → hands level for that session
+      - ``?session_id=X&hand_id=Y``    → actions level for that hand
+
+    Args:
+        search: The URL search string including the leading ``?``,
+                e.g. ``"?session_id=5&hand_id=12"``. Empty string or
+                strings with no recognised params return ``None``.
+
+    Returns:
+        A _DrillDownState dict, or None when no navigation intent is found.
+    """
+    if not search:
+        return None
+    params = parse_qs(urlparse(search).query)
+    if "hand_id" in params:
+        return _DrillDownState(
+            level="actions",
+            hand_id=int(params["hand_id"][0]),
+            session_id=int(params.get("session_id", ["0"])[0]),
+        )
+    if "session_id" in params:
+        return _DrillDownState(level="hands", session_id=int(params["session_id"][0]))
+    return None
+
+
+@callback(
+    Output("drill-down-state", "data", allow_duplicate=True),
+    Input("_pages_location", "search"),
+    State("_pages_location", "pathname"),
+    prevent_initial_call=True,
+)
+def _init_state_from_url(search: str, pathname: str) -> _DrillDownState:
+    """Initialise drill-down state when navigating here via a URL query string.
+
+    Fires when the URL search changes (e.g. clicking a highlight card on the
+    dashboard). Sets the store so the renderer shows the correct level without
+    requiring the user to click through manually.
+
+    Args:
+        search: URL search string (e.g. ``"?session_id=5"``).
+        pathname: Current page pathname; only acts on ``"/sessions"``.
+
+    Returns:
+        Updated drill-down state dict.
+
+    Raises:
+        PreventUpdate: When not on the sessions page or no known params.
+    """
+    if pathname != "/sessions":
+        raise dash.exceptions.PreventUpdate
+    state = _parse_nav_search(search)
+    if state is None:
+        raise dash.exceptions.PreventUpdate
+    return state
 
 
 # ---------------------------------------------------------------------------

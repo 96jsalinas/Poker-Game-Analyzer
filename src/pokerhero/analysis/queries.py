@@ -205,8 +205,8 @@ def get_hero_hand_players(
 ) -> pd.DataFrame:
     """Return all hand_player rows for hero with session context and saw_flop flag.
 
-    Columns: hand_id, vpip, pfr, went_to_showdown, net_result, position,
-             hole_cards, big_blind, saw_flop.
+    Columns: hand_id, session_id, vpip, pfr, went_to_showdown, net_result,
+             position, hole_cards, big_blind, saw_flop.
 
     `saw_flop` is 1 if hero had at least one action on the FLOP street,
     0 otherwise (i.e. folded or sat out preflop).
@@ -224,6 +224,7 @@ def get_hero_hand_players(
     sql = f"""
         SELECT
             hp.hand_id,
+            h.session_id,
             hp.vpip,
             hp.pfr,
             hp.went_to_showdown,

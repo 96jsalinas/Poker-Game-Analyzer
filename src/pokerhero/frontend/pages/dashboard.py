@@ -126,14 +126,14 @@ def _build_highlights(
 ) -> html.Div:
     """Build the Highlights card showing four peak performance figures.
 
-    Displays biggest single-hand win, biggest single-hand loss, best session,
-    and worst session for the current period.
+    Each card is a clickable link: session cards navigate to the hand list
+    for that session; hand cards navigate directly to the action view.
 
     Args:
-        hp_df: DataFrame from get_hero_hand_players; requires net_result and
-            hole_cards columns.
+        hp_df: DataFrame from get_hero_hand_players; requires net_result,
+            hole_cards, hand_id, and session_id columns.
         sessions_df: DataFrame from get_sessions; requires net_profit,
-            start_time, small_blind, and big_blind columns.
+            start_time, small_blind, big_blind, and id columns.
 
     Returns:
         html.Div with id='highlights-section'.
@@ -145,35 +145,41 @@ def _build_highlights(
             style={"color": "#888", "fontSize": "13px"},
         )
 
-    def _hl_card(label: str, value: str, sub: str, color: str) -> html.Div:
-        return html.Div(
-            [
-                html.Div(
-                    value,
-                    style={
-                        "fontSize": "22px",
-                        "fontWeight": "700",
-                        "color": color,
-                        "lineHeight": "1.2",
-                    },
-                ),
-                html.Div(
-                    sub,
-                    style={"fontSize": "11px", "color": "#999", "marginTop": "2px"},
-                ),
-                html.Div(
-                    label,
-                    style={"fontSize": "12px", "color": "#888", "marginTop": "4px"},
-                ),
-            ],
-            style={
-                "background": "#f8f9fa",
-                "border": "1px solid #e0e0e0",
-                "borderRadius": "8px",
-                "padding": "14px 18px",
-                "minWidth": "140px",
-                "textAlign": "center",
-            },
+    _CARD_STYLE = {
+        "background": "#f8f9fa",
+        "border": "1px solid #e0e0e0",
+        "borderRadius": "8px",
+        "padding": "14px 18px",
+        "minWidth": "140px",
+        "textAlign": "center",
+    }
+
+    def _hl_card(label: str, value: str, sub: str, color: str, href: str) -> dcc.Link:
+        return dcc.Link(
+            html.Div(
+                [
+                    html.Div(
+                        value,
+                        style={
+                            "fontSize": "22px",
+                            "fontWeight": "700",
+                            "color": color,
+                            "lineHeight": "1.2",
+                        },
+                    ),
+                    html.Div(
+                        sub,
+                        style={"fontSize": "11px", "color": "#999", "marginTop": "2px"},
+                    ),
+                    html.Div(
+                        label,
+                        style={"fontSize": "12px", "color": "#888", "marginTop": "4px"},
+                    ),
+                ],
+                style=_CARD_STYLE,
+            ),
+            href=href,
+            style={"textDecoration": "none", "color": "inherit"},
         )
 
     best_hand = hp_df.loc[hp_df["net_result"].idxmax()]
@@ -197,24 +203,38 @@ def _build_highlights(
         f"{worst_sess['small_blind']:.0f}/{worst_sess['big_blind']:.0f}"
     )
 
+    best_hand_url = (
+        f"/sessions?session_id={int(best_hand['session_id'])}"
+        f"&hand_id={int(best_hand['hand_id'])}"
+    )
+    worst_hand_url = (
+        f"/sessions?session_id={int(worst_hand['session_id'])}"
+        f"&hand_id={int(worst_hand['hand_id'])}"
+    )
+    best_sess_url = f"/sessions?session_id={int(best_sess['id'])}"
+    worst_sess_url = f"/sessions?session_id={int(worst_sess['id'])}"
+
     cards = [
         _hl_card(
             "Best Hand",
             f"+{best_hand_pnl:,.0f}" if best_hand_pnl >= 0 else f"{best_hand_pnl:,.0f}",
             best_hand_cards if isinstance(best_hand_cards, str) else "—",
             "green",
+            best_hand_url,
         ),
         _hl_card(
             "Worst Hand",
             f"{worst_hand_pnl:,.0f}",
             worst_hand_cards if isinstance(worst_hand_cards, str) else "—",
             "red",
+            worst_hand_url,
         ),
         _hl_card(
             "Best Session",
             f"+{best_sess_pnl:,.0f}" if best_sess_pnl >= 0 else f"{best_sess_pnl:,.0f}",
             best_sess_label,
             "green",
+            best_sess_url,
         ),
         _hl_card(
             "Worst Session",
@@ -223,6 +243,7 @@ def _build_highlights(
             else f"+{worst_sess_pnl:,.0f}",
             worst_sess_label,
             "red",
+            worst_sess_url,
         ),
     ]
 
