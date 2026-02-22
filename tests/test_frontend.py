@@ -980,14 +980,15 @@ class TestShowdownSection:
         assert "villain1" in str(result)
 
     def test_contains_hole_cards(self):
-        """Rendered section includes the villain's hole card values."""
+        """Rendered section includes the villain's hole card rank values."""
         from pokerhero.frontend.pages.sessions import _build_showdown_section
 
         result = _build_showdown_section(
             [{"username": "v", "position": "SB", "hole_cards": "As Kd"}]
         )
         text = str(result)
-        assert "As" in text or "Kd" in text
+        # Cards render as rank + suit symbol (e.g. "A♠"), not raw "As"
+        assert "A" in text and "K" in text
 
     def test_multiple_villains_all_shown(self):
         """All villains with hole cards are included in the section."""

@@ -128,6 +128,62 @@ def _render_cards(cards_str: str | None) -> html.Span:
     return html.Span([_render_card(c) for c in cards])
 
 
+def _build_showdown_section(
+    villain_rows: list[dict[str, str]],
+) -> html.Div | None:
+    """Build a Showdown card section for all villains with known hole cards.
+
+    Args:
+        villain_rows: List of dicts with keys 'username', 'position', 'hole_cards'.
+                      Only call with non-hero players who have hole_cards set.
+
+    Returns:
+        An html.Div containing each villain's name, position, and rendered cards,
+        or None when villain_rows is empty.
+    """
+    if not villain_rows:
+        return None
+
+    rows: list[html.Div] = []
+    for v in villain_rows:
+        label = v["username"]
+        if v.get("position"):
+            label += f" ({v['position']})"
+        rows.append(
+            html.Div(
+                [
+                    html.Span(
+                        f"{label}: ",
+                        style={
+                            "fontWeight": "600",
+                            "fontSize": "13px",
+                            "marginRight": "6px",
+                            "color": "#555",
+                        },
+                    ),
+                    _render_cards(v["hole_cards"]),
+                ],
+                style={"marginBottom": "4px"},
+            )
+        )
+
+    return html.Div(
+        [
+            html.H5(
+                "Showdown",
+                style={
+                    "color": "#a855f7",
+                    "borderBottom": "2px solid #a855f7",
+                    "paddingBottom": "4px",
+                    "marginBottom": "8px",
+                    "marginTop": "8px",
+                },
+            ),
+            *rows,
+        ]
+    )
+
+
 def _format_math_cell(
     spr: float | None,
     mdf: float | None,
@@ -801,6 +857,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
         hero_cards: str | None = None
         # Map player_id → hole_cards for EV calculation at all-in spots
         all_hole_cards: dict[int, str] = {}
+        villain_showdown: list[dict[str, str]] = []
         if hero_id is not None:
             hole_row = conn.execute(
                 "SELECT hole_cards FROM hand_players"
@@ -815,6 +872,19 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             (hand_id,),
         ).fetchall():
             all_hole_cards[int(row[0])] = row[1]
+        # Fetch villain cards + names for the showdown display
+        villain_rows = conn.execute(
+            "SELECT p.username, hp.position, hp.hole_cards"
+            " FROM hand_players hp"
+            " JOIN players p ON hp.player_id = p.id"
+            " WHERE hp.hand_id = ? AND hp.hole_cards IS NOT NULL"
+            "   AND hp.player_id != ?",
+            (hand_id, hero_id if hero_id is not None else -1),
+        ).fetchall()
+        villain_showdown = [
+            {"username": r[0], "position": r[1] or "", "hole_cards": r[2]}
+            for r in villain_rows
+        ]
     finally:
         conn.close()
 
@@ -1010,6 +1080,10 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
 
     if current_street is not None:
         sections.append(_flush(current_street, street_rows))
+
+    showdown_div = _build_showdown_section(villain_showdown)
+    if showdown_div is not None:
+        sections.append(showdown_div)
 
     header_children: list[html.H3 | html.Div] = [
         html.H3(hand_label, style={"marginTop": "0"}),
