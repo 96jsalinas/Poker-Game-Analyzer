@@ -194,6 +194,10 @@ $$EV = (Equity \times Pot_{to\_win}) - ((1 - Equity) \times Amount_{to\_lose})$$
 
 Shown on all-in spots and showdowns (when the villain's cards are visible). A positive EV means the action was mathematically profitable in the long run. Displayed in green (positive) or red (negative). Shown as `—` when villain cards are unknown.
 
+**How equity is calculated:** Using PokerKit's `calculate_equities` function via Monte Carlo simulation — 5,000 random board run-outs are sampled from the remaining deck and evaluated using standard 5-card high-hand rules. Results are cached per unique combination of hole cards + board, so repeated views of the same hand are instant.
+
+> **Note:** Equity is only available when the villain's exact hole cards are known (showdown or all-in). Range-based equity is not currently supported.
+
 ---
 
 ## ⚙️ 5. Settings (`/settings`)

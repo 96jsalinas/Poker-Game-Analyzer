@@ -83,10 +83,27 @@ $$WTSD\% = \frac{Count(Hand\_Players.went\_to\_showdown = True)}{Count(\text{Han
 When the Hero goes **All-in**, or the hand reaches **Showdown**:
 $$EV_{Action} = (Equity \times Pot_{to\_Win}) - ((1 - Equity) \times Amount_{to\_Lose})$$
 
-* **Equity**: The % chance of winning based on Hero's cards vs. Villain's cards (or range), calculated via PokerKit `calculate_equities` (Monte Carlo).
+* **Equity**: The % chance of winning based on Hero's cards vs. Villain's cards, calculated via PokerKit's `calculate_equities` function using **Monte Carlo simulation** (see below).
 * **Pot to Win**: The current pot + Villain's call/bet.
 * **Amount to Lose**: The amount Hero must risk to make the play.
 * **Display**: Shown in the EV column of the action view for hero all-in spots. Green = positive EV, Red = negative EV, `—` when villain cards unknown.
+
+### Equity Calculation Detail (`compute_equity`)
+
+Equity is calculated by `compute_equity()` in `stats.py` using PokerKit's Monte Carlo engine:
+
+| Parameter | Value |
+| :--- | :--- |
+| **Engine** | PokerKit `calculate_equities` |
+| **Method** | Monte Carlo simulation |
+| **Default samples** | 5 000 (configurable via `sample_count`) |
+| **Deck** | Standard 52-card (`Deck.STANDARD`) |
+| **Hand evaluator** | `StandardHighHand` (best 5-card high hand) |
+| **Input** | Hero hole cards + Villain hole cards + board cards seen so far |
+| **Pre-flop all-ins** | Board passed as empty string `""` |
+| **Caching** | Results are `functools.lru_cache`-cached by `(hero_cards, villain_cards, board, sample_count)` — repeated calls for the same spot are instant |
+
+> **Limitation:** Equity is only shown when the villain's exact hole cards are available (i.e. the hand reached showdown or both players were all-in). Range-based equity is not currently supported.
 
 ---
 

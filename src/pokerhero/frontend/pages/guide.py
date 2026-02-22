@@ -260,6 +260,26 @@ layout = html.Div(
             " Negative EV (red) = the action lost expected value."
             " Displayed as '—' when villain cards are unknown."
         ),
+        html.P(
+            [
+                html.Strong("How equity is calculated: "),
+                "PokerKit's ",
+                html.Code("calculate_equities"),
+                " function runs a Monte Carlo simulation — 5,000 random board"
+                " run-outs sampled from the remaining deck, evaluated with"
+                " standard 5-card high-hand rules. Results are cached per"
+                " unique (hole cards + board) combination so repeated views"
+                " of the same hand are instant.",
+            ]
+        ),
+        html.P(
+            html.Em(
+                "Note: equity is only available when the villain's exact hole"
+                " cards are known (showdown or all-in). Range-based equity"
+                " is not currently supported."
+            ),
+            style={"color": "#666", "fontSize": "13px"},
+        ),
         html.Hr(style={"marginTop": "40px"}),
         html.P(
             html.A("← Back to Home", href="/"),
