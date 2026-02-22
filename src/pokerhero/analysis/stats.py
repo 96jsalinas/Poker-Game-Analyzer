@@ -7,6 +7,8 @@ and no database access.
 Formulas are defined in AnalysisLogic.MD as the single source of truth.
 """
 
+import functools
+
 import pandas as pd
 
 
@@ -191,6 +193,49 @@ def cbet_pct(opp_df: pd.DataFrame) -> float:
     return made / opportunities
 
 
+@functools.lru_cache(maxsize=512)
+def compute_equity(
+    hero_cards: str,
+    villain_cards: str,
+    board: str,
+    sample_count: int,
+) -> float:
+    """Compute hero's equity via PokerKit Monte Carlo simulation.
+
+    Results are cached by (hero_cards, villain_cards, board, sample_count) so
+    repeated calls for the same hand — e.g. navigating away and back — are
+    instant after the first computation.
+
+    Args:
+        hero_cards: Hero hole cards, space-separated (e.g. "Ah Kh"). Must be
+                    a non-empty, stripped string.
+        villain_cards: Villain hole cards, space-separated (e.g. "2c 3d").
+                       Must be a non-empty, stripped string.
+        board: Space-separated board cards seen so far (e.g. "Qh Jh Th").
+               Pass empty string "" for preflop all-ins.
+        sample_count: Number of Monte Carlo samples.
+
+    Returns:
+        Float equity in [0.0, 1.0] representing hero's win probability.
+    """
+    from pokerkit import Card, Deck, StandardHighHand, calculate_equities, parse_range
+
+    hero_range = parse_range(hero_cards.replace(" ", ""))
+    villain_range = parse_range(villain_cards.replace(" ", ""))
+    board_cards = list(Card.parse(board)) if board else []
+
+    equities = calculate_equities(
+        (hero_range, villain_range),
+        board_cards,
+        hole_dealing_count=2,
+        board_dealing_count=5,
+        deck=Deck.STANDARD,
+        hand_types=(StandardHighHand,),
+        sample_count=sample_count,
+    )
+    return float(equities[0])
+
+
 def compute_ev(
     hero_cards: str,
     villain_cards: str | None,
@@ -204,7 +249,8 @@ def compute_ev(
     EV = (equity × pot_to_win) − ((1 − equity) × amount_risked)
 
     Equity is calculated via Monte Carlo simulation using PokerKit's
-    calculate_equities function.
+    calculate_equities function (see compute_equity). Results are cached
+    by card and board combination so repeated page loads are instant.
 
     Args:
         hero_cards: Hero hole cards as stored in DB (e.g. "Ah Kh").
@@ -222,20 +268,10 @@ def compute_ev(
     if not villain_cards or not villain_cards.strip():
         return None
 
-    from pokerkit import Card, Deck, StandardHighHand, calculate_equities, parse_range
-
-    hero_range = parse_range(hero_cards.replace(" ", ""))
-    villain_range = parse_range(villain_cards.replace(" ", ""))
-    board_cards = list(Card.parse(board)) if board.strip() else []
-
-    equities = calculate_equities(
-        (hero_range, villain_range),
-        board_cards,
-        hole_dealing_count=2,
-        board_dealing_count=5,
-        deck=Deck.STANDARD,
-        hand_types=(StandardHighHand,),
-        sample_count=sample_count,
+    equity = compute_equity(
+        hero_cards.strip(),
+        villain_cards.strip(),
+        board.strip(),
+        sample_count,
     )
-    equity = equities[0]
     return equity * pot_to_win - (1.0 - equity) * amount_risked
