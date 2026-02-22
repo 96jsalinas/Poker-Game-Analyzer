@@ -80,6 +80,17 @@ _TD: dict[str, str] = {
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+def _fmt_blind(v: object) -> str:
+    """Format a blind/stake value: integer if whole, else strip trailing zeros."""
+    return f"{float(v):g}"  # type: ignore[arg-type]
+
+
+def _fmt_pnl(pnl: float) -> str:
+    """Format a P&L value with leading sign; no trailing decimal zeros."""
+    sign = "+" if pnl >= 0 else ""
+    return f"{sign}{pnl:,.6g}"
+
+
 def _get_db_path() -> str:
     result: str = dash.get_app().server.config.get("DB_PATH", ":memory:")  # type: ignore[no-untyped-call]
     return result
@@ -357,11 +368,11 @@ def _build_highlights(
     worst_hand_cards = worst_hand.get("hole_cards") or "—"
     best_sess_label = (
         f"{str(best_sess['start_time'])[:10]} · "
-        f"{best_sess['small_blind']:.0f}/{best_sess['big_blind']:.0f}"
+        f"{_fmt_blind(best_sess['small_blind'])}/{_fmt_blind(best_sess['big_blind'])}"
     )
     worst_sess_label = (
         f"{str(worst_sess['start_time'])[:10]} · "
-        f"{worst_sess['small_blind']:.0f}/{worst_sess['big_blind']:.0f}"
+        f"{_fmt_blind(worst_sess['small_blind'])}/{_fmt_blind(worst_sess['big_blind'])}"
     )
 
     best_hand_url = (
@@ -378,30 +389,28 @@ def _build_highlights(
     cards = [
         _hl_card(
             "Best Hand",
-            f"+{best_hand_pnl:,.0f}" if best_hand_pnl >= 0 else f"{best_hand_pnl:,.0f}",
+            _fmt_pnl(best_hand_pnl),
             best_hand_cards if isinstance(best_hand_cards, str) else "—",
             "green",
             best_hand_url,
         ),
         _hl_card(
             "Worst Hand",
-            f"{worst_hand_pnl:,.0f}",
+            _fmt_pnl(worst_hand_pnl),
             worst_hand_cards if isinstance(worst_hand_cards, str) else "—",
             "red",
             worst_hand_url,
         ),
         _hl_card(
             "Best Session",
-            f"+{best_sess_pnl:,.0f}" if best_sess_pnl >= 0 else f"{best_sess_pnl:,.0f}",
+            _fmt_pnl(best_sess_pnl),
             best_sess_label,
             "green",
             best_sess_url,
         ),
         _hl_card(
             "Worst Session",
-            f"{worst_sess_pnl:,.0f}"
-            if worst_sess_pnl <= 0
-            else f"+{worst_sess_pnl:,.0f}",
+            _fmt_pnl(worst_sess_pnl),
             worst_sess_label,
             "red",
             worst_sess_url,
@@ -484,7 +493,7 @@ def _render(pathname: str, period: str) -> html.Div | str:
     vpip = vpip_pct(hp_df) * 100
     pfr = pfr_pct(hp_df) * 100
 
-    pnl_str = f"{'+' if pnl >= 0 else ''}{pnl:,.0f}"
+    pnl_str = _fmt_pnl(pnl)
     pnl_color = "green" if pnl >= 0 else "red"
     wr_str = f"{'+' if win_rate >= 0 else ''}{win_rate:.1f} bb/100"
     wr_color = "green" if win_rate >= 0 else "red"
@@ -519,7 +528,7 @@ def _render(pathname: str, period: str) -> html.Div | str:
             line={"color": "#0074D9", "width": 2},
             fill="tozeroy",
             fillcolor="rgba(0,116,217,0.08)",
-            hovertemplate="Hand %{x}<br>Cumulative P&L: %{y:,.0f}<extra></extra>",
+            hovertemplate="Hand %{x}<br>Cumulative P&L: %{y:,.4g}<extra></extra>",
         )
     )
     fig.update_layout(
@@ -578,7 +587,7 @@ def _render(pathname: str, period: str) -> html.Div | str:
                     html.Td(f"{pos_cbet:.1f}%", style=_TD),
                     html.Td(af_str, style=_TD),
                     html.Td(
-                        f"{'+' if pos_pnl >= 0 else ''}{pos_pnl:,.0f}",
+                        _fmt_pnl(pos_pnl),
                         style=pnl_style,
                     ),
                 ]

@@ -1197,7 +1197,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
 
         label = action_type
         if amount > 0:
-            label += f"  {amount:,.0f}"
+            label += f"  {amount:,.6g}"
         if action["is_all_in"]:
             label += "  🚨 ALL-IN"
 
@@ -1246,8 +1246,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             except Exception:
                 pass
             if ev_val is not None:
-                sign = "+" if ev_val >= 0 else ""
-                ev_cell = f"EV: {sign}{ev_val:,.0f}"
+                ev_cell = f"EV: {_fmt_pnl(ev_val)}"
 
         street_rows.append(
             html.Tr(
@@ -1257,7 +1256,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
                     ),
                     html.Td(label, style=_TD),
                     html.Td(
-                        f"Pot: {pot_before:,.0f}",
+                        f"Pot: {pot_before:,.6g}",
                         style={**_TD, "color": "#888", "fontSize": "12px"},
                     ),
                     html.Td(extra, style={**_TD, "color": "#555", "fontSize": "12px"}),
