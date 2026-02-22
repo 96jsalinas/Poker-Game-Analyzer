@@ -276,7 +276,7 @@ def _breadcrumb(
 # State updater — all row/breadcrumb clicks funnel into drill-down-state
 # ---------------------------------------------------------------------------
 @callback(
-    Output("drill-down-state", "data", allow_duplicate=True),
+    Output("drill-down-state", "data"),
     Input({"type": "session-row", "index": dash.ALL}, "n_clicks"),
     Input({"type": "hand-row", "index": dash.ALL}, "n_clicks"),
     Input(
@@ -353,56 +353,33 @@ def _parse_nav_search(search: str) -> _DrillDownState | None:
     return None
 
 
-@callback(
-    Output("drill-down-state", "data", allow_duplicate=True),
-    Input("_pages_location", "search"),
-    State("_pages_location", "pathname"),
-    prevent_initial_call=True,
-)
-def _init_state_from_url(search: str, pathname: str) -> _DrillDownState:
-    """Initialise drill-down state when navigating here via a URL query string.
-
-    Fires when the URL search changes (e.g. clicking a highlight card on the
-    dashboard). Sets the store so the renderer shows the correct level without
-    requiring the user to click through manually.
-
-    Args:
-        search: URL search string (e.g. ``"?session_id=5"``).
-        pathname: Current page pathname; only acts on ``"/sessions"``.
-
-    Returns:
-        Updated drill-down state dict.
-
-    Raises:
-        PreventUpdate: When not on the sessions page or no known params.
-    """
-    if pathname != "/sessions":
-        raise dash.exceptions.PreventUpdate
-    state = _parse_nav_search(search)
-    if state is None:
-        raise dash.exceptions.PreventUpdate
-    return state
-
-
 # ---------------------------------------------------------------------------
 # Renderer — reacts to state + page navigation
 # ---------------------------------------------------------------------------
 @callback(
-    Output("drill-down-content", "children"),
-    Output("breadcrumb", "children"),
-    Input("drill-down-state", "data"),
-    Input("_pages_location", "pathname"),
     prevent_initial_call=False,
 )
 def _render(
     state: _DrillDownState | None,
     pathname: str,
+    search: str,
 ) -> tuple[html.Div | str, html.Div]:
     if pathname != "/sessions":
         raise dash.exceptions.PreventUpdate
 
     if state is None:
         state = _DrillDownState(level="sessions")
+
+    # When arriving via page navigation (pathname change or initial app load),
+    # URL query params take priority over the store's default value so that
+    # dashboard highlight-card links land on the correct drill-down level.
+    ctx = dash.callback_context
+    triggered_props = {t["prop_id"] for t in (ctx.triggered or [])}
+    if not triggered_props or any("pathname" in p for p in triggered_props):
+        nav_state = _parse_nav_search(search)
+        if nav_state is not None:
+            state = nav_state
+
     level = state.get("level", "sessions")
 
     db_path = _get_db_path()
