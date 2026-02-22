@@ -30,6 +30,7 @@ def create_app(db_path: str | Path = "data/pokerhero.db") -> dash.Dash:
         use_pages=True,
         pages_folder=str(Path(__file__).parent / "pages"),
         title="PokerHero Analyzer",
+        suppress_callback_exceptions=True,
     )
 
     # Ensure the schema exists for file-based DBs.

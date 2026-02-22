@@ -4,10 +4,11 @@ from __future__ import annotations
 
 import json
 import math
-from typing import NotRequired, TypedDict
+from typing import Any, NotRequired, TypedDict
 from urllib.parse import parse_qs, urlparse
 
 import dash
+import pandas as pd
 from dash import Input, Output, State, callback, dcc, html
 
 from pokerhero.database.db import get_connection, get_setting, upsert_player
@@ -409,28 +410,95 @@ def _render(
 
 
 # ---------------------------------------------------------------------------
-# Level renderers
+# Pure filter helpers (no Dash, fully testable in isolation)
 # ---------------------------------------------------------------------------
-def _render_sessions(db_path: str) -> html.Div | str:
-    if db_path == ":memory:":
-        return html.Div("⚠️ No database connected.", style={"color": "orange"})
-    player_id = _get_hero_player_id(db_path)
-    if player_id is None:
-        return html.Div(
-            "⚠️ No hero username set. Please set it on the Upload page first.",
-            style={"color": "orange"},
+def _filter_sessions_data(
+    df: pd.DataFrame,
+    date_from: str | None,
+    date_to: str | None,
+    stakes: list[str] | None,
+    pnl_min: float | None,
+    pnl_max: float | None,
+    min_hands: int | None,
+) -> pd.DataFrame:
+    """Filter a sessions DataFrame based on user-selected criteria.
+
+    All parameters are optional; None means no constraint on that axis.
+
+    Args:
+        df: DataFrame from get_sessions (columns: start_time, small_blind,
+            big_blind, hands_played, net_profit).
+        date_from: ISO date string lower bound for start_time (inclusive).
+        date_to: ISO date string upper bound for start_time (inclusive).
+        stakes: List of 'SB/BB' labels to keep; None keeps all.
+        pnl_min: Minimum net_profit (inclusive); None keeps all.
+        pnl_max: Maximum net_profit (inclusive); None keeps all.
+        min_hands: Minimum hands_played (inclusive); None keeps all.
+
+    Returns:
+        Filtered copy of df.
+    """
+
+    result = df.copy()
+    if date_from:
+        result = result[result["start_time"].astype(str) >= date_from]
+    if date_to:
+        result = result[result["start_time"].astype(str) <= date_to]
+    if stakes:
+        labels = result.apply(
+            lambda r: f"{int(r['small_blind'])}/{int(r['big_blind'])}", axis=1
         )
+        result = result[labels.isin(stakes)]
+    if pnl_min is not None:
+        result = result[result["net_profit"].astype(float) >= float(pnl_min)]
+    if pnl_max is not None:
+        result = result[result["net_profit"].astype(float) <= float(pnl_max)]
+    if min_hands is not None:
+        result = result[result["hands_played"].astype(int) >= int(min_hands)]
+    return result
 
-    from pokerhero.analysis.queries import get_sessions
 
-    conn = get_connection(db_path)
-    try:
-        df = get_sessions(conn, player_id)
-    finally:
-        conn.close()
+def _filter_hands_data(
+    df: pd.DataFrame,
+    pnl_min: float | None,
+    pnl_max: float | None,
+    positions: list[str] | None,
+    saw_flop_only: bool,
+    showdown_only: bool,
+) -> pd.DataFrame:
+    """Filter a hands DataFrame based on user-selected criteria.
 
-    if df.empty:
-        return html.Div("No sessions found. Upload a hand history file to get started.")
+    Args:
+        df: DataFrame from get_hands (columns: net_result, position,
+            saw_flop, went_to_showdown).
+        pnl_min: Minimum net_result (inclusive); None keeps all.
+        pnl_max: Maximum net_result (inclusive); None keeps all.
+        positions: List of position strings to keep; None keeps all.
+        saw_flop_only: When True, keep only hands where hero saw the flop.
+        showdown_only: When True, keep only hands that went to showdown.
+
+    Returns:
+        Filtered copy of df.
+    """
+    result = df.copy()
+    if pnl_min is not None:
+        result = result[result["net_result"].astype(float) >= float(pnl_min)]
+    if pnl_max is not None:
+        result = result[result["net_result"].astype(float) <= float(pnl_max)]
+    if positions:
+        result = result[result["position"].isin(positions)]
+    if saw_flop_only:
+        result = result[result["saw_flop"].astype(int) == 1]
+    if showdown_only:
+        result = result[result["went_to_showdown"].astype(int) == 1]
+    return result
+
+
+# ---------------------------------------------------------------------------
+# Table builder helpers
+# ---------------------------------------------------------------------------
+def _build_session_table(df: pd.DataFrame) -> html.Div:
+    """Render a filtered sessions DataFrame as a clickable HTML table."""
 
     rows = []
     for _, row in df.iterrows():
@@ -460,6 +528,147 @@ def _render_sessions(db_path: str) -> html.Div | str:
             [html.Thead(header), html.Tbody(rows)],
             style={"width": "100%", "borderCollapse": "collapse"},
         )
+        if rows
+        else html.Div("No sessions match the current filters.", style={"color": "#888"})
+    )
+
+
+def _build_hand_table(df: pd.DataFrame) -> html.Div:
+    """Render a filtered hands DataFrame as a clickable HTML table."""
+    rows = []
+    for _, row in df.iterrows():
+        pnl = float(row["net_result"]) if row["net_result"] is not None else 0.0
+        rows.append(
+            html.Tr(
+                id={"type": "hand-row", "index": int(row["id"])},
+                style={"cursor": "pointer"},
+                children=[
+                    html.Td(str(row["source_hand_id"]), style=_TD),
+                    html.Td(_render_cards(row["hole_cards"]), style=_TD),
+                    html.Td(f"{float(row['total_pot']):,.0f}", style=_TD),
+                    html.Td(
+                        f"{'+' if pnl >= 0 else ''}{pnl:,.0f}",
+                        style={**_TD, **_pnl_style(pnl)},
+                    ),
+                ],
+            )
+        )
+    header = html.Tr(
+        [html.Th(h, style=_TH) for h in ("Hand #", "Hole Cards", "Pot", "Net Result")]
+    )
+    return html.Div(
+        html.Table(
+            [html.Thead(header), html.Tbody(rows)],
+            style={"width": "100%", "borderCollapse": "collapse"},
+        )
+        if rows
+        else html.Div("No hands match the current filters.", style={"color": "#888"})
+    )
+
+
+# ---------------------------------------------------------------------------
+# Level renderers
+# ---------------------------------------------------------------------------
+def _render_sessions(db_path: str) -> html.Div | str:
+    if db_path == ":memory:":
+        return html.Div("⚠️ No database connected.", style={"color": "orange"})
+    player_id = _get_hero_player_id(db_path)
+    if player_id is None:
+        return html.Div(
+            "⚠️ No hero username set. Please set it on the Upload page first.",
+            style={"color": "orange"},
+        )
+
+    from pokerhero.analysis.queries import get_sessions
+
+    conn = get_connection(db_path)
+    try:
+        df = get_sessions(conn, player_id)
+    finally:
+        conn.close()
+
+    if df.empty:
+        return html.Div("No sessions found. Upload a hand history file to get started.")
+
+    stakes_options = sorted(
+        {f"{int(r['small_blind'])}/{int(r['big_blind'])}" for _, r in df.iterrows()}
+    )
+
+    _input_style = {
+        "border": "1px solid #ddd",
+        "borderRadius": "4px",
+        "padding": "4px 8px",
+        "fontSize": "13px",
+        "height": "30px",
+    }
+    filter_bar = html.Div(
+        [
+            html.Span("From", style={"fontSize": "12px", "color": "#666"}),
+            dcc.Input(
+                id="session-filter-date-from",
+                type="date",  # type: ignore[arg-type]
+                debounce=True,
+                style=_input_style,
+            ),
+            html.Span("To", style={"fontSize": "12px", "color": "#666"}),
+            dcc.Input(
+                id="session-filter-date-to",
+                type="date",  # type: ignore[arg-type]
+                debounce=True,
+                style=_input_style,
+            ),
+            dcc.Dropdown(
+                id="session-filter-stakes",
+                options=[{"label": s, "value": s} for s in stakes_options],
+                multi=True,
+                placeholder="Stakes…",
+                style={**_input_style, "minWidth": "120px", "height": "auto"},
+                clearable=True,
+            ),
+            dcc.Input(
+                id="session-filter-pnl-min",
+                type="number",
+                placeholder="P&L min",
+                debounce=True,
+                style={**_input_style, "width": "90px"},
+            ),
+            dcc.Input(
+                id="session-filter-pnl-max",
+                type="number",
+                placeholder="P&L max",
+                debounce=True,
+                style={**_input_style, "width": "90px"},
+            ),
+            dcc.Input(
+                id="session-filter-min-hands",
+                type="number",
+                placeholder="Min hands",
+                debounce=True,
+                style={**_input_style, "width": "90px"},
+            ),
+        ],
+        style={
+            "display": "flex",
+            "alignItems": "center",
+            "gap": "8px",
+            "flexWrap": "wrap",
+            "marginBottom": "12px",
+            "padding": "8px 10px",
+            "background": "#f8f9fa",
+            "borderRadius": "6px",
+            "border": "1px solid #e0e0e0",
+        },
+    )
+
+    return html.Div(
+        [
+            filter_bar,
+            html.Div(
+                id="session-table-container",
+                children=_build_session_table(df),
+            ),
+            dcc.Store(id="session-data-store", data=df.to_dict("records")),
+        ]
     )
 
 
@@ -497,33 +706,73 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
     if df.empty:
         return html.Div("No hands found for this session."), session_label
 
-    rows = []
-    for _, row in df.iterrows():
-        pnl = float(row["net_result"]) if row["net_result"] is not None else 0.0
-        rows.append(
-            html.Tr(
-                id={"type": "hand-row", "index": int(row["id"])},
-                style={"cursor": "pointer"},
-                children=[
-                    html.Td(str(row["source_hand_id"]), style=_TD),
-                    html.Td(_render_cards(row["hole_cards"]), style=_TD),
-                    html.Td(f"{float(row['total_pot']):,.0f}", style=_TD),
-                    html.Td(
-                        f"{'+' if pnl >= 0 else ''}{pnl:,.0f}",
-                        style={**_TD, **_pnl_style(pnl)},
-                    ),
+    positions = sorted(df["position"].dropna().unique().tolist())
+    _input_style = {
+        "border": "1px solid #ddd",
+        "borderRadius": "4px",
+        "padding": "4px 8px",
+        "fontSize": "13px",
+        "height": "30px",
+    }
+    filter_bar = html.Div(
+        [
+            dcc.Input(
+                id="hand-filter-pnl-min",
+                type="number",
+                placeholder="P&L min",
+                debounce=True,
+                style={**_input_style, "width": "90px"},
+            ),
+            dcc.Input(
+                id="hand-filter-pnl-max",
+                type="number",
+                placeholder="P&L max",
+                debounce=True,
+                style={**_input_style, "width": "90px"},
+            ),
+            dcc.Dropdown(
+                id="hand-filter-position",
+                options=[{"label": p, "value": p} for p in positions],
+                multi=True,
+                placeholder="Position…",
+                style={**_input_style, "minWidth": "130px", "height": "auto"},
+                clearable=True,
+            ),
+            dcc.Checklist(
+                id="hand-filter-flags",
+                options=[
+                    {"label": " Saw flop", "value": "saw_flop"},
+                    {"label": " Showdown", "value": "showdown"},
                 ],
-            )
-        )
-    header = html.Tr(
-        [html.Th(h, style=_TH) for h in ("Hand #", "Hole Cards", "Pot", "Net Result")]
+                value=[],
+                inline=True,
+                inputStyle={"marginRight": "4px"},
+                labelStyle={"marginRight": "12px", "fontSize": "13px"},
+            ),
+        ],
+        style={
+            "display": "flex",
+            "alignItems": "center",
+            "gap": "8px",
+            "flexWrap": "wrap",
+            "marginBottom": "12px",
+            "padding": "8px 10px",
+            "background": "#f8f9fa",
+            "borderRadius": "6px",
+            "border": "1px solid #e0e0e0",
+        },
     )
+
     return (
         html.Div(
-            html.Table(
-                [html.Thead(header), html.Tbody(rows)],
-                style={"width": "100%", "borderCollapse": "collapse"},
-            )
+            [
+                filter_bar,
+                html.Div(
+                    id="hand-table-container",
+                    children=_build_hand_table(df),
+                ),
+                dcc.Store(id="hand-data-store", data=df.to_dict("records")),
+            ]
         ),
         session_label,
     )
@@ -765,3 +1014,72 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
         html.Div([*header_children, *sections]),
         hand_label,
     )
+
+
+# ---------------------------------------------------------------------------
+# Filter callbacks — update table containers when filter inputs change
+# ---------------------------------------------------------------------------
+@callback(
+    Output("session-table-container", "children"),
+    Input("session-filter-date-from", "value"),
+    Input("session-filter-date-to", "value"),
+    Input("session-filter-stakes", "value"),
+    Input("session-filter-pnl-min", "value"),
+    Input("session-filter-pnl-max", "value"),
+    Input("session-filter-min-hands", "value"),
+    State("session-data-store", "data"),
+    prevent_initial_call=True,
+)
+def _apply_session_filters(
+    date_from: str | None,
+    date_to: str | None,
+    stakes: list[str] | None,
+    pnl_min: float | None,
+    pnl_max: float | None,
+    min_hands: float | None,
+    data: list[dict[str, Any]] | None,
+) -> html.Div:
+    if not data:
+        raise dash.exceptions.PreventUpdate
+    df = pd.DataFrame(data)
+    filtered = _filter_sessions_data(
+        df,
+        date_from,
+        date_to,
+        stakes,
+        pnl_min,
+        pnl_max,
+        int(min_hands) if min_hands is not None else None,
+    )
+    return _build_session_table(filtered)
+
+
+@callback(
+    Output("hand-table-container", "children"),
+    Input("hand-filter-pnl-min", "value"),
+    Input("hand-filter-pnl-max", "value"),
+    Input("hand-filter-position", "value"),
+    Input("hand-filter-flags", "value"),
+    State("hand-data-store", "data"),
+    prevent_initial_call=True,
+)
+def _apply_hand_filters(
+    pnl_min: float | None,
+    pnl_max: float | None,
+    positions: list[str] | None,
+    flags: list[str] | None,
+    data: list[dict[str, Any]] | None,
+) -> html.Div:
+    if not data:
+        raise dash.exceptions.PreventUpdate
+    df = pd.DataFrame(data)
+    flags = flags or []
+    filtered = _filter_hands_data(
+        df,
+        pnl_min,
+        pnl_max,
+        positions or None,
+        "saw_flop" in flags,
+        "showdown" in flags,
+    )
+    return _build_hand_table(filtered)
