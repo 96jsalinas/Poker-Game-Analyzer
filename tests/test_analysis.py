@@ -98,6 +98,15 @@ class TestQueries:
         session_id = get_sessions(db_with_data, hero_player_id)["id"].iloc[0]
         assert len(get_hands(db_with_data, session_id, hero_player_id)) == 2
 
+    def test_get_hands_includes_position_and_flags(self, db_with_data, hero_player_id):
+        """get_hands must include position, went_to_showdown, and saw_flop columns
+        for use by the hand-level filter controls."""
+        from pokerhero.analysis.queries import get_hands, get_sessions
+
+        session_id = get_sessions(db_with_data, hero_player_id)["id"].iloc[0]
+        df = get_hands(db_with_data, session_id, hero_player_id)
+        assert {"position", "went_to_showdown", "saw_flop"} <= set(df.columns)
+
     def test_get_actions_returns_dataframe(self, db_with_data, hero_player_id):
         from pokerhero.analysis.queries import get_actions, get_hands, get_sessions
 
