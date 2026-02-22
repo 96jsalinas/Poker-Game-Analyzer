@@ -901,6 +901,7 @@ class TestGuidePage:
     def test_guide_layout_is_div(self):
         """The guide page layout is an html.Div."""
         from dash import html
+
         from pokerhero.frontend.pages.guide import layout
 
         assert isinstance(layout, html.Div)
@@ -932,3 +933,71 @@ class TestGuidePage:
 
         text = str(layout)
         assert "/guide" in text
+
+
+class TestShowdownSection:
+    """Tests for _build_showdown_section helper in the action view."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_returns_none_when_no_villain_cards(self):
+        """No showdown section when no villain cards are available."""
+        from pokerhero.frontend.pages.sessions import _build_showdown_section
+
+        result = _build_showdown_section([])
+        assert result is None
+
+    def test_returns_div_when_villain_cards_present(self):
+        """Returns an html.Div when at least one villain has hole cards."""
+        from dash import html
+
+        from pokerhero.frontend.pages.sessions import _build_showdown_section
+
+        result = _build_showdown_section(
+            [{"username": "villain1", "position": "SB", "hole_cards": "Ah Kh"}]
+        )
+        assert isinstance(result, html.Div)
+
+    def test_contains_showdown_heading(self):
+        """Rendered section includes a 'Showdown' heading."""
+        from pokerhero.frontend.pages.sessions import _build_showdown_section
+
+        result = _build_showdown_section(
+            [{"username": "villain1", "position": "BTN", "hole_cards": "Qd Jc"}]
+        )
+        assert "Showdown" in str(result)
+
+    def test_contains_villain_username(self):
+        """Rendered section includes the villain's username."""
+        from pokerhero.frontend.pages.sessions import _build_showdown_section
+
+        result = _build_showdown_section(
+            [{"username": "villain1", "position": "CO", "hole_cards": "7s 2d"}]
+        )
+        assert "villain1" in str(result)
+
+    def test_contains_hole_cards(self):
+        """Rendered section includes the villain's hole card values."""
+        from pokerhero.frontend.pages.sessions import _build_showdown_section
+
+        result = _build_showdown_section(
+            [{"username": "v", "position": "SB", "hole_cards": "As Kd"}]
+        )
+        text = str(result)
+        assert "As" in text or "Kd" in text
+
+    def test_multiple_villains_all_shown(self):
+        """All villains with hole cards are included in the section."""
+        from pokerhero.frontend.pages.sessions import _build_showdown_section
+
+        result = _build_showdown_section(
+            [
+                {"username": "alice", "position": "BTN", "hole_cards": "Ah Kh"},
+                {"username": "bob", "position": "SB", "hole_cards": "Qd Jc"},
+            ]
+        )
+        text = str(result)
+        assert "alice" in text and "bob" in text
