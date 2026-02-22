@@ -59,7 +59,8 @@ def get_hands(
     """Return all hands for a session with hero net result and hole cards.
 
     Columns: id, source_hand_id, timestamp, board_flop, board_turn,
-             board_river, total_pot, net_result, hole_cards.
+             board_river, total_pot, net_result, hole_cards, position,
+             went_to_showdown, saw_flop.
 
     Args:
         conn: Open SQLite connection.
@@ -79,7 +80,15 @@ def get_hands(
             h.board_river,
             h.total_pot,
             hp.net_result,
-            hp.hole_cards
+            hp.hole_cards,
+            hp.position,
+            hp.went_to_showdown,
+            CASE WHEN EXISTS (
+                SELECT 1 FROM actions a
+                WHERE a.hand_id = h.id
+                  AND a.player_id = hp.player_id
+                  AND a.street = 'FLOP'
+            ) THEN 1 ELSE 0 END AS saw_flop
         FROM hands h
         LEFT JOIN hand_players hp ON hp.hand_id = h.id AND hp.player_id = ?
         WHERE h.session_id = ?
