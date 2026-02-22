@@ -6,6 +6,7 @@ build-backend = "hatchling.build"
 name = "pokerhero"
 version = "0.1.0"
 requires-python = ">=3.13"
+license = {text = "MIT"}
 dependencies = [
     "pandas",
     "numpy",

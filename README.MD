@@ -111,4 +111,29 @@ Full architecture, data model, analysis formulas, and UX spec are documented in 
 
 ## License
 
-MIT
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for the full text.
+
+### What MIT means
+
+MIT is a permissive open-source license. You are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of this software — for any purpose, including commercially — provided the original copyright notice and license text are included in all substantial copies or distributions of the software.
+
+MIT does **not** require derivative works to be open-source (it is not a copyleft license like GPL).
+
+### Dependency licenses
+
+All runtime and development dependencies use permissive open-source licenses that are fully compatible with MIT:
+
+| Package | License | Scope |
+|---|---|---|
+| [PokerKit](https://github.com/uoftcprg/pokerkit) | MIT | Runtime |
+| [Dash (Plotly)](https://dash.plotly.com/) | MIT | Runtime |
+| [Pandas](https://pandas.pydata.org/) | BSD 3-Clause | Runtime |
+| [NumPy](https://numpy.org/) | BSD 3-Clause | Runtime |
+| [pytest](https://pytest.org/) | MIT | Dev only |
+| [mypy](https://mypy-lang.org/) | MIT | Dev only |
+| [Ruff](https://github.com/astral-sh/ruff) | MIT | Dev only |
+| [pre-commit](https://pre-commit.com/) | MIT | Dev only |
+| [pandas-stubs](https://github.com/pandas-dev/pandas-stubs) | BSD 3-Clause | Dev only |
+| [Hatchling](https://hatch.pypa.io/) | MIT | Build tool |
+
+**MIT and BSD 3-Clause are both permissive licenses with no copyleft restrictions.** They do not require this project to adopt a particular license, share source code, or impose any obligations beyond attribution. BSD 3-Clause adds a non-endorsement clause (you may not use the copyright holders' names to promote derived products without permission), which has no effect on this project's own MIT licensing.
