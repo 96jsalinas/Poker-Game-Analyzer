@@ -42,17 +42,19 @@ Sessions  →  Sessions › 2026-02-16 250/500  →  Sessions › 2026-02-16 250
 A table view showing all played sessions.
 * **Columns**: Date, Stakes (e.g., 100/200), Hands Played, Net Profit/Loss (green/red).
 * **Action**: Clicking a row navigates to the **Hand List** for that session.
-* **Filters** ✅ Implemented — filter bar above the table: date range (from/to), stakes multiselect, P&L min/max, min hands. Updates table without page reload via `_apply_session_filters` callback + `session-data-store`.
+* **Filters** ✅ Implemented — filter bar above the table: date range (from/to), stakes multiselect, P&L min/max, min hands, Favourites only. Updates table without page reload via `_apply_session_filters` callback + `session-data-store`.
+* **Favourite** ✅ Implemented — ★/☆ button in the top-right corner of the hand list view; clicking toggles `is_favorite` on the current session (gold star = favourite). Persisted to DB via `_toggle_session_fav` callback + `session-fav-id-store`.
 
 ### Level 2: Hand List (Within a Session) ✅
 A detailed list of every hand dealt in that session.
 * **Columns**: Hand ID, Hero Cards (Hole Cards), Final Pot, Net Result (green/red).
 * **Action**: Clicking a row navigates to the **Hand Action View**.
-* **Filters** ✅ Implemented — filter bar: P&L min/max, position multiselect, Saw Flop checkbox, Showdown checkbox. Updates table without page reload via `_apply_hand_filters` callback + `hand-data-store`.
+* **Filters** ✅ Implemented — filter bar: P&L min/max, position multiselect, Saw Flop checkbox, Showdown checkbox, Favourites only. Updates table without page reload via `_apply_hand_filters` callback + `hand-data-store`.
 
 ### Level 3: Hand Action View ✅
 A chronological breakdown of the specific hand.
 * **Header**: Hand # and board cards (Flop | Turn | River).
+* **Favourite** ✅ Implemented — ★/☆ button in the top-right of the action view header; clicking toggles `is_favorite` on the current hand (gold star = favourite). Persisted to DB via `_toggle_hand_fav` callback + `hand-fav-id-store`.
 * **Body**: Actions grouped by street (colour-coded headers), showing player username, position (e.g. `jsalinas96 (BTN)`), action type, amount, and pot size.
 * **Math Column**: SPR shown on the first Flop action; Pot Odds % and MDF % shown for every decision point Hero faces.
 * **Showdown Section**: ✅ Implemented — when villain hole cards are known (showdown or all-in with cards exposed), a purple "Showdown" section appears after the last street, showing each villain's name, position, and styled hole cards.
