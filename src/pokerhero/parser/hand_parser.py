@@ -60,7 +60,8 @@ class _SummaryData(TypedDict):
 # ---------------------------------------------------------------------------
 
 _RE_CASH_HEADER = re.compile(
-    r"PokerStars Hand #(\d+):\s+Hold'em No Limit \(\$?([\d.]+)/\$?([\d.]+)\)"
+    r"PokerStars Hand #(\d+):\s+Hold'em No Limit"
+    r" \([€$]?([\d.]+)/[€$]?([\d.]+)(?:\s+[A-Z]+)?\)"
     r" - (\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2})"
 )
 _RE_TOURN_HEADER = re.compile(
