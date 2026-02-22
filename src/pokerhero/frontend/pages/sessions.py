@@ -296,7 +296,11 @@ def _update_state(
     ctx = dash.callback_context
     if not ctx.triggered:
         raise dash.exceptions.PreventUpdate
-    tid = ctx.triggered[0]["prop_id"].split(".")[0]
+    trigger = ctx.triggered[0]
+    # Ignore synthetic fires from newly-rendered pattern-match components (n_clicks=0)
+    if not trigger.get("value"):
+        raise dash.exceptions.PreventUpdate
+    tid = trigger["prop_id"].split(".")[0]
     try:
         parsed = json.loads(tid)
     except (json.JSONDecodeError, ValueError):
