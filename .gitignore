@@ -10,3 +10,7 @@ build/
 
 # Local notes
 TODO.MD
+
+# Hand history files and local database
+data/histories/
+data/*.db
