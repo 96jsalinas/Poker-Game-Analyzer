@@ -120,6 +120,103 @@ def _kpi_card(label: str, value: str, color: str = "#333") -> html.Div:
     )
 
 
+def _build_vpip_pfr_chart(vpip: float, pfr: float) -> html.Div:
+    """Build the VPIP/PFR gap chart as a stacked horizontal bar.
+
+    The bar is split into three segments that always sum to 100%:
+      - PFR%:           how often hero raised preflop           (green)
+      - Call/limp gap:  VPIP% − PFR% (called but did not raise) (steel blue)
+      - Fold%:          1 − VPIP% (folded or checked blind)     (light gray)
+
+    The visual gap between the PFR and VPIP bars gives an instant read of
+    how passive or aggressive the hero's pre-flop game is.
+
+    Args:
+        vpip: VPIP as a decimal in [0.0, 1.0].
+        pfr: PFR as a decimal in [0.0, 1.0]. Clamped to vpip if pfr > vpip.
+
+    Returns:
+        html.Div containing a dcc.Graph with id='vpip-pfr-chart'.
+    """
+    import plotly.graph_objects as go
+
+    pfr = min(pfr, vpip)  # guard: PFR can never exceed VPIP
+    pfr_pct = pfr * 100
+    gap_pct = (vpip - pfr) * 100
+    fold_pct = (1.0 - vpip) * 100
+
+    fig = go.Figure()
+    fig.add_trace(
+        go.Bar(
+            x=[pfr_pct],
+            y=[""],
+            name=f"PFR {pfr_pct:.1f}%",
+            orientation="h",
+            marker_color="#2ECC40",
+            text=f"PFR {pfr_pct:.1f}%",
+            textposition="inside",
+            insidetextanchor="middle",
+        )
+    )
+    fig.add_trace(
+        go.Bar(
+            x=[gap_pct],
+            y=[""],
+            name=f"Call/Limp {gap_pct:.1f}%",
+            orientation="h",
+            marker_color="#7FBADC",
+            text=f"Call/Limp {gap_pct:.1f}%" if gap_pct >= 4 else "",
+            textposition="inside",
+            insidetextanchor="middle",
+        )
+    )
+    fig.add_trace(
+        go.Bar(
+            x=[fold_pct],
+            y=[""],
+            name=f"Fold {fold_pct:.1f}%",
+            orientation="h",
+            marker_color="#e0e0e0",
+            text=f"Fold {fold_pct:.1f}%" if fold_pct >= 6 else "",
+            textposition="inside",
+            insidetextanchor="middle",
+        )
+    )
+    fig.update_layout(
+        barmode="stack",
+        title=None,
+        xaxis={"range": [0, 100], "showticklabels": False, "showgrid": False},
+        yaxis={"showticklabels": False},
+        margin={"l": 0, "r": 0, "t": 0, "b": 0},
+        plot_bgcolor="#fff",
+        paper_bgcolor="#fff",
+        showlegend=True,
+        legend={
+            "orientation": "h",
+            "yanchor": "bottom",
+            "y": -0.6,
+            "xanchor": "center",
+            "x": 0.5,
+            "font": {"size": 11},
+        },
+        height=80,
+    )
+    return html.Div(
+        [
+            html.H4(
+                "VPIP / PFR Gap",
+                style={"marginBottom": "4px", "color": "#333"},
+            ),
+            dcc.Graph(
+                id="vpip-pfr-chart",
+                figure=fig,
+                config={"displayModeBar": False},
+            ),
+        ],
+        style={"marginBottom": "28px"},
+    )
+
+
 def _build_highlights(
     hp_df: pd.DataFrame,
     sessions_df: pd.DataFrame,
@@ -475,6 +572,7 @@ def _render(pathname: str, period: str) -> html.Div | str:
         [
             kpi_section,
             bankroll_section,
+            _build_vpip_pfr_chart(vpip / 100, pfr / 100),
             positional_section,
             _build_highlights(hp_df, sessions_df),
         ]

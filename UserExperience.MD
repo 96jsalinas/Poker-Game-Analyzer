@@ -74,7 +74,7 @@ Breakdown of how the user plays in different seats (BTN, SB, BB, etc.).
 
 ### C. Visualizations ✅
 * **Bankroll Graph**: A line chart showing cumulative profit over hands played.
-* **VPIP/PFR Gap**: 🔲 Planned gauge chart (not yet implemented).
+* **VPIP/PFR Gap**: ✅ Implemented — stacked horizontal bar (PFR% green | Call/Limp% steel blue | Fold% gray). Placed between the bankroll graph and positional stats table. Built by `_build_vpip_pfr_chart(vpip, pfr)` in `dashboard.py`.
 
 ### D. Highlights ✅ Implemented
 * Biggest single-hand win and loss (with hole cards shown as subtitle).
