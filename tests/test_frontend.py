@@ -634,6 +634,61 @@ class TestSessionsNavParsing:
         assert _parse_nav_search("?foo=bar") is None
 
 
+class TestUpdateStateDataTable:
+    """Tests for _compute_state_from_cell — pure navigation logic."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_session_cell_click_navigates_to_hands(self):
+        """Clicking a session-table cell navigates to level='hands'."""
+        from pokerhero.frontend.pages.sessions import _compute_state_from_cell
+
+        session_data = [{"id": 7, "date": "2026-01-10", "stakes": "50/100"}]
+        result = _compute_state_from_cell(
+            session_cell={"row": 0, "column": 0, "column_id": "date"},
+            hand_cell=None,
+            session_data=session_data,
+            hand_data=None,
+            current_state={"level": "sessions"},
+        )
+        assert result["level"] == "hands"
+        assert result["session_id"] == 7
+
+    def test_hand_cell_click_navigates_to_actions(self):
+        """Clicking a hand-table cell navigates to level='actions'."""
+        from pokerhero.frontend.pages.sessions import _compute_state_from_cell
+
+        hand_data = [{"id": 42, "hand_num": "H1", "hole_cards": "A♠ K♥"}]
+        result = _compute_state_from_cell(
+            session_cell=None,
+            hand_cell={"row": 0, "column": 0, "column_id": "hand_num"},
+            session_data=None,
+            hand_data=hand_data,
+            current_state={"level": "hands", "session_id": 3},
+        )
+        assert result["level"] == "actions"
+        assert result["hand_id"] == 42
+        assert result["session_id"] == 3
+
+    def test_none_cells_raises_prevent_update(self):
+        """Both cells None (initial mount) raises PreventUpdate."""
+        import dash
+
+        from pokerhero.frontend.pages.sessions import _compute_state_from_cell
+
+        with pytest.raises(dash.exceptions.PreventUpdate):
+            _compute_state_from_cell(
+                session_cell=None,
+                hand_cell=None,
+                session_data=None,
+                hand_data=None,
+                current_state={"level": "sessions"},
+            )
+
+
 class TestVpipPfrChart:
     """Tests for the _build_vpip_pfr_chart helper on the dashboard."""
 
