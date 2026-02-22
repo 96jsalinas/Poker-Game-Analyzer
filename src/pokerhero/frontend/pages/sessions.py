@@ -9,7 +9,7 @@ from urllib.parse import parse_qs, urlparse
 
 import dash
 import pandas as pd
-from dash import Input, Output, State, callback, dcc, html
+from dash import Input, Output, State, callback, dash_table, dcc, html
 
 from pokerhero.database.db import get_connection, get_setting, upsert_player
 
@@ -126,6 +126,27 @@ def _render_cards(cards_str: str | None) -> html.Span:
     if not cards:
         return html.Span("—")
     return html.Span([_render_card(c) for c in cards])
+
+
+def _format_cards_text(cards_str: str | None) -> str:
+    """Format a space-separated card string as plain text with suit symbols.
+
+    Args:
+        cards_str: Space-separated card codes, e.g. 'As Kh'. None or empty
+                   string returns an em-dash placeholder.
+
+    Returns:
+        Formatted string like 'A♠ K♥', or '—' when input is absent.
+    """
+    if not cards_str:
+        return "—"
+    parts = []
+    for card in str(cards_str).split():
+        if len(card) >= 2:
+            rank = card[:-1]
+            suit = _SUIT_SYMBOLS.get(card[-1].lower(), card[-1])
+            parts.append(f"{rank}{suit}")
+    return " ".join(parts) if parts else "—"
 
 
 def _build_showdown_section(
@@ -575,72 +596,115 @@ def _filter_hands_data(
 # ---------------------------------------------------------------------------
 # Table builder helpers
 # ---------------------------------------------------------------------------
-def _build_session_table(df: pd.DataFrame) -> html.Div:
-    """Render a filtered sessions DataFrame as a clickable HTML table."""
-
+def _build_session_table(df: pd.DataFrame) -> Any:  # dash_table has no mypy stubs
+    """Render a filtered sessions DataFrame as a sortable DataTable."""
+    _col_style = {"textAlign": "left", "padding": "8px 12px", "fontSize": "14px"}
     rows = []
     for _, row in df.iterrows():
         pnl = float(row["net_profit"])
-        date_str = str(row["start_time"])[:10] if row["start_time"] else "—"
-        stakes = f"{int(row['small_blind'])}/{int(row['big_blind'])}"
         rows.append(
-            html.Tr(
-                id={"type": "session-row", "index": int(row["id"])},
-                style={"cursor": "pointer"},
-                children=[
-                    html.Td(date_str, style=_TD),
-                    html.Td(stakes, style=_TD),
-                    html.Td(int(row["hands_played"]), style=_TD),
-                    html.Td(
-                        f"{'+' if pnl >= 0 else ''}{pnl:,.0f}",
-                        style={**_TD, **_pnl_style(pnl)},
-                    ),
-                ],
-            )
+            {
+                "id": int(row["id"]),
+                "date": str(row["start_time"])[:10] if row["start_time"] else "—",
+                "stakes": f"{int(row['small_blind'])}/{int(row['big_blind'])}",
+                "hands": int(row["hands_played"]),
+                "net_pnl": f"{'+' if pnl >= 0 else ''}{pnl:,.0f}",
+                "_pnl_raw": pnl,
+            }
         )
-    header = html.Tr(
-        [html.Th(h, style=_TH) for h in ("Date", "Stakes", "Hands", "Net P&L")]
-    )
-    return html.Div(
-        html.Table(
-            [html.Thead(header), html.Tbody(rows)],
-            style={"width": "100%", "borderCollapse": "collapse"},
-        )
-        if rows
-        else html.Div("No sessions match the current filters.", style={"color": "#888"})
+    return dash_table.DataTable(  # type: ignore[attr-defined]
+        id="session-table",
+        columns=[
+            {"name": "Date", "id": "date"},
+            {"name": "Stakes", "id": "stakes"},
+            {"name": "Hands", "id": "hands"},
+            {"name": "Net P&L", "id": "net_pnl"},
+        ],
+        data=rows,
+        sort_action="native",
+        style_table={"width": "100%", "overflowX": "auto"},
+        style_header={
+            "backgroundColor": "#0074D9",
+            "color": "white",
+            "fontWeight": "bold",
+            "padding": "8px 12px",
+            "fontSize": "13px",
+            "textAlign": "left",
+        },
+        style_cell=_col_style,
+        style_data_conditional=[
+            {
+                "if": {"filter_query": "{_pnl_raw} >= 0", "column_id": "net_pnl"},
+                "color": "#2ecc71",
+                "fontWeight": "600",
+            },
+            {
+                "if": {"filter_query": "{_pnl_raw} < 0", "column_id": "net_pnl"},
+                "color": "#e74c3c",
+                "fontWeight": "600",
+            },
+            {"if": {"row_index": "odd"}, "backgroundColor": "#f9f9f9"},
+        ],
+        style_as_list_view=True,
+        row_selectable=False,
+        cell_selectable=True,
+        page_action="none",
     )
 
 
-def _build_hand_table(df: pd.DataFrame) -> html.Div:
-    """Render a filtered hands DataFrame as a clickable HTML table."""
+def _build_hand_table(df: pd.DataFrame) -> Any:  # dash_table has no mypy stubs
+    """Render a filtered hands DataFrame as a sortable DataTable."""
+    _col_style = {"textAlign": "left", "padding": "8px 12px", "fontSize": "14px"}
     rows = []
     for _, row in df.iterrows():
         pnl = float(row["net_result"]) if row["net_result"] is not None else 0.0
         rows.append(
-            html.Tr(
-                id={"type": "hand-row", "index": int(row["id"])},
-                style={"cursor": "pointer"},
-                children=[
-                    html.Td(str(row["source_hand_id"]), style=_TD),
-                    html.Td(_render_cards(row["hole_cards"]), style=_TD),
-                    html.Td(f"{float(row['total_pot']):,.0f}", style=_TD),
-                    html.Td(
-                        f"{'+' if pnl >= 0 else ''}{pnl:,.0f}",
-                        style={**_TD, **_pnl_style(pnl)},
-                    ),
-                ],
-            )
+            {
+                "id": int(row["id"]),
+                "hand_num": str(row["source_hand_id"]),
+                "hole_cards": _format_cards_text(row["hole_cards"]),
+                "pot": f"{float(row['total_pot']):,.0f}",
+                "net_result": f"{'+' if pnl >= 0 else ''}{pnl:,.0f}",
+                "_pnl_raw": pnl,
+            }
         )
-    header = html.Tr(
-        [html.Th(h, style=_TH) for h in ("Hand #", "Hole Cards", "Pot", "Net Result")]
-    )
-    return html.Div(
-        html.Table(
-            [html.Thead(header), html.Tbody(rows)],
-            style={"width": "100%", "borderCollapse": "collapse"},
-        )
-        if rows
-        else html.Div("No hands match the current filters.", style={"color": "#888"})
+    return dash_table.DataTable(  # type: ignore[attr-defined]
+        id="hand-table",
+        columns=[
+            {"name": "Hand #", "id": "hand_num"},
+            {"name": "Hole Cards", "id": "hole_cards"},
+            {"name": "Pot", "id": "pot"},
+            {"name": "Net Result", "id": "net_result"},
+        ],
+        data=rows,
+        sort_action="native",
+        style_table={"width": "100%", "overflowX": "auto"},
+        style_header={
+            "backgroundColor": "#0074D9",
+            "color": "white",
+            "fontWeight": "bold",
+            "padding": "8px 12px",
+            "fontSize": "13px",
+            "textAlign": "left",
+        },
+        style_cell=_col_style,
+        style_data_conditional=[
+            {
+                "if": {"filter_query": "{_pnl_raw} >= 0", "column_id": "net_result"},
+                "color": "#2ecc71",
+                "fontWeight": "600",
+            },
+            {
+                "if": {"filter_query": "{_pnl_raw} < 0", "column_id": "net_result"},
+                "color": "#e74c3c",
+                "fontWeight": "600",
+            },
+            {"if": {"row_index": "odd"}, "backgroundColor": "#f9f9f9"},
+        ],
+        style_as_list_view=True,
+        row_selectable=False,
+        cell_selectable=True,
+        page_action="none",
     )
 
 
@@ -751,10 +815,7 @@ def _render_sessions(db_path: str) -> html.Div | str:
     return html.Div(
         [
             filter_bar,
-            html.Div(
-                id="session-table-container",
-                children=_build_session_table(df),
-            ),
+            _build_session_table(df),
             dcc.Store(id="session-data-store", data=df.to_dict("records")),
         ]
     )
@@ -897,10 +958,7 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
                     },
                 ),
                 filter_bar,
-                html.Div(
-                    id="hand-table-container",
-                    children=_build_hand_table(df),
-                ),
+                _build_hand_table(df),
                 dcc.Store(id="hand-data-store", data=df.to_dict("records")),
                 dcc.Store(id="session-fav-id-store", data=session_id),
             ]
@@ -1202,10 +1260,10 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
 
 
 # ---------------------------------------------------------------------------
-# Filter callbacks — update table containers when filter inputs change
+# Filter callbacks — update DataTable data when filter inputs change
 # ---------------------------------------------------------------------------
 @callback(
-    Output("session-table-container", "children"),
+    Output("session-table", "data"),
     Input("session-filter-date-from", "value"),
     Input("session-filter-date-to", "value"),
     Input("session-filter-stakes", "value"),
@@ -1225,7 +1283,7 @@ def _apply_session_filters(
     min_hands: float | None,
     fav_filter: list[str] | None,
     data: list[dict[str, Any]] | None,
-) -> html.Div:
+) -> list[dict[str, Any]]:
     if not data:
         raise dash.exceptions.PreventUpdate
     df = pd.DataFrame(data)
@@ -1239,11 +1297,11 @@ def _apply_session_filters(
         int(min_hands) if min_hands is not None else None,
         favorites_only="favorites" in (fav_filter or []),
     )
-    return _build_session_table(filtered)
+    return list(_build_session_table(filtered).data)
 
 
 @callback(
-    Output("hand-table-container", "children"),
+    Output("hand-table", "data"),
     Input("hand-filter-pnl-min", "value"),
     Input("hand-filter-pnl-max", "value"),
     Input("hand-filter-position", "value"),
@@ -1259,7 +1317,7 @@ def _apply_hand_filters(
     flags: list[str] | None,
     fav_filter: list[str] | None,
     data: list[dict[str, Any]] | None,
-) -> html.Div:
+) -> list[dict[str, Any]]:
     if not data:
         raise dash.exceptions.PreventUpdate
     df = pd.DataFrame(data)
@@ -1273,7 +1331,7 @@ def _apply_hand_filters(
         "showdown" in flags,
         favorites_only="favorites" in (fav_filter or []),
     )
-    return _build_hand_table(filtered)
+    return list(_build_hand_table(filtered).data)
 
 
 @callback(

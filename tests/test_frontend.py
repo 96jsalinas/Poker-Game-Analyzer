@@ -990,6 +990,11 @@ class TestFavoriteButton:
 class TestFormatCardsText:
     """Tests for the _format_cards_text plain-text card formatter."""
 
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
     def test_none_returns_dash(self):
         """None input returns an em-dash placeholder."""
         from pokerhero.frontend.pages.sessions import _format_cards_text
