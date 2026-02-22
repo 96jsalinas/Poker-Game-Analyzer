@@ -365,46 +365,81 @@ def _breadcrumb(
 # ---------------------------------------------------------------------------
 # State updater — all row/breadcrumb clicks funnel into drill-down-state
 # ---------------------------------------------------------------------------
+def _compute_state_from_cell(
+    session_cell: dict[str, Any] | None,
+    hand_cell: dict[str, Any] | None,
+    session_data: list[dict[str, Any]] | None,
+    hand_data: list[dict[str, Any]] | None,
+    current_state: _DrillDownState,
+) -> _DrillDownState:
+    """Pure helper: derive new drill-down state from a DataTable cell click.
+
+    Args:
+        session_cell: active_cell from session-table, or None.
+        hand_cell: active_cell from hand-table, or None.
+        session_data: derived_viewport_data for session-table, or None.
+        hand_data: derived_viewport_data for hand-table, or None.
+        current_state: current drill-down state (for session_id carry-through).
+
+    Returns:
+        New _DrillDownState navigating to 'hands' or 'actions'.
+
+    Raises:
+        dash.exceptions.PreventUpdate: when no cell was clicked.
+    """
+    if session_cell is not None and session_data:
+        row = session_data[session_cell["row"]]
+        return _DrillDownState(level="hands", session_id=int(row["id"]))
+    if hand_cell is not None and hand_data:
+        row = hand_data[hand_cell["row"]]
+        return _DrillDownState(
+            level="actions",
+            session_id=int(current_state.get("session_id") or 0),
+            hand_id=int(row["id"]),
+        )
+    raise dash.exceptions.PreventUpdate
+
+
 @callback(
     Output("drill-down-state", "data"),
-    Input({"type": "session-row", "index": dash.ALL}, "n_clicks"),
-    Input({"type": "hand-row", "index": dash.ALL}, "n_clicks"),
+    Input("session-table", "active_cell"),
+    Input("hand-table", "active_cell"),
     Input(
         {"type": "breadcrumb-btn", "level": dash.ALL, "session_id": dash.ALL},
         "n_clicks",
     ),
+    State("session-table", "derived_viewport_data"),
+    State("hand-table", "derived_viewport_data"),
     State("drill-down-state", "data"),
     prevent_initial_call=True,
 )
 def _update_state(
-    _session_clicks: list[int | None],
-    _hand_clicks: list[int | None],
+    session_cell: dict[str, Any] | None,
+    hand_cell: dict[str, Any] | None,
     _breadcrumb_clicks: list[int | None],
+    session_data: list[dict[str, Any]] | None,
+    hand_data: list[dict[str, Any]] | None,
     current_state: _DrillDownState,
 ) -> _DrillDownState:
     ctx = dash.callback_context
     if not ctx.triggered:
         raise dash.exceptions.PreventUpdate
-    trigger = ctx.triggered[0]
-    # Ignore synthetic fires from newly-rendered pattern-match components (n_clicks=0)
-    if not trigger.get("value"):
-        raise dash.exceptions.PreventUpdate
-    tid = trigger["prop_id"].split(".")[0]
+    trigger_id = ctx.triggered[0]["prop_id"]
+
+    if trigger_id in ("session-table.active_cell", "hand-table.active_cell"):
+        return _compute_state_from_cell(
+            session_cell, hand_cell, session_data, hand_data, current_state
+        )
+
+    # Breadcrumb button
+    tid = trigger_id.split(".")[0]
     try:
         parsed = json.loads(tid)
     except (json.JSONDecodeError, ValueError):
         raise dash.exceptions.PreventUpdate
-
-    t = parsed.get("type")
-    if t == "session-row":
-        return _DrillDownState(level="hands", session_id=int(parsed["index"]))
-    if t == "hand-row":
-        return _DrillDownState(
-            level="actions",
-            session_id=int(current_state.get("session_id") or 0),
-            hand_id=int(parsed["index"]),
-        )
-    if t == "breadcrumb-btn":
+    if not ctx.triggered[0].get("value"):
+        raise dash.exceptions.PreventUpdate
+    if parsed.get("type") == "breadcrumb-btn":
         if parsed["level"] == "sessions":
             return _DrillDownState(level="sessions")
         if parsed["level"] == "hands":
