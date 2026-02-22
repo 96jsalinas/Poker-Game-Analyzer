@@ -41,14 +41,16 @@ Sessions  →  Sessions › 2026-02-16 250/500  →  Sessions › 2026-02-16 250
 ### Level 1: Session History ✅
 A table view showing all played sessions.
 * **Columns**: Date, Stakes (e.g., 100/200), Hands Played, Net Profit/Loss (green/red).
-* **Action**: Clicking a row navigates to the **Hand List** for that session.
-* **Filters** ✅ Implemented — filter bar above the table: date range (from/to), stakes multiselect, P&L min/max, min hands, Favourites only. Updates table without page reload via `_apply_session_filters` callback + `session-data-store`.
+* **Sorting** ✅ Implemented — click any column header to sort ascending/descending (`sort_action="native"` on `dash_table.DataTable`).
+* **Action**: Clicking any cell in a row navigates to the **Hand List** for that session (via `active_cell` + `derived_viewport_data`).
+* **Filters** ✅ Implemented — filter bar above the table: date range (from/to), stakes multiselect, P&L min/max, min hands, Favourites only. Updates table data without page reload via `_apply_session_filters` callback + `session-data-store`.
 * **Favourite** ✅ Implemented — ★/☆ button in the top-right corner of the hand list view; clicking toggles `is_favorite` on the current session (gold star = favourite). Persisted to DB via `_toggle_session_fav` callback + `session-fav-id-store`.
 
 ### Level 2: Hand List (Within a Session) ✅
 A detailed list of every hand dealt in that session.
-* **Columns**: Hand ID, Hero Cards (Hole Cards), Final Pot, Net Result (green/red).
-* **Action**: Clicking a row navigates to the **Hand Action View**.
+* **Columns**: Hand ID, Hero Cards (Hole Cards with suit symbols), Final Pot, Net Result.
+* **Sorting** ✅ Implemented — click any column header to sort ascending/descending.
+* **Action**: Clicking any cell in a row navigates to the **Hand Action View**.
 * **Filters** ✅ Implemented — filter bar: P&L min/max, position multiselect, Saw Flop checkbox, Showdown checkbox, Favourites only. Updates table without page reload via `_apply_hand_filters` callback + `hand-data-store`.
 
 ### Level 3: Hand Action View ✅
