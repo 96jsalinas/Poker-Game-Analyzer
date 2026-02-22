@@ -274,6 +274,18 @@ def _pnl_style(value: float) -> dict[str, str]:
     return {"color": "green" if value >= 0 else "red", "fontWeight": "600"}
 
 
+def _fav_button_label(is_favorite: bool) -> str:
+    """Return the star character for a favourite toggle button.
+
+    Args:
+        is_favorite: True when the item is currently marked as favourite.
+
+    Returns:
+        '★' when favourite, '☆' otherwise.
+    """
+    return "★" if is_favorite else "☆"
+
+
 def _breadcrumb(
     level: str, session_label: str = "", hand_label: str = "", session_id: int = 0
 ) -> html.Div:
@@ -480,6 +492,7 @@ def _filter_sessions_data(
     pnl_min: float | None,
     pnl_max: float | None,
     min_hands: int | None,
+    favorites_only: bool = False,
 ) -> pd.DataFrame:
     """Filter a sessions DataFrame based on user-selected criteria.
 
@@ -515,6 +528,8 @@ def _filter_sessions_data(
         result = result[result["net_profit"].astype(float) <= float(pnl_max)]
     if min_hands is not None:
         result = result[result["hands_played"].astype(int) >= int(min_hands)]
+    if favorites_only and "is_favorite" in result.columns:
+        result = result[result["is_favorite"].astype(int) == 1]
     return result
 
 
@@ -525,6 +540,7 @@ def _filter_hands_data(
     positions: list[str] | None,
     saw_flop_only: bool,
     showdown_only: bool,
+    favorites_only: bool = False,
 ) -> pd.DataFrame:
     """Filter a hands DataFrame based on user-selected criteria.
 
@@ -551,6 +567,8 @@ def _filter_hands_data(
         result = result[result["saw_flop"].astype(int) == 1]
     if showdown_only:
         result = result[result["went_to_showdown"].astype(int) == 1]
+    if favorites_only and "is_favorite" in result.columns:
+        result = result[result["is_favorite"].astype(int) == 1]
     return result
 
 
@@ -708,6 +726,14 @@ def _render_sessions(db_path: str) -> html.Div | str:
                 debounce=True,
                 style={**_input_style, "width": "90px"},
             ),
+            dcc.Checklist(
+                id="session-filter-favorites",
+                options=[{"label": " ★ Favourites only", "value": "favorites"}],
+                value=[],
+                inline=True,
+                inputStyle={"marginRight": "4px"},
+                labelStyle={"fontSize": "13px"},
+            ),
         ],
         style={
             "display": "flex",
@@ -760,9 +786,13 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
     conn = get_connection(db_path)
     try:
         df = get_hands(conn, session_id, player_id)
+        fav_row = conn.execute(
+            "SELECT is_favorite FROM sessions WHERE id = ?", (session_id,)
+        ).fetchone()
     finally:
         conn.close()
 
+    is_fav: bool = bool(fav_row and fav_row[0])
     session_label = _get_session_label(db_path, session_id)
 
     if df.empty:
@@ -811,6 +841,14 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
                 inputStyle={"marginRight": "4px"},
                 labelStyle={"marginRight": "12px", "fontSize": "13px"},
             ),
+            dcc.Checklist(
+                id="hand-filter-favorites",
+                options=[{"label": " ★ Favourites only", "value": "favorites"}],
+                value=[],
+                inline=True,
+                inputStyle={"marginRight": "4px"},
+                labelStyle={"fontSize": "13px"},
+            ),
         ],
         style={
             "display": "flex",
@@ -825,15 +863,35 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
         },
     )
 
+    _fav_btn_style = {
+        "background": "none",
+        "border": "none",
+        "fontSize": "22px",
+        "cursor": "pointer",
+        "color": "#f5a623" if is_fav else "#ccc",
+        "padding": "0",
+        "lineHeight": "1",
+        "title": "Mark session as favourite",
+    }
     return (
         html.Div(
             [
+                html.Div(
+                    html.Button(
+                        _fav_button_label(is_fav),
+                        id="session-fav-btn",
+                        n_clicks=0,
+                        style=_fav_btn_style,
+                    ),
+                    style={"display": "flex", "justifyContent": "flex-end"},
+                ),
                 filter_bar,
                 html.Div(
                     id="hand-table-container",
                     children=_build_hand_table(df),
                 ),
                 dcc.Store(id="hand-data-store", data=df.to_dict("records")),
+                dcc.Store(id="session-fav-id-store", data=session_id),
             ]
         ),
         session_label,
@@ -850,7 +908,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
     try:
         df = get_actions(conn, hand_id)
         hand_row = conn.execute(
-            "SELECT source_hand_id, board_flop, board_turn, board_river"
+            "SELECT source_hand_id, board_flop, board_turn, board_river, is_favorite"
             " FROM hands WHERE id = ?",
             (hand_id,),
         ).fetchone()
@@ -891,8 +949,9 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
     if df.empty or hand_row is None:
         return html.Div("No actions found for this hand."), ""
 
-    source_id, flop, turn, river = hand_row
+    source_id, flop, turn, river, hand_is_fav_raw = hand_row
     hand_label = f"Hand #{source_id}"
+    hand_is_fav: bool = bool(hand_is_fav_raw)
 
     # --- Hero hole cards row ---
     hero_row: html.Div | None = None
@@ -1085,8 +1144,33 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
     if showdown_div is not None:
         sections.append(showdown_div)
 
-    header_children: list[html.H3 | html.Div] = [
-        html.H3(hand_label, style={"marginTop": "0"}),
+    header_children: list[Any] = [
+        html.Div(
+            [
+                html.H3(hand_label, style={"marginTop": "0", "marginBottom": "0"}),
+                html.Button(
+                    _fav_button_label(hand_is_fav),
+                    id="hand-fav-btn",
+                    n_clicks=0,
+                    style={
+                        "background": "none",
+                        "border": "none",
+                        "fontSize": "22px",
+                        "cursor": "pointer",
+                        "color": "#f5a623" if hand_is_fav else "#ccc",
+                        "padding": "0",
+                        "lineHeight": "1",
+                    },
+                ),
+            ],
+            style={
+                "display": "flex",
+                "justifyContent": "space-between",
+                "alignItems": "center",
+                "marginBottom": "8px",
+            },
+        ),
+        dcc.Store(id="hand-fav-id-store", data=hand_id),
         *([] if hero_row is None else [hero_row]),
         board_div,
     ]
@@ -1107,6 +1191,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
     Input("session-filter-pnl-min", "value"),
     Input("session-filter-pnl-max", "value"),
     Input("session-filter-min-hands", "value"),
+    Input("session-filter-favorites", "value"),
     State("session-data-store", "data"),
     prevent_initial_call=True,
 )
@@ -1117,6 +1202,7 @@ def _apply_session_filters(
     pnl_min: float | None,
     pnl_max: float | None,
     min_hands: float | None,
+    fav_filter: list[str] | None,
     data: list[dict[str, Any]] | None,
 ) -> html.Div:
     if not data:
@@ -1130,6 +1216,7 @@ def _apply_session_filters(
         pnl_min,
         pnl_max,
         int(min_hands) if min_hands is not None else None,
+        favorites_only="favorites" in (fav_filter or []),
     )
     return _build_session_table(filtered)
 
@@ -1140,6 +1227,7 @@ def _apply_session_filters(
     Input("hand-filter-pnl-max", "value"),
     Input("hand-filter-position", "value"),
     Input("hand-filter-flags", "value"),
+    Input("hand-filter-favorites", "value"),
     State("hand-data-store", "data"),
     prevent_initial_call=True,
 )
@@ -1148,6 +1236,7 @@ def _apply_hand_filters(
     pnl_max: float | None,
     positions: list[str] | None,
     flags: list[str] | None,
+    fav_filter: list[str] | None,
     data: list[dict[str, Any]] | None,
 ) -> html.Div:
     if not data:
@@ -1161,5 +1250,82 @@ def _apply_hand_filters(
         positions or None,
         "saw_flop" in flags,
         "showdown" in flags,
+        favorites_only="favorites" in (fav_filter or []),
     )
     return _build_hand_table(filtered)
+
+
+@callback(
+    Output("session-fav-btn", "children"),
+    Output("session-fav-btn", "style"),
+    Input("session-fav-btn", "n_clicks"),
+    State("session-fav-id-store", "data"),
+    prevent_initial_call=True,
+)
+def _toggle_session_fav(
+    n_clicks: int | None,
+    session_id: int | None,
+) -> tuple[str, dict[str, str]]:
+    if not n_clicks or session_id is None:
+        raise dash.exceptions.PreventUpdate
+    from pokerhero.database.db import toggle_session_favorite
+
+    db_path = _get_db_path()
+    conn = get_connection(db_path)
+    try:
+        toggle_session_favorite(conn, int(session_id))
+        conn.commit()
+        row = conn.execute(
+            "SELECT is_favorite FROM sessions WHERE id = ?", (int(session_id),)
+        ).fetchone()
+    finally:
+        conn.close()
+    is_fav = bool(row and row[0])
+    style: dict[str, str] = {
+        "background": "none",
+        "border": "none",
+        "fontSize": "22px",
+        "cursor": "pointer",
+        "color": "#f5a623" if is_fav else "#ccc",
+        "padding": "0",
+        "lineHeight": "1",
+    }
+    return _fav_button_label(is_fav), style
+
+
+@callback(
+    Output("hand-fav-btn", "children"),
+    Output("hand-fav-btn", "style"),
+    Input("hand-fav-btn", "n_clicks"),
+    State("hand-fav-id-store", "data"),
+    prevent_initial_call=True,
+)
+def _toggle_hand_fav(
+    n_clicks: int | None,
+    hand_id: int | None,
+) -> tuple[str, dict[str, str]]:
+    if not n_clicks or hand_id is None:
+        raise dash.exceptions.PreventUpdate
+    from pokerhero.database.db import toggle_hand_favorite
+
+    db_path = _get_db_path()
+    conn = get_connection(db_path)
+    try:
+        toggle_hand_favorite(conn, int(hand_id))
+        conn.commit()
+        row = conn.execute(
+            "SELECT is_favorite FROM hands WHERE id = ?", (int(hand_id),)
+        ).fetchone()
+    finally:
+        conn.close()
+    is_fav = bool(row and row[0])
+    style: dict[str, str] = {
+        "background": "none",
+        "border": "none",
+        "fontSize": "22px",
+        "cursor": "pointer",
+        "color": "#f5a623" if is_fav else "#ccc",
+        "padding": "0",
+        "lineHeight": "1",
+    }
+    return _fav_button_label(is_fav), style

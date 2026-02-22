@@ -883,6 +883,110 @@ class TestHandFilters:
         assert len(result) == 2
 
 
+class TestFavoriteButton:
+    """Tests for the favourite button helper and filter extensions."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_fav_button_label_filled_star_when_favorite(self):
+        """_fav_button_label(True) must return the filled star character."""
+        from pokerhero.frontend.pages.sessions import _fav_button_label
+
+        assert _fav_button_label(True) == "★"
+
+    def test_fav_button_label_empty_star_when_not_favorite(self):
+        """_fav_button_label(False) must return the empty star character."""
+        from pokerhero.frontend.pages.sessions import _fav_button_label
+
+        assert _fav_button_label(False) == "☆"
+
+    def _make_sessions_df(self):
+        import pandas as pd
+
+        return pd.DataFrame(
+            {
+                "id": [1, 2, 3],
+                "start_time": ["2026-01-10", "2026-01-20", "2026-02-05"],
+                "small_blind": [50, 100, 100],
+                "big_blind": [100, 200, 200],
+                "hands_played": [20, 5, 40],
+                "net_profit": [500.0, -200.0, 1000.0],
+                "is_favorite": [1, 0, 1],
+            }
+        )
+
+    def _make_hands_df(self):
+        import pandas as pd
+
+        return pd.DataFrame(
+            {
+                "id": [1, 2, 3],
+                "source_hand_id": ["H1", "H2", "H3"],
+                "hole_cards": ["As Kh", "Qd Jc", None],
+                "total_pot": [300.0, 150.0, 500.0],
+                "net_result": [200.0, -100.0, 400.0],
+                "position": ["BTN", "SB", "BB"],
+                "went_to_showdown": [1, 0, 1],
+                "saw_flop": [1, 0, 1],
+                "is_favorite": [0, 1, 0],
+            }
+        )
+
+    def test_filter_sessions_favorites_only_returns_only_favorites(self):
+        """favorites_only=True keeps only rows where is_favorite == 1."""
+        from pokerhero.frontend.pages.sessions import _filter_sessions_data
+
+        result = _filter_sessions_data(
+            self._make_sessions_df(),
+            None,
+            None,
+            None,
+            None,
+            None,
+            None,
+            favorites_only=True,
+        )
+        assert len(result) == 2
+        assert all(result["is_favorite"] == 1)
+
+    def test_filter_sessions_favorites_default_returns_all(self):
+        """favorites_only defaults to False and returns all rows."""
+        from pokerhero.frontend.pages.sessions import _filter_sessions_data
+
+        result = _filter_sessions_data(
+            self._make_sessions_df(), None, None, None, None, None, None
+        )
+        assert len(result) == 3
+
+    def test_filter_hands_favorites_only_returns_only_favorites(self):
+        """favorites_only=True keeps only hands where is_favorite == 1."""
+        from pokerhero.frontend.pages.sessions import _filter_hands_data
+
+        result = _filter_hands_data(
+            self._make_hands_df(),
+            None,
+            None,
+            None,
+            False,
+            False,
+            favorites_only=True,
+        )
+        assert len(result) == 1
+        assert all(result["is_favorite"] == 1)
+
+    def test_filter_hands_favorites_default_returns_all(self):
+        """favorites_only defaults to False and returns all rows."""
+        from pokerhero.frontend.pages.sessions import _filter_hands_data
+
+        result = _filter_hands_data(
+            self._make_hands_df(), None, None, None, False, False
+        )
+        assert len(result) == 3
+
+
 class TestGuidePage:
     """Tests for the /guide page layout."""
 
