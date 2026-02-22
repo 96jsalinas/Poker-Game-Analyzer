@@ -38,6 +38,7 @@ def get_sessions(
             s.limit_type,
             s.small_blind,
             s.big_blind,
+            s.is_favorite,
             COUNT(h.id)                     AS hands_played,
             COALESCE(SUM(hp.net_result), 0) AS net_profit
         FROM sessions s
@@ -79,6 +80,7 @@ def get_hands(
             h.board_turn,
             h.board_river,
             h.total_pot,
+            h.is_favorite,
             hp.net_result,
             hp.hole_cards,
             hp.position,

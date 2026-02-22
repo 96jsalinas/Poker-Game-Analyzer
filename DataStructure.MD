@@ -18,6 +18,7 @@ Defines the environment and stakes for a block of hands.
 | `start_time` | DateTime | Timestamp of session start. |
 | `hero_buy_in` | Decimal | Total chips invested across the session (initial buy-in + all re-buys). A re-buy is detected when hero's `starting_stack` at hand N exceeds `starting_stack + net_result` from hand N-1. |
 | `hero_cash_out` | Decimal | Total chips Hero finished with (final hand's `starting_stack + net_result`). |
+| `is_favorite` | Boolean | User-marked favourite session (0 = normal, 1 = favourite). Toggled via `toggle_session_favorite()` in `db.py`. |
 
 ---
 
@@ -35,6 +36,7 @@ A specific deal of cards. Includes "Uncalled Bet" logic for financial balancing.
 | `uncalled_bet_returned` | Decimal | Excess bet returned to the last aggressor. |
 | `rake` | Decimal | House fee taken. |
 | `timestamp` | DateTime | When the hand occurred. |
+| `is_favorite` | Boolean | User-marked favourite hand (0 = normal, 1 = favourite). Toggled via `toggle_hand_favorite()` in `db.py`. |
 
 ---
 

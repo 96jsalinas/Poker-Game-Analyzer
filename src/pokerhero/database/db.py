@@ -28,6 +28,14 @@ def init_db(db_path: str | Path) -> sqlite3.Connection:
     """Create the database schema if it doesn't exist. Returns an open connection."""
     conn = get_connection(db_path)
     conn.executescript(_SCHEMA_PATH.read_text())
+    # Migrate existing databases: add is_favorite if not present
+    for table in ("sessions", "hands"):
+        try:
+            conn.execute(
+                f"ALTER TABLE {table} ADD COLUMN is_favorite INTEGER NOT NULL DEFAULT 0"
+            )
+        except sqlite3.OperationalError:
+            pass  # column already exists
     conn.commit()
     return conn
 
@@ -234,6 +242,32 @@ def clear_all_data(conn: sqlite3.Connection) -> None:
         """
     )
     conn.commit()
+
+
+def toggle_session_favorite(conn: sqlite3.Connection, session_id: int) -> None:
+    """Toggle the is_favorite flag on a session (0→1 or 1→0).
+
+    Args:
+        conn: An open SQLite connection.
+        session_id: Primary key of the session to toggle.
+    """
+    conn.execute(
+        "UPDATE sessions SET is_favorite = 1 - is_favorite WHERE id = ?",
+        (session_id,),
+    )
+
+
+def toggle_hand_favorite(conn: sqlite3.Connection, hand_id: int) -> None:
+    """Toggle the is_favorite flag on a hand (0→1 or 1→0).
+
+    Args:
+        conn: An open SQLite connection.
+        hand_id: Primary key of the hand to toggle.
+    """
+    conn.execute(
+        "UPDATE hands SET is_favorite = 1 - is_favorite WHERE id = ?",
+        (hand_id,),
+    )
 
 
 def save_parsed_hand(

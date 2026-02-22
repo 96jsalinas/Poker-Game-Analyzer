@@ -14,7 +14,8 @@ CREATE TABLE IF NOT EXISTS sessions (
     ante REAL NOT NULL DEFAULT 0,
     start_time TEXT NOT NULL,
     hero_buy_in REAL,
-    hero_cash_out REAL
+    hero_cash_out REAL,
+    is_favorite INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS hands (
@@ -27,7 +28,8 @@ CREATE TABLE IF NOT EXISTS hands (
     total_pot REAL NOT NULL,
     uncalled_bet_returned REAL NOT NULL DEFAULT 0,
     rake REAL NOT NULL DEFAULT 0,
-    timestamp TEXT NOT NULL
+    timestamp TEXT NOT NULL,
+    is_favorite INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS hand_players (
