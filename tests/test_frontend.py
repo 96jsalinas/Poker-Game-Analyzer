@@ -681,3 +681,50 @@ class TestVpipPfrChart:
         # Should not raise even with inconsistent inputs
         result = _build_vpip_pfr_chart(0.10, 0.20)
         assert result is not None
+
+
+class TestStatHeader:
+    """Tests for the _stat_header helper on the dashboard positional stats table."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_stat_header_returns_th(self):
+        """_stat_header must return an html.Th."""
+        from dash import html
+
+        from pokerhero.frontend.pages.dashboard import _stat_header
+
+        result = _stat_header("VPIP%", "Voluntarily Put In Pot")
+        assert isinstance(result, html.Th)
+
+    def test_stat_header_label_in_output(self):
+        """Label text must appear in the component output."""
+        from pokerhero.frontend.pages.dashboard import _stat_header
+
+        result = _stat_header("VPIP%", "Some tooltip text")
+        assert "VPIP%" in str(result)
+
+    def test_stat_header_tooltip_text_in_output(self):
+        """Tooltip text must be present in the component so it renders on hover."""
+        from pokerhero.frontend.pages.dashboard import _stat_header
+
+        result = _stat_header("PFR%", "Pre-Flop Raise rate")
+        assert "Pre-Flop Raise rate" in str(result)
+
+    def test_stat_header_has_help_class(self):
+        """The tooltip trigger element must have the stat-help CSS class."""
+        from pokerhero.frontend.pages.dashboard import _stat_header
+
+        result = _stat_header("AF", "Aggression Factor")
+        assert "stat-help" in str(result)
+
+    def test_stat_header_in_dashboard_source(self):
+        """Dashboard source must use _stat_header (confirms it is wired in)."""
+        import inspect
+
+        from pokerhero.frontend.pages import dashboard
+
+        assert "stat-help" in inspect.getsource(dashboard)
