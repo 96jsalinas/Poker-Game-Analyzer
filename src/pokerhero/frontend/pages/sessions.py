@@ -126,6 +126,47 @@ def _render_cards(cards_str: str | None) -> html.Span:
     return html.Span([_render_card(c) for c in cards])
 
 
+def _format_math_cell(
+    spr: float | None,
+    mdf: float | None,
+    is_hero: bool,
+    amount_to_call: float,
+    pot_before: float,
+) -> str:
+    """Build the math/context cell text for an action row.
+
+    Shows up to three values, separated by ' | ':
+      SPR (prepended, flop-only)
+      Pot odds (hero facing a bet)
+      MDF (hero facing a bet)
+
+    Args:
+        spr: Stack-to-Pot Ratio, or None when not applicable.
+        mdf: Minimum Defense Frequency as a decimal [0,1], or None when not applicable.
+        is_hero: True when the action belongs to the hero player.
+        amount_to_call: Total facing bet hero must match (0 for non-facing actions).
+        pot_before: Pot size before the action.
+
+    Returns:
+        Formatted string of context values, or empty string when none apply.
+    """
+    parts: list[str] = []
+
+    if is_hero and amount_to_call > 0:
+        pot_odds = amount_to_call / (pot_before + amount_to_call) * 100
+        parts.append(f"Pot odds: {pot_odds:.1f}%")
+        if mdf is not None and not math.isnan(mdf):
+            parts.append(f"MDF: {mdf * 100:.1f}%")
+
+    result = "  |  ".join(parts)
+
+    if spr is not None and not math.isnan(spr):
+        spr_str = f"SPR: {spr:.2f}"
+        result = f"{spr_str}  |  {result}" if result else spr_str
+
+    return result
+
+
 # ---------------------------------------------------------------------------
 # Layout — all content lives inside drill-down-content
 # ---------------------------------------------------------------------------
@@ -589,13 +630,25 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
         if action["is_all_in"]:
             label += "  🚨 ALL-IN"
 
-        extra = ""
-        if action["is_hero"] and amount_to_call > 0:
-            pot_odds = amount_to_call / (pot_before + amount_to_call) * 100
-            extra = f"Pot odds: {pot_odds:.1f}%"
-        if action["spr"] is not None and not math.isnan(float(action["spr"])):
-            spr_str = f"SPR: {float(action['spr']):.2f}"
-            extra = f"{spr_str}  |  {extra}" if extra else spr_str
+        raw_spr = action["spr"]
+        raw_mdf = action["mdf"]
+        spr_val = (
+            float(raw_spr)
+            if raw_spr is not None and not math.isnan(float(raw_spr))
+            else None
+        )
+        mdf_val = (
+            float(raw_mdf)
+            if raw_mdf is not None and not math.isnan(float(raw_mdf))
+            else None
+        )
+        extra = _format_math_cell(
+            spr=spr_val,
+            mdf=mdf_val,
+            is_hero=bool(action["is_hero"]),
+            amount_to_call=amount_to_call,
+            pot_before=pot_before,
+        )
 
         # EV for hero all-in actions when villain cards are known
         ev_cell: str = "—"
