@@ -864,26 +864,37 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
     )
 
     _fav_btn_style = {
-        "background": "none",
-        "border": "none",
-        "fontSize": "22px",
+        "display": "flex",
+        "alignItems": "center",
+        "gap": "6px",
+        "background": "#fff8ec" if is_fav else "#f5f5f5",
+        "border": "1px solid #f5a623" if is_fav else "1px solid #ccc",
+        "borderRadius": "20px",
+        "padding": "4px 12px",
+        "fontSize": "15px",
         "cursor": "pointer",
-        "color": "#f5a623" if is_fav else "#ccc",
-        "padding": "0",
-        "lineHeight": "1",
-        "title": "Mark session as favourite",
+        "color": "#f5a623" if is_fav else "#888",
+        "fontWeight": "600",
+        "lineHeight": "1.4",
     }
     return (
         html.Div(
             [
                 html.Div(
                     html.Button(
-                        _fav_button_label(is_fav),
+                        [
+                            _fav_button_label(is_fav),
+                            " Favourite session",
+                        ],
                         id="session-fav-btn",
                         n_clicks=0,
                         style=_fav_btn_style,
                     ),
-                    style={"display": "flex", "justifyContent": "flex-end"},
+                    style={
+                        "display": "flex",
+                        "justifyContent": "flex-end",
+                        "marginBottom": "8px",
+                    },
                 ),
                 filter_bar,
                 html.Div(
@@ -1149,17 +1160,27 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             [
                 html.H3(hand_label, style={"marginTop": "0", "marginBottom": "0"}),
                 html.Button(
-                    _fav_button_label(hand_is_fav),
+                    [
+                        _fav_button_label(hand_is_fav),
+                        " Favourite hand",
+                    ],
                     id="hand-fav-btn",
                     n_clicks=0,
                     style={
-                        "background": "none",
-                        "border": "none",
-                        "fontSize": "22px",
+                        "display": "flex",
+                        "alignItems": "center",
+                        "gap": "6px",
+                        "background": "#fff8ec" if hand_is_fav else "#f5f5f5",
+                        "border": "1px solid #f5a623"
+                        if hand_is_fav
+                        else "1px solid #ccc",
+                        "borderRadius": "20px",
+                        "padding": "4px 12px",
+                        "fontSize": "15px",
                         "cursor": "pointer",
-                        "color": "#f5a623" if hand_is_fav else "#ccc",
-                        "padding": "0",
-                        "lineHeight": "1",
+                        "color": "#f5a623" if hand_is_fav else "#888",
+                        "fontWeight": "600",
+                        "lineHeight": "1.4",
                     },
                 ),
             ],
@@ -1265,7 +1286,7 @@ def _apply_hand_filters(
 def _toggle_session_fav(
     n_clicks: int | None,
     session_id: int | None,
-) -> tuple[str, dict[str, str]]:
+) -> tuple[list[str], dict[str, str]]:
     if not n_clicks or session_id is None:
         raise dash.exceptions.PreventUpdate
     from pokerhero.database.db import toggle_session_favorite
@@ -1282,15 +1303,20 @@ def _toggle_session_fav(
         conn.close()
     is_fav = bool(row and row[0])
     style: dict[str, str] = {
-        "background": "none",
-        "border": "none",
-        "fontSize": "22px",
+        "display": "flex",
+        "alignItems": "center",
+        "gap": "6px",
+        "background": "#fff8ec" if is_fav else "#f5f5f5",
+        "border": "1px solid #f5a623" if is_fav else "1px solid #ccc",
+        "borderRadius": "20px",
+        "padding": "4px 12px",
+        "fontSize": "15px",
         "cursor": "pointer",
-        "color": "#f5a623" if is_fav else "#ccc",
-        "padding": "0",
-        "lineHeight": "1",
+        "color": "#f5a623" if is_fav else "#888",
+        "fontWeight": "600",
+        "lineHeight": "1.4",
     }
-    return _fav_button_label(is_fav), style
+    return [_fav_button_label(is_fav), " Favourite session"], style
 
 
 @callback(
@@ -1303,7 +1329,7 @@ def _toggle_session_fav(
 def _toggle_hand_fav(
     n_clicks: int | None,
     hand_id: int | None,
-) -> tuple[str, dict[str, str]]:
+) -> tuple[list[str], dict[str, str]]:
     if not n_clicks or hand_id is None:
         raise dash.exceptions.PreventUpdate
     from pokerhero.database.db import toggle_hand_favorite
@@ -1320,12 +1346,17 @@ def _toggle_hand_fav(
         conn.close()
     is_fav = bool(row and row[0])
     style: dict[str, str] = {
-        "background": "none",
-        "border": "none",
-        "fontSize": "22px",
+        "display": "flex",
+        "alignItems": "center",
+        "gap": "6px",
+        "background": "#fff8ec" if is_fav else "#f5f5f5",
+        "border": "1px solid #f5a623" if is_fav else "1px solid #ccc",
+        "borderRadius": "20px",
+        "padding": "4px 12px",
+        "fontSize": "15px",
         "cursor": "pointer",
-        "color": "#f5a623" if is_fav else "#ccc",
-        "padding": "0",
-        "lineHeight": "1",
+        "color": "#f5a623" if is_fav else "#888",
+        "fontWeight": "600",
+        "lineHeight": "1.4",
     }
-    return _fav_button_label(is_fav), style
+    return [_fav_button_label(is_fav), " Favourite hand"], style
