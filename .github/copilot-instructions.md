@@ -36,3 +36,18 @@ pre-commit install   # required once before first commit
 `ruff check --fix` and `ruff format` run project-wide and will reformat files you didn't touch. Always:
 - Stage and commit formatting changes **together** with the feature/fix in the same commit — never as a separate commit.
 - If there are unrelated uncommitted changes in the working tree, scope the commands to only your changed files (e.g. `ruff format src/pokerhero/ingestion/ tests/test_ingestion.py`) to avoid picking up unrelated diffs.
+
+## Lessons Learned
+
+### Never force-add gitignored files
+`TODO.MD` is listed in `.gitignore` and must stay local-only. **Never** use `git add -f` on any gitignored file. If a file is gitignored, that is intentional. The only recovery from an accidental force-add is `git reset HEAD~1` (soft reset) if the commit hasn't been pushed yet. If it has been pushed, a force-push is required and disruptive for collaborators.
+
+### Fixture files must mirror the actual file format exactly
+When adding a test fixture for a new hand history variant (e.g. EUR cash game), the fixture **must** use the real PokerStars format throughout — including `€` prefixes on every monetary value in the body, not just the header. A fixture that only tests the header regex but uses simplified amounts in the body will pass parser tests while masking ingestion failures for real files. Write fixtures that match a real copy-paste snippet as closely as possible.
+
+### Decimal-aware display formatting for monetary values
+`int()` or `:.0f` formatting truncates micro-stake values (e.g. `int(0.02) == 0`). Any display code that renders blind sizes, pot sizes, or P&L values must use decimal-aware helpers:
+- `_fmt_blind(v)`: `f"{float(v):g}"` — strips trailing zeros, no scientific notation for normal stake ranges.
+- `_fmt_pnl(pnl)`: `f"{sign}{pnl:,.6g}"` — signed, comma-separated, 6 significant figures.
+- Plotly hovertemplate uses d3-format, not Python format — use `%{y:,.4g}` not `%{y:,.0f}`.
+These helpers are duplicated across `dashboard.py` and `sessions.py` — cross-page imports between Dash page modules are unclean, duplication is intentional for trivial one-liners.

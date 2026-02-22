@@ -40,6 +40,7 @@ Poker hand histories contain hundreds of edge cases. The `tests/fixtures/` direc
 | `cash_side_pot_multiway_allin.txt` | Cash | Multiway all-in with side pot; tests `total_pot` vs eligible pot |
 | `cash_decimal_blinds.txt` | Cash | Real-money micro-stakes hand with `$0.01/$0.02` blinds; tests decimal blind parsing |
 | `cash_hero_bb_3bets.txt` | Cash | Hero posts BB then 3-bets preflop; tests SPR calculation when BB is the aggressor |
+| `cash_eur_blinds.txt` | Cash | Real-money EUR hand with `€` currency prefix on all amounts and ` EUR` suffix in header; tests multi-currency parsing |
 | `tournament_standard_with_antes.txt` | Tournament | Standard tournament hand with antes; tests `ante` parsing |
 | `tournament_uncalled_bet.txt` | Tournament | Tournament uncalled bet returned |
 | `tournament_two_way_split_pot.txt` | Tournament | Split pot divided evenly between two players |
@@ -50,14 +51,14 @@ Poker hand histories contain hundreds of edge cases. The `tests/fixtures/` direc
 
 * **Framework:** `pytest` will be the primary testing framework due to its concise syntax and powerful fixture management.
 * **Data Mocking:** `pandas.testing.assert_frame_equal` will be used extensively to verify analytical outputs match expected DataFrame structures.
-* **Current test count (404 total):**
+* **Current test count (457 total):**
 
 | File | Tests | Scope |
 | :--- | :--- | :--- |
-| `test_parser.py` | 150 | 14 classes — parser rules, SPR/MDF, re-buy, multi-street |
-| `test_frontend.py` | 106 | Upload handler, multi-page routing, page layouts, action view math, dashboard KPIs/highlights, filter controls, guide page, showdown section |
+| `test_parser.py` | 160 | 15 classes — parser rules, SPR/MDF, re-buy, multi-street, EUR currency format |
+| `test_frontend.py` | 141 | Upload handler, multi-page routing, page layouts, action view math, dashboard KPIs/highlights, filter controls, guide page, showdown section, favourites, DataTable sorting, decimal format helpers |
 | `test_analysis.py` | 68 | Queries and stats: VPIP, PFR, Win Rate, AF, WTSD, timeline, 3-bet, c-bet, EV, equity cache, date filter, position/saw_flop flags |
-| `test_database.py` | 52 | 8 classes — schema, inserts, deduplication, settings |
+| `test_database.py` | 60 | 9 classes — schema, inserts, deduplication, settings, favourites |
 | `test_ingestion.py` | 28 | Pipeline, financials, re-buy detection, logging |
 
 ## 🚨 5. Bug Fixing Policy
