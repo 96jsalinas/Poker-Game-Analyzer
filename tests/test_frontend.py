@@ -238,6 +238,32 @@ class TestDashboardPageLayout:
         comp = layout() if callable(layout) else layout
         assert "/dashboard" in str(comp)
 
+    def test_layout_has_currency_toggle(self):
+        """Dashboard layout must contain a dashboard-currency RadioItems."""
+        from pokerhero.frontend.pages.dashboard import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "dashboard-currency" in str(comp)
+
+    def test_currency_toggle_default_is_all(self):
+        """Dashboard currency toggle must default to 'all'."""
+        import inspect
+
+        from pokerhero.frontend.pages import dashboard
+
+        src = inspect.getsource(dashboard)
+        assert '"dashboard-currency"' in src
+        assert '"all"' in src
+
+    def test_callback_has_currency_input(self):
+        """Dashboard callback must have dashboard-currency as an Input."""
+        import inspect
+
+        from pokerhero.frontend.pages import dashboard
+
+        src = inspect.getsource(dashboard)
+        assert 'Input("dashboard-currency"' in src
+
 
 class TestCardRendering:
     """Tests for the _render_card and _render_cards helper functions."""

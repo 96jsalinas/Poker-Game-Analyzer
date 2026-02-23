@@ -16,6 +16,11 @@ _PERIOD_OPTIONS = [
     {"label": "1 year", "value": "1y"},
     {"label": "All time", "value": "all"},
 ]
+_CURRENCY_OPTIONS = [
+    {"label": "All", "value": "all"},
+    {"label": "Real Money", "value": "real"},
+    {"label": "Play Money", "value": "play"},
+]
 
 # ---------------------------------------------------------------------------
 # Layout
@@ -44,6 +49,23 @@ layout = html.Div(
                 dcc.RadioItems(
                     id="dashboard-period",
                     options=_PERIOD_OPTIONS,
+                    value="all",
+                    inline=True,
+                    inputStyle={"marginRight": "4px"},
+                    labelStyle={"marginRight": "16px", "fontSize": "13px"},
+                ),
+            ],
+            style={"marginBottom": "8px"},
+        ),
+        html.Div(
+            [
+                html.Span(
+                    "Game type: ",
+                    style={"fontSize": "13px", "color": "#555", "marginRight": "8px"},
+                ),
+                dcc.RadioItems(
+                    id="dashboard-currency",
+                    options=_CURRENCY_OPTIONS,
                     value="all",
                     inline=True,
                     inputStyle={"marginRight": "4px"},
@@ -436,9 +458,10 @@ def _build_highlights(
     Output("dashboard-content", "children"),
     Input("_pages_location", "pathname"),
     Input("dashboard-period", "value"),
+    Input("dashboard-currency", "value"),
     prevent_initial_call=False,
 )
-def _render(pathname: str, period: str) -> html.Div | str:
+def _render(pathname: str, period: str, currency: str) -> html.Div | str:
     if pathname != "/dashboard":
         raise dash.exceptions.PreventUpdate
 
@@ -454,6 +477,7 @@ def _render(pathname: str, period: str) -> html.Div | str:
         )
 
     since_date = _period_to_since_date(period)
+    currency_type = None if currency == "all" else currency
 
     from pokerhero.analysis.queries import (
         get_hero_actions,
@@ -474,11 +498,21 @@ def _render(pathname: str, period: str) -> html.Div | str:
 
     conn = get_connection(db_path)
     try:
-        hp_df = get_hero_hand_players(conn, player_id, since_date=since_date)
-        sessions_df = get_sessions(conn, player_id, since_date=since_date)
-        timeline_df = get_hero_timeline(conn, player_id, since_date=since_date)
-        actions_df = get_hero_actions(conn, player_id, since_date=since_date)
-        opp_df = get_hero_opportunity_actions(conn, player_id, since_date=since_date)
+        hp_df = get_hero_hand_players(
+            conn, player_id, since_date=since_date, currency_type=currency_type
+        )
+        sessions_df = get_sessions(
+            conn, player_id, since_date=since_date, currency_type=currency_type
+        )
+        timeline_df = get_hero_timeline(
+            conn, player_id, since_date=since_date, currency_type=currency_type
+        )
+        actions_df = get_hero_actions(
+            conn, player_id, since_date=since_date, currency_type=currency_type
+        )
+        opp_df = get_hero_opportunity_actions(
+            conn, player_id, since_date=since_date, currency_type=currency_type
+        )
     finally:
         conn.close()
 
