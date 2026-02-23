@@ -1513,16 +1513,16 @@ class TestShowdownSection:
         """Each player's hand description is shown when board is provided."""
         from pokerhero.frontend.pages.sessions import _build_showdown_section
 
+        # Hero: As Ks + board Ah Kh Qd Jc 2s = two pair (aces and kings)
+        # Villain: Qh Js + board Ah Kh Qd Jc 2s = two pair (queens and jacks)
         result = _build_showdown_section(
-            [{"username": "villain1", "position": "SB", "hole_cards": "Qd Jc"}],
+            [{"username": "villain1", "position": "SB", "hole_cards": "Qh Js"}],
             hero_name="Hero",
-            hero_cards="As Ad",
-            board="Ah Kh Ks 2c 7d",
+            hero_cards="As Ks",
+            board="Ah Kh Qd Jc 2s",
         )
         text = str(result)
-        # Hero has full house; villain has two pair — both descriptions shown
-        assert "Full house" in text
-        assert "Two pair" in text
+        assert text.count("Two pair") == 2
 
     def test_winner_gets_trophy(self):
         """The player with the best hand is labelled with a trophy emoji."""

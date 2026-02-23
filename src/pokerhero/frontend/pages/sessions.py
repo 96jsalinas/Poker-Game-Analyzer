@@ -151,38 +151,103 @@ def _format_cards_text(cards_str: str | None) -> str:
 
 def _build_showdown_section(
     villain_rows: list[dict[str, str]],
+    hero_name: str | None = None,
+    hero_cards: str | None = None,
+    board: str = "",
 ) -> html.Div | None:
-    """Build a Showdown card section for all villains with known hole cards.
+    """Build a Showdown section showing all players' cards, hand descriptions,
+    and a trophy badge on the winner(s).
 
     Args:
-        villain_rows: List of dicts with keys 'username', 'position', 'hole_cards'.
-                      Only call with non-hero players who have hole_cards set.
+        villain_rows: List of dicts with keys 'username', 'position',
+            'hole_cards'. Only non-hero players with revealed hole cards.
+        hero_name: Display name for the hero (e.g. "Hero"). If None, hero is
+            not included in the section.
+        hero_cards: Hero's hole cards string (e.g. "As Kd"). Required for hero
+            to appear and for hand evaluation.
+        board: Space-separated board cards (e.g. "Ah Kh Qs 2c 7d"). Used to
+            evaluate hand descriptions and determine the winner. If empty or
+            fewer than 3 cards, descriptions and winner detection are skipped.
 
     Returns:
-        An html.Div containing each villain's name, position, and rendered cards,
-        or None when villain_rows is empty.
+        An html.Div or None when there are no players to display.
     """
+    import itertools as _itr
+    import re as _re
+
+    from pokerkit import Card as _Card
+    from pokerkit import StandardHighHand as _SHH
+
     if not villain_rows:
         return None
 
-    rows: list[html.Div] = []
+    # Build the full list of players at showdown: hero first, then villains.
+    players: list[tuple[str, str]] = []  # (display_label, hole_cards)
+    if hero_name and hero_cards:
+        players.append((hero_name, hero_cards))
     for v in villain_rows:
         label = v["username"]
         if v.get("position"):
             label += f" ({v['position']})"
+        players.append((label, v["hole_cards"]))
+
+    # Evaluate best hands and find winner(s) when board has ≥3 cards.
+    board_card_list = [c for c in board.split() if c]
+    descriptions: dict[str, str | None] = {}
+    winner_labels: set[str] = set()
+    if len(board_card_list) >= 3:
+        best_hands: dict[str, object] = {}
+        for label, hole in players:
+            try:
+                all_cards = list(_Card.parse(hole.replace(" ", ""))) + list(
+                    _Card.parse("".join(board_card_list))
+                )
+                best = max(
+                    _SHH(list(combo)) for combo in _itr.combinations(all_cards, 5)
+                )
+                best_hands[label] = best
+                descriptions[label] = _re.sub(r"\s*\(.*\)", "", str(best))
+            except Exception:
+                best_hands[label] = None
+                descriptions[label] = None
+
+        valid = {lb: h for lb, h in best_hands.items() if h is not None}
+        if valid:
+            top = max(valid.values())  # type: ignore[type-var]
+            winner_labels = {lb for lb, h in valid.items() if h == top}
+
+    # Render one row per player.
+    rows: list[html.Div] = []
+    for label, hole in players:
+        desc = descriptions.get(label)
+        trophy = "🏆 " if label in winner_labels else ""
         rows.append(
             html.Div(
                 [
                     html.Span(
-                        f"{label}: ",
+                        f"{trophy}{label}: ",
                         style={
                             "fontWeight": "600",
                             "fontSize": "13px",
                             "marginRight": "6px",
-                            "color": "#555",
+                            "color": "#f5a623" if trophy else "#555",
                         },
                     ),
-                    _render_cards(v["hole_cards"]),
+                    _render_cards(hole),
+                    *(
+                        [
+                            html.Span(
+                                f"  — {desc}",
+                                style={
+                                    "fontSize": "12px",
+                                    "color": "#888",
+                                    "marginLeft": "6px",
+                                },
+                            )
+                        ]
+                        if desc
+                        else []
+                    ),
                 ],
                 style={"marginBottom": "4px"},
             )
@@ -1333,7 +1398,13 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
     if current_street is not None:
         sections.append(_flush(current_street, street_rows))
 
-    showdown_div = _build_showdown_section(villain_showdown)
+    board_str = " ".join(p for p in [flop, turn, river] if p)
+    showdown_div = _build_showdown_section(
+        villain_showdown,
+        hero_name="Hero",
+        hero_cards=hero_cards,
+        board=board_str,
+    )
     if showdown_div is not None:
         sections.append(showdown_div)
 
