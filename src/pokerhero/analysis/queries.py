@@ -394,6 +394,151 @@ def get_export_data(conn: sqlite3.Connection, player_id: int) -> pd.DataFrame:
     return pd.read_sql_query(sql, conn, params=(int(player_id),))
 
 
+def get_session_kpis(
+    conn: sqlite3.Connection,
+    session_id: int,
+    hero_id: int,
+) -> pd.DataFrame:
+    """Return per-hand hero rows for a single session.
+
+    Same column structure as get_hero_hand_players but scoped to one session.
+    Used to compute session-scoped VPIP%, PFR%, Win Rate, WTSD%, and hand count
+    by passing the result directly to the existing stats.py helper functions.
+
+    Columns: vpip, pfr, went_to_showdown, net_result, position, hole_cards,
+             big_blind, saw_flop.
+
+    Args:
+        conn: Open SQLite connection.
+        session_id: Internal integer id of the session row.
+        hero_id: Internal integer id of the hero player row.
+
+    Returns:
+        DataFrame with one row per hand hero participated in the session.
+    """
+    sql = """
+        SELECT
+            hp.vpip,
+            hp.pfr,
+            hp.went_to_showdown,
+            hp.net_result,
+            hp.position,
+            hp.hole_cards,
+            s.big_blind,
+            CASE WHEN EXISTS (
+                SELECT 1 FROM actions a
+                WHERE a.hand_id = hp.hand_id
+                  AND a.player_id = hp.player_id
+                  AND a.street = 'FLOP'
+            ) THEN 1 ELSE 0 END AS saw_flop
+        FROM hand_players hp
+        JOIN hands h ON h.id = hp.hand_id
+        JOIN sessions s ON s.id = h.session_id
+        WHERE hp.player_id = :hero
+          AND h.session_id = :sid
+        ORDER BY h.timestamp ASC
+    """
+    return pd.read_sql_query(
+        sql, conn, params={"hero": int(hero_id), "sid": int(session_id)}
+    )
+
+
+def get_session_hero_actions(
+    conn: sqlite3.Connection,
+    session_id: int,
+    hero_id: int,
+) -> pd.DataFrame:
+    """Return hero's post-flop actions for a single session.
+
+    Same column structure as get_hero_actions but scoped to one session.
+    Only FLOP, TURN, and RIVER streets are returned.
+    Used to compute session-scoped Aggression Factor (AF).
+
+    Columns: hand_id, street, action_type, position.
+
+    Args:
+        conn: Open SQLite connection.
+        session_id: Internal integer id of the session row.
+        hero_id: Internal integer id of the hero player row.
+
+    Returns:
+        DataFrame of hero's post-flop actions in the session.
+    """
+    sql = """
+        SELECT
+            a.hand_id,
+            a.street,
+            a.action_type,
+            hp.position
+        FROM actions a
+        JOIN hand_players hp
+            ON hp.hand_id = a.hand_id AND hp.player_id = a.player_id
+        JOIN hands h ON h.id = a.hand_id
+        WHERE a.player_id = :hero
+          AND h.session_id = :sid
+          AND a.street IN ('FLOP', 'TURN', 'RIVER')
+        ORDER BY a.hand_id, a.sequence
+    """
+    return pd.read_sql_query(
+        sql, conn, params={"hero": int(hero_id), "sid": int(session_id)}
+    )
+
+
+def get_session_showdown_hands(
+    conn: sqlite3.Connection,
+    session_id: int,
+    hero_id: int,
+) -> pd.DataFrame:
+    """Return hands with known villain hole cards for a single session.
+
+    Each row is a hero vs villain matchup where both sides showed cards.
+    Used to batch-compute equity and build the EV luck indicator in the
+    Session Report.
+
+    Columns: hand_id, source_hand_id, hero_cards, villain_username,
+             villain_cards, board, net_result, total_pot.
+
+    Args:
+        conn: Open SQLite connection.
+        session_id: Internal integer id of the session row.
+        hero_id: Internal integer id of the hero player row.
+
+    Returns:
+        DataFrame with one row per hero-villain showdown pair.
+    """
+    sql = """
+        SELECT
+            h.id AS hand_id,
+            h.source_hand_id,
+            hero_hp.hole_cards AS hero_cards,
+            villain_p.username AS villain_username,
+            villain_hp.hole_cards AS villain_cards,
+            TRIM(
+                COALESCE(h.board_flop, '') || ' ' ||
+                COALESCE(h.board_turn, '') || ' ' ||
+                COALESCE(h.board_river, '')
+            ) AS board,
+            hero_hp.net_result,
+            h.total_pot
+        FROM hands h
+        JOIN hand_players hero_hp
+            ON hero_hp.hand_id = h.id AND hero_hp.player_id = :hero
+        JOIN hand_players villain_hp
+            ON villain_hp.hand_id = h.id
+           AND villain_hp.player_id != :hero
+           AND villain_hp.hole_cards IS NOT NULL
+           AND villain_hp.hole_cards != ''
+        JOIN players villain_p ON villain_p.id = villain_hp.player_id
+        WHERE h.session_id = :sid
+          AND hero_hp.hole_cards IS NOT NULL
+          AND hero_hp.hole_cards != ''
+        ORDER BY h.timestamp ASC
+    """
+    return pd.read_sql_query(
+        sql, conn, params={"hero": int(hero_id), "sid": int(session_id)}
+    )
+
+
 def get_session_player_stats(
     conn: sqlite3.Connection,
     session_id: int,
