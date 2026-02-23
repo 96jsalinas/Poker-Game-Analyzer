@@ -580,6 +580,7 @@ def _filter_sessions_data(
     pnl_max: float | None,
     min_hands: int | None,
     favorites_only: bool = False,
+    currency_type: str | None = None,
 ) -> pd.DataFrame:
     """Filter a sessions DataFrame based on user-selected criteria.
 
@@ -587,13 +588,14 @@ def _filter_sessions_data(
 
     Args:
         df: DataFrame from get_sessions (columns: start_time, small_blind,
-            big_blind, hands_played, net_profit).
+            big_blind, hands_played, net_profit, currency).
         date_from: ISO date string lower bound for start_time (inclusive).
         date_to: ISO date string upper bound for start_time (inclusive).
         stakes: List of 'SB/BB' labels to keep; None keeps all.
         pnl_min: Minimum net_profit (inclusive); None keeps all.
         pnl_max: Maximum net_profit (inclusive); None keeps all.
         min_hands: Minimum hands_played (inclusive); None keeps all.
+        currency_type: 'real' keeps USD/EUR, 'play' keeps PLAY, None keeps all.
 
     Returns:
         Filtered copy of df.
@@ -618,6 +620,10 @@ def _filter_sessions_data(
         result = result[result["hands_played"].astype(int) >= int(min_hands)]
     if favorites_only and "is_favorite" in result.columns:
         result = result[result["is_favorite"].astype(int) == 1]
+    if currency_type == "real" and "currency" in result.columns:
+        result = result[result["currency"].isin(["USD", "EUR"])]
+    elif currency_type == "play" and "currency" in result.columns:
+        result = result[result["currency"] == "PLAY"]
     return result
 
 
@@ -867,6 +873,18 @@ def _render_sessions(db_path: str) -> html.Div | str:
                 inline=True,
                 inputStyle={"marginRight": "4px"},
                 labelStyle={"fontSize": "13px"},
+            ),
+            dcc.RadioItems(
+                id="session-filter-currency",
+                options=[
+                    {"label": "All", "value": "all"},
+                    {"label": "Real Money", "value": "real"},
+                    {"label": "Play Money", "value": "play"},
+                ],
+                value="all",
+                inline=True,
+                inputStyle={"marginRight": "4px"},
+                labelStyle={"marginRight": "12px", "fontSize": "13px"},
             ),
         ],
         style={
@@ -1340,6 +1358,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
     Input("session-filter-pnl-max", "value"),
     Input("session-filter-min-hands", "value"),
     Input("session-filter-favorites", "value"),
+    Input("session-filter-currency", "value"),
     State("session-data-store", "data"),
     prevent_initial_call=True,
 )
@@ -1351,11 +1370,13 @@ def _apply_session_filters(
     pnl_max: float | None,
     min_hands: float | None,
     fav_filter: list[str] | None,
+    currency: str | None,
     data: list[dict[str, Any]] | None,
 ) -> list[dict[str, Any]]:
     if not data:
         raise dash.exceptions.PreventUpdate
     df = pd.DataFrame(data)
+    currency_type = None if (currency is None or currency == "all") else currency
     filtered = _filter_sessions_data(
         df,
         date_from,
@@ -1365,6 +1386,7 @@ def _apply_session_filters(
         pnl_max,
         int(min_hands) if min_hands is not None else None,
         favorites_only="favorites" in (fav_filter or []),
+        currency_type=currency_type,
     )
     return list(_build_session_table(filtered).data)
 

@@ -155,6 +155,11 @@ class TestUploadPageLayout:
 
 
 class TestSessionsPageLayout:
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
     def test_sessions_page_registered(self):
         """Sessions page must be registered at path '/sessions'."""
         import dash
@@ -192,6 +197,15 @@ class TestSessionsPageLayout:
 
         comp = layout() if callable(layout) else layout
         assert "/" in str(comp)
+
+    def test_layout_has_currency_toggle(self):
+        """Sessions page must define a session-filter-currency RadioItems."""
+        import inspect
+
+        from pokerhero.frontend.pages import sessions
+
+        src = inspect.getsource(sessions)
+        assert "session-filter-currency" in src
 
 
 class TestDashboardPageLayout:
@@ -830,6 +844,7 @@ class TestSessionFilters:
                 "big_blind": [100, 200, 200],
                 "hands_played": [20, 5, 40],
                 "net_profit": [500.0, -200.0, 1000.0],
+                "currency": ["PLAY", "EUR", "USD"],
             }
         )
 
@@ -893,6 +908,33 @@ class TestSessionFilters:
             self._make_df(), None, None, None, None, None, 10
         )
         assert len(result) == 2
+
+    def test_currency_filter_real_keeps_eur_and_usd(self):
+        """currency_type='real' keeps EUR and USD sessions only."""
+        from pokerhero.frontend.pages.sessions import _filter_sessions_data
+
+        result = _filter_sessions_data(
+            self._make_df(), None, None, None, None, None, None, currency_type="real"
+        )
+        assert set(result["currency"]) == {"EUR", "USD"}
+
+    def test_currency_filter_play_keeps_play_only(self):
+        """currency_type='play' keeps PLAY sessions only."""
+        from pokerhero.frontend.pages.sessions import _filter_sessions_data
+
+        result = _filter_sessions_data(
+            self._make_df(), None, None, None, None, None, None, currency_type="play"
+        )
+        assert list(result["currency"]) == ["PLAY"]
+
+    def test_currency_filter_none_returns_all(self):
+        """currency_type=None applies no currency filter."""
+        from pokerhero.frontend.pages.sessions import _filter_sessions_data
+
+        result = _filter_sessions_data(
+            self._make_df(), None, None, None, None, None, None, currency_type=None
+        )
+        assert len(result) == 3
 
 
 class TestHandFilters:
