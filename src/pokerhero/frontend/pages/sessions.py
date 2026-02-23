@@ -623,12 +623,16 @@ def _breadcrumb(
 
     if level == "sessions":
         return html.Div(html.Span("Sessions", style=plain_style))
-    if level == "hands":
+    if level == "report":
         return html.Div(
             [
                 html.Button(
                     "Sessions",
-                    id={"type": "breadcrumb-btn", "level": "sessions", "session_id": 0},
+                    id={
+                        "type": "breadcrumb-btn",
+                        "level": "sessions",
+                        "session_id": 0,
+                    },
                     style=btn_style,
                     n_clicks=0,
                 ),
@@ -636,12 +640,44 @@ def _breadcrumb(
                 html.Span(session_label or f"Session #{session_id}", style=plain_style),
             ]
         )
+    if level == "hands":
+        return html.Div(
+            [
+                html.Button(
+                    "Sessions",
+                    id={
+                        "type": "breadcrumb-btn",
+                        "level": "sessions",
+                        "session_id": 0,
+                    },
+                    style=btn_style,
+                    n_clicks=0,
+                ),
+                sep,
+                html.Button(
+                    session_label or f"Session #{session_id}",
+                    id={
+                        "type": "breadcrumb-btn",
+                        "level": "report",
+                        "session_id": session_id,
+                    },
+                    style=btn_style,
+                    n_clicks=0,
+                ),
+                sep,
+                html.Span("All Hands", style=plain_style),
+            ]
+        )
     # actions level
     return html.Div(
         [
             html.Button(
                 "Sessions",
-                id={"type": "breadcrumb-btn", "level": "sessions", "session_id": 0},
+                id={
+                    "type": "breadcrumb-btn",
+                    "level": "sessions",
+                    "session_id": 0,
+                },
                 style=btn_style,
                 n_clicks=0,
             ),
@@ -650,7 +686,7 @@ def _breadcrumb(
                 session_label or f"Session #{session_id}",
                 id={
                     "type": "breadcrumb-btn",
-                    "level": "hands",
+                    "level": "report",
                     "session_id": session_id,
                 },
                 style=btn_style,
@@ -693,7 +729,7 @@ def _compute_state_from_cell(
     """
     if session_cell is not None and session_data:
         row = session_data[session_cell["row"]]
-        return _DrillDownState(level="hands", session_id=int(row["id"]))
+        return _DrillDownState(level="report", session_id=int(row["id"]))
     if hand_cell is not None and hand_data:
         row = hand_data[hand_cell["row"]]
         return _DrillDownState(
@@ -761,6 +797,11 @@ def _update_state(
     if parsed.get("type") == "breadcrumb-btn":
         if parsed["level"] == "sessions":
             return _DrillDownState(level="sessions")
+        if parsed["level"] == "report":
+            return _DrillDownState(
+                level="report",
+                session_id=int(parsed["session_id"]),
+            )
         if parsed["level"] == "hands":
             return _DrillDownState(
                 level="hands",
@@ -776,7 +817,7 @@ def _parse_nav_search(search: str) -> _DrillDownState | None:
     """Parse a URL query string into a drill-down state for deep linking.
 
     Handles two URL patterns produced by the dashboard highlight cards:
-      - ``?session_id=X``              → hands level for that session
+      - ``?session_id=X``              → report level for that session
       - ``?session_id=X&hand_id=Y``    → actions level for that hand
 
     Args:
@@ -797,7 +838,7 @@ def _parse_nav_search(search: str) -> _DrillDownState | None:
             session_id=int(params.get("session_id", ["0"])[0]),
         )
     if "session_id" in params:
-        return _DrillDownState(level="hands", session_id=int(params["session_id"][0]))
+        return _DrillDownState(level="report", session_id=int(params["session_id"][0]))
     return None
 
 
@@ -841,6 +882,12 @@ def _render(
         return _render_sessions(db_path), _breadcrumb("sessions")
 
     session_id = int(state.get("session_id") or 0)
+    if level == "report":
+        content, label = _render_session_report(db_path, session_id)
+        return content, _breadcrumb(
+            "report", session_label=label, session_id=session_id
+        )
+
     if level == "hands":
         content, label = _render_hands(db_path, session_id)
         return content, _breadcrumb("hands", session_label=label, session_id=session_id)
@@ -2260,3 +2307,22 @@ def _toggle_opponent_profiles(n_clicks: int | None) -> dict[str, str]:
         "gap": "10px",
         "padding": "10px 0",
     }
+
+
+@callback(
+    Output("drill-down-state", "data", allow_duplicate=True),
+    Input("session-report-browse-btn", "n_clicks"),
+    State("drill-down-state", "data"),
+    prevent_initial_call=True,
+)
+def _browse_session_hands(
+    n_clicks: int | None,
+    current_state: _DrillDownState,
+) -> _DrillDownState:
+    """Navigate from Session Report to the full hands list for that session."""
+    if not n_clicks:
+        raise dash.exceptions.PreventUpdate
+    session_id = int(current_state.get("session_id") or 0)
+    if not session_id:
+        raise dash.exceptions.PreventUpdate
+    return _DrillDownState(level="hands", session_id=session_id)
