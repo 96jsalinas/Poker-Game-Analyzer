@@ -5,12 +5,7 @@ from pathlib import Path
 
 import pytest
 
-FRATERNITAS = (
-    Path(__file__).parent.parent
-    / "data"
-    / "histories"
-    / "HH20260129 Fraternitas VII - 100-200 - Play Money No Limit Hold'em.txt"
-)
+FRATERNITAS = Path(__file__).parent / "fixtures" / "play_money_two_hand_session.txt"
 
 
 def _encode_file(path: Path) -> str:

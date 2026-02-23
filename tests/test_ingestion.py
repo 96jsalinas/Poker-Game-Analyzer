@@ -4,10 +4,8 @@ from pathlib import Path
 
 import pytest
 
-HISTORIES = Path(__file__).parent.parent / "data" / "histories"
-FRATERNITAS = (
-    HISTORIES / "HH20260129 Fraternitas VII - 100-200 - Play Money No Limit Hold'em.txt"
-)
+HISTORIES = Path(__file__).parent / "fixtures"
+FRATERNITAS = HISTORIES / "play_money_two_hand_session.txt"
 FIXTURES = Path(__file__).parent / "fixtures"
 REBUY_FIXTURE = FIXTURES / "cash_hero_rebuy.txt"
 
