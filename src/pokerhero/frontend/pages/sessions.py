@@ -389,6 +389,85 @@ def _describe_hand(hole_cards: str, board: str) -> str | None:
         return None
 
 
+_ARCHETYPE_COLORS: dict[str | None, str] = {
+    "TAG": "#2980b9",
+    "LAG": "#e67e22",
+    "Nit": "#7f8c8d",
+    "Fish": "#27ae60",
+}
+
+
+def _build_opponent_profile_card(
+    username: str,
+    hands_played: int,
+    vpip_count: int,
+    pfr_count: int,
+) -> html.Div:
+    """Render a small profile card for one opponent.
+
+    Shows username, VPIP%, PFR%, hands seen, and an archetype badge
+    (TAG / LAG / Nit / Fish) when at least 15 hands are observed.
+
+    Args:
+        username: Opponent's display name.
+        hands_played: Total hands observed this session.
+        vpip_count: Hands where opponent voluntarily put money in preflop.
+        pfr_count: Hands where opponent raised preflop.
+
+    Returns:
+        A ``html.Div`` profile card component.
+    """
+    from pokerhero.analysis.stats import classify_player
+
+    vpip_pct = vpip_count / hands_played * 100 if hands_played > 0 else 0.0
+    pfr_pct = pfr_count / hands_played * 100 if hands_played > 0 else 0.0
+    archetype = classify_player(vpip_pct, pfr_pct, hands_played)
+
+    badge: list[Any] = []
+    if archetype is not None:
+        badge = [
+            html.Span(
+                archetype,
+                style={
+                    "background": _ARCHETYPE_COLORS.get(archetype, "#999"),
+                    "color": "#fff",
+                    "borderRadius": "4px",
+                    "padding": "2px 7px",
+                    "fontSize": "12px",
+                    "fontWeight": "700",
+                    "marginLeft": "6px",
+                },
+            )
+        ]
+
+    return html.Div(
+        [
+            html.Div(
+                [html.Strong(username, style={"fontSize": "14px"})] + badge,
+                style={
+                    "display": "flex",
+                    "alignItems": "center",
+                    "marginBottom": "4px",
+                },
+            ),
+            html.Div(
+                (
+                    f"VPIP: {vpip_pct:.0f}%  |  PFR: {pfr_pct:.0f}%"
+                    f"  |  {hands_played} hands"
+                ),
+                style={"fontSize": "12px", "color": "#555"},
+            ),
+        ],
+        style={
+            "border": "1px solid #ddd",
+            "borderRadius": "6px",
+            "padding": "8px 12px",
+            "minWidth": "160px",
+            "background": "#fafafa",
+        },
+    )
+
+
 def _get_db_path() -> str:
     result: str = dash.get_app().server.config.get("DB_PATH", ":memory:")  # type: ignore[no-untyped-call]
     return result
@@ -1032,7 +1111,7 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
     if player_id is None:
         return "", ""
 
-    from pokerhero.analysis.queries import get_hands
+    from pokerhero.analysis.queries import get_hands, get_session_player_stats
 
     conn = get_connection(db_path)
     try:
@@ -1040,6 +1119,7 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
         fav_row = conn.execute(
             "SELECT is_favorite FROM sessions WHERE id = ?", (session_id,)
         ).fetchone()
+        opp_df = get_session_player_stats(conn, session_id, player_id)
     finally:
         conn.close()
 
@@ -1128,25 +1208,64 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
         "fontWeight": "600",
         "lineHeight": "1.4",
     }
+
+    profile_cards = [
+        _build_opponent_profile_card(
+            row["username"],
+            int(row["hands_played"]),
+            int(row["vpip_count"]),
+            int(row["pfr_count"]),
+        )
+        for _, row in opp_df.iterrows()
+    ]
+    profiles_panel = html.Div(
+        profile_cards,
+        id="opponent-profiles-panel",
+        style={
+            "display": "none",
+            "flexWrap": "wrap",
+            "gap": "10px",
+            "padding": "10px 0",
+        },
+    )
+    profiles_btn = html.Button(
+        "👥 Opponent Profiles",
+        id="opponent-profiles-btn",
+        n_clicks=0,
+        style={
+            "background": "#f0f4ff",
+            "border": "1px solid #aac",
+            "borderRadius": "20px",
+            "padding": "4px 12px",
+            "fontSize": "13px",
+            "cursor": "pointer",
+        },
+    )
+
     return (
         html.Div(
             [
                 html.Div(
-                    html.Button(
-                        [
-                            _fav_button_label(is_fav),
-                            " Favourite session",
-                        ],
-                        id="session-fav-btn",
-                        n_clicks=0,
-                        style=_fav_btn_style,
-                    ),
+                    [
+                        html.Button(
+                            [
+                                _fav_button_label(is_fav),
+                                " Favourite session",
+                            ],
+                            id="session-fav-btn",
+                            n_clicks=0,
+                            style=_fav_btn_style,
+                        ),
+                        profiles_btn,
+                    ],
                     style={
                         "display": "flex",
                         "justifyContent": "flex-end",
+                        "gap": "8px",
                         "marginBottom": "8px",
                     },
                 ),
+                profiles_panel,
                 filter_bar,
                 _build_hand_table(df),
                 dcc.Store(id="hand-data-store", data=df.to_dict("records")),
@@ -1617,3 +1736,19 @@ def _toggle_hand_fav(
         "lineHeight": "1.4",
     }
     return [_fav_button_label(is_fav), " Favourite hand"], style
+
+
+@callback(
+    Output("opponent-profiles-panel", "style"),
+    Input("opponent-profiles-btn", "n_clicks"),
+    prevent_initial_call=True,
+)
+def _toggle_opponent_profiles(n_clicks: int | None) -> dict[str, str]:
+    """Show or hide the opponent profiles panel on each button click."""
+    visible = bool(n_clicks) and n_clicks % 2 == 1  # type: ignore[operator]
+    return {
+        "display": "flex" if visible else "none",
+        "flexWrap": "wrap",
+        "gap": "10px",
+        "padding": "10px 0",
+    }
