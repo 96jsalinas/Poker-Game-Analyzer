@@ -168,22 +168,59 @@ layout = html.Div(
         # ── Review Sessions ───────────────────────────────────────────────
         _section_heading("🔍 Review Sessions"),
         html.P(
-            "Three drill-down levels: Session List → Hand List → Hand Detail."
+            "Four drill-down levels:"
+            " Session List → Session Report → Hand List → Hand Detail."
             " Use the breadcrumb trail to navigate back up."
         ),
         html.H4("Level 1 — Session List", style={"marginTop": "16px"}),
         html.P(
             "All your sessions in a table (date, stakes, hands played, net result)."
             " Filter by date range, stakes, P&L range, or minimum hand count."
-            " Click a row to see the hands in that session."
+            " Click a row to open the Session Report for that session."
         ),
-        html.H4("Level 2 — Hand List", style={"marginTop": "16px"}),
+        html.H4("Level 2 — Session Report", style={"marginTop": "16px"}),
+        html.P("A narrative overview of your performance in the selected session."),
+        html.Ul(
+            [
+                html.Li(
+                    [
+                        html.Strong("KPI strip — "),
+                        "five at-a-glance cards: Hands played, VPIP%, PFR%,"
+                        " Aggression Factor (AF), and Win Rate in bb/100.",
+                    ]
+                ),
+                html.Li(
+                    [
+                        html.Strong("Narrative paragraph — "),
+                        "a short written summary describing your stats.",
+                    ]
+                ),
+                html.Li(
+                    [
+                        html.Strong("EV Summary — "),
+                        "if villain cards were known at showdown or all-in, this shows"
+                        " whether you ran above equity (👍), below equity (👎), or near"
+                        " equity (~). Lucky = won with < 40% equity."
+                        " Unlucky = lost with > 60% equity.",
+                    ]
+                ),
+                html.Li(
+                    [
+                        html.Strong("Notable Hands — "),
+                        "lists each hand flagged as 🍀 Lucky or 😞 Unlucky with the"
+                        " equity percentage at the time.",
+                    ]
+                ),
+            ]
+        ),
+        html.P("Click Browse all N hands to proceed to the full hand list."),
+        html.H4("Level 3 — Hand List", style={"marginTop": "16px"}),
         html.P(
             "Every hand in a session (Hand ID, hole cards, final pot, net result)."
             " Filter by P&L range, position, saw-flop, or showdown."
             " Click a row to see the full action replay."
         ),
-        html.H4("Level 3 — Hand Detail", style={"marginTop": "16px"}),
+        html.H4("Level 4 — Hand Detail", style={"marginTop": "16px"}),
         html.P(
             "A chronological replay grouped by street."
             " Hero decision points show Pot Odds%, MDF%, SPR, and EV (on all-in / showdown spots)."  # noqa: E501

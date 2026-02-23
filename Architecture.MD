@@ -53,7 +53,9 @@ pokerhero-analyzer/
 │       │   ├── __init__.py
 │       │   ├── queries.py        # get_sessions, get_hands, get_actions, get_hero_hand_players,
 │       │   │                     # get_hero_timeline, get_hero_actions, get_hero_opportunity_actions,
-│       │   │                     # get_export_data, get_session_player_stats → DataFrames;
+│       │   │                     # get_export_data, get_session_player_stats,
+│       │   │                     # get_session_kpis, get_session_hero_actions,
+│       │   │                     # get_session_showdown_hands → DataFrames;
 │       │   │                     # all hero query functions accept optional currency_type='real'|'play'|None
 │       │   └── stats.py          # vpip_pct, pfr_pct, win_rate_bb100, aggression_factor, wtsd_pct,
 │       │                         # total_profit, three_bet_pct, cbet_pct, compute_equity, compute_ev,
@@ -66,9 +68,11 @@ pokerhero-analyzer/
 │       │       ├── __init__.py
 │       │       ├── home.py       # "/" — navigation hub with links to Upload, Sessions, Dashboard, Settings, Guide
 │       │       ├── upload.py     # "/upload" — drag-and-drop ingestion; hero username persisted to settings
-│       │       ├── sessions.py   # "/sessions" — session list → hand list → action replay drill-down;
-│       │       │                 # _describe_hand() uses PokerKit to identify best hand at showdown;
-│       │       │                 # _build_opponent_profile_card() renders TAG/LAG/Nit/Fish badges per opponent
+│       │       ├── sessions.py   # "/sessions" — 4-level drill-down: session list → session report
+│       │       │                 # → hand list → action replay; _describe_hand() uses PokerKit to identify
+│       │       │                 # best hand at showdown; _build_opponent_profile_card() renders
+│       │       │                 # TAG/LAG/Nit/Fish badges; _render_session_report() assembles
+│       │       │                 # KPI strip, narrative, EV luck indicator, and notable hands list
 │       │       ├── dashboard.py  # "/dashboard" — KPI cards, bankroll graph, positional stats table
 │       │       ├── guide.py      # "/guide" — in-app user guide: stat definitions, app walkthrough
 │       │       └── settings.py   # "/settings" — hero username, Clear DB, Export CSV
@@ -78,8 +82,13 @@ pokerhero-analyzer/
 │   ├── test_parser.py            # 164 tests across 15 classes
 │   ├── test_database.py          # 62 tests across 9 classes (incl. TestSettings, TestFavorites, currency storage)
 │   ├── test_ingestion.py         # 28 tests for pipeline, financials, re-buy detection, logging
-│   ├── test_frontend.py          # 165 tests: upload handler, multi-page app, page layouts, action view math, dashboard, filters (incl. game type toggle), guide, showdown (winner + hand description), favourites, DataTable, format helpers
-│   └── test_analysis.py          # 80 tests for queries and stats (vpip, pfr, win_rate, AF, wtsd, timeline, 3-bet, c-bet, EV, equity cache, date filter, currency filter, position/saw_flop flags)
+│   ├── test_frontend.py          # 203 tests: upload handler, multi-page app, page layouts, action view math,
+│   │                             # dashboard, filters (incl. game type toggle), guide, showdown, favourites,
+│   │                             # DataTable, format helpers, opponent profiles, session report view + nav
+│   └── test_analysis.py          # 114 tests: queries and stats (vpip, pfr, win_rate, AF, wtsd, timeline,
+│                                 # 3-bet incl. blind-position regression, c-bet, EV, equity cache,
+│                                 # currency filter, session player stats, player archetype classification,
+│                                 # session analysis queries (kpis, hero actions, showdown hands))
 ├── data/
 │   └── histories/                # Raw .txt session files (git-ignored)
 └── pyproject.toml

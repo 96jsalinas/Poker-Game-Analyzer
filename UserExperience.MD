@@ -35,31 +35,42 @@ The entry point of the application (`/`). Currently a simple hub page.
 Navigation uses a **breadcrumb** pattern — only one level is visible at a time. Clicking a row advances the view; clicking a breadcrumb crumb navigates back.
 
 ```
-Sessions  →  Sessions › 2026-02-16 250/500  →  Sessions › 2026-02-16 250/500 › Hand #2597...
+Sessions  →  Sessions › 2026-02-16 250/500  →  Sessions › 2026-02-16 250/500 › All Hands  →  Sessions › 2026-02-16 250/500 › Hand #2597...
 ```
 
 ### Level 1: Session History ✅
 A table view showing all played sessions.
 * **Columns**: Date, Stakes (e.g., 100/200), Hands Played, Net Profit/Loss (green/red).
 * **Sorting** ✅ Implemented — click any column header to sort ascending/descending (`sort_action="native"` on `dash_table.DataTable`).
-* **Action**: Clicking any cell in a row navigates to the **Hand List** for that session (via `active_cell` + `derived_viewport_data`).
+* **Action**: Clicking any cell in a row navigates to the **Session Report** for that session.
 * **Filters** ✅ Implemented — filter bar above the table: date range (from/to), stakes multiselect, P&L min/max, min hands, Favourites only. Updates table data without page reload via `_apply_session_filters` callback + `session-data-store`.
 * **Favourite** ✅ Implemented — ★/☆ button in the top-right corner of the hand list view; clicking toggles `is_favorite` on the current session (gold star = favourite). Persisted to DB via `_toggle_session_fav` callback + `session-fav-id-store`.
 
-### Level 2: Hand List (Within a Session) ✅
+### Level 2: Session Report ✅
+A narrative overview of the selected session, assembled from three query DataFrames (`get_session_kpis`, `get_session_hero_actions`, `get_session_showdown_hands`).
+* **Narrative paragraph** — template-driven sentence summarising VPIP%, PFR%, AF and win rate for the session. Built by `_build_session_narrative(kpis_df, actions_df, session_label)`.
+* **KPI strip** — five at-a-glance cards (Hands, VPIP%, PFR%, AF, Win Rate bb/100). Built by `_build_session_kpi_strip(kpis_df, actions_df)`.
+* **EV Summary** — equity-based luck indicator. For each showdown hand with known villain cards, computes `compute_equity(hero_cards, villain_cards, board, 2000)`. Lucky: won with eq < 0.4. Unlucky: lost with eq > 0.6. Verdict: `👍 Ran above equity` / `👎 Ran below equity` / `~ Ran near equity`. Built by `_build_ev_summary(showdown_df)`.
+* **Notable Hands** — lists each hand classified as 🍀 Lucky or 😞 Unlucky with the equity percentage. Built by `_build_flagged_hands_list(showdown_df)`.
+* **Browse all N hands button** (`session-report-browse-btn`) — navigates to the Hand List for this session via `_browse_session_hands` callback.
+* State: `level="report"`, `session_id=X`.
+
+### Level 3: Hand List (Within a Session) ✅
 A detailed list of every hand dealt in that session.
 * **Columns**: Hand ID, Hero Cards (Hole Cards with suit symbols), Final Pot, Net Result.
 * **Sorting** ✅ Implemented — click any column header to sort ascending/descending.
 * **Action**: Clicking any cell in a row navigates to the **Hand Action View**.
 * **Filters** ✅ Implemented — filter bar: P&L min/max, position multiselect, Saw Flop checkbox, Showdown checkbox, Favourites only. Updates table without page reload via `_apply_hand_filters` callback + `hand-data-store`.
+* **Breadcrumb**: `Sessions > Session Label (→ report) > All Hands`.
 
-### Level 3: Hand Action View ✅
+### Level 4: Hand Action View ✅
 A chronological breakdown of the specific hand.
 * **Header**: Hand # and board cards (Flop | Turn | River).
 * **Favourite** ✅ Implemented — ★/☆ button in the top-right of the action view header; clicking toggles `is_favorite` on the current hand (gold star = favourite). Persisted to DB via `_toggle_hand_fav` callback + `hand-fav-id-store`.
 * **Body**: Actions grouped by street (colour-coded headers), showing player username, position (e.g. `jsalinas96 (BTN)`), action type, amount, and pot size.
 * **Math Column**: SPR shown on the first Flop action; Pot Odds % and MDF % shown for every decision point Hero faces.
 * **Showdown Section**: ✅ Implemented — when villain hole cards are known (showdown or all-in with cards exposed), a purple "Showdown" section appears after the last street, showing each villain's name, position, and styled hole cards.
+* **Breadcrumb**: `Sessions > Session Label (→ report) > Hand #N`.
 
 ---
 

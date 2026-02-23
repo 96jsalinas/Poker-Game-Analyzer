@@ -74,7 +74,7 @@ Four cards showing notable hands/sessions:
 
 ## 🔍 3. Review Sessions (`/sessions`)
 
-A three-level drill-down: **Session List → Hand List → Hand Detail**.
+A four-level drill-down: **Session List → Session Report → Hand List → Hand Detail**.
 
 ### Level 1: Session List
 All your imported sessions in a table. Each row shows the date, stakes (e.g. 500/1000), hands played, and your net result for that session (green = profit, red = loss).
@@ -87,9 +87,34 @@ All your imported sessions in a table. Each row shows the date, stakes (e.g. 500
 | P&L Min / Max | Show only sessions where your net result fell within this range. |
 | Min Hands | Show only sessions with at least this many hands. |
 
-Click any row to drill into the hand list for that session.
+Click any row to open the **Session Report** for that session.
 
-### Level 2: Hand List
+### Level 2: Session Report
+A narrative overview of your performance in the selected session, before you dive into individual hands.
+
+**KPI Strip** — five at-a-glance cards:
+| Card | What it shows |
+| :--- | :--- |
+| **Hands** | Total hands played in this session. |
+| **VPIP** | Your Voluntarily Put In Pot % for this session. |
+| **PFR** | Your Pre-Flop Raise % for this session. |
+| **AF** | Your Aggression Factor post-flop for this session. |
+| **Win Rate** | Your result in bb/100 for this session. |
+
+**Narrative paragraph** — a short written summary describing your VPIP, PFR, AF and overall win/loss rate for the session.
+
+**EV Summary** — if you had any all-in or showdown hands where villain cards are known, this section shows how your results compared to your equity:
+- 👍 **Ran above equity** — you won more than your equity predicted (ran good).
+- 👎 **Ran below equity** — you won less than your equity predicted (ran bad).
+- **~** **Ran near equity** — results were consistent with your equity.
+
+> A hand is classified as *Lucky* when you won with < 40% equity, and *Unlucky* when you lost with > 60% equity.
+
+**Notable Hands** — a list of any individual hands flagged as Lucky (🍀) or Unlucky (😞), showing the hand ID and your equity at the time.
+
+Click **Browse all N hands** to continue to the full hand list for this session.
+
+### Level 3: Hand List
 All hands from the selected session. Each row shows the Hand ID, your hole cards, the final pot size, and your net result for that hand.
 
 **Filters** (above the table):
@@ -100,9 +125,9 @@ All hands from the selected session. Each row shows the Hand ID, your hole cards
 | Saw Flop | Show only hands where you saw the flop. |
 | Showdown | Show only hands that went to showdown. |
 
-Use the breadcrumb trail at the top to navigate back to the session list.
+Use the breadcrumb trail at the top to navigate back to the session report or the session list.
 
-### Level 3: Hand Detail
+### Level 4: Hand Detail
 A full chronological replay of a single hand, grouped by street (Pre-Flop, Flop, Turn, River).
 
 Each action row shows:
