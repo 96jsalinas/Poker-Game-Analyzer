@@ -368,8 +368,10 @@ layout = html.Div(
         html.Hr(),
         html.Div(id="breadcrumb", style={"marginBottom": "12px"}),
         html.Hr(style={"marginTop": "0"}),
+        html.Div(id="session-analysis-hint", style={"marginBottom": "8px"}),
         dcc.Loading(html.Div(id="drill-down-content")),
         dcc.Store(id="drill-down-state", data={"level": "sessions"}),
+        dcc.Store(id="pending-session-report"),
     ],
 )
 
@@ -842,12 +844,39 @@ def _parse_nav_search(search: str) -> _DrillDownState | None:
     return None
 
 
+def _count_session_showdown_hands(db_path: str, session_id: int, player_id: int) -> int:
+    """Count villain showdown hands with known cards — used for the loading estimate.
+
+    Used only for the loading-time estimate shown in the analysis hint banner.
+    Runs a single COUNT query — very fast.
+    """
+    conn = get_connection(db_path)
+    try:
+        row = conn.execute(
+            """
+            SELECT COUNT(DISTINCT hp.hand_id)
+            FROM hand_players hp
+            JOIN hands h ON h.id = hp.hand_id
+            WHERE h.session_id = ?
+              AND hp.player_id != ?
+              AND hp.hole_cards IS NOT NULL
+              AND hp.went_to_showdown = 1
+            """,
+            (session_id, player_id),
+        ).fetchone()
+    finally:
+        conn.close()
+    return int(row[0]) if row else 0
+
+
 # ---------------------------------------------------------------------------
 # Renderer — reacts to state + page navigation
 # ---------------------------------------------------------------------------
 @callback(
     Output("drill-down-content", "children"),
     Output("breadcrumb", "children"),
+    Output("session-analysis-hint", "children"),
+    Output("pending-session-report", "data"),
     Input("drill-down-state", "data"),
     Input("_pages_location", "pathname"),
     State("_pages_location", "search"),
@@ -857,7 +886,7 @@ def _render(
     state: _DrillDownState | None,
     pathname: str,
     search: str,
-) -> tuple[html.Div | str, html.Div]:
+) -> tuple[html.Div | str, html.Div, html.Div | None, int | None]:
     if pathname != "/sessions":
         raise dash.exceptions.PreventUpdate
 
@@ -879,33 +908,97 @@ def _render(
     db_path = _get_db_path()
 
     if level == "sessions":
-        return _render_sessions(db_path), _breadcrumb("sessions")
+        return _render_sessions(db_path), _breadcrumb("sessions"), None, None
 
     session_id = int(state.get("session_id") or 0)
     if level == "report":
-        content, label = _render_session_report(db_path, session_id)
-        return content, _breadcrumb(
-            "report", session_label=label, session_id=session_id
+        player_id = _get_hero_player_id(db_path)
+        n_showdown = (
+            _count_session_showdown_hands(db_path, session_id, player_id)
+            if player_id is not None
+            else 0
+        )
+        est_secs = max(5, n_showdown * 2)
+        if n_showdown > 0:
+            hand_word = "hand" if n_showdown == 1 else "hands"
+            hint_body = (
+                f"Computing equity for {n_showdown} showdown {hand_word}"
+                f" — estimated ~{est_secs}s."
+            )
+        else:
+            hint_body = "Loading session data…"
+        hint = html.Div(
+            [
+                html.Span("⏳ Analysing session  ", style={"fontWeight": "600"}),
+                html.Span(hint_body, style={"color": "#888", "fontSize": "13px"}),
+            ],
+            style={
+                "background": "#fffbe6",
+                "border": "1px solid #ffe066",
+                "borderRadius": "6px",
+                "padding": "8px 14px",
+                "fontSize": "14px",
+            },
+        )
+        label = _get_session_label(db_path, session_id)
+        placeholder = html.Div(style={"minHeight": "120px"})
+        return (
+            placeholder,
+            _breadcrumb("report", session_label=label, session_id=session_id),
+            hint,
+            session_id,
         )
 
     if level == "hands":
         content, label = _render_hands(db_path, session_id)
-        return content, _breadcrumb("hands", session_label=label, session_id=session_id)
+        return (
+            content,
+            _breadcrumb("hands", session_label=label, session_id=session_id),
+            None,
+            None,
+        )
 
     hand_id = int(state.get("hand_id") or 0)
     session_label = _get_session_label(db_path, session_id)
     content, hand_label = _render_actions(db_path, hand_id)
-    return content, _breadcrumb(
-        "actions",
-        session_label=session_label,
-        session_id=session_id,
-        hand_label=hand_label,
+    return (
+        content,
+        _breadcrumb(
+            "actions",
+            session_label=session_label,
+            session_id=session_id,
+            hand_label=hand_label,
+        ),
+        None,
+        None,
     )
 
 
-# ---------------------------------------------------------------------------
-# Pure filter helpers (no Dash, fully testable in isolation)
-# ---------------------------------------------------------------------------
+@callback(
+    Output("drill-down-content", "children", allow_duplicate=True),
+    Output("session-analysis-hint", "children", allow_duplicate=True),
+    Input("pending-session-report", "data"),
+    State("drill-down-state", "data"),
+    prevent_initial_call=True,
+)
+def _load_session_report(
+    session_id: int | None,
+    state: _DrillDownState | None,
+) -> tuple[html.Div | str, None]:
+    """Phase 2: compute Session Report after the hint banner is shown.
+
+    Triggered by pending-session-report store. Guards against stale triggers
+    (e.g. user navigated away before computation finished).
+    """
+    if session_id is None:
+        raise dash.exceptions.PreventUpdate
+    if not state or state.get("level") != "report":
+        raise dash.exceptions.PreventUpdate
+    db_path = _get_db_path()
+    content, _ = _render_session_report(db_path, int(session_id))
+    return content, None
+
+
 def _filter_sessions_data(
     df: pd.DataFrame,
     date_from: str | None,
