@@ -275,3 +275,51 @@ def compute_ev(
         sample_count,
     )
     return equity * pot_to_win - (1.0 - equity) * amount_risked
+
+
+_MIN_HANDS_FOR_CLASSIFICATION = 15
+_VPIP_LOOSE_THRESHOLD = 25.0  # % — at or above this → Loose
+_AGG_RATIO_THRESHOLD = 0.5  # PFR / VPIP — at or above this → Aggressive
+
+
+def classify_player(
+    vpip_pct: float,
+    pfr_pct: float,
+    hands_played: int,
+) -> str | None:
+    """Classify an opponent into a playing-style archetype.
+
+    Uses a 2×2 matrix of VPIP (Tight/Loose) and aggression ratio
+    (PFR / VPIP; Passive/Aggressive):
+
+    | VPIP \\ Agg | Passive  | Aggressive |
+    |------------|----------|------------|
+    | Tight      | Nit      | TAG        |
+    | Loose      | Fish     | LAG        |
+
+    Aggression ratio is PFR / VPIP.  When VPIP is 0 the player never
+    entered the pot, so they are always Tight-Passive (Nit).
+
+    Args:
+        vpip_pct: VPIP expressed as a percentage (0–100).
+        pfr_pct: PFR expressed as a percentage (0–100).
+        hands_played: Total hands observed for this player in the session.
+
+    Returns:
+        One of ``"TAG"``, ``"LAG"``, ``"Nit"``, ``"Fish"``, or ``None``
+        when *hands_played* is below the minimum threshold (15).
+    """
+    if hands_played < _MIN_HANDS_FOR_CLASSIFICATION:
+        return None
+
+    is_loose = vpip_pct >= _VPIP_LOOSE_THRESHOLD
+    agg_ratio = pfr_pct / vpip_pct if vpip_pct > 0 else 0.0
+    is_aggressive = agg_ratio >= _AGG_RATIO_THRESHOLD
+
+    if is_loose and is_aggressive:
+        return "LAG"
+    if is_loose:
+        return "Fish"
+    if is_aggressive:
+        return "TAG"
+    return "Nit"
