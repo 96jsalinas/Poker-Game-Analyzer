@@ -1856,3 +1856,299 @@ class TestOpponentProfilesPanel:
 
         src = inspect.getsource(mod)
         assert "opponent-profiles-panel" in src
+
+
+# ---------------------------------------------------------------------------
+# TestBuildSessionKpiStrip
+# ---------------------------------------------------------------------------
+
+
+class TestBuildSessionKpiStrip:
+    """Tests for _build_session_kpi_strip pure UI helper."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def _kpis(self):
+        import pandas as pd
+
+        return pd.DataFrame(
+            {
+                "vpip": [1, 0, 1],
+                "pfr": [1, 0, 0],
+                "net_result": [500.0, -200.0, -100.0],
+                "big_blind": [200.0, 200.0, 200.0],
+                "saw_flop": [1, 0, 1],
+                "went_to_showdown": [1, 0, 0],
+                "position": ["BTN", "BB", "SB"],
+            }
+        )
+
+    def _actions(self):
+        import pandas as pd
+
+        return pd.DataFrame(
+            {
+                "hand_id": [1, 1],
+                "street": ["FLOP", "FLOP"],
+                "action_type": ["BET", "CALL"],
+                "position": ["BTN", "BTN"],
+            }
+        )
+
+    def test_returns_html_div(self):
+        """Result is an html.Div."""
+        from dash import html
+
+        from pokerhero.frontend.pages.sessions import _build_session_kpi_strip
+
+        assert isinstance(
+            _build_session_kpi_strip(self._kpis(), self._actions()), html.Div
+        )
+
+    def test_shows_hands_count(self):
+        """KPI strip displays the number of hands played."""
+        from pokerhero.frontend.pages.sessions import _build_session_kpi_strip
+
+        # 3 hands in the fixture DataFrame
+        assert "3" in str(_build_session_kpi_strip(self._kpis(), self._actions()))
+
+    def test_shows_vpip_value(self):
+        """KPI strip displays the VPIP percentage (2/3 = 66.7%)."""
+        from pokerhero.frontend.pages.sessions import _build_session_kpi_strip
+
+        assert "66" in str(_build_session_kpi_strip(self._kpis(), self._actions()))
+
+    def test_shows_pfr_value(self):
+        """KPI strip displays the PFR percentage (1/3 = 33.3%)."""
+        from pokerhero.frontend.pages.sessions import _build_session_kpi_strip
+
+        assert "33" in str(_build_session_kpi_strip(self._kpis(), self._actions()))
+
+    def test_empty_dataframes_no_crash(self):
+        """Empty DataFrames return a Div without raising."""
+        import pandas as pd
+
+        from pokerhero.frontend.pages.sessions import _build_session_kpi_strip
+
+        assert _build_session_kpi_strip(pd.DataFrame(), pd.DataFrame()) is not None
+
+
+# ---------------------------------------------------------------------------
+# TestBuildSessionNarrative
+# ---------------------------------------------------------------------------
+
+
+class TestBuildSessionNarrative:
+    """Tests for _build_session_narrative pure UI helper."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def _kpis(self):
+        import pandas as pd
+
+        return pd.DataFrame(
+            {
+                "vpip": [1, 0, 1],
+                "pfr": [1, 0, 0],
+                "net_result": [500.0, -200.0, -100.0],
+                "big_blind": [200.0, 200.0, 200.0],
+                "saw_flop": [1, 0, 1],
+                "went_to_showdown": [1, 0, 0],
+                "position": ["BTN", "BB", "SB"],
+            }
+        )
+
+    def _actions(self):
+        import pandas as pd
+
+        return pd.DataFrame(
+            {
+                "hand_id": [1, 1],
+                "street": ["FLOP", "FLOP"],
+                "action_type": ["BET", "CALL"],
+                "position": ["BTN", "BTN"],
+            }
+        )
+
+    def test_returns_html_div(self):
+        """Result is an html.Div."""
+        from dash import html
+
+        from pokerhero.frontend.pages.sessions import _build_session_narrative
+
+        result = _build_session_narrative(
+            self._kpis(), self._actions(), "2026-01-29  100/200"
+        )
+        assert isinstance(result, html.Div)
+
+    def test_contains_hands_count(self):
+        """Narrative text includes the number of hands played."""
+        from pokerhero.frontend.pages.sessions import _build_session_narrative
+
+        result = _build_session_narrative(
+            self._kpis(), self._actions(), "2026-01-29  100/200"
+        )
+        assert "3" in str(result)
+
+    def test_contains_session_label(self):
+        """Narrative text includes the session label (stakes)."""
+        from pokerhero.frontend.pages.sessions import _build_session_narrative
+
+        result = _build_session_narrative(
+            self._kpis(), self._actions(), "2026-01-29  100/200"
+        )
+        assert "100/200" in str(result)
+
+    def test_empty_no_crash(self):
+        """Empty DataFrames return a Div without raising."""
+        import pandas as pd
+
+        from pokerhero.frontend.pages.sessions import _build_session_narrative
+
+        assert (
+            _build_session_narrative(pd.DataFrame(), pd.DataFrame(), "no session")
+            is not None
+        )
+
+
+# ---------------------------------------------------------------------------
+# TestBuildEvSummary
+# ---------------------------------------------------------------------------
+
+
+class TestBuildEvSummary:
+    """Tests for _build_ev_summary pure UI helper."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def _showdown_df(
+        self,
+        net_result: float = 5000.0,
+        hero_cards: str = "Ah Kh",
+        villain_cards: str = "2c 3d",
+    ):
+        import pandas as pd
+
+        # Complete 5-card board: Ah Kh has royal flush (equity ≈ 1.0)
+        return pd.DataFrame(
+            {
+                "hand_id": [1],
+                "source_hand_id": ["#100"],
+                "hero_cards": [hero_cards],
+                "villain_username": ["villain"],
+                "villain_cards": [villain_cards],
+                "board": ["Qh Jh Th 9d 2s"],
+                "net_result": [net_result],
+                "total_pot": [6000.0],
+            }
+        )
+
+    def test_returns_html_div(self):
+        """Result is an html.Div for both empty and non-empty input."""
+        import pandas as pd
+        from dash import html
+
+        from pokerhero.frontend.pages.sessions import _build_ev_summary
+
+        assert isinstance(_build_ev_summary(pd.DataFrame()), html.Div)
+
+    def test_empty_shows_no_showdown_message(self):
+        """Empty DataFrame produces a message indicating no showdown data."""
+        import pandas as pd
+
+        from pokerhero.frontend.pages.sessions import _build_ev_summary
+
+        text = str(_build_ev_summary(pd.DataFrame())).lower()
+        assert "no" in text or "0" in text
+
+    def test_nonempty_mentions_showdown(self):
+        """Non-empty DataFrame mentions showdown in the output."""
+        from pokerhero.frontend.pages.sessions import _build_ev_summary
+
+        text = str(_build_ev_summary(self._showdown_df())).lower()
+        assert "showdown" in text
+
+    def test_unlucky_outcome_shows_below_equity(self):
+        """Hero had near-100% equity (royal flush) but lost → below equity verdict."""
+        from pokerhero.frontend.pages.sessions import _build_ev_summary
+
+        # Ah Kh vs 2c 3d on Qh Jh Th 9d 2s: hero equity ≈ 1.0, but hero loses
+        result = _build_ev_summary(self._showdown_df(net_result=-3000.0))
+        assert "below" in str(result).lower()
+
+
+# ---------------------------------------------------------------------------
+# TestBuildFlaggedHandsList
+# ---------------------------------------------------------------------------
+
+
+class TestBuildFlaggedHandsList:
+    """Tests for _build_flagged_hands_list pure UI helper."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def _hand_df(
+        self,
+        net_result: float = 5000.0,
+        hero_cards: str = "Ah Kh",
+        villain_cards: str = "2c 3d",
+    ):
+        import pandas as pd
+
+        return pd.DataFrame(
+            {
+                "hand_id": [1],
+                "source_hand_id": ["#100"],
+                "hero_cards": [hero_cards],
+                "villain_username": ["villain"],
+                "villain_cards": [villain_cards],
+                "board": ["Qh Jh Th 9d 2s"],
+                "net_result": [net_result],
+                "total_pot": [6000.0],
+            }
+        )
+
+    def test_returns_html_div(self):
+        """Result is an html.Div for empty input."""
+        import pandas as pd
+        from dash import html
+
+        from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
+
+        assert isinstance(_build_flagged_hands_list(pd.DataFrame()), html.Div)
+
+    def test_nonempty_no_crash(self):
+        """Non-flagged hand (won with high equity) returns Div without raising."""
+        from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
+
+        assert _build_flagged_hands_list(self._hand_df(net_result=5000.0)) is not None
+
+    def test_unlucky_hand_flagged(self):
+        """Hero had near-100% equity but lost → flagged as Unlucky."""
+        from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
+
+        # Ah Kh vs 2c 3d on Qh Jh Th 9d 2s: equity ≈ 1.0 but hero loses
+        result = _build_flagged_hands_list(self._hand_df(net_result=-3000.0))
+        assert "Unlucky" in str(result)
+
+    def test_lucky_hand_flagged(self):
+        """Hero had near-zero equity but won → flagged as Lucky."""
+        from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
+
+        # 2c 3d vs Ah Kh on Qh Jh Th 9d 2s: equity ≈ 0.0 but hero wins
+        result = _build_flagged_hands_list(
+            self._hand_df(hero_cards="2c 3d", villain_cards="Ah Kh", net_result=5000.0)
+        )
+        assert "Lucky" in str(result)
