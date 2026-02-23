@@ -899,3 +899,131 @@ class TestCurrencyFilter:
         conn, pid = cdb
         df = get_hero_opportunity_actions(conn, pid, currency_type="play")
         assert len(df) == 1
+
+
+# ---------------------------------------------------------------------------
+# TestSessionPlayerStats
+# ---------------------------------------------------------------------------
+
+
+class TestSessionPlayerStats:
+    """Tests for get_session_player_stats — per-opponent aggregation for a session."""
+
+    @pytest.fixture
+    def sdb(self, tmp_path):
+        """In-memory DB with one session, hero + two villains across 3 hands.
+
+        hand 1: hero(vpip=1,pfr=1), alice(vpip=1,pfr=1), bob(vpip=0,pfr=0)
+        hand 2: hero(vpip=1,pfr=0), alice(vpip=1,pfr=0), bob(vpip=1,pfr=0)
+        hand 3: hero(vpip=0,pfr=0), alice(vpip=1,pfr=1), bob(vpip=1,pfr=1)
+
+        Expected per-villain totals (excluding hero):
+          alice: hands=3, vpip_count=3, pfr_count=2
+          bob:   hands=3, vpip_count=2, pfr_count=1
+        """
+        from pokerhero.database.db import init_db, upsert_player
+
+        conn = init_db(tmp_path / "sp.db")
+        hero_pid = upsert_player(conn, "hero")
+        alice_pid = upsert_player(conn, "alice")
+        bob_pid = upsert_player(conn, "bob")
+
+        conn.execute(
+            "INSERT INTO sessions (game_type, limit_type, max_seats, small_blind,"
+            " big_blind, ante, start_time, currency)"
+            " VALUES ('NLHE','NL',9,100,200,0,'2026-01-01T10:00:00','PLAY')"
+        )
+        sid = conn.execute("SELECT last_insert_rowid()").fetchone()[0]
+
+        hand_data = [
+            # (vpip_hero, pfr_hero, vpip_alice, pfr_alice, vpip_bob, pfr_bob)
+            (1, 1, 1, 1, 0, 0),
+            (1, 0, 1, 0, 1, 0),
+            (0, 0, 1, 1, 1, 1),
+        ]
+        for i, (vh, ph, va, pa, vb, pb) in enumerate(hand_data):
+            conn.execute(
+                "INSERT INTO hands (source_hand_id, session_id, total_pot, rake,"
+                " timestamp) VALUES (?, ?, 200, 5, ?)",
+                (f"H{i}", sid, f"2026-01-01T10:0{i}:00"),
+            )
+            hid = conn.execute("SELECT last_insert_rowid()").fetchone()[0]
+            for pid, vpip, pfr in [
+                (hero_pid, vh, ph),
+                (alice_pid, va, pa),
+                (bob_pid, vb, pb),
+            ]:
+                conn.execute(
+                    "INSERT INTO hand_players (hand_id, player_id, position,"
+                    " starting_stack, vpip, pfr, went_to_showdown, net_result)"
+                    " VALUES (?, ?, 'BTN', 10000, ?, ?, 0, 0)",
+                    (hid, pid, vpip, pfr),
+                )
+        conn.commit()
+        return conn, int(hero_pid), int(sid)
+
+    def test_returns_dataframe(self, sdb):
+        """get_session_player_stats returns a DataFrame."""
+        from pokerhero.analysis.queries import get_session_player_stats
+
+        conn, hero_pid, sid = sdb
+        result = get_session_player_stats(conn, sid, hero_pid)
+        assert hasattr(result, "columns")
+
+    def test_excludes_hero(self, sdb):
+        """Hero is not included in the returned player stats."""
+        from pokerhero.analysis.queries import get_session_player_stats
+
+        conn, hero_pid, sid = sdb
+        result = get_session_player_stats(conn, sid, hero_pid)
+        assert "hero" not in result["username"].values
+
+    def test_includes_both_villains(self, sdb):
+        """Both alice and bob are present in the results."""
+        from pokerhero.analysis.queries import get_session_player_stats
+
+        conn, hero_pid, sid = sdb
+        result = get_session_player_stats(conn, sid, hero_pid)
+        usernames = set(result["username"])
+        assert {"alice", "bob"} == usernames
+
+    def test_hands_played_count(self, sdb):
+        """hands_played is the correct count of hands for each villain."""
+        from pokerhero.analysis.queries import get_session_player_stats
+
+        conn, hero_pid, sid = sdb
+        result = get_session_player_stats(conn, sid, hero_pid)
+        alice = result[result["username"] == "alice"].iloc[0]
+        assert int(alice["hands_played"]) == 3
+
+    def test_vpip_count(self, sdb):
+        """vpip_count matches the number of hands each villain voluntarily entered."""
+        from pokerhero.analysis.queries import get_session_player_stats
+
+        conn, hero_pid, sid = sdb
+        result = get_session_player_stats(conn, sid, hero_pid)
+        alice = result[result["username"] == "alice"].iloc[0]
+        bob = result[result["username"] == "bob"].iloc[0]
+        assert int(alice["vpip_count"]) == 3
+        assert int(bob["vpip_count"]) == 2
+
+    def test_pfr_count(self, sdb):
+        """pfr_count matches the number of hands each villain raised preflop."""
+        from pokerhero.analysis.queries import get_session_player_stats
+
+        conn, hero_pid, sid = sdb
+        result = get_session_player_stats(conn, sid, hero_pid)
+        alice = result[result["username"] == "alice"].iloc[0]
+        bob = result[result["username"] == "bob"].iloc[0]
+        assert int(alice["pfr_count"]) == 2
+        assert int(bob["pfr_count"]) == 1
+
+    def test_required_columns_present(self, sdb):
+        """Result DataFrame has the required columns."""
+        from pokerhero.analysis.queries import get_session_player_stats
+
+        conn, hero_pid, sid = sdb
+        result = get_session_player_stats(conn, sid, hero_pid)
+        assert {"username", "hands_played", "vpip_count", "pfr_count"}.issubset(
+            result.columns
+        )
