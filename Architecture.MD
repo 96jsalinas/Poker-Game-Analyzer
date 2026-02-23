@@ -65,7 +65,8 @@ pokerhero-analyzer/
 │       │       ├── __init__.py
 │       │       ├── home.py       # "/" — navigation hub with links to Upload, Sessions, Dashboard, Settings, Guide
 │       │       ├── upload.py     # "/upload" — drag-and-drop ingestion; hero username persisted to settings
-│       │       ├── sessions.py   # "/sessions" — session list → hand list drill-down
+│       │       ├── sessions.py   # "/sessions" — session list → hand list → action replay drill-down;
+│       │       │                 # _describe_hand() uses PokerKit to identify best hand at showdown
 │       │       ├── dashboard.py  # "/dashboard" — KPI cards, bankroll graph, positional stats table
 │       │       ├── guide.py      # "/guide" — in-app user guide: stat definitions, app walkthrough
 │       │       └── settings.py   # "/settings" — hero username, Clear DB, Export CSV
@@ -75,7 +76,7 @@ pokerhero-analyzer/
 │   ├── test_parser.py            # 164 tests across 15 classes
 │   ├── test_database.py          # 62 tests across 9 classes (incl. TestSettings, TestFavorites, currency storage)
 │   ├── test_ingestion.py         # 28 tests for pipeline, financials, re-buy detection, logging
-│   ├── test_frontend.py          # 152 tests: upload handler, multi-page app, page layouts, action view math, dashboard, filters (incl. game type toggle), guide, showdown, favourites, DataTable, format helpers
+│   ├── test_frontend.py          # 165 tests: upload handler, multi-page app, page layouts, action view math, dashboard, filters (incl. game type toggle), guide, showdown (winner + hand description), favourites, DataTable, format helpers
 │   └── test_analysis.py          # 80 tests for queries and stats (vpip, pfr, win_rate, AF, wtsd, timeline, 3-bet, c-bet, EV, equity cache, date filter, currency filter, position/saw_flop flags)
 ├── data/
 │   └── histories/                # Raw .txt session files (git-ignored)
