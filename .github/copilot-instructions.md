@@ -51,3 +51,9 @@ When adding a test fixture for a new hand history variant (e.g. EUR cash game), 
 - `_fmt_pnl(pnl)`: `f"{sign}{pnl:,.6g}"` — signed, comma-separated, 6 significant figures.
 - Plotly hovertemplate uses d3-format, not Python format — use `%{y:,.4g}` not `%{y:,.0f}`.
 These helpers are duplicated across `dashboard.py` and `sessions.py` — cross-page imports between Dash page modules are unclean, duplication is intentional for trivial one-liners.
+
+### `hole_cards IS NOT NULL` does not mean the hero reached showdown
+PokerStars records the hero's hole cards in the hand history regardless of whether they folded. When querying for hands where the hero actually went to showdown, always filter on `hero_hp.went_to_showdown = 1` — never rely on `hole_cards IS NOT NULL` alone as a showdown proxy for the hero's row.
+
+### SQL JOINs on hand_players produce one row per matching player, not per hand
+A query that JOINs `hand_players` looking for opponents with known cards will return N rows for any hand with N such opponents (multiway showdowns). Always add a deduplication strategy — either a correlated subquery (`villain_hp.player_id = (SELECT MIN(...) ...)`) to pick one representative villain, or a `GROUP BY h.id` with explicit aggregation. Failing to do this causes the same hand to appear multiple times in result sets.
