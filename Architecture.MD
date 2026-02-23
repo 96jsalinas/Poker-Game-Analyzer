@@ -52,7 +52,9 @@ pokerhero-analyzer/
 │       ├── analysis/             # ✅ Implemented
 │       │   ├── __init__.py
 │       │   ├── queries.py        # get_sessions, get_hands, get_actions, get_hero_hand_players,
-│       │   │                     # get_hero_timeline, get_hero_actions, get_export_data → DataFrames
+│       │   │                     # get_hero_timeline, get_hero_actions, get_hero_opportunity_actions,
+│       │   │                     # get_export_data → DataFrames; all hero query functions accept
+│       │   │                     # optional currency_type='real'|'play'|None to filter by session currency
 │       │   └── stats.py          # vpip_pct, pfr_pct, win_rate_bb100, aggression_factor, wtsd_pct,
 │       │                         # total_profit, three_bet_pct, cbet_pct, compute_equity, compute_ev
 │       ├── frontend/             # ✅ Implemented (multi-page Dash app)
@@ -70,11 +72,11 @@ pokerhero-analyzer/
 │       └── config.py             # DB_PATH (overridable via POKERHERO_DB_PATH env var), setup_logging()
 ├── tests/
 │   ├── fixtures/                 # 16 .txt hand history snippets (see TestingStrategy.MD)
-│   ├── test_parser.py            # 160 tests across 15 classes
-│   ├── test_database.py          # 60 tests across 9 classes (incl. TestSettings, TestFavorites)
+│   ├── test_parser.py            # 164 tests across 15 classes
+│   ├── test_database.py          # 62 tests across 9 classes (incl. TestSettings, TestFavorites, currency storage)
 │   ├── test_ingestion.py         # 28 tests for pipeline, financials, re-buy detection, logging
-│   ├── test_frontend.py          # 141 tests: upload handler, multi-page app, page layouts, action view math, dashboard, filters, guide, showdown, favourites, DataTable, format helpers
-│   └── test_analysis.py          # 68 tests for queries and stats (vpip, pfr, win_rate, AF, wtsd, timeline, 3-bet, c-bet, EV, equity cache, date filter, position/saw_flop flags)
+│   ├── test_frontend.py          # 152 tests: upload handler, multi-page app, page layouts, action view math, dashboard, filters (incl. game type toggle), guide, showdown, favourites, DataTable, format helpers
+│   └── test_analysis.py          # 80 tests for queries and stats (vpip, pfr, win_rate, AF, wtsd, timeline, 3-bet, c-bet, EV, equity cache, date filter, currency filter, position/saw_flop flags)
 ├── data/
 │   └── histories/                # Raw .txt session files (git-ignored)
 └── pyproject.toml
@@ -108,4 +110,4 @@ Passing `**{"data-tip": tooltip}` as a keyword argument to `html.Span()` is reje
 The parser (`hand_parser.py`) is tightly coupled to the PokerStars `.txt` hand history export format. No other poker platform's export format (e.g. GGPoker, 888poker, partypoker) is supported. Feeding a non-PokerStars file into the ingestion pipeline will result in parse errors or silently empty output. If multi-platform support is added in the future, the parser module will need to be refactored into a platform-specific adapter pattern.
 
 ### Multi-currency support (USD and EUR)
-The parser handles both USD (`$`) and EUR (`€`) PokerStars cash game hand histories. EUR files prefix `€` before every monetary value (stacks, blinds, action amounts, pots) and include a ` EUR` suffix inside the blind parentheses in the header (e.g. `Hold'em No Limit (€0.02/€0.05 EUR)`). All monetary regexes use `[€$]?` before numeric captures — the currency symbol is non-capturing so no downstream group index changes are required. Play-money and tournament chip files use bare numbers with no currency prefix and are handled by the same fallback path.
+The parser handles both USD (`$`) and EUR (`€`) PokerStars cash game hand histories. EUR files prefix `€` before every monetary value (stacks, blinds, action amounts, pots) and include a ` EUR` suffix inside the blind parentheses in the header (e.g. `Hold'em No Limit (€0.02/€0.05 EUR)`). The currency symbol is captured by `([€$])?` as group 2 in `_RE_CASH_HEADER`, which shifts all subsequent group indices by one. `_parse_headers()` maps the captured symbol to `'EUR'` / `'USD'` / `'PLAY'` and stores it on `SessionData.currency`. Play-money and tournament chip files use bare numbers with no currency prefix — these always produce `currency='PLAY'`.

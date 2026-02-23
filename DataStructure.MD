@@ -19,6 +19,7 @@ Defines the environment and stakes for a block of hands.
 | `hero_buy_in` | Decimal | Total chips invested across the session (initial buy-in + all re-buys). A re-buy is detected when hero's `starting_stack` at hand N exceeds `starting_stack + net_result` from hand N-1. |
 | `hero_cash_out` | Decimal | Total chips Hero finished with (final hand's `starting_stack + net_result`). |
 | `is_favorite` | Boolean | User-marked favourite session (0 = normal, 1 = favourite). Toggled via `toggle_session_favorite()` in `db.py`. |
+| `currency` | TEXT NOT NULL DEFAULT 'PLAY' | Currency of the session: `'USD'` (dollar cash game), `'EUR'` (euro cash game), or `'PLAY'` (play-money or tournament chips). Detected from the currency symbol in the hand header at parse time. |
 
 ---
 
@@ -114,6 +115,7 @@ These dataclasses are what `HandParser.parse()` returns. Field names differ from
 | `is_tournament` | `bool` | |
 | `tournament_id` | `str \| None` | |
 | `tournament_level` | `str \| None` | e.g. `"Level I"` |
+| `currency` | `str` | `'USD'`, `'EUR'`, or `'PLAY'` (default). Detected from `€`/`$` symbol in the cash header; always `'PLAY'` for tournaments. |
 > ⚠️ `SessionData` has no `start_time`. Pass `hand.timestamp.isoformat()` to `insert_session(start_time=...)`.
 
 ### `HandData`
