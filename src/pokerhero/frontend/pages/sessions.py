@@ -287,6 +287,43 @@ def _fmt_pnl(pnl: float) -> str:
     return f"{sign}{pnl:,.6g}"
 
 
+def _describe_hand(hole_cards: str, board: str) -> str | None:
+    """Return a human-readable best-hand description for hole cards + board.
+
+    Finds the best 5-card hand from all combinations of hole cards and board
+    cards using PokerKit's StandardHighHand evaluator. Returns the hand name
+    (e.g. "Full house", "Flush") with the card list stripped.
+
+    Args:
+        hole_cards: Space-separated hole card strings, e.g. "As Kd".
+        board: Space-separated board card strings, e.g. "Ah Kh Qs 2c 7d".
+            Must contain at least 3 cards for a valid evaluation.
+
+    Returns:
+        Hand name string, or None if the board has fewer than 3 cards or
+        evaluation fails.
+    """
+    import itertools
+    import re
+
+    from pokerkit import Card, StandardHighHand
+
+    board_cards = [c for c in board.split() if c]
+    if len(board_cards) < 3:
+        return None
+    try:
+        all_cards = list(Card.parse(hole_cards.replace(" ", ""))) + list(
+            Card.parse("".join(board_cards))
+        )
+        best = max(
+            StandardHighHand(list(combo))
+            for combo in itertools.combinations(all_cards, 5)
+        )
+        return re.sub(r"\s*\(.*\)", "", str(best))
+    except Exception:
+        return None
+
+
 def _get_db_path() -> str:
     result: str = dash.get_app().server.config.get("DB_PATH", ":memory:")  # type: ignore[no-untyped-call]
     return result
