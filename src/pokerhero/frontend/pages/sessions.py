@@ -505,6 +505,76 @@ def _build_opponent_profile_card(
     )
 
 
+def _build_villain_summary(
+    opp_stats: dict[str, dict[str, int]],
+) -> html.Div | None:
+    """Render a compact header line listing all opponents with archetype badges.
+
+    Placed below the board in the action view so the hero can see who they are
+    up against before reading the action sequence.
+
+    Args:
+        opp_stats: Mapping of username → stats dict with keys
+            'hands_played', 'vpip_count', 'pfr_count'.
+
+    Returns:
+        An ``html.Div`` or ``None`` when *opp_stats* is empty.
+    """
+    if not opp_stats:
+        return None
+
+    from pokerhero.analysis.stats import classify_player
+
+    items: list[Any] = [
+        html.Span(
+            "Villains: ",
+            style={"fontWeight": "600", "fontSize": "13px", "color": "#555"},
+        )
+    ]
+    for username, s in opp_stats.items():
+        h = int(s["hands_played"])
+        vp = int(s["vpip_count"]) / h * 100 if h > 0 else 0.0
+        pf = int(s["pfr_count"]) / h * 100 if h > 0 else 0.0
+        archetype = classify_player(vp, pf, h)
+        badge: list[Any] = (
+            [
+                html.Span(
+                    archetype,
+                    style={
+                        "background": _ARCHETYPE_COLORS.get(archetype, "#999"),
+                        "color": "#fff",
+                        "borderRadius": "4px",
+                        "padding": "1px 6px",
+                        "fontSize": "11px",
+                        "fontWeight": "700",
+                        "marginLeft": "4px",
+                        "verticalAlign": "middle",
+                    },
+                )
+            ]
+            if archetype is not None
+            else []
+        )
+        items.append(
+            html.Span(
+                [html.Span(username, style={"fontSize": "13px"})] + badge,
+                style={"marginRight": "12px"},
+            )
+        )
+
+    return html.Div(
+        items,
+        style={
+            "display": "flex",
+            "alignItems": "center",
+            "flexWrap": "wrap",
+            "gap": "4px",
+            "marginBottom": "10px",
+            "fontSize": "13px",
+        },
+    )
+
+
 def _get_db_path() -> str:
     result: str = dash.get_app().server.config.get("DB_PATH", ":memory:")  # type: ignore[no-untyped-call]
     return result
@@ -1436,6 +1506,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
     sections: list[html.Div] = []
     current_street: str | None = None
     street_rows: list[html.Tr] = []
+    seen_villains: set[str] = set()  # track first-appearance badge per villain
 
     def _flush(street: str, rows: list[html.Tr]) -> html.Div:
         colour = _STREET_COLOURS.get(street, "#333")
@@ -1471,9 +1542,42 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
 
         username = str(action["username"])
         position = str(action["position"]) if action["position"] else ""
-        actor = f"{username} ({position})" if position else username
+        actor_str = f"{username} ({position})" if position else username
         if action["is_hero"]:
-            actor = f"🦸 {actor}"
+            actor_str = f"🦸 {actor_str}"
+
+        # Show archetype badge on the villain's very first action in this hand.
+        actor_badge: list[Any] = []
+        if (
+            not action["is_hero"]
+            and opp_stats_map
+            and username in opp_stats_map
+            and username not in seen_villains
+        ):
+            from pokerhero.analysis.stats import classify_player as _cp
+
+            s = opp_stats_map[username]
+            h = int(s["hands_played"])
+            vp = int(s["vpip_count"]) / h * 100 if h > 0 else 0.0
+            pf = int(s["pfr_count"]) / h * 100 if h > 0 else 0.0
+            arch = _cp(vp, pf, h)
+            if arch is not None:
+                actor_badge = [
+                    html.Span(
+                        arch,
+                        style={
+                            "background": _ARCHETYPE_COLORS.get(arch, "#999"),
+                            "color": "#fff",
+                            "borderRadius": "4px",
+                            "padding": "1px 5px",
+                            "fontSize": "10px",
+                            "fontWeight": "700",
+                            "marginLeft": "5px",
+                            "verticalAlign": "middle",
+                        },
+                    )
+                ]
+            seen_villains.add(username)
 
         action_type = str(action["action_type"])
         amount = float(action["amount"])
@@ -1537,7 +1641,8 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             html.Tr(
                 [
                     html.Td(
-                        actor, style={**_TD, "width": "200px", "fontWeight": "600"}
+                        [actor_str, *actor_badge],
+                        style={**_TD, "width": "200px", "fontWeight": "600"},
                     ),
                     html.Td(label, style=_TD),
                     html.Td(
@@ -1615,6 +1720,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
         dcc.Store(id="hand-fav-id-store", data=hand_id),
         *([] if hero_row is None else [hero_row]),
         board_div,
+        *([vs] if (vs := _build_villain_summary(opp_stats_map)) is not None else []),
     ]
     return (
         html.Div([*header_children, *sections]),
