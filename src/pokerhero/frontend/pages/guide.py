@@ -77,7 +77,11 @@ layout = html.Div(
         html.H1("📖 User Guide", style={"marginBottom": "4px"}),
         html.P(
             "Everything you need to know to use PokerHero-Analyzer and understand your stats.",  # noqa: E501
-            style={"color": "#555", "marginBottom": "8px"},
+            style={"color": "#555", "marginBottom": "4px"},
+        ),
+        html.P(
+            html.A("← Back to Home", href="/"),
+            style={"color": "#0074D9", "marginBottom": "16px"},
         ),
         html.Hr(),
         # ── Getting Started ───────────────────────────────────────────────
