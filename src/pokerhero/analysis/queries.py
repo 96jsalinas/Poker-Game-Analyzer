@@ -392,3 +392,42 @@ def get_export_data(conn: sqlite3.Connection, player_id: int) -> pd.DataFrame:
         ORDER BY h.timestamp ASC
     """
     return pd.read_sql_query(sql, conn, params=(int(player_id),))
+
+
+def get_session_player_stats(
+    conn: sqlite3.Connection,
+    session_id: int,
+    hero_id: int,
+) -> pd.DataFrame:
+    """Return per-opponent aggregated stats for a single session.
+
+    Columns: username, hands_played, vpip_count, pfr_count.
+
+    Only players other than the hero are returned. Used to characterise
+    opponents (TAG / LAG / Nit / Fish) on the sessions page.
+
+    Args:
+        conn: Open SQLite connection.
+        session_id: Internal integer id of the session row.
+        hero_id: Internal integer id of the hero player row (excluded from results).
+
+    Returns:
+        DataFrame with one row per opponent, ordered by hands_played descending.
+    """
+    sql = """
+        SELECT
+            p.username,
+            COUNT(*)            AS hands_played,
+            SUM(hp.vpip)        AS vpip_count,
+            SUM(hp.pfr)         AS pfr_count
+        FROM hand_players hp
+        JOIN hands h ON h.id = hp.hand_id
+        JOIN players p ON p.id = hp.player_id
+        WHERE h.session_id = :sid
+          AND hp.player_id != :hero
+        GROUP BY hp.player_id
+        ORDER BY hands_played DESC
+    """
+    return pd.read_sql_query(
+        sql, conn, params={"sid": int(session_id), "hero": int(hero_id)}
+    )
