@@ -61,7 +61,7 @@ class _SummaryData(TypedDict):
 
 _RE_CASH_HEADER = re.compile(
     r"PokerStars Hand #(\d+):\s+Hold'em No Limit"
-    r" \([€$]?([\d.]+)/[€$]?([\d.]+)(?:\s+[A-Z]+)?\)"
+    r" \(([€$])?([\d.]+)/[€$]?([\d.]+)(?:\s+[A-Z]+)?\)"
     r" - (\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2})"
 )
 _RE_TOURN_HEADER = re.compile(
@@ -220,17 +220,25 @@ class HandParser:
             is_tournament = True
             tournament_id = tourn_id
             tournament_level = level
+            currency = "PLAY"
         else:
             m_cash = _RE_CASH_HEADER.search(hand_line)
             if not m_cash:
                 raise ValueError(f"Cannot parse hand header: {hand_line!r}")
             hand_id = m_cash.group(1)
-            sb = Decimal(m_cash.group(2))
-            bb = Decimal(m_cash.group(3))
-            ts = _parse_timestamp(m_cash.group(4))
+            currency_sym = m_cash.group(2)  # "€", "$", or None for play money
+            sb = Decimal(m_cash.group(3))
+            bb = Decimal(m_cash.group(4))
+            ts = _parse_timestamp(m_cash.group(5))
             is_tournament = False
             tournament_id = None
             tournament_level = None
+            if currency_sym == "€":
+                currency = "EUR"
+            elif currency_sym == "$":
+                currency = "USD"
+            else:
+                currency = "PLAY"
 
         m_table = _RE_TABLE.search(table_line)
         if not m_table:
@@ -250,6 +258,7 @@ class HandParser:
             is_tournament=is_tournament,
             tournament_id=tournament_id,
             tournament_level=tournament_level,
+            currency=currency,
         )
 
         hand_meta: _HandMeta = {

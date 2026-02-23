@@ -188,6 +188,9 @@ class TestCashSessionParsing:
     def test_tournament_level_is_none(self, cash_folds_preflop: ParsedHand) -> None:
         assert cash_folds_preflop.session.tournament_level is None
 
+    def test_play_money_currency_is_play(self, cash_folds_preflop: ParsedHand) -> None:
+        assert cash_folds_preflop.session.currency == "PLAY"
+
     def test_timestamp_parsed(self, cash_folds_preflop: ParsedHand) -> None:
         ts = cash_folds_preflop.hand.timestamp
         assert ts.year == 2026
@@ -237,6 +240,9 @@ class TestTournamentSessionParsing:
         """Tournament header '13200+1800' should be accessible."""
         # buy_in is the prize-pool contribution; buy_in + fee = total entry
         assert tourn_standard.session.tournament_id == "3970436932"
+
+    def test_tournament_currency_is_play(self, tourn_standard: ParsedHand) -> None:
+        assert tourn_standard.session.currency == "PLAY"
 
     def test_game_type_tournament(self, tourn_standard: ParsedHand) -> None:
         assert tourn_standard.session.game_type == "NLHE"
@@ -1190,6 +1196,9 @@ class TestDecimalBlinds:
     def test_hero_vpip_true(self, cash_decimal_blinds: ParsedHand) -> None:
         assert hero_player(cash_decimal_blinds).vpip is True
 
+    def test_usd_currency(self, cash_decimal_blinds: ParsedHand) -> None:
+        assert cash_decimal_blinds.session.currency == "USD"
+
 
 # ===========================================================================
 # TestSPRBBRaises
@@ -1287,3 +1296,6 @@ class TestEuroBlinds:
 
     def test_hero_pfr_false_eur(self, cash_eur_blinds: ParsedHand) -> None:
         assert hero_player(cash_eur_blinds).pfr is False
+
+    def test_eur_currency(self, cash_eur_blinds: ParsedHand) -> None:
+        assert cash_eur_blinds.session.currency == "EUR"

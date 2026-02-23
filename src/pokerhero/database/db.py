@@ -36,6 +36,13 @@ def init_db(db_path: str | Path) -> sqlite3.Connection:
             )
         except sqlite3.OperationalError:
             pass  # column already exists
+    # Migrate existing databases: add currency if not present
+    try:
+        conn.execute(
+            "ALTER TABLE sessions ADD COLUMN currency TEXT NOT NULL DEFAULT 'PLAY'"
+        )
+    except sqlite3.OperationalError:
+        pass  # column already exists
     conn.commit()
     return conn
 
@@ -71,8 +78,8 @@ def insert_session(
     cur = conn.execute(
         """INSERT INTO sessions
            (game_type, limit_type, max_seats, small_blind, big_blind,
-            ante, start_time, hero_buy_in, hero_cash_out)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            ante, start_time, hero_buy_in, hero_cash_out, currency)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
         (
             session.game_type,
             session.limit_type,
@@ -83,6 +90,7 @@ def insert_session(
             start_time,
             float(hero_buy_in) if hero_buy_in is not None else None,
             float(hero_cash_out) if hero_cash_out is not None else None,
+            session.currency,
         ),
     )
     assert cur.lastrowid is not None

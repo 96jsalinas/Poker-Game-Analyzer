@@ -71,6 +71,7 @@ class TestSchema:
             "start_time",
             "hero_buy_in",
             "hero_cash_out",
+            "currency",
         } <= cols
 
     def test_hands_columns(self, db):
@@ -330,6 +331,36 @@ class TestSessionInsert:
         id1 = insert_session(idb, sample_session, start_time="2024-01-15T20:30:00")
         id2 = insert_session(idb, sample_session, start_time="2024-01-15T21:30:00")
         assert id1 != id2
+
+    def test_insert_stores_currency(self, idb):
+        """insert_session stores the currency field from SessionData."""
+        from decimal import Decimal
+
+        from pokerhero.database.db import insert_session
+        from pokerhero.parser.models import SessionData
+
+        s = SessionData(
+            game_type="NLHE",
+            limit_type="NL",
+            max_seats=6,
+            small_blind=Decimal("0.02"),
+            big_blind=Decimal("0.05"),
+            ante=Decimal("0"),
+            is_tournament=False,
+            table_name="TestTable",
+            currency="EUR",
+        )
+        sid = insert_session(idb, s, start_time="2026-01-01T12:00:00")
+        row = idb.execute("SELECT currency FROM sessions WHERE id=?", (sid,)).fetchone()
+        assert row[0] == "EUR"
+
+    def test_insert_default_currency_is_play(self, idb, sample_session):
+        """When currency is not specified, it defaults to PLAY."""
+        from pokerhero.database.db import insert_session
+
+        sid = insert_session(idb, sample_session, start_time="2026-01-01T12:00:00")
+        row = idb.execute("SELECT currency FROM sessions WHERE id=?", (sid,)).fetchone()
+        assert row[0] == "PLAY"
 
 
 class TestUpdateSessionFinancials:

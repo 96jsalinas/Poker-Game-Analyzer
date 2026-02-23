@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS sessions (
     start_time TEXT NOT NULL,
     hero_buy_in REAL,
     hero_cash_out REAL,
+    currency TEXT NOT NULL DEFAULT 'PLAY',
     is_favorite INTEGER NOT NULL DEFAULT 0
 );
 

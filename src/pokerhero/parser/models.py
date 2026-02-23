@@ -21,6 +21,7 @@ class SessionData:
     is_tournament: bool
     tournament_id: str | None = None
     tournament_level: str | None = None  # e.g. "Level I"
+    currency: str = "PLAY"  # "USD", "EUR", or "PLAY" (play money / tournament chips)
 
 
 @dataclass
