@@ -858,9 +858,9 @@ def _count_session_showdown_hands(db_path: str, session_id: int, player_id: int)
             FROM hand_players hp
             JOIN hands h ON h.id = hp.hand_id
             WHERE h.session_id = ?
-              AND hp.player_id != ?
-              AND hp.hole_cards IS NOT NULL
+              AND hp.player_id = ?
               AND hp.went_to_showdown = 1
+              AND hp.hole_cards IS NOT NULL
             """,
             (session_id, player_id),
         ).fetchone()

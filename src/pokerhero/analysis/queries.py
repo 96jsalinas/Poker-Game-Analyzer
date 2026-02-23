@@ -489,9 +489,12 @@ def get_session_showdown_hands(
     session_id: int,
     hero_id: int,
 ) -> pd.DataFrame:
-    """Return hands with known villain hole cards for a single session.
+    """Return hands where hero went to showdown for a single session.
 
-    Each row is a hero vs villain matchup where both sides showed cards.
+    Each row is a hero vs villain matchup where both sides showed cards
+    and the hero actually reached showdown (went_to_showdown = 1).
+    In multiway showdowns one representative villain is chosen (MIN
+    player_id among those who showed cards) to avoid duplicate rows.
     Used to batch-compute equity and build the EV luck indicator in the
     Session Report.
 
@@ -504,7 +507,7 @@ def get_session_showdown_hands(
         hero_id: Internal integer id of the hero player row.
 
     Returns:
-        DataFrame with one row per hero-villain showdown pair.
+        DataFrame with one row per showdown hand (hero reached showdown).
     """
     sql = """
         SELECT
@@ -525,11 +528,17 @@ def get_session_showdown_hands(
             ON hero_hp.hand_id = h.id AND hero_hp.player_id = :hero
         JOIN hand_players villain_hp
             ON villain_hp.hand_id = h.id
-           AND villain_hp.player_id != :hero
-           AND villain_hp.hole_cards IS NOT NULL
-           AND villain_hp.hole_cards != ''
+           AND villain_hp.player_id = (
+               SELECT MIN(vhp2.player_id)
+               FROM hand_players vhp2
+               WHERE vhp2.hand_id = h.id
+                 AND vhp2.player_id != :hero
+                 AND vhp2.hole_cards IS NOT NULL
+                 AND vhp2.hole_cards != ''
+           )
         JOIN players villain_p ON villain_p.id = villain_hp.player_id
         WHERE h.session_id = :sid
+          AND hero_hp.went_to_showdown = 1
           AND hero_hp.hole_cards IS NOT NULL
           AND hero_hp.hole_cards != ''
         ORDER BY h.timestamp ASC
