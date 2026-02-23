@@ -60,7 +60,7 @@ $$PFR = \frac{Count(\text{Hands where Hero raises/3-bets Pre-flop})}{Total\_Hand
 
 ### C. 3-Bet % ✅ Implemented
 $$3Bet\% = \frac{Count(\text{Hero raises vs a previous raiser})}{Count(\text{Opportunities to 3-bet})}$$
-* **Opportunity**: Occurs if a player opened the pot with a raise before Hero's action.
+* **Opportunity**: Occurs if a player opened the pot with a raise before Hero's first *voluntary* action. Blind posts (`POST_BLIND`, `POST_ANTE`) are excluded when determining Hero's first action — without this, SB/BB positions would never register any opportunities.
 
 ### D. C-Bet % (Continuation Bet) ✅ Implemented
 $$CBet\% = \frac{Count(\text{Hero bets Flop})}{Count(\text{Opportunities to C-bet})}$$
