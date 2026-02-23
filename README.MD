@@ -39,7 +39,7 @@ A local, open-source poker hand history analyzer built entirely in Python. Uploa
 | Frontend | [Dash](https://dash.plotly.com/) (Plotly) |
 | Linting / formatting | Ruff |
 | Type checking | mypy (strict) |
-| Testing | pytest (339 tests) |
+| Testing | pytest |
 
 All dependencies are open-source.
 
@@ -101,7 +101,7 @@ src/pokerhero/
 ├── ingestion/    # File splitter + ingest pipeline
 ├── analysis/     # Query functions (queries.py) + stat calculations (stats.py)
 └── frontend/     # Dash multi-page app (upload, sessions, dashboard, settings)
-tests/            # 339 pytest tests
+tests/            # pytest tests
 data/histories/   # Your hand history files (git-ignored, local only)
 ```
 
