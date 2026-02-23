@@ -142,7 +142,12 @@ def three_bet_pct(opp_df: pd.DataFrame) -> float:
         hero_rows = hand[hand["is_hero"] == 1]
         if hero_rows.empty:
             continue
-        hero_first_seq = int(hero_rows["sequence"].iloc[0])
+        hero_voluntary = hero_rows[
+            ~hero_rows["action_type"].isin({"POST_BLIND", "POST_ANTE"})
+        ]
+        if hero_voluntary.empty:
+            continue
+        hero_first_seq = int(hero_voluntary["sequence"].iloc[0])
         pre_hero = hand[(hand["is_hero"] == 0) & (hand["sequence"] < hero_first_seq)]
         if pre_hero["action_type"].eq("RAISE").any():
             opportunities += 1
