@@ -902,6 +902,65 @@ class TestCurrencyFilter:
 
 
 # ---------------------------------------------------------------------------
+# TestClassifyPlayer
+# ---------------------------------------------------------------------------
+
+
+class TestClassifyPlayer:
+    """Tests for the classify_player pure function."""
+
+    def test_tag_tight_aggressive(self):
+        """VPIP < 25% and PFR/VPIP >= 0.5 → TAG."""
+        from pokerhero.analysis.stats import classify_player
+
+        assert classify_player(vpip_pct=20.0, pfr_pct=15.0, hands_played=20) == "TAG"
+
+    def test_lag_loose_aggressive(self):
+        """VPIP >= 25% and PFR/VPIP >= 0.5 → LAG."""
+        from pokerhero.analysis.stats import classify_player
+
+        assert classify_player(vpip_pct=35.0, pfr_pct=25.0, hands_played=20) == "LAG"
+
+    def test_nit_tight_passive(self):
+        """VPIP < 25% and PFR/VPIP < 0.5 → Nit."""
+        from pokerhero.analysis.stats import classify_player
+
+        assert classify_player(vpip_pct=15.0, pfr_pct=5.0, hands_played=20) == "Nit"
+
+    def test_fish_loose_passive(self):
+        """VPIP >= 25% and PFR/VPIP < 0.5 → Fish."""
+        from pokerhero.analysis.stats import classify_player
+
+        assert classify_player(vpip_pct=40.0, pfr_pct=10.0, hands_played=20) == "Fish"
+
+    def test_below_min_hands_returns_none(self):
+        """Fewer than 15 hands returns None (insufficient sample)."""
+        from pokerhero.analysis.stats import classify_player
+
+        assert classify_player(vpip_pct=30.0, pfr_pct=20.0, hands_played=14) is None
+
+    def test_exactly_min_hands_classifies(self):
+        """Exactly 15 hands is sufficient — returns a label, not None."""
+        from pokerhero.analysis.stats import classify_player
+
+        assert classify_player(vpip_pct=30.0, pfr_pct=20.0, hands_played=15) is not None
+
+    def test_zero_vpip_is_nit(self):
+        """VPIP of 0% (never entered pot) → Nit."""
+        from pokerhero.analysis.stats import classify_player
+
+        assert classify_player(vpip_pct=0.0, pfr_pct=0.0, hands_played=20) == "Nit"
+
+    def test_boundary_vpip_25_is_loose(self):
+        """VPIP exactly 25% is classified as Loose (≥ threshold)."""
+        from pokerhero.analysis.stats import classify_player
+
+        # 25% VPIP with high aggression → LAG
+        result = classify_player(vpip_pct=25.0, pfr_pct=20.0, hands_played=20)
+        assert result in ("LAG", "Fish")
+
+
+# ---------------------------------------------------------------------------
 # TestSessionPlayerStats
 # ---------------------------------------------------------------------------
 
