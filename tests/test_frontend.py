@@ -1149,6 +1149,23 @@ class TestSessionDataTable:
         result = _build_session_table(self._make_df())
         assert len(result.data) == 2
 
+    def test_pnl_column_is_numeric_type(self):
+        """Net P&L column must have type='numeric' so Dash sorts it numerically."""
+        from pokerhero.frontend.pages.sessions import _build_session_table
+
+        result = _build_session_table(self._make_df())
+        pnl_col = next(c for c in result.columns if c["name"] == "Net P&L")
+        assert pnl_col.get("type") == "numeric"
+
+    def test_pnl_data_values_are_numeric(self):
+        """Net P&L data values must be floats, not formatted strings."""
+        from pokerhero.frontend.pages.sessions import _build_session_table
+
+        result = _build_session_table(self._make_df())
+        pnl_col_id = next(c["id"] for c in result.columns if c["name"] == "Net P&L")
+        for row in result.data:
+            assert isinstance(row[pnl_col_id], (int, float))
+
 
 class TestHandDataTable:
     """Tests for _build_hand_table returning a dash_table.DataTable."""
@@ -1220,6 +1237,23 @@ class TestHandDataTable:
 
         result = _build_hand_table(self._make_df())
         assert all("id" in row for row in result.data)
+
+    def test_pnl_column_is_numeric_type(self):
+        """Net Result column must have type='numeric' so Dash sorts it numerically."""
+        from pokerhero.frontend.pages.sessions import _build_hand_table
+
+        result = _build_hand_table(self._make_df())
+        pnl_col = next(c for c in result.columns if c["name"] == "Net Result")
+        assert pnl_col.get("type") == "numeric"
+
+    def test_pnl_data_values_are_numeric(self):
+        """Net Result data values must be floats, not formatted strings."""
+        from pokerhero.frontend.pages.sessions import _build_hand_table
+
+        result = _build_hand_table(self._make_df())
+        pnl_col_id = next(c["id"] for c in result.columns if c["name"] == "Net Result")
+        for row in result.data:
+            assert isinstance(row[pnl_col_id], (int, float))
 
 
 class TestGuidePage:

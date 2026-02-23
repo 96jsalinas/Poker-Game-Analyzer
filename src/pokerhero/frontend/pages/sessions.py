@@ -677,7 +677,6 @@ def _build_session_table(df: pd.DataFrame) -> Any:  # dash_table has no mypy stu
                     f"{_fmt_blind(row['small_blind'])}/{_fmt_blind(row['big_blind'])}"
                 ),
                 "hands": int(row["hands_played"]),
-                "net_pnl": _fmt_pnl(pnl),
                 "_pnl_raw": pnl,
             }
         )
@@ -687,7 +686,7 @@ def _build_session_table(df: pd.DataFrame) -> Any:  # dash_table has no mypy stu
             {"name": "Date", "id": "date"},
             {"name": "Stakes", "id": "stakes"},
             {"name": "Hands", "id": "hands"},
-            {"name": "Net P&L", "id": "net_pnl"},
+            {"name": "Net P&L", "id": "_pnl_raw", "type": "numeric"},
         ],
         data=rows,
         sort_action="native",
@@ -703,12 +702,12 @@ def _build_session_table(df: pd.DataFrame) -> Any:  # dash_table has no mypy stu
         style_cell=_col_style,
         style_data_conditional=[
             {
-                "if": {"filter_query": "{_pnl_raw} >= 0", "column_id": "net_pnl"},
+                "if": {"filter_query": "{_pnl_raw} >= 0", "column_id": "_pnl_raw"},
                 "color": "#2ecc71",
                 "fontWeight": "600",
             },
             {
-                "if": {"filter_query": "{_pnl_raw} < 0", "column_id": "net_pnl"},
+                "if": {"filter_query": "{_pnl_raw} < 0", "column_id": "_pnl_raw"},
                 "color": "#e74c3c",
                 "fontWeight": "600",
             },
@@ -733,7 +732,6 @@ def _build_hand_table(df: pd.DataFrame) -> Any:  # dash_table has no mypy stubs
                 "hand_num": str(row["source_hand_id"]),
                 "hole_cards": _format_cards_text(row["hole_cards"]),
                 "pot": f"{float(row['total_pot']):,.6g}",
-                "net_result": _fmt_pnl(pnl),
                 "_pnl_raw": pnl,
             }
         )
@@ -743,7 +741,7 @@ def _build_hand_table(df: pd.DataFrame) -> Any:  # dash_table has no mypy stubs
             {"name": "Hand #", "id": "hand_num"},
             {"name": "Hole Cards", "id": "hole_cards"},
             {"name": "Pot", "id": "pot"},
-            {"name": "Net Result", "id": "net_result"},
+            {"name": "Net Result", "id": "_pnl_raw", "type": "numeric"},
         ],
         data=rows,
         sort_action="native",
@@ -759,12 +757,12 @@ def _build_hand_table(df: pd.DataFrame) -> Any:  # dash_table has no mypy stubs
         style_cell=_col_style,
         style_data_conditional=[
             {
-                "if": {"filter_query": "{_pnl_raw} >= 0", "column_id": "net_result"},
+                "if": {"filter_query": "{_pnl_raw} >= 0", "column_id": "_pnl_raw"},
                 "color": "#2ecc71",
                 "fontWeight": "600",
             },
             {
-                "if": {"filter_query": "{_pnl_raw} < 0", "column_id": "net_result"},
+                "if": {"filter_query": "{_pnl_raw} < 0", "column_id": "_pnl_raw"},
                 "color": "#e74c3c",
                 "fontWeight": "600",
             },
