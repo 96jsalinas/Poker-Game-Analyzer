@@ -1,6 +1,6 @@
 # PokerHero Analyzer
 
-> ⚠️ **Work in progress** — the core pipeline and UI are functional, but several features are still being built. Expect rough edges.
+> ⚠️ **Work in progress** — the core pipeline, stats dashboard, and session review are fully functional. Session-level aggregate analysis is the next major feature being built.
 
 A local, open-source poker hand history analyzer built entirely in Python. Upload your PokerStars session files, and the app parses every hand, stores it in a local SQLite database, and surfaces your stats through an interactive web dashboard — no cloud accounts, no subscriptions, no data leaving your machine.
 
@@ -9,22 +9,45 @@ A local, open-source poker hand history analyzer built entirely in Python. Uploa
 ## Features
 
 ### ✅ Implemented
-- **Hand history ingestion** — drag-and-drop PokerStars `.txt` files; duplicate detection prevents double-counting
-- **Full drill-down review** — navigate Sessions → Hands → Actions with a breadcrumb UI; see every action, pot size, and board card
-- **Real-time poker math** — SPR at flop, Pot Odds, and MDF pre-calculated at parse time and shown inline in the action view
-- **EV calculation** — for all-in spots where villain cards are known (showdown hands), equity is estimated via PokerKit Monte Carlo and displayed in the action view
-- **Hero highlighting** — hero's rows are visually distinct in the action table
-- **Overall Stats dashboard** — KPI cards (P&L, win rate in bb/100, VPIP, PFR), bankroll graph, and a full positional stats breakdown (VPIP%, PFR%, 3-Bet%, C-Bet%, AF, Net P&L)
-- **Time-period filtering** — dashboard updates for 7 days / 1 month / 1 year / All time
-- **Settings page** — set hero username, clear the database, export all data to CSV
-- **Card rendering** — hole cards and board cards rendered with suit symbols and colour-coding
 
-### 🔲 Planned / In Progress
-- Filter controls on session and hand table views (by date, stakes, P&L, position, etc.)
-- MDF display in the action view
-- Dashboard Highlights section (biggest wins/losses)
+**Hand ingestion & parsing**
+- Drag-and-drop PokerStars `.txt` hand history files; duplicate detection prevents double-counting
+- Supports **USD**, **EUR**, and **Play Money** sessions; currency is auto-detected per file
+- Supports **Cash** and **Tournament** game types
+
+**Session drill-down review**
+- Navigate Sessions → Hands → Actions with a breadcrumb UI
+- Filter the hand list by game type (cash/tournament), position, P&L outcome, and whether the hand went to showdown or saw a flop
+- **Favourites** — star any hand to pin it for later review
+
+**Action view (Hand Detail)**
+- Full street-by-street replay with every action, amount, running pot, and board cards
+- **Poker math inline** — SPR at flop, Pot Odds%, and MDF% shown at every hero decision point
+- **EV calculation** — for all-in spots where villain cards are known, equity estimated via PokerKit Monte Carlo
+- **Showdown winner** — winning hand described in plain English (e.g. "a flush, Ace high") with EV shown for the hero
+
+**Opponent profiling**
+- Every opponent is automatically classified as **TAG**, **LAG**, **Nit**, or **Fish** based on their VPIP and aggression ratio across the session (minimum 15 hands)
+- Profile cards for all opponents accessible via a toggle panel in the hand list
+- Archetype badge shown in the hand detail villain summary line, on each villain's first action, and at showdown
+
+**Overall Stats dashboard**
+- KPI cards: P&L, win rate (bb/100), VPIP, PFR
+- Bankroll graph (cumulative P&L over time)
+- Positional breakdown table: VPIP%, PFR%, 3-Bet%, C-Bet%, Aggression Factor, Net P&L per position
+- Dashboard Highlights: biggest single-hand win and loss
+- Period filter: 7 days / 1 month / 1 year / All time
+- Currency toggle: display P&L in chips, USD, or EUR (where available)
+
+**App**
+- In-app guide explaining every feature, stat formula, and opponent archetype
+- Settings page: set hero username, clear the database, export all data to CSV
+- Card rendering: hole cards and board cards rendered with suit symbols and colour-coding
+
+### 🔲 Planned
+
+- Session-level analysis (per-session KPIs and trends)
 - VPIP/PFR gap chart
-- EV result caching (currently computed synchronously per page load)
 
 ---
 
@@ -72,8 +95,9 @@ Then open [http://localhost:8050](http://localhost:8050) in your browser.
 
 1. Go to **Settings** and enter your PokerStars username as the hero.
 2. Go to **Upload Files** and drop your `.txt` hand history files.
-3. Browse your sessions on **Review Sessions** — click a session, then a hand, to see the full action-by-action breakdown with poker math.
-4. Check **Overall Stats** for aggregate performance across all your hands. Use the period selector to narrow by time window.
+3. Browse your sessions on **Review Sessions** — filter by game type, position, or outcome; click a session, then a hand, to see the full action-by-action breakdown with poker math and opponent archetypes.
+4. Check **Overall Stats** for aggregate performance across all your hands. Use the period selector and currency toggle to slice the data.
+5. Open the **Guide** page (❓) for an explanation of every stat formula and opponent archetype.
 
 > **Note:** Only **PokerStars** `.txt` hand history exports are currently supported.
 
