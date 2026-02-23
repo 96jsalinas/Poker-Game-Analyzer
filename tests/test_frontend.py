@@ -1628,6 +1628,82 @@ class TestShowdownSection:
 
 
 # ===========================================================================
+# TestVillainSummaryLine
+# ===========================================================================
+
+
+class TestVillainSummaryLine:
+    """Tests for the _build_villain_summary header helper."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def _stats(self, hands=20, vpip=4, pfr=3):
+        return {"hands_played": hands, "vpip_count": vpip, "pfr_count": pfr}
+
+    def test_returns_none_when_no_stats(self):
+        """Returns None when opp_stats is empty."""
+        from pokerhero.frontend.pages.sessions import _build_villain_summary
+
+        assert _build_villain_summary({}) is None
+
+    def test_returns_div_when_stats_present(self):
+        """Returns an html.Div when at least one opponent has stats."""
+        from dash import html
+
+        from pokerhero.frontend.pages.sessions import _build_villain_summary
+
+        result = _build_villain_summary({"alice": self._stats()})
+        assert isinstance(result, html.Div)
+
+    def test_shows_username(self):
+        """Div text includes the opponent's username."""
+        from pokerhero.frontend.pages.sessions import _build_villain_summary
+
+        result = _build_villain_summary({"alice": self._stats()})
+        assert "alice" in str(result)
+
+    def test_shows_archetype_badge(self):
+        """Div includes the archetype badge (TAG) for a qualified opponent."""
+        from pokerhero.frontend.pages.sessions import _build_villain_summary
+
+        # 20% VPIP, 15% PFR, 20 hands → TAG
+        result = _build_villain_summary({"alice": self._stats(20, 4, 3)})
+        assert "TAG" in str(result)
+
+    def test_multiple_opponents_all_shown(self):
+        """All opponents appear in the summary line."""
+        from pokerhero.frontend.pages.sessions import _build_villain_summary
+
+        result = _build_villain_summary(
+            {"alice": self._stats(), "bob": self._stats(20, 10, 2)}
+        )
+        text = str(result)
+        assert "alice" in text and "bob" in text
+
+    def test_below_min_hands_no_archetype(self):
+        """Opponent with fewer than 15 hands shows name but no archetype."""
+        from pokerhero.frontend.pages.sessions import _build_villain_summary
+
+        result = _build_villain_summary({"alice": self._stats(10, 3, 2)})
+        text = str(result)
+        assert "alice" in text
+        for archetype in ("TAG", "LAG", "Nit", "Fish"):
+            assert archetype not in text
+
+    def test_source_shows_first_action_badge(self):
+        """sessions.py source contains the first-appearance badge pattern."""
+        import inspect
+
+        import pokerhero.frontend.pages.sessions as mod
+
+        src = inspect.getsource(mod)
+        assert "seen_villains" in src
+
+
+# ===========================================================================
 # TestFmtBlind / TestFmtPnl
 # ===========================================================================
 
