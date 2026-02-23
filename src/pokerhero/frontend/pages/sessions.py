@@ -929,8 +929,29 @@ def _render(
             hint_body = "Loading session data…"
         hint = html.Div(
             [
-                html.Span("⏳ Analysing session  ", style={"fontWeight": "600"}),
-                html.Span(hint_body, style={"color": "#888", "fontSize": "13px"}),
+                html.Div(
+                    [
+                        html.Span(
+                            "⏳ Analysing session  ", style={"fontWeight": "600"}
+                        ),
+                        html.Span(
+                            hint_body, style={"color": "#888", "fontSize": "13px"}
+                        ),
+                    ]
+                ),
+                html.Div(
+                    html.Div(
+                        className="session-report-progress-fill",
+                        style={"animationDuration": f"{est_secs}s"},
+                    ),
+                    style={
+                        "background": "#ffe5b0",
+                        "borderRadius": "3px",
+                        "height": "6px",
+                        "marginTop": "8px",
+                        "overflow": "hidden",
+                    },
+                ),
             ],
             style={
                 "background": "#fffbe6",

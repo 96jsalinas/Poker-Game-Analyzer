@@ -48,3 +48,19 @@
     background-color: #e8f4fd !important;
     cursor: pointer;
 }
+
+/* Session Report loading progress bar */
+@keyframes sessionReportProgress {
+    from { width: 0%; }
+    to   { width: 95%; }
+}
+
+.session-report-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f5a623, #f7c26b);
+    border-radius: 3px;
+    width: 0%;
+    animation-name: sessionReportProgress;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
