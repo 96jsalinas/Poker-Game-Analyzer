@@ -515,6 +515,35 @@ class TestThreeBetCBet:
         )
         assert three_bet_pct(df) == pytest.approx(1.0)
 
+    def test_three_bet_pct_bb_blind_post_skipped(self):
+        """Regression: POST_BLIND must not count as hero's first voluntary action.
+
+        Hero posts BB (seq 2), BTN raises (seq 3), SB folds (seq 4), hero
+        3-bets from BB (seq 5) → 1 opportunity, 1 made → 1.0.
+
+        Without the fix hero_first_seq=2 (blind post), the pre-hero window is
+        empty (only SB's blind post before it), so zero opportunities are
+        counted and the result is incorrectly 0.0.
+        """
+        from pokerhero.analysis.stats import three_bet_pct
+
+        df = pd.DataFrame(
+            {
+                "hand_id": [1, 1, 1, 1, 1],
+                "sequence": [1, 2, 3, 4, 5],
+                "is_hero": [0, 1, 0, 0, 1],
+                "street": ["PREFLOP"] * 5,
+                "action_type": [
+                    "POST_BLIND",  # SB posts
+                    "POST_BLIND",  # BB posts (hero) — must be skipped
+                    "RAISE",  # BTN open-raises
+                    "FOLD",  # SB folds
+                    "RAISE",  # BB 3-bets (hero)
+                ],
+            }
+        )
+        assert three_bet_pct(df) == pytest.approx(1.0)
+
     def test_cbet_pct_empty_returns_zero(self):
         from pokerhero.analysis.stats import cbet_pct
 
