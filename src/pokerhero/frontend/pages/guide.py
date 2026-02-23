@@ -184,6 +184,326 @@ layout = html.Div(
             "A chronological replay grouped by street."
             " Hero decision points show Pot Odds%, MDF%, SPR, and EV (on all-in / showdown spots)."  # noqa: E501
         ),
+        html.P(
+            [
+                html.Strong("Villain summary line: "),
+                "Directly below the board, a 'Villains:' line lists every opponent"
+                " in the hand with their archetype badge — so you know who you're up"
+                " against before reading the action sequence.",
+            ]
+        ),
+        html.P(
+            [
+                html.Strong("First-action badge: "),
+                "The very first time a villain acts in the hand, their archetype"
+                " badge appears inline in the action row. Later rows from the same"
+                " player are clean — no repetition.",
+            ]
+        ),
+        # ── Opponent Profiles ─────────────────────────────────────────────
+        _section_heading("👥 Opponent Profiles"),
+        html.P(
+            "The app automatically profiles opponents using their pre-flop statistics"
+            " accumulated during the session. A player must appear in at least"
+            " 15 hands before a classification is shown — below that the sample is"
+            " too small to be reliable."
+        ),
+        html.P(
+            [
+                "Profiles appear in three places: the ",
+                html.Strong("👥 Opponent Profiles"),
+                " button on the Hand List expands a panel of profile cards; the ",
+                html.Strong("Villain summary line"),
+                " in Hand Detail shows all opponents before the action log; and the ",
+                html.Strong("Showdown section"),
+                " carries the badge next to each villain's hole cards.",
+            ]
+        ),
+        html.H4("The Four Archetypes", style={"marginTop": "16px"}),
+        html.Table(
+            [
+                html.Thead(
+                    html.Tr(
+                        [
+                            html.Th("Badge", style=_TH),
+                            html.Th("VPIP", style=_TH),
+                            html.Th("Aggression", style=_TH),
+                            html.Th("What it means", style=_TH),
+                        ]
+                    )
+                ),
+                html.Tbody(
+                    [
+                        html.Tr(
+                            [
+                                html.Td(
+                                    html.Span(
+                                        "TAG",
+                                        style={
+                                            "background": "#2980b9",
+                                            "color": "#fff",
+                                            "borderRadius": "4px",
+                                            "padding": "2px 8px",
+                                            "fontWeight": "700",
+                                        },
+                                    ),
+                                    style=_TD_ODD,
+                                ),
+                                html.Td("< 25%", style=_TD_ODD),
+                                html.Td("High (PFR/VPIP ≥ 0.5)", style=_TD_ODD),
+                                html.Td(
+                                    "Tight-Aggressive — plays a narrow, strong range"
+                                    " and usually raises rather than calls."
+                                    " The most common winning player profile.",
+                                    style=_TD_ODD,
+                                ),
+                            ]
+                        ),
+                        html.Tr(
+                            [
+                                html.Td(
+                                    html.Span(
+                                        "LAG",
+                                        style={
+                                            "background": "#e67e22",
+                                            "color": "#fff",
+                                            "borderRadius": "4px",
+                                            "padding": "2px 8px",
+                                            "fontWeight": "700",
+                                        },
+                                    ),
+                                    style=_TD_EVEN,
+                                ),
+                                html.Td("≥ 25%", style=_TD_EVEN),
+                                html.Td("High (PFR/VPIP ≥ 0.5)", style=_TD_EVEN),
+                                html.Td(
+                                    "Loose-Aggressive — plays many hands and attacks"
+                                    " frequently. Can be very strong or very"
+                                    " exploitable depending on post-flop skill.",
+                                    style=_TD_EVEN,
+                                ),
+                            ]
+                        ),
+                        html.Tr(
+                            [
+                                html.Td(
+                                    html.Span(
+                                        "Nit",
+                                        style={
+                                            "background": "#7f8c8d",
+                                            "color": "#fff",
+                                            "borderRadius": "4px",
+                                            "padding": "2px 8px",
+                                            "fontWeight": "700",
+                                        },
+                                    ),
+                                    style=_TD_ODD,
+                                ),
+                                html.Td("< 25%", style=_TD_ODD),
+                                html.Td("Low (PFR/VPIP < 0.5)", style=_TD_ODD),
+                                html.Td(
+                                    "Tight-Passive — enters very few pots and mostly"
+                                    " calls when they do. Their range is strong but"
+                                    " their play is predictable.",
+                                    style=_TD_ODD,
+                                ),
+                            ]
+                        ),
+                        html.Tr(
+                            [
+                                html.Td(
+                                    html.Span(
+                                        "Fish",
+                                        style={
+                                            "background": "#27ae60",
+                                            "color": "#fff",
+                                            "borderRadius": "4px",
+                                            "padding": "2px 8px",
+                                            "fontWeight": "700",
+                                        },
+                                    ),
+                                    style=_TD_EVEN,
+                                ),
+                                html.Td("≥ 25%", style=_TD_EVEN),
+                                html.Td("Low (PFR/VPIP < 0.5)", style=_TD_EVEN),
+                                html.Td(
+                                    "Loose-Passive — calls too wide and rarely raises."
+                                    " The most profitable opponent at your table.",
+                                    style=_TD_EVEN,
+                                ),
+                            ]
+                        ),
+                    ]
+                ),
+            ],
+            style=_TABLE_STYLE,
+        ),
+        html.H4("How to Adjust Against Each Type", style={"marginTop": "16px"}),
+        html.Dl(
+            [
+                html.Dt(
+                    [
+                        html.Span(
+                            "TAG",
+                            style={
+                                "background": "#2980b9",
+                                "color": "#fff",
+                                "borderRadius": "4px",
+                                "padding": "1px 6px",
+                                "fontWeight": "700",
+                                "marginRight": "6px",
+                            },
+                        ),
+                        "Tight-Aggressive",
+                    ],
+                    style={"fontWeight": "600", "marginTop": "12px"},
+                ),
+                html.Dd(
+                    html.Ul(
+                        [
+                            html.Li(
+                                "Respect their aggression — a TAG raising usually"
+                                " has it. Avoid bluffing into their strong ranges."
+                            ),
+                            html.Li(
+                                "3-bet or fold against their opens; cold-calling in"
+                                " position works with hands that play well post-flop."
+                            ),
+                            html.Li(
+                                "Semi-bluffs and well-timed bluffs on scare cards have"
+                                " merit — they can fold when the board hits your range."
+                            ),
+                            html.Li(
+                                "Thin value-bet less; they will fold dominated hands"
+                                " rather than pay off."
+                            ),
+                        ],
+                        style={"paddingLeft": "18px", "marginTop": "4px"},
+                    )
+                ),
+                html.Dt(
+                    [
+                        html.Span(
+                            "LAG",
+                            style={
+                                "background": "#e67e22",
+                                "color": "#fff",
+                                "borderRadius": "4px",
+                                "padding": "1px 6px",
+                                "fontWeight": "700",
+                                "marginRight": "6px",
+                            },
+                        ),
+                        "Loose-Aggressive",
+                    ],
+                    style={"fontWeight": "600", "marginTop": "12px"},
+                ),
+                html.Dd(
+                    html.Ul(
+                        [
+                            html.Li(
+                                "Call down lighter — their wide range contains many"
+                                " bluffs and semi-bluffs."
+                            ),
+                            html.Li(
+                                "Position is critical; try to play pots in position"
+                                " against a LAG wherever possible."
+                            ),
+                            html.Li(
+                                "Don't try to out-bluff them — they are less likely to"
+                                " fold once they commit."
+                            ),
+                            html.Li(
+                                "Let them barrel into your strong hands rather than"
+                                " raising, which may stop the action."
+                            ),
+                        ],
+                        style={"paddingLeft": "18px", "marginTop": "4px"},
+                    )
+                ),
+                html.Dt(
+                    [
+                        html.Span(
+                            "Nit",
+                            style={
+                                "background": "#7f8c8d",
+                                "color": "#fff",
+                                "borderRadius": "4px",
+                                "padding": "1px 6px",
+                                "fontWeight": "700",
+                                "marginRight": "6px",
+                            },
+                        ),
+                        "Tight-Passive",
+                    ],
+                    style={"fontWeight": "600", "marginTop": "12px"},
+                ),
+                html.Dd(
+                    html.Ul(
+                        [
+                            html.Li(
+                                "Steal their blinds aggressively — they fold too often"
+                                " pre-flop."
+                            ),
+                            html.Li(
+                                "When a Nit shows aggression, give them credit; their"
+                                " range is extremely value-heavy."
+                            ),
+                            html.Li(
+                                "Don't pay off big bets — they almost always have a"
+                                " strong hand when they raise."
+                            ),
+                            html.Li(
+                                "Bluffing is profitable in unopened pots but fold"
+                                " quickly when they fight back."
+                            ),
+                        ],
+                        style={"paddingLeft": "18px", "marginTop": "4px"},
+                    )
+                ),
+                html.Dt(
+                    [
+                        html.Span(
+                            "Fish",
+                            style={
+                                "background": "#27ae60",
+                                "color": "#fff",
+                                "borderRadius": "4px",
+                                "padding": "1px 6px",
+                                "fontWeight": "700",
+                                "marginRight": "6px",
+                            },
+                        ),
+                        "Loose-Passive",
+                    ],
+                    style={"fontWeight": "600", "marginTop": "12px"},
+                ),
+                html.Dd(
+                    html.Ul(
+                        [
+                            html.Li(
+                                "Value bet relentlessly and bet larger than you might"
+                                " against thinking players — Fish call too wide."
+                            ),
+                            html.Li(
+                                "Never slow-play your strong hands; extract maximum"
+                                " value every street."
+                            ),
+                            html.Li(
+                                "Avoid bluffing — Fish call down with weak pairs and"
+                                " draws and cannot be pushed off hands."
+                            ),
+                            html.Li(
+                                "When a Fish raises (which is rare), give them credit;"
+                                " they tend to only raise with strong holdings."
+                            ),
+                        ],
+                        style={"paddingLeft": "18px", "marginTop": "4px"},
+                    )
+                ),
+            ],
+            style={"margin": "0"},
+        ),
         # ── Stat Definitions ─────────────────────────────────────────────
         _section_heading("📐 Statistic Definitions"),
         _stat_heading("VPIP — Voluntarily Put In Pot"),

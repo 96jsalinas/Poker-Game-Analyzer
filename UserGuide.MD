@@ -118,7 +118,57 @@ Each action row shows:
 
 ---
 
-## 📐 4. Statistic Definitions
+## 👥 4. Opponent Profiles
+
+PokerHero-Analyzer automatically profiles the other players at your table using their pre-flop statistics gathered during the session. Profiles appear in three places:
+
+- **Opponent Profiles panel** — in the Hand List view, click the **👥 Opponent Profiles** button to expand a panel of profile cards for every player in the session.
+- **Villain summary line** — in the Hand Detail view, a line below the board shows all villains in the hand with their archetype badge (e.g. `Villains: Alice **TAG** Bob **Fish**`).
+- **First-action badge** — the very first time a villain acts in a hand, their archetype badge appears inline next to their name in the action log. Subsequent actions from the same player are clean.
+- **Showdown** — each villain's name at showdown also carries their badge.
+
+> **Minimum sample:** A player must appear in at least **15 hands** in the session before a classification is shown. Below that threshold no badge appears — the sample is too small to be reliable.
+
+### The Four Archetypes
+
+The classification uses two dimensions: **VPIP** (how wide their range is) and the **Aggression Ratio** (PFR ÷ VPIP, how often they raise vs call when they do enter).
+
+| Archetype | VPIP | Aggression | What it means |
+| :---: | :---: | :---: | :--- |
+| 🔵 **TAG** | < 25% | ≥ 0.5 | Tight-Aggressive — plays a narrow, strong range and usually raises rather than calls. The most common winning player profile. |
+| 🟠 **LAG** | ≥ 25% | ≥ 0.5 | Loose-Aggressive — plays many hands and attacks frequently. Can be very strong or very exploitable depending on their post-flop skill. |
+| ⚫ **Nit** | < 25% | < 0.5 | Tight-Passive — enters very few pots and mostly calls when they do. Their range is strong but their play is predictable. |
+| 🟢 **Fish** | ≥ 25% | < 0.5 | Loose-Passive — calls too wide and rarely raises. The most profitable opponent to find at your table. |
+
+### How to Adjust Against Each Type
+
+**vs TAG 🔵**
+- Respect their aggression — a TAG raising into you usually has it. Avoid bluffing into their strong ranges.
+- 3-bet or fold against their opens; cold-calling in position can work with hands that play well post-flop.
+- They can fold to well-timed aggression on scare cards, so semi-bluffs and well-constructed bluffs have merit.
+- Thin value-bet less; they will fold dominated hands rather than pay off.
+
+**vs LAG 🟠**
+- Call down lighter — their wide range contains many bluffs and semi-bluffs.
+- Position is critical; try to play pots in position against a LAG wherever possible.
+- Don't try to out-bluff them — they are less likely to fold once they commit to a pot.
+- Let them barrel into your strong hands rather than raising, which may stop the action.
+
+**vs Nit ⚫**
+- Steal their blinds aggressively — they fold too often pre-flop.
+- When a Nit finally shows aggression, give them credit; their range is extremely value-heavy.
+- Don't pay off big bets from a Nit; they almost always have a strong hand when they raise.
+- Bluffing is profitable in unopened pots but fold quickly when they fight back.
+
+**vs Fish 🟢**
+- Value bet relentlessly and bet larger than you might against thinking players — Fish call too wide.
+- Never slow-play your strong hands; extract maximum value every street.
+- Avoid bluffing — Fish call down with weak pairs and draws and cannot be pushed off hands.
+- When a Fish raises (which is rare), give them credit; they tend to only raise with strong holdings.
+
+---
+
+## 📐 5. Statistic Definitions
 
 ### VPIP (Voluntarily Put In Pot)
 $$VPIP = \frac{\text{Hands where you called or raised pre-flop}}{\text{Total Hands}}$$
@@ -200,7 +250,7 @@ Shown on all-in spots and showdowns (when the villain's cards are visible). A po
 
 ---
 
-## ⚙️ 5. Settings (`/settings`)
+## ⚙️ 6. Settings (`/settings`)
 
 | Setting | What it does |
 | :--- | :--- |
