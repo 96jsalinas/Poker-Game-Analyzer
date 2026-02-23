@@ -76,6 +76,24 @@ $$AF = \frac{\sum (Bets + Raises)}{\sum Calls}$$
 The frequency a player reaches showdown after seeing the flop.
 $$WTSD\% = \frac{Count(Hand\_Players.went\_to\_showdown = True)}{Count(\text{Hands where player saw the Flop})}$$
 
+### G. Player Archetype Classification ✅ Implemented
+
+Opponents are classified into one of four archetypes using a 2×2 matrix of **VPIP** (Tight/Loose) and **Aggression Ratio** (PFR / VPIP, Passive/Aggressive).
+
+**Thresholds:**
+* VPIP threshold: `25%` — at or above → Loose; below → Tight
+* Aggression ratio threshold: `0.5` — at or above → Aggressive; below → Passive
+* Minimum hands: `15` — fewer than 15 hands seen → returns `None` (no classification)
+
+**Archetype matrix:**
+
+| VPIP \ Aggression | Passive | Aggressive |
+|:-----------------:|:-------:|:----------:|
+| Tight (< 25%)     | Nit     | TAG        |
+| Loose (≥ 25%)     | Fish    | LAG        |
+
+**Implementation:** `classify_player(vpip_pct, pfr_pct, hands_played)` in `stats.py`. When VPIP = 0, the aggression ratio defaults to 0.0 (Passive), yielding **Nit**.
+
 ---
 
 ## 🧪 4. Expected Value (EV) Logic ✅ Implemented

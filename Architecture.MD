@@ -53,10 +53,11 @@ pokerhero-analyzer/
 │       │   ├── __init__.py
 │       │   ├── queries.py        # get_sessions, get_hands, get_actions, get_hero_hand_players,
 │       │   │                     # get_hero_timeline, get_hero_actions, get_hero_opportunity_actions,
-│       │   │                     # get_export_data → DataFrames; all hero query functions accept
-│       │   │                     # optional currency_type='real'|'play'|None to filter by session currency
+│       │   │                     # get_export_data, get_session_player_stats → DataFrames;
+│       │   │                     # all hero query functions accept optional currency_type='real'|'play'|None
 │       │   └── stats.py          # vpip_pct, pfr_pct, win_rate_bb100, aggression_factor, wtsd_pct,
-│       │                         # total_profit, three_bet_pct, cbet_pct, compute_equity, compute_ev
+│       │                         # total_profit, three_bet_pct, cbet_pct, compute_equity, compute_ev,
+│       │                         # classify_player (TAG/LAG/Nit/Fish archetype classification)
 │       ├── frontend/             # ✅ Implemented (multi-page Dash app)
 │       │   ├── __init__.py
 │       │   ├── app.py            # create_app() — use_pages=True shell, exposes DB_PATH via Flask config
@@ -66,7 +67,8 @@ pokerhero-analyzer/
 │       │       ├── home.py       # "/" — navigation hub with links to Upload, Sessions, Dashboard, Settings, Guide
 │       │       ├── upload.py     # "/upload" — drag-and-drop ingestion; hero username persisted to settings
 │       │       ├── sessions.py   # "/sessions" — session list → hand list → action replay drill-down;
-│       │       │                 # _describe_hand() uses PokerKit to identify best hand at showdown
+│       │       │                 # _describe_hand() uses PokerKit to identify best hand at showdown;
+│       │       │                 # _build_opponent_profile_card() renders TAG/LAG/Nit/Fish badges per opponent
 │       │       ├── dashboard.py  # "/dashboard" — KPI cards, bankroll graph, positional stats table
 │       │       ├── guide.py      # "/guide" — in-app user guide: stat definitions, app walkthrough
 │       │       └── settings.py   # "/settings" — hero username, Clear DB, Export CSV
