@@ -1497,6 +1497,89 @@ class TestShowdownSection:
         text = str(result)
         assert "alice" in text and "bob" in text
 
+    def test_hero_appears_when_hero_cards_provided(self):
+        """Hero is shown in the showdown section when hero_cards is given."""
+        from pokerhero.frontend.pages.sessions import _build_showdown_section
+
+        result = _build_showdown_section(
+            [{"username": "villain1", "position": "SB", "hole_cards": "Qd Jc"}],
+            hero_name="Hero",
+            hero_cards="As Kd",
+            board="Ah Kh Qs 2c 7d",
+        )
+        assert "Hero" in str(result)
+
+    def test_hand_description_shown_with_board(self):
+        """Each player's hand description is shown when board is provided."""
+        from pokerhero.frontend.pages.sessions import _build_showdown_section
+
+        result = _build_showdown_section(
+            [{"username": "villain1", "position": "SB", "hole_cards": "Qd Jc"}],
+            hero_name="Hero",
+            hero_cards="As Ad",
+            board="Ah Kh Ks 2c 7d",
+        )
+        text = str(result)
+        # Hero has full house; villain has two pair — both descriptions shown
+        assert "Full house" in text
+        assert "Two pair" in text
+
+    def test_winner_gets_trophy(self):
+        """The player with the best hand is labelled with a trophy emoji."""
+        from pokerhero.frontend.pages.sessions import _build_showdown_section
+
+        # Hero: full house (As Ad + Ah Kh Ks), villain: two pair
+        result = _build_showdown_section(
+            [{"username": "villain1", "position": "SB", "hole_cards": "Qd Jc"}],
+            hero_name="Hero",
+            hero_cards="As Ad",
+            board="Ah Kh Ks 2c 7d",
+        )
+        assert "🏆" in str(result)
+
+    def test_loser_has_no_trophy(self):
+        """The losing player's row does not include a trophy."""
+        from pokerhero.frontend.pages.sessions import _build_showdown_section
+
+        result = _build_showdown_section(
+            [{"username": "villain1", "position": "SB", "hole_cards": "Kd Kc"}],
+            hero_name="Hero",
+            hero_cards="As Ad",
+            board="Ah Kh Ks 2c 7d",
+        )
+        text = str(result)
+        # villain has four-of-a-kind kings, hero has full house — villain wins
+        # so exactly one trophy exists
+        assert text.count("🏆") == 1
+
+    def test_split_pot_both_get_trophy(self):
+        """Both players receive a trophy when they tie."""
+        from pokerhero.frontend.pages.sessions import _build_showdown_section
+
+        # Both use the board as their best hand (both have worse hole cards)
+        result = _build_showdown_section(
+            [{"username": "villain1", "position": "SB", "hole_cards": "2c 3d"}],
+            hero_name="Hero",
+            hero_cards="4c 5d",
+            board="Ah Kh Qh Jh Th",
+        )
+        text = str(result)
+        # Both play the royal-flush board — tied
+        assert text.count("🏆") == 2
+
+    def test_no_description_without_board(self):
+        """When no board is provided, hand descriptions are not shown."""
+        from pokerhero.frontend.pages.sessions import _build_showdown_section
+
+        result = _build_showdown_section(
+            [{"username": "villain1", "position": "SB", "hole_cards": "Qd Jc"}],
+            hero_name="Hero",
+            hero_cards="As Kd",
+            board="",
+        )
+        text = str(result)
+        assert "Flush" not in text and "Straight" not in text and "Pair" not in text
+
 
 # ===========================================================================
 # TestFmtBlind / TestFmtPnl
