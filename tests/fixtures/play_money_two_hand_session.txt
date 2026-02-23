@@ -1,0 +1,55 @@
+PokerStars Hand #260129100001:  Hold'em No Limit (100/200) - 2026/01/29 14:00:00 CET [2026/01/29 08:00:00 ET]
+Table 'Fraternitas VII' 9-max (Play Money) Seat #1 is the button
+Seat 1: Alice (50000 in chips)
+Seat 2: Bob (50000 in chips)
+Seat 3: jsalinas96 (50000 in chips)
+Bob: posts small blind 100
+jsalinas96: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [2c 7d]
+Alice: raises 400 to 600
+Bob: folds
+jsalinas96: folds
+Uncalled bet (400) returned to Alice
+Alice collected 500 from pot
+*** SUMMARY ***
+Total pot 500 | Rake 0
+Seat 1: Alice (button) collected (500)
+Seat 2: Bob (small blind) folded before Flop
+Seat 3: jsalinas96 (big blind) folded before Flop
+
+
+
+PokerStars Hand #260129100002:  Hold'em No Limit (100/200) - 2026/01/29 14:02:00 CET [2026/01/29 08:02:00 ET]
+Table 'Fraternitas VII' 9-max (Play Money) Seat #2 is the button
+Seat 1: Alice (50300 in chips)
+Seat 2: Bob (49900 in chips)
+Seat 3: jsalinas96 (49800 in chips)
+jsalinas96: posts small blind 100
+Alice: posts big blind 200
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Tc Jd]
+Bob: raises 400 to 600
+jsalinas96: calls 500
+Alice: folds
+*** FLOP *** [Jc 8h 3d]
+jsalinas96: checks
+Bob: bets 700
+jsalinas96: calls 700
+*** TURN *** [Jc 8h 3d] [Ks]
+jsalinas96: checks
+Bob: checks
+*** RIVER *** [Jc 8h 3d Ks] [2c]
+jsalinas96: checks
+Bob: bets 1500
+jsalinas96: calls 1500
+*** SHOW DOWN ***
+Bob: shows [Kh Qd] (a pair of Kings)
+jsalinas96: shows [Tc Jd] (a pair of Jacks)
+Bob collected 5481 from pot
+*** SUMMARY ***
+Total pot 5800 | Rake 319
+Board [Jc 8h 3d Ks 2c]
+Seat 1: Alice (big blind) folded before Flop
+Seat 2: Bob (button) showed [Kh Qd] and won (5481) with a pair of Kings
+Seat 3: jsalinas96 (small blind) showed [Tc Jd] and lost with a pair of Jacks
