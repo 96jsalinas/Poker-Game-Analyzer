@@ -643,13 +643,13 @@ class TestSessionsNavParsing:
 
         assert _parse_nav_search("") is None
 
-    def test_session_id_param_sets_hands_level(self):
-        """?session_id=5 → level='hands', session_id=5."""
+    def test_session_id_param_sets_report_level(self):
+        """?session_id=5 → level='report', session_id=5 (opens Session Report)."""
         from pokerhero.frontend.pages.sessions import _parse_nav_search
 
         state = _parse_nav_search("?session_id=5")
         assert state is not None
-        assert state["level"] == "hands"
+        assert state["level"] == "report"
         assert state["session_id"] == 5
 
     def test_hand_id_param_sets_actions_level(self):
@@ -677,8 +677,8 @@ class TestUpdateStateDataTable:
 
         create_app(db_path=":memory:")
 
-    def test_session_cell_click_navigates_to_hands(self):
-        """Clicking a session-table cell navigates to level='hands'."""
+    def test_session_cell_click_navigates_to_report(self):
+        """Clicking a session row navigates to level='report' (Session Report)."""
         from pokerhero.frontend.pages.sessions import _compute_state_from_cell
 
         session_data = [{"id": 7, "date": "2026-01-10", "stakes": "50/100"}]
@@ -689,7 +689,7 @@ class TestUpdateStateDataTable:
             hand_data=None,
             current_state={"level": "sessions"},
         )
-        assert result["level"] == "hands"
+        assert result["level"] == "report"
         assert result["session_id"] == 7
 
     def test_hand_cell_click_navigates_to_actions(self):
@@ -724,10 +724,79 @@ class TestUpdateStateDataTable:
             )
 
 
+# ---------------------------------------------------------------------------
+# TestSessionsBreadcrumb
+# ---------------------------------------------------------------------------
+
+
+class TestSessionsBreadcrumb:
+    """Tests for _breadcrumb — updated to support 'report' level."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_report_level_returns_html_div(self):
+        """_breadcrumb('report', ...) returns an html.Div."""
+        from dash import html
+
+        from pokerhero.frontend.pages.sessions import _breadcrumb
+
+        result = _breadcrumb(
+            "report", session_label="2026-01-29  100/200", session_id=3
+        )
+        assert isinstance(result, html.Div)
+
+    def test_report_level_shows_session_label(self):
+        """'report' breadcrumb contains the session label text."""
+        from pokerhero.frontend.pages.sessions import _breadcrumb
+
+        result = _breadcrumb(
+            "report", session_label="2026-01-29  100/200", session_id=3
+        )
+        assert "100/200" in str(result)
+
+    def test_hands_level_shows_all_hands(self):
+        """'hands' breadcrumb now shows 'All Hands' as the current page."""
+        from pokerhero.frontend.pages.sessions import _breadcrumb
+
+        result = _breadcrumb("hands", session_label="100/200", session_id=3)
+        assert "All Hands" in str(result)
+
+
+# ---------------------------------------------------------------------------
+# TestUpdateStateBreadcrumb
+# ---------------------------------------------------------------------------
+
+
+# ---------------------------------------------------------------------------
+# TestUpdateStateBreadcrumb
+# ---------------------------------------------------------------------------
+
+
+class TestUpdateStateBreadcrumb:
+    """Tests that breadcrumb buttons carry correct ids for _update_state routing."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_report_breadcrumb_button_has_report_level_id(self):
+        """'hands' breadcrumb session-label button carries level='report' id."""
+        from pokerhero.frontend.pages.sessions import _breadcrumb
+
+        # The session-label button in 'hands' breadcrumb should point to 'report'
+        result = str(_breadcrumb("hands", session_label="100/200", session_id=5))
+        assert '"report"' in result or "'report'" in result
+
+
 class TestVpipPfrChart:
     """Tests for the _build_vpip_pfr_chart helper on the dashboard."""
 
     def setup_method(self):
+
         from pokerhero.frontend.app import create_app
 
         create_app(db_path=":memory:")
