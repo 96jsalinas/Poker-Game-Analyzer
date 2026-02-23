@@ -35,6 +35,13 @@ def hero_player_id(db_with_data):
     return row[0]
 
 
+@pytest.fixture(scope="module")
+def session_id(db_with_data):
+    row = db_with_data.execute("SELECT id FROM sessions LIMIT 1").fetchone()
+    assert row is not None
+    return row[0]
+
+
 # ---------------------------------------------------------------------------
 # TestQueries
 # ---------------------------------------------------------------------------
@@ -1081,3 +1088,201 @@ class TestSessionPlayerStats:
         assert {"username", "hands_played", "vpip_count", "pfr_count"}.issubset(
             result.columns
         )
+
+
+# ---------------------------------------------------------------------------
+# TestSessionAnalysisQueries — session-scoped queries for the Session Report
+# ---------------------------------------------------------------------------
+
+
+class TestSessionAnalysisQueries:
+    """Tests for get_session_kpis, get_session_hero_actions, get_session_showdown_hands.
+
+    Uses the shared db_with_data + hero_player_id + session_id module fixtures
+    which ingest the two-hand play_money_two_hand_session fixture:
+      Hand 1 — jsalinas96 BB, folds preflop (vpip=0, saw_flop=0, wts=0, net=-200)
+      Hand 2 — jsalinas96 SB, calls/sees flop/loses showdown (vpip=1, saw_flop=1,
+                wts=1, net=-2800). Bob shows [Kh Qd], hero shows [Tc Jd].
+                Board: Jc 8h 3d Ks 2c.
+    """
+
+    # --- get_session_kpis ---
+
+    def test_get_session_kpis_returns_dataframe(
+        self, db_with_data, hero_player_id, session_id
+    ):
+        """get_session_kpis returns a DataFrame."""
+        from pokerhero.analysis.queries import get_session_kpis
+
+        result = get_session_kpis(db_with_data, session_id, hero_player_id)
+        assert isinstance(result, pd.DataFrame)
+
+    def test_get_session_kpis_has_expected_columns(
+        self, db_with_data, hero_player_id, session_id
+    ):
+        """get_session_kpis returns columns compatible with existing stats functions."""
+        from pokerhero.analysis.queries import get_session_kpis
+
+        df = get_session_kpis(db_with_data, session_id, hero_player_id)
+        assert {
+            "vpip",
+            "pfr",
+            "went_to_showdown",
+            "net_result",
+            "big_blind",
+            "saw_flop",
+            "position",
+        } <= set(df.columns)
+
+    def test_get_session_kpis_row_count(self, db_with_data, hero_player_id, session_id):
+        """One row per hand hero participated in (2 hands in fixture)."""
+        from pokerhero.analysis.queries import get_session_kpis
+
+        df = get_session_kpis(db_with_data, session_id, hero_player_id)
+        assert len(df) == 2
+
+    def test_get_session_kpis_vpip_sum(self, db_with_data, hero_player_id, session_id):
+        """Only hand 2 is a VPIP hand → sum(vpip) == 1."""
+        from pokerhero.analysis.queries import get_session_kpis
+
+        df = get_session_kpis(db_with_data, session_id, hero_player_id)
+        assert int(df["vpip"].sum()) == 1
+
+    def test_get_session_kpis_saw_flop_sum(
+        self, db_with_data, hero_player_id, session_id
+    ):
+        """Only hand 2 reaches the flop → sum(saw_flop) == 1."""
+        from pokerhero.analysis.queries import get_session_kpis
+
+        df = get_session_kpis(db_with_data, session_id, hero_player_id)
+        assert int(df["saw_flop"].sum()) == 1
+
+    def test_get_session_kpis_went_to_showdown_sum(
+        self, db_with_data, hero_player_id, session_id
+    ):
+        """Only hand 2 reaches showdown → sum(went_to_showdown) == 1."""
+        from pokerhero.analysis.queries import get_session_kpis
+
+        df = get_session_kpis(db_with_data, session_id, hero_player_id)
+        assert int(df["went_to_showdown"].sum()) == 1
+
+    # --- get_session_hero_actions ---
+
+    def test_get_session_hero_actions_returns_dataframe(
+        self, db_with_data, hero_player_id, session_id
+    ):
+        """get_session_hero_actions returns a DataFrame."""
+        from pokerhero.analysis.queries import get_session_hero_actions
+
+        result = get_session_hero_actions(db_with_data, session_id, hero_player_id)
+        assert isinstance(result, pd.DataFrame)
+
+    def test_get_session_hero_actions_has_expected_columns(
+        self, db_with_data, hero_player_id, session_id
+    ):
+        """get_session_hero_actions has columns compatible with aggression_factor."""
+        from pokerhero.analysis.queries import get_session_hero_actions
+
+        df = get_session_hero_actions(db_with_data, session_id, hero_player_id)
+        assert {"hand_id", "street", "action_type", "position"} <= set(df.columns)
+
+    def test_get_session_hero_actions_only_postflop_streets(
+        self, db_with_data, hero_player_id, session_id
+    ):
+        """No PREFLOP rows — only FLOP, TURN, RIVER."""
+        from pokerhero.analysis.queries import get_session_hero_actions
+
+        df = get_session_hero_actions(db_with_data, session_id, hero_player_id)
+        assert "PREFLOP" not in df["street"].values
+
+    def test_get_session_hero_actions_row_count(
+        self, db_with_data, hero_player_id, session_id
+    ):
+        """Hand 2: CHECK+CALL on FLOP, CHECK on TURN, CHECK+CALL on RIVER → 5 rows."""
+        from pokerhero.analysis.queries import get_session_hero_actions
+
+        df = get_session_hero_actions(db_with_data, session_id, hero_player_id)
+        assert len(df) == 5
+
+    # --- get_session_showdown_hands ---
+
+    def test_get_session_showdown_hands_returns_dataframe(
+        self, db_with_data, hero_player_id, session_id
+    ):
+        """get_session_showdown_hands returns a DataFrame."""
+        from pokerhero.analysis.queries import get_session_showdown_hands
+
+        result = get_session_showdown_hands(db_with_data, session_id, hero_player_id)
+        assert isinstance(result, pd.DataFrame)
+
+    def test_get_session_showdown_hands_has_expected_columns(
+        self, db_with_data, hero_player_id, session_id
+    ):
+        """Result has all columns needed for EV computation."""
+        from pokerhero.analysis.queries import get_session_showdown_hands
+
+        df = get_session_showdown_hands(db_with_data, session_id, hero_player_id)
+        assert {
+            "hand_id",
+            "source_hand_id",
+            "hero_cards",
+            "villain_username",
+            "villain_cards",
+            "board",
+            "net_result",
+            "total_pot",
+        } <= set(df.columns)
+
+    def test_get_session_showdown_hands_row_count(
+        self, db_with_data, hero_player_id, session_id
+    ):
+        """Hand 1 is a preflop fold (no cards known) — only hand 2 returned."""
+        from pokerhero.analysis.queries import get_session_showdown_hands
+
+        df = get_session_showdown_hands(db_with_data, session_id, hero_player_id)
+        assert len(df) == 1
+
+    def test_get_session_showdown_hands_hero_cards(
+        self, db_with_data, hero_player_id, session_id
+    ):
+        """Hero hole cards in hand 2 are Tc Jd."""
+        from pokerhero.analysis.queries import get_session_showdown_hands
+
+        df = get_session_showdown_hands(db_with_data, session_id, hero_player_id)
+        assert df.iloc[0]["hero_cards"] == "Tc Jd"
+
+    def test_get_session_showdown_hands_villain_cards(
+        self, db_with_data, hero_player_id, session_id
+    ):
+        """Villain (Bob) hole cards in hand 2 are Kh Qd."""
+        from pokerhero.analysis.queries import get_session_showdown_hands
+
+        df = get_session_showdown_hands(db_with_data, session_id, hero_player_id)
+        assert df.iloc[0]["villain_cards"] == "Kh Qd"
+
+    def test_get_session_showdown_hands_villain_username(
+        self, db_with_data, hero_player_id, session_id
+    ):
+        """Villain username is Bob."""
+        from pokerhero.analysis.queries import get_session_showdown_hands
+
+        df = get_session_showdown_hands(db_with_data, session_id, hero_player_id)
+        assert df.iloc[0]["villain_username"] == "Bob"
+
+    def test_get_session_showdown_hands_board_not_empty(
+        self, db_with_data, hero_player_id, session_id
+    ):
+        """Board string is non-empty for hand 2 (full 5-card board)."""
+        from pokerhero.analysis.queries import get_session_showdown_hands
+
+        df = get_session_showdown_hands(db_with_data, session_id, hero_player_id)
+        assert df.iloc[0]["board"].strip() != ""
+
+    def test_get_session_showdown_hands_net_result_negative(
+        self, db_with_data, hero_player_id, session_id
+    ):
+        """Hero lost hand 2 → net_result < 0."""
+        from pokerhero.analysis.queries import get_session_showdown_hands
+
+        df = get_session_showdown_hands(db_with_data, session_id, hero_player_id)
+        assert df.iloc[0]["net_result"] < 0
