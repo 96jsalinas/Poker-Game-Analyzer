@@ -1376,6 +1376,59 @@ class TestGuidePage:
         assert "/guide" in text
 
 
+class TestDescribeHand:
+    """Tests for the _describe_hand pure helper."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_flush_description(self):
+        """Flush hand returns 'Flush'."""
+        from pokerhero.frontend.pages.sessions import _describe_hand
+
+        assert _describe_hand("Ah Kh", "Qh Jh 2h 3c 4d") == "Flush"
+
+    def test_full_house_description(self):
+        """Full house returns 'Full house'."""
+        from pokerhero.frontend.pages.sessions import _describe_hand
+
+        assert _describe_hand("As Ad", "Ah Kh Ks 2c 7d") == "Full house"
+
+    def test_straight_flush_description(self):
+        """Straight flush returns 'Straight flush'."""
+        from pokerhero.frontend.pages.sessions import _describe_hand
+
+        assert _describe_hand("Ah Kh", "Qh Jh Th 2c 3d") == "Straight flush"
+
+    def test_high_card_description(self):
+        """7-2 offsuit on a dry board returns 'High card'."""
+        from pokerhero.frontend.pages.sessions import _describe_hand
+
+        assert _describe_hand("7s 2d", "Ah Kh Qc 3d 5c") == "High card"
+
+    def test_returns_none_for_short_board(self):
+        """Returns None when board has fewer than 3 cards (hand not complete)."""
+        from pokerhero.frontend.pages.sessions import _describe_hand
+
+        assert _describe_hand("Ah Kh", "") is None
+        assert _describe_hand("Ah Kh", "Qh") is None
+
+    def test_three_card_board_still_works(self):
+        """Works with just the flop (3 board cards = 5 total)."""
+        from pokerhero.frontend.pages.sessions import _describe_hand
+
+        result = _describe_hand("Ah Kh", "Qh Jh Th")
+        assert result == "Straight flush"
+
+    def test_four_of_a_kind_description(self):
+        """Four of a kind returns 'Four of a kind'."""
+        from pokerhero.frontend.pages.sessions import _describe_hand
+
+        assert _describe_hand("Kd Kc", "Ah Kh Ks 2c 7d") == "Four of a kind"
+
+
 class TestShowdownSection:
     """Tests for _build_showdown_section helper in the action view."""
 
