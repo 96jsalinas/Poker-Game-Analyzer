@@ -1580,6 +1580,52 @@ class TestShowdownSection:
         text = str(result)
         assert "Flush" not in text and "Straight" not in text and "Pair" not in text
 
+    def test_villain_archetype_shown_when_opp_stats_provided(self):
+        """Archetype badge appears for villain when opp_stats has their data."""
+        from pokerhero.frontend.pages.sessions import _build_showdown_section
+
+        # 20% VPIP, 15% PFR, 20 hands → TAG
+        opp_stats = {"villain1": {"hands_played": 20, "vpip_count": 4, "pfr_count": 3}}
+        result = _build_showdown_section(
+            [{"username": "villain1", "position": "SB", "hole_cards": "Qd Jc"}],
+            hero_name="Hero",
+            hero_cards="As Kd",
+            board="Ah Kh Qs 2c 7d",
+            opp_stats=opp_stats,
+        )
+        assert "TAG" in str(result)
+
+    def test_no_archetype_when_opp_stats_absent(self):
+        """No archetype badge when opp_stats is None (default)."""
+        from pokerhero.frontend.pages.sessions import _build_showdown_section
+
+        result = _build_showdown_section(
+            [{"username": "villain1", "position": "SB", "hole_cards": "Qd Jc"}],
+            hero_name="Hero",
+            hero_cards="As Kd",
+            board="Ah Kh Qs 2c 7d",
+        )
+        text = str(result)
+        for archetype in ("TAG", "LAG", "Nit", "Fish"):
+            assert archetype not in text
+
+    def test_hero_has_no_archetype_badge(self):
+        """Hero row never gets an archetype badge even when opp_stats is provided."""
+        from pokerhero.frontend.pages.sessions import _build_showdown_section
+
+        # Providing a stat entry keyed "Hero" should not cause a badge for hero
+        opp_stats = {"villain1": {"hands_played": 20, "vpip_count": 4, "pfr_count": 3}}
+        result = _build_showdown_section(
+            [{"username": "villain1", "position": "SB", "hole_cards": "Qd Jc"}],
+            hero_name="Hero",
+            hero_cards="As Kd",
+            board="Ah Kh Qs 2c 7d",
+            opp_stats=opp_stats,
+        )
+        text = str(result)
+        # TAG from villain1 appears; hero has no archetype so only one badge
+        assert text.count("TAG") == 1
+
 
 # ===========================================================================
 # TestFmtBlind / TestFmtPnl
