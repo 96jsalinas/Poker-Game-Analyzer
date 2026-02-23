@@ -12,12 +12,15 @@ import pandas as pd
 
 
 def get_sessions(
-    conn: sqlite3.Connection, player_id: int, since_date: str | None = None
+    conn: sqlite3.Connection,
+    player_id: int,
+    since_date: str | None = None,
+    currency_type: str | None = None,
 ) -> pd.DataFrame:
     """Return all sessions with aggregated hand count and hero net profit.
 
     Columns: id, start_time, game_type, limit_type, small_blind, big_blind,
-             hands_played, net_profit.
+             currency, hands_played, net_profit.
 
     Args:
         conn: Open SQLite connection.
@@ -25,11 +28,19 @@ def get_sessions(
         since_date: Optional ISO-format date string (e.g. '2026-01-01').
             When provided, only sessions whose start_time >= since_date
             are returned.
+        currency_type: Optional filter — 'real' returns only USD/EUR sessions,
+            'play' returns only PLAY sessions. None returns all.
 
     Returns:
         DataFrame with one row per session, sorted by start_time ascending.
     """
     date_clause = "AND s.start_time >= :since" if since_date else ""
+    if currency_type == "real":
+        currency_clause = "AND s.currency IN ('USD', 'EUR')"
+    elif currency_type == "play":
+        currency_clause = "AND s.currency = 'PLAY'"
+    else:
+        currency_clause = ""
     sql = f"""
         SELECT
             s.id,
@@ -38,13 +49,14 @@ def get_sessions(
             s.limit_type,
             s.small_blind,
             s.big_blind,
+            s.currency,
             s.is_favorite,
             COUNT(h.id)                     AS hands_played,
             COALESCE(SUM(hp.net_result), 0) AS net_profit
         FROM sessions s
         LEFT JOIN hands h  ON h.session_id = s.id
         LEFT JOIN hand_players hp ON hp.hand_id = h.id AND hp.player_id = :pid
-        WHERE 1=1 {date_clause}
+        WHERE 1=1 {date_clause} {currency_clause}
         GROUP BY s.id
         ORDER BY s.start_time ASC
     """
@@ -140,7 +152,10 @@ def get_actions(conn: sqlite3.Connection, hand_id: int) -> pd.DataFrame:
 
 
 def get_hero_timeline(
-    conn: sqlite3.Connection, player_id: int, since_date: str | None = None
+    conn: sqlite3.Connection,
+    player_id: int,
+    since_date: str | None = None,
+    currency_type: str | None = None,
 ) -> pd.DataFrame:
     """Return one row per hand with timestamp and net_result for the bankroll graph.
 
@@ -151,18 +166,27 @@ def get_hero_timeline(
         player_id: Internal integer id of the hero player row.
         since_date: Optional ISO-format date string. Filters to hands after
             this date (inclusive).
+        currency_type: Optional filter — 'real' for USD/EUR, 'play' for PLAY,
+            None for all.
 
     Returns:
         DataFrame ordered by timestamp ascending, one row per hand.
     """
     date_clause = "AND h.timestamp >= :since" if since_date else ""
+    if currency_type == "real":
+        currency_clause = "AND s.currency IN ('USD', 'EUR')"
+    elif currency_type == "play":
+        currency_clause = "AND s.currency = 'PLAY'"
+    else:
+        currency_clause = ""
     sql = f"""
         SELECT
             h.timestamp,
             hp.net_result
         FROM hand_players hp
         JOIN hands h ON h.id = hp.hand_id
-        WHERE hp.player_id = :pid {date_clause}
+        JOIN sessions s ON s.id = h.session_id
+        WHERE hp.player_id = :pid {date_clause} {currency_clause}
         ORDER BY h.timestamp ASC
     """
     params: dict[str, int | str] = {"pid": int(player_id)}
@@ -172,7 +196,10 @@ def get_hero_timeline(
 
 
 def get_hero_actions(
-    conn: sqlite3.Connection, player_id: int, since_date: str | None = None
+    conn: sqlite3.Connection,
+    player_id: int,
+    since_date: str | None = None,
+    currency_type: str | None = None,
 ) -> pd.DataFrame:
     """Return all post-flop actions by hero with position context.
 
@@ -186,11 +213,19 @@ def get_hero_actions(
         player_id: Internal integer id of the hero player row.
         since_date: Optional ISO-format date string. Filters to hands after
             this date (inclusive).
+        currency_type: Optional filter — 'real' for USD/EUR, 'play' for PLAY,
+            None for all.
 
     Returns:
         DataFrame of hero's post-flop actions across all hands.
     """
     date_clause = "AND h.timestamp >= :since" if since_date else ""
+    if currency_type == "real":
+        currency_clause = "AND s.currency IN ('USD', 'EUR')"
+    elif currency_type == "play":
+        currency_clause = "AND s.currency = 'PLAY'"
+    else:
+        currency_clause = ""
     sql = f"""
         SELECT
             a.hand_id,
@@ -201,9 +236,10 @@ def get_hero_actions(
         JOIN hand_players hp
             ON hp.hand_id = a.hand_id AND hp.player_id = a.player_id
         JOIN hands h ON h.id = a.hand_id
+        JOIN sessions s ON s.id = h.session_id
         WHERE a.player_id = :pid
           AND a.street IN ('FLOP', 'TURN', 'RIVER')
-          {date_clause}
+          {date_clause} {currency_clause}
     """
     params: dict[str, int | str] = {"pid": int(player_id)}
     if since_date:
@@ -212,7 +248,10 @@ def get_hero_actions(
 
 
 def get_hero_hand_players(
-    conn: sqlite3.Connection, player_id: int, since_date: str | None = None
+    conn: sqlite3.Connection,
+    player_id: int,
+    since_date: str | None = None,
+    currency_type: str | None = None,
 ) -> pd.DataFrame:
     """Return all hand_player rows for hero with session context and saw_flop flag.
 
@@ -227,11 +266,19 @@ def get_hero_hand_players(
         player_id: Internal integer id of the hero player row.
         since_date: Optional ISO-format date string. Filters to hands after
             this date (inclusive).
+        currency_type: Optional filter — 'real' for USD/EUR, 'play' for PLAY,
+            None for all.
 
     Returns:
         DataFrame with one row per hand hero participated in.
     """
     date_clause = "AND h.timestamp >= :since" if since_date else ""
+    if currency_type == "real":
+        currency_clause = "AND s.currency IN ('USD', 'EUR')"
+    elif currency_type == "play":
+        currency_clause = "AND s.currency = 'PLAY'"
+    else:
+        currency_clause = ""
     sql = f"""
         SELECT
             hp.hand_id,
@@ -252,7 +299,7 @@ def get_hero_hand_players(
         FROM hand_players hp
         JOIN hands h ON h.id = hp.hand_id
         JOIN sessions s ON s.id = h.session_id
-        WHERE hp.player_id = :pid {date_clause}
+        WHERE hp.player_id = :pid {date_clause} {currency_clause}
         ORDER BY h.timestamp ASC
     """
     params: dict[str, int | str] = {"pid": int(player_id)}
@@ -262,7 +309,10 @@ def get_hero_hand_players(
 
 
 def get_hero_opportunity_actions(
-    conn: sqlite3.Connection, player_id: int, since_date: str | None = None
+    conn: sqlite3.Connection,
+    player_id: int,
+    since_date: str | None = None,
+    currency_type: str | None = None,
 ) -> pd.DataFrame:
     """Return PREFLOP and FLOP actions for all hands hero played.
 
@@ -276,11 +326,19 @@ def get_hero_opportunity_actions(
         player_id: Internal integer id of the hero player row.
         since_date: Optional ISO-format date string. Filters to hands after
             this date (inclusive).
+        currency_type: Optional filter — 'real' for USD/EUR, 'play' for PLAY,
+            None for all.
 
     Returns:
         DataFrame ordered by hand_id then sequence ascending.
     """
     date_clause = "AND h.timestamp >= :since" if since_date else ""
+    if currency_type == "real":
+        currency_clause = "AND s.currency IN ('USD', 'EUR')"
+    elif currency_type == "play":
+        currency_clause = "AND s.currency = 'PLAY'"
+    else:
+        currency_clause = ""
     sql = f"""
         SELECT
             h.id AS hand_id,
@@ -291,11 +349,12 @@ def get_hero_opportunity_actions(
             a.action_type
         FROM actions a
         JOIN hands h ON h.id = a.hand_id
+        JOIN sessions s ON s.id = h.session_id
         WHERE h.id IN (
             SELECT DISTINCT hand_id FROM hand_players WHERE player_id = :pid
         )
           AND a.street IN ('PREFLOP', 'FLOP')
-          {date_clause}
+          {date_clause} {currency_clause}
         ORDER BY a.hand_id, a.sequence
     """
     params: dict[str, int | str] = {"pid": int(player_id)}

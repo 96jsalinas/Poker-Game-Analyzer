@@ -731,3 +731,171 @@ class TestDateFilter:
             db_with_data, hero_player_id, since_date="2099-01-01"
         )
         assert df.empty
+
+
+# ---------------------------------------------------------------------------
+# TestCurrencyFilter
+# ---------------------------------------------------------------------------
+
+
+class TestCurrencyFilter:
+    """currency_type filter on query functions; uses a self-contained in-memory DB."""
+
+    @pytest.fixture
+    def cdb(self, tmp_path):
+        """In-memory DB with two sessions: one PLAY, one EUR (two hands each)."""
+        from pokerhero.database.db import init_db, upsert_player
+
+        conn = init_db(tmp_path / "cur.db")
+        pid = upsert_player(conn, "hero")
+
+        # Two sessions: one play-money, one EUR real-money
+        conn.execute(
+            "INSERT INTO sessions (game_type, limit_type, max_seats, small_blind,"
+            " big_blind, ante, start_time, currency) VALUES"
+            " ('NLHE','NL',9,100,200,0,'2026-01-01T10:00:00','PLAY')"
+        )
+        play_sid = conn.execute("SELECT last_insert_rowid()").fetchone()[0]
+
+        conn.execute(
+            "INSERT INTO sessions (game_type, limit_type, max_seats, small_blind,"
+            " big_blind, ante, start_time, currency) VALUES"
+            " ('NLHE','NL',6,0.02,0.05,0,'2026-02-01T10:00:00','EUR')"
+        )
+        eur_sid = conn.execute("SELECT last_insert_rowid()").fetchone()[0]
+
+        # One hand per session; hero participates in both
+        for sid, ts in [
+            (play_sid, "2026-01-01T10:05:00"),
+            (eur_sid, "2026-02-01T10:05:00"),
+        ]:
+            conn.execute(
+                "INSERT INTO hands"
+                " (source_hand_id, session_id, total_pot, rake, timestamp)"
+                " VALUES (?, ?, 200, 5, ?)",
+                (f"H{sid}", sid, ts),
+            )
+            hid = conn.execute("SELECT last_insert_rowid()").fetchone()[0]
+            conn.execute(
+                "INSERT INTO hand_players (hand_id, player_id, position,"
+                " starting_stack, net_result) VALUES (?, ?, 'BTN', 10000, 100)",
+                (hid, pid),
+            )
+            conn.execute(
+                "INSERT INTO actions (hand_id, player_id, is_hero, street,"
+                " action_type, amount, amount_to_call, pot_before, sequence)"
+                " VALUES (?, ?, 1, 'FLOP', 'BET', 50, 0, 100, 1)",
+                (hid, pid),
+            )
+
+        conn.commit()
+        yield conn, pid
+        conn.close()
+
+    # --- get_sessions ---
+
+    def test_get_sessions_includes_currency_column(self, cdb):
+        """get_sessions must return a 'currency' column."""
+        from pokerhero.analysis.queries import get_sessions
+
+        conn, pid = cdb
+        df = get_sessions(conn, pid)
+        assert "currency" in df.columns
+
+    def test_get_sessions_currency_type_real_returns_only_real(self, cdb):
+        """currency_type='real' returns only EUR/USD sessions."""
+        from pokerhero.analysis.queries import get_sessions
+
+        conn, pid = cdb
+        df = get_sessions(conn, pid, currency_type="real")
+        assert len(df) == 1
+        assert df["currency"].iloc[0] == "EUR"
+
+    def test_get_sessions_currency_type_play_returns_only_play(self, cdb):
+        """currency_type='play' returns only PLAY sessions."""
+        from pokerhero.analysis.queries import get_sessions
+
+        conn, pid = cdb
+        df = get_sessions(conn, pid, currency_type="play")
+        assert len(df) == 1
+        assert df["currency"].iloc[0] == "PLAY"
+
+    def test_get_sessions_currency_type_none_returns_all(self, cdb):
+        """currency_type=None (default) returns all sessions."""
+        from pokerhero.analysis.queries import get_sessions
+
+        conn, pid = cdb
+        df = get_sessions(conn, pid)
+        assert len(df) == 2
+
+    # --- get_hero_hand_players ---
+
+    def test_get_hero_hand_players_currency_real_filters(self, cdb):
+        """currency_type='real' returns only hands from EUR/USD sessions."""
+        from pokerhero.analysis.queries import get_hero_hand_players
+
+        conn, pid = cdb
+        df = get_hero_hand_players(conn, pid, currency_type="real")
+        assert len(df) == 1
+
+    def test_get_hero_hand_players_currency_play_filters(self, cdb):
+        """currency_type='play' returns only hands from PLAY sessions."""
+        from pokerhero.analysis.queries import get_hero_hand_players
+
+        conn, pid = cdb
+        df = get_hero_hand_players(conn, pid, currency_type="play")
+        assert len(df) == 1
+
+    # --- get_hero_timeline ---
+
+    def test_get_hero_timeline_currency_real_filters(self, cdb):
+        """currency_type='real' returns only hands from real-money sessions."""
+        from pokerhero.analysis.queries import get_hero_timeline
+
+        conn, pid = cdb
+        df = get_hero_timeline(conn, pid, currency_type="real")
+        assert len(df) == 1
+
+    def test_get_hero_timeline_currency_play_filters(self, cdb):
+        """currency_type='play' returns only hands from play-money sessions."""
+        from pokerhero.analysis.queries import get_hero_timeline
+
+        conn, pid = cdb
+        df = get_hero_timeline(conn, pid, currency_type="play")
+        assert len(df) == 1
+
+    # --- get_hero_actions ---
+
+    def test_get_hero_actions_currency_real_filters(self, cdb):
+        """currency_type='real' returns only post-flop actions from real sessions."""
+        from pokerhero.analysis.queries import get_hero_actions
+
+        conn, pid = cdb
+        df = get_hero_actions(conn, pid, currency_type="real")
+        assert len(df) == 1
+
+    def test_get_hero_actions_currency_play_filters(self, cdb):
+        """currency_type='play' returns only post-flop actions from play sessions."""
+        from pokerhero.analysis.queries import get_hero_actions
+
+        conn, pid = cdb
+        df = get_hero_actions(conn, pid, currency_type="play")
+        assert len(df) == 1
+
+    # --- get_hero_opportunity_actions ---
+
+    def test_get_hero_opportunity_actions_currency_real_filters(self, cdb):
+        """currency_type='real' filters opportunity actions to real sessions."""
+        from pokerhero.analysis.queries import get_hero_opportunity_actions
+
+        conn, pid = cdb
+        df = get_hero_opportunity_actions(conn, pid, currency_type="real")
+        assert len(df) == 1
+
+    def test_get_hero_opportunity_actions_currency_play_filters(self, cdb):
+        """currency_type='play' filters opportunity actions to play sessions."""
+        from pokerhero.analysis.queries import get_hero_opportunity_actions
+
+        conn, pid = cdb
+        df = get_hero_opportunity_actions(conn, pid, currency_type="play")
+        assert len(df) == 1
