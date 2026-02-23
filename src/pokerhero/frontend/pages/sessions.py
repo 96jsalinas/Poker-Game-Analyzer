@@ -154,6 +154,7 @@ def _build_showdown_section(
     hero_name: str | None = None,
     hero_cards: str | None = None,
     board: str = "",
+    opp_stats: dict[str, dict[str, int]] | None = None,
 ) -> html.Div | None:
     """Build a Showdown section showing all players' cards, hand descriptions,
     and a trophy badge on the winner(s).
@@ -168,6 +169,9 @@ def _build_showdown_section(
         board: Space-separated board cards (e.g. "Ah Kh Qs 2c 7d"). Used to
             evaluate hand descriptions and determine the winner. If empty or
             fewer than 3 cards, descriptions and winner detection are skipped.
+        opp_stats: Optional mapping of username → stats dict with keys
+            'hands_played', 'vpip_count', 'pfr_count'. When provided, an
+            archetype badge (TAG/LAG/Nit/Fish) is shown next to each villain.
 
     Returns:
         An html.Div or None when there are no players to display.
@@ -182,7 +186,9 @@ def _build_showdown_section(
         return None
 
     # Build the full list of players at showdown: hero first, then villains.
+    # Keep track of username → display_label for archetype lookup.
     players: list[tuple[str, str]] = []  # (display_label, hole_cards)
+    label_to_username: dict[str, str] = {}
     if hero_name and hero_cards:
         players.append((hero_name, hero_cards))
     for v in villain_rows:
@@ -190,6 +196,7 @@ def _build_showdown_section(
         if v.get("position"):
             label += f" ({v['position']})"
         players.append((label, v["hole_cards"]))
+        label_to_username[label] = v["username"]
 
     # Evaluate best hands and find winner(s) when board has ≥3 cards.
     board_card_list = [c for c in board.split() if c]
@@ -221,6 +228,35 @@ def _build_showdown_section(
     for label, hole in players:
         desc = descriptions.get(label)
         trophy = "🏆 " if label in winner_labels else ""
+
+        # Archetype badge — only for villains (not hero), when opp_stats given.
+        archetype_badge: list[Any] = []
+        username = label_to_username.get(label)
+        if opp_stats and username and username in opp_stats:
+            from pokerhero.analysis.stats import classify_player
+
+            s = opp_stats[username]
+            h = int(s["hands_played"])
+            vp = int(s["vpip_count"]) / h * 100 if h > 0 else 0.0
+            pf = int(s["pfr_count"]) / h * 100 if h > 0 else 0.0
+            archetype = classify_player(vp, pf, h)
+            if archetype is not None:
+                archetype_badge = [
+                    html.Span(
+                        archetype,
+                        style={
+                            "background": _ARCHETYPE_COLORS.get(archetype, "#999"),
+                            "color": "#fff",
+                            "borderRadius": "4px",
+                            "padding": "1px 6px",
+                            "fontSize": "11px",
+                            "fontWeight": "700",
+                            "marginLeft": "5px",
+                            "verticalAlign": "middle",
+                        },
+                    )
+                ]
+
         rows.append(
             html.Div(
                 [
@@ -233,6 +269,7 @@ def _build_showdown_section(
                             "color": "#f5a623" if trophy else "#555",
                         },
                     ),
+                    *archetype_badge,
                     _render_cards(hole),
                     *(
                         [
@@ -1277,7 +1314,7 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
 
 
 def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
-    from pokerhero.analysis.queries import get_actions
+    from pokerhero.analysis.queries import get_actions, get_session_player_stats
     from pokerhero.analysis.stats import compute_ev
 
     hero_id = _get_hero_player_id(db_path)
@@ -1286,14 +1323,15 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
     try:
         df = get_actions(conn, hand_id)
         hand_row = conn.execute(
-            "SELECT source_hand_id, board_flop, board_turn, board_river, is_favorite"
-            " FROM hands WHERE id = ?",
+            "SELECT source_hand_id, board_flop, board_turn, board_river,"
+            " is_favorite, session_id FROM hands WHERE id = ?",
             (hand_id,),
         ).fetchone()
         hero_cards: str | None = None
         # Map player_id → hole_cards for EV calculation at all-in spots
         all_hole_cards: dict[int, str] = {}
         villain_showdown: list[dict[str, str]] = []
+        opp_stats_map: dict[str, dict[str, int]] = {}
         if hero_id is not None:
             hole_row = conn.execute(
                 "SELECT hole_cards FROM hand_players"
@@ -1321,13 +1359,23 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             {"username": r[0], "position": r[1] or "", "hole_cards": r[2]}
             for r in villain_rows
         ]
+        # Fetch session-level opponent stats for archetype badges at showdown.
+        if hand_row is not None and hero_id is not None:
+            session_id_val = hand_row[5]
+            opp_df = get_session_player_stats(conn, session_id_val, hero_id)
+            for _, opp_row in opp_df.iterrows():
+                opp_stats_map[opp_row["username"]] = {
+                    "hands_played": int(opp_row["hands_played"]),
+                    "vpip_count": int(opp_row["vpip_count"]),
+                    "pfr_count": int(opp_row["pfr_count"]),
+                }
     finally:
         conn.close()
 
     if df.empty or hand_row is None:
         return html.Div("No actions found for this hand."), ""
 
-    source_id, flop, turn, river, hand_is_fav_raw = hand_row
+    source_id, flop, turn, river, hand_is_fav_raw, _session_id = hand_row
     hand_label = f"Hand #{source_id}"
     hand_is_fav: bool = bool(hand_is_fav_raw)
 
@@ -1523,6 +1571,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
         hero_name="Hero",
         hero_cards=hero_cards,
         board=board_str,
+        opp_stats=opp_stats_map if opp_stats_map else None,
     )
     if showdown_div is not None:
         sections.append(showdown_div)
