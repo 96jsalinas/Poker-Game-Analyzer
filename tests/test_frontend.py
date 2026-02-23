@@ -1647,3 +1647,95 @@ class TestFmtPnl:
         from pokerhero.frontend.pages.sessions import _fmt_pnl
 
         assert _fmt_pnl(0.0) == "+0"
+
+
+# ---------------------------------------------------------------------------
+# TestBuildOpponentProfileCard
+# ---------------------------------------------------------------------------
+
+
+class TestBuildOpponentProfileCard:
+    """Tests for the _build_opponent_profile_card pure UI helper."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def _card(self, username="Alice", hands=20, vpip_count=5, pfr_count=4):
+        from pokerhero.frontend.pages.sessions import _build_opponent_profile_card
+
+        return _build_opponent_profile_card(username, hands, vpip_count, pfr_count)
+
+    def test_returns_html_component(self):
+        """Result is a Dash html component (not None or a str)."""
+        from dash import html
+
+        result = self._card()
+        assert isinstance(result, html.Div)
+
+    def test_shows_username(self):
+        """Card source text includes the player's username."""
+
+        from pokerhero.frontend.pages.sessions import _build_opponent_profile_card
+
+        card = _build_opponent_profile_card("Villain99", 20, 6, 4)
+        assert "Villain99" in str(card)
+
+    def test_shows_vpip_percentage(self):
+        """Card text includes computed VPIP percentage."""
+
+        from pokerhero.frontend.pages.sessions import _build_opponent_profile_card
+
+        # 5 vpip out of 20 = 25%
+        card = _build_opponent_profile_card("X", 20, 5, 3)
+        assert "25" in str(card)
+
+    def test_shows_archetype_tag(self):
+        """Card includes the archetype label (TAG/LAG/Nit/Fish) when ≥15 hands."""
+        from pokerhero.frontend.pages.sessions import _build_opponent_profile_card
+
+        # 20% VPIP, 15% PFR → TAG
+        card = _build_opponent_profile_card("X", 20, 4, 3)
+        assert "TAG" in str(card)
+
+    def test_below_min_hands_shows_no_archetype(self):
+        """Cards with fewer than 15 hands show no archetype badge."""
+        from pokerhero.frontend.pages.sessions import _build_opponent_profile_card
+
+        card = _build_opponent_profile_card("X", 10, 3, 2)
+        card_str = str(card)
+        for archetype in ("TAG", "LAG", "Nit", "Fish"):
+            assert archetype not in card_str
+
+
+# ---------------------------------------------------------------------------
+# TestOpponentProfilesPanel
+# ---------------------------------------------------------------------------
+
+
+class TestOpponentProfilesPanel:
+    """Tests for the opponent profiles panel in the sessions page source."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_source_has_opponent_profiles_toggle(self):
+        """sessions.py source defines the opponent profiles toggle button id."""
+        import inspect
+
+        import pokerhero.frontend.pages.sessions as mod
+
+        src = inspect.getsource(mod)
+        assert "opponent-profiles-btn" in src
+
+    def test_source_has_opponent_profiles_panel(self):
+        """sessions.py source defines the opponent profiles panel container."""
+        import inspect
+
+        import pokerhero.frontend.pages.sessions as mod
+
+        src = inspect.getsource(mod)
+        assert "opponent-profiles-panel" in src
