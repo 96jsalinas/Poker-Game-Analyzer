@@ -1213,6 +1213,359 @@ def _get_session_label(db_path: str, session_id: int) -> str:
     return f"{date}  {_fmt_blind(row[1])}/{_fmt_blind(row[2])}"
 
 
+# ---------------------------------------------------------------------------
+# Session Report helpers
+# ---------------------------------------------------------------------------
+
+_KPI_CARD_STYLE: dict[str, str] = {
+    "textAlign": "center",
+    "minWidth": "80px",
+    "padding": "12px 16px",
+    "background": "#f8f9fa",
+    "borderRadius": "8px",
+    "border": "1px solid #e0e0e0",
+}
+
+
+def _build_session_kpi_strip(
+    kpis_df: pd.DataFrame,
+    actions_df: pd.DataFrame,
+) -> html.Div:
+    """Return a strip of session KPI cards: Hands, VPIP%, PFR%, AF, Win Rate.
+
+    Args:
+        kpis_df: DataFrame from get_session_kpis (per-hand hero rows).
+        actions_df: DataFrame from get_session_hero_actions (post-flop actions).
+
+    Returns:
+        html.Div containing one card per KPI.
+    """
+    from pokerhero.analysis.stats import (
+        aggression_factor,
+        pfr_pct,
+        vpip_pct,
+        win_rate_bb100,
+    )
+
+    n = len(kpis_df)
+    v = vpip_pct(kpis_df) * 100 if not kpis_df.empty else 0.0
+    p = pfr_pct(kpis_df) * 100 if not kpis_df.empty else 0.0
+    af = aggression_factor(actions_df) if not actions_df.empty else float("inf")
+    wr = win_rate_bb100(kpis_df) if not kpis_df.empty else 0.0
+    af_str = f"{af:.2f}" if af != float("inf") else "∞"
+    wr_color = "#28a745" if wr >= 0 else "#dc3545"
+
+    def _kpi(label: str, value: str, color: str = "#222") -> html.Div:
+        return html.Div(
+            [
+                html.Div(
+                    label,
+                    style={
+                        "fontSize": "11px",
+                        "color": "#888",
+                        "textTransform": "uppercase",
+                        "marginBottom": "4px",
+                    },
+                ),
+                html.Div(
+                    value,
+                    style={
+                        "fontSize": "22px",
+                        "fontWeight": "700",
+                        "color": color,
+                    },
+                ),
+            ],
+            style=_KPI_CARD_STYLE,
+        )
+
+    return html.Div(
+        [
+            _kpi("Hands", str(n)),
+            _kpi("VPIP", f"{v:.1f}%"),
+            _kpi("PFR", f"{p:.1f}%"),
+            _kpi("AF", af_str),
+            _kpi("Win Rate", f"{wr:+.1f} bb/100", color=wr_color),
+        ],
+        style={
+            "display": "flex",
+            "gap": "12px",
+            "flexWrap": "wrap",
+            "marginBottom": "20px",
+        },
+    )
+
+
+def _build_session_narrative(
+    kpis_df: pd.DataFrame,
+    actions_df: pd.DataFrame,
+    session_label: str,
+) -> html.Div:
+    """Return a template-driven narrative paragraph summarising the session.
+
+    Args:
+        kpis_df: DataFrame from get_session_kpis (per-hand hero rows).
+        actions_df: DataFrame from get_session_hero_actions (post-flop actions).
+        session_label: Human-readable label e.g. '2026-01-29  100/200'.
+
+    Returns:
+        html.Div containing a single paragraph of narrative text.
+    """
+    from pokerhero.analysis.stats import (
+        aggression_factor,
+        pfr_pct,
+        vpip_pct,
+        win_rate_bb100,
+    )
+
+    n = len(kpis_df)
+    if n == 0:
+        return html.Div(
+            "No hands found in this session.",
+            style={"color": "#888", "fontSize": "13px"},
+        )
+
+    v = vpip_pct(kpis_df) * 100
+    p = pfr_pct(kpis_df) * 100
+    af = aggression_factor(actions_df) if not actions_df.empty else float("inf")
+    wr = win_rate_bb100(kpis_df)
+    af_str = f"{af:.2f}" if af != float("inf") else "∞"
+    direction = "won" if wr >= 0 else "lost"
+    wr_abs = f"{abs(wr):.1f}"
+
+    text = (
+        f"In your {n}-hand session ({session_label}), you played {v:.0f}% of "
+        f"hands (VPIP) and raised preflop {p:.0f}% of the time (PFR). "
+        f"Post-flop your aggression factor was {af_str}. "
+        f"Overall you {direction} at a rate of {wr_abs} bb/100."
+    )
+    return html.Div(
+        html.P(
+            text,
+            style={"fontSize": "14px", "lineHeight": "1.6", "color": "#444"},
+        ),
+        style={"marginBottom": "16px"},
+    )
+
+
+def _build_ev_summary(showdown_df: pd.DataFrame) -> html.Div:
+    """Return an EV luck indicator based on showdown/all-in hands.
+
+    Computes equity for each hand via the LRU-cached compute_equity and
+    classifies the session as above/below/near equity.
+
+    Args:
+        showdown_df: DataFrame from get_session_showdown_hands.
+
+    Returns:
+        html.Div with a luck verdict and showdown hand count.
+    """
+    if showdown_df.empty:
+        return html.Div(
+            "No showdown hands with known villain cards in this session.",
+            style={"color": "#888", "fontSize": "13px"},
+        )
+
+    from pokerhero.analysis.stats import compute_equity
+
+    n = len(showdown_df)
+    lucky = 0
+    unlucky = 0
+
+    for _, row in showdown_df.iterrows():
+        try:
+            eq = compute_equity(
+                str(row["hero_cards"]).strip(),
+                str(row["villain_cards"]).strip(),
+                str(row["board"]).strip(),
+                2000,
+            )
+        except Exception:
+            continue
+        hero_won = float(row["net_result"]) > 0
+        if hero_won and eq < 0.4:
+            lucky += 1
+        elif not hero_won and eq > 0.6:
+            unlucky += 1
+
+    if lucky > 0 and unlucky == 0:
+        verdict, vcolor = "👍 Ran above equity", "#28a745"
+    elif unlucky > 0 and lucky == 0:
+        verdict, vcolor = "👎 Ran below equity", "#dc3545"
+    elif lucky > unlucky:
+        verdict, vcolor = "👍 Slightly above equity", "#28a745"
+    elif unlucky > lucky:
+        verdict, vcolor = "👎 Slightly below equity", "#dc3545"
+    else:
+        verdict, vcolor = "~ Ran near equity", "#888"
+
+    hand_word = "hand" if n == 1 else "hands"
+    return html.Div(
+        [
+            html.H5(
+                "EV Summary",
+                style={"marginBottom": "6px", "color": "#333"},
+            ),
+            html.P(
+                f"{n} showdown {hand_word} with known villain cards.",
+                style={"fontSize": "13px", "color": "#555", "marginBottom": "6px"},
+            ),
+            html.Div(
+                verdict,
+                style={
+                    "fontSize": "16px",
+                    "fontWeight": "600",
+                    "color": vcolor,
+                },
+            ),
+        ],
+        style={"marginBottom": "20px"},
+    )
+
+
+def _build_flagged_hands_list(showdown_df: pd.DataFrame) -> html.Div:
+    """Return a list of notably lucky or unlucky hands.
+
+    A hand is flagged as Lucky when hero won with equity < 40%, or Unlucky
+    when hero lost with equity > 60%.
+
+    Args:
+        showdown_df: DataFrame from get_session_showdown_hands.
+
+    Returns:
+        html.Div listing flagged hands, or an empty-state message.
+    """
+    if showdown_df.empty:
+        return html.Div(
+            "No showdown data available for analysis.",
+            style={"color": "#888", "fontSize": "13px"},
+        )
+
+    from pokerhero.analysis.stats import compute_equity
+
+    flagged: list[html.Div] = []
+    for _, row in showdown_df.iterrows():
+        try:
+            eq = compute_equity(
+                str(row["hero_cards"]).strip(),
+                str(row["villain_cards"]).strip(),
+                str(row["board"]).strip(),
+                2000,
+            )
+        except Exception:
+            continue
+        hero_won = float(row["net_result"]) > 0
+        if hero_won and eq < 0.4:
+            flag, fcolor = "🍀 Lucky", "#28a745"
+        elif not hero_won and eq > 0.6:
+            flag, fcolor = "😞 Unlucky", "#dc3545"
+        else:
+            continue
+        flagged.append(
+            html.Div(
+                [
+                    html.Span(
+                        flag,
+                        style={
+                            "marginRight": "10px",
+                            "color": fcolor,
+                            "fontWeight": "600",
+                        },
+                    ),
+                    html.Span(
+                        f"Hand #{row['source_hand_id']}",
+                        style={"marginRight": "10px", "fontSize": "13px"},
+                    ),
+                    html.Span(
+                        f"Equity: {eq * 100:.0f}%",
+                        style={"color": "#888", "fontSize": "12px"},
+                    ),
+                ],
+                style={"padding": "6px 0", "borderBottom": "1px solid #f0f0f0"},
+            )
+        )
+
+    if not flagged:
+        return html.Div(
+            "No significantly lucky or unlucky spots detected.",
+            style={"color": "#888", "fontSize": "13px"},
+        )
+    return html.Div(
+        [
+            html.H5("Notable Hands", style={"marginBottom": "8px", "color": "#333"}),
+            *flagged,
+        ],
+        style={"marginBottom": "20px"},
+    )
+
+
+def _render_session_report(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
+    """Render the Session Report intermediate view for a single session.
+
+    Shows a narrative paragraph, KPI strip, EV luck summary, and a list of
+    notable hands, plus a button to browse all hands in this session.
+
+    Args:
+        db_path: Path to the SQLite database file.
+        session_id: Internal integer id of the session row.
+
+    Returns:
+        Tuple of (content Div, session label string).
+    """
+    player_id = _get_hero_player_id(db_path)
+    if player_id is None:
+        return (
+            html.Div(
+                "⚠️ No hero username set. Please set it on the Upload page first.",
+                style={"color": "orange"},
+            ),
+            "",
+        )
+
+    from pokerhero.analysis.queries import (
+        get_session_hero_actions,
+        get_session_kpis,
+        get_session_showdown_hands,
+    )
+
+    conn = get_connection(db_path)
+    try:
+        kpis_df = get_session_kpis(conn, session_id, player_id)
+        actions_df = get_session_hero_actions(conn, session_id, player_id)
+        showdown_df = get_session_showdown_hands(conn, session_id, player_id)
+    finally:
+        conn.close()
+
+    session_label = _get_session_label(db_path, session_id)
+    n_hands = len(kpis_df)
+
+    content = html.Div(
+        [
+            _build_session_narrative(kpis_df, actions_df, session_label),
+            _build_session_kpi_strip(kpis_df, actions_df),
+            _build_ev_summary(showdown_df),
+            _build_flagged_hands_list(showdown_df),
+            html.Button(
+                f"Browse all {n_hands} hands",
+                id="session-report-browse-btn",
+                n_clicks=0,
+                style={
+                    "marginTop": "16px",
+                    "padding": "8px 20px",
+                    "background": "#0074D9",
+                    "color": "white",
+                    "border": "none",
+                    "borderRadius": "4px",
+                    "cursor": "pointer",
+                    "fontSize": "14px",
+                },
+            ),
+        ],
+        style={"maxWidth": "900px"},
+    )
+    return content, session_label
+
+
 def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
     player_id = _get_hero_player_id(db_path)
     if player_id is None:
