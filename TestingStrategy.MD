@@ -51,13 +51,13 @@ Poker hand histories contain hundreds of edge cases. The `tests/fixtures/` direc
 
 * **Framework:** `pytest` will be the primary testing framework due to its concise syntax and powerful fixture management.
 * **Data Mocking:** `pandas.testing.assert_frame_equal` will be used extensively to verify analytical outputs match expected DataFrame structures.
-* **Current test count (601 total):**
+* **Current test count (623 total):**
 
 | File | Tests | Scope |
 | :--- | :--- | :--- |
 | `test_parser.py` | 164 | 15 classes — parser rules, SPR/MDF, re-buy, multi-street, EUR currency format, currency detection (USD/EUR/PLAY) |
-| `test_frontend.py` | 214 | Upload handler, multi-page routing, page layouts, action view math, dashboard KPIs/highlights, filter controls (incl. game type toggle), guide page, showdown section (incl. winner + hand description + net result display), favourites, DataTable sorting, decimal format helpers, opponent profile cards, profiles panel, villain summary line, first-action archetype badge, session report view (KPI strip, narrative, EV summary, flagged hands, equity-unavailable note), session report navigation (breadcrumb + browse button wiring), settings analysis controls (sample count, lucky/unlucky thresholds, min-hands) |
-| `test_analysis.py` | 122 | Queries and stats: VPIP, PFR, Win Rate, AF, WTSD, timeline, 3-bet (incl. blind-position regression), c-bet, EV, equity cache, date filter, currency filter, session player stats, player archetype classification (incl. min_hands kwarg), session analysis queries (get_session_kpis, get_session_hero_actions, get_session_showdown_hands), compute_equity_multiway, multiway showdown query (pipe-separated villain_cards) |
+| `test_frontend.py` | 238 | Upload handler, multi-page routing, page layouts, action view math, dashboard KPIs/highlights/position traffic lights, filter controls (incl. game type toggle), guide page, showdown section (incl. winner + hand description + net result display), favourites, DataTable sorting, decimal format helpers, opponent profile cards, profiles panel, villain summary line, first-action archetype badge, session report view (KPI strip, narrative, position breakdown table with traffic lights, EV summary, flagged hands, equity-unavailable note), session report navigation (breadcrumb + browse button wiring), settings analysis controls (sample count, lucky/unlucky thresholds, min-hands), target settings sub-page (/settings/targets — layout, inputs for all 6 positions × 3 stats × 4 bounds, load callback defaults, link from main settings) |
+| `test_analysis.py` | 136 | Queries and stats: VPIP, PFR, Win Rate, AF, WTSD, timeline, 3-bet (incl. blind-position regression), c-bet, EV, equity cache, date filter, currency filter, session player stats, player archetype classification (incl. min_hands kwarg), session analysis queries (get_session_kpis, get_session_hero_actions, get_session_showdown_hands), compute_equity_multiway, multiway showdown query (pipe-separated villain_cards), traffic_light (green/yellow/red zones, asymmetric, boundary), read_target_settings (defaults, DB override) |
 | `test_database.py` | 62 | 9 classes — schema, inserts, deduplication, settings, favourites, currency storage |
 | `test_ingestion.py` | 28 | Pipeline, financials, re-buy detection, logging |
 

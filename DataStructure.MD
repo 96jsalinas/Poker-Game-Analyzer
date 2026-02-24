@@ -99,9 +99,39 @@ A simple key/value store for persistent application configuration.
 | `lucky_equity_threshold` | `"40"` | Integer percentage (0–100). Hero wins below this equity → 🍀 Lucky. |
 | `unlucky_equity_threshold` | `"60"` | Integer percentage (0–100). Hero loses above this equity → 😞 Unlucky. |
 | `min_hands_classification` | `"15"` | Minimum hands observed before an opponent archetype badge is shown. |
-| `target_vpip` | `""` | User's target VPIP % (empty string = not set). Shown on the Dashboard KPI card. |
-| `target_pfr` | `""` | User's target PFR % (empty string = not set). Shown on the Dashboard KPI card. |
-| `target_3bet` | `""` | User's target 3-Bet % (empty string = not set). Shown on the Dashboard KPI card. |
+
+---
+
+## 🎯 7. Target Settings Table
+Dedicated table for position-specific traffic-light target ranges. Separate from the generic key-value `settings` table.
+
+| Column | Type | Description |
+| :--- | :--- | :--- |
+| `stat` | TEXT (PK) | Statistic name: `'vpip'`, `'pfr'`, or `'3bet'`. |
+| `position` | TEXT (PK) | Canonical position: `'utg'`, `'mp'`, `'co'`, `'btn'`, `'sb'`, `'bb'`. |
+| `green_min` | REAL NOT NULL | Lower bound of the green (optimal) zone, inclusive. |
+| `green_max` | REAL NOT NULL | Upper bound of the green (optimal) zone, inclusive. |
+| `yellow_min` | REAL NOT NULL | Lower bound of the yellow (marginal) zone, inclusive. Must be ≤ `green_min`. |
+| `yellow_max` | REAL NOT NULL | Upper bound of the yellow (marginal) zone, inclusive. Must be ≥ `green_max`. |
+
+**18 rows total** (6 positions × 3 stats). All values are REAL percentage floats (e.g. `18.0` = 18%).
+
+**Position mapping at lookup time**: `UTG+1 → utg`, `MP+1 → mp` via `canonical_position()` in `targets.py`.
+
+**Default values** (TAG profile, written to DB on first access via `ensure_target_settings_table(conn)`):
+| Position | VPIP green | VPIP yellow | PFR green | PFR yellow | 3-Bet green | 3-Bet yellow |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| UTG | 12–18 | 9–21 | 10–15 | 7–18 | 3–6 | 1–9 |
+| MP | 14–20 | 11–23 | 11–17 | 8–20 | 3–7 | 1–10 |
+| CO | 18–26 | 14–30 | 13–20 | 10–24 | 5–9 | 3–12 |
+| BTN | 28–40 | 22–48 | 18–28 | 14–34 | 7–12 | 4–15 |
+| SB | 28–38 | 22–45 | 12–20 | 9–25 | 8–14 | 5–18 |
+| BB | 30–42 | 24–50 | 8–14 | 5–18 | 10–16 | 6–20 |
+
+**Key functions** (`src/pokerhero/analysis/targets.py`):
+* `ensure_target_settings_table(conn)` — creates table and inserts defaults if it doesn't exist.
+* `read_target_settings(conn) -> dict[tuple[str, str], TargetBounds]` — returns all 18 rows as a dict keyed by `(stat, position)`.
+* `traffic_light(value, green_min, green_max, yellow_min, yellow_max) -> Literal["green","yellow","red"]` — classifies a stat value against the zone bounds.
 
 ### `get_session_showdown_hands` output schema
 | Column | Type | Notes |

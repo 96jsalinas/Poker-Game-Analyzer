@@ -18,7 +18,7 @@ The entry point of the application (`/`). Currently a simple hub page.
 ## ⚙️ 2. Settings ✅ Implemented
 * **Hero Username**: Persisted in the `settings` DB table. Set in the dedicated `/settings` page; also available on the Upload page for convenience.
 * **Analysis Settings**: Configurable equity sample count, lucky/unlucky equity thresholds, and minimum hands for archetype classification. Stored in the `settings` table.
-* **Target Stats**: Configurable target VPIP, PFR, and 3-Bet percentages. Displayed as "Target: X%" subtitles on the Dashboard KPI cards when set. Stored in the `settings` table as `target_vpip`, `target_pfr`, `target_3bet`.
+* **Target Stats**: Position-specific VPIP / PFR / 3-Bet range targets with a traffic-light system (green / yellow / red zones). Configured on a dedicated sub-page at `/settings/targets` (linked from the main settings page). Stored in the `target_settings` table (not the key-value `settings` table).
 * **Data Management**: "Clear Database" deletes all hands/sessions/actions/players (settings preserved). "Export Data to CSV" downloads sessions + hands as `pokerhero_export.csv`.
 
 ---
@@ -52,6 +52,7 @@ A table view showing all played sessions.
 A narrative overview of the selected session, assembled from three query DataFrames (`get_session_kpis`, `get_session_hero_actions`, `get_session_showdown_hands`).
 * **Narrative paragraph** — template-driven sentence summarising VPIP%, PFR%, AF and win rate for the session. Built by `_build_session_narrative(kpis_df, actions_df, session_label)`.
 * **KPI strip** — five at-a-glance cards (Hands, VPIP%, PFR%, AF, Win Rate bb/100). Built by `_build_session_kpi_strip(kpis_df, actions_df)`.
+* **Position Breakdown Table** ✅ Implemented — compact per-position VPIP% / PFR% table with traffic-light background colouring (same green/yellow/red palette as the dashboard). Positions with no hands are omitted. Built by `_build_session_position_table(kpis_df, conn)` in `sessions.py`.
 * **EV Summary** — equity-based luck indicator. For each showdown hand with known villain cards, computes `compute_equity(hero_cards, villain_cards, board, 2000)`. Lucky: won with eq < 0.4. Unlucky: lost with eq > 0.6. Verdict: `👍 Ran above equity` / `👎 Ran below equity` / `~ Ran near equity`. Built by `_build_ev_summary(showdown_df)`.
 * **Notable Hands** — lists each hand classified as 🍀 Lucky or 😞 Unlucky with the equity percentage. Built by `_build_flagged_hands_list(showdown_df)`.
 * **Browse all N hands button** (`session-report-browse-btn`) — navigates to the Hand List for this session via `_browse_session_hands` callback.
@@ -84,7 +85,7 @@ A high-level overview of the Hero's performance across all time.
 * **Total Profit/Loss**: Large focal number.
 * **Win Rate**: Measured in `bb/100` (Big Blinds won per 100 hands).
 * **Volume**: Total sessions and total hands played.
-* **VPIP / PFR / 3-Bet**: Shown as headline KPI cards. When a target is configured in **Settings → Target Stats**, each card shows a "Target: X%" subtitle below the actual value.
+* **VPIP / PFR / 3-Bet**: Shown as headline KPI cards (no target display on the cards themselves).
 
 ### B. Positional Stats Table ✅
 Breakdown of how the user plays in different seats (BTN, SB, BB, etc.).
@@ -94,6 +95,7 @@ Breakdown of how the user plays in different seats (BTN, SB, BB, etc.).
 | ... | ... | ... | ... | ... | ... | ... | ... |
 
 * **Formula Tooltips**: ✅ Implemented — VPIP%, PFR%, 3-Bet%, C-Bet%, and AF column headers each show a hoverable `?` badge that displays the formula and definition. Built via `_stat_header(label, tooltip)` in `dashboard.py`; styles in `assets/tooltips.css`.
+* **Traffic Light Colouring**: ✅ Implemented — VPIP%, PFR%, and 3-Bet% cells are shaded green / yellow / red based on the user's configured target ranges for each position. Uses `traffic_light()` from `pokerhero.analysis.targets` with per-position `TargetBounds` loaded via `read_target_settings(conn)`. Color mapping: green `#d4edda`, yellow `#fff3cd`, red `#f8d7da`.
 
 ### C. Visualizations ✅
 * **Bankroll Graph**: A line chart showing cumulative profit over hands played.

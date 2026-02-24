@@ -108,6 +108,20 @@ Once an opponent has cleared the `min_hands` threshold and receives an archetype
 
 **Implementation:** `confidence_tier(hands_played: int) -> str` in `stats.py`. UI helper `_archetype_badge_attrs(archetype, hands_played)` in `sessions.py` returns `(label, extra_style)` spread into every badge Span across all four badge-creation sites.
 
+### I. Traffic Light Target System ✅ Implemented
+
+Hero VPIP / PFR / 3-Bet stats are classified against configurable per-position zone bounds with a three-tier traffic light result.
+
+**Zone logic:**
+$$\text{traffic\_light}(v, g_{min}, g_{max}, y_{min}, y_{max}) = \begin{cases} \text{green} & \text{if } g_{min} \le v \le g_{max} \\ \text{yellow} & \text{if } y_{min} \le v \le y_{max} \text{ (and not green)} \\ \text{red} & \text{otherwise} \end{cases}$$
+
+* The yellow zone must fully enclose the green zone: $y_{min} \le g_{min}$ and $y_{max} \ge g_{max}$ (supports asymmetric zones).
+* Values are percentage floats (e.g. `18.0` = 18%).
+
+**Position aliases**: `UTG+1 → utg`, `MP+1 → mp` via `canonical_position()` at lookup time. Settings UI and DB rows use the 6 canonical positions (`utg`, `mp`, `co`, `btn`, `sb`, `bb`).
+
+**Implementation:** `traffic_light(value, green_min, green_max, yellow_min, yellow_max)` and `canonical_position(position)` in `src/pokerhero/analysis/targets.py`. Default bounds represent a balanced TAG profile (stored in `TARGET_DEFAULTS`). See `DataStructure.MD §7` for the full table of defaults and DB schema.
+
 ---
 
 ## 🧪 4. Expected Value (EV) Logic ✅ Implemented
