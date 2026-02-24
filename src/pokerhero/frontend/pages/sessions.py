@@ -1532,6 +1532,7 @@ def _build_ev_summary(showdown_df: pd.DataFrame) -> html.Div:
     n = len(showdown_df)
     lucky = 0
     unlucky = 0
+    errors = 0
 
     for _, row in showdown_df.iterrows():
         try:
@@ -1542,6 +1543,7 @@ def _build_ev_summary(showdown_df: pd.DataFrame) -> html.Div:
                 2000,
             )
         except Exception:
+            errors += 1
             continue
         hero_won = float(row["net_result"]) > 0
         if hero_won and eq < 0.4:
@@ -1561,27 +1563,34 @@ def _build_ev_summary(showdown_df: pd.DataFrame) -> html.Div:
         verdict, vcolor = "~ Ran near equity", "#888"
 
     hand_word = "hand" if n == 1 else "hands"
-    return html.Div(
-        [
-            html.H5(
-                "EV Summary",
-                style={"marginBottom": "6px", "color": "#333"},
-            ),
+    children: list[html.H5 | html.P | html.Div] = [
+        html.H5(
+            "EV Summary",
+            style={"marginBottom": "6px", "color": "#333"},
+        ),
+        html.P(
+            f"{n} showdown {hand_word} with known villain cards.",
+            style={"fontSize": "13px", "color": "#555", "marginBottom": "6px"},
+        ),
+        html.Div(
+            verdict,
+            style={
+                "fontSize": "16px",
+                "fontWeight": "600",
+                "color": vcolor,
+            },
+        ),
+    ]
+    if errors:
+        err_word = "hand" if errors == 1 else "hands"
+        children.append(
             html.P(
-                f"{n} showdown {hand_word} with known villain cards.",
-                style={"fontSize": "13px", "color": "#555", "marginBottom": "6px"},
-            ),
-            html.Div(
-                verdict,
-                style={
-                    "fontSize": "16px",
-                    "fontWeight": "600",
-                    "color": vcolor,
-                },
-            ),
-        ],
-        style={"marginBottom": "20px"},
-    )
+                f"⚠️ {errors} {err_word} — equity unavailable"
+                " (unrecognised card format).",
+                style={"fontSize": "12px", "color": "#888", "marginTop": "6px"},
+            )
+        )
+    return html.Div(children, style={"marginBottom": "20px"})
 
 
 def _build_flagged_hands_list(showdown_df: pd.DataFrame) -> html.Div:
@@ -1614,6 +1623,25 @@ def _build_flagged_hands_list(showdown_df: pd.DataFrame) -> html.Div:
                 2000,
             )
         except Exception:
+            flagged.append(
+                html.Div(
+                    [
+                        html.Span(
+                            "⚠️ Equity unavailable",
+                            style={
+                                "marginRight": "10px",
+                                "color": "#888",
+                                "fontWeight": "600",
+                            },
+                        ),
+                        html.Span(
+                            f"Hand #{row['source_hand_id']}",
+                            style={"fontSize": "13px", "color": "#aaa"},
+                        ),
+                    ],
+                    style={"padding": "6px 0", "borderBottom": "1px solid #f0f0f0"},
+                )
+            )
             continue
         hero_won = float(row["net_result"]) > 0
         if hero_won and eq < 0.4:
