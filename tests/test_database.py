@@ -988,3 +988,93 @@ class TestFavorites:
             "SELECT is_favorite FROM hands WHERE id=?", (hand_id,)
         ).fetchone()
         assert row[0] == 0
+
+
+class TestHandEquityCache:
+    """Tests for hand_equity table schema and get/set helper functions."""
+
+    @pytest.fixture
+    def player_id(self, db):
+        cur = db.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'hero')"
+        )
+        db.commit()
+        return cur.lastrowid
+
+    @pytest.fixture
+    def hand_id(self, db, player_id):
+        cur = db.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats, small_blind, big_blind,"
+            " ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 9, 100, 200, 0, '2024-01-01')"
+        )
+        session_id = cur.lastrowid
+        cur = db.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot,"
+            " uncalled_bet_returned, rake, timestamp)"
+            " VALUES ('H1', ?, 1000, 0, 50, '2024-01-01T00:00:00')",
+            (session_id,),
+        )
+        db.commit()
+        return cur.lastrowid
+
+    def test_hand_equity_table_exists(self, db):
+        row = db.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name='hand_equity'"
+        ).fetchone()
+        assert row is not None
+
+    def test_hand_equity_table_columns(self, db):
+        cols = {row[1] for row in db.execute("PRAGMA table_info(hand_equity)")}
+        assert {"hand_id", "hero_id", "equity", "sample_count"} <= cols
+
+    def test_get_hand_equity_returns_none_on_miss(self, db, hand_id, player_id):
+        from pokerhero.database.db import get_hand_equity
+
+        result = get_hand_equity(db, hand_id, player_id, sample_count=2000)
+        assert result is None
+
+    def test_get_hand_equity_returns_none_when_sample_count_differs(
+        self, db, hand_id, player_id
+    ):
+        from pokerhero.database.db import get_hand_equity, set_hand_equity
+
+        set_hand_equity(db, hand_id, player_id, equity=0.65, sample_count=2000)
+        db.commit()
+        result = get_hand_equity(db, hand_id, player_id, sample_count=5000)
+        assert result is None
+
+    def test_set_and_get_hand_equity_round_trip(self, db, hand_id, player_id):
+        from pokerhero.database.db import get_hand_equity, set_hand_equity
+
+        set_hand_equity(db, hand_id, player_id, equity=0.72, sample_count=2000)
+        db.commit()
+        result = get_hand_equity(db, hand_id, player_id, sample_count=2000)
+        assert result == pytest.approx(0.72)
+
+    def test_set_hand_equity_upserts_on_same_key(self, db, hand_id, player_id):
+        from pokerhero.database.db import get_hand_equity, set_hand_equity
+
+        set_hand_equity(db, hand_id, player_id, equity=0.50, sample_count=2000)
+        db.commit()
+        set_hand_equity(db, hand_id, player_id, equity=0.80, sample_count=2000)
+        db.commit()
+        result = get_hand_equity(db, hand_id, player_id, sample_count=2000)
+        assert result == pytest.approx(0.80)
+
+    def test_set_hand_equity_upserts_different_sample_count(
+        self, db, hand_id, player_id
+    ):
+        from pokerhero.database.db import get_hand_equity, set_hand_equity
+
+        set_hand_equity(db, hand_id, player_id, equity=0.50, sample_count=2000)
+        db.commit()
+        # Overwrite with new sample_count
+        set_hand_equity(db, hand_id, player_id, equity=0.55, sample_count=5000)
+        db.commit()
+        assert get_hand_equity(db, hand_id, player_id, sample_count=2000) is None
+        assert get_hand_equity(
+            db, hand_id, player_id, sample_count=5000
+        ) == pytest.approx(0.55)
