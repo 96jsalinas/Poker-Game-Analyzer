@@ -319,6 +319,35 @@ class TestSessionsBreadcrumb:
         result = _breadcrumb("hands", session_label="100/200", session_id=3)
         assert "All Hands" in str(result)
 
+    def test_actions_level_has_all_hands_link(self):
+        """'actions' breadcrumb includes a clickable 'All Hands' step."""
+        from pokerhero.frontend.pages.sessions import _breadcrumb
+
+        result = str(
+            _breadcrumb(
+                "actions",
+                session_label="100/200",
+                session_id=3,
+                hand_label="Hand #42",
+            )
+        )
+        assert "All Hands" in result
+
+    def test_actions_level_all_hands_link_navigates_to_hands(self):
+        """'actions' breadcrumb All Hands button targets level='hands'."""
+        from pokerhero.frontend.pages.sessions import _breadcrumb
+
+        result = str(
+            _breadcrumb(
+                "actions",
+                session_label="100/200",
+                session_id=3,
+                hand_label="Hand #42",
+            )
+        )
+        # The button id dict is serialised into the str representation
+        assert "'level': 'hands'" in result or '"level": "hands"' in result
+
 
 # ---------------------------------------------------------------------------
 # TestUpdateStateBreadcrumb
