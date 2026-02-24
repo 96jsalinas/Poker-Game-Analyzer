@@ -1501,3 +1501,143 @@ class TestGetSessionShowdownHandsMultiway:
         username_field = str(df.iloc[0]["villain_username"])
         assert "Alice" in username_field
         assert "Bob" in username_field
+
+
+# ---------------------------------------------------------------------------
+# TestTrafficLight
+# ---------------------------------------------------------------------------
+
+
+class TestTrafficLight:
+    """Tests for traffic_light() in targets.py."""
+
+    def test_value_within_green_range_is_green(self):
+        """Value between green_min and green_max → 'green'."""
+        from pokerhero.analysis.targets import traffic_light
+
+        assert traffic_light(15.0, 12.0, 18.0, 9.0, 21.0) == "green"
+
+    def test_value_at_green_min_boundary_is_green(self):
+        """Value exactly at green_min → 'green'."""
+        from pokerhero.analysis.targets import traffic_light
+
+        assert traffic_light(12.0, 12.0, 18.0, 9.0, 21.0) == "green"
+
+    def test_value_at_green_max_boundary_is_green(self):
+        """Value exactly at green_max → 'green'."""
+        from pokerhero.analysis.targets import traffic_light
+
+        assert traffic_light(18.0, 12.0, 18.0, 9.0, 21.0) == "green"
+
+    def test_value_in_yellow_below_green_is_yellow(self):
+        """Value below green_min but within yellow_min → 'yellow'."""
+        from pokerhero.analysis.targets import traffic_light
+
+        assert traffic_light(10.0, 12.0, 18.0, 9.0, 21.0) == "yellow"
+
+    def test_value_in_yellow_above_green_is_yellow(self):
+        """Value above green_max but within yellow_max → 'yellow'."""
+        from pokerhero.analysis.targets import traffic_light
+
+        assert traffic_light(20.0, 12.0, 18.0, 9.0, 21.0) == "yellow"
+
+    def test_value_at_yellow_min_boundary_is_yellow(self):
+        """Value exactly at yellow_min → 'yellow'."""
+        from pokerhero.analysis.targets import traffic_light
+
+        assert traffic_light(9.0, 12.0, 18.0, 9.0, 21.0) == "yellow"
+
+    def test_value_at_yellow_max_boundary_is_yellow(self):
+        """Value exactly at yellow_max → 'yellow'."""
+        from pokerhero.analysis.targets import traffic_light
+
+        assert traffic_light(21.0, 12.0, 18.0, 9.0, 21.0) == "yellow"
+
+    def test_value_below_yellow_min_is_red(self):
+        """Value below yellow_min → 'red'."""
+        from pokerhero.analysis.targets import traffic_light
+
+        assert traffic_light(5.0, 12.0, 18.0, 9.0, 21.0) == "red"
+
+    def test_value_above_yellow_max_is_red(self):
+        """Value above yellow_max → 'red'."""
+        from pokerhero.analysis.targets import traffic_light
+
+        assert traffic_light(25.0, 12.0, 18.0, 9.0, 21.0) == "red"
+
+    def test_asymmetric_yellow_zone_below(self):
+        """Asymmetric zones: wider yellow below than above → correctly classifies."""
+        from pokerhero.analysis.targets import traffic_light
+
+        # green 15-20, yellow 5-22 (wider below)
+        assert traffic_light(8.0, 15.0, 20.0, 5.0, 22.0) == "yellow"
+        assert traffic_light(4.0, 15.0, 20.0, 5.0, 22.0) == "red"
+        assert traffic_light(21.0, 15.0, 20.0, 5.0, 22.0) == "yellow"
+        assert traffic_light(23.0, 15.0, 20.0, 5.0, 22.0) == "red"
+
+
+# ---------------------------------------------------------------------------
+# TestReadTargetSettings
+# ---------------------------------------------------------------------------
+
+
+class TestReadTargetSettings:
+    """Tests for read_target_settings() in targets.py."""
+
+    def test_memory_db_returns_all_positions(self):
+        """read_target_settings on :memory: conn returns entries for all 6 positions."""
+        import sqlite3
+
+        from pokerhero.analysis.targets import POSITIONS, read_target_settings
+
+        conn = sqlite3.connect(":memory:")
+        result = read_target_settings(conn)
+        for stat in ("vpip", "pfr", "3bet"):
+            for pos in POSITIONS:
+                assert (stat, pos) in result, f"Missing ({stat!r}, {pos!r})"
+
+    def test_memory_db_returns_target_bounds_typeddict(self):
+        """Each value in the result has green_min/max and yellow_min/max keys."""
+        import sqlite3
+
+        from pokerhero.analysis.targets import read_target_settings
+
+        conn = sqlite3.connect(":memory:")
+        result = read_target_settings(conn)
+        bounds = result[("vpip", "btn")]
+        assert all(
+            k in bounds for k in ("green_min", "green_max", "yellow_min", "yellow_max")
+        )
+
+    def test_memory_db_uses_defaults(self):
+        """Values returned for :memory: match TARGET_DEFAULTS."""
+        import sqlite3
+
+        from pokerhero.analysis.targets import TARGET_DEFAULTS, read_target_settings
+
+        conn = sqlite3.connect(":memory:")
+        result = read_target_settings(conn)
+        for key, expected in TARGET_DEFAULTS.items():
+            assert result[key] == expected
+
+    def test_persisted_values_override_defaults(self):
+        """After upsert, read_target_settings returns the new values."""
+        import sqlite3
+
+        from pokerhero.analysis.targets import (
+            ensure_target_settings_table,
+            read_target_settings,
+        )
+
+        conn = sqlite3.connect(":memory:")
+        ensure_target_settings_table(conn)
+        conn.execute(
+            "INSERT OR REPLACE INTO target_settings "
+            "(stat, position, green_min, green_max, yellow_min, yellow_max) "
+            "VALUES (?, ?, ?, ?, ?, ?)",
+            ("vpip", "btn", 30.0, 45.0, 24.0, 52.0),
+        )
+        conn.commit()
+        result = read_target_settings(conn)
+        assert result[("vpip", "btn")]["green_min"] == 30.0
+        assert result[("vpip", "btn")]["green_max"] == 45.0
