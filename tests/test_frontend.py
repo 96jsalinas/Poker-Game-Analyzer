@@ -2480,3 +2480,88 @@ class TestBuildFlaggedHandsList:
         )
         result = str(_build_flagged_hands_list(df))
         assert "unavailable" in result.lower()
+
+
+# ---------------------------------------------------------------------------
+# TestBuildSessionPositionTable
+# ---------------------------------------------------------------------------
+
+
+class TestBuildSessionPositionTable:
+    """Tests for _build_session_position_table pure UI helper."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def _kpis(self):
+        import pandas as pd
+
+        return pd.DataFrame(
+            {
+                "vpip": [1, 1, 0, 1, 0, 1],
+                "pfr": [1, 0, 0, 1, 0, 0],
+                "net_result": [500.0, -200.0, -100.0, 300.0, -50.0, 100.0],
+                "big_blind": [200.0] * 6,
+                "saw_flop": [1, 1, 0, 1, 0, 1],
+                "went_to_showdown": [1, 0, 0, 1, 0, 0],
+                "position": ["BTN", "CO", "MP", "UTG", "SB", "BB"],
+            }
+        )
+
+    def test_returns_html_div(self):
+        """Result is an html.Div."""
+        from dash import html
+
+        from pokerhero.database.db import init_db
+        from pokerhero.frontend.pages.sessions import _build_session_position_table
+
+        conn = init_db(":memory:")
+        result = _build_session_position_table(self._kpis(), conn)
+        conn.close()
+        assert isinstance(result, html.Div)
+
+    def test_shows_position_names(self):
+        """Table rows include position abbreviations."""
+        from pokerhero.database.db import init_db
+        from pokerhero.frontend.pages.sessions import _build_session_position_table
+
+        conn = init_db(":memory:")
+        result = str(_build_session_position_table(self._kpis(), conn))
+        conn.close()
+        assert "BTN" in result
+
+    def test_shows_vpip_values(self):
+        """Table cells show VPIP percentages."""
+        from pokerhero.database.db import init_db
+        from pokerhero.frontend.pages.sessions import _build_session_position_table
+
+        conn = init_db(":memory:")
+        result = str(_build_session_position_table(self._kpis(), conn))
+        conn.close()
+        # BTN has 1/1 = 100% VPIP
+        assert "100.0" in result
+
+    def test_traffic_light_color_applied(self):
+        """Cells carry a backgroundColor from the traffic light palette."""
+        from pokerhero.database.db import init_db
+        from pokerhero.frontend.pages.sessions import _build_session_position_table
+
+        conn = init_db(":memory:")
+        result = str(_build_session_position_table(self._kpis(), conn))
+        conn.close()
+        # Any of the three pastel hex codes must appear
+        assert any(color in result for color in ("#d4edda", "#fff3cd", "#f8d7da"))
+
+    def test_empty_dataframe_no_crash(self):
+        """Empty kpis_df returns a Div without raising."""
+        import pandas as pd
+
+        from pokerhero.database.db import init_db
+        from pokerhero.frontend.pages.sessions import _build_session_position_table
+
+        conn = init_db(":memory:")
+        result = _build_session_position_table(pd.DataFrame(), conn)
+        conn.close()
+        assert result is not None
