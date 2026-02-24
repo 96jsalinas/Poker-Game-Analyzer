@@ -6,6 +6,11 @@ import dash
 import pandas as pd
 from dash import Input, Output, callback, dcc, html
 
+from pokerhero.analysis.targets import (
+    canonical_position,
+    read_target_settings,
+    traffic_light,
+)
 from pokerhero.database.db import get_connection, get_setting, upsert_player
 
 dash.register_page(__name__, path="/dashboard", name="Overall Stats")  # type: ignore[no-untyped-call]
@@ -187,6 +192,13 @@ def _stat_header(label: str, tooltip: str) -> html.Th:
         ],
         style=_TH,
     )
+
+
+_TL_COLORS: dict[str, str] = {
+    "green": "#d4edda",
+    "yellow": "#fff3cd",
+    "red": "#f8d7da",
+}
 
 
 def _kpi_card(
@@ -517,6 +529,7 @@ def _render(pathname: str, period: str, currency: str) -> html.Div | str:
         opp_df = get_hero_opportunity_actions(
             conn, player_id, since_date=since_date, currency_type=currency_type
         )
+        tl_targets = read_target_settings(conn)
     finally:
         conn.close()
 
@@ -616,14 +629,55 @@ def _render(pathname: str, period: str, currency: str) -> html.Div | str:
         pos_pnl = total_profit(pos_hp)
         af_str = f"{pos_af:.2f}" if pos_af != float("inf") else "∞"
         pnl_style = {**_TD, "color": "green" if pos_pnl >= 0 else "red"}
+
+        # Traffic-light colours for VPIP, PFR, 3-Bet
+        canon = canonical_position(pos)
+        vpip_b = tl_targets.get(("vpip", canon), tl_targets[("vpip", "utg")])
+        pfr_b = tl_targets.get(("pfr", canon), tl_targets[("pfr", "utg")])
+        tbet_b = tl_targets.get(("3bet", canon), tl_targets[("3bet", "utg")])
+        tl_color = _TL_COLORS[
+            traffic_light(
+                pos_vpip,
+                vpip_b["green_min"],
+                vpip_b["green_max"],
+                vpip_b["yellow_min"],
+                vpip_b["yellow_max"],
+            )
+        ]
+        pfr_tl_color = _TL_COLORS[
+            traffic_light(
+                pos_pfr,
+                pfr_b["green_min"],
+                pfr_b["green_max"],
+                pfr_b["yellow_min"],
+                pfr_b["yellow_max"],
+            )
+        ]
+        tbet_tl_color = _TL_COLORS[
+            traffic_light(
+                pos_3bet,
+                tbet_b["green_min"],
+                tbet_b["green_max"],
+                tbet_b["yellow_min"],
+                tbet_b["yellow_max"],
+            )
+        ]
         pos_rows.append(
             html.Tr(
                 [
                     html.Td(pos, style={**_TD, "fontWeight": "600"}),
                     html.Td(len(pos_hp), style=_TD),
-                    html.Td(f"{pos_vpip:.1f}%", style=_TD),
-                    html.Td(f"{pos_pfr:.1f}%", style=_TD),
-                    html.Td(f"{pos_3bet:.1f}%", style=_TD),
+                    html.Td(
+                        f"{pos_vpip:.1f}%", style={**_TD, "backgroundColor": tl_color}
+                    ),
+                    html.Td(
+                        f"{pos_pfr:.1f}%",
+                        style={**_TD, "backgroundColor": pfr_tl_color},
+                    ),
+                    html.Td(
+                        f"{pos_3bet:.1f}%",
+                        style={**_TD, "backgroundColor": tbet_tl_color},
+                    ),
                     html.Td(f"{pos_cbet:.1f}%", style=_TD),
                     html.Td(af_str, style=_TD),
                     html.Td(
