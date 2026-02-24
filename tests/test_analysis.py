@@ -1315,3 +1315,141 @@ class TestSessionAnalysisQueries:
 
         df = get_session_showdown_hands(db_with_data, session_id, hero_player_id)
         assert df.iloc[0]["net_result"] < 0
+
+
+# ---------------------------------------------------------------------------
+# TestComputeEquityMultiway
+# ---------------------------------------------------------------------------
+
+
+class TestComputeEquityMultiway:
+    """Tests for compute_equity_multiway in stats.py."""
+
+    def test_returns_float(self):
+        """compute_equity_multiway returns a float."""
+        from pokerhero.analysis.stats import compute_equity_multiway
+
+        result = compute_equity_multiway("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 500)
+        assert isinstance(result, float)
+
+    def test_high_equity_hand_near_one(self):
+        """Royal flush (Ah Kh on QhJhTh9d2s) vs trash → equity near 1.0."""
+        from pokerhero.analysis.stats import compute_equity_multiway
+
+        result = compute_equity_multiway("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 1000)
+        assert result > 0.95
+
+    def test_two_villains_reduces_equity(self):
+        """Adding a second villain lowers hero equity vs heads-up."""
+        from pokerhero.analysis.stats import compute_equity, compute_equity_multiway
+
+        # Use a board where hero has a mediocre hand to amplify the difference
+        heads_up = compute_equity("7s 8s", "2c 3d", "Ah Kd Qc", 2000)
+        multiway = compute_equity_multiway("7s 8s", "2c 3d|Jc Tc", "Ah Kd Qc", 2000)
+        assert multiway <= heads_up
+
+    def test_single_villain_close_to_compute_equity(self):
+        """Single villain produces equity within MC noise of compute_equity."""
+        from pokerhero.analysis.stats import compute_equity, compute_equity_multiway
+
+        # Use a large sample count to reduce Monte Carlo variance
+        eq1 = compute_equity("Ah Kh", "2c 3d", "Qh Jh Th", 5000)
+        eq2 = compute_equity_multiway("Ah Kh", "2c 3d", "Qh Jh Th", 5000)
+        assert abs(eq1 - eq2) < 0.05
+
+
+# ---------------------------------------------------------------------------
+# TestGetSessionShowdownHandsMultiway
+# ---------------------------------------------------------------------------
+
+
+class TestGetSessionShowdownHandsMultiway:
+    """get_session_showdown_hands: pipe-separated villain_cards for multiway pots."""
+
+    @pytest.fixture()
+    def multiway_db(self):
+        """In-memory DB: one session, one multiway showdown hand (hero + 2 villains)."""
+
+        from pokerhero.database.db import init_db, upsert_player
+
+        conn = init_db(":memory:")
+
+        hero_id = upsert_player(conn, "jsalinas96")
+        v1_id = upsert_player(conn, "Alice")
+        v2_id = upsert_player(conn, "Bob")
+
+        conn.execute(
+            """INSERT INTO sessions
+               (game_type, limit_type, max_seats, small_blind, big_blind, ante,
+                start_time, hero_buy_in, hero_cash_out, currency)
+               VALUES (
+                   'NLHE', 'No Limit', 6, 50, 100, 0,
+                   '2026-01-01T00:00:00', 10000, 8000, 'PLAY'
+               )"""
+        )
+        sid = conn.execute("SELECT last_insert_rowid()").fetchone()[0]
+
+        conn.execute(
+            """INSERT INTO hands
+               (session_id, source_hand_id, board_flop, board_turn, board_river,
+                total_pot, rake, uncalled_bet_returned, timestamp)
+               VALUES (?,?,?,?,?,?,?,?,?)""",
+            (
+                sid,
+                "MULTI#1",
+                "Ah Kh Qh",
+                "Jh",
+                "Th",
+                9000,
+                0,
+                0,
+                "2026-01-01T00:01:00",
+            ),
+        )
+        hid = conn.execute("SELECT last_insert_rowid()").fetchone()[0]
+
+        # Hero — went to showdown, has cards, net result negative
+        conn.execute(
+            """INSERT INTO hand_players
+               (hand_id, player_id, position, starting_stack, hole_cards,
+                vpip, pfr, went_to_showdown, net_result)
+               VALUES (?,?,'BTN',5000,'2c 3d',1,0,1,-3000)""",
+            (hid, hero_id),
+        )
+        # Villain 1 — went to showdown, has cards
+        conn.execute(
+            """INSERT INTO hand_players
+               (hand_id, player_id, position, starting_stack, hole_cards,
+                vpip, pfr, went_to_showdown, net_result)
+               VALUES (?,?,'SB',5000,'9c 8c',1,0,1,1500)""",
+            (hid, v1_id),
+        )
+        # Villain 2 — went to showdown, has cards
+        conn.execute(
+            """INSERT INTO hand_players
+               (hand_id, player_id, position, starting_stack, hole_cards,
+                vpip, pfr, went_to_showdown, net_result)
+               VALUES (?,?,'BB',5000,'7s 6s',1,0,1,1500)""",
+            (hid, v2_id),
+        )
+        conn.commit()
+        return conn, sid, hero_id
+
+    def test_villain_cards_pipe_separated_for_multiway(self, multiway_db):
+        """Two villains → villain_cards contains a pipe separator."""
+        from pokerhero.analysis.queries import get_session_showdown_hands
+
+        conn, sid, hero_id = multiway_db
+        df = get_session_showdown_hands(conn, sid, hero_id)
+        assert len(df) == 1
+        assert "|" in str(df.iloc[0]["villain_cards"])
+
+    def test_villain_username_comma_separated_for_multiway(self, multiway_db):
+        """Two villains → villain_username contains both names."""
+        from pokerhero.analysis.queries import get_session_showdown_hands
+
+        conn, sid, hero_id = multiway_db
+        df = get_session_showdown_hands(conn, sid, hero_id)
+        username_field = str(df.iloc[0]["villain_username"])
+        assert "Alice" in username_field
+        assert "Bob" in username_field
