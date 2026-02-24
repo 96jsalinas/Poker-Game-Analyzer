@@ -1721,21 +1721,71 @@ def _build_session_narrative(
     )
 
 
+def _build_equity_map(
+    conn: sqlite3.Connection,
+    showdown_df: pd.DataFrame,
+    hero_id: int,
+    sample_count: int,
+) -> dict[int, float]:
+    """Build a {hand_id: equity} map, reading from DB cache and computing on miss.
+
+    On a cache miss, equity is computed via compute_equity_multiway and stored
+    in the hand_equity table so subsequent session report views are instant.
+    Hands where equity computation fails (e.g. unrecognised card format) are
+    silently omitted from the map — callers should treat missing keys as
+    equity-unavailable.
+
+    Args:
+        conn: An open SQLite connection (caller must commit after this returns).
+        showdown_df: DataFrame from get_session_showdown_hands.
+        hero_id: Internal player id for the hero.
+        sample_count: Monte Carlo sample count to use / to match for cache hits.
+
+    Returns:
+        Dict mapping hand_id (int) → equity (float 0.0–1.0).
+    """
+    if showdown_df.empty:
+        return {}
+
+    from pokerhero.analysis.stats import compute_equity_multiway
+    from pokerhero.database.db import get_hand_equity, set_hand_equity
+
+    equity_map: dict[int, float] = {}
+    for _, row in showdown_df.iterrows():
+        hand_id = int(row["hand_id"])
+        cached = get_hand_equity(conn, hand_id, hero_id, sample_count)
+        if cached is not None:
+            equity_map[hand_id] = cached
+            continue
+        try:
+            eq = compute_equity_multiway(
+                str(row["hero_cards"]).strip(),
+                str(row["villain_cards"]).strip(),
+                str(row["board"]).strip(),
+                sample_count,
+            )
+        except Exception:
+            continue
+        set_hand_equity(conn, hand_id, hero_id, eq, sample_count)
+        equity_map[hand_id] = eq
+    return equity_map
+
+
 def _build_ev_summary(
     showdown_df: pd.DataFrame,
+    equity_map: dict[int, float],
     *,
-    sample_count: int = 2000,
     lucky_threshold: float = 0.4,
     unlucky_threshold: float = 0.6,
 ) -> html.Div:
     """Return an EV luck indicator based on showdown/all-in hands.
 
-    Computes equity for each hand via the LRU-cached compute_equity and
-    classifies the session as above/below/near equity.
+    Classifies the session as above/below/near equity using pre-computed
+    equity values from equity_map (keyed by hand_id).
 
     Args:
         showdown_df: DataFrame from get_session_showdown_hands.
-        sample_count: Monte Carlo samples passed to compute_equity_multiway.
+        equity_map: Pre-computed {hand_id: equity} from _build_equity_map.
         lucky_threshold: Hero wins with equity below this fraction → Lucky.
         unlucky_threshold: Hero loses with equity above this fraction → Unlucky.
 
@@ -1748,24 +1798,17 @@ def _build_ev_summary(
             style={"color": "#888", "fontSize": "13px"},
         )
 
-    from pokerhero.analysis.stats import compute_equity_multiway
-
     n = len(showdown_df)
     lucky = 0
     unlucky = 0
     errors = 0
 
     for _, row in showdown_df.iterrows():
-        try:
-            eq = compute_equity_multiway(
-                str(row["hero_cards"]).strip(),
-                str(row["villain_cards"]).strip(),
-                str(row["board"]).strip(),
-                sample_count,
-            )
-        except Exception:
+        hand_id = int(row["hand_id"])
+        if hand_id not in equity_map:
             errors += 1
             continue
+        eq = equity_map[hand_id]
         hero_won = float(row["net_result"]) > 0
         if hero_won and eq < lucky_threshold:
             lucky += 1
@@ -1816,8 +1859,8 @@ def _build_ev_summary(
 
 def _build_flagged_hands_list(
     showdown_df: pd.DataFrame,
+    equity_map: dict[int, float],
     *,
-    sample_count: int = 2000,
     lucky_threshold: float = 0.4,
     unlucky_threshold: float = 0.6,
 ) -> html.Div:
@@ -1828,7 +1871,7 @@ def _build_flagged_hands_list(
 
     Args:
         showdown_df: DataFrame from get_session_showdown_hands.
-        sample_count: Monte Carlo samples passed to compute_equity_multiway.
+        equity_map: Pre-computed {hand_id: equity} from _build_equity_map.
         lucky_threshold: Hero wins with equity below this fraction → Lucky.
         unlucky_threshold: Hero loses with equity above this fraction → Unlucky.
 
@@ -1841,18 +1884,10 @@ def _build_flagged_hands_list(
             style={"color": "#888", "fontSize": "13px"},
         )
 
-    from pokerhero.analysis.stats import compute_equity_multiway
-
     flagged: list[html.Div] = []
     for _, row in showdown_df.iterrows():
-        try:
-            eq = compute_equity_multiway(
-                str(row["hero_cards"]).strip(),
-                str(row["villain_cards"]).strip(),
-                str(row["board"]).strip(),
-                sample_count,
-            )
-        except Exception:
+        hand_id = int(row["hand_id"])
+        if hand_id not in equity_map:
             flagged.append(
                 html.Div(
                     [
@@ -1873,6 +1908,7 @@ def _build_flagged_hands_list(
                 )
             )
             continue
+        eq = equity_map[hand_id]
         hero_won = float(row["net_result"]) > 0
         if hero_won and eq < lucky_threshold:
             flag, fcolor = "🍀 Lucky", "#28a745"
@@ -1953,11 +1989,13 @@ def _render_session_report(db_path: str, session_id: int) -> tuple[html.Div | st
         actions_df = get_session_hero_actions(conn, session_id, player_id)
         showdown_df = get_session_showdown_hands(conn, session_id, player_id)
         pos_table = _build_session_position_table(kpis_df, conn)
+        s = _read_analysis_settings(db_path)
+        sample_count = s["equity_sample_count"]
+        equity_map = _build_equity_map(conn, showdown_df, int(player_id), sample_count)
+        conn.commit()
     finally:
         conn.close()
 
-    s = _read_analysis_settings(db_path)
-    sample_count = s["equity_sample_count"]
     lucky_threshold = s["lucky_equity_threshold"] / 100.0
     unlucky_threshold = s["unlucky_equity_threshold"] / 100.0
 
@@ -1971,13 +2009,13 @@ def _render_session_report(db_path: str, session_id: int) -> tuple[html.Div | st
             pos_table,
             _build_ev_summary(
                 showdown_df,
-                sample_count=sample_count,
+                equity_map,
                 lucky_threshold=lucky_threshold,
                 unlucky_threshold=unlucky_threshold,
             ),
             _build_flagged_hands_list(
                 showdown_df,
-                sample_count=sample_count,
+                equity_map,
                 lucky_threshold=lucky_threshold,
                 unlucky_threshold=unlucky_threshold,
             ),
