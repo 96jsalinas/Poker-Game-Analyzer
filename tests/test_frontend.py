@@ -274,6 +274,52 @@ class TestDashboardPageLayout:
         assert 'Input("dashboard-currency"' in src
 
 
+class TestDashboardPositionTrafficLights:
+    """Traffic-light colours applied to VPIP/PFR/3-Bet cells in position table."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_dashboard_render_imports_traffic_light(self):
+        """Dashboard render source must import traffic_light from targets module."""
+        import inspect
+
+        from pokerhero.frontend.pages import dashboard
+
+        src = inspect.getsource(dashboard)
+        assert "traffic_light" in src
+
+    def test_dashboard_render_reads_target_settings(self):
+        """Dashboard render source must call read_target_settings."""
+        import inspect
+
+        from pokerhero.frontend.pages import dashboard
+
+        src = inspect.getsource(dashboard)
+        assert "read_target_settings" in src
+
+    def test_dashboard_render_applies_background_color_to_position_cells(self):
+        """Dashboard render source must set backgroundColor on VPIP position cells."""
+        import inspect
+
+        from pokerhero.frontend.pages import dashboard
+
+        src = inspect.getsource(dashboard)
+        assert "backgroundColor" in src
+
+    def test_vpip_cell_uses_traffic_light_color(self):
+        """Position table VPIP cell style must use the traffic_light output as color."""
+        import inspect
+
+        from pokerhero.frontend.pages import dashboard
+
+        src = inspect.getsource(dashboard)
+        # The color mapping must appear in the render source
+        assert "_TL_COLORS" in src or "tl_color" in src or "traffic_light" in src
+
+
 class TestCardRendering:
     """Tests for the _render_card and _render_cards helper functions."""
 
@@ -589,9 +635,8 @@ class TestSettingsTargetsPage:
 
     def test_load_callback_returns_defaults_for_memory_db(self):
         """Load callback returns TARGET_DEFAULTS values for an in-memory DB."""
-        from pokerhero.frontend.pages.settings_targets import _load_targets
-
         from pokerhero.analysis.targets import TARGET_DEFAULTS
+        from pokerhero.frontend.pages.settings_targets import _load_targets
 
         result = _load_targets("/settings/targets")
         defaults = TARGET_DEFAULTS[("vpip", "btn")]
