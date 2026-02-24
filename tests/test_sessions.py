@@ -1600,7 +1600,7 @@ class TestBuildEvSummary:
 
         from pokerhero.frontend.pages.sessions import _build_ev_summary
 
-        assert isinstance(_build_ev_summary(pd.DataFrame()), html.Div)
+        assert isinstance(_build_ev_summary(pd.DataFrame(), {}), html.Div)
 
     def test_empty_shows_no_showdown_message(self):
         """Empty DataFrame produces a message indicating no showdown data."""
@@ -1608,43 +1608,30 @@ class TestBuildEvSummary:
 
         from pokerhero.frontend.pages.sessions import _build_ev_summary
 
-        text = str(_build_ev_summary(pd.DataFrame())).lower()
+        text = str(_build_ev_summary(pd.DataFrame(), {})).lower()
         assert "no" in text or "0" in text
 
     def test_nonempty_mentions_showdown(self):
         """Non-empty DataFrame mentions showdown in the output."""
         from pokerhero.frontend.pages.sessions import _build_ev_summary
 
-        text = str(_build_ev_summary(self._showdown_df())).lower()
+        text = str(_build_ev_summary(self._showdown_df(), {1: 0.95})).lower()
         assert "showdown" in text
 
     def test_unlucky_outcome_shows_below_equity(self):
-        """Hero had near-100% equity (royal flush) but lost → below equity verdict."""
+        """Hero had near-100% equity but lost → below equity verdict."""
         from pokerhero.frontend.pages.sessions import _build_ev_summary
 
-        # Ah Kh vs 2c 3d on Qh Jh Th 9d 2s: hero equity ≈ 1.0, but hero loses
-        result = _build_ev_summary(self._showdown_df(net_result=-3000.0))
+        # hand_id=1, equity=0.95 (high), hero loses → unlucky
+        result = _build_ev_summary(self._showdown_df(net_result=-3000.0), {1: 0.95})
         assert "below" in str(result).lower()
 
-    def test_ev_summary_shows_unavailable_note_for_bad_cards(self):
-        """Row with unparseable card strings shows an equity-unavailable note."""
-        import pandas as pd
-
+    def test_ev_summary_shows_unavailable_note_when_equity_missing(self):
+        """Hand whose equity was not computed shows an equity-unavailable note."""
         from pokerhero.frontend.pages.sessions import _build_ev_summary
 
-        df = pd.DataFrame(
-            {
-                "hand_id": [1],
-                "source_hand_id": ["#999"],
-                "hero_cards": ["XX XX"],
-                "villain_username": ["villain"],
-                "villain_cards": ["YY YY"],
-                "board": [""],
-                "net_result": [100.0],
-                "total_pot": [200.0],
-            }
-        )
-        result = str(_build_ev_summary(df))
+        # hand_id=1 not in equity_map → unavailable
+        result = str(_build_ev_summary(self._showdown_df(), {}))
         assert "unavailable" in result.lower()
 
 
@@ -1689,57 +1676,151 @@ class TestBuildFlaggedHandsList:
 
         from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
 
-        assert isinstance(_build_flagged_hands_list(pd.DataFrame()), html.Div)
+        assert isinstance(_build_flagged_hands_list(pd.DataFrame(), {}), html.Div)
 
     def test_nonempty_no_crash(self):
         """Non-flagged hand (won with high equity) returns Div without raising."""
         from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
 
-        assert _build_flagged_hands_list(self._hand_df(net_result=5000.0)) is not None
+        # hand_id=1, equity=0.95 (high), hero wins → not flagged
+        result = _build_flagged_hands_list(self._hand_df(net_result=5000.0), {1: 0.95})
+        assert result is not None
 
     def test_unlucky_hand_flagged(self):
         """Hero had near-100% equity but lost → flagged as Unlucky."""
         from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
 
-        # Ah Kh vs 2c 3d on Qh Jh Th 9d 2s: equity ≈ 1.0 but hero loses
-        result = _build_flagged_hands_list(self._hand_df(net_result=-3000.0))
+        # hand_id=1, equity=0.95 (> unlucky_threshold=0.6), hero loses
+        result = _build_flagged_hands_list(self._hand_df(net_result=-3000.0), {1: 0.95})
         assert "Unlucky" in str(result)
 
     def test_lucky_hand_flagged(self):
         """Hero had near-zero equity but won → flagged as Lucky."""
         from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
 
-        # 2c 3d vs Ah Kh on Qh Jh Th 9d 2s: equity ≈ 0.0 but hero wins
-        result = _build_flagged_hands_list(
-            self._hand_df(hero_cards="2c 3d", villain_cards="Ah Kh", net_result=5000.0)
-        )
+        # hand_id=1, equity=0.02 (< lucky_threshold=0.4), hero wins
+        result = _build_flagged_hands_list(self._hand_df(net_result=5000.0), {1: 0.02})
         assert "Lucky" in str(result)
 
-    def test_flagged_hands_shows_unavailable_for_bad_cards(self):
-        """Row with unparseable card strings appears as equity-unavailable entry."""
-        import pandas as pd
-
+    def test_flagged_hands_shows_unavailable_for_missing_equity(self):
+        """Hand not present in equity_map appears as equity-unavailable entry."""
         from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
 
-        df = pd.DataFrame(
-            {
-                "hand_id": [1],
-                "source_hand_id": ["#999"],
-                "hero_cards": ["XX XX"],
-                "villain_username": ["villain"],
-                "villain_cards": ["YY YY"],
-                "board": [""],
-                "net_result": [100.0],
-                "total_pot": [200.0],
-            }
-        )
-        result = str(_build_flagged_hands_list(df))
+        # hand_id=1 not in equity_map → unavailable
+        result = str(_build_flagged_hands_list(self._hand_df(), {}))
         assert "unavailable" in result.lower()
 
 
-# ---------------------------------------------------------------------------
-# TestBuildSessionPositionTable
-# ---------------------------------------------------------------------------
+class TestBuildEquityMap:
+    """Tests for _build_equity_map — DB cache helper that computes equity on miss."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    @pytest.fixture
+    def conn(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        c = init_db(tmp_path / "test.db")
+        yield c
+        c.close()
+
+    @pytest.fixture
+    def hero_id(self, conn):
+        cur = conn.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'hero')"
+        )
+        conn.commit()
+        return cur.lastrowid
+
+    @pytest.fixture
+    def hand_id(self, conn, hero_id):
+        cur = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats, small_blind, big_blind,"
+            " ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 9, 100, 200, 0, '2024-01-01')"
+        )
+        session_id = cur.lastrowid
+        cur = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot,"
+            " uncalled_bet_returned, rake, timestamp)"
+            " VALUES ('H1', ?, 1000, 0, 50, '2024-01-01T00:00:00')",
+            (session_id,),
+        )
+        conn.commit()
+        return cur.lastrowid
+
+    def _showdown_row(self, hand_id: int):
+        import pandas as pd
+
+        return pd.DataFrame(
+            [
+                {
+                    "hand_id": hand_id,
+                    "source_hand_id": "H1",
+                    "hero_cards": "Ac Kd",
+                    "villain_cards": "2h 3d",
+                    "board": "Ah 5c 7d Js 2c",
+                    "net_result": 1000.0,
+                    "total_pot": 2000.0,
+                    "villain_username": "villain1",
+                }
+            ]
+        )
+
+    def test_empty_df_returns_empty_map(self, conn, hero_id):
+        """Empty DataFrame input produces an empty equity map."""
+        import pandas as pd
+
+        from pokerhero.frontend.pages.sessions import _build_equity_map
+
+        result = _build_equity_map(conn, pd.DataFrame(), hero_id, sample_count=200)
+        assert result == {}
+
+    def test_cache_miss_computes_and_stores(self, conn, hero_id, hand_id):
+        """On cache miss: equity is computed and written to DB."""
+        from pokerhero.database.db import get_hand_equity
+        from pokerhero.frontend.pages.sessions import _build_equity_map
+
+        df = self._showdown_row(hand_id)
+        result = _build_equity_map(conn, df, hero_id, sample_count=200)
+        conn.commit()
+        assert hand_id in result
+        assert 0.0 <= result[hand_id] <= 1.0
+        cached = get_hand_equity(conn, hand_id, hero_id, sample_count=200)
+        assert cached == pytest.approx(result[hand_id])
+
+    def test_cache_hit_returns_stored_value_without_recomputing(
+        self, conn, hero_id, hand_id
+    ):
+        """On cache hit: stored equity is returned directly."""
+        from pokerhero.database.db import set_hand_equity
+        from pokerhero.frontend.pages.sessions import _build_equity_map
+
+        set_hand_equity(conn, hand_id, hero_id, equity=0.99, sample_count=200)
+        conn.commit()
+        df = self._showdown_row(hand_id)
+        result = _build_equity_map(conn, df, hero_id, sample_count=200)
+        assert result[hand_id] == pytest.approx(0.99)
+
+    def test_stale_cache_recomputes_and_stores_new_value(self, conn, hero_id, hand_id):
+        """Cached row with different sample_count is ignored; new value stored."""
+        from pokerhero.database.db import get_hand_equity, set_hand_equity
+        from pokerhero.frontend.pages.sessions import _build_equity_map
+
+        set_hand_equity(conn, hand_id, hero_id, equity=0.99, sample_count=100)
+        conn.commit()
+        df = self._showdown_row(hand_id)
+        result = _build_equity_map(conn, df, hero_id, sample_count=200)
+        conn.commit()
+        assert hand_id in result
+        cached_new = get_hand_equity(conn, hand_id, hero_id, sample_count=200)
+        assert cached_new is not None
+        assert 0.0 <= cached_new <= 1.0
 
 
 class TestBuildSessionPositionTable:
