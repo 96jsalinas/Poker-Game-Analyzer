@@ -260,6 +260,23 @@ layout = html.Div(
                 ),
             ],
         ),
+        # ── Target Stats ────────────────────────────────────────────────────
+        html.Div(
+            style=_SECTION_STYLE,
+            children=[
+                html.H3("🎯 Target Stats", style={"marginTop": 0}),
+                html.P(
+                    "Configure per-position traffic-light targets for VPIP, PFR, "
+                    "and 3-Bet.",
+                    style={"color": "#555", "fontSize": "14px"},
+                ),
+                dcc.Link(
+                    "Configure Target Ranges →",
+                    href="/settings/targets",
+                    style={"fontSize": "14px", "color": "#0074D9"},
+                ),
+            ],
+        ),
         # ── Data Management ─────────────────────────────────────────────────
         html.Div(
             style=_SECTION_STYLE,
