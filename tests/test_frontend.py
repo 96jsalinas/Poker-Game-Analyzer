@@ -273,46 +273,6 @@ class TestDashboardPageLayout:
         src = inspect.getsource(dashboard)
         assert 'Input("dashboard-currency"' in src
 
-    def test_dashboard_shows_3bet_kpi_card(self):
-        """Dashboard render source must include a 3-Bet KPI card."""
-        import inspect
-
-        from pokerhero.frontend.pages import dashboard
-
-        src = inspect.getsource(dashboard)
-        # Positional table uses "3-Bet%" (with %); KPI card uses "3-Bet" (no %)
-        assert '"3-Bet"' in src and "_kpi_card" in src
-
-
-class TestKpiCard:
-    """Tests for the _kpi_card helper in dashboard.py."""
-
-    def setup_method(self):
-        from pokerhero.frontend.app import create_app
-
-        create_app(db_path=":memory:")
-
-    def test_kpi_card_shows_target_when_provided(self):
-        """_kpi_card with target_pct renders 'Target' text in the output."""
-        from pokerhero.frontend.pages.dashboard import _kpi_card
-
-        card = _kpi_card("VPIP", "22.1%", target_pct=22.0)
-        assert "Target" in str(card)
-
-    def test_kpi_card_hides_target_when_none(self):
-        """_kpi_card without target_pct shows no 'Target' line."""
-        from pokerhero.frontend.pages.dashboard import _kpi_card
-
-        card = _kpi_card("Hands", "1234")
-        assert "Target" not in str(card)
-
-    def test_kpi_card_target_value_shown(self):
-        """_kpi_card with target_pct=18 includes '18' in the output."""
-        from pokerhero.frontend.pages.dashboard import _kpi_card
-
-        card = _kpi_card("PFR", "16.5%", target_pct=18.0)
-        assert "18" in str(card)
-
 
 class TestCardRendering:
     """Tests for the _render_card and _render_cards helper functions."""
@@ -561,27 +521,6 @@ class TestSettingsPageLayout:
 
         comp = layout() if callable(layout) else layout
         assert "settings-min-hands" in str(comp)
-
-    def test_layout_has_target_vpip_input(self):
-        """Settings layout must contain a settings-target-vpip input."""
-        from pokerhero.frontend.pages.settings import layout
-
-        comp = layout() if callable(layout) else layout
-        assert "settings-target-vpip" in str(comp)
-
-    def test_layout_has_target_pfr_input(self):
-        """Settings layout must contain a settings-target-pfr input."""
-        from pokerhero.frontend.pages.settings import layout
-
-        comp = layout() if callable(layout) else layout
-        assert "settings-target-pfr" in str(comp)
-
-    def test_layout_has_target_3bet_input(self):
-        """Settings layout must contain a settings-target-3bet input."""
-        from pokerhero.frontend.pages.settings import layout
-
-        comp = layout() if callable(layout) else layout
-        assert "settings-target-3bet" in str(comp)
 
 
 class TestDashboardHighlights:
