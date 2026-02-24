@@ -62,7 +62,13 @@ pokerhero-analyzer/
 │       │                         # classify_player (TAG/LAG/Nit/Fish archetype classification)
 │       ├── frontend/             # ✅ Implemented (multi-page Dash app)
 │       │   ├── __init__.py
-│       │   ├── app.py            # create_app() — use_pages=True shell, exposes DB_PATH via Flask config
+│       │   ├── app.py            # create_app() — use_pages=True shell, exposes DB_PATH via Flask config;
+│       │   │                     # dcc.Store(id="theme-store") + 🌚/🌞 toggle button + _toggle_theme,
+│       │   │                     # _sync_theme_button, clientside_callback to toggle body.dark class
+│       │   ├── assets/
+│       │   │   └── theme.css     # CSS custom properties (:root light defaults + body.dark overrides);
+│       │   │                     # Dash 4 design token overrides; color-scheme:dark for native controls;
+│       │   │                     # DataTable, Plotly, and traffic-light dark mode rules
 │       │   ├── upload_handler.py # handle_upload() — decode base64, call ingest_file
 │       │   └── pages/
 │       │       ├── __init__.py
@@ -72,7 +78,9 @@ pokerhero-analyzer/
 │       │       │                 # → hand list → action replay; _describe_hand() uses PokerKit to identify
 │       │       │                 # best hand at showdown; _build_opponent_profile_card() renders
 │       │       │                 # TAG/LAG/Nit/Fish badges; _render_session_report() assembles
-│       │       │                 # KPI strip, narrative, EV luck indicator, and notable hands list
+│       │       │                 # KPI strip, narrative, EV luck indicator, and notable hands list;
+│       │       │                 # _build_equity_map() uses hand_equity DB cache to avoid recomputing
+│       │       │                 # equity for previously-seen hand/villain card combinations
 │       │       ├── dashboard.py  # "/dashboard" — KPI cards, bankroll graph, positional stats table
 │       │       ├── guide.py      # "/guide" — in-app user guide: stat definitions, app walkthrough
 │       │       └── settings.py   # "/settings" — hero username, Clear DB, Export CSV
@@ -80,15 +88,22 @@ pokerhero-analyzer/
 ├── tests/
 │   ├── fixtures/                 # 16 .txt hand history snippets (see TestingStrategy.MD)
 │   ├── test_parser.py            # 164 tests across 15 classes
-│   ├── test_database.py          # 62 tests across 9 classes (incl. TestSettings, TestFavorites, currency storage)
+│   ├── test_database.py          # 69 tests across 9 classes (incl. TestSettings, TestFavorites, currency storage, hand equity cache)
 │   ├── test_ingestion.py         # 28 tests for pipeline, financials, re-buy detection, logging
-│   ├── test_frontend.py          # 203 tests: upload handler, multi-page app, page layouts, action view math,
-│   │                             # dashboard, filters (incl. game type toggle), guide, showdown, favourites,
-│   │                             # DataTable, format helpers, opponent profiles, session report view + nav
-│   └── test_analysis.py          # 114 tests: queries and stats (vpip, pfr, win_rate, AF, wtsd, timeline,
-│                                 # 3-bet incl. blind-position regression, c-bet, EV, equity cache,
-│                                 # currency filter, session player stats, player archetype classification,
-│                                 # session analysis queries (kpis, hero actions, showdown hands))
+│   ├── test_sessions.py          # 166 tests: card rendering, hero row highlighting, math cell, sessions nav/breadcrumb/state,
+│   │                             # session/hand filters, favourites, DataTable sorting, format helpers,
+│   │                             # showdown section, villain summary, archetype badge, opponent profile card/panel,
+│   │                             # session report view + nav, dark mode compatibility
+│   ├── test_dashboard.py         # 31 tests: position traffic light colouring, KPI highlights, VPIP/PFR gap chart,
+│   │                             # stat header tooltips, dark mode compatibility
+│   ├── test_app_layout.py        # 28 tests: multi-page app registration, home/upload/sessions/dashboard page layouts,
+│   │                             # theme toggle (store, button, face emojis, CSS vars)
+│   ├── test_settings.py          # 15 tests: main settings page layout, target settings sub-page
+│   ├── test_upload.py            # 7 tests: upload handler, logging
+│   ├── test_guide.py             # 6 tests: guide page registration and stat sections
+│   └── test_analysis.py          # 139 tests: queries and stats (vpip, pfr, win_rate, AF, wtsd, timeline,
+│                                 # 3-bet, c-bet, EV, equity cache, currency filter, session player stats,
+│                                 # player archetype classification, session analysis queries)
 ├── data/
 │   └── histories/                # Raw .txt session files (git-ignored)
 └── pyproject.toml

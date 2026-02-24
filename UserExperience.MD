@@ -26,6 +26,12 @@ The entry point of the application (`/`). Currently a simple hub page.
 * The preference is persisted in a `dcc.Store(storage_type="local")` keyed `theme-store`, so it survives page navigation and browser restarts.
 * Toggling adds / removes the `dark` class on `document.body` via a clientside callback, enabling CSS-variable-based dark overrides defined in `assets/theme.css`.
 * CSS custom properties (`--bg-1`, `--bg-2`, `--text-1..4`, `--border`, `--border-light`) are used throughout all page files as inline-style `var()` references with light-mode fallbacks, so light mode is pixel-identical to the original design.
+* **P&L color vars**: `--pnl-positive` / `--pnl-negative` — light defaults: `green`/`red`; dark overrides: `#2ecc71` / `#e74c3c` (bright enough to read on a dark surface). Used in `_pnl_style()`, `_build_session_kpi_strip`, and the dashboard KPI / positional stats / highlight cards.
+* **Hero action-row var**: `--bg-hero-row` — light: `#edf5ff`; dark: `#1e2a4a` (navy). Used in `_action_row_style()` in `sessions.py`.
+* **Traffic-light vars**: `--tl-green`, `--tl-yellow`, `--tl-red` — light: standard Bootstrap pastels (`#d4edda`, `#fff3cd`, `#f8d7da`); dark: deep saturated tones (`#1a3a2a`, `#3a3010`, `#3a1a1a`). Used in `_TL_COLORS` dicts in both `sessions.py` and `dashboard.py`.
+* **Plotly charts**: `_build_vpip_pfr_chart` and the bankroll graph both accept a `theme` parameter (fed from `theme-store`) and set `plot_bgcolor`/`paper_bgcolor` to `#1a1a2e` in dark mode.
+* **Dash 4 design tokens**: All Dash 4 form components (Input, Dropdown, DatePicker, Slider) are themed via `--Dash-Fill-Inverse-Strong`, `--Dash-Stroke-Strong`, `--Dash-Text-Primary`, etc., overridden in `body.dark`.
+* **`color-scheme: dark`**: Applied to `input, select, textarea` in dark mode so the browser renders native controls (number spinners, checkboxes, scrollbars) with its built-in dark palette.
 * **Icon convention**: 🌚 = currently light mode (click to go dark); 🌞 = currently dark mode (click to go light).
 
 ---
