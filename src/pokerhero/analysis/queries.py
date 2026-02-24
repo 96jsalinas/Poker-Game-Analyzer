@@ -493,10 +493,12 @@ def get_session_showdown_hands(
 
     Each row is a hero vs villain matchup where both sides showed cards
     and the hero actually reached showdown (went_to_showdown = 1).
-    In multiway showdowns one representative villain is chosen (MIN
-    player_id among those who showed cards) to avoid duplicate rows.
-    Used to batch-compute equity and build the EV luck indicator in the
-    Session Report.
+    In multiway pots all opponents who showed cards are included.
+    villain_cards is a pipe-separated string of all villain hole-card pairs
+    (e.g. ``"Kh Qd"`` heads-up, ``"Kh Qd|9c 8c"`` for two opponents).
+    villain_username is a comma-separated list of all villain names.
+    Used to batch-compute equity via compute_equity_multiway and build the
+    EV luck indicator in the Session Report.
 
     Columns: hand_id, source_hand_id, hero_cards, villain_username,
              villain_cards, board, net_result, total_pot.
@@ -514,8 +516,8 @@ def get_session_showdown_hands(
             h.id AS hand_id,
             h.source_hand_id,
             hero_hp.hole_cards AS hero_cards,
-            villain_p.username AS villain_username,
-            villain_hp.hole_cards AS villain_cards,
+            GROUP_CONCAT(villain_p.username, ', ') AS villain_username,
+            GROUP_CONCAT(villain_hp.hole_cards, '|') AS villain_cards,
             TRIM(
                 COALESCE(h.board_flop, '') || ' ' ||
                 COALESCE(h.board_turn, '') || ' ' ||
@@ -528,19 +530,15 @@ def get_session_showdown_hands(
             ON hero_hp.hand_id = h.id AND hero_hp.player_id = :hero
         JOIN hand_players villain_hp
             ON villain_hp.hand_id = h.id
-           AND villain_hp.player_id = (
-               SELECT MIN(vhp2.player_id)
-               FROM hand_players vhp2
-               WHERE vhp2.hand_id = h.id
-                 AND vhp2.player_id != :hero
-                 AND vhp2.hole_cards IS NOT NULL
-                 AND vhp2.hole_cards != ''
-           )
+           AND villain_hp.player_id != :hero
+           AND villain_hp.hole_cards IS NOT NULL
+           AND villain_hp.hole_cards != ''
         JOIN players villain_p ON villain_p.id = villain_hp.player_id
         WHERE h.session_id = :sid
           AND hero_hp.went_to_showdown = 1
           AND hero_hp.hole_cards IS NOT NULL
           AND hero_hp.hole_cards != ''
+        GROUP BY h.id
         ORDER BY h.timestamp ASC
     """
     return pd.read_sql_query(

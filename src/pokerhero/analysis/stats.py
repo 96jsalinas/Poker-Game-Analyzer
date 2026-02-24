@@ -241,6 +241,53 @@ def compute_equity(
     return float(equities[0])
 
 
+@functools.lru_cache(maxsize=512)
+def compute_equity_multiway(
+    hero_cards: str,
+    villain_cards_str: str,
+    board: str,
+    sample_count: int,
+) -> float:
+    """Compute hero's equity in a multiway pot via PokerKit Monte Carlo simulation.
+
+    Accepts one or more villain hands as a pipe-separated string so the result
+    can be LRU-cached (all arguments must be hashable).  For a heads-up hand
+    pass villain cards without a pipe, e.g. ``"Ah Kh"``.  For a multiway hand
+    separate each villain's hole cards with ``|``, e.g. ``"Ah Kh|2c 3d"``.
+
+    Args:
+        hero_cards: Hero hole cards, space-separated (e.g. ``"Tc Jd"``).
+        villain_cards_str: One or more villain hole-card pairs, separated by
+            ``|`` (e.g. ``"Kh Qd"`` or ``"Kh Qd|9c 8c"``).
+        board: Space-separated board cards seen so far.  Pass ``""`` for
+            preflop all-ins.
+        sample_count: Number of Monte Carlo samples.
+
+    Returns:
+        Float equity in [0.0, 1.0] representing hero's win probability.
+    """
+    from pokerkit import Card, Deck, StandardHighHand, calculate_equities, parse_range
+
+    hero_range = parse_range(hero_cards.replace(" ", ""))
+    villain_ranges = tuple(
+        parse_range(vc.strip().replace(" ", ""))
+        for vc in villain_cards_str.split("|")
+        if vc.strip()
+    )
+    board_cards = list(Card.parse(board)) if board else []
+
+    equities = calculate_equities(
+        (hero_range, *villain_ranges),
+        board_cards,
+        hole_dealing_count=2,
+        board_dealing_count=5,
+        deck=Deck.STANDARD,
+        hand_types=(StandardHighHand,),
+        sample_count=sample_count,
+    )
+    return float(equities[0])
+
+
 def compute_ev(
     hero_cards: str,
     villain_cards: str | None,

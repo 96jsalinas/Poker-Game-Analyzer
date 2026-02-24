@@ -106,20 +106,20 @@ $$EV_{Action} = (Equity \times Pot_{to\_Win}) - ((1 - Equity) \times Amount_{to\
 * **Amount to Lose**: The amount Hero must risk to make the play.
 * **Display**: Shown in the EV column of the action view for hero all-in spots. Green = positive EV, Red = negative EV, `—` when villain cards unknown.
 
-### Equity Calculation Detail (`compute_equity`)
+### Equity Calculation Detail (`compute_equity` / `compute_equity_multiway`)
 
-Equity is calculated by `compute_equity()` in `stats.py` using PokerKit's Monte Carlo engine:
+Equity is calculated by `compute_equity()` (heads-up) or `compute_equity_multiway()` (multiway) in `stats.py` using PokerKit's Monte Carlo engine.  The Session Report always calls `compute_equity_multiway`, which also handles the heads-up case correctly.
 
 | Parameter | Value |
 | :--- | :--- |
 | **Engine** | PokerKit `calculate_equities` |
 | **Method** | Monte Carlo simulation |
-| **Default samples** | 5 000 (configurable via `sample_count`) |
+| **Default samples** | 5 000 (configurable via `sample_count`); Session Report uses 2 000 |
 | **Deck** | Standard 52-card (`Deck.STANDARD`) |
 | **Hand evaluator** | `StandardHighHand` (best 5-card high hand) |
-| **Input** | Hero hole cards + Villain hole cards + board cards seen so far |
+| **Input (multiway)** | Hero hole cards + all villain hole-card pairs (pipe-separated string) + board cards seen so far |
 | **Pre-flop all-ins** | Board passed as empty string `""` |
-| **Caching** | Results are `functools.lru_cache`-cached by `(hero_cards, villain_cards, board, sample_count)` — repeated calls for the same spot are instant |
+| **Caching** | Both functions use `functools.lru_cache` keyed by `(hero_cards, villain_cards_str, board, sample_count)` |
 
 > **Limitation:** Equity is only shown when the villain's exact hole cards are available (i.e. the hand reached showdown or both players were all-in). Range-based equity is not currently supported.
 

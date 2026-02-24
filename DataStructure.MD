@@ -96,9 +96,13 @@ A simple key/value store for persistent application configuration.
 | :--- | :--- |
 | `hero_username` | The PokerStars username of the hero player. Set via the Upload page and used by the Sessions page to resolve the hero `player_id`. |
 
----
+### `get_session_showdown_hands` output schema
+| Column | Type | Notes |
+| :--- | :--- | :--- |
+| `villain_cards` | `str` | Pipe-separated hole-card pairs for all villains who showed cards (e.g. `"Kh Qd"` heads-up; `"Kh Qd\|9c 8c"` for two opponents). Consumed by `compute_equity_multiway`. |
+| `villain_username` | `str` | Comma-separated list of all villain usernames who showed cards. |
 
-## 🐍 6. Python Models (`src/pokerhero/parser/models.py`)
+
 
 These dataclasses are what `HandParser.parse()` returns. Field names differ from the DB schema in several places — the mapping is noted below.
 

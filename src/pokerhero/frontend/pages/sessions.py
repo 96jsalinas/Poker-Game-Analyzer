@@ -1527,7 +1527,7 @@ def _build_ev_summary(showdown_df: pd.DataFrame) -> html.Div:
             style={"color": "#888", "fontSize": "13px"},
         )
 
-    from pokerhero.analysis.stats import compute_equity
+    from pokerhero.analysis.stats import compute_equity_multiway
 
     n = len(showdown_df)
     lucky = 0
@@ -1536,7 +1536,7 @@ def _build_ev_summary(showdown_df: pd.DataFrame) -> html.Div:
 
     for _, row in showdown_df.iterrows():
         try:
-            eq = compute_equity(
+            eq = compute_equity_multiway(
                 str(row["hero_cards"]).strip(),
                 str(row["villain_cards"]).strip(),
                 str(row["board"]).strip(),
@@ -1611,12 +1611,12 @@ def _build_flagged_hands_list(showdown_df: pd.DataFrame) -> html.Div:
             style={"color": "#888", "fontSize": "13px"},
         )
 
-    from pokerhero.analysis.stats import compute_equity
+    from pokerhero.analysis.stats import compute_equity_multiway
 
     flagged: list[html.Div] = []
     for _, row in showdown_df.iterrows():
         try:
-            eq = compute_equity(
+            eq = compute_equity_multiway(
                 str(row["hero_cards"]).strip(),
                 str(row["villain_cards"]).strip(),
                 str(row["board"]).strip(),
