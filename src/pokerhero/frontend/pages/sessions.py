@@ -772,6 +772,17 @@ def _breadcrumb(
                 n_clicks=0,
             ),
             sep,
+            html.Button(
+                "All Hands",
+                id={
+                    "type": "breadcrumb-btn",
+                    "level": "hands",
+                    "session_id": session_id,
+                },
+                style=btn_style,
+                n_clicks=0,
+            ),
+            sep,
             html.Span(hand_label, style=plain_style),
         ]
     )

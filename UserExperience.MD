@@ -73,7 +73,7 @@ A chronological breakdown of the specific hand.
 * **Body**: Actions grouped by street (colour-coded headers), showing player username, position (e.g. `jsalinas96 (BTN)`), action type, amount, and pot size.
 * **Math Column**: SPR shown on the first Flop action; Pot Odds % and MDF % shown for every decision point Hero faces.
 * **Showdown Section**: ✅ Implemented — when villain hole cards are known (showdown or all-in with cards exposed), a purple "Showdown" section appears after the last street, showing each villain's name, position, and styled hole cards.
-* **Breadcrumb**: `Sessions > Session Label (→ report) > Hand #N`.
+* **Breadcrumb**: `Sessions > Session Label (→ report) > All Hands (→ hand list) > Hand #N`.
 
 ---
 
