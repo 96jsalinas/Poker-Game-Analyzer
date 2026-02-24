@@ -150,7 +150,7 @@ _TARGET_DEFAULTS: dict[str, int] = {
 }
 
 
-def _read_target_settings(db_path: str) -> dict[str, int | None]:
+def _read_target_settings(db_path: str) -> dict[str, int]:
     """Read target VPIP/PFR/3-Bet percentages from the settings table.
 
     Returns ``None`` for any key that has never been stored (so the dashboard
@@ -162,16 +162,16 @@ def _read_target_settings(db_path: str) -> dict[str, int | None]:
 
     Returns:
         Dict with keys ``'target_vpip'``, ``'target_pfr'``, ``'target_3bet'``
-        and integer percentage values, or ``None`` when unset.
+        and integer percentage values (defaults used when not stored in DB).
     """
     if db_path == ":memory:":
-        return {k: None for k in _TARGET_DEFAULTS}
+        return dict(_TARGET_DEFAULTS)
     conn = get_connection(db_path)
     try:
-        result: dict[str, int | None] = {}
-        for key in _TARGET_DEFAULTS:
-            raw = get_setting(conn, key, default="")
-            result[key] = int(raw) if raw else None
+        result: dict[str, int] = {}
+        for key, default in _TARGET_DEFAULTS.items():
+            raw = get_setting(conn, key, default=str(default))
+            result[key] = int(raw) if raw else default
         return result
     finally:
         conn.close()
@@ -601,21 +601,9 @@ def _render(pathname: str, period: str, currency: str) -> html.Div | str:
             _kpi_card("Win Rate", wr_str, color=wr_color),
             _kpi_card("Sessions", str(n_sessions)),
             _kpi_card("Hands Played", str(n_hands)),
-            _kpi_card(
-                "VPIP",
-                f"{vpip:.1f}%",
-                target_pct=float(t_vpip) if t_vpip is not None else None,
-            ),
-            _kpi_card(
-                "PFR",
-                f"{pfr:.1f}%",
-                target_pct=float(t_pfr) if t_pfr is not None else None,
-            ),
-            _kpi_card(
-                "3-Bet",
-                f"{three_bet:.1f}%",
-                target_pct=float(t_3bet) if t_3bet is not None else None,
-            ),
+            _kpi_card("VPIP", f"{vpip:.1f}%", target_pct=float(t_vpip)),
+            _kpi_card("PFR", f"{pfr:.1f}%", target_pct=float(t_pfr)),
+            _kpi_card("3-Bet", f"{three_bet:.1f}%", target_pct=float(t_3bet)),
         ],
     )
 

@@ -298,7 +298,7 @@ layout = html.Div(
                                     min=5,
                                     max=60,
                                     step=1,
-                                    placeholder="e.g. 22",
+                                    value=22,
                                     style={
                                         "width": "130px",
                                         "padding": "6px",
@@ -340,7 +340,7 @@ layout = html.Div(
                                     min=5,
                                     max=50,
                                     step=1,
-                                    placeholder="e.g. 18",
+                                    value=18,
                                     style={
                                         "width": "130px",
                                         "padding": "6px",
@@ -382,7 +382,7 @@ layout = html.Div(
                                     min=2,
                                     max=20,
                                     step=1,
-                                    placeholder="e.g. 7",
+                                    value=7,
                                     style={
                                         "width": "130px",
                                         "padding": "6px",
@@ -515,21 +515,20 @@ _ANALYSIS_SETTING_KEYS = {
 )
 def _load_target_settings(
     pathname: str,
-) -> tuple[int | None, int | None, int | None]:
+) -> tuple[int, int, int]:
     """Pre-populate target stat inputs from the settings table on page visit."""
     if pathname != "/settings":
         raise dash.exceptions.PreventUpdate
     db_path = _get_db_path()
     if db_path == ":memory:":
-        return None, None, None
+        return 22, 18, 7
     conn = get_connection(db_path)
     try:
-
-        def _read(key: str) -> int | None:
-            raw = get_setting(conn, key, default="")
-            return int(raw) if raw else None
-
-        return _read("target_vpip"), _read("target_pfr"), _read("target_3bet")
+        return (
+            int(get_setting(conn, "target_vpip", default="22")),
+            int(get_setting(conn, "target_pfr", default="18")),
+            int(get_setting(conn, "target_3bet", default="7")),
+        )
     finally:
         conn.close()
 
