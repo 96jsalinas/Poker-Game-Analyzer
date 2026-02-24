@@ -1718,6 +1718,46 @@ class TestShowdownSection:
         # TAG from villain1 appears; hero has no archetype so only one badge
         assert text.count("TAG") == 1
 
+    def test_hero_positive_result_shown(self):
+        """Positive hero_net_result is displayed with a '+' prefix in the section."""
+        from pokerhero.frontend.pages.sessions import _build_showdown_section
+
+        result = _build_showdown_section(
+            [{"username": "villain1", "position": "SB", "hole_cards": "Qd Jc"}],
+            hero_name="Hero",
+            hero_cards="As Kd",
+            hero_net_result=12.5,
+        )
+        assert "+12.5" in str(result)
+
+    def test_hero_negative_result_shown(self):
+        """Negative hero_net_result is displayed with a '-' prefix in the section."""
+        from pokerhero.frontend.pages.sessions import _build_showdown_section
+
+        result = _build_showdown_section(
+            [{"username": "villain1", "position": "SB", "hole_cards": "Qd Jc"}],
+            hero_name="Hero",
+            hero_cards="As Kd",
+            hero_net_result=-8.0,
+        )
+        assert "-8" in str(result)
+
+    def test_villain_result_shown(self):
+        """Villain net_result in the row dict is displayed in the section."""
+        from pokerhero.frontend.pages.sessions import _build_showdown_section
+
+        result = _build_showdown_section(
+            [
+                {
+                    "username": "villain1",
+                    "position": "BTN",
+                    "hole_cards": "Qd Jc",
+                    "net_result": -5.25,
+                }
+            ],
+        )
+        assert "-5.25" in str(result)
+
 
 # ===========================================================================
 # TestVillainSummaryLine
