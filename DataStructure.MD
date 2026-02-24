@@ -133,6 +133,24 @@ Dedicated table for position-specific traffic-light target ranges. Separate from
 * `read_target_settings(conn) -> dict[tuple[str, str], TargetBounds]` — returns all 18 rows as a dict keyed by `(stat, position)`.
 * `traffic_light(value, green_min, green_max, yellow_min, yellow_max) -> Literal["green","yellow","red"]` — classifies a stat value against the zone bounds.
 
+---
+
+## 🔢 8. Hand Equity Cache Table
+Pre-computed Monte Carlo equity results, persisted to avoid recomputation on repeated session report views.
+
+| Column | Type | Description |
+| :--- | :--- | :--- |
+| `hand_id` | INTEGER FK (PK) | Link to `Hands`. |
+| `hero_id` | INTEGER FK (PK) | Link to `Players` (the hero). Composite PK with `hand_id`. |
+| `equity` | REAL NOT NULL | Hero's win equity (0.0–1.0) computed via `compute_equity_multiway`. |
+| `sample_count` | INTEGER NOT NULL | Monte Carlo sample count used for this result. Used for staleness detection — if the user changes the `equity_sample_count` setting, rows with a mismatched `sample_count` are treated as cache misses and recomputed. |
+
+**Key functions** (`src/pokerhero/database/db.py`):
+* `get_hand_equity(conn, hand_id, hero_id, sample_count) -> float | None` — returns cached equity if `sample_count` matches, else `None`.
+* `set_hand_equity(conn, hand_id, hero_id, equity, sample_count) -> None` — upsert via `INSERT OR REPLACE`.
+
+**Migration:** The table is created by `CREATE TABLE IF NOT EXISTS` in `schema.sql`, so `init_db()` creates it transparently on existing databases.
+
 ### `get_session_showdown_hands` output schema
 | Column | Type | Notes |
 | :--- | :--- | :--- |

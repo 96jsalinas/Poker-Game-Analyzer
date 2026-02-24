@@ -66,3 +66,11 @@ CREATE TABLE IF NOT EXISTS settings (
     key TEXT PRIMARY KEY,
     value TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS hand_equity (
+    hand_id INTEGER NOT NULL REFERENCES hands(id),
+    hero_id INTEGER NOT NULL REFERENCES players(id),
+    equity REAL NOT NULL,
+    sample_count INTEGER NOT NULL,
+    PRIMARY KEY (hand_id, hero_id)
+);

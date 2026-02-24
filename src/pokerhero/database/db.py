@@ -278,6 +278,54 @@ def toggle_hand_favorite(conn: sqlite3.Connection, hand_id: int) -> None:
     )
 
 
+def get_hand_equity(
+    conn: sqlite3.Connection,
+    hand_id: int,
+    hero_id: int,
+    sample_count: int,
+) -> float | None:
+    """Return cached equity for a hand if sample_count matches, else None.
+
+    Args:
+        conn: An open SQLite connection.
+        hand_id: Internal hand id.
+        hero_id: Internal player id for the hero.
+        sample_count: Monte Carlo sample count the equity was computed with.
+
+    Returns:
+        Cached equity float (0.0–1.0), or None on miss or stale sample_count.
+    """
+    row = conn.execute(
+        "SELECT equity FROM hand_equity"
+        " WHERE hand_id = ? AND hero_id = ? AND sample_count = ?",
+        (hand_id, hero_id, sample_count),
+    ).fetchone()
+    return float(row[0]) if row is not None else None
+
+
+def set_hand_equity(
+    conn: sqlite3.Connection,
+    hand_id: int,
+    hero_id: int,
+    equity: float,
+    sample_count: int,
+) -> None:
+    """Persist equity for a hand (upsert — replaces any existing row).
+
+    Args:
+        conn: An open SQLite connection.
+        hand_id: Internal hand id.
+        hero_id: Internal player id for the hero.
+        equity: Computed equity value (0.0–1.0).
+        sample_count: Monte Carlo sample count used for this computation.
+    """
+    conn.execute(
+        "INSERT OR REPLACE INTO hand_equity (hand_id, hero_id, equity, sample_count)"
+        " VALUES (?, ?, ?, ?)",
+        (hand_id, hero_id, equity, sample_count),
+    )
+
+
 def save_parsed_hand(
     conn: sqlite3.Connection,
     parsed: ParsedHand,
