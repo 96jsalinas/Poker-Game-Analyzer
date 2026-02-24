@@ -150,19 +150,20 @@ def _format_cards_text(cards_str: str | None) -> str:
 
 
 def _build_showdown_section(
-    villain_rows: list[dict[str, str]],
+    villain_rows: list[dict[str, Any]],
     hero_name: str | None = None,
     hero_cards: str | None = None,
     board: str = "",
     opp_stats: dict[str, dict[str, int]] | None = None,
     min_hands: int = 15,
+    hero_net_result: float | None = None,
 ) -> html.Div | None:
     """Build a Showdown section showing all players' cards, hand descriptions,
     and a trophy badge on the winner(s).
 
     Args:
         villain_rows: List of dicts with keys 'username', 'position',
-            'hole_cards'. Only non-hero players with revealed hole cards.
+            'hole_cards', and optional 'net_result' (float).
         hero_name: Display name for the hero (e.g. "Hero"). If None, hero is
             not included in the section.
         hero_cards: Hero's hole cards string (e.g. "As Kd"). Required for hero
@@ -174,6 +175,8 @@ def _build_showdown_section(
             'hands_played', 'vpip_count', 'pfr_count'. When provided, an
             archetype badge (TAG/LAG/Nit/Fish) is shown next to each villain.
         min_hands: Minimum hands required before an archetype badge is shown.
+        hero_net_result: Hero's net result for this hand (positive = won,
+            negative = lost). Displayed in green/red at the end of hero's row.
 
     Returns:
         An html.Div or None when there are no players to display.
@@ -188,17 +191,23 @@ def _build_showdown_section(
         return None
 
     # Build the full list of players at showdown: hero first, then villains.
-    # Keep track of username → display_label for archetype lookup.
+    # Keep track of label → username (archetype) and label → net_result.
     players: list[tuple[str, str]] = []  # (display_label, hole_cards)
     label_to_username: dict[str, str] = {}
+    label_to_result: dict[str, float] = {}
     if hero_name and hero_cards:
         players.append((hero_name, hero_cards))
+        if hero_net_result is not None:
+            label_to_result[hero_name] = hero_net_result
     for v in villain_rows:
         label = v["username"]
         if v.get("position"):
             label += f" ({v['position']})"
         players.append((label, v["hole_cards"]))
         label_to_username[label] = v["username"]
+        raw_result = v.get("net_result")
+        if raw_result is not None:
+            label_to_result[label] = float(raw_result)
 
     # Evaluate best hands and find winner(s) when board has ≥3 cards.
     board_card_list = [c for c in board.split() if c]
@@ -285,6 +294,25 @@ def _build_showdown_section(
                             )
                         ]
                         if desc
+                        else []
+                    ),
+                    *(
+                        [
+                            html.Span(
+                                f"({_fmt_pnl(label_to_result[label])})",
+                                style={
+                                    "fontSize": "12px",
+                                    "fontWeight": "600",
+                                    "marginLeft": "8px",
+                                    "color": (
+                                        "#28a745"
+                                        if label_to_result[label] >= 0
+                                        else "#dc3545"
+                                    ),
+                                },
+                            )
+                        ]
+                        if label in label_to_result
                         else []
                     ),
                 ],
@@ -2014,18 +2042,21 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             (hand_id,),
         ).fetchone()
         hero_cards: str | None = None
+        hero_net_result: float | None = None
         # Map player_id → hole_cards for EV calculation at all-in spots
         all_hole_cards: dict[int, str] = {}
-        villain_showdown: list[dict[str, str]] = []
+        villain_showdown: list[dict[str, Any]] = []
         opp_stats_map: dict[str, dict[str, int]] = {}
         if hero_id is not None:
             hole_row = conn.execute(
-                "SELECT hole_cards FROM hand_players"
+                "SELECT hole_cards, net_result FROM hand_players"
                 " WHERE hand_id = ? AND player_id = ?",
                 (hand_id, hero_id),
             ).fetchone()
             if hole_row:
                 hero_cards = hole_row[0]
+                if hole_row[1] is not None:
+                    hero_net_result = float(hole_row[1])
         for row in conn.execute(
             "SELECT player_id, hole_cards FROM hand_players"
             " WHERE hand_id = ? AND hole_cards IS NOT NULL",
@@ -2034,7 +2065,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             all_hole_cards[int(row[0])] = row[1]
         # Fetch villain cards + names for the showdown display
         villain_rows = conn.execute(
-            "SELECT p.username, hp.position, hp.hole_cards"
+            "SELECT p.username, hp.position, hp.hole_cards, hp.net_result"
             " FROM hand_players hp"
             " JOIN players p ON hp.player_id = p.id"
             " WHERE hp.hand_id = ? AND hp.hole_cards IS NOT NULL"
@@ -2042,7 +2073,12 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             (hand_id, hero_id if hero_id is not None else -1),
         ).fetchall()
         villain_showdown = [
-            {"username": r[0], "position": r[1] or "", "hole_cards": r[2]}
+            {
+                "username": r[0],
+                "position": r[1] or "",
+                "hole_cards": r[2],
+                "net_result": float(r[3]) if r[3] is not None else None,
+            }
             for r in villain_rows
         ]
         # Fetch session-level opponent stats for archetype badges at showdown.
@@ -2294,6 +2330,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
         board=board_str,
         opp_stats=opp_stats_map if opp_stats_map else None,
         min_hands=min_hands,
+        hero_net_result=hero_net_result,
     )
     if showdown_div is not None:
         sections.append(showdown_div)
