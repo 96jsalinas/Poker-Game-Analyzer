@@ -17,6 +17,8 @@ The entry point of the application (`/`). Currently a simple hub page.
 
 ## ⚙️ 2. Settings ✅ Implemented
 * **Hero Username**: Persisted in the `settings` DB table. Set in the dedicated `/settings` page; also available on the Upload page for convenience.
+* **Analysis Settings**: Configurable equity sample count, lucky/unlucky equity thresholds, and minimum hands for archetype classification. Stored in the `settings` table.
+* **Target Stats**: Configurable target VPIP, PFR, and 3-Bet percentages. Displayed as "Target: X%" subtitles on the Dashboard KPI cards when set. Stored in the `settings` table as `target_vpip`, `target_pfr`, `target_3bet`.
 * **Data Management**: "Clear Database" deletes all hands/sessions/actions/players (settings preserved). "Export Data to CSV" downloads sessions + hands as `pokerhero_export.csv`.
 
 ---
@@ -82,7 +84,7 @@ A high-level overview of the Hero's performance across all time.
 * **Total Profit/Loss**: Large focal number.
 * **Win Rate**: Measured in `bb/100` (Big Blinds won per 100 hands).
 * **Volume**: Total sessions and total hands played.
-* **VPIP / PFR**: Shown as headline KPI cards.
+* **VPIP / PFR / 3-Bet**: Shown as headline KPI cards. When a target is configured in **Settings → Target Stats**, each card shows a "Target: X%" subtitle below the actual value.
 
 ### B. Positional Stats Table ✅
 Breakdown of how the user plays in different seats (BTN, SB, BB, etc.).

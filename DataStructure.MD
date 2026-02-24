@@ -99,6 +99,9 @@ A simple key/value store for persistent application configuration.
 | `lucky_equity_threshold` | `"40"` | Integer percentage (0–100). Hero wins below this equity → 🍀 Lucky. |
 | `unlucky_equity_threshold` | `"60"` | Integer percentage (0–100). Hero loses above this equity → 😞 Unlucky. |
 | `min_hands_classification` | `"15"` | Minimum hands observed before an opponent archetype badge is shown. |
+| `target_vpip` | `""` | User's target VPIP % (empty string = not set). Shown on the Dashboard KPI card. |
+| `target_pfr` | `""` | User's target PFR % (empty string = not set). Shown on the Dashboard KPI card. |
+| `target_3bet` | `""` | User's target 3-Bet % (empty string = not set). Shown on the Dashboard KPI card. |
 
 ### `get_session_showdown_hands` output schema
 | Column | Type | Notes |

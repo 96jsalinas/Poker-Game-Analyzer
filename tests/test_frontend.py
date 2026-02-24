@@ -280,7 +280,8 @@ class TestDashboardPageLayout:
         from pokerhero.frontend.pages import dashboard
 
         src = inspect.getsource(dashboard)
-        assert '_kpi_card("3-Bet' in src
+        # Positional table uses "3-Bet%" (with %); KPI card uses "3-Bet" (no %)
+        assert '"3-Bet"' in src and "_kpi_card" in src
 
 
 class TestKpiCard:

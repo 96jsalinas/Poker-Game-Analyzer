@@ -143,6 +143,40 @@ def _period_to_since_date(period: str) -> str | None:
     return None  # "all"
 
 
+_TARGET_DEFAULTS: dict[str, int] = {
+    "target_vpip": 22,
+    "target_pfr": 18,
+    "target_3bet": 7,
+}
+
+
+def _read_target_settings(db_path: str) -> dict[str, int | None]:
+    """Read target VPIP/PFR/3-Bet percentages from the settings table.
+
+    Returns ``None`` for any key that has never been stored (so the dashboard
+    can suppress the target line on KPI cards when the user hasn't configured
+    targets yet).
+
+    Args:
+        db_path: Path to the SQLite database file.
+
+    Returns:
+        Dict with keys ``'target_vpip'``, ``'target_pfr'``, ``'target_3bet'``
+        and integer percentage values, or ``None`` when unset.
+    """
+    if db_path == ":memory:":
+        return {k: None for k in _TARGET_DEFAULTS}
+    conn = get_connection(db_path)
+    try:
+        result: dict[str, int | None] = {}
+        for key in _TARGET_DEFAULTS:
+            raw = get_setting(conn, key, default="")
+            result[key] = int(raw) if raw else None
+        return result
+    finally:
+        conn.close()
+
+
 _STAT_TOOLTIPS: dict[str, str] = {
     "VPIP%": (
         "Voluntarily Put In Pot — % of hands where hero called or raised "
@@ -189,7 +223,22 @@ def _stat_header(label: str, tooltip: str) -> html.Th:
     )
 
 
-def _kpi_card(label: str, value: str, color: str = "#333") -> html.Div:
+def _kpi_card(
+    label: str,
+    value: str,
+    color: str = "#333",
+    target_pct: float | None = None,
+) -> html.Div:
+    target_line: list[html.Div] = (
+        [
+            html.Div(
+                f"Target: {target_pct:.0f}%",
+                style={"fontSize": "11px", "color": "#aaa", "marginTop": "6px"},
+            )
+        ]
+        if target_pct is not None
+        else []
+    )
     return html.Div(
         [
             html.Div(
@@ -205,6 +254,7 @@ def _kpi_card(label: str, value: str, color: str = "#333") -> html.Div:
                 label,
                 style={"fontSize": "12px", "color": "#888", "marginTop": "4px"},
             ),
+            *target_line,
         ],
         style={
             "background": "#f8f9fa",
@@ -526,6 +576,12 @@ def _render(pathname: str, period: str, currency: str) -> html.Div | str:
     n_hands = len(hp_df)
     vpip = vpip_pct(hp_df) * 100
     pfr = pfr_pct(hp_df) * 100
+    three_bet = three_bet_pct(opp_df) * 100
+
+    targets = _read_target_settings(db_path)
+    t_vpip = targets["target_vpip"]
+    t_pfr = targets["target_pfr"]
+    t_3bet = targets["target_3bet"]
 
     pnl_str = _fmt_pnl(pnl)
     pnl_color = "green" if pnl >= 0 else "red"
@@ -545,8 +601,21 @@ def _render(pathname: str, period: str, currency: str) -> html.Div | str:
             _kpi_card("Win Rate", wr_str, color=wr_color),
             _kpi_card("Sessions", str(n_sessions)),
             _kpi_card("Hands Played", str(n_hands)),
-            _kpi_card("VPIP", f"{vpip:.1f}%"),
-            _kpi_card("PFR", f"{pfr:.1f}%"),
+            _kpi_card(
+                "VPIP",
+                f"{vpip:.1f}%",
+                target_pct=float(t_vpip) if t_vpip is not None else None,
+            ),
+            _kpi_card(
+                "PFR",
+                f"{pfr:.1f}%",
+                target_pct=float(t_pfr) if t_pfr is not None else None,
+            ),
+            _kpi_card(
+                "3-Bet",
+                f"{three_bet:.1f}%",
+                target_pct=float(t_3bet) if t_3bet is not None else None,
+            ),
         ],
     )
 
