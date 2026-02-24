@@ -155,6 +155,7 @@ def _build_showdown_section(
     hero_cards: str | None = None,
     board: str = "",
     opp_stats: dict[str, dict[str, int]] | None = None,
+    min_hands: int = 15,
 ) -> html.Div | None:
     """Build a Showdown section showing all players' cards, hand descriptions,
     and a trophy badge on the winner(s).
@@ -172,6 +173,7 @@ def _build_showdown_section(
         opp_stats: Optional mapping of username → stats dict with keys
             'hands_played', 'vpip_count', 'pfr_count'. When provided, an
             archetype badge (TAG/LAG/Nit/Fish) is shown next to each villain.
+        min_hands: Minimum hands required before an archetype badge is shown.
 
     Returns:
         An html.Div or None when there are no players to display.
@@ -239,7 +241,7 @@ def _build_showdown_section(
             h = int(s["hands_played"])
             vp = int(s["vpip_count"]) / h * 100 if h > 0 else 0.0
             pf = int(s["pfr_count"]) / h * 100 if h > 0 else 0.0
-            archetype = classify_player(vp, pf, h)
+            archetype = classify_player(vp, pf, h, min_hands=min_hands)
             if archetype is not None:
                 archetype_badge = [
                     html.Span(
@@ -441,17 +443,19 @@ def _build_opponent_profile_card(
     hands_played: int,
     vpip_count: int,
     pfr_count: int,
+    min_hands: int = 15,
 ) -> html.Div:
     """Render a small profile card for one opponent.
 
     Shows username, VPIP%, PFR%, hands seen, and an archetype badge
-    (TAG / LAG / Nit / Fish) when at least 15 hands are observed.
+    (TAG / LAG / Nit / Fish) when at least *min_hands* hands are observed.
 
     Args:
         username: Opponent's display name.
         hands_played: Total hands observed this session.
         vpip_count: Hands where opponent voluntarily put money in preflop.
         pfr_count: Hands where opponent raised preflop.
+        min_hands: Minimum hands required before an archetype badge is shown.
 
     Returns:
         A ``html.Div`` profile card component.
@@ -460,7 +464,7 @@ def _build_opponent_profile_card(
 
     vpip_pct = vpip_count / hands_played * 100 if hands_played > 0 else 0.0
     pfr_pct = pfr_count / hands_played * 100 if hands_played > 0 else 0.0
-    archetype = classify_player(vpip_pct, pfr_pct, hands_played)
+    archetype = classify_player(vpip_pct, pfr_pct, hands_played, min_hands=min_hands)
 
     badge: list[Any] = []
     if archetype is not None:
@@ -509,6 +513,7 @@ def _build_opponent_profile_card(
 
 def _build_villain_summary(
     opp_stats: dict[str, dict[str, int]],
+    min_hands: int = 15,
 ) -> html.Div | None:
     """Render a compact header line listing all opponents with archetype badges.
 
@@ -518,6 +523,7 @@ def _build_villain_summary(
     Args:
         opp_stats: Mapping of username → stats dict with keys
             'hands_played', 'vpip_count', 'pfr_count'.
+        min_hands: Minimum hands required before an archetype badge is shown.
 
     Returns:
         An ``html.Div`` or ``None`` when *opp_stats* is empty.
@@ -537,7 +543,7 @@ def _build_villain_summary(
         h = int(s["hands_played"])
         vp = int(s["vpip_count"]) / h * 100 if h > 0 else 0.0
         pf = int(s["pfr_count"]) / h * 100 if h > 0 else 0.0
-        archetype = classify_player(vp, pf, h)
+        archetype = classify_player(vp, pf, h, min_hands=min_hands)
         badge: list[Any] = (
             [
                 html.Span(
@@ -1233,6 +1239,37 @@ def _build_hand_table(df: pd.DataFrame) -> Any:  # dash_table has no mypy stubs
 # ---------------------------------------------------------------------------
 # Level renderers
 # ---------------------------------------------------------------------------
+
+_DEFAULTS = {
+    "equity_sample_count": 2000,
+    "lucky_equity_threshold": 40,  # stored as integer percentage
+    "unlucky_equity_threshold": 60,
+    "min_hands_classification": 15,
+}
+
+
+def _read_analysis_settings(db_path: str) -> dict[str, int]:
+    """Read the four analysis settings from the settings table.
+
+    Returns a dict with integer values:
+        equity_sample_count, lucky_equity_threshold (0-100),
+        unlucky_equity_threshold (0-100), min_hands_classification.
+
+    Falls back to module-level defaults when the setting is absent or the
+    database is in-memory.
+    """
+    if db_path == ":memory:":
+        return dict(_DEFAULTS)
+    conn = get_connection(db_path)
+    try:
+        return {
+            key: int(get_setting(conn, key, default=str(default)))
+            for key, default in _DEFAULTS.items()
+        }
+    finally:
+        conn.close()
+
+
 def _render_sessions(db_path: str) -> html.Div | str:
     if db_path == ":memory:":
         return html.Div("⚠️ No database connected.", style={"color": "orange"})
@@ -1509,7 +1546,13 @@ def _build_session_narrative(
     )
 
 
-def _build_ev_summary(showdown_df: pd.DataFrame) -> html.Div:
+def _build_ev_summary(
+    showdown_df: pd.DataFrame,
+    *,
+    sample_count: int = 2000,
+    lucky_threshold: float = 0.4,
+    unlucky_threshold: float = 0.6,
+) -> html.Div:
     """Return an EV luck indicator based on showdown/all-in hands.
 
     Computes equity for each hand via the LRU-cached compute_equity and
@@ -1517,6 +1560,9 @@ def _build_ev_summary(showdown_df: pd.DataFrame) -> html.Div:
 
     Args:
         showdown_df: DataFrame from get_session_showdown_hands.
+        sample_count: Monte Carlo samples passed to compute_equity_multiway.
+        lucky_threshold: Hero wins with equity below this fraction → Lucky.
+        unlucky_threshold: Hero loses with equity above this fraction → Unlucky.
 
     Returns:
         html.Div with a luck verdict and showdown hand count.
@@ -1540,15 +1586,15 @@ def _build_ev_summary(showdown_df: pd.DataFrame) -> html.Div:
                 str(row["hero_cards"]).strip(),
                 str(row["villain_cards"]).strip(),
                 str(row["board"]).strip(),
-                2000,
+                sample_count,
             )
         except Exception:
             errors += 1
             continue
         hero_won = float(row["net_result"]) > 0
-        if hero_won and eq < 0.4:
+        if hero_won and eq < lucky_threshold:
             lucky += 1
-        elif not hero_won and eq > 0.6:
+        elif not hero_won and eq > unlucky_threshold:
             unlucky += 1
 
     if lucky > 0 and unlucky == 0:
@@ -1593,14 +1639,23 @@ def _build_ev_summary(showdown_df: pd.DataFrame) -> html.Div:
     return html.Div(children, style={"marginBottom": "20px"})
 
 
-def _build_flagged_hands_list(showdown_df: pd.DataFrame) -> html.Div:
+def _build_flagged_hands_list(
+    showdown_df: pd.DataFrame,
+    *,
+    sample_count: int = 2000,
+    lucky_threshold: float = 0.4,
+    unlucky_threshold: float = 0.6,
+) -> html.Div:
     """Return a list of notably lucky or unlucky hands.
 
-    A hand is flagged as Lucky when hero won with equity < 40%, or Unlucky
-    when hero lost with equity > 60%.
+    A hand is flagged as Lucky when hero won with equity < *lucky_threshold*,
+    or Unlucky when hero lost with equity > *unlucky_threshold*.
 
     Args:
         showdown_df: DataFrame from get_session_showdown_hands.
+        sample_count: Monte Carlo samples passed to compute_equity_multiway.
+        lucky_threshold: Hero wins with equity below this fraction → Lucky.
+        unlucky_threshold: Hero loses with equity above this fraction → Unlucky.
 
     Returns:
         html.Div listing flagged hands, or an empty-state message.
@@ -1620,7 +1675,7 @@ def _build_flagged_hands_list(showdown_df: pd.DataFrame) -> html.Div:
                 str(row["hero_cards"]).strip(),
                 str(row["villain_cards"]).strip(),
                 str(row["board"]).strip(),
-                2000,
+                sample_count,
             )
         except Exception:
             flagged.append(
@@ -1644,9 +1699,9 @@ def _build_flagged_hands_list(showdown_df: pd.DataFrame) -> html.Div:
             )
             continue
         hero_won = float(row["net_result"]) > 0
-        if hero_won and eq < 0.4:
+        if hero_won and eq < lucky_threshold:
             flag, fcolor = "🍀 Lucky", "#28a745"
-        elif not hero_won and eq > 0.6:
+        elif not hero_won and eq > unlucky_threshold:
             flag, fcolor = "😞 Unlucky", "#dc3545"
         else:
             continue
@@ -1725,6 +1780,11 @@ def _render_session_report(db_path: str, session_id: int) -> tuple[html.Div | st
     finally:
         conn.close()
 
+    s = _read_analysis_settings(db_path)
+    sample_count = s["equity_sample_count"]
+    lucky_threshold = s["lucky_equity_threshold"] / 100.0
+    unlucky_threshold = s["unlucky_equity_threshold"] / 100.0
+
     session_label = _get_session_label(db_path, session_id)
     n_hands = len(kpis_df)
 
@@ -1732,8 +1792,18 @@ def _render_session_report(db_path: str, session_id: int) -> tuple[html.Div | st
         [
             _build_session_narrative(kpis_df, actions_df, session_label),
             _build_session_kpi_strip(kpis_df, actions_df),
-            _build_ev_summary(showdown_df),
-            _build_flagged_hands_list(showdown_df),
+            _build_ev_summary(
+                showdown_df,
+                sample_count=sample_count,
+                lucky_threshold=lucky_threshold,
+                unlucky_threshold=unlucky_threshold,
+            ),
+            _build_flagged_hands_list(
+                showdown_df,
+                sample_count=sample_count,
+                lucky_threshold=lucky_threshold,
+                unlucky_threshold=unlucky_threshold,
+            ),
             html.Button(
                 f"Browse all {n_hands} hands",
                 id="session-report-browse-btn",
@@ -1774,6 +1844,8 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
 
     is_fav: bool = bool(fav_row and fav_row[0])
     session_label = _get_session_label(db_path, session_id)
+
+    min_hands = _read_analysis_settings(db_path)["min_hands_classification"]
 
     if df.empty:
         return html.Div("No hands found for this session."), session_label
@@ -1864,6 +1936,7 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
             int(row["hands_played"]),
             int(row["vpip_count"]),
             int(row["pfr_count"]),
+            min_hands=min_hands,
         )
         for _, row in opp_df.iterrows()
     ]
@@ -1930,6 +2003,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
     from pokerhero.analysis.stats import compute_ev
 
     hero_id = _get_hero_player_id(db_path)
+    min_hands = _read_analysis_settings(db_path)["min_hands_classification"]
 
     conn = get_connection(db_path)
     try:
@@ -2102,7 +2176,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             h = int(s["hands_played"])
             vp = int(s["vpip_count"]) / h * 100 if h > 0 else 0.0
             pf = int(s["pfr_count"]) / h * 100 if h > 0 else 0.0
-            arch = _cp(vp, pf, h)
+            arch = _cp(vp, pf, h, min_hands=min_hands)
             if arch is not None:
                 actor_badge = [
                     html.Span(
@@ -2219,6 +2293,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
         hero_cards=hero_cards,
         board=board_str,
         opp_stats=opp_stats_map if opp_stats_map else None,
+        min_hands=min_hands,
     )
     if showdown_div is not None:
         sections.append(showdown_div)
@@ -2262,7 +2337,12 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
         dcc.Store(id="hand-fav-id-store", data=hand_id),
         *([] if hero_row is None else [hero_row]),
         board_div,
-        *([vs] if (vs := _build_villain_summary(opp_stats_map)) is not None else []),
+        *(
+            [vs]
+            if (vs := _build_villain_summary(opp_stats_map, min_hands=min_hands))
+            is not None
+            else []
+        ),
     ]
     return (
         html.Div([*header_children, *sections]),

@@ -990,6 +990,24 @@ class TestClassifyPlayer:
         result = classify_player(vpip_pct=25.0, pfr_pct=20.0, hands_played=20)
         assert result in ("LAG", "Fish")
 
+    def test_min_hands_kwarg_raises_threshold(self):
+        """Passing min_hands=20 causes hands_played=18 to return None."""
+        from pokerhero.analysis.stats import classify_player
+
+        assert (
+            classify_player(vpip_pct=30.0, pfr_pct=20.0, hands_played=18, min_hands=20)
+            is None
+        )
+
+    def test_min_hands_kwarg_allows_classification(self):
+        """Passing min_hands=10 causes hands_played=12 to return an archetype."""
+        from pokerhero.analysis.stats import classify_player
+
+        result = classify_player(
+            vpip_pct=30.0, pfr_pct=20.0, hands_played=12, min_hands=10
+        )
+        assert result is not None
+
 
 # ---------------------------------------------------------------------------
 # TestSessionPlayerStats

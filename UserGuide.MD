@@ -277,8 +277,21 @@ Shown on all-in spots and showdowns (when the villain's cards are visible). A po
 
 ## ⚙️ 6. Settings (`/settings`)
 
-| Setting | What it does |
+### Hero Username
+The PokerStars screen name used to identify you in hand histories. All stats recalculate when changed.
+
+### 📊 Analysis Settings
+Fine-tune how the Session Report computes and displays equity-based statistics.
+
+| Setting | Default | What it does |
+| :--- | :---: | :--- |
+| **Equity sample count** | 2 000 | Number of Monte Carlo samples used to estimate equity. Higher values are more accurate but slower. Range: 500–10 000. |
+| **Lucky equity threshold (%)** | 40 | Hero wins a hand with equity *below* this % → flagged as 🍀 Lucky. |
+| **Unlucky equity threshold (%)** | 60 | Hero loses a hand with equity *above* this % → flagged as 😞 Unlucky. |
+| **Min hands for archetype badge** | 15 | Minimum hands observed against an opponent before a TAG/LAG/Nit/Fish badge is displayed. |
+
+### Data Management
+| Action | What it does |
 | :--- | :--- |
-| **Hero Username** | The PokerStars screen name used to identify you in hand histories. All stats recalculate when changed. |
-| **Clear Database** | Deletes all imported hands, sessions, and actions. Settings (hero username) are preserved. |
+| **Clear Database** | Deletes all imported hands, sessions, and actions. Settings are preserved. |
 | **Export Data to CSV** | Downloads a CSV file containing your sessions and hands for use in external tools. |

@@ -338,6 +338,7 @@ def classify_player(
     vpip_pct: float,
     pfr_pct: float,
     hands_played: int,
+    min_hands: int = _MIN_HANDS_FOR_CLASSIFICATION,
 ) -> str | None:
     """Classify an opponent into a playing-style archetype.
 
@@ -356,12 +357,15 @@ def classify_player(
         vpip_pct: VPIP expressed as a percentage (0–100).
         pfr_pct: PFR expressed as a percentage (0–100).
         hands_played: Total hands observed for this player in the session.
+        min_hands: Minimum hands required before an archetype is assigned.
+            Defaults to the module-level ``_MIN_HANDS_FOR_CLASSIFICATION``
+            (15). Pass a different value to override via the Settings UI.
 
     Returns:
         One of ``"TAG"``, ``"LAG"``, ``"Nit"``, ``"Fish"``, or ``None``
-        when *hands_played* is below the minimum threshold (15).
+        when *hands_played* is below *min_hands*.
     """
-    if hands_played < _MIN_HANDS_FOR_CLASSIFICATION:
+    if hands_played < min_hands:
         return None
 
     is_loose = vpip_pct >= _VPIP_LOOSE_THRESHOLD

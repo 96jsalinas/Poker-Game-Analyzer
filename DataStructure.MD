@@ -92,9 +92,13 @@ A simple key/value store for persistent application configuration.
 | `value` | TEXT NOT NULL | Setting value as a string. |
 
 **Known keys:**
-| Key | Description |
-| :--- | :--- |
-| `hero_username` | The PokerStars username of the hero player. Set via the Upload page and used by the Sessions page to resolve the hero `player_id`. |
+| Key | Default | Description |
+| :--- | :--- | :--- |
+| `hero_username` | — | The PokerStars username of the hero player. Set via the Upload page. |
+| `equity_sample_count` | `"2000"` | Monte Carlo samples for equity estimation in the Session Report. |
+| `lucky_equity_threshold` | `"40"` | Integer percentage (0–100). Hero wins below this equity → 🍀 Lucky. |
+| `unlucky_equity_threshold` | `"60"` | Integer percentage (0–100). Hero loses above this equity → 😞 Unlucky. |
+| `min_hands_classification` | `"15"` | Minimum hands observed before an opponent archetype badge is shown. |
 
 ### `get_session_showdown_hands` output schema
 | Column | Type | Notes |

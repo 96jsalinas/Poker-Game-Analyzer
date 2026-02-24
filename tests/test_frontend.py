@@ -494,6 +494,34 @@ class TestSettingsPageLayout:
         comp = layout() if callable(layout) else layout
         assert "/settings" in str(comp)
 
+    def test_layout_has_sample_count_input(self):
+        """Settings layout must contain a settings-sample-count input."""
+        from pokerhero.frontend.pages.settings import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "settings-sample-count" in str(comp)
+
+    def test_layout_has_lucky_threshold_input(self):
+        """Settings layout must contain a settings-lucky-threshold input."""
+        from pokerhero.frontend.pages.settings import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "settings-lucky-threshold" in str(comp)
+
+    def test_layout_has_unlucky_threshold_input(self):
+        """Settings layout must contain a settings-unlucky-threshold input."""
+        from pokerhero.frontend.pages.settings import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "settings-unlucky-threshold" in str(comp)
+
+    def test_layout_has_min_hands_input(self):
+        """Settings layout must contain a settings-min-hands input."""
+        from pokerhero.frontend.pages.settings import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "settings-min-hands" in str(comp)
+
 
 class TestDashboardHighlights:
     """Tests for the _build_highlights helper and its presence on the dashboard."""

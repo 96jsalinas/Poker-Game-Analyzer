@@ -92,7 +92,7 @@ Opponents are classified into one of four archetypes using a 2×2 matrix of **VP
 | Tight (< 25%)     | Nit     | TAG        |
 | Loose (≥ 25%)     | Fish    | LAG        |
 
-**Implementation:** `classify_player(vpip_pct, pfr_pct, hands_played)` in `stats.py`. When VPIP = 0, the aggression ratio defaults to 0.0 (Passive), yielding **Nit**.
+**Implementation:** `classify_player(vpip_pct, pfr_pct, hands_played, min_hands=15)` in `stats.py`. When VPIP = 0, the aggression ratio defaults to 0.0 (Passive), yielding **Nit**. The `min_hands` threshold is user-configurable via the **Settings → Analysis Settings** page (stored as `min_hands_classification` in the settings table).
 
 ---
 
@@ -114,7 +114,7 @@ Equity is calculated by `compute_equity()` (heads-up) or `compute_equity_multiwa
 | :--- | :--- |
 | **Engine** | PokerKit `calculate_equities` |
 | **Method** | Monte Carlo simulation |
-| **Default samples** | 5 000 (configurable via `sample_count`); Session Report uses 2 000 |
+| **Default samples** | 5 000 (configurable via `sample_count`); Session Report uses the `equity_sample_count` setting (default 2 000, configurable via **Settings → Analysis Settings**) |
 | **Deck** | Standard 52-card (`Deck.STANDARD`) |
 | **Hand evaluator** | `StandardHighHand` (best 5-card high hand) |
 | **Input (multiway)** | Hero hole cards + all villain hole-card pairs (pipe-separated string) + board cards seen so far |
@@ -122,6 +122,15 @@ Equity is calculated by `compute_equity()` (heads-up) or `compute_equity_multiwa
 | **Caching** | Both functions use `functools.lru_cache` keyed by `(hero_cards, villain_cards_str, board, sample_count)` |
 
 > **Limitation:** Equity is only shown when the villain's exact hole cards are available (i.e. the hand reached showdown or both players were all-in). Range-based equity is not currently supported.
+
+### EV Summary Thresholds
+
+The Session Report EV Summary classifies each showdown hand as Lucky or Unlucky based on two thresholds, both configurable via **Settings → Analysis Settings**:
+
+| Setting | DB Key | Default | Meaning |
+|:--------|:-------|:-------:|:--------|
+| Lucky equity threshold | `lucky_equity_threshold` | 40 (%) | Hero wins with equity < this % → 🍀 Lucky |
+| Unlucky equity threshold | `unlucky_equity_threshold` | 60 (%) | Hero loses with equity > this % → 😞 Unlucky |
 
 ---
 
