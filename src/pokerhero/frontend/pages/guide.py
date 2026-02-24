@@ -160,6 +160,17 @@ layout = html.Div(
         ),
         html.P(
             [
+                html.Strong("Traffic light colouring: "),
+                "VPIP%, PFR%, and 3-Bet% cells in the positional table are shaded"
+                " 🟢 green, 🟡 yellow, or 🔴 red based on your configured target"
+                " range for each position. Configure ranges in ",
+                html.A("Settings → Target Stats", href="/settings/targets"),
+                ". Default values (TAG profile) are applied automatically so cells"
+                " always show a colour even if you haven't customised anything.",
+            ]
+        ),
+        html.P(
+            [
                 html.Strong("Highlights: "),
                 "Four cards showing your biggest hand win/loss and best/worst session."
                 " Click any card to jump straight to that hand or session.",
@@ -187,6 +198,14 @@ layout = html.Div(
                         html.Strong("KPI strip — "),
                         "five at-a-glance cards: Hands played, VPIP%, PFR%,"
                         " Aggression Factor (AF), and Win Rate in bb/100.",
+                    ]
+                ),
+                html.Li(
+                    [
+                        html.Strong("Position Breakdown Table — "),
+                        "a compact per-position VPIP% / PFR% table with the same"
+                        " traffic-light shading as the dashboard (green / yellow / red)."  # noqa: E501
+                        " Positions with no hands in the session are omitted.",
                     ]
                 ),
                 html.Li(
@@ -640,6 +659,84 @@ layout = html.Div(
                 " is not currently supported."
             ),
             style={"color": "#666", "fontSize": "13px"},
+        ),
+        html.Hr(style={"marginTop": "40px"}),
+        # ── Settings ──────────────────────────────────────────────────────
+        _section_heading("⚙️ Settings"),
+        html.H4("Hero Username", style={"marginTop": "16px"}),
+        html.P(
+            "Enter your PokerStars screen name so the app knows which player is you."
+            " All stats recalculate automatically when this is changed."
+        ),
+        html.H4("Analysis Settings", style={"marginTop": "16px"}),
+        _kv_table(
+            [
+                (
+                    "Equity sample count",
+                    "Monte Carlo samples used to estimate equity. Default: 2 000."
+                    " Higher = more accurate but slower. Range: 500–10 000.",
+                ),
+                (
+                    "Lucky equity threshold (%)",
+                    "Hero wins a hand with equity below this % → flagged 🍀 Lucky. Default: 40.",  # noqa: E501
+                ),
+                (
+                    "Unlucky equity threshold (%)",
+                    "Hero loses a hand with equity above this % → flagged 😞 Unlucky. Default: 60.",  # noqa: E501
+                ),
+                (
+                    "Min hands for archetype badge",
+                    "Minimum hands observed against an opponent before a TAG/LAG/Nit/Fish"  # noqa: E501
+                    " badge is shown. Default: 15.",
+                ),
+            ]
+        ),
+        html.H4(
+            [
+                "Target Stats (",
+                html.A("/settings/targets", href="/settings/targets"),
+                ")",
+            ],
+            style={"marginTop": "16px"},
+        ),
+        html.P(
+            "Configure per-position optimal ranges for VPIP, PFR, and 3-Bet."
+            " Each stat × position combination has four inputs:"
+        ),
+        _kv_table(
+            [
+                (
+                    "Green Min / Green Max",
+                    "The optimal zone — cells in this range are highlighted green.",
+                ),
+                (
+                    "Yellow Min / Yellow Max",
+                    "The marginal zone (must fully enclose the green zone)."
+                    " Outside green but within yellow → yellow."
+                    " Outside yellow entirely → red.",
+                ),
+            ]
+        ),
+        html.P(
+            [
+                "Positions: UTG, MP, CO, BTN, SB, BB."
+                " (UTG+1 and MP+1 are treated as UTG and MP respectively.)"
+                " Default values represent a balanced TAG profile, so traffic-light"
+                " colours work out of the box for novice users.",
+            ]
+        ),
+        html.H4("Data Management", style={"marginTop": "16px"}),
+        _kv_table(
+            [
+                (
+                    "Clear Database",
+                    "Deletes all imported hands, sessions, and actions. Settings are preserved.",  # noqa: E501
+                ),
+                (
+                    "Export Data to CSV",
+                    "Downloads your sessions and hands as a CSV file for use in external tools.",  # noqa: E501
+                ),
+            ]
         ),
         html.Hr(style={"marginTop": "40px"}),
         html.P(

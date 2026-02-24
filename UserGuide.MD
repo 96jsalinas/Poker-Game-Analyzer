@@ -63,6 +63,8 @@ Breaks down your play by seat. Each row is a position (BTN, CO, HJ, SB, BB, etc.
 
 > **Hover tooltips:** Each stat column header has a `?` badge. Hover it to see the exact formula.
 
+> **Traffic light colouring:** VPIP%, PFR%, and 3-Bet% cells are shaded 🟢 green, 🟡 yellow, or 🔴 red depending on how your stat compares to your configured target range for that position. Configure ranges in **Settings → Target Stats** (`/settings/targets`). Cells are green when you're in the optimal zone, yellow when slightly outside, and red when well outside.
+
 ### Highlights
 Four cards showing notable hands/sessions:
 - 🏆 **Biggest Hand Win** — your largest single-hand profit (click to jump to that hand).
@@ -100,6 +102,8 @@ A narrative overview of your performance in the selected session, before you div
 | **PFR** | Your Pre-Flop Raise % for this session. |
 | **AF** | Your Aggression Factor post-flop for this session. |
 | **Win Rate** | Your result in bb/100 for this session. |
+
+**Position Breakdown Table** — a compact per-position table showing your VPIP% and PFR% for each seat you played in this session. Cells are shaded with the same traffic-light colours as the dashboard (green / yellow / red) based on your target ranges. Positions with zero hands in the session are omitted.
 
 **Narrative paragraph** — a short written summary describing your VPIP, PFR, AF and overall win/loss rate for the session.
 
@@ -289,6 +293,20 @@ Fine-tune how the Session Report computes and displays equity-based statistics.
 | **Lucky equity threshold (%)** | 40 | Hero wins a hand with equity *below* this % → flagged as 🍀 Lucky. |
 | **Unlucky equity threshold (%)** | 60 | Hero loses a hand with equity *above* this % → flagged as 😞 Unlucky. |
 | **Min hands for archetype badge** | 15 | Minimum hands observed against an opponent before a TAG/LAG/Nit/Fish badge is displayed. |
+
+### 🎯 Target Stats (`/settings/targets`)
+Configure per-position optimal ranges for VPIP, PFR, and 3-Bet. Accessible via the **Target Stats** link on the main Settings page.
+
+Each stat × position combination has four numeric inputs defining two zones:
+
+| Field | What it means |
+| :--- | :--- |
+| **Green Min / Green Max** | The optimal zone. Stats within this range are highlighted green. |
+| **Yellow Min / Yellow Max** | The marginal zone (must enclose the green zone). Stats outside green but within yellow are highlighted yellow. Stats outside yellow entirely are highlighted red. |
+
+Positions configured: **UTG, MP, CO, BTN, SB, BB**. (UTG+1 maps to UTG, MP+1 maps to MP.)
+
+Default values represent a balanced TAG profile. Novice users can ignore this page — sensible defaults ensure all cells still show a colour from day one.
 
 ### Data Management
 | Action | What it does |
