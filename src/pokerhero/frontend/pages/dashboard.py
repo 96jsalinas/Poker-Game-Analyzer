@@ -212,7 +212,7 @@ _TL_COLORS: dict[str, str] = {
 def _kpi_card(
     label: str,
     value: str,
-    color: str = "#333",
+    color: str = "var(--text-1, #333)",
 ) -> html.Div:
     return html.Div(
         [

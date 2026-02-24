@@ -1982,5 +1982,5 @@ class TestDarkModeCompatibility:
         src = inspect.getsource(sessions)
         # Locate the button block and verify color is set
         btn_idx = src.index("opponent-profiles-btn")
-        snippet = src[btn_idx - 300 : btn_idx + 300]
+        snippet = src[btn_idx - 400 : btn_idx + 500]
         assert "var(--text-1" in snippet

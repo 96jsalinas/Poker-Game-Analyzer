@@ -1653,9 +1653,11 @@ def _build_session_kpi_strip(
     af = aggression_factor(actions_df) if not actions_df.empty else float("inf")
     wr = win_rate_bb100(kpis_df) if not kpis_df.empty else 0.0
     af_str = f"{af:.2f}" if af != float("inf") else "∞"
-    wr_color = "#28a745" if wr >= 0 else "#dc3545"
+    wr_color = (
+        "var(--pnl-positive, #28a745)" if wr >= 0 else "var(--pnl-negative, #dc3545)"
+    )
 
-    def _kpi(label: str, value: str, color: str = "#222") -> html.Div:
+    def _kpi(label: str, value: str, color: str = "var(--text-1, #222)") -> html.Div:
         return html.Div(
             [
                 html.Div(
@@ -2220,6 +2222,7 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
             "padding": "4px 12px",
             "fontSize": "13px",
             "cursor": "pointer",
+            "color": "var(--text-1, #333)",
         },
     )
 
