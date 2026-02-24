@@ -80,7 +80,7 @@ def _action_row_style(is_hero: bool) -> dict[str, str]:
     """
     if is_hero:
         return {
-            "backgroundColor": "#edf5ff",
+            "backgroundColor": "var(--bg-hero-row, #edf5ff)",
             "borderLeft": "3px solid #0074D9",
         }
     return {}
@@ -675,7 +675,8 @@ def _get_hero_player_id(db_path: str) -> int | None:
 
 
 def _pnl_style(value: float) -> dict[str, str]:
-    return {"color": "green" if value >= 0 else "red", "fontWeight": "600"}
+    color = "var(--pnl-positive, green)" if value >= 0 else "var(--pnl-negative, red)"
+    return {"color": color, "fontWeight": "600"}
 
 
 def _fav_button_label(is_favorite: bool) -> str:
@@ -1263,7 +1264,7 @@ def _build_session_table(df: pd.DataFrame) -> Any:  # dash_table has no mypy stu
                 "color": "#e74c3c",
                 "fontWeight": "600",
             },
-            {"if": {"row_index": "odd"}, "backgroundColor": "#f9f9f9"},
+            {"if": {"row_index": "odd"}, "backgroundColor": "var(--bg-2, #f9f9f9)"},
         ],
         style_as_list_view=True,
         row_selectable=False,
@@ -1318,7 +1319,7 @@ def _build_hand_table(df: pd.DataFrame) -> Any:  # dash_table has no mypy stubs
                 "color": "#e74c3c",
                 "fontWeight": "600",
             },
-            {"if": {"row_index": "odd"}, "backgroundColor": "#f9f9f9"},
+            {"if": {"row_index": "odd"}, "backgroundColor": "var(--bg-2, #f9f9f9)"},
         ],
         style_as_list_view=True,
         row_selectable=False,
@@ -1519,9 +1520,9 @@ _KPI_CARD_STYLE: dict[str, str] = {
 
 
 _TL_COLORS: dict[str, str] = {
-    "green": "#d4edda",
-    "yellow": "#fff3cd",
-    "red": "#f8d7da",
+    "green": "var(--tl-green, #d4edda)",
+    "yellow": "var(--tl-yellow, #fff3cd)",
+    "red": "var(--tl-red, #f8d7da)",
 }
 
 _POSITION_ORDER = ["BTN", "CO", "MP", "MP+1", "UTG", "UTG+1", "SB", "BB"]

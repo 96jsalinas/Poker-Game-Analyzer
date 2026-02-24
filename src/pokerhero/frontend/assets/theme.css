@@ -12,6 +12,12 @@
   --text-4:       #888888;   /* ghost / placeholder text              */
   --border:       #e0e0e0;   /* standard border                       */
   --border-light: #eeeeee;   /* subtle separator                      */
+  --pnl-positive: green;     /* P&L positive color                    */
+  --pnl-negative: red;       /* P&L negative color                    */
+  --bg-hero-row:  #edf5ff;   /* hero action-row highlight             */
+  --tl-green:     #d4edda;   /* traffic-light green background        */
+  --tl-yellow:    #fff3cd;   /* traffic-light yellow background       */
+  --tl-red:       #f8d7da;   /* traffic-light red background          */
 }
 
 /* -- Dark-mode overrides -------------------------------------------- */
@@ -25,6 +31,12 @@ body.dark {
   --text-4:       #6e6e80;
   --border:       #303050;
   --border-light: #282840;
+  --pnl-positive: #2ecc71;   /* P&L positive — bright green on dark   */
+  --pnl-negative: #e74c3c;   /* P&L negative — bright red on dark     */
+  --bg-hero-row:  #1e2a4a;   /* hero row — navy highlight on dark      */
+  --tl-green:     #1a3a2a;   /* traffic-light green on dark            */
+  --tl-yellow:    #3a3010;   /* traffic-light yellow on dark           */
+  --tl-red:       #3a1a1a;   /* traffic-light red on dark              */
 
   /* Dash 4.0 design-system token overrides.
      These drive the background, border and text of ALL Dash 4
@@ -62,7 +74,7 @@ body.dark textarea {
 body.dark .dash-spreadsheet-container .dash-spreadsheet,
 body.dark .dash-spreadsheet-container .dash-spreadsheet input {
   background-color: var(--bg-1) !important;
-  color: var(--text-1) !important;
+  color: var(--text-1);
   border-color: var(--border) !important;
 }
 
@@ -70,7 +82,7 @@ body.dark .dash-spreadsheet-container td.dash-cell,
 body.dark .dash-spreadsheet-container td.dash-delete-cell,
 body.dark .dash-spreadsheet-container td.dash-select-cell {
   background-color: var(--bg-1) !important;
-  color: var(--text-1) !important;
+  color: var(--text-1);
   border-color: var(--border) !important;
 }
 

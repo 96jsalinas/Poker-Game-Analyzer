@@ -203,9 +203,9 @@ def _stat_header(label: str, tooltip: str) -> html.Th:
 
 
 _TL_COLORS: dict[str, str] = {
-    "green": "#d4edda",
-    "yellow": "#fff3cd",
-    "red": "#f8d7da",
+    "green": "var(--tl-green, #d4edda)",
+    "yellow": "var(--tl-yellow, #fff3cd)",
+    "red": "var(--tl-red, #f8d7da)",
 }
 
 
@@ -245,7 +245,7 @@ def _kpi_card(
     )
 
 
-def _build_vpip_pfr_chart(vpip: float, pfr: float) -> html.Div:
+def _build_vpip_pfr_chart(vpip: float, pfr: float, theme: str = "light") -> html.Div:
     """Build the VPIP/PFR gap chart as a stacked horizontal bar.
 
     The bar is split into three segments that always sum to 100%:
@@ -307,14 +307,15 @@ def _build_vpip_pfr_chart(vpip: float, pfr: float) -> html.Div:
             insidetextanchor="middle",
         )
     )
+    chart_bg = "#1a1a2e" if theme == "dark" else "#fff"
     fig.update_layout(
         barmode="stack",
         title=None,
         xaxis={"range": [0, 100], "showticklabels": False, "showgrid": False},
         yaxis={"showticklabels": False},
         margin={"l": 0, "r": 0, "t": 0, "b": 0},
-        plot_bgcolor="#fff",
-        paper_bgcolor="#fff",
+        plot_bgcolor=chart_bg,
+        paper_bgcolor=chart_bg,
         showlegend=True,
         legend={
             "orientation": "h",
@@ -322,7 +323,7 @@ def _build_vpip_pfr_chart(vpip: float, pfr: float) -> html.Div:
             "y": -0.6,
             "xanchor": "center",
             "x": 0.5,
-            "font": {"size": 11},
+            "font": {"size": 11, "color": "#c0c0d8" if theme == "dark" else "#333"},
         },
         height=80,
     )
@@ -449,28 +450,28 @@ def _build_highlights(
             "Best Hand",
             _fmt_pnl(best_hand_pnl),
             best_hand_cards if isinstance(best_hand_cards, str) else "—",
-            "green",
+            "var(--pnl-positive, green)",
             best_hand_url,
         ),
         _hl_card(
             "Worst Hand",
             _fmt_pnl(worst_hand_pnl),
             worst_hand_cards if isinstance(worst_hand_cards, str) else "—",
-            "red",
+            "var(--pnl-negative, red)",
             worst_hand_url,
         ),
         _hl_card(
             "Best Session",
             _fmt_pnl(best_sess_pnl),
             best_sess_label,
-            "green",
+            "var(--pnl-positive, green)",
             best_sess_url,
         ),
         _hl_card(
             "Worst Session",
             _fmt_pnl(worst_sess_pnl),
             worst_sess_label,
-            "red",
+            "var(--pnl-negative, red)",
             worst_sess_url,
         ),
     ]
@@ -498,9 +499,12 @@ def _build_highlights(
     Input("_pages_location", "pathname"),
     Input("dashboard-period", "value"),
     Input("dashboard-currency", "value"),
+    Input("theme-store", "data"),
     prevent_initial_call=False,
 )
-def _render(pathname: str, period: str, currency: str) -> html.Div | str:
+def _render(
+    pathname: str, period: str, currency: str, theme: str = "light"
+) -> html.Div | str:
     if pathname != "/dashboard":
         raise dash.exceptions.PreventUpdate
 
@@ -569,9 +573,11 @@ def _render(pathname: str, period: str, currency: str) -> html.Div | str:
     three_bet = three_bet_pct(opp_df) * 100
 
     pnl_str = _fmt_pnl(pnl)
-    pnl_color = "green" if pnl >= 0 else "red"
+    pnl_color = "var(--pnl-positive, green)" if pnl >= 0 else "var(--pnl-negative, red)"
     wr_str = f"{'+' if win_rate >= 0 else ''}{win_rate:.1f} bb/100"
-    wr_color = "green" if win_rate >= 0 else "red"
+    wr_color = (
+        "var(--pnl-positive, green)" if win_rate >= 0 else "var(--pnl-negative, red)"
+    )
 
     kpi_section = html.Div(
         id="kpi-section",
@@ -607,15 +613,17 @@ def _render(pathname: str, period: str, currency: str) -> html.Div | str:
             hovertemplate="Hand %{x}<br>Cumulative P&L: %{y:,.4g}<extra></extra>",
         )
     )
+    chart_bg = "#1a1a2e" if theme == "dark" else "#fff"
+    chart_grid = "#303050" if theme == "dark" else "#eee"
     fig.update_layout(
         title=None,
         xaxis_title="Hands played",
         yaxis_title="Cumulative P&L",
         margin={"l": 50, "r": 20, "t": 20, "b": 40},
-        plot_bgcolor="#fff",
-        paper_bgcolor="#fff",
-        xaxis={"showgrid": True, "gridcolor": "#eee"},
-        yaxis={"showgrid": True, "gridcolor": "#eee", "zeroline": True},
+        plot_bgcolor=chart_bg,
+        paper_bgcolor=chart_bg,
+        xaxis={"showgrid": True, "gridcolor": chart_grid},
+        yaxis={"showgrid": True, "gridcolor": chart_grid, "zeroline": True},
         height=280,
     )
     bankroll_section = html.Div(
@@ -651,7 +659,14 @@ def _render(pathname: str, period: str, currency: str) -> html.Div | str:
         pos_af = aggression_factor(pos_actions)
         pos_pnl = total_profit(pos_hp)
         af_str = f"{pos_af:.2f}" if pos_af != float("inf") else "∞"
-        pnl_style = {**_TD, "color": "green" if pos_pnl >= 0 else "red"}
+        pnl_style = {
+            **_TD,
+            "color": (
+                "var(--pnl-positive, green)"
+                if pos_pnl >= 0
+                else "var(--pnl-negative, red)"
+            ),
+        }
 
         # Traffic-light colours for VPIP, PFR, 3-Bet
         canon = canonical_position(pos)
@@ -745,7 +760,7 @@ def _render(pathname: str, period: str, currency: str) -> html.Div | str:
         [
             kpi_section,
             bankroll_section,
-            _build_vpip_pfr_chart(vpip / 100, pfr / 100),
+            _build_vpip_pfr_chart(vpip / 100, pfr / 100, theme=theme),
             positional_section,
             _build_highlights(hp_df, sessions_df),
         ]
