@@ -94,6 +94,20 @@ Opponents are classified into one of four archetypes using a 2×2 matrix of **VP
 
 **Implementation:** `classify_player(vpip_pct, pfr_pct, hands_played, min_hands=15)` in `stats.py`. When VPIP = 0, the aggression ratio defaults to 0.0 (Passive), yielding **Nit**. The `min_hands` threshold is user-configurable via the **Settings → Analysis Settings** page (stored as `min_hands_classification` in the settings table).
 
+### H. Confidence Tiers for Opponent Reads ✅ Implemented
+
+Once an opponent has cleared the `min_hands` threshold and receives an archetype badge, the badge's visual style reflects the **confidence tier** — how reliable the read is based on sample size.
+
+**Tier thresholds (fixed, not user-configurable):**
+
+| Tier | Hands range | Badge appearance |
+|:-----|:-----------:|:----------------|
+| Preliminary | `min_hands` – 49 | Faded (opacity 0.55) |
+| Standard | 50 – 99 | Full opacity (default) |
+| Confirmed | ≥ 100 | Full opacity + "✓" suffix |
+
+**Implementation:** `confidence_tier(hands_played: int) -> str` in `stats.py`. UI helper `_archetype_badge_attrs(archetype, hands_played)` in `sessions.py` returns `(label, extra_style)` spread into every badge Span across all four badge-creation sites.
+
 ---
 
 ## 🧪 4. Expected Value (EV) Logic ✅ Implemented

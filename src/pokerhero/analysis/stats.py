@@ -330,6 +330,8 @@ def compute_ev(
 
 
 _MIN_HANDS_FOR_CLASSIFICATION = 15
+_PRELIMINARY_HANDS_THRESHOLD = 50
+_CONFIRMED_HANDS_THRESHOLD = 100
 _VPIP_LOOSE_THRESHOLD = 25.0  # % — at or above this → Loose
 _AGG_RATIO_THRESHOLD = 0.5  # PFR / VPIP — at or above this → Aggressive
 
@@ -379,3 +381,24 @@ def classify_player(
     if is_aggressive:
         return "TAG"
     return "Nit"
+
+
+def confidence_tier(hands_played: int) -> str:
+    """Return the confidence tier for an opponent read based on hands observed.
+
+    Tiers:
+    - ``"preliminary"`` — fewer than 50 hands; read is tentative.
+    - ``"standard"``    — 50–99 hands; reasonable sample.
+    - ``"confirmed"``   — 100 or more hands; high-confidence read.
+
+    Args:
+        hands_played: Number of hands observed against this opponent.
+
+    Returns:
+        One of ``"preliminary"``, ``"standard"``, or ``"confirmed"``.
+    """
+    if hands_played >= _CONFIRMED_HANDS_THRESHOLD:
+        return "confirmed"
+    if hands_played >= _PRELIMINARY_HANDS_THRESHOLD:
+        return "standard"
+    return "preliminary"

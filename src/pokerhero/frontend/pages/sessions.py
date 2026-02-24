@@ -262,9 +262,10 @@ def _build_showdown_section(
             pf = int(s["pfr_count"]) / h * 100 if h > 0 else 0.0
             archetype = classify_player(vp, pf, h, min_hands=min_hands)
             if archetype is not None:
+                arch_label, arch_extras = _archetype_badge_attrs(archetype, h)
                 archetype_badge = [
                     html.Span(
-                        archetype,
+                        arch_label,
                         style={
                             "background": _ARCHETYPE_COLORS.get(archetype, "#999"),
                             "color": "#fff",
@@ -274,6 +275,7 @@ def _build_showdown_section(
                             "fontWeight": "700",
                             "marginLeft": "5px",
                             "verticalAlign": "middle",
+                            **arch_extras,
                         },
                     )
                 ]
@@ -476,6 +478,32 @@ _ARCHETYPE_COLORS: dict[str | None, str] = {
 }
 
 
+def _archetype_badge_attrs(
+    archetype: str, hands_played: int
+) -> tuple[str, dict[str, str]]:
+    """Return ``(label, extra_style)`` for an archetype badge based on confidence tier.
+
+    - Preliminary (<50 hands): same label, opacity 0.55 (faded).
+    - Standard (50–99 hands): same label, no extra style.
+    - Confirmed (≥100 hands): label gains a "✓" suffix, no extra style.
+
+    Args:
+        archetype: Archetype string (e.g. "TAG", "Fish").
+        hands_played: Number of hands observed against this opponent.
+
+    Returns:
+        A ``(label, extra_style)`` tuple to spread into the badge Span.
+    """
+    from pokerhero.analysis.stats import confidence_tier
+
+    tier = confidence_tier(hands_played)
+    if tier == "confirmed":
+        return f"{archetype} ✓", {}
+    if tier == "preliminary":
+        return archetype, {"opacity": "0.55"}
+    return archetype, {}
+
+
 def _build_opponent_profile_card(
     username: str,
     hands_played: int,
@@ -506,9 +534,10 @@ def _build_opponent_profile_card(
 
     badge: list[Component] = []
     if archetype is not None:
+        badge_label, badge_extras = _archetype_badge_attrs(archetype, hands_played)
         badge = [
             html.Span(
-                archetype,
+                badge_label,
                 style={
                     "background": _ARCHETYPE_COLORS.get(archetype, "#999"),
                     "color": "#fff",
@@ -517,6 +546,7 @@ def _build_opponent_profile_card(
                     "fontSize": "12px",
                     "fontWeight": "700",
                     "marginLeft": "6px",
+                    **badge_extras,
                 },
             )
         ]
@@ -582,10 +612,12 @@ def _build_villain_summary(
         vp = int(s["vpip_count"]) / h * 100 if h > 0 else 0.0
         pf = int(s["pfr_count"]) / h * 100 if h > 0 else 0.0
         archetype = classify_player(vp, pf, h, min_hands=min_hands)
-        badge: list[Component] = (
-            [
+        badge: list[Component]
+        if archetype is not None:
+            badge_label, badge_extras = _archetype_badge_attrs(archetype, h)
+            badge = [
                 html.Span(
-                    archetype,
+                    badge_label,
                     style={
                         "background": _ARCHETYPE_COLORS.get(archetype, "#999"),
                         "color": "#fff",
@@ -595,12 +627,12 @@ def _build_villain_summary(
                         "fontWeight": "700",
                         "marginLeft": "4px",
                         "verticalAlign": "middle",
+                        **badge_extras,
                     },
                 )
             ]
-            if archetype is not None
-            else []
-        )
+        else:
+            badge = []
         items.append(
             html.Span(
                 [html.Span(username, style={"fontSize": "13px"}), *badge],
@@ -2224,9 +2256,10 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             pf = int(s["pfr_count"]) / h * 100 if h > 0 else 0.0
             arch = _cp(vp, pf, h, min_hands=min_hands)
             if arch is not None:
+                arch_label, arch_extras = _archetype_badge_attrs(arch, h)
                 actor_badge = [
                     html.Span(
-                        arch,
+                        arch_label,
                         style={
                             "background": _ARCHETYPE_COLORS.get(arch, "#999"),
                             "color": "#fff",
@@ -2236,6 +2269,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
                             "fontWeight": "700",
                             "marginLeft": "5px",
                             "verticalAlign": "middle",
+                            **arch_extras,
                         },
                     )
                 ]

@@ -51,7 +51,7 @@ Poker hand histories contain hundreds of edge cases. The `tests/fixtures/` direc
 
 * **Framework:** `pytest` will be the primary testing framework due to its concise syntax and powerful fixture management.
 * **Data Mocking:** `pandas.testing.assert_frame_equal` will be used extensively to verify analytical outputs match expected DataFrame structures.
-* **Current test count (588 total):**
+* **Current test count (594 total):**
 
 | File | Tests | Scope |
 | :--- | :--- | :--- |
