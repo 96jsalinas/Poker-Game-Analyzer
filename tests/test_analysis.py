@@ -1010,6 +1010,36 @@ class TestClassifyPlayer:
 
 
 # ---------------------------------------------------------------------------
+# TestConfidenceTier
+# ---------------------------------------------------------------------------
+
+
+class TestConfidenceTier:
+    """Tests for confidence_tier() in stats.py."""
+
+    def test_below_50_is_preliminary(self):
+        """Hands below 50 → 'preliminary' tier."""
+        from pokerhero.analysis.stats import confidence_tier
+
+        assert confidence_tier(1) == "preliminary"
+        assert confidence_tier(49) == "preliminary"
+
+    def test_50_to_99_is_standard(self):
+        """50–99 hands → 'standard' tier."""
+        from pokerhero.analysis.stats import confidence_tier
+
+        assert confidence_tier(50) == "standard"
+        assert confidence_tier(99) == "standard"
+
+    def test_100_and_above_is_confirmed(self):
+        """100+ hands → 'confirmed' tier."""
+        from pokerhero.analysis.stats import confidence_tier
+
+        assert confidence_tier(100) == "confirmed"
+        assert confidence_tier(500) == "confirmed"
+
+
+# ---------------------------------------------------------------------------
 # TestSessionPlayerStats
 # ---------------------------------------------------------------------------
 

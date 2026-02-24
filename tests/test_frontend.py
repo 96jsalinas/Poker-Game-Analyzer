@@ -1962,6 +1962,32 @@ class TestBuildOpponentProfileCard:
         for archetype in ("TAG", "LAG", "Nit", "Fish"):
             assert archetype not in card_str
 
+    def test_preliminary_badge_is_faded(self):
+        """Badge for 15–49 hands has reduced opacity (preliminary read)."""
+        from pokerhero.frontend.pages.sessions import _build_opponent_profile_card
+
+        # 30 hands (≥ min=15, < 50): preliminary tier — badge should be faded
+        card = _build_opponent_profile_card("X", 30, 9, 6)
+        assert "opacity" in str(card)
+
+    def test_standard_badge_has_no_opacity(self):
+        """Badge for 50–99 hands has no opacity adjustment (standard read)."""
+        from pokerhero.frontend.pages.sessions import _build_opponent_profile_card
+
+        # 75 hands: standard tier — badge has full opacity (no opacity key)
+        card = _build_opponent_profile_card("X", 75, 15, 12)
+        card_str = str(card)
+        assert "TAG" in card_str
+        assert "opacity" not in card_str
+
+    def test_confirmed_badge_has_checkmark(self):
+        """Badge for ≥ 100 hands includes a ✓ checkmark (confirmed read)."""
+        from pokerhero.frontend.pages.sessions import _build_opponent_profile_card
+
+        # 150 hands: confirmed tier
+        card = _build_opponent_profile_card("X", 150, 30, 20)
+        assert "✓" in str(card)
+
 
 # ---------------------------------------------------------------------------
 # TestOpponentProfilesPanel
