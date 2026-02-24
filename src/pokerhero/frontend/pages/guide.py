@@ -8,9 +8,13 @@ from dash import html
 dash.register_page(__name__, path="/guide", name="Guide")  # type: ignore[no-untyped-call]
 
 _HEADING_STYLE = {"color": "#0074D9", "marginTop": "32px", "marginBottom": "8px"}
-_SUBHEADING_STYLE = {"color": "#333", "marginTop": "24px", "marginBottom": "4px"}
+_SUBHEADING_STYLE = {
+    "color": "var(--text-2, #333)",
+    "marginTop": "24px",
+    "marginBottom": "4px",
+}
 _FORMULA_STYLE = {
-    "background": "#f5f7fa",
+    "background": "var(--bg-2, #f5f7fa)",
     "border": "1px solid #dde",
     "borderRadius": "4px",
     "padding": "8px 14px",
@@ -30,15 +34,18 @@ _TH = {
     "padding": "6px 10px",
     "textAlign": "left",
 }
-_TD_EVEN = {"padding": "6px 10px", "borderBottom": "1px solid #eee"}
-_TD_ODD = {**_TD_EVEN, "background": "#f9f9f9"}
+_TD_EVEN = {
+    "padding": "6px 10px",
+    "borderBottom": "1px solid var(--border-light, #eee)",
+}
+_TD_ODD = {**_TD_EVEN, "background": "var(--bg-2, #f9f9f9)"}
 
 _CONTAINER = {
     "fontFamily": "sans-serif",
     "maxWidth": "860px",
     "margin": "0 auto",
     "padding": "24px 20px 60px",
-    "color": "#222",
+    "color": "var(--text-1, #222)",
     "lineHeight": "1.6",
 }
 
@@ -77,7 +84,7 @@ layout = html.Div(
         html.H1("📖 User Guide", style={"marginBottom": "4px"}),
         html.P(
             "Everything you need to know to use PokerHero-Analyzer and understand your stats.",  # noqa: E501
-            style={"color": "#555", "marginBottom": "4px"},
+            style={"color": "var(--text-3, #555)", "marginBottom": "4px"},
         ),
         html.P(
             html.A("← Back to Home", href="/"),
@@ -658,7 +665,7 @@ layout = html.Div(
                 " cards are known (showdown or all-in). Range-based equity"
                 " is not currently supported."
             ),
-            style={"color": "#666", "fontSize": "13px"},
+            style={"color": "var(--text-3, #666)", "fontSize": "13px"},
         ),
         html.Hr(style={"marginTop": "40px"}),
         # ── Settings ──────────────────────────────────────────────────────

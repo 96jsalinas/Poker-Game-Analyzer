@@ -21,6 +21,13 @@ The entry point of the application (`/`). Currently a simple hub page.
 * **Target Stats**: Position-specific VPIP / PFR / 3-Bet range targets with a traffic-light system (green / yellow / red zones). Configured on a dedicated sub-page at `/settings/targets` (linked from the main settings page). Stored in the `target_settings` table (not the key-value `settings` table).
 * **Data Management**: "Clear Database" deletes all hands/sessions/actions/players (settings preserved). "Export Data to CSV" downloads sessions + hands as `pokerhero_export.csv`.
 
+## 🌙 Dark Mode ✅ Implemented
+* A **fixed 🌚 / 🌞 toggle button** sits in the top-right corner of every page (position: fixed, z-index 9999) and is always accessible regardless of scroll position.
+* The preference is persisted in a `dcc.Store(storage_type="local")` keyed `theme-store`, so it survives page navigation and browser restarts.
+* Toggling adds / removes the `dark` class on `document.body` via a clientside callback, enabling CSS-variable-based dark overrides defined in `assets/theme.css`.
+* CSS custom properties (`--bg-1`, `--bg-2`, `--text-1..4`, `--border`, `--border-light`) are used throughout all page files as inline-style `var()` references with light-mode fallbacks, so light mode is pixel-identical to the original design.
+* **Icon convention**: 🌚 = currently light mode (click to go dark); 🌞 = currently dark mode (click to go light).
+
 ---
 
 ## 📤 3. Upload Files ✅ Implemented

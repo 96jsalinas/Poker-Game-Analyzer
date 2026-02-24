@@ -1,0 +1,73 @@
+/* =====================================================================
+   PokerHero Analyzer – Theme variables & dark-mode overrides
+   ===================================================================== */
+
+/* ── Light-mode defaults (CSS custom properties) ─────────────────── */
+:root {
+  --bg-1:         #ffffff;   /* primary page / body background        */
+  --bg-2:         #fafafa;   /* surface / card / panel background     */
+  --text-1:       #111111;   /* primary text                          */
+  --text-2:       #333333;   /* secondary text                        */
+  --text-3:       #555555;   /* muted / descriptive text              */
+  --text-4:       #888888;   /* ghost / placeholder text              */
+  --border:       #e0e0e0;   /* standard border                       */
+  --border-light: #eeeeee;   /* subtle separator                      */
+}
+
+/* ── Dark-mode overrides ─────────────────────────────────────────── */
+body.dark {
+  --bg-1:         #1a1a2e;
+  --bg-2:         #242436;
+  --text-1:       #e8e8f0;
+  --text-2:       #c0c0d8;
+  --text-3:       #9090a8;
+  --text-4:       #6e6e80;
+  --border:       #303050;
+  --border-light: #282840;
+
+  background-color: var(--bg-1) !important;
+  color: var(--text-1);
+}
+
+/* ── Native form elements ─────────────────────────────────────────── */
+body.dark input,
+body.dark select {
+  background-color: var(--bg-2) !important;
+  color: var(--text-1) !important;
+  border-color: var(--border) !important;
+}
+
+/* ── Dash DataTable ───────────────────────────────────────────────── */
+body.dark .dash-spreadsheet-container .dash-spreadsheet,
+body.dark .dash-spreadsheet-container .dash-spreadsheet input {
+  background-color: var(--bg-1) !important;
+  color: var(--text-1) !important;
+  border-color: var(--border) !important;
+}
+
+body.dark .dash-spreadsheet-container td.dash-cell,
+body.dark .dash-spreadsheet-container td.dash-delete-cell,
+body.dark .dash-spreadsheet-container td.dash-select-cell {
+  background-color: var(--bg-1) !important;
+  color: var(--text-1) !important;
+  border-color: var(--border) !important;
+}
+
+body.dark .dash-spreadsheet-container th.dash-header {
+  border-color: var(--border) !important;
+}
+
+/* Override the row-hover rule from tooltips.css for dark mode */
+body.dark .dash-spreadsheet-container .dash-spreadsheet tr:hover td.dash-cell {
+  background-color: #2a2a4a !important;
+}
+
+/* ── Plotly chart backgrounds ─────────────────────────────────────── */
+body.dark .js-plotly-plot .bg {
+  fill: var(--bg-1) !important;
+}
+
+body.dark .js-plotly-plot .gridlayer path,
+body.dark .js-plotly-plot .zerolinelayer path {
+  stroke: var(--border) !important;
+}

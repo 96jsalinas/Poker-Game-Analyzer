@@ -35,7 +35,11 @@ layout = html.Div(
         ),
         html.Span(
             id="username-saved-indicator",
-            style={"marginLeft": "10px", "color": "#888", "fontSize": "12px"},
+            style={
+                "marginLeft": "10px",
+                "color": "var(--text-4, #888)",
+                "fontSize": "12px",
+            },
         ),
         html.Br(),
         html.Br(),
@@ -52,7 +56,7 @@ layout = html.Div(
                     html.Br(),
                     html.Small(
                         "PokerStars .txt hand history files",
-                        style={"color": "#888"},
+                        style={"color": "var(--text-4, #888)"},
                     ),
                 ]
             ),

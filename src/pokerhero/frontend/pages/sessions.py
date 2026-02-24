@@ -47,7 +47,7 @@ _TH = {
 }
 _TD = {
     "padding": "9px 12px",
-    "borderBottom": "1px solid #eee",
+    "borderBottom": "1px solid var(--border-light, #eee)",
     "fontSize": "13px",
     "cursor": "pointer",
 }
@@ -290,7 +290,7 @@ def _build_showdown_section(
                             "fontWeight": "600",
                             "fontSize": "13px",
                             "marginRight": "6px",
-                            "color": "#f5a623" if trophy else "#555",
+                            "color": "#f5a623" if trophy else "var(--text-3, #555)",
                         },
                     ),
                     *archetype_badge,
@@ -301,7 +301,7 @@ def _build_showdown_section(
                                 f"  — {desc}",
                                 style={
                                     "fontSize": "12px",
-                                    "color": "#888",
+                                    "color": "var(--text-4, #888)",
                                     "marginLeft": "6px",
                                 },
                             )
@@ -567,15 +567,15 @@ def _build_opponent_profile_card(
                     f"VPIP: {vpip_pct:.0f}%  |  PFR: {pfr_pct:.0f}%"
                     f"  |  {hands_played} hands"
                 ),
-                style={"fontSize": "12px", "color": "#555"},
+                style={"fontSize": "12px", "color": "var(--text-3, #555)"},
             ),
         ],
         style={
-            "border": "1px solid #ddd",
+            "border": "1px solid var(--border, #ddd)",
             "borderRadius": "6px",
             "padding": "8px 12px",
             "minWidth": "160px",
-            "background": "#fafafa",
+            "background": "var(--bg-2, #fafafa)",
         },
     )
 
@@ -605,7 +605,11 @@ def _build_villain_summary(
     items: list[Component] = [
         html.Span(
             "Villains: ",
-            style={"fontWeight": "600", "fontSize": "13px", "color": "#555"},
+            style={
+                "fontWeight": "600",
+                "fontSize": "13px",
+                "color": "var(--text-3, #555)",
+            },
         )
     ]
     for username, s in opp_stats.items():
@@ -689,7 +693,7 @@ def _fav_button_label(is_favorite: bool) -> str:
 def _breadcrumb(
     level: str, session_label: str = "", hand_label: str = "", session_id: int = 0
 ) -> html.Div:
-    sep = html.Span(" › ", style={"color": "#aaa", "margin": "0 6px"})
+    sep = html.Span(" › ", style={"color": "var(--text-4, #aaa)", "margin": "0 6px"})
     btn_style = {
         "background": "none",
         "border": "none",
@@ -698,7 +702,11 @@ def _breadcrumb(
         "fontSize": "14px",
         "padding": "0",
     }
-    plain_style = {"fontSize": "14px", "color": "#333", "fontWeight": "600"}
+    plain_style = {
+        "fontSize": "14px",
+        "color": "var(--text-2, #333)",
+        "fontWeight": "600",
+    }
 
     if level == "sessions":
         return html.Div(html.Span("Sessions", style=plain_style))
@@ -1023,7 +1031,8 @@ def _render(
                             "⏳ Analysing session  ", style={"fontWeight": "600"}
                         ),
                         html.Span(
-                            hint_body, style={"color": "#888", "fontSize": "13px"}
+                            hint_body,
+                            style={"color": "var(--text-4, #888)", "fontSize": "13px"},
                         ),
                     ]
                 ),
@@ -1381,7 +1390,7 @@ def _render_sessions(db_path: str) -> html.Div | str:
     )
 
     _input_style = {
-        "border": "1px solid #ddd",
+        "border": "1px solid var(--border, #ddd)",
         "borderRadius": "4px",
         "padding": "4px 8px",
         "fontSize": "13px",
@@ -1389,7 +1398,9 @@ def _render_sessions(db_path: str) -> html.Div | str:
     }
     filter_bar = html.Div(
         [
-            html.Span("From", style={"fontSize": "12px", "color": "#666"}),
+            html.Span(
+                "From", style={"fontSize": "12px", "color": "var(--text-3, #666)"}
+            ),
             dcc.Input(
                 id="session-filter-date-from",
                 type="text",
@@ -1397,7 +1408,7 @@ def _render_sessions(db_path: str) -> html.Div | str:
                 debounce=True,
                 style=_input_style,
             ),
-            html.Span("To", style={"fontSize": "12px", "color": "#666"}),
+            html.Span("To", style={"fontSize": "12px", "color": "var(--text-3, #666)"}),
             dcc.Input(
                 id="session-filter-date-to",
                 type="text",
@@ -1462,9 +1473,9 @@ def _render_sessions(db_path: str) -> html.Div | str:
             "flexWrap": "wrap",
             "marginBottom": "12px",
             "padding": "8px 10px",
-            "background": "#f8f9fa",
+            "background": "var(--bg-2, #f8f9fa)",
             "borderRadius": "6px",
-            "border": "1px solid #e0e0e0",
+            "border": "1px solid var(--border, #e0e0e0)",
         },
     )
 
@@ -1501,9 +1512,9 @@ _KPI_CARD_STYLE: dict[str, str] = {
     "textAlign": "center",
     "minWidth": "80px",
     "padding": "12px 16px",
-    "background": "#f8f9fa",
+    "background": "var(--bg-2, #f8f9fa)",
     "borderRadius": "8px",
-    "border": "1px solid #e0e0e0",
+    "border": "1px solid var(--border, #e0e0e0)",
 }
 
 
@@ -1597,7 +1608,11 @@ def _build_session_position_table(
         [
             html.H4(
                 "Position Breakdown",
-                style={"fontSize": "13px", "marginBottom": "6px", "color": "#555"},
+                style={
+                    "fontSize": "13px",
+                    "marginBottom": "6px",
+                    "color": "var(--text-3, #555)",
+                },
             ),
             html.Table(
                 [html.Thead(header), html.Tbody(rows)],
@@ -1646,7 +1661,7 @@ def _build_session_kpi_strip(
                     label,
                     style={
                         "fontSize": "11px",
-                        "color": "#888",
+                        "color": "var(--text-4, #888)",
                         "textTransform": "uppercase",
                         "marginBottom": "4px",
                     },
@@ -1706,7 +1721,7 @@ def _build_session_narrative(
     if n == 0:
         return html.Div(
             "No hands found in this session.",
-            style={"color": "#888", "fontSize": "13px"},
+            style={"color": "var(--text-4, #888)", "fontSize": "13px"},
         )
 
     v = vpip_pct(kpis_df) * 100
@@ -1726,7 +1741,11 @@ def _build_session_narrative(
     return html.Div(
         html.P(
             text,
-            style={"fontSize": "14px", "lineHeight": "1.6", "color": "#444"},
+            style={
+                "fontSize": "14px",
+                "lineHeight": "1.6",
+                "color": "var(--text-2, #444)",
+            },
         ),
         style={"marginBottom": "16px"},
     )
@@ -1806,7 +1825,7 @@ def _build_ev_summary(
     if showdown_df.empty:
         return html.Div(
             "No showdown hands with known villain cards in this session.",
-            style={"color": "#888", "fontSize": "13px"},
+            style={"color": "var(--text-4, #888)", "fontSize": "13px"},
         )
 
     n = len(showdown_df)
@@ -1841,11 +1860,15 @@ def _build_ev_summary(
     children: list[html.H5 | html.P | html.Div] = [
         html.H5(
             "EV Summary",
-            style={"marginBottom": "6px", "color": "#333"},
+            style={"marginBottom": "6px", "color": "var(--text-2, #333)"},
         ),
         html.P(
             f"{n} showdown {hand_word} with known villain cards.",
-            style={"fontSize": "13px", "color": "#555", "marginBottom": "6px"},
+            style={
+                "fontSize": "13px",
+                "color": "var(--text-3, #555)",
+                "marginBottom": "6px",
+            },
         ),
         html.Div(
             verdict,
@@ -1862,7 +1885,11 @@ def _build_ev_summary(
             html.P(
                 f"⚠️ {errors} {err_word} — equity unavailable"
                 " (unrecognised card format).",
-                style={"fontSize": "12px", "color": "#888", "marginTop": "6px"},
+                style={
+                    "fontSize": "12px",
+                    "color": "var(--text-4, #888)",
+                    "marginTop": "6px",
+                },
             )
         )
     return html.Div(children, style={"marginBottom": "20px"})
@@ -1892,7 +1919,7 @@ def _build_flagged_hands_list(
     if showdown_df.empty:
         return html.Div(
             "No showdown data available for analysis.",
-            style={"color": "#888", "fontSize": "13px"},
+            style={"color": "var(--text-4, #888)", "fontSize": "13px"},
         )
 
     flagged: list[html.Div] = []
@@ -1906,13 +1933,13 @@ def _build_flagged_hands_list(
                             "⚠️ Equity unavailable",
                             style={
                                 "marginRight": "10px",
-                                "color": "#888",
+                                "color": "var(--text-4, #888)",
                                 "fontWeight": "600",
                             },
                         ),
                         html.Span(
                             f"Hand #{row['source_hand_id']}",
-                            style={"fontSize": "13px", "color": "#aaa"},
+                            style={"fontSize": "13px", "color": "var(--text-4, #aaa)"},
                         ),
                     ],
                     style={"padding": "6px 0", "borderBottom": "1px solid #f0f0f0"},
@@ -1944,7 +1971,7 @@ def _build_flagged_hands_list(
                     ),
                     html.Span(
                         f"Equity: {eq * 100:.0f}%",
-                        style={"color": "#888", "fontSize": "12px"},
+                        style={"color": "var(--text-4, #888)", "fontSize": "12px"},
                     ),
                 ],
                 style={"padding": "6px 0", "borderBottom": "1px solid #f0f0f0"},
@@ -1954,11 +1981,14 @@ def _build_flagged_hands_list(
     if not flagged:
         return html.Div(
             "No significantly lucky or unlucky spots detected.",
-            style={"color": "#888", "fontSize": "13px"},
+            style={"color": "var(--text-4, #888)", "fontSize": "13px"},
         )
     return html.Div(
         [
-            html.H5("Notable Hands", style={"marginBottom": "8px", "color": "#333"}),
+            html.H5(
+                "Notable Hands",
+                style={"marginBottom": "8px", "color": "var(--text-2, #333)"},
+            ),
             *flagged,
         ],
         style={"marginBottom": "20px"},
@@ -2078,7 +2108,7 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
 
     positions = sorted(df["position"].dropna().unique().tolist())
     _input_style = {
-        "border": "1px solid #ddd",
+        "border": "1px solid var(--border, #ddd)",
         "borderRadius": "4px",
         "padding": "4px 8px",
         "fontSize": "13px",
@@ -2135,9 +2165,9 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
             "flexWrap": "wrap",
             "marginBottom": "12px",
             "padding": "8px 10px",
-            "background": "#f8f9fa",
+            "background": "var(--bg-2, #f8f9fa)",
             "borderRadius": "6px",
-            "border": "1px solid #e0e0e0",
+            "border": "1px solid var(--border, #e0e0e0)",
         },
     )
 
@@ -2145,13 +2175,15 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
         "display": "flex",
         "alignItems": "center",
         "gap": "6px",
-        "background": "#fff8ec" if is_fav else "#f5f5f5",
-        "border": "1px solid #f5a623" if is_fav else "1px solid #ccc",
+        "background": "#fff8ec" if is_fav else "var(--bg-2, #f5f5f5)",
+        "border": "1px solid #f5a623"
+        if is_fav
+        else "1px solid var(--border-light, #ccc)",
         "borderRadius": "20px",
         "padding": "4px 12px",
         "fontSize": "15px",
         "cursor": "pointer",
-        "color": "#f5a623" if is_fav else "#888",
+        "color": "#f5a623" if is_fav else "var(--text-4, #888)",
         "fontWeight": "600",
         "lineHeight": "1.4",
     }
@@ -2181,7 +2213,7 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
         id="opponent-profiles-btn",
         n_clicks=0,
         style={
-            "background": "#f0f4ff",
+            "background": "var(--bg-2, #f0f4ff)",
             "border": "1px solid #aac",
             "borderRadius": "20px",
             "padding": "4px 12px",
@@ -2310,7 +2342,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
                         "fontWeight": "600",
                         "fontSize": "13px",
                         "marginRight": "6px",
-                        "color": "#555",
+                        "color": "var(--text-3, #555)",
                     },
                 ),
                 _render_cards(hero_cards),
@@ -2321,14 +2353,14 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
     # --- Board row ---
     _sep = html.Span(
         "│",
-        style={"color": "#ccc", "margin": "0 8px", "fontWeight": "300"},
+        style={"color": "var(--text-4, #ccc)", "margin": "0 8px", "fontWeight": "300"},
     )
     board_elems: list[html.Span] = [
         html.Span(
             "Board: ",
             style={
                 "fontWeight": "600",
-                "color": "#555",
+                "color": "var(--text-3, #555)",
                 "fontSize": "13px",
                 "marginRight": "6px",
             },
@@ -2343,7 +2375,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
                 board_elems.append(_sep)
                 board_elems.append(_render_cards(river))
     else:
-        board_elems.append(html.Span("—", style={"color": "#888"}))
+        board_elems.append(html.Span("—", style={"color": "var(--text-4, #888)"}))
     board_div = html.Div(
         board_elems,
         style={
@@ -2499,9 +2531,20 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
                     html.Td(label, style=_TD),
                     html.Td(
                         f"Pot: {pot_before:,.6g}",
-                        style={**_TD, "color": "#888", "fontSize": "12px"},
+                        style={
+                            **_TD,
+                            "color": "var(--text-4, #888)",
+                            "fontSize": "12px",
+                        },
                     ),
-                    html.Td(extra, style={**_TD, "color": "#555", "fontSize": "12px"}),
+                    html.Td(
+                        extra,
+                        style={
+                            **_TD,
+                            "color": "var(--text-3, #555)",
+                            "fontSize": "12px",
+                        },
+                    ),
                     html.Td(
                         ev_cell,
                         style={
@@ -2550,15 +2593,17 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
                         "display": "flex",
                         "alignItems": "center",
                         "gap": "6px",
-                        "background": "#fff8ec" if hand_is_fav else "#f5f5f5",
+                        "background": "#fff8ec"
+                        if hand_is_fav
+                        else "var(--bg-2, #f5f5f5)",
                         "border": "1px solid #f5a623"
                         if hand_is_fav
-                        else "1px solid #ccc",
+                        else "1px solid var(--border-light, #ccc)",
                         "borderRadius": "20px",
                         "padding": "4px 12px",
                         "fontSize": "15px",
                         "cursor": "pointer",
-                        "color": "#f5a623" if hand_is_fav else "#888",
+                        "color": "#f5a623" if hand_is_fav else "var(--text-4, #888)",
                         "fontWeight": "600",
                         "lineHeight": "1.4",
                     },
@@ -2696,13 +2741,15 @@ def _toggle_session_fav(
         "display": "flex",
         "alignItems": "center",
         "gap": "6px",
-        "background": "#fff8ec" if is_fav else "#f5f5f5",
-        "border": "1px solid #f5a623" if is_fav else "1px solid #ccc",
+        "background": "#fff8ec" if is_fav else "var(--bg-2, #f5f5f5)",
+        "border": "1px solid #f5a623"
+        if is_fav
+        else "1px solid var(--border-light, #ccc)",
         "borderRadius": "20px",
         "padding": "4px 12px",
         "fontSize": "15px",
         "cursor": "pointer",
-        "color": "#f5a623" if is_fav else "#888",
+        "color": "#f5a623" if is_fav else "var(--text-4, #888)",
         "fontWeight": "600",
         "lineHeight": "1.4",
     }
@@ -2739,13 +2786,15 @@ def _toggle_hand_fav(
         "display": "flex",
         "alignItems": "center",
         "gap": "6px",
-        "background": "#fff8ec" if is_fav else "#f5f5f5",
-        "border": "1px solid #f5a623" if is_fav else "1px solid #ccc",
+        "background": "#fff8ec" if is_fav else "var(--bg-2, #f5f5f5)",
+        "border": "1px solid #f5a623"
+        if is_fav
+        else "1px solid var(--border-light, #ccc)",
         "borderRadius": "20px",
         "padding": "4px 12px",
         "fontSize": "15px",
         "cursor": "pointer",
-        "color": "#f5a623" if is_fav else "#888",
+        "color": "#f5a623" if is_fav else "var(--text-4, #888)",
         "fontWeight": "600",
         "lineHeight": "1.4",
     }

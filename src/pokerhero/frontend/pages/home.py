@@ -16,7 +16,7 @@ _BUTTON_STYLE = {
     "cursor": "pointer",
     "borderRadius": "8px",
     "border": "2px solid #0074D9",
-    "background": "#fff",
+    "background": "var(--bg-2, #fff)",
     "color": "#0074D9",
     "textAlign": "center",
     "textDecoration": "none",
@@ -33,7 +33,7 @@ layout = html.Div(
         html.H1("♠ PokerHero Analyzer"),
         html.P(
             "Your personal poker analysis hub.",
-            style={"color": "#555", "marginBottom": "32px"},
+            style={"color": "var(--text-3, #555)", "marginBottom": "32px"},
         ),
         dcc.Link("📤  Upload Files", href="/upload", style=_BUTTON_STYLE),
         dcc.Link("🔍  Review Sessions", href="/sessions", style=_BUTTON_STYLE),

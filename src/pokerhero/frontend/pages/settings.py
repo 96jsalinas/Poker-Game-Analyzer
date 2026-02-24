@@ -22,9 +22,9 @@ dash.register_page(__name__, path="/settings", name="Settings")  # type: ignore[
 _SECTION_STYLE = {
     "marginBottom": "32px",
     "padding": "20px",
-    "border": "1px solid #e0e0e0",
+    "border": "1px solid var(--border, #e0e0e0)",
     "borderRadius": "8px",
-    "background": "#fafafa",
+    "background": "var(--bg-2, #fafafa)",
 }
 
 _BUTTON_STYLE = {
@@ -56,7 +56,7 @@ layout = html.Div(
                 html.P(
                     "Your PokerStars screen name. Used to identify your actions in "
                     "every hand history file you upload.",
-                    style={"color": "#555", "fontSize": "14px"},
+                    style={"color": "var(--text-3, #555)", "fontSize": "14px"},
                 ),
                 dcc.Input(
                     id="settings-username",
@@ -67,7 +67,11 @@ layout = html.Div(
                 ),
                 html.Span(
                     id="settings-username-saved",
-                    style={"marginLeft": "10px", "color": "#888", "fontSize": "12px"},
+                    style={
+                        "marginLeft": "10px",
+                        "color": "var(--text-4, #888)",
+                        "fontSize": "12px",
+                    },
                 ),
             ],
         ),
@@ -79,7 +83,7 @@ layout = html.Div(
                 html.P(
                     "Tune the equity and classification parameters used when "
                     "analysing your session reports.",
-                    style={"color": "#555", "fontSize": "14px"},
+                    style={"color": "var(--text-3, #555)", "fontSize": "14px"},
                 ),
                 html.Div(
                     style={"display": "grid", "gap": "16px"},
@@ -100,7 +104,7 @@ layout = html.Div(
                                     "(higher = more accurate but slower).",
                                     style={
                                         "fontSize": "12px",
-                                        "color": "#777",
+                                        "color": "var(--text-3, #777)",
                                         "margin": "0 0 6px 0",
                                     },
                                 ),
@@ -121,7 +125,7 @@ layout = html.Div(
                                     id="settings-sample-count-saved",
                                     style={
                                         "marginLeft": "10px",
-                                        "color": "#888",
+                                        "color": "var(--text-4, #888)",
                                         "fontSize": "12px",
                                     },
                                 ),
@@ -143,7 +147,7 @@ layout = html.Div(
                                     " → flagged as Lucky.",
                                     style={
                                         "fontSize": "12px",
-                                        "color": "#777",
+                                        "color": "var(--text-3, #777)",
                                         "margin": "0 0 6px 0",
                                     },
                                 ),
@@ -164,7 +168,7 @@ layout = html.Div(
                                     id="settings-lucky-threshold-saved",
                                     style={
                                         "marginLeft": "10px",
-                                        "color": "#888",
+                                        "color": "var(--text-4, #888)",
                                         "fontSize": "12px",
                                     },
                                 ),
@@ -186,7 +190,7 @@ layout = html.Div(
                                     " → flagged as Unlucky.",
                                     style={
                                         "fontSize": "12px",
-                                        "color": "#777",
+                                        "color": "var(--text-3, #777)",
                                         "margin": "0 0 6px 0",
                                     },
                                 ),
@@ -207,7 +211,7 @@ layout = html.Div(
                                     id="settings-unlucky-threshold-saved",
                                     style={
                                         "marginLeft": "10px",
-                                        "color": "#888",
+                                        "color": "var(--text-4, #888)",
                                         "fontSize": "12px",
                                     },
                                 ),
@@ -229,7 +233,7 @@ layout = html.Div(
                                     "badge is shown for an opponent.",
                                     style={
                                         "fontSize": "12px",
-                                        "color": "#777",
+                                        "color": "var(--text-3, #777)",
                                         "margin": "0 0 6px 0",
                                     },
                                 ),
@@ -250,7 +254,7 @@ layout = html.Div(
                                     id="settings-min-hands-saved",
                                     style={
                                         "marginLeft": "10px",
-                                        "color": "#888",
+                                        "color": "var(--text-4, #888)",
                                         "fontSize": "12px",
                                     },
                                 ),
@@ -268,7 +272,7 @@ layout = html.Div(
                 html.P(
                     "Configure per-position traffic-light targets for VPIP, PFR, "
                     "and 3-Bet.",
-                    style={"color": "#555", "fontSize": "14px"},
+                    style={"color": "var(--text-3, #555)", "fontSize": "14px"},
                 ),
                 dcc.Link(
                     "Configure Target Ranges →",
@@ -285,7 +289,7 @@ layout = html.Div(
                 html.P(
                     "Export your data as CSV or wipe the database. "
                     "Settings (username) are preserved after a clear.",
-                    style={"color": "#555", "fontSize": "14px"},
+                    style={"color": "var(--text-3, #555)", "fontSize": "14px"},
                 ),
                 html.Div(
                     style={"display": "flex", "gap": "12px", "flexWrap": "wrap"},
@@ -521,7 +525,9 @@ def _handle_actions(
                 "⚠️ Set your hero username before exporting.", style={"color": "orange"}
             )
         if db_path == ":memory:":
-            return None, html.Span("No data to export.", style={"color": "#888"})
+            return None, html.Span(
+                "No data to export.", style={"color": "var(--text-4, #888)"}
+            )
         conn = get_connection(db_path)
         try:
             player_row = conn.execute(
@@ -535,7 +541,9 @@ def _handle_actions(
         finally:
             conn.close()
         if df.empty:
-            return None, html.Span("No hands to export yet.", style={"color": "#888"})
+            return None, html.Span(
+                "No hands to export yet.", style={"color": "var(--text-4, #888)"}
+            )
         buf = io.StringIO()
         df.to_csv(buf, index=False)
         return (
@@ -545,7 +553,9 @@ def _handle_actions(
 
     if triggered_id == "clear-db-btn":
         if db_path == ":memory:":
-            return None, html.Span("Nothing to clear.", style={"color": "#888"})
+            return None, html.Span(
+                "Nothing to clear.", style={"color": "var(--text-4, #888)"}
+            )
         conn = get_connection(db_path)
         try:
             clear_all_data(conn)

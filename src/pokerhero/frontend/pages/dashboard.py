@@ -49,7 +49,11 @@ layout = html.Div(
             [
                 html.Span(
                     "Period: ",
-                    style={"fontSize": "13px", "color": "#555", "marginRight": "8px"},
+                    style={
+                        "fontSize": "13px",
+                        "color": "var(--text-3, #555)",
+                        "marginRight": "8px",
+                    },
                 ),
                 dcc.RadioItems(
                     id="dashboard-period",
@@ -66,7 +70,11 @@ layout = html.Div(
             [
                 html.Span(
                     "Game type: ",
-                    style={"fontSize": "13px", "color": "#555", "marginRight": "8px"},
+                    style={
+                        "fontSize": "13px",
+                        "color": "var(--text-3, #555)",
+                        "marginRight": "8px",
+                    },
                 ),
                 dcc.RadioItems(
                     id="dashboard-currency",
@@ -99,7 +107,7 @@ _TH: dict[str, str] = {
 }
 _TD: dict[str, str] = {
     "padding": "8px 12px",
-    "borderBottom": "1px solid #eee",
+    "borderBottom": "1px solid var(--border-light, #eee)",
     "fontSize": "13px",
 }
 
@@ -219,12 +227,16 @@ def _kpi_card(
             ),
             html.Div(
                 label,
-                style={"fontSize": "12px", "color": "#888", "marginTop": "4px"},
+                style={
+                    "fontSize": "12px",
+                    "color": "var(--text-4, #888)",
+                    "marginTop": "4px",
+                },
             ),
         ],
         style={
-            "background": "#f8f9fa",
-            "border": "1px solid #e0e0e0",
+            "background": "var(--bg-2, #f8f9fa)",
+            "border": "1px solid var(--border, #e0e0e0)",
             "borderRadius": "8px",
             "padding": "16px 20px",
             "minWidth": "130px",
@@ -318,7 +330,7 @@ def _build_vpip_pfr_chart(vpip: float, pfr: float) -> html.Div:
         [
             html.H4(
                 "VPIP / PFR Gap",
-                style={"marginBottom": "4px", "color": "#333"},
+                style={"marginBottom": "4px", "color": "var(--text-2, #333)"},
             ),
             dcc.Graph(
                 id="vpip-pfr-chart",
@@ -352,12 +364,12 @@ def _build_highlights(
         return html.Div(
             "Not enough data for highlights.",
             id="highlights-section",
-            style={"color": "#888", "fontSize": "13px"},
+            style={"color": "var(--text-4, #888)", "fontSize": "13px"},
         )
 
     _CARD_STYLE = {
-        "background": "#f8f9fa",
-        "border": "1px solid #e0e0e0",
+        "background": "var(--bg-2, #f8f9fa)",
+        "border": "1px solid var(--border, #e0e0e0)",
         "borderRadius": "8px",
         "padding": "14px 18px",
         "minWidth": "140px",
@@ -379,11 +391,19 @@ def _build_highlights(
                     ),
                     html.Div(
                         sub,
-                        style={"fontSize": "11px", "color": "#999", "marginTop": "2px"},
+                        style={
+                            "fontSize": "11px",
+                            "color": "var(--text-4, #999)",
+                            "marginTop": "2px",
+                        },
                     ),
                     html.Div(
                         label,
-                        style={"fontSize": "12px", "color": "#888", "marginTop": "4px"},
+                        style={
+                            "fontSize": "12px",
+                            "color": "var(--text-4, #888)",
+                            "marginTop": "4px",
+                        },
                     ),
                 ],
                 style=_CARD_STYLE,
@@ -458,7 +478,10 @@ def _build_highlights(
     return html.Div(
         id="highlights-section",
         children=[
-            html.H4("Highlights", style={"marginBottom": "8px", "color": "#333"}),
+            html.H4(
+                "Highlights",
+                style={"marginBottom": "8px", "color": "var(--text-2, #333)"},
+            ),
             html.Div(
                 cards,
                 style={"display": "flex", "gap": "12px", "flexWrap": "wrap"},
@@ -599,7 +622,7 @@ def _render(pathname: str, period: str, currency: str) -> html.Div | str:
         [
             html.H4(
                 "Bankroll Graph",
-                style={"marginBottom": "8px", "color": "#333"},
+                style={"marginBottom": "8px", "color": "var(--text-2, #333)"},
             ),
             dcc.Graph(
                 id="bankroll-graph",
@@ -693,7 +716,7 @@ def _render(pathname: str, period: str, currency: str) -> html.Div | str:
         children=[
             html.H4(
                 "Positional Stats",
-                style={"marginBottom": "8px", "color": "#333"},
+                style={"marginBottom": "8px", "color": "var(--text-2, #333)"},
             ),
             html.Table(
                 [

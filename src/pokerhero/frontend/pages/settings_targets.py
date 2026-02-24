@@ -25,9 +25,9 @@ dash.register_page(__name__, path="/settings/targets", name="Target Stats")  # t
 _SECTION_STYLE = {
     "marginBottom": "32px",
     "padding": "20px",
-    "border": "1px solid #e0e0e0",
+    "border": "1px solid var(--border, #e0e0e0)",
     "borderRadius": "8px",
-    "background": "#fafafa",
+    "background": "var(--bg-2, #fafafa)",
 }
 
 _STAT_LABELS: dict[str, str] = {
@@ -98,7 +98,7 @@ def _bounds_row(stat: str, pos: str) -> html.Tr:
                             style={
                                 "marginLeft": "4px",
                                 "fontSize": "11px",
-                                "color": "#888",
+                                "color": "var(--text-4, #888)",
                             },
                         ),
                     ],
@@ -120,7 +120,7 @@ def _stat_section(stat: str) -> html.Div:
                 style={
                     "paddingRight": "8px",
                     "fontSize": "12px",
-                    "color": "#555",
+                    "color": "var(--text-3, #555)",
                     "fontWeight": "600",
                 },
             )
@@ -133,7 +133,7 @@ def _stat_section(stat: str) -> html.Div:
             html.P(
                 "Green zone = optimal range. Yellow zone = marginal (must fully "
                 "enclose green). Red = outside yellow.",
-                style={"color": "#666", "fontSize": "13px"},
+                style={"color": "var(--text-3, #666)", "fontSize": "13px"},
             ),
             html.Table(
                 rows,
@@ -162,7 +162,11 @@ layout = html.Div(
             "Configure per-position traffic-light targets for VPIP, PFR, and 3-Bet. "
             "Defaults represent a balanced TAG profile — novice users can leave these "
             "unchanged.",
-            style={"color": "#555", "fontSize": "14px", "marginBottom": "24px"},
+            style={
+                "color": "var(--text-3, #555)",
+                "fontSize": "14px",
+                "marginBottom": "24px",
+            },
         ),
         *[_stat_section(stat) for stat in ("vpip", "pfr", "3bet")],
     ],
