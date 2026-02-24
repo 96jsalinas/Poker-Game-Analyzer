@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import math
+import sqlite3
 from typing import Any, NotRequired, TypedDict
 from urllib.parse import parse_qs, urlparse
 
@@ -1495,6 +1496,110 @@ _KPI_CARD_STYLE: dict[str, str] = {
 }
 
 
+_TL_COLORS: dict[str, str] = {
+    "green": "#d4edda",
+    "yellow": "#fff3cd",
+    "red": "#f8d7da",
+}
+
+_POSITION_ORDER = ["BTN", "CO", "MP", "MP+1", "UTG", "UTG+1", "SB", "BB"]
+
+
+def _build_session_position_table(
+    kpis_df: pd.DataFrame,
+    conn: sqlite3.Connection,
+) -> html.Div:
+    """Return a per-position VPIP / PFR breakdown table with traffic-light colours.
+
+    Args:
+        kpis_df: DataFrame from get_session_kpis (per-hand hero rows).
+        conn: Open SQLite connection (used to load target settings).
+
+    Returns:
+        html.Div containing a compact position breakdown table.
+    """
+    from pokerhero.analysis.stats import pfr_pct, vpip_pct
+    from pokerhero.analysis.targets import (
+        canonical_position,
+        read_target_settings,
+        traffic_light,
+    )
+
+    tl_targets = read_target_settings(conn)
+
+    _th: dict[str, object] = {**_TH, "padding": "6px 10px", "fontSize": "12px"}
+    _td: dict[str, object] = {**_TD, "padding": "6px 10px", "fontSize": "12px"}
+
+    header = html.Tr(
+        [
+            html.Th("Position", style=_th),
+            html.Th("Hands", style=_th),
+            html.Th("VPIP%", style=_th),
+            html.Th("PFR%", style=_th),
+        ]
+    )
+
+    rows: list[html.Tr] = []
+    for pos in _POSITION_ORDER:
+        pos_hp = kpis_df[kpis_df["position"] == pos] if not kpis_df.empty else kpis_df
+        if pos_hp.empty:
+            continue
+        n = len(pos_hp)
+        v = vpip_pct(pos_hp) * 100
+        p = pfr_pct(pos_hp) * 100
+        canon = canonical_position(pos)
+        vpip_b = tl_targets.get(("vpip", canon), tl_targets[("vpip", "utg")])
+        pfr_b = tl_targets.get(("pfr", canon), tl_targets[("pfr", "utg")])
+        vpip_color = _TL_COLORS[
+            traffic_light(
+                v,
+                vpip_b["green_min"],
+                vpip_b["green_max"],
+                vpip_b["yellow_min"],
+                vpip_b["yellow_max"],
+            )
+        ]
+        pfr_color = _TL_COLORS[
+            traffic_light(
+                p,
+                pfr_b["green_min"],
+                pfr_b["green_max"],
+                pfr_b["yellow_min"],
+                pfr_b["yellow_max"],
+            )
+        ]
+        rows.append(
+            html.Tr(
+                [
+                    html.Td(pos, style={**_td, "fontWeight": "600"}),
+                    html.Td(str(n), style=_td),
+                    html.Td(f"{v:.1f}%", style={**_td, "backgroundColor": vpip_color}),
+                    html.Td(f"{p:.1f}%", style={**_td, "backgroundColor": pfr_color}),
+                ]
+            )
+        )
+
+    if not rows:
+        return html.Div()
+
+    return html.Div(
+        [
+            html.H4(
+                "Position Breakdown",
+                style={"fontSize": "13px", "marginBottom": "6px", "color": "#555"},
+            ),
+            html.Table(
+                [html.Thead(header), html.Tbody(rows)],
+                style={
+                    "borderCollapse": "collapse",
+                    "width": "100%",
+                    "marginBottom": "20px",
+                },
+            ),
+        ]
+    )
+
+
 def _build_session_kpi_strip(
     kpis_df: pd.DataFrame,
     actions_df: pd.DataFrame,
@@ -1847,6 +1952,7 @@ def _render_session_report(db_path: str, session_id: int) -> tuple[html.Div | st
         kpis_df = get_session_kpis(conn, session_id, player_id)
         actions_df = get_session_hero_actions(conn, session_id, player_id)
         showdown_df = get_session_showdown_hands(conn, session_id, player_id)
+        pos_table = _build_session_position_table(kpis_df, conn)
     finally:
         conn.close()
 
@@ -1862,6 +1968,7 @@ def _render_session_report(db_path: str, session_id: int) -> tuple[html.Div | st
         [
             _build_session_narrative(kpis_df, actions_df, session_label),
             _build_session_kpi_strip(kpis_df, actions_df),
+            pos_table,
             _build_ev_summary(
                 showdown_df,
                 sample_count=sample_count,
