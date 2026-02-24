@@ -16,6 +16,7 @@ All design decisions, conventions, and formulas are documented in the `.MD` file
 ## Workflow Rules
 
 - After implementing each agreed change, stage all affected files and commit before moving on to the next change. Keep commits small and focused — one logical change per commit. If a task naturally produces multiple independent changes (e.g. fixtures and tests), split them into separate commits.
+- **TDD commit order is mandatory**: always make two separate commits per feature/fix — first a `test(...)` commit containing only the new failing tests, then a `feat(...)` or `fix(...)` commit containing the implementation (plus any doc updates). Never combine failing tests and their implementation in the same commit. Look at the git log to confirm the pattern before committing.
 - After any implementation change, check whether the relevant `.MD` files need updating to stay in sync (e.g. `Architecture.MD` when adding/completing a module, `DataStructure.MD` when changing models or DB schema, `TestingStrategy.MD` when adding fixtures). If so, include the `.MD` update in the same commit as the code change.
 - If a requested code change contradicts any rule, convention, or formula defined in the `.MD` files, stop and flag the contradiction to the user before proceeding. Once confirmed, update the relevant `.MD` file first, then implement the code change.
 - If a task is too large or complex to be implemented reliably in a single step, break it into smaller sub-tasks, present the breakdown to the user, and implement each sub-task individually with its own commit. Each sub-task must be fully implemented, tested, and committed before starting the next one. Good sub-task boundaries include: per test class, per module, or per logical feature (e.g. parsing one street type). Never implement more than one sub-task in a single agent call.
@@ -57,3 +58,6 @@ PokerStars records the hero's hole cards in the hand history regardless of wheth
 
 ### SQL JOINs on hand_players produce one row per matching player, not per hand
 A query that JOINs `hand_players` looking for opponents with known cards will return N rows for any hand with N such opponents (multiway showdowns). Always add a deduplication strategy — either a correlated subquery (`villain_hp.player_id = (SELECT MIN(...) ...)`) to pick one representative villain, or a `GROUP BY h.id` with explicit aggregation. Failing to do this causes the same hand to appear multiple times in result sets.
+
+### TDD commits must be split: test commit first, then implementation commit
+The project history follows a strict two-commit pattern per feature/fix: a `test(scope): ...` commit containing only the new failing tests, followed by a `feat(scope): ...` or `fix(scope): ...` commit containing the implementation and doc updates. Never bundle tests and their implementation in the same commit — the red-state snapshot in git is intentional and allows reviewers to verify the tests were truly failing before the fix.
