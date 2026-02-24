@@ -2154,6 +2154,27 @@ class TestBuildEvSummary:
         result = _build_ev_summary(self._showdown_df(net_result=-3000.0))
         assert "below" in str(result).lower()
 
+    def test_ev_summary_shows_unavailable_note_for_bad_cards(self):
+        """Row with unparseable card strings shows an equity-unavailable note."""
+        import pandas as pd
+
+        from pokerhero.frontend.pages.sessions import _build_ev_summary
+
+        df = pd.DataFrame(
+            {
+                "hand_id": [1],
+                "source_hand_id": ["#999"],
+                "hero_cards": ["XX XX"],
+                "villain_username": ["villain"],
+                "villain_cards": ["YY YY"],
+                "board": [""],
+                "net_result": [100.0],
+                "total_pot": [200.0],
+            }
+        )
+        result = str(_build_ev_summary(df))
+        assert "unavailable" in result.lower()
+
 
 # ---------------------------------------------------------------------------
 # TestBuildFlaggedHandsList
@@ -2221,3 +2242,24 @@ class TestBuildFlaggedHandsList:
             self._hand_df(hero_cards="2c 3d", villain_cards="Ah Kh", net_result=5000.0)
         )
         assert "Lucky" in str(result)
+
+    def test_flagged_hands_shows_unavailable_for_bad_cards(self):
+        """Row with unparseable card strings appears as equity-unavailable entry."""
+        import pandas as pd
+
+        from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
+
+        df = pd.DataFrame(
+            {
+                "hand_id": [1],
+                "source_hand_id": ["#999"],
+                "hero_cards": ["XX XX"],
+                "villain_username": ["villain"],
+                "villain_cards": ["YY YY"],
+                "board": [""],
+                "net_result": [100.0],
+                "total_pot": [200.0],
+            }
+        )
+        result = str(_build_flagged_hands_list(df))
+        assert "unavailable" in result.lower()
