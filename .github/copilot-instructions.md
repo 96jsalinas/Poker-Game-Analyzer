@@ -61,3 +61,6 @@ A query that JOINs `hand_players` looking for opponents with known cards will re
 
 ### TDD commits must be split: test commit first, then implementation commit
 The project history follows a strict two-commit pattern per feature/fix: a `test(scope): ...` commit containing only the new failing tests, followed by a `feat(scope): ...` or `fix(scope): ...` commit containing the implementation and doc updates. Never bundle tests and their implementation in the same commit — the red-state snapshot in git is intentional and allows reviewers to verify the tests were truly failing before the fix.
+
+### Split test files when they grow too large
+When a test file exceeds ~20 classes or ~1,000 lines, split it along page/feature boundaries. The naming convention mirrors the source: `test_{page}.py` for `pages/{page}.py`, `test_analysis.py` for `analysis/`. Shared fixtures (e.g. the `db` fixture) should be duplicated into each new file that needs them — do not create a shared `conftest.py` unless the duplication becomes unmanageable. `TestingStrategy.MD` must be updated in the same commit as the split to reflect the new file inventory.
