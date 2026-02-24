@@ -1,8 +1,8 @@
 /* =====================================================================
-   PokerHero Analyzer – Theme variables & dark-mode overrides
+   PokerHero Analyzer - Theme variables & dark-mode overrides
    ===================================================================== */
 
-/* ── Light-mode defaults (CSS custom properties) ─────────────────── */
+/* -- Light-mode defaults (CSS custom properties) -------------------- */
 :root {
   --bg-1:         #ffffff;   /* primary page / body background        */
   --bg-2:         #fafafa;   /* surface / card / panel background     */
@@ -14,8 +14,9 @@
   --border-light: #eeeeee;   /* subtle separator                      */
 }
 
-/* ── Dark-mode overrides ─────────────────────────────────────────── */
+/* -- Dark-mode overrides -------------------------------------------- */
 body.dark {
+  /* PokerHero dark palette */
   --bg-1:         #1a1a2e;
   --bg-2:         #242436;
   --text-1:       #e8e8f0;
@@ -25,19 +26,39 @@ body.dark {
   --border:       #303050;
   --border-light: #282840;
 
+  /* Dash 4.0 design-system token overrides.
+     These drive the background, border and text of ALL Dash 4
+     form components: Input, Dropdown, DatePicker, Slider, etc. */
+  --Dash-Fill-Inverse-Strong:  #242436;
+  --Dash-Stroke-Strong:        #303050;
+  --Dash-Stroke-Weak:          rgba(100, 100, 160, 0.2);
+  --Dash-Text-Primary:         #e8e8f0;
+  --Dash-Text-Strong:          #e8e8f0;
+  --Dash-Text-Weak:            #9090a8;
+  --Dash-Text-Disabled:        #6e6e80;
+  --Dash-Fill-Primary-Hover:   rgba(200, 200, 255, 0.08);
+  --Dash-Fill-Primary-Active:  rgba(200, 200, 255, 0.12);
+  --Dash-Fill-Disabled:        rgba(200, 200, 255, 0.10);
+  --Dash-Shading-Strong:       rgba(0, 0, 0, 0.50);
+  --Dash-Shading-Weak:         rgba(0, 0, 0, 0.30);
+
   background-color: var(--bg-1) !important;
   color: var(--text-1);
 }
 
-/* ── Native form elements ─────────────────────────────────────────── */
+/* -- Native & Dash 4 form elements ---------------------------------- */
+/* color-scheme:dark tells the browser to render native controls       */
+/* (number spinners, checkboxes, radio buttons) with its dark theme.   */
 body.dark input,
-body.dark select {
+body.dark select,
+body.dark textarea {
   background-color: var(--bg-2) !important;
   color: var(--text-1) !important;
-  border-color: var(--border) !important;
+  border: 1px solid var(--border) !important;
+  color-scheme: dark;
 }
 
-/* ── Dash DataTable ───────────────────────────────────────────────── */
+/* -- Dash DataTable ------------------------------------------------- */
 body.dark .dash-spreadsheet-container .dash-spreadsheet,
 body.dark .dash-spreadsheet-container .dash-spreadsheet input {
   background-color: var(--bg-1) !important;
@@ -57,12 +78,12 @@ body.dark .dash-spreadsheet-container th.dash-header {
   border-color: var(--border) !important;
 }
 
-/* Override the row-hover rule from tooltips.css for dark mode */
+/* Override row-hover rule from tooltips.css for dark mode */
 body.dark .dash-spreadsheet-container .dash-spreadsheet tr:hover td.dash-cell {
   background-color: #2a2a4a !important;
 }
 
-/* ── Plotly chart backgrounds ─────────────────────────────────────── */
+/* -- Plotly chart backgrounds --------------------------------------- */
 body.dark .js-plotly-plot .bg {
   fill: var(--bg-1) !important;
 }
