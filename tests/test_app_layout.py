@@ -187,3 +187,43 @@ class TestDashboardPageLayout:
 
         src = inspect.getsource(dashboard)
         assert 'Input("dashboard-currency"' in src
+
+
+class TestThemeToggle:
+    def test_layout_has_theme_store(self):
+        """App layout must contain a dcc.Store with id 'theme-store'."""
+        from pokerhero.frontend.app import create_app
+
+        app = create_app(db_path=":memory:")
+        assert "theme-store" in str(app.layout)
+
+    def test_layout_has_toggle_button(self):
+        """App layout must contain a theme toggle button with id 'theme-toggle-btn'."""
+        from pokerhero.frontend.app import create_app
+
+        app = create_app(db_path=":memory:")
+        assert "theme-toggle-btn" in str(app.layout)
+
+    def test_theme_store_default_is_light(self):
+        """Theme store must default to 'light'."""
+        from pokerhero.frontend.app import create_app
+
+        app = create_app(db_path=":memory:")
+        assert "light" in str(app.layout)
+
+    def test_toggle_button_uses_face_emoji(self):
+        """Toggle button must use the sun-with-face or new-moon-with-face emoji."""
+        from pokerhero.frontend.app import create_app
+
+        app = create_app(db_path=":memory:")
+        layout_str = str(app.layout)
+        assert "\U0001f31e" in layout_str or "\U0001f31a" in layout_str
+
+    def test_theme_css_exists(self):
+        """assets/theme.css must exist next to the app module."""
+        from pathlib import Path
+
+        import pokerhero.frontend.app as app_module
+
+        assets = Path(app_module.__file__).parent / "assets" / "theme.css"
+        assert assets.exists()
