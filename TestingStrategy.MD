@@ -56,10 +56,18 @@ Poker hand histories contain hundreds of edge cases. The `tests/fixtures/` direc
 | File | Tests | Scope |
 | :--- | :--- | :--- |
 | `test_parser.py` | 164 | 15 classes — parser rules, SPR/MDF, re-buy, multi-street, EUR currency format, currency detection (USD/EUR/PLAY) |
-| `test_frontend.py` | 238 | Upload handler, multi-page routing, page layouts, action view math, dashboard KPIs/highlights/position traffic lights, filter controls (incl. game type toggle), guide page, showdown section (incl. winner + hand description + net result display), favourites, DataTable sorting, decimal format helpers, opponent profile cards, profiles panel, villain summary line, first-action archetype badge, session report view (KPI strip, narrative, position breakdown table with traffic lights, EV summary, flagged hands, equity-unavailable note), session report navigation (breadcrumb + browse button wiring), settings analysis controls (sample count, lucky/unlucky thresholds, min-hands), target settings sub-page (/settings/targets — layout, inputs for all 6 positions × 3 stats × 4 bounds, load callback defaults, link from main settings) |
-| `test_analysis.py` | 136 | Queries and stats: VPIP, PFR, Win Rate, AF, WTSD, timeline, 3-bet (incl. blind-position regression), c-bet, EV, equity cache, date filter, currency filter, session player stats, player archetype classification (incl. min_hands kwarg), session analysis queries (get_session_kpis, get_session_hero_actions, get_session_showdown_hands), compute_equity_multiway, multiway showdown query (pipe-separated villain_cards), traffic_light (green/yellow/red zones, asymmetric, boundary), read_target_settings (defaults, DB override) |
+| `test_sessions.py` | 161 | 25 classes — card rendering, hero row highlighting, math cell, sessions nav/breadcrumb/state, session/hand filters, favourites, DataTable sorting, format helpers (cards text, blind, P&L), showdown section (winner + hand description + net result), villain summary line, first-action archetype badge, opponent profile card/panel, session report view (KPI strip, narrative, position breakdown table with traffic lights, EV summary, flagged hands, equity-unavailable note) |
+| `test_analysis.py` | 136 | Queries and stats: VPIP, PFR, Win Rate, AF, WTSD, timeline, 3-bet (incl. blind-position regression), c-bet, EV, equity cache, date filter, currency filter, session player stats, player archetype classification (incl. min_hands kwarg), session analysis queries, compute_equity_multiway, multiway showdown query, traffic_light (green/yellow/red zones, asymmetric, boundary), read_target_settings (defaults, DB override) |
+| `test_parser.py` | 164 | See above |
 | `test_database.py` | 62 | 9 classes — schema, inserts, deduplication, settings, favourites, currency storage |
+| `test_dashboard.py` | 38 | 4 classes — position traffic light colouring, KPI highlights (biggest win/loss/best/worst session), VPIP/PFR gap chart, stat header tooltips |
+| `test_app_layout.py` | 29 | 5 classes — multi-page app registration, home/upload/sessions/dashboard page layouts |
 | `test_ingestion.py` | 28 | Pipeline, financials, re-buy detection, logging |
+| `test_settings.py` | 16 | 2 classes — main settings page layout, target settings sub-page (/settings/targets — layout, 6-position inputs, load callback defaults, link from main settings) |
+| `test_upload.py` | 9 | 2 classes — upload handler (valid/invalid file, duplicate skip, summary message), upload handler logging |
+| `test_guide.py` | 4 | 1 class — guide page registration and stat section presence |
+
+**File organisation strategy:** one test file per app page or source module. `test_frontend.py` was retired when it grew beyond 1,800 lines and 39 classes; its contents were split along page/feature boundaries.
 
 ## 🚨 5. Bug Fixing Policy
 When a bug is discovered (e.g., the app miscalculates EV on a specific river card):
