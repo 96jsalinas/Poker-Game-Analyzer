@@ -1935,6 +1935,11 @@ class TestBuildSessionPositionTable:
 class TestDarkModeCompatibility:
     """Dark mode: critical inline colors must use CSS custom properties."""
 
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
     def test_pnl_style_positive_uses_css_var(self):
         """_pnl_style(1.0) color must reference --pnl-positive CSS var."""
         from pokerhero.frontend.pages.sessions import _pnl_style
@@ -1959,3 +1964,23 @@ class TestDarkModeCompatibility:
         from pokerhero.frontend.pages.sessions import _TL_COLORS
 
         assert all("var(" in v for v in _TL_COLORS.values())
+
+    def test_session_kpi_default_color_uses_css_var(self):
+        """_build_session_kpi_strip must use var(--text-1) as default KPI color."""
+        import inspect
+
+        from pokerhero.frontend.pages.sessions import _build_session_kpi_strip
+
+        assert "var(--text-1" in inspect.getsource(_build_session_kpi_strip)
+
+    def test_opponent_profiles_btn_has_color_var(self):
+        """Opponent profiles button style must include a CSS-var color."""
+        import inspect
+
+        from pokerhero.frontend.pages import sessions
+
+        src = inspect.getsource(sessions)
+        # Locate the button block and verify color is set
+        btn_idx = src.index("opponent-profiles-btn")
+        snippet = src[btn_idx - 300 : btn_idx + 300]
+        assert "var(--text-1" in snippet

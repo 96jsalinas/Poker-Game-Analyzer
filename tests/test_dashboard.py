@@ -281,6 +281,11 @@ class TestStatHeader:
 class TestDashboardDarkModeCompatibility:
     """Dark mode: dashboard inline colors must use CSS custom properties."""
 
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
     def test_tl_colors_use_css_vars(self):
         """Dashboard _TL_COLORS values must use CSS custom property references."""
         from pokerhero.frontend.pages.dashboard import _TL_COLORS
@@ -303,3 +308,12 @@ class TestDashboardDarkModeCompatibility:
 
         sig = inspect.signature(_build_vpip_pfr_chart)
         assert "theme" in sig.parameters
+
+    def test_kpi_card_default_color_uses_css_var(self):
+        """_kpi_card default color must use var(--text-1) for dark mode visibility."""
+        import inspect
+
+        from pokerhero.frontend.pages.dashboard import _kpi_card
+
+        src = inspect.getsource(_kpi_card)
+        assert "var(--text-1" in src
