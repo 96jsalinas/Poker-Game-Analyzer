@@ -10,6 +10,7 @@ from urllib.parse import parse_qs, urlparse
 import dash
 import pandas as pd
 from dash import Input, Output, State, callback, dash_table, dcc, html
+from dash.development.base_component import Component
 
 from pokerhero.database.db import get_connection, get_setting, upsert_player
 
@@ -21,6 +22,15 @@ class _DrillDownState(TypedDict, total=False):
     session_id: NotRequired[int]
     hand_id: NotRequired[int]
     session_label: NotRequired[str]
+
+
+class _VillainRow(TypedDict):
+    """One villain's showdown data — passed to ``_build_showdown_section``."""
+
+    username: str
+    position: str
+    hole_cards: str
+    net_result: NotRequired[float]
 
 
 # ---------------------------------------------------------------------------
@@ -150,7 +160,7 @@ def _format_cards_text(cards_str: str | None) -> str:
 
 
 def _build_showdown_section(
-    villain_rows: list[dict[str, Any]],
+    villain_rows: list[_VillainRow],
     hero_name: str | None = None,
     hero_cards: str | None = None,
     board: str = "",
@@ -241,7 +251,7 @@ def _build_showdown_section(
         trophy = "🏆 " if label in winner_labels else ""
 
         # Archetype badge — only for villains (not hero), when opp_stats given.
-        archetype_badge: list[Any] = []
+        archetype_badge: list[Component] = []
         username = label_to_username.get(label)
         if opp_stats and username and username in opp_stats:
             from pokerhero.analysis.stats import classify_player
@@ -494,7 +504,7 @@ def _build_opponent_profile_card(
     pfr_pct = pfr_count / hands_played * 100 if hands_played > 0 else 0.0
     archetype = classify_player(vpip_pct, pfr_pct, hands_played, min_hands=min_hands)
 
-    badge: list[Any] = []
+    badge: list[Component] = []
     if archetype is not None:
         badge = [
             html.Span(
@@ -514,7 +524,7 @@ def _build_opponent_profile_card(
     return html.Div(
         [
             html.Div(
-                [html.Strong(username, style={"fontSize": "14px"})] + badge,
+                [html.Strong(username, style={"fontSize": "14px"}), *badge],
                 style={
                     "display": "flex",
                     "alignItems": "center",
@@ -561,7 +571,7 @@ def _build_villain_summary(
 
     from pokerhero.analysis.stats import classify_player
 
-    items: list[Any] = [
+    items: list[Component] = [
         html.Span(
             "Villains: ",
             style={"fontWeight": "600", "fontSize": "13px", "color": "#555"},
@@ -572,7 +582,7 @@ def _build_villain_summary(
         vp = int(s["vpip_count"]) / h * 100 if h > 0 else 0.0
         pf = int(s["pfr_count"]) / h * 100 if h > 0 else 0.0
         archetype = classify_player(vp, pf, h, min_hands=min_hands)
-        badge: list[Any] = (
+        badge: list[Component] = (
             [
                 html.Span(
                     archetype,
@@ -593,7 +603,7 @@ def _build_villain_summary(
         )
         items.append(
             html.Span(
-                [html.Span(username, style={"fontSize": "13px"})] + badge,
+                [html.Span(username, style={"fontSize": "13px"}), *badge],
                 style={"marginRight": "12px"},
             )
         )
@@ -2045,7 +2055,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
         hero_net_result: float | None = None
         # Map player_id → hole_cards for EV calculation at all-in spots
         all_hole_cards: dict[int, str] = {}
-        villain_showdown: list[dict[str, Any]] = []
+        villain_showdown: list[_VillainRow] = []
         opp_stats_map: dict[str, dict[str, int]] = {}
         if hero_id is not None:
             hole_row = conn.execute(
@@ -2072,15 +2082,15 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             "   AND hp.player_id != ?",
             (hand_id, hero_id if hero_id is not None else -1),
         ).fetchall()
-        villain_showdown = [
-            {
+        for r in villain_rows:
+            entry: _VillainRow = {
                 "username": r[0],
                 "position": r[1] or "",
                 "hole_cards": r[2],
-                "net_result": float(r[3]) if r[3] is not None else None,
             }
-            for r in villain_rows
-        ]
+            if r[3] is not None:
+                entry["net_result"] = float(r[3])
+            villain_showdown.append(entry)
         # Fetch session-level opponent stats for archetype badges at showdown.
         if hand_row is not None and hero_id is not None:
             session_id_val = hand_row[5]
@@ -2199,7 +2209,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             actor_str = f"🦸 {actor_str}"
 
         # Show archetype badge on the villain's very first action in this hand.
-        actor_badge: list[Any] = []
+        actor_badge: list[Component] = []
         if (
             not action["is_hero"]
             and opp_stats_map
@@ -2335,7 +2345,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
     if showdown_div is not None:
         sections.append(showdown_div)
 
-    header_children: list[Any] = [
+    header_children: list[Component] = [
         html.Div(
             [
                 html.H3(hand_label, style={"marginTop": "0", "marginBottom": "0"}),
