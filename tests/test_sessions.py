@@ -1930,3 +1930,32 @@ class TestBuildSessionPositionTable:
         result = _build_session_position_table(pd.DataFrame(), conn)
         conn.close()
         assert result is not None
+
+
+class TestDarkModeCompatibility:
+    """Dark mode: critical inline colors must use CSS custom properties."""
+
+    def test_pnl_style_positive_uses_css_var(self):
+        """_pnl_style(1.0) color must reference --pnl-positive CSS var."""
+        from pokerhero.frontend.pages.sessions import _pnl_style
+
+        assert "var(--pnl-positive" in _pnl_style(1.0)["color"]
+
+    def test_pnl_style_negative_uses_css_var(self):
+        """_pnl_style(-1.0) color must reference --pnl-negative CSS var."""
+        from pokerhero.frontend.pages.sessions import _pnl_style
+
+        assert "var(--pnl-negative" in _pnl_style(-1.0)["color"]
+
+    def test_action_row_style_hero_uses_css_var(self):
+        """Hero action row backgroundColor must use var(--bg-hero-row)."""
+        from pokerhero.frontend.pages.sessions import _action_row_style
+
+        style = _action_row_style(True)
+        assert "var(--bg-hero-row" in style["backgroundColor"]
+
+    def test_tl_colors_use_css_vars(self):
+        """_TL_COLORS values must use CSS custom property references."""
+        from pokerhero.frontend.pages.sessions import _TL_COLORS
+
+        assert all("var(" in v for v in _TL_COLORS.values())

@@ -227,3 +227,25 @@ class TestThemeToggle:
 
         assets = Path(app_module.__file__).parent / "assets" / "theme.css"
         assert assets.exists()
+
+    def test_theme_css_has_pnl_positive_var(self):
+        """theme.css must define --pnl-positive custom property in dark mode."""
+        from pathlib import Path
+
+        import pokerhero.frontend.app as app_module
+
+        css_text = (
+            Path(app_module.__file__).parent / "assets" / "theme.css"
+        ).read_text()
+        assert "--pnl-positive" in css_text
+
+    def test_theme_css_has_bg_hero_row_var(self):
+        """theme.css must define --bg-hero-row custom property in dark mode."""
+        from pathlib import Path
+
+        import pokerhero.frontend.app as app_module
+
+        css_text = (
+            Path(app_module.__file__).parent / "assets" / "theme.css"
+        ).read_text()
+        assert "--bg-hero-row" in css_text

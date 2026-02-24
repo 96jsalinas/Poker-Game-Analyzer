@@ -276,3 +276,30 @@ class TestStatHeader:
         from pokerhero.frontend.pages import dashboard
 
         assert "stat-help" in inspect.getsource(dashboard)
+
+
+class TestDashboardDarkModeCompatibility:
+    """Dark mode: dashboard inline colors must use CSS custom properties."""
+
+    def test_tl_colors_use_css_vars(self):
+        """Dashboard _TL_COLORS values must use CSS custom property references."""
+        from pokerhero.frontend.pages.dashboard import _TL_COLORS
+
+        assert all("var(" in v for v in _TL_COLORS.values())
+
+    def test_pnl_color_uses_css_var(self):
+        """Dashboard render source must reference --pnl-positive CSS var."""
+        import inspect
+
+        from pokerhero.frontend.pages import dashboard
+
+        assert "--pnl-positive" in inspect.getsource(dashboard)
+
+    def test_vpip_pfr_chart_accepts_theme(self):
+        """_build_vpip_pfr_chart must accept a theme parameter."""
+        import inspect
+
+        from pokerhero.frontend.pages.dashboard import _build_vpip_pfr_chart
+
+        sig = inspect.signature(_build_vpip_pfr_chart)
+        assert "theme" in sig.parameters
