@@ -2279,3 +2279,73 @@ class TestContractRange:
             continue_pct_aggressive=40.0,
         )
         assert "Kh Qh" in result
+
+
+class TestComputeEquityVsRange:
+    """Integration tests for compute_equity_vs_range in stats.py."""
+
+    def _fn(self, **kwargs):
+        from pokerhero.analysis.stats import compute_equity_vs_range
+
+        defaults = dict(
+            hero_cards="Th Td",
+            board="Ah Kh Qh",
+            vpip_pct=25.0,
+            pfr_pct=18.0,
+            three_bet_pct=5.0,
+            villain_preflop_action="2bet",
+            villain_street_history=[],
+            sample_count=80,
+        )
+        defaults.update(kwargs)
+        return compute_equity_vs_range(**defaults)
+
+    def test_flop_2bet_returns_valid_equity_and_positive_size(self):
+        """FLOP 2-bet: equity in [0, 1] and contracted_size > 0."""
+        equity, size = self._fn()
+        assert 0.0 <= equity <= 1.0
+        assert size > 0
+
+    def test_3bet_range_smaller_than_2bet(self):
+        """3-bet range is tighter: contracted_size(3bet) < contracted_size(2bet)."""
+        _, size_2bet = self._fn(villain_preflop_action="2bet", pfr_pct=18.0)
+        _, size_3bet = self._fn(villain_preflop_action="3bet", three_bet_pct=5.0)
+        assert size_3bet < size_2bet
+
+    def test_river_two_street_history_contracts_range(self):
+        """2-street history produces smaller range than no history (same board)."""
+        board_river = "Ah Kh Qh 2c 3d"
+        _, size_no_history = self._fn(board=board_river)
+        _, size_with_history = self._fn(
+            board=board_river,
+            villain_street_history=[
+                ("Ah Kh Qh", "bet"),
+                ("Ah Kh Qh 2c", "call"),
+            ],
+        )
+        assert size_with_history < size_no_history
+
+    def test_range_collapse_returns_zero(self):
+        """Contraction leaving < 5 combos returns (0.0, 0)."""
+        equity, size = self._fn(
+            hero_cards="2c 3d",
+            board="5s 6h 7c",
+            villain_preflop_action="4bet+",
+            four_bet_prior=0.8,  # top 0.8% → 1 hand (AA = 6 combos) → 40% = 2
+            villain_street_history=[("5s 6h 7c", "bet")],
+        )
+        assert equity == 0.0
+        assert size == 0
+
+    def test_4bet_smaller_range_than_2bet(self):
+        """4bet+ uses fixed prior (3%), not villain's pfr (40%)."""
+        _, size_4bet = self._fn(
+            villain_preflop_action="4bet+",
+            pfr_pct=40.0,
+            four_bet_prior=3.0,
+        )
+        _, size_2bet = self._fn(
+            villain_preflop_action="2bet",
+            pfr_pct=40.0,
+        )
+        assert size_4bet < size_2bet
