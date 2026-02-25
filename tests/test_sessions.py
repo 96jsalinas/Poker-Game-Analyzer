@@ -1997,6 +1997,11 @@ class TestCountSessionShowdownHands:
     and (2) exclude already-cached hands (they are instant to process).
     """
 
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
     @pytest.fixture
     def db(self, tmp_path):
         from pokerhero.database.db import init_db

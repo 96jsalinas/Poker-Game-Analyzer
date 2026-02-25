@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import math
 import sqlite3
+from collections.abc import Hashable
 from typing import Any, NotRequired, TypedDict
 from urllib.parse import parse_qs, urlparse
 
@@ -941,8 +942,14 @@ def _parse_nav_search(search: str) -> _DrillDownState | None:
     return None
 
 
-def _count_session_showdown_hands(db_path: str, session_id: int, player_id: int) -> int:
-    """Count villain showdown hands with known cards — used for the loading estimate.
+def _count_session_showdown_hands(
+    db_path: str, session_id: int, player_id: int, sample_count: int
+) -> int:
+    """Count uncached showdown hands needing equity computation — loading estimate.
+
+    Matches the exact filter of get_session_showdown_hands: hero went_to_showdown
+    and villain hole cards are known.  Cached rows (hand_equity rows with a
+    matching sample_count) are excluded because they are instant to process.
 
     Used only for the loading-time estimate shown in the analysis hint banner.
     Runs a single COUNT query — very fast.
@@ -951,15 +958,28 @@ def _count_session_showdown_hands(db_path: str, session_id: int, player_id: int)
     try:
         row = conn.execute(
             """
-            SELECT COUNT(DISTINCT hp.hand_id)
-            FROM hand_players hp
-            JOIN hands h ON h.id = hp.hand_id
+            SELECT COUNT(DISTINCT h.id)
+            FROM hands h
+            JOIN hand_players hero_hp
+                ON hero_hp.hand_id = h.id
+               AND hero_hp.player_id = ?
+            JOIN hand_players villain_hp
+                ON villain_hp.hand_id = h.id
+               AND villain_hp.player_id != ?
+               AND villain_hp.hole_cards IS NOT NULL
+               AND villain_hp.hole_cards != ''
             WHERE h.session_id = ?
-              AND hp.player_id = ?
-              AND hp.went_to_showdown = 1
-              AND hp.hole_cards IS NOT NULL
+              AND hero_hp.went_to_showdown = 1
+              AND hero_hp.hole_cards IS NOT NULL
+              AND hero_hp.hole_cards != ''
+              AND NOT EXISTS (
+                  SELECT 1 FROM hand_equity he
+                  WHERE he.hand_id = h.id
+                    AND he.hero_id = ?
+                    AND he.sample_count = ?
+              )
             """,
-            (session_id, player_id),
+            (player_id, player_id, session_id, player_id, sample_count),
         ).fetchone()
     finally:
         conn.close()
@@ -1010,8 +1030,9 @@ def _render(
     session_id = int(state.get("session_id") or 0)
     if level == "report":
         player_id = _get_hero_player_id(db_path)
+        sample_count = _read_analysis_settings(db_path)["equity_sample_count"]
         n_showdown = (
-            _count_session_showdown_hands(db_path, session_id, player_id)
+            _count_session_showdown_hands(db_path, session_id, player_id, sample_count)
             if player_id is not None
             else 0
         )
@@ -2260,6 +2281,51 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
     )
 
 
+def _allin_pot_to_win(
+    df: pd.DataFrame,
+    row_idx: Hashable,
+    action_type: str,
+    pot_before: float,
+    amount: float,
+) -> float:
+    """Return the correct pot_to_win for an all-in action.
+
+    For hero CALL all-in, pot_before already contains the villain's bet, so
+    pot_before + amount is the full pot hero wins — no further lookup needed.
+
+    For hero BET/RAISE all-in, pot_before does not yet include the villain's
+    call.  Scans forward in *df* for villain all-in CALL actions on the same
+    street and adds their amounts so that pot_to_win reflects the true
+    potential winnings.  Falls back to pot_before + amount if no matching
+    villain call is found (e.g., villain folded).
+
+    Args:
+        df: Full actions DataFrame for the hand, ordered by sequence.
+        row_idx: Integer index (df.index value) of the current hero action row.
+        action_type: Action type string for the hero action (e.g. "BET").
+        pot_before: Pot size stored in the DB before this action fires.
+        amount: Hero's bet/call amount for this action.
+
+    Returns:
+        Float pot_to_win appropriate for compute_ev.
+    """
+    import pandas as pd  # noqa: F401  (local import keeps module startup fast)
+
+    if action_type not in ("BET", "RAISE"):
+        return pot_before + amount
+
+    street = str(df.at[row_idx, "street"])
+    mask = (
+        (df.index > row_idx)
+        & (df["street"] == street)
+        & (df["is_all_in"] == 1)
+        & (df["is_hero"] == 0)
+        & (df["action_type"] == "CALL")
+    )
+    villain_calls = float(df.loc[mask, "amount"].sum())
+    return pot_before + amount + villain_calls
+
+
 def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
     from pokerhero.analysis.queries import get_actions, get_session_player_stats
     from pokerhero.analysis.stats import compute_ev
@@ -2418,7 +2484,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             ]
         )
 
-    for _, action in df.iterrows():
+    for row_idx, action in df.iterrows():
         street = str(action["street"])
         if street != current_street:
             if current_street is not None:
@@ -2518,7 +2584,11 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             ev_val = None
             try:
                 ev_val = compute_ev(
-                    hero_cards, villain_hole, board_so_far, amount, pot_before + amount
+                    hero_cards,
+                    villain_hole,
+                    board_so_far,
+                    amount,
+                    _allin_pot_to_win(df, row_idx, action_type, pot_before, amount),
                 )
             except Exception:
                 pass
