@@ -1984,3 +1984,320 @@ class TestDarkModeCompatibility:
         btn_idx = src.index("opponent-profiles-btn")
         snippet = src[btn_idx - 400 : btn_idx + 500]
         assert "var(--text-1" in snippet
+
+
+# ---------------------------------------------------------------------------
+# TestCountSessionShowdownHands — progress bar estimate accuracy
+# ---------------------------------------------------------------------------
+class TestCountSessionShowdownHands:
+    """_count_session_showdown_hands must match the actual computation filter.
+
+    The count is used to estimate equity-computation time for the progress bar.
+    It must: (1) require villain hole cards (matching get_session_showdown_hands),
+    and (2) exclude already-cached hands (they are instant to process).
+    """
+
+    @pytest.fixture
+    def db(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        c = init_db(tmp_path / "test.db")
+        yield c
+        c.close()
+
+    @pytest.fixture
+    def ids(self, db):
+        """Insert a session, two players, and two hands; return useful IDs."""
+        cur = db.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'hero')"
+        )
+        hero_id = cur.lastrowid
+        cur = db.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('villain', 'villain')"
+        )
+        villain_id = cur.lastrowid
+        cur = db.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats, small_blind, big_blind,"
+            " ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 9, 1, 2, 0, '2024-01-01')"
+        )
+        session_id = cur.lastrowid
+        cur = db.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            " rake, timestamp)"
+            " VALUES ('H1', ?, 200, 0, 10, '2024-01-01T00:00:00')",
+            (session_id,),
+        )
+        hand1_id = cur.lastrowid
+        cur = db.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            " rake, timestamp)"
+            " VALUES ('H2', ?, 200, 0, 10, '2024-01-01T00:01:00')",
+            (session_id,),
+        )
+        hand2_id = cur.lastrowid
+        db.commit()
+        return {
+            "hero_id": hero_id,
+            "villain_id": villain_id,
+            "session_id": session_id,
+            "hand1_id": hand1_id,
+            "hand2_id": hand2_id,
+        }
+
+    def _insert_showdown(
+        self,
+        db,
+        hand_id: int,
+        hero_id: int,
+        villain_id: int,
+        hero_cards: str | None = "Ah Kh",
+        villain_cards: str | None = "2c 3d",
+    ) -> None:
+        """Helper: insert hand_player rows for a showdown hand."""
+        db.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, vpip, pfr,"
+            " went_to_showdown, net_result, hole_cards)"
+            " VALUES (?, ?, 'BTN', 200, 1, 1, 1, 100, ?)",
+            (hand_id, hero_id, hero_cards),
+        )
+        db.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, vpip, pfr,"
+            " went_to_showdown, net_result, hole_cards)"
+            " VALUES (?, ?, 'BB', 200, 1, 0, 1, -100, ?)",
+            (hand_id, villain_id, villain_cards),
+        )
+        db.commit()
+
+    def test_returns_zero_when_villain_cards_unknown(self, tmp_path, db, ids):
+        """Count must be 0 when hero went to showdown but villain cards are NULL."""
+        from pokerhero.frontend.pages.sessions import _count_session_showdown_hands
+
+        self._insert_showdown(
+            db,
+            ids["hand1_id"],
+            ids["hero_id"],
+            ids["villain_id"],
+            villain_cards=None,
+        )
+        count = _count_session_showdown_hands(
+            str(tmp_path / "test.db"),
+            ids["session_id"],
+            ids["hero_id"],
+            sample_count=2000,
+        )
+        assert count == 0
+
+    def test_returns_count_when_villain_cards_known(self, tmp_path, db, ids):
+        """Count equals the number of hands where both hero and villain showed cards."""
+        from pokerhero.frontend.pages.sessions import _count_session_showdown_hands
+
+        self._insert_showdown(db, ids["hand1_id"], ids["hero_id"], ids["villain_id"])
+        self._insert_showdown(db, ids["hand2_id"], ids["hero_id"], ids["villain_id"])
+        count = _count_session_showdown_hands(
+            str(tmp_path / "test.db"),
+            ids["session_id"],
+            ids["hero_id"],
+            sample_count=2000,
+        )
+        assert count == 2
+
+    def test_cached_hands_are_excluded_from_count(self, tmp_path, db, ids):
+        """Hands already in the equity cache must not be counted (they are instant)."""
+        from pokerhero.database.db import set_hand_equity
+        from pokerhero.frontend.pages.sessions import _count_session_showdown_hands
+
+        self._insert_showdown(db, ids["hand1_id"], ids["hero_id"], ids["villain_id"])
+        self._insert_showdown(db, ids["hand2_id"], ids["hero_id"], ids["villain_id"])
+        # Cache hand1 with matching sample_count
+        set_hand_equity(
+            db, ids["hand1_id"], ids["hero_id"], equity=0.75, sample_count=2000
+        )
+        db.commit()
+        count = _count_session_showdown_hands(
+            str(tmp_path / "test.db"),
+            ids["session_id"],
+            ids["hero_id"],
+            sample_count=2000,
+        )
+        assert count == 1  # hand2 only; hand1 is cached
+
+    def test_stale_cache_does_not_exclude_from_count(self, tmp_path, db, ids):
+        """A cached row with a different sample_count is treated as a cache miss."""
+        from pokerhero.database.db import set_hand_equity
+        from pokerhero.frontend.pages.sessions import _count_session_showdown_hands
+
+        self._insert_showdown(db, ids["hand1_id"], ids["hero_id"], ids["villain_id"])
+        # Cache hand1 with a DIFFERENT sample_count
+        set_hand_equity(
+            db, ids["hand1_id"], ids["hero_id"], equity=0.75, sample_count=500
+        )
+        db.commit()
+        count = _count_session_showdown_hands(
+            str(tmp_path / "test.db"),
+            ids["session_id"],
+            ids["hero_id"],
+            sample_count=2000,
+        )
+        assert count == 1  # stale cache → still counts as needing computation
+
+
+# ---------------------------------------------------------------------------
+# TestAllinPotToWin — EV pot_to_win for hero aggressor all-in
+# ---------------------------------------------------------------------------
+class TestAllinPotToWin:
+    """_allin_pot_to_win must return pot_before+amount for CALL, and include the
+    villain's subsequent all-in CALL amount for hero BET/RAISE actions."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def _make_df(self, rows: list[dict]) -> "object":
+        import pandas as pd
+
+        return pd.DataFrame(rows)
+
+    def test_call_allin_returns_pot_before_plus_amount(self):
+        """For hero CALL all-in, pot_before already includes villain's bet."""
+
+        from pokerhero.frontend.pages.sessions import _allin_pot_to_win
+
+        df = self._make_df(
+            [
+                {
+                    "street": "FLOP",
+                    "action_type": "BET",
+                    "is_hero": 0,
+                    "is_all_in": 1,
+                    "amount": 100.0,
+                },
+                {
+                    "street": "FLOP",
+                    "action_type": "CALL",
+                    "is_hero": 1,
+                    "is_all_in": 1,
+                    "amount": 100.0,
+                },
+            ]
+        )
+        # pot_before=150 (includes villain's 100), hero calls 100
+        result = _allin_pot_to_win(df, 1, "CALL", 150.0, 100.0)
+        assert result == pytest.approx(250.0)
+
+    def test_bet_allin_adds_villain_call(self):
+        """For hero BET all-in, villain's subsequent all-in CALL is added."""
+        from pokerhero.frontend.pages.sessions import _allin_pot_to_win
+
+        df = self._make_df(
+            [
+                {
+                    "street": "FLOP",
+                    "action_type": "BET",
+                    "is_hero": 1,
+                    "is_all_in": 1,
+                    "amount": 100.0,
+                },
+                {
+                    "street": "FLOP",
+                    "action_type": "CALL",
+                    "is_hero": 0,
+                    "is_all_in": 1,
+                    "amount": 100.0,
+                },
+            ]
+        )
+        # pot_before=50, hero bets 100, villain calls 100
+        result = _allin_pot_to_win(df, 0, "BET", 50.0, 100.0)
+        assert result == pytest.approx(250.0)  # 50 + 100 + 100
+
+    def test_raise_allin_adds_villain_call(self):
+        """For hero RAISE all-in, villain's subsequent all-in CALL is added."""
+        from pokerhero.frontend.pages.sessions import _allin_pot_to_win
+
+        df = self._make_df(
+            [
+                {
+                    "street": "TURN",
+                    "action_type": "BET",
+                    "is_hero": 0,
+                    "is_all_in": 0,
+                    "amount": 50.0,
+                },
+                {
+                    "street": "TURN",
+                    "action_type": "RAISE",
+                    "is_hero": 1,
+                    "is_all_in": 1,
+                    "amount": 200.0,
+                },
+                {
+                    "street": "TURN",
+                    "action_type": "CALL",
+                    "is_hero": 0,
+                    "is_all_in": 1,
+                    "amount": 150.0,
+                },
+            ]
+        )
+        # pot_before=100, hero raises to 200 (all-in), villain calls 150 more
+        result = _allin_pot_to_win(df, 1, "RAISE", 100.0, 200.0)
+        assert result == pytest.approx(450.0)  # 100 + 200 + 150
+
+    def test_bet_allin_no_villain_call_falls_back(self):
+        """If no villain all-in CALL follows, falls back to pot_before + amount."""
+        from pokerhero.frontend.pages.sessions import _allin_pot_to_win
+
+        df = self._make_df(
+            [
+                {
+                    "street": "RIVER",
+                    "action_type": "BET",
+                    "is_hero": 1,
+                    "is_all_in": 1,
+                    "amount": 100.0,
+                },
+                {
+                    "street": "RIVER",
+                    "action_type": "FOLD",
+                    "is_hero": 0,
+                    "is_all_in": 0,
+                    "amount": 0.0,
+                },
+            ]
+        )
+        result = _allin_pot_to_win(df, 0, "BET", 50.0, 100.0)
+        assert result == pytest.approx(150.0)  # villain folded, no call added
+
+    def test_only_same_street_villain_calls_included(self):
+        """Villain CALL on a different street must not be added."""
+        from pokerhero.frontend.pages.sessions import _allin_pot_to_win
+
+        df = self._make_df(
+            [
+                {
+                    "street": "FLOP",
+                    "action_type": "BET",
+                    "is_hero": 1,
+                    "is_all_in": 1,
+                    "amount": 100.0,
+                },
+                # villain folds on flop (no call)
+                {
+                    "street": "TURN",
+                    "action_type": "CALL",
+                    "is_hero": 0,
+                    "is_all_in": 1,
+                    "amount": 80.0,
+                },
+            ]
+        )
+        result = _allin_pot_to_win(df, 0, "BET", 50.0, 100.0)
+        assert result == pytest.approx(150.0)  # TURN call not included
