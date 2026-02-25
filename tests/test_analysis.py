@@ -1541,6 +1541,37 @@ class TestBuildRange:
         with pytest.raises(ValueError):
             build_range(26.0, 14.0, 6.0, "shove")
 
+    def test_2bet_with_custom_hand_ranking(self):
+        """build_range respects a custom hand_ranking list passed as argument."""
+        from pokerhero.analysis.ranges import build_range
+
+        custom = ["KK", "AA", "QQ", "JJ", "TT"]
+        result = build_range(
+            vpip_pct=26.0,
+            pfr_pct=14.0,
+            three_bet_pct=6.0,
+            villain_preflop_action="2bet",
+            hand_ranking=custom,
+        )
+        n = max(1, round(len(custom) * 14.0 / 100))
+        assert result == custom[:n]
+
+    def test_call_with_custom_hand_ranking(self):
+        """build_range call-slice uses custom hand_ranking when provided."""
+        from pokerhero.analysis.ranges import build_range
+
+        custom = ["AA", "KK", "QQ", "JJ", "TT", "99", "88", "77", "66", "55"]
+        result = build_range(
+            vpip_pct=40.0,
+            pfr_pct=20.0,
+            three_bet_pct=6.0,
+            villain_preflop_action="call",
+            hand_ranking=custom,
+        )
+        lo = round(len(custom) * 20.0 / 100)
+        hi = round(len(custom) * 40.0 / 100)
+        assert result == custom[lo:hi]
+
 
 # ===========================================================================
 # TestBlendFunctions — Bayesian blend helpers

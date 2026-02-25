@@ -236,3 +236,96 @@ class TestGetRangeSettings:
 
         result = get_range_settings(db)
         assert int(result["range_sample_count"]) == 1000
+
+
+# ---------------------------------------------------------------------------
+# TestHandRankingDB — get_hand_ranking / save_hand_ranking round-trip
+# ---------------------------------------------------------------------------
+
+
+class TestHandRankingDB:
+    """get_hand_ranking returns the default list; save_hand_ranking persists it."""
+
+    @pytest.fixture
+    def db(self):
+        from pokerhero.database.db import init_db
+
+        conn = init_db(":memory:")
+        yield conn
+        conn.close()
+
+    def test_default_returns_169_hands(self, db):
+        """get_hand_ranking on a fresh DB returns the 169-hand default."""
+        from pokerhero.database.db import get_hand_ranking
+
+        result = get_hand_ranking(db)
+        assert len(result) == 169
+
+    def test_default_first_hand_is_aa(self, db):
+        from pokerhero.database.db import get_hand_ranking
+
+        assert get_hand_ranking(db)[0] == "AA"
+
+    def test_save_and_reload(self, db):
+        """save_hand_ranking persists a custom list; get_hand_ranking returns it."""
+        from pokerhero.database.db import get_hand_ranking, save_hand_ranking
+
+        custom = ["KK", "AA"] + ["22"] * 167  # malformed but tests round-trip
+        save_hand_ranking(db, custom)
+        db.commit()
+        assert get_hand_ranking(db) == custom
+
+    def test_save_overwrites_previous(self, db):
+        """A second save_hand_ranking call replaces the first."""
+        from pokerhero.analysis.ranges import HAND_RANKING
+        from pokerhero.database.db import get_hand_ranking, save_hand_ranking
+
+        custom = list(reversed(HAND_RANKING))
+        save_hand_ranking(db, custom)
+        db.commit()
+        save_hand_ranking(db, HAND_RANKING)
+        db.commit()
+        assert get_hand_ranking(db) == HAND_RANKING
+
+    def test_returns_list_of_strings(self, db):
+        from pokerhero.database.db import get_hand_ranking
+
+        result = get_hand_ranking(db)
+        assert isinstance(result, list)
+        assert all(isinstance(h, str) for h in result)
+
+
+# ---------------------------------------------------------------------------
+# TestAdvancedSettingsUI — Advanced Settings section on the settings page
+# ---------------------------------------------------------------------------
+
+
+class TestAdvancedSettingsUI:
+    """Settings page must have an Advanced Settings section with a hand ranking
+    textarea and save button."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_layout_has_hand_ranking_textarea(self):
+        """Settings layout must contain a settings-hand-ranking textarea."""
+        from pokerhero.frontend.pages.settings import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "settings-hand-ranking" in str(comp)
+
+    def test_layout_has_hand_ranking_save_button(self):
+        """Settings layout must contain a settings-hand-ranking-save button."""
+        from pokerhero.frontend.pages.settings import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "settings-hand-ranking-save" in str(comp)
+
+    def test_layout_has_advanced_settings_section(self):
+        """Settings layout must contain an Advanced Settings heading."""
+        from pokerhero.frontend.pages.settings import layout
+
+        comp = layout() if callable(layout) else layout
+        assert "Advanced Settings" in str(comp)
