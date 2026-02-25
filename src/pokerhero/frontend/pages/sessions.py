@@ -1063,12 +1063,14 @@ def _parse_nav_search(search: str) -> _DrillDownState | None:
     Output("pending-session-report", "data"),
     Input("drill-down-state", "data"),
     Input("_pages_location", "pathname"),
+    Input("ev-result-store", "data"),
     State("_pages_location", "search"),
     prevent_initial_call=False,
 )
 def _render(
     state: _DrillDownState | None,
     pathname: str,
+    _ev_result: dict[str, Any] | None,
     search: str,
 ) -> tuple[html.Div | str, html.Div, html.Div | None, int | None]:
     if pathname != "/sessions":
@@ -1563,7 +1565,6 @@ def _render_sessions(db_path: str) -> html.Div | str:
         [
             filter_bar,
             _build_session_table(df),
-            _build_calculate_ev_section(),
             dcc.Store(id="session-data-store", data=df.to_dict("records")),
         ]
     )
@@ -2077,6 +2078,7 @@ def _render_session_report(db_path: str, session_id: int) -> tuple[html.Div | st
                     "fontSize": "14px",
                 },
             ),
+            _build_calculate_ev_section(),
         ],
         style={"maxWidth": "900px"},
     )
@@ -2870,25 +2872,24 @@ def _browse_session_hands(
 @callback(
     Output("ev-result-store", "data"),
     Input("calculate-ev-btn", "n_clicks"),
-    State("session-table", "active_cell"),
-    State("session-table", "derived_viewport_data"),
+    State("drill-down-state", "data"),
     background=True,
     running=[
         (Output("calculate-ev-btn", "disabled"), True, False),
-        (Output("ev-status-text", "children"), "⚙️ Calculating…", ""),
+        (Output("ev-status-text", "children"), "⚙️ Calculating…", "✅ Done"),
     ],
     prevent_initial_call=True,
 )
 def _bg_calculate_session_evs(
     n_clicks: int | None,
-    active_cell: dict[str, Any] | None,
-    viewport_data: list[dict[str, Any]] | None,
+    state: _DrillDownState | None,
 ) -> dict[str, Any]:
-    """Background callback: run calculate_session_evs for the selected session."""
-    if not n_clicks or active_cell is None or not viewport_data:
+    """Background callback: run calculate_session_evs for the current session."""
+    if not n_clicks or state is None:
         raise dash.exceptions.PreventUpdate
-    row = viewport_data[active_cell["row"]]
-    session_id = int(row["id"])
+    session_id = int(state.get("session_id") or 0)
+    if not session_id:
+        raise dash.exceptions.PreventUpdate
     db_path = _get_db_path()
     if db_path == ":memory:":
         raise dash.exceptions.PreventUpdate
@@ -2905,35 +2906,3 @@ def _bg_calculate_session_evs(
         conn.close()
     calculate_session_evs(db_path, session_id, hero_id, settings)
     return {"session_id": session_id, "done": True}
-
-
-@callback(
-    Output("session-table", "data", allow_duplicate=True),
-    Output("session-data-store", "data", allow_duplicate=True),
-    Input("ev-result-store", "data"),
-    prevent_initial_call=True,
-)
-def _refresh_session_table_after_ev_calc(
-    result: dict[str, Any] | None,
-) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    """Refresh session table rows after EV calculation completes."""
-    if result is None:
-        raise dash.exceptions.PreventUpdate
-    db_path = _get_db_path()
-    if db_path == ":memory:":
-        raise dash.exceptions.PreventUpdate
-    player_id = _get_hero_player_id(db_path)
-    if player_id is None:
-        raise dash.exceptions.PreventUpdate
-    from pokerhero.analysis.queries import get_sessions
-
-    conn = get_connection(db_path)
-    try:
-        df = get_sessions(conn, player_id)
-        df["ev_status"] = [
-            _ev_status_label(conn, int(r["id"])) for _, r in df.iterrows()
-        ]
-    finally:
-        conn.close()
-    records: list[dict[str, Any]] = df.to_dict("records")  # type: ignore[assignment]
-    return list(_build_session_table(df).data), records
