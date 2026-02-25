@@ -1364,6 +1364,251 @@ class TestSessionAnalysisQueries:
             "total_pot",
         } <= set(df.columns)
 
+
+# ===========================================================================
+# TestHandRanking — HAND_RANKING list in ranges.py
+# ===========================================================================
+
+
+class TestHandRanking:
+    """HAND_RANKING must be a well-formed 169-hand descending-strength list."""
+
+    def test_length_is_169(self):
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert len(HAND_RANKING) == 169
+
+    def test_no_duplicates(self):
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert len(set(HAND_RANKING)) == 169
+
+    def test_aa_is_first(self):
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert HAND_RANKING[0] == "AA"
+
+    def test_72o_is_last(self):
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert HAND_RANKING[-1] == "72o"
+
+    def test_aks_in_top_10(self):
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert HAND_RANKING.index("AKs") < 10
+
+    def test_all_pairs_present(self):
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        pairs = {
+            "AA",
+            "KK",
+            "QQ",
+            "JJ",
+            "TT",
+            "99",
+            "88",
+            "77",
+            "66",
+            "55",
+            "44",
+            "33",
+            "22",
+        }
+        assert pairs <= set(HAND_RANKING)
+
+    def test_suited_beats_offsuit_same_cards(self):
+        """AKs must be ranked higher (earlier) than AKo."""
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert HAND_RANKING.index("AKs") < HAND_RANKING.index("AKo")
+
+    def test_high_pair_beats_low_pair(self):
+        """AA must be ranked higher than 22."""
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert HAND_RANKING.index("AA") < HAND_RANKING.index("22")
+
+    def test_total_suited_count(self):
+        """Must contain exactly 78 suited hands."""
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert sum(1 for h in HAND_RANKING if h.endswith("s")) == 78
+
+    def test_total_offsuit_count(self):
+        """Must contain exactly 78 offsuit (non-pair) hands."""
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert sum(1 for h in HAND_RANKING if h.endswith("o")) == 78
+
+    def test_total_pair_count(self):
+        """Must contain exactly 13 pocket pairs."""
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert sum(1 for h in HAND_RANKING if len(h) == 2) == 13
+
+
+# ===========================================================================
+# TestBuildRange — build_range returns correct hand slices
+# ===========================================================================
+
+
+class TestBuildRange:
+    """build_range must return the right slice of HAND_RANKING per action type."""
+
+    def test_2bet_returns_top_pfr_pct(self):
+        """villain_preflop_action='2bet' → top pfr_pct% of HAND_RANKING."""
+        from pokerhero.analysis.ranges import HAND_RANKING, build_range
+
+        result = build_range(
+            vpip_pct=26.0,
+            pfr_pct=14.0,
+            three_bet_pct=6.0,
+            villain_preflop_action="2bet",
+        )
+        expected_n = round(169 * 14.0 / 100)
+        assert result == HAND_RANKING[:expected_n]
+
+    def test_3bet_returns_top_3bet_pct(self):
+        """villain_preflop_action='3bet' → top three_bet_pct% of HAND_RANKING."""
+        from pokerhero.analysis.ranges import HAND_RANKING, build_range
+
+        result = build_range(
+            vpip_pct=26.0,
+            pfr_pct=14.0,
+            three_bet_pct=6.0,
+            villain_preflop_action="3bet",
+        )
+        expected_n = round(169 * 6.0 / 100)
+        assert result == HAND_RANKING[:expected_n]
+
+    def test_3bet_range_tighter_than_2bet_range(self):
+        """3-bet range must be strictly smaller than 2-bet range."""
+        from pokerhero.analysis.ranges import build_range
+
+        r2 = build_range(26.0, 14.0, 6.0, "2bet")
+        r3 = build_range(26.0, 14.0, 6.0, "3bet")
+        assert len(r3) < len(r2)
+
+    def test_4bet_uses_fixed_prior_ignores_pfr(self):
+        """villain_preflop_action='4bet+' → top four_bet_prior% regardless of pfr."""
+        from pokerhero.analysis.ranges import HAND_RANKING, build_range
+
+        result = build_range(
+            vpip_pct=26.0,
+            pfr_pct=14.0,
+            three_bet_pct=6.0,
+            villain_preflop_action="4bet+",
+            four_bet_prior=3.0,
+        )
+        expected_n = round(169 * 3.0 / 100)
+        assert result == HAND_RANKING[:expected_n]
+
+    def test_4bet_range_tighter_than_3bet_range(self):
+        """4-bet range must be strictly smaller than 3-bet range."""
+        from pokerhero.analysis.ranges import build_range
+
+        r3 = build_range(26.0, 14.0, 6.0, "3bet")
+        r4 = build_range(26.0, 14.0, 6.0, "4bet+", four_bet_prior=3.0)
+        assert len(r4) < len(r3)
+
+    def test_call_returns_flatting_slice(self):
+        """villain_preflop_action='call' → hands between pfr% and vpip% cutoffs."""
+        from pokerhero.analysis.ranges import HAND_RANKING, build_range
+
+        result = build_range(
+            vpip_pct=26.0,
+            pfr_pct=14.0,
+            three_bet_pct=6.0,
+            villain_preflop_action="call",
+        )
+        lo = round(169 * 14.0 / 100)
+        hi = round(169 * 26.0 / 100)
+        assert result == HAND_RANKING[lo:hi]
+
+    def test_call_range_does_not_overlap_2bet_range(self):
+        """Flatting range must be disjoint from open-raise range."""
+        from pokerhero.analysis.ranges import build_range
+
+        r_call = set(build_range(26.0, 14.0, 6.0, "call"))
+        r_2bet = set(build_range(26.0, 14.0, 6.0, "2bet"))
+        assert r_call.isdisjoint(r_2bet)
+
+    def test_unknown_action_raises_value_error(self):
+        from pokerhero.analysis.ranges import build_range
+
+        with pytest.raises(ValueError):
+            build_range(26.0, 14.0, 6.0, "shove")
+
+
+# ===========================================================================
+# TestBlendFunctions — Bayesian blend helpers
+# ===========================================================================
+
+
+class TestBlendFunctions:
+    """blend_vpip, blend_pfr, blend_3bet must apply the Bayesian blend formula."""
+
+    def test_blend_vpip_with_zero_hands_returns_prior(self):
+        from pokerhero.analysis.ranges import blend_vpip
+
+        assert blend_vpip(observed=None, n_hands=0) == pytest.approx(26.0)
+
+    def test_blend_vpip_observed_none_returns_prior(self):
+        from pokerhero.analysis.ranges import blend_vpip
+
+        assert blend_vpip(observed=None, n_hands=50) == pytest.approx(26.0)
+
+    def test_blend_vpip_large_sample_approaches_observed(self):
+        """With n >> k, blended value should be very close to observed."""
+        from pokerhero.analysis.ranges import blend_vpip
+
+        result = blend_vpip(observed=40.0, n_hands=3000, prior=26.0, k=30)
+        assert result == pytest.approx(40.0, abs=0.5)
+
+    def test_blend_vpip_formula(self):
+        """(n * obs + k * prior) / (n + k)."""
+        from pokerhero.analysis.ranges import blend_vpip
+
+        # n=30, k=30: equal weight → (30*40 + 30*26)/(30+30) = (1200+780)/60 = 33
+        result = blend_vpip(observed=40.0, n_hands=30, prior=26.0, k=30)
+        assert result == pytest.approx(33.0)
+
+    def test_blend_pfr_default_prior_is_14(self):
+        from pokerhero.analysis.ranges import blend_pfr
+
+        assert blend_pfr(observed=None, n_hands=0) == pytest.approx(14.0)
+
+    def test_blend_pfr_formula(self):
+        from pokerhero.analysis.ranges import blend_pfr
+
+        result = blend_pfr(observed=20.0, n_hands=30, prior=14.0, k=30)
+        # (30*20 + 30*14) / 60 = (600+420)/60 = 17
+        assert result == pytest.approx(17.0)
+
+    def test_blend_3bet_default_prior_is_6(self):
+        from pokerhero.analysis.ranges import blend_3bet
+
+        assert blend_3bet(observed=None, n_hands=0) == pytest.approx(6.0)
+
+    def test_blend_3bet_falls_back_to_prior_when_n_zero(self):
+        """n_hands=0 with any observed value → prior returned."""
+        from pokerhero.analysis.ranges import blend_3bet
+
+        assert blend_3bet(observed=10.0, n_hands=0) == pytest.approx(6.0)
+
+    def test_blend_3bet_formula(self):
+        from pokerhero.analysis.ranges import blend_3bet
+
+        result = blend_3bet(observed=12.0, n_hands=30, prior=6.0, k=30)
+        # (30*12 + 30*6) / 60 = (360+180)/60 = 9
+        assert result == pytest.approx(9.0)
+
+
+class TestSessionAnalysisQueriesShowdown:
+    """Continuation of TestSessionAnalysisQueries — showdown hand query tests."""
+
     def test_get_session_showdown_hands_row_count(
         self, db_with_data, hero_player_id, session_id
     ):
