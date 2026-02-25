@@ -733,6 +733,76 @@ def _fav_button_label(is_favorite: bool) -> str:
     return "★" if is_favorite else "☆"
 
 
+def _build_ev_cell(
+    cache_row: dict[str, object] | None,
+    action_type: str,
+) -> str | html.Div:
+    """Build the EV display cell for an action table row.
+
+    Args:
+        cache_row: Dict from ``action_ev_cache`` (all columns), or ``None``
+            when no cached EV exists for this action.
+        action_type: The action type string, e.g. ``'CALL'``, ``'BET'``,
+            ``'RAISE'``.
+
+    Returns:
+        ``'—'`` when *cache_row* is ``None``.
+        An ``html.Div`` for exact or range EV rows.
+    """
+    if cache_row is None:
+        return "—"
+
+    equity = float(cache_row["equity"])  # type: ignore[arg-type]
+    ev = float(cache_row["ev"])  # type: ignore[arg-type]
+    ev_type = str(cache_row["ev_type"])
+    ev_str = _fmt_pnl(ev)
+
+    if ev_type == "exact":
+        equity_pct = f"{equity * 100:.0f}%"
+        summary = f"Equity: {equity_pct}   EV: {ev_str}"
+        children: list[Any] = [html.Span(summary)]
+        if action_type == "CALL" and ev < 0:
+            children.append(
+                html.Div(
+                    "[Fold was better ↑]",
+                    style={"color": "var(--pnl-negative, red)", "fontSize": "11px"},
+                )
+            )
+        return html.Div(children)
+
+    # ev_type == "range"
+    equity_pct = f"~{equity * 100:.0f}%"
+    summary = f"Est. Equity: {equity_pct}   Est. EV: {ev_str}"
+    preflop_action = str(cache_row.get("villain_preflop_action") or "unknown")
+    contracted = cache_row.get("contracted_range_size")
+    sample_count = int(float(cache_row.get("sample_count") or 0))  # type: ignore[arg-type]
+    tooltip_parts = [f"Pre-flop range type: {preflop_action}"]
+    if contracted is not None:
+        tooltip_parts.append(
+            f"Contracted range: {int(float(contracted))} combos"  # type: ignore[arg-type]
+        )
+    tooltip_parts += [
+        f"Sample count: {sample_count}",
+        "Note: bluffs not explicitly modelled.",
+    ]
+    tooltip = "  |  ".join(tooltip_parts)
+    return html.Div(
+        [
+            html.Span(summary),
+            html.Span(
+                " ℹ",
+                title=tooltip,
+                style={
+                    "cursor": "help",
+                    "color": "var(--text-3, #888)",
+                    "fontSize": "11px",
+                    "marginLeft": "4px",
+                },
+            ),
+        ]
+    )
+
+
 def _breadcrumb(
     level: str, session_label: str = "", hand_label: str = "", session_id: int = 0
 ) -> html.Div:
@@ -2368,7 +2438,6 @@ def _allin_pot_to_win(
 
 def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
     from pokerhero.analysis.queries import get_actions, get_session_player_stats
-    from pokerhero.analysis.stats import compute_ev
 
     hero_id = _get_hero_player_id(db_path)
     min_hands = _read_analysis_settings(db_path)["min_hands_classification"]
@@ -2383,10 +2452,10 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
         ).fetchone()
         hero_cards: str | None = None
         hero_net_result: float | None = None
-        # Map player_id → hole_cards for EV calculation at all-in spots
-        all_hole_cards: dict[int, str] = {}
         villain_showdown: list[_VillainRow] = []
         opp_stats_map: dict[str, dict[str, int]] = {}
+        # Load EV cache for all hero actions in this hand
+        ev_cache: dict[int, dict[str, object]] = {}
         if hero_id is not None:
             hole_row = conn.execute(
                 "SELECT hole_cards, net_result FROM hand_players"
@@ -2397,12 +2466,19 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
                 hero_cards = hole_row[0]
                 if hole_row[1] is not None:
                     hero_net_result = float(hole_row[1])
-        for row in conn.execute(
-            "SELECT player_id, hole_cards FROM hand_players"
-            " WHERE hand_id = ? AND hole_cards IS NOT NULL",
-            (hand_id,),
-        ).fetchall():
-            all_hole_cards[int(row[0])] = row[1]
+            old_factory = conn.row_factory
+            conn.row_factory = sqlite3.Row
+            for ev_row in conn.execute(
+                """
+                SELECT aec.*
+                FROM action_ev_cache aec
+                JOIN actions a ON aec.action_id = a.id
+                WHERE a.hand_id = ? AND aec.hero_id = ?
+                """,
+                (hand_id, hero_id),
+            ).fetchall():
+                ev_cache[int(ev_row["action_id"])] = dict(ev_row)
+            conn.row_factory = old_factory
         # Fetch villain cards + names for the showdown display
         villain_rows = conn.execute(
             "SELECT p.username, hp.position, hp.hole_cards, hp.net_result"
@@ -2604,42 +2680,13 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             pot_before=pot_before,
         )
 
-        # EV for hero all-in or showdown actions when villain cards are known
-        ev_cell: str = "—"
-        villain_hole: str | None = next(
-            (v for pid, v in all_hole_cards.items() if pid != hero_id),
-            None,
-        )
-        if (
-            action["is_hero"]
-            and hero_cards
-            and (action["is_all_in"] or (villain_hole is not None and amount > 0))
-        ):
-            board_so_far = " ".join(
-                filter(
-                    None,
-                    [
-                        flop if street in ("FLOP", "TURN", "RIVER") else None,
-                        turn if street in ("TURN", "RIVER") else None,
-                        river if street == "RIVER" else None,
-                    ],
-                )
-            )
-            ev_val = None
-            try:
-                ev_result = compute_ev(
-                    hero_cards,
-                    villain_hole,
-                    board_so_far,
-                    amount,
-                    _allin_pot_to_win(df, row_idx, action_type, pot_before, amount),
-                )
-                if ev_result is not None:
-                    ev_val = ev_result[0]
-            except Exception:
-                pass
-            if ev_val is not None:
-                ev_cell = f"EV: {_fmt_pnl(ev_val)}"
+        # EV cell from action_ev_cache (loaded once before the loop)
+        ev_cache_row = ev_cache.get(int(action["id"])) if action["is_hero"] else None
+        ev_cell_content = _build_ev_cell(ev_cache_row, action_type)
+        ev_color = "#bbb"
+        if ev_cache_row is not None:
+            _ev_val = float(ev_cache_row["ev"])  # type: ignore[arg-type]
+            ev_color = "green" if _ev_val > 0 else ("red" if _ev_val < 0 else "#bbb")
 
         street_rows.append(
             html.Tr(
@@ -2666,15 +2713,11 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
                         },
                     ),
                     html.Td(
-                        ev_cell,
+                        ev_cell_content,
                         style={
                             **_TD,
                             "fontSize": "12px",
-                            "color": (
-                                "green"
-                                if ev_cell.startswith("EV: +")
-                                else ("red" if ev_cell.startswith("EV: -") else "#bbb")
-                            ),
+                            "color": ev_color,
                         },
                     ),
                 ],

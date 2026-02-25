@@ -25,7 +25,7 @@
 7a. ✅ Background Callback setup — add `diskcache` dependency; initialise `DiskcacheManager` in `run.py`; wire a minimal smoke-test long callback. No EV logic yet.
 7b. ✅ `calculate_session_evs` orchestrator + `identify_primary_villain` helper — computes + persists EV for an entire session across all streets.
 8. ✅ Session List "Calculate EVs" button — wired to the background callback from 7a; progress spinner; `✅ EVs ready` status.
-9. `_render_actions` loads from `action_ev_cache` — exact + range display, fold comparison for CALL. Replaces inline `compute_ev` call. Update `TestRenderActionsEVShowdown`.
+9. `_render_actions` loads from `action_ev_cache` — exact + range display, fold comparison for CALL. Replaces inline `compute_ev` call. Update `TestRenderActionsEVShowdown`. ✅
 10. Session Report Lucky/Unlucky reads from DB — refactor `_build_ev_summary` + `_build_flagged_hands_list` + remove `_build_equity_map`, `_count_session_showdown_hands`.
 
 ### ⏳ Part D — Documentation (pending)
@@ -558,7 +558,7 @@ session list."*
    from 7a; progress spinner; `✅ EVs ready` status. `test_sessions.py`.
 9. **`_render_actions` loads from `action_ev_cache`** — exact + range display,
    fold comparison for CALL. Replaces inline `compute_ev` call.
-   Update `TestRenderActionsEVShowdown`.
+   Update `TestRenderActionsEVShowdown`. ✅
 10. **Session Report Lucky/Unlucky reads from DB** — refactor
     `_build_ev_summary` + `_build_flagged_hands_list` + remove
     `_build_equity_map`, `_count_session_showdown_hands`.
