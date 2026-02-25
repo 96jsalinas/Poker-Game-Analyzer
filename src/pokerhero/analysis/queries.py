@@ -638,3 +638,34 @@ def get_session_hero_ev_actions(
     return pd.read_sql_query(
         sql, conn, params={"hero": int(hero_id), "sid": int(session_id)}
     )
+
+
+def get_session_ev_status(
+    conn: sqlite3.Connection,
+    session_id: int,
+) -> tuple[int, str | None]:
+    """Return EV cache summary for a session.
+
+    Args:
+        conn: Open SQLite connection.
+        session_id: Internal integer id of the session row.
+
+    Returns:
+        ``(count, latest_computed_at)`` where *count* is the number of
+        ``action_ev_cache`` rows belonging to the session and
+        *latest_computed_at* is the ISO 8601 timestamp of the most recently
+        written row, or ``None`` when no rows exist.
+    """
+    row = conn.execute(
+        """
+        SELECT COUNT(*), MAX(aec.computed_at)
+        FROM action_ev_cache aec
+        JOIN actions a ON aec.action_id = a.id
+        JOIN hands h ON a.hand_id = h.id
+        WHERE h.session_id = ?
+        """,
+        (session_id,),
+    ).fetchone()
+    count = int(row[0]) if row and row[0] else 0
+    computed_at = str(row[1]) if row and row[1] else None
+    return count, computed_at
