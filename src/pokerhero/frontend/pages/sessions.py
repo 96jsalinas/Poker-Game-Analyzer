@@ -2564,9 +2564,17 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             pot_before=pot_before,
         )
 
-        # EV for hero all-in actions when villain cards are known
+        # EV for hero all-in or showdown actions when villain cards are known
         ev_cell: str = "—"
-        if action["is_hero"] and action["is_all_in"] and hero_cards:
+        villain_hole: str | None = next(
+            (v for pid, v in all_hole_cards.items() if pid != hero_id),
+            None,
+        )
+        if (
+            action["is_hero"]
+            and hero_cards
+            and (action["is_all_in"] or (villain_hole is not None and amount > 0))
+        ):
             board_so_far = " ".join(
                 filter(
                     None,
@@ -2576,10 +2584,6 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
                         river if street == "RIVER" else None,
                     ],
                 )
-            )
-            villain_hole: str | None = next(
-                (v for pid, v in all_hole_cards.items() if pid != hero_id),
-                None,
             )
             ev_val = None
             try:

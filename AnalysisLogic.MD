@@ -132,7 +132,7 @@ $$EV_{Action} = (Equity \times Pot_{to\_Win}) - ((1 - Equity) \times Amount_{to\
 * **Equity**: The % chance of winning based on Hero's cards vs. Villain's cards, calculated via PokerKit's `calculate_equities` function using **Monte Carlo simulation** (see below).
 * **Pot to Win**: The current pot + Villain's call/bet.
 * **Amount to Lose**: The amount Hero must risk to make the play.
-* **Display**: Shown in the EV column of the action view for hero all-in spots. Green = positive EV, Red = negative EV, `—` when villain cards unknown.
+* **Display**: Shown in the EV column of the action view for hero all-in spots and hero actions with amount > 0 in showdown hands where villain cards are known. Green = positive EV, Red = negative EV, `—` when villain cards unknown.
 
 ### Equity Calculation Detail (`compute_equity` / `compute_equity_multiway`)
 
