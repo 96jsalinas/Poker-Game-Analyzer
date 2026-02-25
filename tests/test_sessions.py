@@ -1875,3 +1875,369 @@ class TestBackgroundCallbackSetup:
         manager = DiskcacheManager(cache)
         app = create_app(db_path=":memory:", background_callback_manager=manager)
         assert app.server.config["BACKGROUND_MANAGER"] is manager
+
+
+# ---------------------------------------------------------------------------
+# TestIdentifyPrimaryVillain
+# ---------------------------------------------------------------------------
+
+
+class TestIdentifyPrimaryVillain:
+    """Tests for the identify_primary_villain stats helper."""
+
+    @pytest.fixture
+    def conn(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        c = init_db(tmp_path / "test.db")
+        yield c
+        c.close()
+
+    def _seed(self, conn, n_villains: int = 1, add_aggressor: bool = False):
+        """Seed session/hand/players/actions.
+
+        Returns (session_id, hand_id, hero_id, villain_ids, hero_sequence).
+        When add_aggressor=True, villain_ids[1] BETs on FLOP before hero acts.
+        """
+        hero_id = conn.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'Hero')"
+        ).lastrowid
+        villain_ids = []
+        for i in range(n_villains):
+            vid = conn.execute(
+                "INSERT INTO players (username, preferred_name)"
+                f" VALUES ('villain{i}', 'V{i}')"
+            ).lastrowid
+            villain_ids.append(vid)
+        sid = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats,"
+            "  small_blind, big_blind, ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-01-01')"
+        ).lastrowid
+        hid = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            "  rake, timestamp)"
+            " VALUES ('H1', ?, 1000, 0, 0, '2024-01-01T00:00:00')",
+            (sid,),
+        ).lastrowid
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BTN', 5000, 1, 1, 0, 0, -200)",
+            (hid, hero_id),
+        )
+        for vid in villain_ids:
+            conn.execute(
+                "INSERT INTO hand_players"
+                " (hand_id, player_id, position, starting_stack,"
+                "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+                " VALUES (?, ?, 'BB', 5000, 1, 1, 0, 0, 100)",
+                (hid, vid),
+            )
+        seq = 1
+        for vid in villain_ids:
+            conn.execute(
+                "INSERT INTO actions"
+                " (hand_id, player_id, is_hero, street, action_type,"
+                "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+                " VALUES (?, ?, 0, 'PREFLOP', 'RAISE', 300, 0, 150, 0, ?)",
+                (hid, vid, seq),
+            )
+            seq += 1
+        if add_aggressor and len(villain_ids) >= 2:
+            conn.execute(
+                "INSERT INTO actions"
+                " (hand_id, player_id, is_hero, street, action_type,"
+                "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+                " VALUES (?, ?, 0, 'FLOP', 'BET', 300, 0, 800, 0, ?)",
+                (hid, villain_ids[1], seq),
+            )
+            seq += 1
+        hero_seq = seq
+        conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'FLOP', 'CALL', 300, 300, 800, 0, ?)",
+            (hid, hero_id, hero_seq),
+        )
+        conn.commit()
+        return sid, hid, hero_id, villain_ids, hero_seq
+
+    def test_heads_up_returns_the_villain(self, conn):
+        """Heads-up: identify_primary_villain returns the single non-hero player."""
+        from pokerhero.analysis.stats import identify_primary_villain
+
+        _, hid, hero_id, villain_ids, hero_seq = self._seed(conn, n_villains=1)
+        result = identify_primary_villain(conn, hid, hero_id, hero_seq, "FLOP")
+        assert result == villain_ids[0]
+
+    def test_multiway_returns_last_aggressor_on_street(self, conn):
+        """Multi-way: last BET/RAISE before hero on this street is primary villain."""
+        from pokerhero.analysis.stats import identify_primary_villain
+
+        _, hid, hero_id, villain_ids, hero_seq = self._seed(
+            conn, n_villains=2, add_aggressor=True
+        )
+        result = identify_primary_villain(conn, hid, hero_id, hero_seq, "FLOP")
+        assert result == villain_ids[1]  # villain1 bet on the flop
+
+    def test_multiway_no_aggressor_returns_most_observed(self, conn):
+        """Multi-way, no FLOP aggressor: villain with most session hands returned."""
+        from pokerhero.analysis.stats import identify_primary_villain
+
+        sid, hid, hero_id, villain_ids, hero_seq = self._seed(
+            conn, n_villains=2, add_aggressor=False
+        )
+        # Give villain_ids[0] extra hands to make them "most observed"
+        for i in range(5):
+            extra_hid = conn.execute(
+                "INSERT INTO hands"
+                " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+                "  rake, timestamp)"
+                " VALUES (?, ?, 500, 0, 0, '2024-01-01T00:01:00')",
+                (f"HX{i}", sid),
+            ).lastrowid
+            conn.execute(
+                "INSERT INTO hand_players"
+                " (hand_id, player_id, position, starting_stack,"
+                "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+                " VALUES (?, ?, 'BB', 5000, 1, 0, 0, 0, 100)",
+                (extra_hid, villain_ids[0]),
+            )
+        conn.commit()
+        result = identify_primary_villain(conn, hid, hero_id, hero_seq, "FLOP")
+        assert result == villain_ids[0]
+
+
+# ---------------------------------------------------------------------------
+# TestCalculateSessionEvs
+# ---------------------------------------------------------------------------
+
+
+class TestCalculateSessionEvs:
+    """Tests for the calculate_session_evs orchestrator."""
+
+    _FAST_SETTINGS: dict[str, float] = {
+        "range_vpip_prior": 26.0,
+        "range_pfr_prior": 14.0,
+        "range_3bet_prior": 6.0,
+        "range_4bet_prior": 3.0,
+        "range_prior_weight": 30.0,
+        "range_sample_count": 50.0,  # small for test speed
+        "range_continue_pct_passive": 65.0,
+        "range_continue_pct_aggressive": 40.0,
+    }
+
+    @pytest.fixture
+    def db_file(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        db_path = str(tmp_path / "test.db")
+        conn = init_db(db_path)
+        yield conn, db_path
+        conn.close()
+
+    def _seed_hand(
+        self,
+        conn,
+        hero_cards: str | None = "Ac Kd",
+        villain_cards: str | None = None,
+        villain_pfr: int = 1,
+        villain_three_bet: int = 0,
+        board_flop: str | None = "Qs Jd 2c",
+        board_turn: str | None = "7h",
+        board_river: str | None = "3s",
+        hero_action_street: str = "RIVER",
+        villain_flop_action: str | None = None,
+        villain_turn_action: str | None = None,
+    ) -> tuple[int, int, int, int, int]:
+        """Seed session/hand/players/actions.
+
+        Returns (session_id, hand_id, hero_id, villain_id, hero_action_id).
+        """
+        hero_id = conn.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'Hero')"
+        ).lastrowid
+        villain_id = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('villain', 'Villain')"
+        ).lastrowid
+        sid = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats,"
+            "  small_blind, big_blind, ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-01-01')"
+        ).lastrowid
+        hid = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            "  rake, timestamp, board_flop, board_turn, board_river)"
+            " VALUES ('H1', ?, 1200, 0, 0, '2024-01-01T00:00:00', ?, ?, ?)",
+            (sid, board_flop, board_turn, board_river),
+        ).lastrowid
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BTN', 5000, ?, 1, 1, 0, 0, -400)",
+            (hid, hero_id, hero_cards),
+        )
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BB', 5000, ?, 1, ?, ?, 0, 400)",
+            (hid, villain_id, villain_cards, villain_pfr, villain_three_bet),
+        )
+        seq = 1
+        conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 0, 'PREFLOP', 'RAISE', 300, 0, 150, 0, ?)",
+            (hid, villain_id, seq),
+        )
+        seq += 1
+        conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'PREFLOP', 'CALL', 300, 300, 150, 0, ?)",
+            (hid, hero_id, seq),
+        )
+        seq += 1
+        if villain_flop_action:
+            conn.execute(
+                "INSERT INTO actions"
+                " (hand_id, player_id, is_hero, street, action_type,"
+                "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+                " VALUES (?, ?, 0, 'FLOP', ?, 200, 0, 600, 0, ?)",
+                (hid, villain_id, villain_flop_action, seq),
+            )
+            seq += 1
+        if villain_turn_action:
+            conn.execute(
+                "INSERT INTO actions"
+                " (hand_id, player_id, is_hero, street, action_type,"
+                "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+                " VALUES (?, ?, 0, 'TURN', ?, 200, 0, 1000, 0, ?)",
+                (hid, villain_id, villain_turn_action, seq),
+            )
+            seq += 1
+        hero_action_id = conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, ?, 'CALL', 400, 400, 800, 0, ?)",
+            (hid, hero_id, hero_action_street, seq),
+        ).lastrowid
+        conn.commit()
+        return sid, hid, hero_id, villain_id, hero_action_id
+
+    def test_exact_ev_written_when_villain_cards_known(self, db_file):
+        """CALL on RIVER with known villain cards writes ev_type='exact' to cache."""
+        conn, db_path = db_file
+        from pokerhero.analysis.stats import calculate_session_evs
+        from pokerhero.database.db import get_action_ev
+
+        sid, _, hero_id, _, action_id = self._seed_hand(
+            conn,
+            hero_cards="Ac Kd",
+            villain_cards="2c 3d",
+            board_flop="Qs Jd 4h",
+            board_turn="7s",
+            board_river="8h",
+            hero_action_street="RIVER",
+        )
+        n = calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)
+        assert n >= 1
+        row = get_action_ev(conn, action_id, hero_id)
+        assert row is not None
+        assert row["ev_type"] == "exact"
+        assert 0.0 <= float(row["equity"]) <= 1.0
+
+    def test_range_ev_written_for_flop_action_no_history(self, db_file):
+        """CALL on FLOP with unknown villain cards writes ev_type='range'."""
+        conn, db_path = db_file
+        from pokerhero.analysis.stats import calculate_session_evs
+        from pokerhero.database.db import get_action_ev
+
+        sid, _, hero_id, _, action_id = self._seed_hand(
+            conn,
+            hero_cards="Ac Kd",
+            villain_cards=None,
+            villain_pfr=1,
+            board_flop="Qs Jd 2h",
+            board_turn=None,
+            board_river=None,
+            hero_action_street="FLOP",
+        )
+        n = calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)
+        assert n >= 1
+        row = get_action_ev(conn, action_id, hero_id)
+        assert row is not None
+        assert row["ev_type"] == "range"
+        assert row["contracted_range_size"] is not None
+        assert int(row["contracted_range_size"]) >= 5
+
+    def test_range_ev_river_action_uses_street_history(self, db_file):
+        """CALL on RIVER with villain BET on FLOP+TURN uses 2-street contraction."""
+        conn, db_path = db_file
+        from pokerhero.analysis.stats import calculate_session_evs
+        from pokerhero.database.db import get_action_ev
+
+        sid, _, hero_id, _, action_id = self._seed_hand(
+            conn,
+            hero_cards="Ac Kd",
+            villain_cards=None,
+            villain_pfr=1,
+            board_flop="Qs Jd 2h",
+            board_turn="7s",
+            board_river="8c",
+            hero_action_street="RIVER",
+            villain_flop_action="BET",
+            villain_turn_action="BET",
+        )
+        n = calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)
+        assert n >= 1
+        row = get_action_ev(conn, action_id, hero_id)
+        assert row is not None
+        assert row["ev_type"] == "range"
+        assert int(row["contracted_range_size"]) >= 5
+
+    def test_action_skipped_when_hero_cards_unknown(self, db_file):
+        """Hero action with NULL hole_cards produces no cache row."""
+        conn, db_path = db_file
+        from pokerhero.analysis.stats import calculate_session_evs
+        from pokerhero.database.db import get_action_ev
+
+        sid, _, hero_id, _, action_id = self._seed_hand(
+            conn,
+            hero_cards=None,
+            villain_cards="2c 3d",
+            hero_action_street="RIVER",
+        )
+        n = calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)
+        assert n == 0
+        assert get_action_ev(conn, action_id, hero_id) is None
+
+    def test_returns_count_of_rows_written(self, db_file):
+        """Return value equals the number of action_ev_cache rows written."""
+        conn, db_path = db_file
+        from pokerhero.analysis.stats import calculate_session_evs
+
+        sid, _, hero_id, _, _ = self._seed_hand(
+            conn,
+            hero_cards="Ac Kd",
+            villain_cards="2c 3d",
+            hero_action_street="RIVER",
+        )
+        n = calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)
+        count = conn.execute(
+            "SELECT COUNT(*) FROM action_ev_cache WHERE hero_id = ?", (hero_id,)
+        ).fetchone()[0]
+        assert n == count
