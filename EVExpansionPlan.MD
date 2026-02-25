@@ -1,8 +1,39 @@
 # EV System Redesign & Range-Based EV Expansion
 
-> **Status:** Planning — not yet approved for implementation.
+> **Status:** Partially implemented — Parts A and B complete, Parts C and D pending.
+> **Branch:** `feat/ev-expansion`
 > **Scope:** Rewrite of the entire EV subsystem. No backward-compatibility
 > constraints — the app has no production users.
+
+## Implementation Status
+
+### ✅ Part A — Foundation (complete)
+
+1. ✅ `compute_ev` returns `(ev, equity)` tuple — `stats.py` updated, `_render_actions` caller updated.
+2. ✅ `hand_players.three_bet` + `action_ev_cache` table — `schema.sql`, `hand_parser.py`, `db.py` (`get_action_ev`, `save_action_evs`, `clear_all_data`).
+3. ✅ New Analysis Settings — eight range settings in `db.py` (`RANGE_SETTING_DEFAULTS`, `get_range_settings`) and `settings.py` UI.
+
+### ✅ Part B — Range computation (complete)
+
+4. ✅ `ranges.py` — `HAND_RANKING` (169 hands, equity/playability source, user-configurable via Advanced Settings textarea in settings page), `build_range`, `blend_vpip`, `blend_pfr`, `blend_3bet`.
+5. ✅ `ranges.py` — `expand_combos` (dead card filtering).
+5a. ✅ `ranges.py` — `score_combo_vs_board` (draw-aware: flush draw, OESD, gutshot, two-overcard bonuses; monotone board edge case) + `contract_range` (40% aggressive / 65% passive).
+6. ✅ `compute_equity_vs_range` in `stats.py` — full pipeline: `build_range` → `expand_combos` → `contract_range` per intermediate street → MC equity sampling. Returns `(0.0, 0)` when < 5 combos survive.
+
+### ⏳ Part C — Integration (pending)
+
+7a. Background Callback setup — add `diskcache` dependency; initialise `DiskcacheManager` in `run.py`; wire a minimal smoke-test long callback. No EV logic yet.
+7b. `calculate_session_evs` orchestrator + `identify_primary_villain` helper — computes + persists EV for an entire session across all streets.
+8. Session List "Calculate EVs" button — wired to the background callback from 7a; progress spinner; `✅ EVs ready` status.
+9. `_render_actions` loads from `action_ev_cache` — exact + range display, fold comparison for CALL. Replaces inline `compute_ev` call. Update `TestRenderActionsEVShowdown`.
+10. Session Report Lucky/Unlucky reads from DB — refactor `_build_ev_summary` + `_build_flagged_hands_list` + remove `_build_equity_map`, `_count_session_showdown_hands`.
+
+### ⏳ Part D — Documentation (pending)
+
+11. `AnalysisLogic.MD` — update EV section with range formula, blend formula, new display rules.
+12. `Architecture.MD` — add DB-first principle + `action_ev_cache` to data flow diagram.
+13. `DataStructure.MD` — add `action_ev_cache` schema.
+14. `UserGuide.MD` + `guide.py` — document "Calculate EVs" button, Est. EV display, fold comparison, range settings.
 
 ---
 
@@ -474,27 +505,30 @@ session list."*
 
 ## Sub-Tasks (implementation order, each is one test commit + one impl commit)
 
-### Part A — Foundation (no UI change visible yet)
+### Part A — Foundation (no UI change visible yet) ✅ COMPLETE
 
-1. **`compute_ev` returns `(ev, equity)` tuple** — `stats.py` + update
+1. ✅ **`compute_ev` returns `(ev, equity)` tuple** — `stats.py` + update
    `_render_actions` caller + update `test_analysis.py`.
-2. **`hand_players.three_bet` + `action_ev_cache` table** — add
+2. ✅ **`hand_players.three_bet` + `action_ev_cache` table** — add
    `three_bet INTEGER NOT NULL DEFAULT 0` to `hand_players` in `schema.sql`;
    update `hand_parser.py` to populate it (track raise count in pre-flop
    sequence, set `p.three_bet = p.username in three_bet_set`). Also add
    `action_ev_cache` DDL + `db.py` helpers (`get_action_ev`, `save_action_evs`,
    clear in `clear_all_data`). `test_database.py` + `test_parser.py`.
-3. **New Analysis Settings** — all eight range settings in `settings.py` +
+3. ✅ **New Analysis Settings** — all eight range settings in `settings.py` +
    `_read_analysis_settings` + `test_settings.py`.
 
-### Part B — Range computation (pure functions, no UI)
+### Part B — Range computation (pure functions, no UI) ✅ COMPLETE
 
-4. **`ranges.py` — `HAND_RANKING` + `build_range` + `blend_vpip` + `blend_pfr` + `blend_3bet`** —
+4. ✅ **`ranges.py` — `HAND_RANKING` + `build_range` + `blend_vpip` + `blend_pfr` + `blend_3bet`** —
    tests cover: 2-bet uses top PFR%; 3-bet uses top 3-bet%; 4-bet uses fixed
    prior; call returns flatting slice; Bayesian blend for all three blended
    stats; `blend_3bet` falls back to prior when n=0. `test_analysis.py`.
-5. **`ranges.py` — `expand_combos`** — dead card filtering tests.
-5a. **`ranges.py` — `score_combo_vs_board` + `contract_range`** — tests cover:
+   `HAND_RANKING` uses equity/playability source (169 hands); user-configurable
+   via Advanced Settings textarea in `settings.py` (stored as JSON in `settings`
+   table; validated to exactly 169 unique hands before saving).
+5. ✅ **`ranges.py` — `expand_combos`** — dead card filtering tests.
+5a. ✅ **`ranges.py` — `score_combo_vs_board` + `contract_range`** — tests cover:
     (a) flush draw (K♡Q♡ on A♡8♡2♣) scores lower than bottom pair (5♠2♢);
     (b) naked-ace on monotone board (A♡Q♠ on K♡8♡2♡) scores lower than a
     missed offsuit hand; (c) OESD scores lower than pure air on connected board;
@@ -502,14 +536,14 @@ session list."*
     score lower than trash (Q9o); (f) bonuses are cumulative (flush draw + OESD);
     (g) passive action retains more combos than aggressive at same continue_pct;
     (h) returns `[]` when continue_pct forces 0 combos. `test_analysis.py`.
-6. **`compute_equity_vs_range` in `stats.py`** — full contraction pipeline.
+6. ✅ **`compute_equity_vs_range` in `stats.py`** — full contraction pipeline.
    Integration tests: (a) FLOP 2-bet action → equity in plausible range;
    (b) FLOP 3-bet action → significantly lower equity (tighter range) than
    2-bet; (c) RIVER action with 2-street history → contracted range;
    (d) range collapse (< 5 combos) returns `(0.0, 0)`.
    Also tests that `villain_preflop_action = '4bet+'` uses fixed prior.
 
-### Part C — Integration
+### Part C — Integration ⏳ PENDING
 
 7a. **Background Callback setup** — add `diskcache` dependency; initialise
     `DiskcacheManager` in `run.py`; wire a minimal smoke-test long callback to
@@ -529,7 +563,7 @@ session list."*
     `_build_ev_summary` + `_build_flagged_hands_list` + remove
     `_build_equity_map`, `_count_session_showdown_hands`.
 
-### Part D — Documentation
+### Part D — Documentation ⏳ PENDING
 
 11. **`AnalysisLogic.MD`** — update EV section with range formula, blend
     formula, new display rules.
