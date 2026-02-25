@@ -1078,3 +1078,52 @@ class TestHandEquityCache:
         assert get_hand_equity(
             db, hand_id, player_id, sample_count=5000
         ) == pytest.approx(0.55)
+
+
+# ---------------------------------------------------------------------------
+# TestClearAllData — clear_all_data must delete hand_equity rows
+# ---------------------------------------------------------------------------
+class TestClearAllData:
+    """clear_all_data must remove all poker data including hand_equity rows."""
+
+    @pytest.fixture
+    def populated_db(self, db):
+        """Return a connection with a session, hand, player, and hand_equity row."""
+        from pokerhero.database.db import set_hand_equity
+
+        cur = db.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'hero')"
+        )
+        player_id = cur.lastrowid
+        cur = db.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats, small_blind, big_blind,"
+            " ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 9, 1, 2, 0, '2024-01-01')"
+        )
+        session_id = cur.lastrowid
+        cur = db.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot,"
+            " uncalled_bet_returned, rake, timestamp)"
+            " VALUES ('H1', ?, 100, 0, 0, '2024-01-01T00:00:00')",
+            (session_id,),
+        )
+        hand_id = cur.lastrowid
+        set_hand_equity(db, hand_id, player_id, equity=0.75, sample_count=2000)
+        db.commit()
+        return db
+
+    def test_clear_all_data_succeeds_with_hand_equity_rows(self, populated_db):
+        """clear_all_data must not raise FK errors when hand_equity rows exist."""
+        from pokerhero.database.db import clear_all_data
+
+        clear_all_data(populated_db)  # must not raise
+
+    def test_clear_all_data_removes_hand_equity_rows(self, populated_db):
+        """hand_equity table must be empty after clear_all_data."""
+        from pokerhero.database.db import clear_all_data
+
+        clear_all_data(populated_db)
+        count = populated_db.execute("SELECT COUNT(*) FROM hand_equity").fetchone()[0]
+        assert count == 0
