@@ -127,6 +127,14 @@ layout = html.Div(
             ],
             style={"paddingLeft": "20px"},
         ),
+        html.P(
+            [
+                html.Strong("Dark mode: "),
+                "Click the 🌚 button in the top-right navigation bar to switch to"
+                " dark mode. Click 🌞 to return to light mode."
+                " Your preference is saved in the browser and persists across reloads.",
+            ]
+        ),
         # ── Dashboard ─────────────────────────────────────────────────────
         _section_heading("📊 The Dashboard"),
         html.P(
@@ -194,7 +202,10 @@ layout = html.Div(
         html.P(
             "All your sessions in a table (date, stakes, hands played, net result)."
             " Filter by date range, stakes, P&L range, or minimum hand count."
+            " Check ★ Favourites only to show only sessions you have starred."
             " Click a row to open the Session Report for that session."
+            " Click the ★ / ☆ button on any session row to mark it as a favourite"
+            " — starred sessions are saved to the database."
         ),
         html.H4("Level 2 — Session Report", style={"marginTop": "16px"}),
         html.P("A narrative overview of your performance in the selected session."),
@@ -243,13 +254,23 @@ layout = html.Div(
         html.H4("Level 3 — Hand List", style={"marginTop": "16px"}),
         html.P(
             "Every hand in a session (Hand ID, hole cards, final pot, net result)."
-            " Filter by P&L range, position, saw-flop, or showdown."
+            " Filter by P&L range, position, saw-flop, showdown,"
+            " or ★ Favourites only."
             " Click a row to see the full action replay."
         ),
         html.H4("Level 4 — Hand Detail", style={"marginTop": "16px"}),
         html.P(
             "A chronological replay grouped by street."
-            " Hero decision points show Pot Odds%, MDF%, SPR, and EV (on all-in / showdown spots)."  # noqa: E501
+            " Hero decision points show Pot Odds%, MDF%, SPR, and EV"
+            " (on all-in / showdown spots)."
+        ),
+        html.P(
+            [
+                html.Strong("Favourite a hand: "),
+                "Click the ☆ Favourite hand button at the top of the hand detail"
+                " to star it (★). Starred hands are saved to the database and can be"
+                " filtered from the hand list.",
+            ]
         ),
         html.P(
             [

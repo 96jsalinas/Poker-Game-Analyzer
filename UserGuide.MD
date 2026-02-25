@@ -21,6 +21,9 @@ PokerStars allows you to export your hand histories as `.txt` files. Once you ha
 ### Step 3 — Explore your stats
 Once hands are uploaded, head to **Overall Stats** (`/dashboard`) for a high-level overview, or **Review Sessions** (`/sessions`) to drill into individual games.
 
+### Dark Mode
+Click the **🌚** button in the top-right navigation bar to switch to dark mode. Click **🌞** to return to light mode. Your preference is saved in the browser and persists across page reloads.
+
 ---
 
 ## 📊 2. The Dashboard (`/dashboard`)
@@ -88,6 +91,9 @@ All your imported sessions in a table. Each row shows the date, stakes (e.g. 500
 | Stakes | Multi-select to show only specific stake levels. |
 | P&L Min / Max | Show only sessions where your net result fell within this range. |
 | Min Hands | Show only sessions with at least this many hands. |
+| ★ Favourites only | Show only sessions you have starred. |
+
+Click the **★ / ☆** button on any session row to mark it as a favourite — starred sessions are saved to the database.
 
 Click any row to open the **Session Report** for that session.
 
@@ -128,11 +134,14 @@ All hands from the selected session. Each row shows the Hand ID, your hole cards
 | Position | Filter to hands where you were in a specific seat. |
 | Saw Flop | Show only hands where you saw the flop. |
 | Showdown | Show only hands that went to showdown. |
+| ★ Favourites only | Show only hands you have starred. |
 
 Use the breadcrumb trail at the top to navigate back to the session report or the session list.
 
 ### Level 4: Hand Detail
 A full chronological replay of a single hand, grouped by street (Pre-Flop, Flop, Turn, River).
+
+Click the **☆ Favourite hand** button at the top of the hand to star it (**★**). Starred hands are saved to the database and can be filtered from the hand list.
 
 Each action row shows:
 - **Player** and their position (e.g. `jsalinas96 (BTN)`).
