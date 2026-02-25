@@ -657,7 +657,61 @@ class TestEV:
 
 
 # ---------------------------------------------------------------------------
-# TestComputeEquity — lru_cache wrapper around PokerKit equity calculation
+# TestEVTuple — compute_ev must return (ev, equity) tuple (not bare float)
+# ---------------------------------------------------------------------------
+class TestEVTuple:
+    """Failing tests: compute_ev must return tuple[float, float] | None.
+
+    These tests drive the A1 sub-task of the EV redesign.
+    """
+
+    def test_returns_none_when_villain_unknown(self):
+        """None is still returned when villain cards are absent."""
+        from pokerhero.analysis.stats import compute_ev
+
+        assert compute_ev("Ah Kh", None, "Qh Jh Th", 100.0, 300.0) is None
+
+    def test_returns_tuple_not_bare_float(self):
+        """Result must be a 2-tuple, not a bare float."""
+        from pokerhero.analysis.stats import compute_ev
+
+        result = compute_ev("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 100.0, 300.0)
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+
+    def test_first_element_is_ev(self):
+        """result[0] is EV — positive when hero has royal flush vs trash."""
+        from pokerhero.analysis.stats import compute_ev
+
+        ev, _ = compute_ev("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 100.0, 300.0)
+        assert ev > 0
+
+    def test_second_element_is_equity(self):
+        """result[1] is equity — a float in [0, 1]."""
+        from pokerhero.analysis.stats import compute_ev
+
+        _, equity = compute_ev("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 100.0, 300.0)
+        assert 0.0 <= equity <= 1.0
+
+    def test_equity_near_one_for_dominating_hand(self):
+        """Hero royal flush on complete board → equity ≈ 1.0."""
+        from pokerhero.analysis.stats import compute_ev
+
+        _, equity = compute_ev("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 100.0, 300.0)
+        assert equity == pytest.approx(1.0, abs=0.01)
+
+    def test_ev_formula_consistent_with_equity(self):
+        """EV should equal equity*pot_to_win - (1-equity)*amount_risked."""
+        from pokerhero.analysis.stats import compute_ev
+
+        amount_risked, pot_to_win = 100.0, 300.0
+        ev, equity = compute_ev(
+            "Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", amount_risked, pot_to_win
+        )
+        expected_ev = equity * pot_to_win - (1.0 - equity) * amount_risked
+        assert ev == pytest.approx(expected_ev, abs=0.01)
+
+
 # ---------------------------------------------------------------------------
 class TestComputeEquity:
     def setup_method(self):
