@@ -2587,13 +2587,15 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
             )
             ev_val = None
             try:
-                ev_val = compute_ev(
+                ev_result = compute_ev(
                     hero_cards,
                     villain_hole,
                     board_so_far,
                     amount,
                     _allin_pot_to_win(df, row_idx, action_type, pot_before, amount),
                 )
+                if ev_result is not None:
+                    ev_val = ev_result[0]
             except Exception:
                 pass
             if ev_val is not None:

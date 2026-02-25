@@ -295,7 +295,7 @@ def compute_ev(
     amount_risked: float,
     pot_to_win: float,
     sample_count: int = 5000,
-) -> float | None:
+) -> tuple[float, float] | None:
     """Compute Expected Value of hero's all-in action using PokerKit equity.
 
     EV = (equity × pot_to_win) − ((1 − equity) × amount_risked)
@@ -315,7 +315,7 @@ def compute_ev(
         sample_count: Monte Carlo samples for equity estimation.
 
     Returns:
-        Float EV value, or None when villain cards are unknown.
+        (ev, equity) tuple, or None when villain cards are unknown.
     """
     if not villain_cards or not villain_cards.strip():
         return None
@@ -326,7 +326,8 @@ def compute_ev(
         board.strip(),
         sample_count,
     )
-    return equity * pot_to_win - (1.0 - equity) * amount_risked
+    ev = equity * pot_to_win - (1.0 - equity) * amount_risked
+    return ev, equity
 
 
 _MIN_HANDS_FOR_CLASSIFICATION = 15

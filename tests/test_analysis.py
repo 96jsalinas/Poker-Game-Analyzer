@@ -623,7 +623,7 @@ class TestEV:
         # Villain: 2c 3d (no hand)
         result = compute_ev("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 100.0, 300.0)
         assert result is not None
-        assert result > 0
+        assert result[0] > 0
 
     def test_losing_hand_is_negative_ev(self):
         """Hero has trash vs royal flush on complete board → negative EV."""
@@ -632,7 +632,7 @@ class TestEV:
         # Hero: 2c 3d, Villain: Ah Kh, Board: Qh Jh Th 9d 2s
         result = compute_ev("2c 3d", "Ah Kh", "Qh Jh Th 9d 2s", 100.0, 300.0)
         assert result is not None
-        assert result < 0
+        assert result[0] < 0
 
     def test_ev_formula_at_river(self):
         """Complete board → exact equity; EV ≈ equity*pot - (1-equity)*risked."""
@@ -642,7 +642,7 @@ class TestEV:
         # EV = 1.0 * 300 - 0 * 100 = 300
         result = compute_ev("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 100.0, 300.0)
         assert result is not None
-        assert result == pytest.approx(300.0, abs=5.0)
+        assert result[0] == pytest.approx(300.0, abs=5.0)
 
     def test_ev_partial_board_in_range(self):
         """Partial board (flop only) → equity between 0 and 1 for non-trivial hand."""
@@ -652,8 +652,8 @@ class TestEV:
         # Villain has set of 2s, hero has many outs (flush + straight outs)
         result = compute_ev("Ah Kh", "2c 2d", "Qh Jh 2s", 100.0, 300.0)
         assert result is not None
-        # Result is some finite float (not trivially 300 or -100)
-        assert isinstance(result, float)
+        # Result is a 2-tuple of finite floats
+        assert isinstance(result, tuple)
 
 
 # ---------------------------------------------------------------------------
