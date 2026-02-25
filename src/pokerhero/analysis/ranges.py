@@ -381,3 +381,177 @@ def expand_combos(range_hands: list[str], dead_cards: set[str]) -> list[str]:
                     if c1 not in dead_cards and c2 not in dead_cards:
                         combos.append(f"{c1} {c2}")
     return combos
+
+
+# ---------------------------------------------------------------------------
+# Draw detection constants (subtracted from treys score; lower = stronger)
+# ---------------------------------------------------------------------------
+
+_FLUSH_DRAW_BONUS: int = 3000
+_OESD_BONUS: int = 2000
+_GUTSHOT_BONUS: int = 800
+_OVERCARD_BONUS: int = 400
+
+# Rank index map: higher index = lower rank (A=0, 2=12)
+_RANK_IDX: dict[str, int] = {r: i for i, r in enumerate(_RANKS)}
+
+
+def _suit(card: str) -> str:
+    return card[1]
+
+
+def _rank_idx(card: str) -> int:
+    return _RANK_IDX[card[0]]
+
+
+def _detect_flush_draw(c1: str, c2: str, board_cards: list[str]) -> bool:
+    """Return True if the combo has a flush draw against board_cards.
+
+    Covers:
+    - Standard: combo has 2 cards of suit S AND board has 2 of suit S
+    - Monotone: combo has 1 card of suit S AND board has 3 of suit S
+    """
+    from collections import Counter
+
+    board_suits = Counter(_suit(c) for c in board_cards)
+    combo_suits = Counter([_suit(c1), _suit(c2)])
+
+    for suit, board_count in board_suits.items():
+        combo_count = combo_suits.get(suit, 0)
+        if (combo_count == 2 and board_count >= 2) or (
+            combo_count == 1 and board_count >= 3
+        ):
+            return True
+    return False
+
+
+def _detect_straight_draw(
+    c1: str, c2: str, board_cards: list[str]
+) -> tuple[bool, bool]:
+    """Return (is_oesd, is_gutshot) for the combo against the board.
+
+    Uses rank indices (A=0 … 2=12). Also considers Ace-low straights
+    by appending rank index 13 for aces (treating A as both high and low).
+    """
+    ranks = sorted(
+        {_rank_idx(c) for c in [c1, c2, *board_cards]},
+        reverse=True,  # ascending by raw idx means descending by card rank
+    )
+    # Add ace-low duplicate (idx 13) if any ace (idx 0) is present
+    if 0 in ranks:
+        ranks = ranks + [13]
+    ranks_set = set(ranks)
+
+    is_oesd = False
+    is_gutshot = False
+
+    for low in range(14):  # check every possible 4-card window
+        window = {low, low + 1, low + 2, low + 3}
+        hits = len(window & ranks_set)
+        if hits == 4:
+            # Check it's genuinely open-ended (cards on both sides exist or not)
+            is_oesd = True
+            break
+        if hits == 3 and len(window - ranks_set) == 1:
+            is_gutshot = True
+
+    return is_oesd, is_gutshot
+
+
+def _detect_two_overcards(c1: str, c2: str, board_cards: list[str]) -> bool:
+    """Return True if both combo cards outrank every board card."""
+    max_board_idx = max(_rank_idx(c) for c in board_cards)  # higher idx = lower rank
+    return _rank_idx(c1) < max_board_idx and _rank_idx(c2) < max_board_idx
+
+
+def score_combo_vs_board(combo: str, board: str) -> int:
+    """Equity-aware hand score for range contraction sorting.
+
+    Wraps treys.Evaluator with draw-detection bonuses so flush draws and
+    straight draws are not discarded during contraction.
+
+    Lower return value = stronger / more likely to continue.
+
+    Args:
+        combo: Space-separated two-card string, e.g. ``"Kh Qh"``.
+        board: Space-separated board cards (3 or 4), e.g. ``"Ah 8h 2c"``.
+
+    Returns:
+        Adjusted score (int). Lower = stronger.
+    """
+    from treys import Card, Evaluator  # type: ignore[import-untyped]
+
+    evaluator = Evaluator()
+    c1_str, c2_str = combo.split()
+    board_strs = board.split()
+
+    # treys uses lowercase suits, uppercase ranks e.g. "Kh" → OK as-is
+    c1 = Card.new(c1_str)
+    c2 = Card.new(c2_str)
+    board_cards_treys = [Card.new(c) for c in board_strs]
+
+    base_score: int = evaluator.evaluate(board_cards_treys, [c1, c2])
+
+    bonus = 0
+    board_cards = board_strs  # plain strings for draw detection
+
+    if _detect_flush_draw(c1_str, c2_str, board_cards):
+        bonus += _FLUSH_DRAW_BONUS
+
+    is_oesd, is_gutshot = _detect_straight_draw(c1_str, c2_str, board_cards)
+    if is_oesd:
+        bonus += _OESD_BONUS
+    elif is_gutshot:
+        bonus += _GUTSHOT_BONUS
+
+    if _detect_two_overcards(c1_str, c2_str, board_cards):
+        bonus += _OVERCARD_BONUS
+
+    return base_score - bonus
+
+
+_AGGRESSIVE_ACTIONS = {"bet", "raise"}
+
+
+def contract_range(
+    combos: list[str],
+    board: str,
+    villain_action: str,
+    continue_pct_passive: float = 65.0,
+    continue_pct_aggressive: float = 40.0,
+) -> list[str]:
+    """Contract villain range based on board texture and their action on this street.
+
+    Algorithm:
+      1. Score each combo using score_combo_vs_board (equity-aware).
+      2. Sort combos by score (lower = stronger / more likely to continue).
+      3. Keep top continue_pct% by count:
+         - passive action (check/call)   → continue_pct_passive
+         - aggressive action (bet/raise) → continue_pct_aggressive
+      4. Return surviving combos.
+
+    Args:
+        combos: List of space-separated two-card combo strings.
+        board: Space-separated board cards (3 or 4 cards).
+        villain_action: One of ``'bet'``, ``'raise'``, ``'call'``, ``'check'``.
+        continue_pct_passive: % of combos kept for passive actions.
+        continue_pct_aggressive: % of combos kept for aggressive actions.
+
+    Returns:
+        Contracted list of combo strings (sorted strongest-first).
+        Returns ``[]`` if no combos survive.
+    """
+    if not combos:
+        return []
+
+    pct = (
+        continue_pct_aggressive
+        if villain_action in _AGGRESSIVE_ACTIONS
+        else continue_pct_passive
+    )
+    keep_n = round(len(combos) * pct / 100)
+    if keep_n == 0:
+        return []
+
+    scored = sorted(combos, key=lambda c: score_combo_vs_board(c, board))
+    return scored[:keep_n]

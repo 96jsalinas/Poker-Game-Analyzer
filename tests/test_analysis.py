@@ -2178,11 +2178,11 @@ class TestScoreComboVsBoard:
         assert overcards < trash
 
     def test_flush_draw_plus_oesd_cumulative(self):
-        """JhTh on Qh9d2c (flush draw AND OESD) scores lower than KhQd (flush only)."""
+        """JhTh on Qh9h3d (flush draw AND OESD) scores lower than Kh7h (flush only)."""
         from pokerhero.analysis.ranges import score_combo_vs_board
 
-        combo = score_combo_vs_board("Jh Th", "Qh 9d 2c")
-        flush_only = score_combo_vs_board("Kh Qd", "Qh 9d 2c")
+        combo = score_combo_vs_board("Jh Th", "Qh 9h 3d")
+        flush_only = score_combo_vs_board("Kh 7h", "Qh 9h 3d")
         assert combo < flush_only
 
     def test_made_hand_scores_lower_than_flush_draw(self):
