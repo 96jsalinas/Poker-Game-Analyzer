@@ -2234,6 +2234,9 @@ class TestCalculateSessionEvs:
             conn,
             hero_cards="Ac Kd",
             villain_cards="2c 3d",
+            board_flop="Qs Jd 4h",
+            board_turn="7s",
+            board_river="8h",
             hero_action_street="RIVER",
         )
         n = calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)

@@ -583,3 +583,58 @@ def get_session_player_stats(
     return pd.read_sql_query(
         sql, conn, params={"sid": int(session_id), "hero": int(hero_id)}
     )
+
+
+def get_session_hero_ev_actions(
+    conn: sqlite3.Connection,
+    session_id: int,
+    hero_id: int,
+) -> pd.DataFrame:
+    """Return all hero CALL/BET/RAISE actions in a session for EV computation.
+
+    Only actions where hero has hole cards are returned (NULL hole_cards rows
+    are excluded at the SQL level — the orchestrator would skip them anyway).
+
+    Columns: action_id, hand_id, street, action_type, amount, amount_to_call,
+             pot_before, is_all_in, sequence, hero_cards, board_flop,
+             board_turn, board_river, total_pot.
+
+    Args:
+        conn: Open SQLite connection.
+        session_id: Internal integer id of the session row.
+        hero_id: Internal integer id of the hero player row.
+
+    Returns:
+        DataFrame ordered by hand_id, sequence ascending.
+    """
+    sql = """
+        SELECT
+            a.id           AS action_id,
+            a.hand_id,
+            a.street,
+            a.action_type,
+            a.amount,
+            a.amount_to_call,
+            a.pot_before,
+            a.is_all_in,
+            a.sequence,
+            hp_hero.hole_cards AS hero_cards,
+            h.board_flop,
+            h.board_turn,
+            h.board_river,
+            h.total_pot
+        FROM actions a
+        JOIN hands h ON h.id = a.hand_id
+        JOIN hand_players hp_hero
+            ON hp_hero.hand_id = a.hand_id
+           AND hp_hero.player_id = :hero
+        WHERE h.session_id = :sid
+          AND a.player_id  = :hero
+          AND a.action_type IN ('CALL', 'BET', 'RAISE')
+          AND hp_hero.hole_cards IS NOT NULL
+          AND hp_hero.hole_cards != ''
+        ORDER BY a.hand_id ASC, a.sequence ASC
+    """
+    return pd.read_sql_query(
+        sql, conn, params={"hero": int(hero_id), "sid": int(session_id)}
+    )

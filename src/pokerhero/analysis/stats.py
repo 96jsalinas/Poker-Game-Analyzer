@@ -8,6 +8,8 @@ Formulas are defined in AnalysisLogic.MD as the single source of truth.
 """
 
 import functools
+import sqlite3
+from datetime import UTC
 
 import pandas as pd
 
@@ -481,3 +483,418 @@ def confidence_tier(hands_played: int) -> str:
     if hands_played >= _PRELIMINARY_HANDS_THRESHOLD:
         return "standard"
     return "preliminary"
+
+
+# ---------------------------------------------------------------------------
+# Private helpers for identify_primary_villain / calculate_session_evs
+# ---------------------------------------------------------------------------
+
+
+def _get_villain_preflop_action(
+    conn: sqlite3.Connection,
+    hand_id: int,
+    villain_id: int,
+) -> str | None:
+    """Return villain's pre-flop action type for range building.
+
+    Logic:
+    - three_bet = 1 → '3bet'
+    - pfr = 1 AND three_bet = 0, AND another player 3-bet in this hand → '4bet+'
+    - pfr = 1 AND three_bet = 0, AND no 3-bettor → '2bet'
+    - vpip = 1 AND pfr = 0 → 'call'
+    - vpip = 0 → None (villain folded / didn't play)
+    """
+    row = conn.execute(
+        "SELECT vpip, pfr, three_bet FROM hand_players"
+        " WHERE hand_id = ? AND player_id = ?",
+        (hand_id, villain_id),
+    ).fetchone()
+    if row is None:
+        return None
+    vpip, pfr, three_bet = int(row[0]), int(row[1]), int(row[2])
+    if not vpip:
+        return None
+    if three_bet:
+        return "3bet"
+    if pfr:
+        has_three_bettor = conn.execute(
+            "SELECT 1 FROM hand_players WHERE hand_id = ? AND three_bet = 1 LIMIT 1",
+            (hand_id,),
+        ).fetchone()
+        return "4bet+" if has_three_bettor else "2bet"
+    return "call"
+
+
+def _get_villain_session_stats(
+    conn: sqlite3.Connection,
+    session_id: int,
+    villain_id: int,
+) -> tuple[int, float, float, float]:
+    """Return (n_hands, vpip_pct, pfr_pct, three_bet_pct) for villain in session.
+
+    Used to compute Bayesian-blended range parameters.
+    Returns (0, 0.0, 0.0, 0.0) when villain has no session history.
+    """
+    row = conn.execute(
+        """
+        SELECT
+            COUNT(*)                                  AS n_hands,
+            100.0 * SUM(hp.vpip)    / COUNT(*)        AS vpip_pct,
+            100.0 * SUM(hp.pfr)     / COUNT(*)        AS pfr_pct,
+            100.0 * SUM(hp.three_bet) / COUNT(*)      AS three_bet_pct
+        FROM hand_players hp
+        JOIN hands h ON h.id = hp.hand_id
+        WHERE h.session_id = ? AND hp.player_id = ?
+        """,
+        (session_id, villain_id),
+    ).fetchone()
+    if row is None or row[0] == 0:
+        return 0, 0.0, 0.0, 0.0
+    return (
+        int(row[0]),
+        float(row[1] or 0.0),
+        float(row[2] or 0.0),
+        float(row[3] or 0.0),
+    )
+
+
+def _get_villain_action_on_street(
+    conn: sqlite3.Connection,
+    hand_id: int,
+    villain_id: int,
+    street: str,
+) -> str | None:
+    """Return villain's last action type on the given street, or None."""
+    row = conn.execute(
+        "SELECT action_type FROM actions"
+        " WHERE hand_id = ? AND player_id = ? AND street = ?"
+        " ORDER BY sequence DESC LIMIT 1",
+        (hand_id, villain_id, street),
+    ).fetchone()
+    return str(row[0]) if row else None
+
+
+def _board_at_street(
+    board_flop: str | None,
+    board_turn: str | None,
+    board_river: str | None,
+    street: str,
+) -> str:
+    """Return the board string visible at the start of *street*."""
+    flop = board_flop or ""
+    turn = board_turn or ""
+    river = board_river or ""
+    if street == "FLOP":
+        return flop.strip()
+    if street == "TURN":
+        return f"{flop} {turn}".strip()
+    if street == "RIVER":
+        return " ".join(x for x in [flop, turn, river] if x).strip()
+    return ""
+
+
+def _build_villain_street_history(
+    conn: sqlite3.Connection,
+    hand_id: int,
+    villain_id: int,
+    current_street: str,
+    board_flop: str | None,
+    board_turn: str | None,
+) -> list[tuple[str, str]]:
+    """Build villain street history list for streets before *current_street*.
+
+    Each entry is (board_at_street, villain_action_type).  If the villain
+    has no recorded action on an intermediate street, 'check' is assumed
+    (most conservative / passive assumption for range contraction).
+    """
+    ordered = ["FLOP", "TURN", "RIVER"]
+    try:
+        idx = ordered.index(current_street)
+    except ValueError:
+        return []
+    history: list[tuple[str, str]] = []
+    for street in ordered[:idx]:
+        board = _board_at_street(board_flop, board_turn, None, street)
+        if not board:
+            continue
+        action = _get_villain_action_on_street(conn, hand_id, villain_id, street)
+        history.append((board, action if action else "check"))
+    return history
+
+
+# ---------------------------------------------------------------------------
+# Public functions
+# ---------------------------------------------------------------------------
+
+
+def identify_primary_villain(
+    conn: sqlite3.Connection,
+    hand_id: int,
+    hero_id: int,
+    hero_sequence: int,
+    street: str,
+) -> int | None:
+    """Identify the most relevant villain for EV calculation at a hero action.
+
+    Algorithm:
+    1. Find all non-hero players in the hand who have not folded before the
+       hero's action (identified by sequence number).
+    2. If exactly one active player → return them.
+    3. If multiple → return the player who last BET or RAISED on *street*
+       before hero's action.
+    4. If no aggressor on this street → return the active villain with the
+       most hands observed in the session (most data for Bayesian blending).
+    5. If still ambiguous → return the first active villain by player_id.
+
+    Args:
+        conn: Open SQLite connection.
+        hand_id: Internal hand id.
+        hero_id: Internal player id for the hero.
+        hero_sequence: Sequence number of the hero's action.
+        street: Street of the hero's action (``'FLOP'``, ``'TURN'``, ``'RIVER'``).
+
+    Returns:
+        Internal player_id of the primary villain, or ``None`` if the hand
+        is heads-up against no active opponent.
+    """
+    active_rows = conn.execute(
+        """
+        SELECT DISTINCT hp.player_id
+        FROM hand_players hp
+        WHERE hp.hand_id = :hid
+          AND hp.player_id != :hero
+          AND hp.player_id NOT IN (
+              SELECT a.player_id FROM actions a
+              WHERE a.hand_id = :hid
+                AND a.action_type = 'FOLD'
+                AND a.sequence < :seq
+          )
+        """,
+        {"hid": hand_id, "hero": hero_id, "seq": hero_sequence},
+    ).fetchall()
+    active = [int(r[0]) for r in active_rows]
+    if not active:
+        return None
+    if len(active) == 1:
+        return active[0]
+
+    # Last aggressor on this street before hero
+    aggressor_row = conn.execute(
+        """
+        SELECT player_id FROM actions
+        WHERE hand_id = ?
+          AND street = ?
+          AND action_type IN ('BET', 'RAISE')
+          AND sequence < ?
+        ORDER BY sequence DESC
+        LIMIT 1
+        """,
+        (hand_id, street, hero_sequence),
+    ).fetchone()
+    if aggressor_row and int(aggressor_row[0]) in active:
+        return int(aggressor_row[0])
+
+    # Most-observed villain in the session
+    session_id_row = conn.execute(
+        "SELECT session_id FROM hands WHERE id = ?", (hand_id,)
+    ).fetchone()
+    if session_id_row:
+        sid = int(session_id_row[0])
+        most_obs_row = conn.execute(
+            """
+            SELECT hp.player_id
+            FROM hand_players hp
+            JOIN hands h ON h.id = hp.hand_id
+            WHERE h.session_id = ?
+              AND hp.player_id IN ({})
+            GROUP BY hp.player_id
+            ORDER BY COUNT(*) DESC
+            LIMIT 1
+            """.format(",".join("?" * len(active))),
+            [sid, *active],
+        ).fetchone()
+        if most_obs_row:
+            return int(most_obs_row[0])
+
+    return active[0]
+
+
+def calculate_session_evs(
+    db_path: str,
+    session_id: int,
+    hero_id: int,
+    settings: dict[str, float],
+) -> int:
+    """Compute and persist EV for all hero actions in a session.
+
+    For each hero CALL/BET/RAISE action that has hole cards recorded:
+
+    - If the primary villain's cards are known → ``compute_ev`` (exact).
+    - Otherwise → ``compute_equity_vs_range`` with Bayesian-blended villain
+      stats and street-by-street range contraction.
+    - Actions where the contracted range collapses below 5 combos are skipped.
+
+    Results are written to ``action_ev_cache`` in a single transaction.
+
+    Args:
+        db_path: Path to the SQLite database file.
+        session_id: Internal session id to process.
+        hero_id: Internal player id for the hero.
+        settings: Dict of range settings (see ``RANGE_SETTING_DEFAULTS``).
+
+    Returns:
+        Count of ``action_ev_cache`` rows written.
+    """
+    from datetime import datetime
+
+    from pokerhero.analysis.queries import get_session_hero_ev_actions
+    from pokerhero.analysis.ranges import blend_3bet, blend_pfr, blend_vpip
+    from pokerhero.database.db import get_connection, save_action_evs
+
+    sample_count = int(settings.get("range_sample_count", 1000))
+    vpip_prior = settings.get("range_vpip_prior", 26.0)
+    pfr_prior = settings.get("range_pfr_prior", 14.0)
+    three_bet_prior = settings.get("range_3bet_prior", 6.0)
+    four_bet_prior = settings.get("range_4bet_prior", 3.0)
+    prior_weight = int(settings.get("range_prior_weight", 30))
+    cont_passive = settings.get("range_continue_pct_passive", 65.0)
+    cont_aggressive = settings.get("range_continue_pct_aggressive", 40.0)
+
+    conn = get_connection(db_path)
+    try:
+        hero_actions = get_session_hero_ev_actions(conn, session_id, hero_id)
+        if hero_actions.empty:
+            return 0
+
+        now = datetime.now(UTC).isoformat()
+        rows: list[dict[str, object]] = []
+
+        for _, ar in hero_actions.iterrows():
+            action_id = int(ar["action_id"])
+            hand_id = int(ar["hand_id"])
+            street = str(ar["street"])
+            hero_cards = str(ar["hero_cards"])
+            board = _board_at_street(
+                ar.get("board_flop"),
+                ar.get("board_turn"),
+                ar.get("board_river"),
+                street,
+            )
+            amount_to_call = float(ar["amount_to_call"])
+            amount = float(ar["amount"])
+            pot_before = float(ar["pot_before"])
+            # For CALL: wager = amount_to_call; for BET/RAISE: wager = amount
+            action_type = str(ar["action_type"])
+            wager = amount_to_call if action_type == "CALL" else amount
+            pot_to_win = pot_before + wager
+
+            villain_id = identify_primary_villain(
+                conn, hand_id, hero_id, int(ar["sequence"]), street
+            )
+            if villain_id is None:
+                continue
+
+            villain_cards_row = conn.execute(
+                "SELECT hole_cards FROM hand_players"
+                " WHERE hand_id = ? AND player_id = ?",
+                (hand_id, villain_id),
+            ).fetchone()
+            villain_cards: str | None = (
+                str(villain_cards_row[0])
+                if villain_cards_row and villain_cards_row[0]
+                else None
+            )
+
+            if villain_cards:
+                result = compute_ev(
+                    hero_cards, villain_cards, board, wager, pot_to_win, sample_count
+                )
+                if result is None:
+                    continue
+                ev, equity = result
+                rows.append(
+                    {
+                        "action_id": action_id,
+                        "hero_id": hero_id,
+                        "equity": equity,
+                        "ev": ev,
+                        "ev_type": "exact",
+                        "blended_vpip": None,
+                        "blended_pfr": None,
+                        "blended_3bet": None,
+                        "villain_preflop_action": None,
+                        "contracted_range_size": None,
+                        "sample_count": sample_count,
+                        "computed_at": now,
+                    }
+                )
+            else:
+                preflop_action = _get_villain_preflop_action(conn, hand_id, villain_id)
+                if preflop_action is None:
+                    continue
+
+                n_hands, obs_vpip, obs_pfr, obs_3bet = _get_villain_session_stats(
+                    conn, session_id, villain_id
+                )
+                blended_v = blend_vpip(
+                    obs_vpip if n_hands > 0 else None, n_hands, vpip_prior, prior_weight
+                )
+                blended_p = blend_pfr(
+                    obs_pfr if n_hands > 0 else None, n_hands, pfr_prior, prior_weight
+                )
+                blended_3b = blend_3bet(
+                    obs_3bet if n_hands > 0 else None,
+                    n_hands,
+                    three_bet_prior,
+                    prior_weight,
+                )
+
+                street_history = _build_villain_street_history(
+                    conn,
+                    hand_id,
+                    villain_id,
+                    street,
+                    ar.get("board_flop"),
+                    ar.get("board_turn"),
+                )
+
+                equity, contracted_size = compute_equity_vs_range(
+                    hero_cards=hero_cards,
+                    board=board,
+                    vpip_pct=blended_v,
+                    pfr_pct=blended_p,
+                    three_bet_pct=blended_3b,
+                    villain_preflop_action=preflop_action,
+                    villain_street_history=street_history,
+                    four_bet_prior=four_bet_prior,
+                    sample_count=sample_count,
+                    continue_pct_passive=cont_passive,
+                    continue_pct_aggressive=cont_aggressive,
+                )
+                if contracted_size < 5:
+                    continue
+
+                ev = equity * pot_to_win - (1.0 - equity) * wager
+                rows.append(
+                    {
+                        "action_id": action_id,
+                        "hero_id": hero_id,
+                        "equity": equity,
+                        "ev": ev,
+                        "ev_type": "range",
+                        "blended_vpip": blended_v,
+                        "blended_pfr": blended_p,
+                        "blended_3bet": blended_3b,
+                        "villain_preflop_action": preflop_action,
+                        "contracted_range_size": contracted_size,
+                        "sample_count": sample_count,
+                        "computed_at": now,
+                    }
+                )
+
+        if rows:
+            save_action_evs(conn, rows)
+            conn.commit()
+        return len(rows)
+    finally:
+        conn.close()
