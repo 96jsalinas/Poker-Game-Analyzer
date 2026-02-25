@@ -2127,3 +2127,155 @@ class TestExpandCombos:
 
         result = expand_combos(["AA", "KK", "QQ"], set())
         assert len(result) == len(set(result))
+
+
+# ===========================================================================
+# TestScoreComboVsBoard — equity-aware scoring with draw bonuses
+# ===========================================================================
+
+
+class TestScoreComboVsBoard:
+    """score_combo_vs_board must rank draws favourably vs weak made hands."""
+
+    def test_flush_draw_scores_lower_than_bottom_pair(self):
+        """KhQh on Ah8h2c (flush draw) must score lower than 5s2d (bottom pair)."""
+        from pokerhero.analysis.ranges import score_combo_vs_board
+
+        flush_draw = score_combo_vs_board("Kh Qh", "Ah 8h 2c")
+        bottom_pair = score_combo_vs_board("5s 2d", "Ah 8h 2c")
+        assert flush_draw < bottom_pair
+
+    def test_naked_ace_monotone_scores_lower_than_missed_offsuit(self):
+        """AhQs on Kh8h2h (naked nut-flush card) beats pure air (Td4c)."""
+        from pokerhero.analysis.ranges import score_combo_vs_board
+
+        naked_ace = score_combo_vs_board("Ah Qs", "Kh 8h 2h")
+        pure_air = score_combo_vs_board("Td 4c", "Kh 8h 2h")
+        assert naked_ace < pure_air
+
+    def test_oesd_scores_lower_than_pure_air(self):
+        """JsTs on Qh9h2c (OESD) must score lower than 3d2c (pure air)."""
+        from pokerhero.analysis.ranges import score_combo_vs_board
+
+        oesd = score_combo_vs_board("Js Ts", "Qh 9h 2c")
+        pure_air = score_combo_vs_board("3d 2c", "Qh 9h 2c")
+        assert oesd < pure_air
+
+    def test_gutshot_scores_lower_than_pure_air(self):
+        """Js9d on Qh8h2c (gutshot needing T) scores below 3d2c."""
+        from pokerhero.analysis.ranges import score_combo_vs_board
+
+        gutshot = score_combo_vs_board("Js 9d", "Qh 8h 2c")
+        pure_air = score_combo_vs_board("3d 2c", "Qh 8h 2c")
+        assert gutshot < pure_air
+
+    def test_two_overcards_score_lower_than_trash(self):
+        """AhKd on Js7d2c (two overcards) must score lower than Qd9c (trash)."""
+        from pokerhero.analysis.ranges import score_combo_vs_board
+
+        overcards = score_combo_vs_board("Ah Kd", "Js 7d 2c")
+        trash = score_combo_vs_board("Qd 9c", "Js 7d 2c")
+        assert overcards < trash
+
+    def test_flush_draw_plus_oesd_cumulative(self):
+        """JhTh on Qh9d2c (flush draw AND OESD) scores lower than KhQd (flush only)."""
+        from pokerhero.analysis.ranges import score_combo_vs_board
+
+        combo = score_combo_vs_board("Jh Th", "Qh 9d 2c")
+        flush_only = score_combo_vs_board("Kh Qd", "Qh 9d 2c")
+        assert combo < flush_only
+
+    def test_made_hand_scores_lower_than_flush_draw(self):
+        """Top set (AhAd on Ah8h2c) scores lower than flush draw (KhQh)."""
+        from pokerhero.analysis.ranges import score_combo_vs_board
+
+        top_set = score_combo_vs_board("Ah Ad", "Ah 8h 2c")
+        flush_draw = score_combo_vs_board("Kh Qh", "Ah 8h 2c")
+        assert top_set < flush_draw
+
+
+# ===========================================================================
+# TestContractRange — range contraction based on board + villain action
+# ===========================================================================
+
+
+class TestContractRange:
+    """contract_range must keep stronger/drawing combos and honour passive vs
+    aggressive thresholds."""
+
+    def _all_combos(self) -> list[str]:
+        """Return all combos for HAND_RANKING with no dead cards."""
+        from pokerhero.analysis.ranges import HAND_RANKING, expand_combos
+
+        return expand_combos(HAND_RANKING, set())
+
+    def test_aggressive_action_keeps_fewer_combos_than_passive(self):
+        """Bet/raise should keep fewer combos than check/call at same %."""
+        from pokerhero.analysis.ranges import contract_range
+
+        combos = self._all_combos()
+        passive = contract_range(combos, "Ah 8h 2c", "check")
+        aggressive = contract_range(combos, "Ah 8h 2c", "bet")
+        assert len(aggressive) < len(passive)
+
+    def test_passive_retains_continue_pct_passive_fraction(self):
+        """Check action retains ~65% of combos by default."""
+        from pokerhero.analysis.ranges import contract_range
+
+        combos = self._all_combos()
+        result = contract_range(combos, "Ah 8h 2c", "check")
+        expected = round(len(combos) * 65.0 / 100)
+        assert len(result) == expected
+
+    def test_aggressive_retains_continue_pct_aggressive_fraction(self):
+        """Bet action retains ~40% of combos by default."""
+        from pokerhero.analysis.ranges import contract_range
+
+        combos = self._all_combos()
+        result = contract_range(combos, "Ah 8h 2c", "bet")
+        expected = round(len(combos) * 40.0 / 100)
+        assert len(result) == expected
+
+    def test_returns_empty_when_zero_pct(self):
+        """contract_range returns [] when continue_pct forces 0 combos."""
+        from pokerhero.analysis.ranges import contract_range
+
+        combos = self._all_combos()
+        result = contract_range(
+            combos,
+            "Ah 8h 2c",
+            "bet",
+            continue_pct_aggressive=0.0,
+        )
+        assert result == []
+
+    def test_raise_treated_as_aggressive(self):
+        """'raise' action uses continue_pct_aggressive, same as 'bet'."""
+        from pokerhero.analysis.ranges import contract_range
+
+        combos = self._all_combos()
+        bet_result = contract_range(combos, "Ah 8h 2c", "bet")
+        raise_result = contract_range(combos, "Ah 8h 2c", "raise")
+        assert len(raise_result) == len(bet_result)
+
+    def test_call_treated_as_passive(self):
+        """'call' action uses continue_pct_passive, same as 'check'."""
+        from pokerhero.analysis.ranges import contract_range
+
+        combos = self._all_combos()
+        check_result = contract_range(combos, "Ah 8h 2c", "check")
+        call_result = contract_range(combos, "Ah 8h 2c", "call")
+        assert len(call_result) == len(check_result)
+
+    def test_flush_draw_survives_aggressive_contraction(self):
+        """KhQh (nut flush draw on Ah8h2c) must survive a 40% contraction."""
+        from pokerhero.analysis.ranges import contract_range
+
+        combos = ["Kh Qh", "5s 2d", "3c 2c", "Td 4c", "9s 6d"]
+        result = contract_range(
+            combos,
+            "Ah 8h 2c",
+            "bet",
+            continue_pct_aggressive=40.0,
+        )
+        assert "Kh Qh" in result
