@@ -2063,6 +2063,7 @@ def _render_session_report(db_path: str, session_id: int) -> tuple[html.Div | st
                 lucky_threshold=lucky_threshold,
                 unlucky_threshold=unlucky_threshold,
             ),
+            _build_calculate_ev_section(),
             html.Button(
                 f"Browse all {n_hands} hands",
                 id="session-report-browse-btn",
@@ -2078,7 +2079,6 @@ def _render_session_report(db_path: str, session_id: int) -> tuple[html.Div | st
                     "fontSize": "14px",
                 },
             ),
-            _build_calculate_ev_section(),
         ],
         style={"maxWidth": "900px"},
     )
