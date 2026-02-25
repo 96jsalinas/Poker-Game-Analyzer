@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS hand_players (
     hole_cards TEXT,
     vpip INTEGER NOT NULL DEFAULT 0,
     pfr INTEGER NOT NULL DEFAULT 0,
+    three_bet INTEGER NOT NULL DEFAULT 0,
     went_to_showdown INTEGER NOT NULL DEFAULT 0,
     net_result REAL NOT NULL,
     PRIMARY KEY (hand_id, player_id)
@@ -67,12 +68,20 @@ CREATE TABLE IF NOT EXISTS settings (
     value TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS hand_equity (
-    hand_id INTEGER NOT NULL REFERENCES hands(id),
-    hero_id INTEGER NOT NULL REFERENCES players(id),
-    equity REAL NOT NULL,
-    sample_count INTEGER NOT NULL,
-    PRIMARY KEY (hand_id, hero_id)
+CREATE TABLE IF NOT EXISTS action_ev_cache (
+    action_id              INTEGER NOT NULL REFERENCES actions(id),
+    hero_id                INTEGER NOT NULL REFERENCES players(id),
+    equity                 REAL    NOT NULL,
+    ev                     REAL    NOT NULL,
+    ev_type                TEXT    NOT NULL CHECK(ev_type IN ('exact', 'range')),
+    blended_vpip           REAL,
+    blended_pfr            REAL,
+    blended_3bet           REAL,
+    villain_preflop_action TEXT,
+    contracted_range_size  INTEGER,
+    sample_count           INTEGER NOT NULL,
+    computed_at            TEXT    NOT NULL,
+    PRIMARY KEY (action_id, hero_id)
 );
 
 CREATE TABLE IF NOT EXISTS target_settings (

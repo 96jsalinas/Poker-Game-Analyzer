@@ -184,8 +184,8 @@ def insert_hand_players(
     conn.executemany(
         """INSERT INTO hand_players
            (hand_id, player_id, position, starting_stack, hole_cards,
-            vpip, pfr, went_to_showdown, net_result)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            vpip, pfr, three_bet, went_to_showdown, net_result)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
         [
             (
                 hand_id,
@@ -195,6 +195,7 @@ def insert_hand_players(
                 p.hole_cards,
                 int(p.vpip),
                 int(p.pfr),
+                int(p.three_bet),
                 int(p.went_to_showdown),
                 float(p.net_result),
             )
@@ -246,9 +247,9 @@ def clear_all_data(conn: sqlite3.Connection) -> None:
     """
     conn.executescript(
         """
+        DELETE FROM action_ev_cache;
         DELETE FROM actions;
         DELETE FROM hand_players;
-        DELETE FROM hand_equity;
         DELETE FROM hands;
         DELETE FROM sessions;
         DELETE FROM players;
@@ -289,23 +290,11 @@ def get_hand_equity(
     hero_id: int,
     sample_count: int,
 ) -> float | None:
-    """Return cached equity for a hand if sample_count matches, else None.
+    """Return None — hand_equity table replaced by action_ev_cache.
 
-    Args:
-        conn: An open SQLite connection.
-        hand_id: Internal hand id.
-        hero_id: Internal player id for the hero.
-        sample_count: Monte Carlo sample count the equity was computed with.
-
-    Returns:
-        Cached equity float (0.0–1.0), or None on miss or stale sample_count.
+    Kept as a no-op shim so sessions.py calls don't crash before migration.
     """
-    row = conn.execute(
-        "SELECT equity FROM hand_equity"
-        " WHERE hand_id = ? AND hero_id = ? AND sample_count = ?",
-        (hand_id, hero_id, sample_count),
-    ).fetchone()
-    return float(row[0]) if row is not None else None
+    return None
 
 
 def set_hand_equity(
@@ -315,19 +304,53 @@ def set_hand_equity(
     equity: float,
     sample_count: int,
 ) -> None:
-    """Persist equity for a hand (upsert — replaces any existing row).
+    """No-op shim — hand_equity table replaced by action_ev_cache."""
+
+
+def get_action_ev(
+    conn: sqlite3.Connection,
+    action_id: int,
+    hero_id: int,
+) -> dict[str, object] | None:
+    """Return cached action_ev_cache row as a dict, or None on miss.
 
     Args:
         conn: An open SQLite connection.
-        hand_id: Internal hand id.
+        action_id: Internal action id.
         hero_id: Internal player id for the hero.
-        equity: Computed equity value (0.0–1.0).
-        sample_count: Monte Carlo sample count used for this computation.
+
+    Returns:
+        Dict with all action_ev_cache columns, or None if no row found.
     """
-    conn.execute(
-        "INSERT OR REPLACE INTO hand_equity (hand_id, hero_id, equity, sample_count)"
-        " VALUES (?, ?, ?, ?)",
-        (hand_id, hero_id, equity, sample_count),
+    conn.row_factory = sqlite3.Row
+    row = conn.execute(
+        "SELECT * FROM action_ev_cache WHERE action_id = ? AND hero_id = ?",
+        (action_id, hero_id),
+    ).fetchone()
+    return dict(row) if row is not None else None
+
+
+def save_action_evs(
+    conn: sqlite3.Connection,
+    rows: list[dict[str, object]],
+) -> None:
+    """Upsert multiple rows into action_ev_cache.
+
+    Args:
+        conn: An open SQLite connection.
+        rows: List of dicts with keys matching action_ev_cache columns.
+    """
+    conn.executemany(
+        """INSERT OR REPLACE INTO action_ev_cache
+           (action_id, hero_id, equity, ev, ev_type,
+            blended_vpip, blended_pfr, blended_3bet,
+            villain_preflop_action, contracted_range_size,
+            sample_count, computed_at)
+           VALUES (:action_id, :hero_id, :equity, :ev, :ev_type,
+                   :blended_vpip, :blended_pfr, :blended_3bet,
+                   :villain_preflop_action, :contracted_range_size,
+                   :sample_count, :computed_at)""",
+        rows,
     )
 
 

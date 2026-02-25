@@ -579,6 +579,7 @@ class TestHandInsert:
                 net_result=Decimal("600"),
                 vpip=True,
                 pfr=True,
+                three_bet=False,
                 went_to_showdown=True,
                 is_hero=True,
             ),
@@ -591,6 +592,7 @@ class TestHandInsert:
                 net_result=Decimal("-600"),
                 vpip=True,
                 pfr=False,
+                three_bet=False,
                 went_to_showdown=False,
                 is_hero=False,
             ),
@@ -1068,7 +1070,11 @@ class TestFavorites:
 
 
 class TestHandEquityCache:
-    """Tests for hand_equity table schema and get/set helper functions."""
+    """hand_equity table is replaced by action_ev_cache.
+
+    get_hand_equity / set_hand_equity are kept as no-op shims until
+    sessions.py is fully migrated.  These tests verify the shim contract.
+    """
 
     @pytest.fixture
     def player_id(self, db):
@@ -1097,77 +1103,36 @@ class TestHandEquityCache:
         db.commit()
         return cur.lastrowid
 
-    def test_hand_equity_table_exists(self, db):
+    def test_hand_equity_table_does_not_exist(self, db):
+        """hand_equity replaced by action_ev_cache."""
         row = db.execute(
             "SELECT name FROM sqlite_master WHERE type='table' AND name='hand_equity'"
         ).fetchone()
-        assert row is not None
+        assert row is None
 
-    def test_hand_equity_table_columns(self, db):
-        cols = {row[1] for row in db.execute("PRAGMA table_info(hand_equity)")}
-        assert {"hand_id", "hero_id", "equity", "sample_count"} <= cols
-
-    def test_get_hand_equity_returns_none_on_miss(self, db, hand_id, player_id):
+    def test_get_hand_equity_always_returns_none(self, db, hand_id, player_id):
+        """No-op shim always misses."""
         from pokerhero.database.db import get_hand_equity
 
-        result = get_hand_equity(db, hand_id, player_id, sample_count=2000)
-        assert result is None
+        assert get_hand_equity(db, hand_id, player_id, sample_count=2000) is None
 
-    def test_get_hand_equity_returns_none_when_sample_count_differs(
-        self, db, hand_id, player_id
-    ):
-        from pokerhero.database.db import get_hand_equity, set_hand_equity
-
-        set_hand_equity(db, hand_id, player_id, equity=0.65, sample_count=2000)
-        db.commit()
-        result = get_hand_equity(db, hand_id, player_id, sample_count=5000)
-        assert result is None
-
-    def test_set_and_get_hand_equity_round_trip(self, db, hand_id, player_id):
-        from pokerhero.database.db import get_hand_equity, set_hand_equity
+    def test_set_hand_equity_is_no_op(self, db, hand_id, player_id):
+        """set_hand_equity must not raise."""
+        from pokerhero.database.db import set_hand_equity
 
         set_hand_equity(db, hand_id, player_id, equity=0.72, sample_count=2000)
-        db.commit()
-        result = get_hand_equity(db, hand_id, player_id, sample_count=2000)
-        assert result == pytest.approx(0.72)
-
-    def test_set_hand_equity_upserts_on_same_key(self, db, hand_id, player_id):
-        from pokerhero.database.db import get_hand_equity, set_hand_equity
-
-        set_hand_equity(db, hand_id, player_id, equity=0.50, sample_count=2000)
-        db.commit()
-        set_hand_equity(db, hand_id, player_id, equity=0.80, sample_count=2000)
-        db.commit()
-        result = get_hand_equity(db, hand_id, player_id, sample_count=2000)
-        assert result == pytest.approx(0.80)
-
-    def test_set_hand_equity_upserts_different_sample_count(
-        self, db, hand_id, player_id
-    ):
-        from pokerhero.database.db import get_hand_equity, set_hand_equity
-
-        set_hand_equity(db, hand_id, player_id, equity=0.50, sample_count=2000)
-        db.commit()
-        # Overwrite with new sample_count
-        set_hand_equity(db, hand_id, player_id, equity=0.55, sample_count=5000)
-        db.commit()
-        assert get_hand_equity(db, hand_id, player_id, sample_count=2000) is None
-        assert get_hand_equity(
-            db, hand_id, player_id, sample_count=5000
-        ) == pytest.approx(0.55)
+        db.commit()  # no error
 
 
 # ---------------------------------------------------------------------------
-# TestClearAllData — clear_all_data must delete hand_equity rows
+# TestClearAllData — clear_all_data must delete action_ev_cache rows
 # ---------------------------------------------------------------------------
 class TestClearAllData:
-    """clear_all_data must remove all poker data including hand_equity rows."""
+    """clear_all_data must remove all poker data but preserve settings."""
 
     @pytest.fixture
     def populated_db(self, db):
-        """Return a connection with a session, hand, player, and hand_equity row."""
-        from pokerhero.database.db import set_hand_equity
-
+        """Return a connection with a session, hand, player, and actions row."""
         cur = db.execute(
             "INSERT INTO players (username, preferred_name) VALUES ('hero', 'hero')"
         )
@@ -1187,22 +1152,30 @@ class TestClearAllData:
             (session_id,),
         )
         hand_id = cur.lastrowid
-        set_hand_equity(db, hand_id, player_id, equity=0.75, sample_count=2000)
+        cur = db.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type, amount,"
+            " amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'FLOP', 'BET', 10, 0, 20, 0, 1)",
+            (hand_id, player_id),
+        )
         db.commit()
         return db
 
-    def test_clear_all_data_succeeds_with_hand_equity_rows(self, populated_db):
-        """clear_all_data must not raise FK errors when hand_equity rows exist."""
+    def test_clear_all_data_succeeds_without_fk_errors(self, populated_db):
+        """clear_all_data must not raise FK errors."""
         from pokerhero.database.db import clear_all_data
 
         clear_all_data(populated_db)  # must not raise
 
-    def test_clear_all_data_removes_hand_equity_rows(self, populated_db):
-        """hand_equity table must be empty after clear_all_data."""
+    def test_clear_all_data_removes_action_ev_rows(self, populated_db):
+        """action_ev_cache table must be empty after clear_all_data."""
         from pokerhero.database.db import clear_all_data
 
         clear_all_data(populated_db)
-        count = populated_db.execute("SELECT COUNT(*) FROM hand_equity").fetchone()[0]
+        count = populated_db.execute("SELECT COUNT(*) FROM action_ev_cache").fetchone()[
+            0
+        ]
         assert count == 0
 
     def test_clear_all_data_preserves_target_settings(self, populated_db):

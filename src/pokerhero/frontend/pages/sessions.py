@@ -948,8 +948,7 @@ def _count_session_showdown_hands(
     """Count uncached showdown hands needing equity computation — loading estimate.
 
     Matches the exact filter of get_session_showdown_hands: hero went_to_showdown
-    and villain hole cards are known.  Cached rows (hand_equity rows with a
-    matching sample_count) are excluded because they are instant to process.
+    and villain hole cards are known.
 
     Used only for the loading-time estimate shown in the analysis hint banner.
     Runs a single COUNT query — very fast.
@@ -972,14 +971,8 @@ def _count_session_showdown_hands(
               AND hero_hp.went_to_showdown = 1
               AND hero_hp.hole_cards IS NOT NULL
               AND hero_hp.hole_cards != ''
-              AND NOT EXISTS (
-                  SELECT 1 FROM hand_equity he
-                  WHERE he.hand_id = h.id
-                    AND he.hero_id = ?
-                    AND he.sample_count = ?
-              )
             """,
-            (player_id, player_id, session_id, player_id, sample_count),
+            (player_id, player_id, session_id),
         ).fetchone()
     finally:
         conn.close()
@@ -1781,10 +1774,9 @@ def _build_equity_map(
     hero_id: int,
     sample_count: int,
 ) -> dict[int, float]:
-    """Build a {hand_id: equity} map, reading from DB cache and computing on miss.
+    """Build a {hand_id: equity} map, computing equity for each showdown hand.
 
-    On a cache miss, equity is computed via compute_equity_multiway and stored
-    in the hand_equity table so subsequent session report views are instant.
+    On a cache miss, equity is computed via compute_equity_multiway.
     Hands where equity computation fails (e.g. unrecognised card format) are
     silently omitted from the map — callers should treat missing keys as
     equity-unavailable.

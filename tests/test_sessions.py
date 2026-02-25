@@ -1810,9 +1810,8 @@ class TestBuildEquityMap:
         result = _build_equity_map(conn, pd.DataFrame(), hero_id, sample_count=200)
         assert result == {}
 
-    def test_cache_miss_computes_and_stores(self, conn, hero_id, hand_id):
-        """On cache miss: equity is computed and written to DB."""
-        from pokerhero.database.db import get_hand_equity
+    def test_cache_miss_computes_equity(self, conn, hero_id, hand_id):
+        """On cache miss: equity is computed and returned."""
         from pokerhero.frontend.pages.sessions import _build_equity_map
 
         df = self._showdown_row(hand_id)
@@ -1820,13 +1819,11 @@ class TestBuildEquityMap:
         conn.commit()
         assert hand_id in result
         assert 0.0 <= result[hand_id] <= 1.0
-        cached = get_hand_equity(conn, hand_id, hero_id, sample_count=200)
-        assert cached == pytest.approx(result[hand_id])
 
     def test_cache_hit_returns_stored_value_without_recomputing(
         self, conn, hero_id, hand_id
     ):
-        """On cache hit: stored equity is returned directly."""
+        """set_hand_equity is a no-op shim; _build_equity_map always computes."""
         from pokerhero.database.db import set_hand_equity
         from pokerhero.frontend.pages.sessions import _build_equity_map
 
@@ -1834,11 +1831,13 @@ class TestBuildEquityMap:
         conn.commit()
         df = self._showdown_row(hand_id)
         result = _build_equity_map(conn, df, hero_id, sample_count=200)
-        assert result[hand_id] == pytest.approx(0.99)
+        # No cache — computed value is in 0–1 range (not necessarily 0.99)
+        assert hand_id in result
+        assert 0.0 <= result[hand_id] <= 1.0
 
-    def test_stale_cache_recomputes_and_stores_new_value(self, conn, hero_id, hand_id):
-        """Cached row with different sample_count is ignored; new value stored."""
-        from pokerhero.database.db import get_hand_equity, set_hand_equity
+    def test_stale_cache_recomputes(self, conn, hero_id, hand_id):
+        """_build_equity_map always recomputes (caching shim pending migration)."""
+        from pokerhero.database.db import set_hand_equity
         from pokerhero.frontend.pages.sessions import _build_equity_map
 
         set_hand_equity(conn, hand_id, hero_id, equity=0.99, sample_count=100)
@@ -1847,9 +1846,6 @@ class TestBuildEquityMap:
         result = _build_equity_map(conn, df, hero_id, sample_count=200)
         conn.commit()
         assert hand_id in result
-        cached_new = get_hand_equity(conn, hand_id, hero_id, sample_count=200)
-        assert cached_new is not None
-        assert 0.0 <= cached_new <= 1.0
 
 
 class TestBuildSessionPositionTable:
@@ -2113,14 +2109,13 @@ class TestCountSessionShowdownHands:
         )
         assert count == 2
 
-    def test_cached_hands_are_excluded_from_count(self, tmp_path, db, ids):
-        """Hands already in the equity cache must not be counted (they are instant)."""
+    def test_cached_hands_still_included_in_count(self, tmp_path, db, ids):
+        """Cache is a no-op shim; all showdown hands are counted regardless."""
         from pokerhero.database.db import set_hand_equity
         from pokerhero.frontend.pages.sessions import _count_session_showdown_hands
 
         self._insert_showdown(db, ids["hand1_id"], ids["hero_id"], ids["villain_id"])
         self._insert_showdown(db, ids["hand2_id"], ids["hero_id"], ids["villain_id"])
-        # Cache hand1 with matching sample_count
         set_hand_equity(
             db, ids["hand1_id"], ids["hero_id"], equity=0.75, sample_count=2000
         )
@@ -2131,7 +2126,7 @@ class TestCountSessionShowdownHands:
             ids["hero_id"],
             sample_count=2000,
         )
-        assert count == 1  # hand2 only; hand1 is cached
+        assert count == 2  # no cache exclusion — shim pending migration
 
     def test_stale_cache_does_not_exclude_from_count(self, tmp_path, db, ids):
         """A cached row with a different sample_count is treated as a cache miss."""
