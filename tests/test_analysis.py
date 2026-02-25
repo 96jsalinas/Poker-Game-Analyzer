@@ -1995,3 +1995,104 @@ class TestSeedTargetDefaults:
             "SELECT green_min FROM target_settings WHERE stat='vpip' AND position='btn'"
         ).fetchone()
         assert row[0] == 99.0  # custom value must survive
+
+
+# ===========================================================================
+# TestExpandCombos — expand_combos expands hand strings to specific combos
+# ===========================================================================
+
+
+class TestExpandCombos:
+    """expand_combos must expand shorthand hands to concrete card combos and
+    filter out any combo containing a dead card."""
+
+    def test_pair_expands_to_six_combos(self):
+        """AA with no dead cards yields all 6 suit combinations."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        result = expand_combos(["AA"], set())
+        assert len(result) == 6
+
+    def test_suited_hand_expands_to_four_combos(self):
+        """AKs with no dead cards yields 4 combos (one per suit)."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        result = expand_combos(["AKs"], set())
+        assert len(result) == 4
+
+    def test_offsuit_hand_expands_to_twelve_combos(self):
+        """AKo with no dead cards yields 12 combos (4×3, same-suit excluded)."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        result = expand_combos(["AKo"], set())
+        assert len(result) == 12
+
+    def test_pair_dead_card_removes_three_combos(self):
+        """One dead card in a pair removes 3 of the 6 combos."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        result = expand_combos(["AA"], {"Ah"})
+        assert len(result) == 3
+        assert all("Ah" not in combo for combo in result)
+
+    def test_suited_dead_card_removes_one_combo(self):
+        """Killing one card removes the one suited combo that uses it."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        result = expand_combos(["AKs"], {"Ah"})
+        assert len(result) == 3
+        assert all("Ah" not in combo for combo in result)
+
+    def test_offsuit_dead_card_removes_combos(self):
+        """Dead Ah removes 3 combos from AKo (Ah Kc, Ah Kd, Ah Ks)."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        result = expand_combos(["AKo"], {"Ah"})
+        assert len(result) == 9
+        assert all("Ah" not in combo for combo in result)
+
+    def test_two_dead_cards_filter_correctly(self):
+        """Two dead cards each from a different rank filter combined combos."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        # Ah and Kh dead: removes AhKx and AxKh from AKo
+        result = expand_combos(["AKo"], {"Ah", "Kh"})
+        assert all("Ah" not in combo and "Kh" not in combo for combo in result)
+
+    def test_all_combos_dead_returns_empty_for_that_hand(self):
+        """If every combo of a hand is dead, it contributes nothing."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        # Kill all four aces — no AA combos possible
+        result = expand_combos(["AA"], {"Ac", "Ad", "Ah", "As"})
+        assert result == []
+
+    def test_empty_range_returns_empty_list(self):
+        from pokerhero.analysis.ranges import expand_combos
+
+        assert expand_combos([], set()) == []
+
+    def test_combos_are_space_separated_card_strings(self):
+        """Each combo in the output is a 'Xr Xs' space-separated string."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        result = expand_combos(["AKs"], set())
+        for combo in result:
+            parts = combo.split()
+            assert len(parts) == 2
+            assert len(parts[0]) == 2
+            assert len(parts[1]) == 2
+
+    def test_mixed_range_total_combo_count(self):
+        """AA(6) + AKs(4) + AKo(12) = 22 combos with no dead cards."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        result = expand_combos(["AA", "AKs", "AKo"], set())
+        assert len(result) == 22
+
+    def test_no_duplicate_combos(self):
+        """No combo appears twice in the output."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        result = expand_combos(["AA", "KK", "QQ"], set())
+        assert len(result) == len(set(result))
