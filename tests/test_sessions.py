@@ -1610,7 +1610,7 @@ class TestBuildEvSummary:
 
         from pokerhero.frontend.pages.sessions import _build_ev_summary
 
-        assert isinstance(_build_ev_summary(pd.DataFrame()), html.Div)
+        assert isinstance(_build_ev_summary(pd.DataFrame(), {}), html.Div)
 
     def test_empty_shows_no_showdown_message(self):
         """Empty DataFrame produces a message indicating no showdown data."""
@@ -1618,14 +1618,15 @@ class TestBuildEvSummary:
 
         from pokerhero.frontend.pages.sessions import _build_ev_summary
 
-        text = str(_build_ev_summary(pd.DataFrame())).lower()
+        text = str(_build_ev_summary(pd.DataFrame(), {})).lower()
         assert "no" in text or "0" in text
 
     def test_nonempty_mentions_showdown(self):
         """Non-empty DataFrame mentions showdown in the output."""
         from pokerhero.frontend.pages.sessions import _build_ev_summary
 
-        text = str(_build_ev_summary(self._showdown_df())).lower()
+        # hand_id=1, arbitrary equity — only checking that "showdown" appears
+        text = str(_build_ev_summary(self._showdown_df(), {1: 0.9})).lower()
         assert "showdown" in text
 
     def test_unlucky_outcome_shows_below_equity(self):
@@ -1633,7 +1634,7 @@ class TestBuildEvSummary:
         from pokerhero.frontend.pages.sessions import _build_ev_summary
 
         # Ah Kh vs 2c 3d on Qh Jh Th 9d 2s: hero equity ≈ 1.0, but hero loses
-        result = _build_ev_summary(self._showdown_df(net_result=-3000.0))
+        result = _build_ev_summary(self._showdown_df(net_result=-3000.0), {1: 1.0})
         assert "below" in str(result).lower()
 
     def test_ev_summary_shows_unavailable_note_for_bad_cards(self):
@@ -1654,7 +1655,8 @@ class TestBuildEvSummary:
                 "total_pot": [200.0],
             }
         )
-        result = str(_build_ev_summary(df))
+        # Empty map → hand_id=1 is missing → equity-unavailable path
+        result = str(_build_ev_summary(df, {}))
         assert "unavailable" in result.lower()
 
 
@@ -1699,20 +1701,24 @@ class TestBuildFlaggedHandsList:
 
         from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
 
-        assert isinstance(_build_flagged_hands_list(pd.DataFrame()), html.Div)
+        assert isinstance(_build_flagged_hands_list(pd.DataFrame(), {}), html.Div)
 
     def test_nonempty_no_crash(self):
         """Non-flagged hand (won with high equity) returns Div without raising."""
         from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
 
-        assert _build_flagged_hands_list(self._hand_df(net_result=5000.0)) is not None
+        # hand_id=1, equity=0.9 — won with high equity → not flagged
+        assert (
+            _build_flagged_hands_list(self._hand_df(net_result=5000.0), {1: 0.9})
+            is not None
+        )
 
     def test_unlucky_hand_flagged(self):
         """Hero had near-100% equity but lost → flagged as Unlucky."""
         from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
 
         # Ah Kh vs 2c 3d on Qh Jh Th 9d 2s: equity ≈ 1.0 but hero loses
-        result = _build_flagged_hands_list(self._hand_df(net_result=-3000.0))
+        result = _build_flagged_hands_list(self._hand_df(net_result=-3000.0), {1: 1.0})
         assert "Unlucky" in str(result)
 
     def test_lucky_hand_flagged(self):
@@ -1721,7 +1727,8 @@ class TestBuildFlaggedHandsList:
 
         # 2c 3d vs Ah Kh on Qh Jh Th 9d 2s: equity ≈ 0.0 but hero wins
         result = _build_flagged_hands_list(
-            self._hand_df(hero_cards="2c 3d", villain_cards="Ah Kh", net_result=5000.0)
+            self._hand_df(hero_cards="2c 3d", villain_cards="Ah Kh", net_result=5000.0),
+            {1: 0.0},
         )
         assert "Lucky" in str(result)
 
@@ -1743,7 +1750,8 @@ class TestBuildFlaggedHandsList:
                 "total_pot": [200.0],
             }
         )
-        result = str(_build_flagged_hands_list(df))
+        # Empty map → hand_id=1 is missing → equity-unavailable path
+        result = str(_build_flagged_hands_list(df, {}))
         assert "unavailable" in result.lower()
 
 
