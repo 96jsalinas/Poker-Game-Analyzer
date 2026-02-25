@@ -1838,3 +1838,40 @@ class TestBuildSessionPositionTable:
         result = _build_session_position_table(pd.DataFrame(), conn)
         conn.close()
         assert result is not None
+
+
+# ---------------------------------------------------------------------------
+# TestBackgroundCallbackSetup
+# ---------------------------------------------------------------------------
+
+
+class TestBackgroundCallbackSetup:
+    """Tests for DiskcacheManager setup and background callback wiring (step 7a)."""
+
+    def test_diskcache_importable(self):
+        """diskcache package is installed and importable."""
+        import diskcache  # noqa: F401
+
+    def test_create_app_accepts_background_manager(self, tmp_path):
+        """create_app(background_callback_manager=...) does not raise."""
+        import diskcache
+        from dash import DiskcacheManager
+
+        from pokerhero.frontend.app import create_app
+
+        cache = diskcache.Cache(str(tmp_path / "cache"))
+        manager = DiskcacheManager(cache)
+        app = create_app(db_path=":memory:", background_callback_manager=manager)
+        assert app is not None
+
+    def test_background_manager_stored_in_config(self, tmp_path):
+        """Provided manager is stored in app.server.config under BACKGROUND_MANAGER."""
+        import diskcache
+        from dash import DiskcacheManager
+
+        from pokerhero.frontend.app import create_app
+
+        cache = diskcache.Cache(str(tmp_path / "cache"))
+        manager = DiskcacheManager(cache)
+        app = create_app(db_path=":memory:", background_callback_manager=manager)
+        assert app.server.config["BACKGROUND_MANAGER"] is manager
