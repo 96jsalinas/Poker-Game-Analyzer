@@ -1582,25 +1582,15 @@ class TestBuildEvSummary:
 
         create_app(db_path=":memory:")
 
-    def _showdown_df(
-        self,
-        net_result: float = 5000.0,
-        hero_cards: str = "Ah Kh",
-        villain_cards: str = "2c 3d",
-    ):
+    def _ev_df(self, equity: float = 0.9, net_result: float = 5000.0):
         import pandas as pd
 
-        # Complete 5-card board: Ah Kh has royal flush (equity ≈ 1.0)
         return pd.DataFrame(
             {
                 "hand_id": [1],
                 "source_hand_id": ["#100"],
-                "hero_cards": [hero_cards],
-                "villain_username": ["villain"],
-                "villain_cards": [villain_cards],
-                "board": ["Qh Jh Th 9d 2s"],
+                "equity": [equity],
                 "net_result": [net_result],
-                "total_pot": [6000.0],
             }
         )
 
@@ -1611,54 +1601,30 @@ class TestBuildEvSummary:
 
         from pokerhero.frontend.pages.sessions import _build_ev_summary
 
-        assert isinstance(_build_ev_summary(pd.DataFrame(), {}), html.Div)
+        assert isinstance(_build_ev_summary(pd.DataFrame()), html.Div)
 
-    def test_empty_shows_no_showdown_message(self):
-        """Empty DataFrame produces a message indicating no showdown data."""
+    def test_empty_shows_not_calculated_message(self):
+        """Empty DataFrame (no cache) produces a 'not yet calculated' message."""
         import pandas as pd
 
         from pokerhero.frontend.pages.sessions import _build_ev_summary
 
-        text = str(_build_ev_summary(pd.DataFrame(), {})).lower()
-        assert "no" in text or "0" in text
+        text = str(_build_ev_summary(pd.DataFrame())).lower()
+        assert "calculate" in text
 
     def test_nonempty_mentions_showdown(self):
-        """Non-empty DataFrame mentions showdown in the output."""
+        """Non-empty ev_df mentions showdown in the output."""
         from pokerhero.frontend.pages.sessions import _build_ev_summary
 
-        # hand_id=1, arbitrary equity — only checking that "showdown" appears
-        text = str(_build_ev_summary(self._showdown_df(), {1: 0.9})).lower()
+        text = str(_build_ev_summary(self._ev_df())).lower()
         assert "showdown" in text
 
     def test_unlucky_outcome_shows_below_equity(self):
-        """Hero had near-100% equity (royal flush) but lost → below equity verdict."""
+        """Hero had near-100% equity but lost → below equity verdict."""
         from pokerhero.frontend.pages.sessions import _build_ev_summary
 
-        # Ah Kh vs 2c 3d on Qh Jh Th 9d 2s: hero equity ≈ 1.0, but hero loses
-        result = _build_ev_summary(self._showdown_df(net_result=-3000.0), {1: 1.0})
+        result = _build_ev_summary(self._ev_df(equity=1.0, net_result=-3000.0))
         assert "below" in str(result).lower()
-
-    def test_ev_summary_shows_unavailable_note_for_bad_cards(self):
-        """Row with unparseable card strings shows an equity-unavailable note."""
-        import pandas as pd
-
-        from pokerhero.frontend.pages.sessions import _build_ev_summary
-
-        df = pd.DataFrame(
-            {
-                "hand_id": [1],
-                "source_hand_id": ["#999"],
-                "hero_cards": ["XX XX"],
-                "villain_username": ["villain"],
-                "villain_cards": ["YY YY"],
-                "board": [""],
-                "net_result": [100.0],
-                "total_pot": [200.0],
-            }
-        )
-        # Empty map → hand_id=1 is missing → equity-unavailable path
-        result = str(_build_ev_summary(df, {}))
-        assert "unavailable" in result.lower()
 
 
 # ---------------------------------------------------------------------------
@@ -1674,24 +1640,15 @@ class TestBuildFlaggedHandsList:
 
         create_app(db_path=":memory:")
 
-    def _hand_df(
-        self,
-        net_result: float = 5000.0,
-        hero_cards: str = "Ah Kh",
-        villain_cards: str = "2c 3d",
-    ):
+    def _ev_df(self, equity: float = 0.9, net_result: float = 5000.0):
         import pandas as pd
 
         return pd.DataFrame(
             {
                 "hand_id": [1],
                 "source_hand_id": ["#100"],
-                "hero_cards": [hero_cards],
-                "villain_username": ["villain"],
-                "villain_cards": [villain_cards],
-                "board": ["Qh Jh Th 9d 2s"],
+                "equity": [equity],
                 "net_result": [net_result],
-                "total_pot": [6000.0],
             }
         )
 
@@ -1702,15 +1659,15 @@ class TestBuildFlaggedHandsList:
 
         from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
 
-        assert isinstance(_build_flagged_hands_list(pd.DataFrame(), {}), html.Div)
+        assert isinstance(_build_flagged_hands_list(pd.DataFrame()), html.Div)
 
     def test_nonempty_no_crash(self):
         """Non-flagged hand (won with high equity) returns Div without raising."""
         from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
 
-        # hand_id=1, equity=0.9 — won with high equity → not flagged
+        # equity=0.9, won → not flagged (below lucky_threshold=0.4)
         assert (
-            _build_flagged_hands_list(self._hand_df(net_result=5000.0), {1: 0.9})
+            _build_flagged_hands_list(self._ev_df(equity=0.9, net_result=5000.0))
             is not None
         )
 
@@ -1718,42 +1675,15 @@ class TestBuildFlaggedHandsList:
         """Hero had near-100% equity but lost → flagged as Unlucky."""
         from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
 
-        # Ah Kh vs 2c 3d on Qh Jh Th 9d 2s: equity ≈ 1.0 but hero loses
-        result = _build_flagged_hands_list(self._hand_df(net_result=-3000.0), {1: 1.0})
+        result = _build_flagged_hands_list(self._ev_df(equity=1.0, net_result=-3000.0))
         assert "Unlucky" in str(result)
 
     def test_lucky_hand_flagged(self):
         """Hero had near-zero equity but won → flagged as Lucky."""
         from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
 
-        # 2c 3d vs Ah Kh on Qh Jh Th 9d 2s: equity ≈ 0.0 but hero wins
-        result = _build_flagged_hands_list(
-            self._hand_df(hero_cards="2c 3d", villain_cards="Ah Kh", net_result=5000.0),
-            {1: 0.0},
-        )
+        result = _build_flagged_hands_list(self._ev_df(equity=0.0, net_result=5000.0))
         assert "Lucky" in str(result)
-
-    def test_flagged_hands_shows_unavailable_for_bad_cards(self):
-        """Row with unparseable card strings appears as equity-unavailable entry."""
-        import pandas as pd
-
-        from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
-
-        df = pd.DataFrame(
-            {
-                "hand_id": [1],
-                "source_hand_id": ["#999"],
-                "hero_cards": ["XX XX"],
-                "villain_username": ["villain"],
-                "villain_cards": ["YY YY"],
-                "board": [""],
-                "net_result": [100.0],
-                "total_pot": [200.0],
-            }
-        )
-        # Empty map → hand_id=1 is missing → equity-unavailable path
-        result = str(_build_flagged_hands_list(df, {}))
-        assert "unavailable" in result.lower()
 
 
 # ---------------------------------------------------------------------------
@@ -2562,3 +2492,109 @@ class TestBuildEvCell:
 
         result = _build_ev_cell(self._range_row(), "CALL")
         assert "ℹ" in repr(result)
+
+
+# ---------------------------------------------------------------------------
+# TestGetSessionShowdownEvs
+# ---------------------------------------------------------------------------
+
+
+class TestGetSessionShowdownEvs:
+    """Tests for get_session_showdown_evs query function."""
+
+    @pytest.fixture
+    def conn(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        c = init_db(str(tmp_path / "test.db"))
+        yield c
+        c.close()
+
+    def _seed(self, conn, *, with_ev_cache: bool = False, street: str = "RIVER"):
+        """Seed session/hand/players/action; optionally insert an exact ev cache row.
+
+        Returns (session_id, action_id, hero_id).
+        """
+        hero_id = conn.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'Hero')"
+        ).lastrowid
+        sid = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats,"
+            "  small_blind, big_blind, ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-01-01')"
+        ).lastrowid
+        hid = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            "  rake, timestamp)"
+            " VALUES ('H1', ?, 1000, 0, 0, '2024-01-01T00:00:00')",
+            (sid,),
+        ).lastrowid
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BTN', 5000, 'Ah Kh', 1, 1, 0, 1, -500)",
+            (hid, hero_id),
+        )
+        action_id = conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, ?, 'CALL', 100, 100, 200, 0, 1)",
+            (hid, hero_id, street),
+        ).lastrowid
+        if with_ev_cache:
+            conn.execute(
+                "INSERT INTO action_ev_cache"
+                " (action_id, hero_id, equity, ev, ev_type, sample_count, computed_at)"
+                " VALUES (?, ?, 0.75, 12.5, 'exact', 1000, '2024-01-15T12:00:00')",
+                (action_id, hero_id),
+            )
+        conn.commit()
+        return sid, action_id, hero_id
+
+    def test_empty_when_no_cache(self, conn):
+        """Session with no action_ev_cache rows returns empty DataFrame."""
+        from pokerhero.analysis.queries import get_session_showdown_evs
+
+        sid, _, hero_id = self._seed(conn, with_ev_cache=False)
+        df = get_session_showdown_evs(conn, sid, hero_id)
+        assert df.empty
+
+    def test_returns_equity_for_exact_river_action(self, conn):
+        """Exact EV cache row on RIVER is returned with equity and net_result."""
+        from pokerhero.analysis.queries import get_session_showdown_evs
+
+        sid, _, hero_id = self._seed(conn, with_ev_cache=True, street="RIVER")
+        df = get_session_showdown_evs(conn, sid, hero_id)
+        assert len(df) == 1
+        assert abs(float(df.iloc[0]["equity"]) - 0.75) < 0.001
+        assert float(df.iloc[0]["net_result"]) == pytest.approx(-500.0)
+
+    def test_deduplicates_multiple_qualifying_actions_per_hand(self, conn):
+        """Multiple exact EV cache rows for the same hand yield one row."""
+        from pokerhero.analysis.queries import get_session_showdown_evs
+
+        sid, action_id, hero_id = self._seed(conn, with_ev_cache=True, street="RIVER")
+        # Insert a second cache row for a different action in the SAME hand
+        hid = conn.execute(
+            "SELECT hand_id FROM actions WHERE id = ?", (action_id,)
+        ).fetchone()[0]
+        action_id2 = conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'RIVER', 'BET', 200, 0, 400, 1, 2)",
+            (hid, hero_id),
+        ).lastrowid
+        conn.execute(
+            "INSERT INTO action_ev_cache"
+            " (action_id, hero_id, equity, ev, ev_type, sample_count, computed_at)"
+            " VALUES (?, ?, 0.80, 20.0, 'exact', 1000, '2024-01-15T12:00:01')",
+            (action_id2, hero_id),
+        )
+        conn.commit()
+        df = get_session_showdown_evs(conn, sid, hero_id)
+        assert len(df) == 1
