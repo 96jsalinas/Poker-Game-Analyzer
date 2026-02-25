@@ -669,3 +669,56 @@ def get_session_ev_status(
     count = int(row[0]) if row and row[0] else 0
     computed_at = str(row[1]) if row and row[1] else None
     return count, computed_at
+
+
+def get_session_showdown_evs(
+    conn: sqlite3.Connection,
+    session_id: int,
+    hero_id: int,
+) -> pd.DataFrame:
+    """Return one exact-EV row per hand for Lucky/Unlucky classification.
+
+    Queries ``action_ev_cache`` for ``ev_type = 'exact'`` rows on all-in or
+    RIVER actions.  One row per hand is returned (the earliest qualifying
+    action by action id).
+
+    Columns: hand_id, source_hand_id, equity, net_result.
+
+    Args:
+        conn: Open SQLite connection.
+        session_id: Internal integer id of the session row.
+        hero_id: Internal integer id of the hero player row.
+
+    Returns:
+        DataFrame with one row per hand that has an exact EV cached.
+    """
+    sql = """
+        SELECT
+            h.id          AS hand_id,
+            h.source_hand_id,
+            aec.equity,
+            hero_hp.net_result
+        FROM action_ev_cache aec
+        JOIN actions a ON aec.action_id = a.id
+        JOIN hands h ON h.id = a.hand_id
+        JOIN hand_players hero_hp
+            ON hero_hp.hand_id = h.id
+           AND hero_hp.player_id = :hero
+        WHERE h.session_id = :sid
+          AND aec.hero_id  = :hero
+          AND aec.ev_type  = 'exact'
+          AND (a.is_all_in = 1 OR a.street = 'RIVER')
+          AND a.id = (
+              SELECT MIN(a2.id)
+              FROM action_ev_cache aec2
+              JOIN actions a2 ON aec2.action_id = a2.id
+              WHERE a2.hand_id = h.id
+                AND aec2.hero_id = :hero
+                AND aec2.ev_type = 'exact'
+                AND (a2.is_all_in = 1 OR a2.street = 'RIVER')
+          )
+        ORDER BY h.id ASC
+    """
+    return pd.read_sql_query(
+        sql, conn, params={"hero": int(hero_id), "sid": int(session_id)}
+    )

@@ -1053,43 +1053,6 @@ def _parse_nav_search(search: str) -> _DrillDownState | None:
     return None
 
 
-def _count_session_showdown_hands(
-    db_path: str, session_id: int, player_id: int, sample_count: int
-) -> int:
-    """Count uncached showdown hands needing equity computation — loading estimate.
-
-    Matches the exact filter of get_session_showdown_hands: hero went_to_showdown
-    and villain hole cards are known.
-
-    Used only for the loading-time estimate shown in the analysis hint banner.
-    Runs a single COUNT query — very fast.
-    """
-    conn = get_connection(db_path)
-    try:
-        row = conn.execute(
-            """
-            SELECT COUNT(DISTINCT h.id)
-            FROM hands h
-            JOIN hand_players hero_hp
-                ON hero_hp.hand_id = h.id
-               AND hero_hp.player_id = ?
-            JOIN hand_players villain_hp
-                ON villain_hp.hand_id = h.id
-               AND villain_hp.player_id != ?
-               AND villain_hp.hole_cards IS NOT NULL
-               AND villain_hp.hole_cards != ''
-            WHERE h.session_id = ?
-              AND hero_hp.went_to_showdown = 1
-              AND hero_hp.hole_cards IS NOT NULL
-              AND hero_hp.hole_cards != ''
-            """,
-            (player_id, player_id, session_id),
-        ).fetchone()
-    finally:
-        conn.close()
-    return int(row[0]) if row else 0
-
-
 # ---------------------------------------------------------------------------
 # Renderer — reacts to state + page navigation
 # ---------------------------------------------------------------------------
@@ -1133,22 +1096,7 @@ def _render(
 
     session_id = int(state.get("session_id") or 0)
     if level == "report":
-        player_id = _get_hero_player_id(db_path)
-        sample_count = _read_analysis_settings(db_path)["equity_sample_count"]
-        n_showdown = (
-            _count_session_showdown_hands(db_path, session_id, player_id, sample_count)
-            if player_id is not None
-            else 0
-        )
-        est_secs = max(5, n_showdown * 2)
-        if n_showdown > 0:
-            hand_word = "hand" if n_showdown == 1 else "hands"
-            hint_body = (
-                f"Computing equity for {n_showdown} showdown {hand_word}"
-                f" — estimated ~{est_secs}s."
-            )
-        else:
-            hint_body = "Loading session data…"
+        hint_body = "Loading session data…"
         hint = html.Div(
             [
                 html.Div(
@@ -1165,7 +1113,7 @@ def _render(
                 html.Div(
                     html.Div(
                         className="session-report-progress-fill",
-                        style={"animationDuration": f"{est_secs}s"},
+                        style={"animationDuration": "5s"},
                     ),
                     style={
                         "background": "#ffe5b0",
@@ -1886,93 +1834,52 @@ def _build_session_narrative(
     )
 
 
-def _build_equity_map(
-    conn: sqlite3.Connection,
-    showdown_df: pd.DataFrame,
-    hero_id: int,
-    sample_count: int,
-) -> dict[int, float]:
-    """Build a {hand_id: equity} map, computing equity for each showdown hand.
-
-    On a cache miss, equity is computed via compute_equity_multiway.
-    Hands where equity computation fails (e.g. unrecognised card format) are
-    silently omitted from the map — callers should treat missing keys as
-    equity-unavailable.
-
-    Args:
-        conn: An open SQLite connection (caller must commit after this returns).
-        showdown_df: DataFrame from get_session_showdown_hands.
-        hero_id: Internal player id for the hero.
-        sample_count: Monte Carlo sample count to use / to match for cache hits.
-
-    Returns:
-        Dict mapping hand_id (int) → equity (float 0.0–1.0).
-    """
-    if showdown_df.empty:
-        return {}
-
-    from pokerhero.analysis.stats import compute_equity_multiway
-    from pokerhero.database.db import get_hand_equity, set_hand_equity
-
-    equity_map: dict[int, float] = {}
-    for _, row in showdown_df.iterrows():
-        hand_id = int(row["hand_id"])
-        cached = get_hand_equity(conn, hand_id, hero_id, sample_count)
-        if cached is not None:
-            equity_map[hand_id] = cached
-            continue
-        try:
-            eq = compute_equity_multiway(
-                str(row["hero_cards"]).strip(),
-                str(row["villain_cards"]).strip(),
-                str(row["board"]).strip(),
-                sample_count,
-            )
-        except Exception:
-            continue
-        set_hand_equity(conn, hand_id, hero_id, eq, sample_count)
-        equity_map[hand_id] = eq
-    return equity_map
-
-
 def _build_ev_summary(
-    showdown_df: pd.DataFrame,
-    equity_map: dict[int, float],
+    ev_df: pd.DataFrame,
     *,
     lucky_threshold: float = 0.4,
     unlucky_threshold: float = 0.6,
 ) -> html.Div:
-    """Return an EV luck indicator based on showdown/all-in hands.
+    """Return an EV luck indicator based on cached exact-EV showdown/all-in rows.
 
     Classifies the session as above/below/near equity using pre-computed
-    equity values from equity_map (keyed by hand_id).
+    equity values read from ``action_ev_cache`` via ``get_session_showdown_evs``.
 
     Args:
-        showdown_df: DataFrame from get_session_showdown_hands.
-        equity_map: Pre-computed {hand_id: equity} from _build_equity_map.
+        ev_df: DataFrame from get_session_showdown_evs (columns: hand_id,
+               source_hand_id, equity, net_result).  Empty means EVs have not
+               been calculated yet.
         lucky_threshold: Hero wins with equity below this fraction → Lucky.
         unlucky_threshold: Hero loses with equity above this fraction → Unlucky.
 
     Returns:
         html.Div with a luck verdict and showdown hand count.
     """
-    if showdown_df.empty:
+    if ev_df.empty:
         return html.Div(
-            "No showdown hands with known villain cards in this session.",
-            style={"color": "var(--text-4, #888)", "fontSize": "13px"},
+            [
+                html.P(
+                    "EV analysis not yet calculated.",
+                    style={
+                        "fontSize": "13px",
+                        "color": "var(--text-4, #888)",
+                        "marginBottom": "4px",
+                    },
+                ),
+                html.P(
+                    "Use the 📊 Calculate EVs button on the session list.",
+                    style={"fontSize": "12px", "color": "var(--text-4, #aaa)"},
+                ),
+            ],
+            style={"marginBottom": "20px"},
         )
 
-    n = len(showdown_df)
+    n = len(ev_df)
     lucky = 0
     unlucky = 0
-    errors = 0
 
-    for _, row in showdown_df.iterrows():
-        hand_id = int(row["hand_id"])
-        if hand_id not in equity_map:
-            errors += 1
-            continue
-        eq = equity_map[hand_id]
+    for _, row in ev_df.iterrows():
+        eq = float(row["equity"])
         hero_won = float(row["net_result"]) > 0
         if hero_won and eq < lucky_threshold:
             lucky += 1
@@ -1991,47 +1898,35 @@ def _build_ev_summary(
         verdict, vcolor = "~ Ran near equity", "#888"
 
     hand_word = "hand" if n == 1 else "hands"
-    children: list[html.H5 | html.P | html.Div] = [
-        html.H5(
-            "EV Summary",
-            style={"marginBottom": "6px", "color": "var(--text-2, #333)"},
-        ),
-        html.P(
-            f"{n} showdown {hand_word} with known villain cards.",
-            style={
-                "fontSize": "13px",
-                "color": "var(--text-3, #555)",
-                "marginBottom": "6px",
-            },
-        ),
-        html.Div(
-            verdict,
-            style={
-                "fontSize": "16px",
-                "fontWeight": "600",
-                "color": vcolor,
-            },
-        ),
-    ]
-    if errors:
-        err_word = "hand" if errors == 1 else "hands"
-        children.append(
+    return html.Div(
+        [
+            html.H5(
+                "EV Summary",
+                style={"marginBottom": "6px", "color": "var(--text-2, #333)"},
+            ),
             html.P(
-                f"⚠️ {errors} {err_word} — equity unavailable"
-                " (unrecognised card format).",
+                f"{n} showdown {hand_word} with cached exact EV.",
                 style={
-                    "fontSize": "12px",
-                    "color": "var(--text-4, #888)",
-                    "marginTop": "6px",
+                    "fontSize": "13px",
+                    "color": "var(--text-3, #555)",
+                    "marginBottom": "6px",
                 },
-            )
-        )
-    return html.Div(children, style={"marginBottom": "20px"})
+            ),
+            html.Div(
+                verdict,
+                style={
+                    "fontSize": "16px",
+                    "fontWeight": "600",
+                    "color": vcolor,
+                },
+            ),
+        ],
+        style={"marginBottom": "20px"},
+    )
 
 
 def _build_flagged_hands_list(
-    showdown_df: pd.DataFrame,
-    equity_map: dict[int, float],
+    ev_df: pd.DataFrame,
     *,
     lucky_threshold: float = 0.4,
     unlucky_threshold: float = 0.6,
@@ -2042,45 +1937,23 @@ def _build_flagged_hands_list(
     or Unlucky when hero lost with equity > *unlucky_threshold*.
 
     Args:
-        showdown_df: DataFrame from get_session_showdown_hands.
-        equity_map: Pre-computed {hand_id: equity} from _build_equity_map.
+        ev_df: DataFrame from get_session_showdown_evs (columns: hand_id,
+               source_hand_id, equity, net_result).
         lucky_threshold: Hero wins with equity below this fraction → Lucky.
         unlucky_threshold: Hero loses with equity above this fraction → Unlucky.
 
     Returns:
         html.Div listing flagged hands, or an empty-state message.
     """
-    if showdown_df.empty:
+    if ev_df.empty:
         return html.Div(
             "No showdown data available for analysis.",
             style={"color": "var(--text-4, #888)", "fontSize": "13px"},
         )
 
     flagged: list[html.Div] = []
-    for _, row in showdown_df.iterrows():
-        hand_id = int(row["hand_id"])
-        if hand_id not in equity_map:
-            flagged.append(
-                html.Div(
-                    [
-                        html.Span(
-                            "⚠️ Equity unavailable",
-                            style={
-                                "marginRight": "10px",
-                                "color": "var(--text-4, #888)",
-                                "fontWeight": "600",
-                            },
-                        ),
-                        html.Span(
-                            f"Hand #{row['source_hand_id']}",
-                            style={"fontSize": "13px", "color": "var(--text-4, #aaa)"},
-                        ),
-                    ],
-                    style={"padding": "6px 0", "borderBottom": "1px solid #f0f0f0"},
-                )
-            )
-            continue
-        eq = equity_map[hand_id]
+    for _, row in ev_df.iterrows():
+        eq = float(row["equity"])
         hero_won = float(row["net_result"]) > 0
         if hero_won and eq < lucky_threshold:
             flag, fcolor = "🍀 Lucky", "#28a745"
@@ -2155,19 +2028,16 @@ def _render_session_report(db_path: str, session_id: int) -> tuple[html.Div | st
     from pokerhero.analysis.queries import (
         get_session_hero_actions,
         get_session_kpis,
-        get_session_showdown_hands,
+        get_session_showdown_evs,
     )
 
     conn = get_connection(db_path)
     try:
         kpis_df = get_session_kpis(conn, session_id, player_id)
         actions_df = get_session_hero_actions(conn, session_id, player_id)
-        showdown_df = get_session_showdown_hands(conn, session_id, player_id)
+        ev_df = get_session_showdown_evs(conn, session_id, int(player_id))
         pos_table = _build_session_position_table(kpis_df, conn)
         s = _read_analysis_settings(db_path)
-        sample_count = s["equity_sample_count"]
-        equity_map = _build_equity_map(conn, showdown_df, int(player_id), sample_count)
-        conn.commit()
     finally:
         conn.close()
 
@@ -2183,14 +2053,12 @@ def _render_session_report(db_path: str, session_id: int) -> tuple[html.Div | st
             _build_session_kpi_strip(kpis_df, actions_df),
             pos_table,
             _build_ev_summary(
-                showdown_df,
-                equity_map,
+                ev_df,
                 lucky_threshold=lucky_threshold,
                 unlucky_threshold=unlucky_threshold,
             ),
             _build_flagged_hands_list(
-                showdown_df,
-                equity_map,
+                ev_df,
                 lucky_threshold=lucky_threshold,
                 unlucky_threshold=unlucky_threshold,
             ),
