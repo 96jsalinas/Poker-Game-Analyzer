@@ -701,6 +701,7 @@ class TestSessionDataTable:
                 "hands_played": [20, 40],
                 "net_profit": [500.0, -200.0],
                 "is_favorite": [0, 0],
+                "ev_status": ["📊 Calculate", "✅ Ready (2026-01-10)"],
             }
         )
 
@@ -728,12 +729,12 @@ class TestSessionDataTable:
         assert result.sort_action == "native"
 
     def test_column_names(self):
-        """DataTable columns are Date, Stakes, Hands, Net P&L."""
+        """DataTable columns are Date, Stakes, Hands, Net P&L, EV Status."""
         from pokerhero.frontend.pages.sessions import _build_session_table
 
         result = _build_session_table(self._make_df())
         col_names = [c["name"] for c in result.columns]
-        assert col_names == ["Date", "Stakes", "Hands", "Net P&L"]
+        assert col_names == ["Date", "Stakes", "Hands", "Net P&L", "EV Status"]
 
     def test_data_has_id_field(self):
         """Each data row contains an 'id' key for navigation lookups."""
@@ -2244,3 +2245,226 @@ class TestCalculateSessionEvs:
             "SELECT COUNT(*) FROM action_ev_cache WHERE hero_id = ?", (hero_id,)
         ).fetchone()[0]
         assert n == count
+
+
+# ---------------------------------------------------------------------------
+# TestGetSessionEvStatus
+# ---------------------------------------------------------------------------
+
+
+class TestGetSessionEvStatus:
+    """Tests for get_session_ev_status query function."""
+
+    @pytest.fixture
+    def conn(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        c = init_db(str(tmp_path / "test.db"))
+        yield c
+        c.close()
+
+    def _seed(self, conn):
+        """Seed minimal session + hand + player + action.
+
+        Returns (sid, action_id, player_id).
+        """
+        player_id = conn.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'Hero')"
+        ).lastrowid
+        sid = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats,"
+            "  small_blind, big_blind, ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-01-01')"
+        ).lastrowid
+        hid = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            "  rake, timestamp)"
+            " VALUES ('H1', ?, 1000, 0, 0, '2024-01-01T00:00:00')",
+            (sid,),
+        ).lastrowid
+        action_id = conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'FLOP', 'CALL', 100, 100, 200, 0, 1)",
+            (hid, player_id),
+        ).lastrowid
+        conn.commit()
+        return sid, action_id, player_id
+
+    def test_no_cache_rows_returns_zero(self, conn):
+        """Session with no action_ev_cache rows returns (0, None)."""
+        from pokerhero.analysis.queries import get_session_ev_status
+
+        sid, _, _ = self._seed(conn)
+        count, computed_at = get_session_ev_status(conn, sid)
+        assert count == 0
+        assert computed_at is None
+
+    def test_with_cache_rows_returns_count_and_date(self, conn):
+        """Session with cache rows returns (n, computed_at string)."""
+        from pokerhero.analysis.queries import get_session_ev_status
+
+        sid, action_id, player_id = self._seed(conn)
+        conn.execute(
+            "INSERT INTO action_ev_cache"
+            " (action_id, hero_id, equity, ev, ev_type, sample_count, computed_at)"
+            " VALUES (?, ?, 0.6, 10.0, 'exact', 1000, '2024-01-15T12:00:00')",
+            (action_id, player_id),
+        )
+        conn.commit()
+        count, computed_at = get_session_ev_status(conn, sid)
+        assert count == 1
+        assert computed_at is not None
+        assert "2024-01-15" in str(computed_at)
+
+
+# ---------------------------------------------------------------------------
+# TestEvStatusLabel
+# ---------------------------------------------------------------------------
+
+
+class TestEvStatusLabel:
+    """Tests for _ev_status_label helper in sessions.py."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    @pytest.fixture
+    def conn(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        c = init_db(str(tmp_path / "test.db"))
+        yield c
+        c.close()
+
+    def _seed(self, conn):
+        """Seed minimal session + action. Returns (sid, action_id, player_id)."""
+        player_id = conn.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'Hero')"
+        ).lastrowid
+        sid = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats,"
+            "  small_blind, big_blind, ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-01-01')"
+        ).lastrowid
+        hid = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            "  rake, timestamp)"
+            " VALUES ('H1', ?, 1000, 0, 0, '2024-01-01T00:00:00')",
+            (sid,),
+        ).lastrowid
+        action_id = conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'FLOP', 'CALL', 100, 100, 200, 0, 1)",
+            (hid, player_id),
+        ).lastrowid
+        conn.commit()
+        return sid, action_id, player_id
+
+    def test_no_rows_returns_calculate_label(self, conn):
+        """Session with no cache rows returns a label containing the 📊 emoji."""
+        from pokerhero.frontend.pages.sessions import _ev_status_label
+
+        sid, _, _ = self._seed(conn)
+        label = _ev_status_label(conn, sid)
+        assert "📊" in label
+
+    def test_with_rows_returns_ready_label_with_date(self, conn):
+        """Session with cache rows returns a label containing ✅ and the date."""
+        from pokerhero.frontend.pages.sessions import _ev_status_label
+
+        sid, action_id, player_id = self._seed(conn)
+        conn.execute(
+            "INSERT INTO action_ev_cache"
+            " (action_id, hero_id, equity, ev, ev_type, sample_count, computed_at)"
+            " VALUES (?, ?, 0.6, 10.0, 'exact', 1000, '2024-03-20T12:00:00')",
+            (action_id, player_id),
+        )
+        conn.commit()
+        label = _ev_status_label(conn, sid)
+        assert "✅" in label
+        assert "2024-03-20" in label
+
+
+# ---------------------------------------------------------------------------
+# TestSessionTableEvColumn
+# ---------------------------------------------------------------------------
+
+
+class TestSessionTableEvColumn:
+    """Tests for the EV Status column added to the session DataTable."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def _make_df(self):
+        import pandas as pd
+
+        return pd.DataFrame(
+            {
+                "id": [1],
+                "start_time": ["2026-01-10"],
+                "small_blind": [50],
+                "big_blind": [100],
+                "hands_played": [20],
+                "net_profit": [500.0],
+                "is_favorite": [0],
+                "ev_status": ["📊 Calculate"],
+            }
+        )
+
+    def test_column_names_includes_ev_status(self):
+        """Session table columns include the EV Status column."""
+        from pokerhero.frontend.pages.sessions import _build_session_table
+
+        result = _build_session_table(self._make_df())
+        col_names = [c["name"] for c in result.columns]
+        assert "EV Status" in col_names
+
+    def test_ev_status_data_in_rows(self):
+        """Each data row contains an 'ev_status' key."""
+        from pokerhero.frontend.pages.sessions import _build_session_table
+
+        result = _build_session_table(self._make_df())
+        assert all("ev_status" in row for row in result.data)
+
+
+# ---------------------------------------------------------------------------
+# TestCalculateEvSection
+# ---------------------------------------------------------------------------
+
+
+class TestCalculateEvSection:
+    """Tests for _build_calculate_ev_section render helper."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_returns_html_div(self):
+        """_build_calculate_ev_section returns an html.Div."""
+        from dash import html
+
+        from pokerhero.frontend.pages.sessions import _build_calculate_ev_section
+
+        result = _build_calculate_ev_section()
+        assert isinstance(result, html.Div)
+
+    def test_has_calculate_button(self):
+        """Section contains a component with id 'calculate-ev-btn'."""
+        from pokerhero.frontend.pages.sessions import _build_calculate_ev_section
+
+        result = _build_calculate_ev_section()
+        assert "calculate-ev-btn" in repr(result)
