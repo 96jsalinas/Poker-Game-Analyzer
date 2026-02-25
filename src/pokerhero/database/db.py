@@ -244,6 +244,7 @@ def clear_all_data(conn: sqlite3.Connection) -> None:
         """
         DELETE FROM actions;
         DELETE FROM hand_players;
+        DELETE FROM hand_equity;
         DELETE FROM hands;
         DELETE FROM sessions;
         DELETE FROM players;
