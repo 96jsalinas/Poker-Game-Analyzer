@@ -45,6 +45,13 @@ def init_db(db_path: str | Path) -> sqlite3.Connection:
         )
     except sqlite3.OperationalError:
         pass  # column already exists
+    # Migrate existing databases: add three_bet if not present
+    try:
+        conn.execute(
+            "ALTER TABLE hand_players ADD COLUMN three_bet INTEGER NOT NULL DEFAULT 0"
+        )
+    except sqlite3.OperationalError:
+        pass  # column already exists
     # Seed target_settings defaults (INSERT OR IGNORE — safe for existing DBs)
     seed_target_defaults(conn)
     conn.commit()
