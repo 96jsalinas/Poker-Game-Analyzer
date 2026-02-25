@@ -59,6 +59,31 @@ class TestSchema:
         ).fetchone()
         assert row is not None
 
+    def test_action_ev_cache_table_exists(self, db):
+        """action_ev_cache must be part of schema.sql."""
+        row = db.execute(
+            "SELECT name FROM sqlite_master"
+            " WHERE type='table' AND name='action_ev_cache'"
+        ).fetchone()
+        assert row is not None
+
+    def test_action_ev_cache_columns(self, db):
+        cols = self._columns(db, "action_ev_cache")
+        assert {
+            "action_id",
+            "hero_id",
+            "equity",
+            "ev",
+            "ev_type",
+            "blended_vpip",
+            "blended_pfr",
+            "blended_3bet",
+            "villain_preflop_action",
+            "contracted_range_size",
+            "sample_count",
+            "computed_at",
+        } <= cols
+
     def _columns(self, db, table):
         return {row[1] for row in db.execute(f"PRAGMA table_info({table})")}
 
@@ -106,6 +131,7 @@ class TestSchema:
             "hole_cards",
             "vpip",
             "pfr",
+            "three_bet",
             "went_to_showdown",
             "net_result",
         } <= cols
@@ -1194,3 +1220,160 @@ class TestClearAllData:
             0
         ]
         assert count > 0
+
+
+# ---------------------------------------------------------------------------
+# TestActionEvCache — action_ev_cache table and get_action_ev/save_action_evs
+# ---------------------------------------------------------------------------
+class TestActionEvCache:
+    """Tests for action_ev_cache table schema and DB helper functions."""
+
+    @pytest.fixture
+    def action_id(self, db):
+        """Seed minimum rows and return a valid action_id."""
+        cur = db.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'hero')"
+        )
+        player_id = cur.lastrowid
+        cur = db.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats, small_blind, big_blind,"
+            " ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 9, 1, 2, 0, '2024-01-01')"
+        )
+        session_id = cur.lastrowid
+        cur = db.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot,"
+            " uncalled_bet_returned, rake, timestamp)"
+            " VALUES ('H1', ?, 100, 0, 0, '2024-01-01T00:00:00')",
+            (session_id,),
+        )
+        hand_id = cur.lastrowid
+        cur = db.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type, amount,"
+            " amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'FLOP', 'BET', 10, 0, 20, 0, 1)",
+            (hand_id, player_id),
+        )
+        db.commit()
+        return cur.lastrowid, player_id
+
+    def test_get_action_ev_returns_none_on_miss(self, db, action_id):
+        from pokerhero.database.db import get_action_ev
+
+        aid, hero_id = action_id
+        assert get_action_ev(db, aid, hero_id) is None
+
+    def test_save_and_get_action_ev_exact_round_trip(self, db, action_id):
+        from pokerhero.database.db import get_action_ev, save_action_evs
+
+        aid, hero_id = action_id
+        save_action_evs(
+            db,
+            [
+                {
+                    "action_id": aid,
+                    "hero_id": hero_id,
+                    "equity": 0.72,
+                    "ev": 45.6,
+                    "ev_type": "exact",
+                    "blended_vpip": None,
+                    "blended_pfr": None,
+                    "blended_3bet": None,
+                    "villain_preflop_action": None,
+                    "contracted_range_size": None,
+                    "sample_count": 5000,
+                    "computed_at": "2024-01-01T00:00:00",
+                }
+            ],
+        )
+        db.commit()
+        row = get_action_ev(db, aid, hero_id)
+        assert row is not None
+        assert row["ev"] == pytest.approx(45.6)
+        assert row["equity"] == pytest.approx(0.72)
+        assert row["ev_type"] == "exact"
+
+    def test_save_and_get_action_ev_range_round_trip(self, db, action_id):
+        from pokerhero.database.db import get_action_ev, save_action_evs
+
+        aid, hero_id = action_id
+        save_action_evs(
+            db,
+            [
+                {
+                    "action_id": aid,
+                    "hero_id": hero_id,
+                    "equity": 0.54,
+                    "ev": 3.4,
+                    "ev_type": "range",
+                    "blended_vpip": 0.26,
+                    "blended_pfr": 0.14,
+                    "blended_3bet": 0.06,
+                    "villain_preflop_action": "2bet",
+                    "contracted_range_size": 47,
+                    "sample_count": 1000,
+                    "computed_at": "2024-01-01T00:00:00",
+                }
+            ],
+        )
+        db.commit()
+        row = get_action_ev(db, aid, hero_id)
+        assert row is not None
+        assert row["ev_type"] == "range"
+        assert row["villain_preflop_action"] == "2bet"
+        assert row["contracted_range_size"] == 47
+
+    def test_save_action_evs_upserts_on_same_key(self, db, action_id):
+        from pokerhero.database.db import get_action_ev, save_action_evs
+
+        aid, hero_id = action_id
+        base = {
+            "action_id": aid,
+            "hero_id": hero_id,
+            "equity": 0.50,
+            "ev": 10.0,
+            "ev_type": "exact",
+            "blended_vpip": None,
+            "blended_pfr": None,
+            "blended_3bet": None,
+            "villain_preflop_action": None,
+            "contracted_range_size": None,
+            "sample_count": 1000,
+            "computed_at": "2024-01-01T00:00:00",
+        }
+        save_action_evs(db, [base])
+        db.commit()
+        save_action_evs(db, [{**base, "ev": 99.0}])
+        db.commit()
+        assert get_action_ev(db, aid, hero_id)["ev"] == pytest.approx(99.0)
+
+    def test_clear_all_data_removes_action_ev_cache_rows(self, db, action_id):
+        from pokerhero.database.db import clear_all_data, save_action_evs
+
+        aid, hero_id = action_id
+        save_action_evs(
+            db,
+            [
+                {
+                    "action_id": aid,
+                    "hero_id": hero_id,
+                    "equity": 0.5,
+                    "ev": 0.0,
+                    "ev_type": "exact",
+                    "blended_vpip": None,
+                    "blended_pfr": None,
+                    "blended_3bet": None,
+                    "villain_preflop_action": None,
+                    "contracted_range_size": None,
+                    "sample_count": 1000,
+                    "computed_at": "2024-01-01T00:00:00",
+                }
+            ],
+        )
+        db.commit()
+        clear_all_data(db)
+        count = db.execute("SELECT COUNT(*) FROM action_ev_cache").fetchone()[0]
+        assert count == 0
