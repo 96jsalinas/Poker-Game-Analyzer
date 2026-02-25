@@ -2468,3 +2468,97 @@ class TestCalculateEvSection:
 
         result = _build_calculate_ev_section()
         assert "calculate-ev-btn" in repr(result)
+
+
+# ---------------------------------------------------------------------------
+# TestBuildEvCell
+# ---------------------------------------------------------------------------
+
+
+class TestBuildEvCell:
+    """Tests for _build_ev_cell display helper."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def _exact_row(self, ev: float = 10.0, equity: float = 0.67) -> dict[str, object]:
+        return {
+            "action_id": 1,
+            "hero_id": 1,
+            "equity": equity,
+            "ev": ev,
+            "ev_type": "exact",
+            "blended_vpip": None,
+            "blended_pfr": None,
+            "blended_3bet": None,
+            "villain_preflop_action": None,
+            "contracted_range_size": None,
+            "sample_count": 1000,
+            "computed_at": "2024-01-01T00:00:00",
+        }
+
+    def _range_row(self, ev: float = 3.4, equity: float = 0.54) -> dict[str, object]:
+        return {
+            "action_id": 1,
+            "hero_id": 1,
+            "equity": equity,
+            "ev": ev,
+            "ev_type": "range",
+            "blended_vpip": 0.26,
+            "blended_pfr": 0.14,
+            "blended_3bet": 0.06,
+            "villain_preflop_action": "3bet",
+            "contracted_range_size": 31,
+            "sample_count": 1000,
+            "computed_at": "2024-01-01T00:00:00",
+        }
+
+    def test_no_cache_returns_dash(self):
+        """None cache_row returns the dash placeholder string."""
+        from pokerhero.frontend.pages.sessions import _build_ev_cell
+
+        assert _build_ev_cell(None, "CALL") == "—"
+
+    def test_exact_shows_equity_percent(self):
+        """Exact EV row output contains 'Equity:' text."""
+        from pokerhero.frontend.pages.sessions import _build_ev_cell
+
+        result = _build_ev_cell(self._exact_row(), "CALL")
+        assert "Equity:" in repr(result)
+
+    def test_exact_shows_ev_value(self):
+        """Exact EV row output contains 'EV:' text."""
+        from pokerhero.frontend.pages.sessions import _build_ev_cell
+
+        result = _build_ev_cell(self._exact_row(), "CALL")
+        assert "EV:" in repr(result)
+
+    def test_exact_call_neg_ev_shows_fold_better(self):
+        """CALL with negative exact EV shows fold comparison."""
+        from pokerhero.frontend.pages.sessions import _build_ev_cell
+
+        result = _build_ev_cell(self._exact_row(ev=-5.0), "CALL")
+        assert "Fold" in repr(result)
+
+    def test_exact_bet_neg_ev_no_fold_comparison(self):
+        """BET with negative exact EV does NOT show fold comparison."""
+        from pokerhero.frontend.pages.sessions import _build_ev_cell
+
+        result = _build_ev_cell(self._exact_row(ev=-5.0), "BET")
+        assert "Fold" not in repr(result)
+
+    def test_range_shows_est_prefix(self):
+        """Range EV row uses 'Est.' prefix on equity and EV values."""
+        from pokerhero.frontend.pages.sessions import _build_ev_cell
+
+        result = _build_ev_cell(self._range_row(), "CALL")
+        assert "Est." in repr(result)
+
+    def test_range_shows_info_tooltip(self):
+        """Range EV row includes a ℹ tooltip element."""
+        from pokerhero.frontend.pages.sessions import _build_ev_cell
+
+        result = _build_ev_cell(self._range_row(), "CALL")
+        assert "ℹ" in repr(result)
