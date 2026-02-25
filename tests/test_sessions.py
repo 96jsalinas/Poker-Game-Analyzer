@@ -2306,3 +2306,134 @@ class TestAllinPotToWin:
         )
         result = _allin_pot_to_win(df, 0, "BET", 50.0, 100.0)
         assert result == pytest.approx(150.0)  # TURN call not included
+
+
+# ---------------------------------------------------------------------------
+# TestRenderActionsEVShowdown — EV column for non-all-in showdown hands
+# ---------------------------------------------------------------------------
+class TestRenderActionsEVShowdown:
+    """EV column must appear for hero actions in showdown hands where villain
+    cards are known, even without an all-in."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    @pytest.fixture
+    def db(self, tmp_path):
+        """Return (db_path, hand_id) for a non-all-in showdown hand."""
+        from pokerhero.database.db import init_db, set_setting
+
+        conn = init_db(tmp_path / "test.db")
+        cur = conn.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'Hero')"
+        )
+        hero_id = cur.lastrowid
+        cur = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('villain', 'Villain')"
+        )
+        villain_id = cur.lastrowid
+        set_setting(conn, "hero_username", "hero")
+        cur = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats, small_blind, big_blind,"
+            " ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 1, 2, 0, '2024-01-01')"
+        )
+        session_id = cur.lastrowid
+        cur = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, board_flop, board_turn, board_river,"
+            " total_pot, uncalled_bet_returned, rake, timestamp)"
+            " VALUES ('H-SD-1', ?, 'Ah 5c 7d', 'Js', '2c', 100.0, 0, 0,"
+            " '2024-01-01T00:00:00')",
+            (session_id,),
+        )
+        hand_id = cur.lastrowid
+        # Hero wins with top pair; villain shows down a bluff
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            " went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BTN', 200, 'Ac Kd', 1, 50.0)",
+            (hand_id, hero_id),
+        )
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            " went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BB', 200, '2h 3d', 1, -50.0)",
+            (hand_id, villain_id),
+        )
+        # River CALL by hero; no all-in
+        conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type, amount,"
+            " amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'RIVER', 'CALL', 20.0, 20.0, 60.0, 0, 1)",
+            (hand_id, hero_id),
+        )
+        conn.commit()
+        conn.close()
+        return str(tmp_path / "test.db"), hand_id
+
+    def test_ev_shown_for_non_allin_showdown_call(self, db):
+        """EV must appear for a hero CALL in a showdown hand (is_all_in=0)."""
+        from pokerhero.frontend.pages.sessions import _render_actions
+
+        db_path, hand_id = db
+        content, _ = _render_actions(db_path, hand_id)
+        assert "EV:" in str(content)
+
+    def test_ev_not_shown_without_villain_cards(self, tmp_path):
+        """EV must stay '—' when villain folds (cards unknown, non-showdown)."""
+        from pokerhero.database.db import init_db, set_setting
+        from pokerhero.frontend.pages.sessions import _render_actions
+
+        conn = init_db(tmp_path / "test2.db")
+        cur = conn.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'Hero')"
+        )
+        hero_id = cur.lastrowid
+        conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('villain', 'Villain')"
+        )
+        set_setting(conn, "hero_username", "hero")
+        cur = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats, small_blind, big_blind,"
+            " ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 1, 2, 0, '2024-01-01')"
+        )
+        session_id = cur.lastrowid
+        cur = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, board_flop, board_turn, board_river,"
+            " total_pot, uncalled_bet_returned, rake, timestamp)"
+            " VALUES ('H-NO-SD', ?, 'Ah 5c 7d', 'Js', '2c', 100.0, 0, 0,"
+            " '2024-01-01T00:00:00')",
+            (session_id,),
+        )
+        hand_id = cur.lastrowid
+        # Hero has hole cards, but villain folded (no hole_cards stored)
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            " went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BTN', 200, 'Ac Kd', 0, 20.0)",
+            (hand_id, hero_id),
+        )
+        conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type, amount,"
+            " amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'RIVER', 'BET', 20.0, 0, 60.0, 0, 1)",
+            (hand_id, hero_id),
+        )
+        conn.commit()
+        conn.close()
+        content, _ = _render_actions(str(tmp_path / "test2.db"), hand_id)
+        assert "EV:" not in str(content)
