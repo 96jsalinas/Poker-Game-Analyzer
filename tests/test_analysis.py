@@ -1388,10 +1388,10 @@ class TestHandRanking:
 
         assert HAND_RANKING[0] == "AA"
 
-    def test_72o_is_last(self):
+    def test_32o_is_last(self):
         from pokerhero.analysis.ranges import HAND_RANKING
 
-        assert HAND_RANKING[-1] == "72o"
+        assert HAND_RANKING[-1] == "32o"
 
     def test_aks_in_top_10(self):
         from pokerhero.analysis.ranges import HAND_RANKING
