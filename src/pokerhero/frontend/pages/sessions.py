@@ -416,6 +416,7 @@ layout = html.Div(
         dcc.Loading(html.Div(id="drill-down-content")),
         dcc.Store(id="drill-down-state", data={"level": "sessions"}),
         dcc.Store(id="pending-session-report"),
+        dcc.Store(id="ev-result-store", data=None),
     ],
 )
 
@@ -710,7 +711,6 @@ def _build_calculate_ev_section() -> html.Div:
                 id="ev-status-text",
                 style={"marginLeft": "10px", "fontSize": "13px"},
             ),
-            dcc.Store(id="ev-result-store", data=None),
         ],
         style={"marginTop": "8px", "display": "flex", "alignItems": "center"},
     )
