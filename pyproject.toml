@@ -12,6 +12,8 @@ dependencies = [
     "numpy",
     "pokerkit",
     "dash",
+    "diskcache",
+    "multiprocess",
 ]
 
 [project.optional-dependencies]
