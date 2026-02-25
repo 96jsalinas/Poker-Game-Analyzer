@@ -1641,3 +1641,58 @@ class TestReadTargetSettings:
         result = read_target_settings(conn)
         assert result[("vpip", "btn")]["green_min"] == 30.0
         assert result[("vpip", "btn")]["green_max"] == 45.0
+
+
+# ---------------------------------------------------------------------------
+# TestSeedTargetDefaults — seed_target_defaults writes defaults to DB
+# ---------------------------------------------------------------------------
+class TestSeedTargetDefaults:
+    """seed_target_defaults must INSERT OR IGNORE all 18 default rows."""
+
+    def _empty_conn(self):
+        import sqlite3
+
+        from pokerhero.analysis.targets import ensure_target_settings_table
+
+        conn = sqlite3.connect(":memory:")
+        ensure_target_settings_table(conn)
+        # Wipe any rows that ensure_target_settings_table may have seeded
+        conn.execute("DELETE FROM target_settings")
+        conn.commit()
+        return conn
+
+    def test_seed_populates_all_18_rows(self):
+        """seed_target_defaults must write exactly 18 rows (3 stats × 6 positions)."""
+        from pokerhero.analysis.targets import seed_target_defaults
+
+        conn = self._empty_conn()
+        seed_target_defaults(conn)
+        count = conn.execute("SELECT COUNT(*) FROM target_settings").fetchone()[0]
+        assert count == 18
+
+    def test_seed_is_idempotent(self):
+        """Calling seed_target_defaults twice must not duplicate rows."""
+        from pokerhero.analysis.targets import seed_target_defaults
+
+        conn = self._empty_conn()
+        seed_target_defaults(conn)
+        seed_target_defaults(conn)
+        count = conn.execute("SELECT COUNT(*) FROM target_settings").fetchone()[0]
+        assert count == 18
+
+    def test_seed_does_not_overwrite_custom_values(self):
+        """seed_target_defaults must not overwrite rows already in the table."""
+        from pokerhero.analysis.targets import seed_target_defaults
+
+        conn = self._empty_conn()
+        conn.execute(
+            "INSERT INTO target_settings"
+            " (stat, position, green_min, green_max, yellow_min, yellow_max)"
+            " VALUES ('vpip', 'btn', 99.0, 99.0, 99.0, 99.0)"
+        )
+        conn.commit()
+        seed_target_defaults(conn)
+        row = conn.execute(
+            "SELECT green_min FROM target_settings WHERE stat='vpip' AND position='btn'"
+        ).fetchone()
+        assert row[0] == 99.0  # custom value must survive

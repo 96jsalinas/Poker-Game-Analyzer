@@ -51,6 +51,14 @@ class TestSchema:
         ).fetchone()
         assert row is not None
 
+    def test_target_settings_table_exists(self, db):
+        """target_settings must be part of schema.sql (not created lazily)."""
+        row = db.execute(
+            "SELECT name FROM sqlite_master"
+            " WHERE type='table' AND name='target_settings'"
+        ).fetchone()
+        assert row is not None
+
     def _columns(self, db, table):
         return {row[1] for row in db.execute(f"PRAGMA table_info({table})")}
 
@@ -119,6 +127,49 @@ class TestSchema:
             "spr",
             "mdf",
         } <= cols
+
+
+class TestInitDbSeedsTargetDefaults:
+    """init_db must pre-populate target_settings with all default rows."""
+
+    def test_init_db_seeds_all_18_rows(self, tmp_path):
+        """After init_db, target_settings has 18 rows (3 stats × 6 positions)."""
+        from pokerhero.database.db import init_db
+
+        conn = init_db(tmp_path / "test.db")
+        count = conn.execute("SELECT COUNT(*) FROM target_settings").fetchone()[0]
+        conn.close()
+        assert count == 18
+
+    def test_init_db_seed_is_idempotent(self, tmp_path):
+        """Calling init_db twice must not duplicate rows."""
+        from pokerhero.database.db import init_db
+
+        conn = init_db(tmp_path / "test.db")
+        conn.close()
+        conn = init_db(tmp_path / "test.db")
+        count = conn.execute("SELECT COUNT(*) FROM target_settings").fetchone()[0]
+        conn.close()
+        assert count == 18
+
+    def test_init_db_seed_does_not_overwrite_custom_values(self, tmp_path):
+        """init_db on existing DB must not overwrite user-customised target rows."""
+        from pokerhero.database.db import init_db
+
+        conn = init_db(tmp_path / "test.db")
+        conn.execute(
+            "INSERT OR REPLACE INTO target_settings"
+            " (stat, position, green_min, green_max, yellow_min, yellow_max)"
+            " VALUES ('vpip', 'btn', 99.0, 99.0, 99.0, 99.0)"
+        )
+        conn.commit()
+        conn.close()
+        conn = init_db(tmp_path / "test.db")
+        row = conn.execute(
+            "SELECT green_min FROM target_settings WHERE stat='vpip' AND position='btn'"
+        ).fetchone()
+        conn.close()
+        assert row[0] == 99.0  # custom value preserved
 
 
 class TestConnection:
@@ -1127,3 +1178,19 @@ class TestClearAllData:
         clear_all_data(populated_db)
         count = populated_db.execute("SELECT COUNT(*) FROM hand_equity").fetchone()[0]
         assert count == 0
+
+    def test_clear_all_data_preserves_target_settings(self, populated_db):
+        """target_settings must survive clear_all_data (config, not data)."""
+        from pokerhero.database.db import clear_all_data
+
+        populated_db.execute(
+            "INSERT OR REPLACE INTO target_settings"
+            " (stat, position, green_min, green_max, yellow_min, yellow_max)"
+            " VALUES ('vpip', 'btn', 30.0, 45.0, 24.0, 52.0)"
+        )
+        populated_db.commit()
+        clear_all_data(populated_db)
+        count = populated_db.execute("SELECT COUNT(*) FROM target_settings").fetchone()[
+            0
+        ]
+        assert count > 0
