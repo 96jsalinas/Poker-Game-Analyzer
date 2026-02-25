@@ -348,3 +348,54 @@ def build_range(
         f"Unknown villain_preflop_action: {villain_preflop_action!r}. "
         "Expected one of: 'call', '2bet', '3bet', '4bet+'"
     )
+
+
+# ---------------------------------------------------------------------------
+# Combo expansion
+# ---------------------------------------------------------------------------
+
+_SUITS = "cdhs"
+_RANKS = "AKQJT98765432"
+
+
+def expand_combos(range_hands: list[str], dead_cards: set[str]) -> list[str]:
+    """Expand shorthand hands to specific two-card combos, filtering dead cards.
+
+    Args:
+        range_hands: List of canonical hand strings, e.g. ``['AA', 'AKs', 'AKo']``.
+        dead_cards: Set of individual card strings to exclude (e.g. ``{'Ah', 'Kd'}``).
+            Typically hero's hole cards plus all board cards seen so far.
+
+    Returns:
+        List of space-separated combo strings, e.g. ``['Ac Kc', 'Ad Kd', ...]``,
+        with every combo containing a dead card removed.
+    """
+    combos: list[str] = []
+    for hand in range_hands:
+        if len(hand) == 2:
+            # Pocket pair: e.g. "AA"
+            r = hand[0]
+            suited_cards = [r + s for s in _SUITS]
+            for i in range(4):
+                for j in range(i + 1, 4):
+                    c1, c2 = suited_cards[i], suited_cards[j]
+                    if c1 not in dead_cards and c2 not in dead_cards:
+                        combos.append(f"{c1} {c2}")
+        elif hand.endswith("s"):
+            # Suited: e.g. "AKs"
+            r1, r2 = hand[0], hand[1]
+            for s in _SUITS:
+                c1, c2 = r1 + s, r2 + s
+                if c1 not in dead_cards and c2 not in dead_cards:
+                    combos.append(f"{c1} {c2}")
+        else:
+            # Offsuit: e.g. "AKo"
+            r1, r2 = hand[0], hand[1]
+            for s1 in _SUITS:
+                for s2 in _SUITS:
+                    if s1 == s2:
+                        continue
+                    c1, c2 = r1 + s1, r2 + s2
+                    if c1 not in dead_cards and c2 not in dead_cards:
+                        combos.append(f"{c1} {c2}")
+    return combos
