@@ -695,16 +695,19 @@ def _build_calculate_ev_section() -> html.Div:
     """Return the 'Calculate EVs' button + status area for the sessions view."""
     return html.Div(
         [
-            html.Button(
-                "📊 Calculate EVs",
-                id="calculate-ev-btn",
-                style={
-                    "padding": "6px 14px",
-                    "borderRadius": "4px",
-                    "border": "1px solid var(--border, #ccc)",
-                    "cursor": "pointer",
-                    "fontSize": "13px",
-                },
+            dcc.Loading(
+                html.Button(
+                    "📊 Calculate EVs",
+                    id="calculate-ev-btn",
+                    style={
+                        "padding": "6px 14px",
+                        "borderRadius": "4px",
+                        "border": "1px solid var(--border, #ccc)",
+                        "cursor": "pointer",
+                        "fontSize": "13px",
+                    },
+                ),
+                type="circle",
             ),
             html.Span(
                 "",
@@ -2871,20 +2874,16 @@ def _browse_session_hands(
 
 @callback(
     Output("ev-result-store", "data"),
+    Output("ev-status-text", "children"),
     Input("calculate-ev-btn", "n_clicks"),
     State("drill-down-state", "data"),
-    background=True,
-    running=[
-        (Output("calculate-ev-btn", "disabled"), True, False),
-        (Output("ev-status-text", "children"), "⚙️ Calculating…", "✅ Done"),
-    ],
     prevent_initial_call=True,
 )
 def _bg_calculate_session_evs(
     n_clicks: int | None,
     state: _DrillDownState | None,
-) -> dict[str, Any]:
-    """Background callback: run calculate_session_evs for the current session."""
+) -> tuple[dict[str, Any], str]:
+    """Synchronous callback: run calculate_session_evs for the current session."""
     if not n_clicks or state is None:
         raise dash.exceptions.PreventUpdate
     session_id = int(state.get("session_id") or 0)
@@ -2905,4 +2904,4 @@ def _bg_calculate_session_evs(
     finally:
         conn.close()
     calculate_session_evs(db_path, session_id, hero_id, settings)
-    return {"session_id": session_id, "done": True}
+    return {"session_id": session_id, "done": True}, "✅ Done"
