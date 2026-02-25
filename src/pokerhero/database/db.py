@@ -26,6 +26,8 @@ def get_connection(db_path: str | Path) -> sqlite3.Connection:
 
 def init_db(db_path: str | Path) -> sqlite3.Connection:
     """Create the database schema if it doesn't exist. Returns an open connection."""
+    from pokerhero.analysis.targets import seed_target_defaults
+
     conn = get_connection(db_path)
     conn.executescript(_SCHEMA_PATH.read_text())
     # Migrate existing databases: add is_favorite if not present
@@ -43,6 +45,8 @@ def init_db(db_path: str | Path) -> sqlite3.Connection:
         )
     except sqlite3.OperationalError:
         pass  # column already exists
+    # Seed target_settings defaults (INSERT OR IGNORE — safe for existing DBs)
+    seed_target_defaults(conn)
     conn.commit()
     return conn
 

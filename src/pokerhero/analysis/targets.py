@@ -135,9 +135,10 @@ def canonical_position(position: str) -> str:
 
 
 def ensure_target_settings_table(conn: Connection) -> None:
-    """Create the ``target_settings`` table if it does not exist.
+    """Create the ``target_settings`` table if it does not exist and seed defaults.
 
-    Safe to call on every connection — uses ``CREATE TABLE IF NOT EXISTS``.
+    Safe to call on every connection — uses ``CREATE TABLE IF NOT EXISTS`` and
+    ``INSERT OR IGNORE`` so existing customisations are never overwritten.
     """
     conn.execute(
         """
@@ -151,6 +152,34 @@ def ensure_target_settings_table(conn: Connection) -> None:
             PRIMARY KEY (stat, position)
         )
         """
+    )
+    seed_target_defaults(conn)
+
+
+def seed_target_defaults(conn: Connection) -> None:
+    """Insert all ``TARGET_DEFAULTS`` rows using ``INSERT OR IGNORE``.
+
+    Rows that already exist (user-customised values) are left untouched.
+    Safe to call multiple times — idempotent.
+
+    Args:
+        conn: Open SQLite connection with ``target_settings`` table present.
+    """
+    conn.executemany(
+        "INSERT OR IGNORE INTO target_settings"
+        " (stat, position, green_min, green_max, yellow_min, yellow_max)"
+        " VALUES (?, ?, ?, ?, ?, ?)",
+        [
+            (
+                stat,
+                pos,
+                b["green_min"],
+                b["green_max"],
+                b["yellow_min"],
+                b["yellow_max"],
+            )
+            for (stat, pos), b in TARGET_DEFAULTS.items()
+        ],
     )
     conn.commit()
 

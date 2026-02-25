@@ -74,3 +74,13 @@ CREATE TABLE IF NOT EXISTS hand_equity (
     sample_count INTEGER NOT NULL,
     PRIMARY KEY (hand_id, hero_id)
 );
+
+CREATE TABLE IF NOT EXISTS target_settings (
+    stat       TEXT NOT NULL,
+    position   TEXT NOT NULL,
+    green_min  REAL NOT NULL,
+    green_max  REAL NOT NULL,
+    yellow_min REAL NOT NULL,
+    yellow_max REAL NOT NULL,
+    PRIMARY KEY (stat, position)
+);
