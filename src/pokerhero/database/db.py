@@ -131,6 +131,34 @@ def set_setting(conn: sqlite3.Connection, key: str, value: str) -> None:
     )
 
 
+#: Default values for the 8 range-EV analysis settings.
+RANGE_SETTING_DEFAULTS: dict[str, float] = {
+    "range_vpip_prior": 26.0,
+    "range_pfr_prior": 14.0,
+    "range_3bet_prior": 6.0,
+    "range_4bet_prior": 3.0,
+    "range_prior_weight": 30.0,
+    "range_sample_count": 1000.0,
+    "range_continue_pct_passive": 65.0,
+    "range_continue_pct_aggressive": 40.0,
+}
+
+
+def get_range_settings(conn: sqlite3.Connection) -> dict[str, float]:
+    """Return all 8 range-EV analysis settings, falling back to defaults.
+
+    Args:
+        conn: An open SQLite connection.
+
+    Returns:
+        Dict mapping each range setting key to its configured float value.
+    """
+    return {
+        key: float(get_setting(conn, key, default=str(default)))
+        for key, default in RANGE_SETTING_DEFAULTS.items()
+    }
+
+
 def update_session_financials(
     conn: sqlite3.Connection,
     session_id: int,
