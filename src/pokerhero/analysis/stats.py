@@ -330,6 +330,84 @@ def compute_ev(
     return ev, equity
 
 
+def compute_equity_vs_range(
+    hero_cards: str,
+    board: str,
+    vpip_pct: float,
+    pfr_pct: float,
+    three_bet_pct: float,
+    villain_preflop_action: str,
+    villain_street_history: list[tuple[str, str]],
+    four_bet_prior: float = 3.0,
+    sample_count: int = 1000,
+    continue_pct_passive: float = 65.0,
+    continue_pct_aggressive: float = 40.0,
+) -> tuple[float, int]:
+    """Estimate hero equity against a range derived from villain's action history.
+
+    Pipeline:
+      1. build_range(vpip, pfr, three_bet_pct, villain_preflop_action)
+      2. expand_combos dead-card filtered against hero cards + full board
+      3. contract_range per intermediate street in villain_street_history
+      4. Monte Carlo sampling of equity against contracted combos
+
+    Args:
+        hero_cards: Hero hole cards, space-separated (e.g. ``"Ah Kh"``).
+        board: Full board at the current action's street, space-separated.
+        vpip_pct: Villain VPIP percentage (0–100).
+        pfr_pct: Villain PFR percentage (0–100).
+        three_bet_pct: Villain 3-bet percentage (0–100).
+        villain_preflop_action: One of ``'call'``, ``'2bet'``, ``'3bet'``,
+            ``'4bet+'``.
+        villain_street_history: Ordered list of ``(board_at_street,
+            villain_action)`` tuples for streets before the current one.
+            Empty for FLOP actions.
+        four_bet_prior: Fixed prior % for 4-bet+ ranges.
+        sample_count: Number of Monte Carlo samples.
+        continue_pct_passive: % of combos retained for passive villain actions.
+        continue_pct_aggressive: % of combos retained for aggressive actions.
+
+    Returns:
+        ``(equity, contracted_range_size)``.  Returns ``(0.0, 0)`` when fewer
+        than 5 combos survive range contraction.
+    """
+    import random
+    from collections import Counter
+
+    from pokerhero.analysis.ranges import build_range, contract_range, expand_combos
+
+    range_hands = build_range(
+        vpip_pct, pfr_pct, three_bet_pct, villain_preflop_action, four_bet_prior
+    )
+    dead = set(hero_cards.split()) | (set(board.split()) if board else set())
+    combos = expand_combos(range_hands, dead)
+
+    for board_at_street, villain_action in villain_street_history:
+        combos = contract_range(
+            combos,
+            board_at_street,
+            villain_action.lower(),
+            continue_pct_passive=continue_pct_passive,
+            continue_pct_aggressive=continue_pct_aggressive,
+        )
+
+    if len(combos) < 5:
+        return (0.0, 0)
+
+    contracted_size = len(combos)
+    sampled = random.choices(combos, k=sample_count)
+    combo_counts = Counter(sampled)
+
+    total_eq = 0.0
+    total_n = 0
+    for combo, n in combo_counts.items():
+        eq = compute_equity(hero_cards.strip(), combo, board.strip(), n)
+        total_eq += eq * n
+        total_n += n
+
+    return (total_eq / total_n, contracted_size)
+
+
 _MIN_HANDS_FOR_CLASSIFICATION = 15
 _PRELIMINARY_HANDS_THRESHOLD = 50
 _CONFIRMED_HANDS_THRESHOLD = 100
