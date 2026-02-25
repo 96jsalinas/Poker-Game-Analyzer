@@ -283,6 +283,7 @@ def build_range(
     three_bet_pct: float,
     villain_preflop_action: str,
     four_bet_prior: float = 3.0,
+    hand_ranking: list[str] | None = None,
 ) -> list[str]:
     """Return villain's pre-flop range as a list of canonical hand strings.
 
@@ -300,39 +301,40 @@ def build_range(
         villain_preflop_action: One of ``'call'``, ``'2bet'``, ``'3bet'``,
             ``'4bet+'``.
         four_bet_prior: Fixed prior used for 4-bet+ ranges (%).
+        hand_ranking: Custom hand ranking list to use instead of the module
+            default ``HAND_RANKING``. Pass ``None`` to use the default.
 
     Returns:
-        List of hand strings from HAND_RANKING (e.g. ``['AA', 'KK', 'AKs']``).
+        List of hand strings from the ranking (e.g. ``['AA', 'KK', 'AKs']``).
 
     Raises:
         ValueError: If ``villain_preflop_action`` is not a recognised value.
     """
+    ranking = hand_ranking if hand_ranking is not None else HAND_RANKING
+    n = len(ranking)
+
     if villain_preflop_action == "2bet":
-        top_n = max(1, round(_N * pfr_pct / 100))
-        return HAND_RANKING[:top_n]
+        top_n = max(1, round(n * pfr_pct / 100))
+        return ranking[:top_n]
 
     if villain_preflop_action == "3bet":
-        top_n = max(1, round(_N * three_bet_pct / 100))
-        return HAND_RANKING[:top_n]
+        top_n = max(1, round(n * three_bet_pct / 100))
+        return ranking[:top_n]
 
     if villain_preflop_action == "4bet+":
-        top_n = max(1, round(_N * four_bet_prior / 100))
-        return HAND_RANKING[:top_n]
+        top_n = max(1, round(n * four_bet_prior / 100))
+        return ranking[:top_n]
 
     if villain_preflop_action == "call":
-        lo = max(0, round(_N * pfr_pct / 100))
-        hi = max(lo, round(_N * vpip_pct / 100))
-        return HAND_RANKING[lo:hi]
+        lo = max(0, round(n * pfr_pct / 100))
+        hi = max(lo, round(n * vpip_pct / 100))
+        return ranking[lo:hi]
 
     raise ValueError(
         f"Unknown villain_preflop_action: {villain_preflop_action!r}. "
         "Expected one of: 'call', '2bet', '3bet', '4bet+'"
     )
 
-
-# ---------------------------------------------------------------------------
-# Combo expansion
-# ---------------------------------------------------------------------------
 
 _SUITS = "cdhs"
 _RANKS = "AKQJT98765432"

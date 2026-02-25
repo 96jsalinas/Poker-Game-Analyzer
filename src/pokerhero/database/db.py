@@ -159,6 +159,38 @@ def get_range_settings(conn: sqlite3.Connection) -> dict[str, float]:
     }
 
 
+def get_hand_ranking(conn: sqlite3.Connection) -> list[str]:
+    """Return the hand ranking list from the DB, falling back to the default.
+
+    Args:
+        conn: An open SQLite connection.
+
+    Returns:
+        List of 169 canonical hand strings in descending strength order.
+    """
+    import json
+
+    from pokerhero.analysis.ranges import HAND_RANKING as _DEFAULT
+
+    raw = get_setting(conn, "hand_ranking", default="")
+    if not raw:
+        return list(_DEFAULT)
+    result: list[str] = json.loads(raw)
+    return result
+
+
+def save_hand_ranking(conn: sqlite3.Connection, ranking: list[str]) -> None:
+    """Persist a custom hand ranking to the settings table.
+
+    Args:
+        conn: An open SQLite connection.
+        ranking: List of canonical hand strings in desired order.
+    """
+    import json
+
+    set_setting(conn, "hand_ranking", json.dumps(ranking))
+
+
 def update_session_financials(
     conn: sqlite3.Connection,
     session_id: int,
