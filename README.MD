@@ -152,6 +152,7 @@ All runtime and development dependencies use permissive open-source licenses tha
 | [Dash (Plotly)](https://dash.plotly.com/) | MIT | Runtime |
 | [Pandas](https://pandas.pydata.org/) | BSD 3-Clause | Runtime |
 | [NumPy](https://numpy.org/) | BSD 3-Clause | Runtime |
+| [diskcache](https://github.com/grantjenks/python-diskcache) | Apache 2.0 | Runtime |
 | [pytest](https://pytest.org/) | MIT | Dev only |
 | [mypy](https://mypy-lang.org/) | MIT | Dev only |
 | [Ruff](https://github.com/astral-sh/ruff) | MIT | Dev only |
@@ -159,4 +160,4 @@ All runtime and development dependencies use permissive open-source licenses tha
 | [pandas-stubs](https://github.com/pandas-dev/pandas-stubs) | BSD 3-Clause | Dev only |
 | [Hatchling](https://hatch.pypa.io/) | MIT | Build tool |
 
-**MIT and BSD 3-Clause are both permissive licenses with no copyleft restrictions.** They do not require this project to adopt a particular license, share source code, or impose any obligations beyond attribution. BSD 3-Clause adds a non-endorsement clause (you may not use the copyright holders' names to promote derived products without permission), which has no effect on this project's own MIT licensing.
+**MIT, BSD 3-Clause, and Apache 2.0 are all permissive licenses with no copyleft restrictions.** They do not require this project to adopt a particular license, share source code, or impose any obligations beyond attribution. BSD 3-Clause adds a non-endorsement clause (you may not use the copyright holders' names to promote derived products without permission), which has no effect on this project's own MIT licensing. Apache 2.0 additionally includes an explicit patent grant from contributors, also with no impact on this project's MIT license.
