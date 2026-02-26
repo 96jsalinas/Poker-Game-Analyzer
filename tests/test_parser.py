@@ -757,6 +757,28 @@ class TestActionParsing:
         )
         assert hero_flop_call.amount_to_call == Decimal("400")
 
+    def test_fold_amount_to_call_nonzero_when_facing_bet(
+        self, cash_raises_preflop: ParsedHand
+    ) -> None:
+        """Hero folds river facing a 4338 bet; amount_to_call should be 4338."""
+        hero_river_fold = next(
+            a
+            for a in cash_raises_preflop.actions
+            if a.is_hero and a.action_type == "FOLD" and a.street == "RIVER"
+        )
+        assert hero_river_fold.amount_to_call == Decimal("4338")
+
+    def test_fold_amount_to_call_zero_when_not_facing_bet(
+        self, cash_folds_preflop: ParsedHand
+    ) -> None:
+        """Hero folds preflop when no bet is pending; amount_to_call should be 0."""
+        hero_fold = next(
+            a
+            for a in cash_folds_preflop.actions
+            if a.is_hero and a.action_type == "FOLD"
+        )
+        assert hero_fold.amount_to_call == Decimal("0")
+
     # --- noise lines must not generate actions ---
 
     def test_disconnected_lines_no_action(self, tourn_disconnected: ParsedHand) -> None:
