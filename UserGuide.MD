@@ -152,9 +152,10 @@ Each action row shows:
   - **Pot Odds%** — the equity you need to break even calling this bet.
   - **MDF%** — the % of your range you must continue with to prevent the villain profiting purely from bluffs.
   - **SPR** — shown once at the start of the Flop; how many pot-sized bets deep the stacks are.
-  - **EV** — shown on hero CALL/BET/RAISE actions after EVs have been calculated (use **📊 Calculate EVs** on the session report):
+  - **EV** — shown on hero CALL/BET/RAISE/FOLD actions after EVs have been calculated (use **📊 Calculate EVs** on the session report):
     - **Exact EV** (`Equity: X%  EV: ±Y`): villain's cards were known. For CALL actions with negative EV, a *"[Fold was better ↑]"* hint appears.
     - **Est. EV** (`Est. Equity: ~X%  Est. EV: ±Y`): villain's cards were unknown; equity estimated from their inferred range. Hover the ℹ icon to see the pre-flop range type and contracted range size.
+    - **Fold verdict** (FOLD actions facing a bet): `✓ Good fold (call EV: −X)` in green, or `⚠ Should have called (call EV: +X)` in red — shows whether calling would have been +EV.
 
 ---
 
@@ -289,6 +290,8 @@ Two display modes:
 - **Est. EV** — villain's cards were unknown. Equity is estimated by building a range from their session VPIP/PFR/3-Bet stats (blended with population priors) and contracting it street by street based on their actions. Hover the ℹ icon for details.
 
 For CALL actions with **negative exact EV**, a *"[Fold was better ↑]"* hint is shown — the fold option had higher expected value.
+
+For **FOLD actions facing a bet**, the EV column shows a verdict: **✓ Good fold (call EV: −X)** (green) when calling would have been −EV, or **⚠ Should have called (call EV: +X)** (red) when calling would have been +EV.
 
 > **How equity is calculated:** Using PokerKit's `calculate_equities` via Monte Carlo simulation. The number of samples is configurable via **Range sample count** in Analysis Settings (default: 1 000).
 

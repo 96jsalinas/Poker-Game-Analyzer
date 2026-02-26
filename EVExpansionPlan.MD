@@ -597,3 +597,54 @@ session list."*
 | `test_sessions.py` | Remove `TestBuildEquityMap`, `TestCountSessionShowdownHands`; update EV tests; background callback smoke test |
 | `test_analysis.py` | New range + blend (VPIP/PFR/3-bet/4-bet) + contraction tests |
 | `test_settings.py` | New settings tests (all eight range settings) |
+
+---
+
+## Post-Plan Enhancement: Fold EV (Was the Fold Correct?)
+
+After the original plan was fully implemented, a post-plan enhancement was added to display whether a river (or any postflop) fold was correct.
+
+### Problem
+FOLD actions always had `amount_to_call = 0` in the parser regardless of the pending bet, so the `amount_to_call > 0` filter in `get_session_hero_ev_actions` correctly excluded them — but only because the data was never populated correctly.
+
+### Changes
+
+#### Parser fix (`hand_parser.py`)
+FOLD actions now compute `amount_to_call` using the same formula as CALL:
+
+```python
+atc = max(Decimal("0"), street_bet - street_committed.get(username, Decimal("0")))
+```
+
+Open folds (no pending bet, e.g. BTN open-folds) retain `amount_to_call = 0`. MDF is explicitly excluded from FOLD actions (it is only meaningful for defending decisions).
+
+#### Query (`queries.py`)
+`get_session_hero_ev_actions` extended to include:
+```sql
+OR (a.action_type = 'FOLD' AND a.amount_to_call > 0)
+```
+
+#### Orchestrator (`stats.py`)
+`calculate_session_evs` uses `amount_to_call` as the wager for both CALL and FOLD actions — computing the **EV of calling** for FOLDs.
+
+#### Display (`sessions.py`)
+`_build_ev_cell` has a new FOLD branch (before the `ev_type == "exact"` branch):
+- `EV > 0` → **⚠ Should have called (call EV: +X)** in red
+- `EV ≤ 0` → **✓ Good fold (call EV: −X)** in green
+
+### Files Added/Modified (post-plan)
+
+| File | Change |
+|---|---|
+| `hand_parser.py` | Compute `amount_to_call` for FOLD from `street_bet`; exclude FOLD from MDF |
+| `queries.py` | `get_session_hero_ev_actions` — added FOLD branch |
+| `stats.py` | `calculate_session_evs` — wager uses `amount_to_call` for FOLD |
+| `sessions.py` | `_build_ev_cell` — FOLD verdict display |
+| `test_parser.py` | Two new tests: fold facing bet has `amount_to_call` set; open fold has `amount_to_call = 0` |
+| `test_sessions.py` | Two new `TestBuildEvCell` tests; two new `TestCalculateSessionEvs` tests |
+| `DataStructure.MD` | Updated `amount_to_call` and `mdf` descriptions |
+| `AnalysisLogic.MD` | Updated wager line; added § D Fold EV subsection |
+| `UserGuide.MD` | Updated EV column description and fold hint text |
+
+### Re-ingestion required
+The parser fix changes how `amount_to_call` is stored at parse time. Existing DB rows for FOLD actions will have `amount_to_call = 0`. Users must re-upload their hand history files (via **Clear Data → re-upload**) to get correct fold EV values.

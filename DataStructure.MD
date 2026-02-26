@@ -68,12 +68,12 @@ Atomic actions. Stores "Contextual Math" to allow for instant Pot Odds analysis.
 | `street` | Enum | PREFLOP, FLOP, TURN, RIVER. |
 | `action_type` | Enum | FOLD, CHECK, CALL, BET, RAISE, ALL_IN. |
 | `amount` | Decimal | Total bet/raise size on the current street (not the incremental cost). e.g., if Hero raises to $35 over a $10 bet, `amount = 35`. |
-| `amount_to_call` | Decimal | The total facing bet size Hero must match (e.g., villain bet $25 → `amount_to_call = 25`). Note: this is NOT the incremental cost — if Hero already committed $10, the incremental cost = `amount_to_call - prior_commitment`. |
+| `amount_to_call` | Decimal | The total facing bet size Hero must match (e.g., villain bet $25 → `amount_to_call = 25`). Set for CALL, RAISE, and **FOLD actions facing a bet**. Note: this is NOT the incremental cost — if Hero already committed $10, the incremental cost = `amount_to_call - prior_commitment`. Zero for BET, CHECK, and FOLD actions where no bet was pending on that street. |
 | `pot_before` | Decimal | The total pot size *before* this action. |
 | `is_all_in` | Boolean | Flag to trigger "Effective Stack" logic. |
 | `sequence` | Integer | Global order of actions in the hand (1, 2, 3...). |
 | `spr` | Decimal | Stack-to-Pot Ratio, pre-calculated at flop commencement. NULL for all other streets/actions. |
-| `mdf` | Decimal | Minimum Defense Frequency, pre-calculated when Hero faces a bet. NULL otherwise. |
+| `mdf` | Decimal | Minimum Defense Frequency, pre-calculated when Hero faces a bet on a CALL or RAISE action. NULL for FOLD (not applicable — Hero chose not to defend) and all other actions. |
 
 ## 👤 5. Players
 Stores players.
@@ -223,11 +223,11 @@ These dataclasses are what `HandParser.parse()` returns. Field names differ from
 | `street` | `str` | `PREFLOP / FLOP / TURN / RIVER` |
 | `action_type` | `str` | `POST_BLIND / POST_ANTE / FOLD / CHECK / CALL / BET / RAISE` |
 | `amount` | `Decimal` | total bet/raise size on street; 0 for FOLD/CHECK |
-| `amount_to_call` | `Decimal` | facing bet Hero must match; 0 for BET/CHECK/FOLD/POST_* |
+| `amount_to_call` | `Decimal` | facing bet Hero must match; 0 for BET/CHECK/POST_*; set to the pending bet size for FOLD when folding to a bet |
 | `pot_before` | `Decimal` | running pot before this action |
 | `is_all_in` | `bool` | |
 | `spr` | `Decimal \| None` | set only on first hero FLOP action |
-| `mdf` | `Decimal \| None` | set only when `is_hero=True` and `amount_to_call > 0` |
+| `mdf` | `Decimal \| None` | set only when `is_hero=True`, `amount_to_call > 0`, and `action_type != 'FOLD'` |
 
 ### `ParsedHand`
 Top-level container returned by `HandParser(hero="username").parse(text)`:

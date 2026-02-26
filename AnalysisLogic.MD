@@ -133,8 +133,8 @@ $$EV_{Action} = (Equity \times Pot_{to\_Win}) - ((1 - Equity) \times Wager)$$
 
 * **Equity**: Hero's win % computed via PokerKit Monte Carlo simulation against the villain's exact hole cards.
 * **Pot to Win**: `pot_before + wager` (what Hero stands to gain).
-* **Wager**: `amount_to_call` for CALL actions; `amount` for BET/RAISE actions.
-* **Display**: Green = positive EV, Red = negative EV. For CALL actions with negative EV, a *"[Fold was better ↑]"* hint appears.
+* **Wager**: `amount_to_call` for CALL and FOLD actions; `amount` for BET/RAISE actions.
+* **Display**: Green = positive EV, Red = negative EV. For CALL actions with negative EV, a *"[Fold was better ↑]"* hint appears. For FOLD actions, a verdict is shown instead (see § D Fold EV below).
 * **`ev_type = 'exact'`** in `action_ev_cache`.
 
 ### B. Range-based EV (villain cards unknown)
@@ -174,9 +174,21 @@ EV is **not** computed on page load. It is computed explicitly via the **📊 Ca
 * EV is stable across page reloads (no re-computation).
 * The session list shows `✅ Ready (YYYY-MM-DD)` once EVs have been calculated.
 
-**Orchestrator**: `calculate_session_evs(db_path, session_id, hero_id, settings)` in `stats.py` — iterates over all hero CALL/BET/RAISE actions in the session, identifies the primary villain via `identify_primary_villain`, branches to exact or range path, and bulk-writes results via `save_action_evs`.
+**Orchestrator**: `calculate_session_evs(db_path, session_id, hero_id, settings)` in `stats.py` — iterates over all hero CALL/BET/RAISE actions **and FOLD actions with `amount_to_call > 0`** in the session, identifies the primary villain via `identify_primary_villain`, branches to exact or range path, and bulk-writes results via `save_action_evs`.
 
-### D. Equity Calculation Detail
+### D. Fold EV (Was the Fold Correct?)
+
+When the hero **folds facing a bet**, the orchestrator computes the **EV of calling** and stores it in `action_ev_cache` for that FOLD action. The wager is `amount_to_call` (same formula as a CALL):
+
+$$EV_{Call} = (Equity \times Pot_{to\_Win}) - ((1 - Equity) \times amount\_to\_call)$$
+
+**Display in action table:**
+* `EV_Call > 0` → **⚠ Should have called (call EV: +X)** in red — calling was +EV, so the fold was a mistake.
+* `EV_Call ≤ 0` → **✓ Good fold (call EV: −X)** in green — calling was −EV, so the fold was correct.
+
+**Parser note:** FOLD actions now have `amount_to_call` set to the pending bet size at parse time (same formula as CALL: `street_bet − player_committed_this_street`). Open folds (no pending bet) retain `amount_to_call = 0` and are excluded from EV computation. MDF is **not** computed for FOLD actions (it is only meaningful for defending decisions).
+
+### E. Equity Calculation Detail
 
 | Parameter | Value |
 | :--- | :--- |
@@ -186,7 +198,7 @@ EV is **not** computed on page load. It is computed explicitly via the **📊 Ca
 | **Deck** | Standard 52-card (`Deck.STANDARD`) |
 | **Hand evaluator** | `StandardHighHand` (best 5-card high hand) |
 
-### E. EV Summary Thresholds
+### F. EV Summary Thresholds
 
 The Session Report EV Summary classifies each showdown hand as Lucky or Unlucky based on two thresholds, both configurable via **Settings → Analysis Settings**:
 
