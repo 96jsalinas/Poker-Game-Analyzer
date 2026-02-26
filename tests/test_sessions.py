@@ -2598,3 +2598,14 @@ class TestGetSessionShowdownEvs:
         conn.commit()
         df = get_session_showdown_evs(conn, sid, hero_id)
         assert len(df) == 1
+        # Should pick the LATEST action (action_id2, equity=0.80), not the first.
+        assert abs(float(df.iloc[0]["equity"]) - 0.80) < 0.001
+
+    def test_returns_equity_for_exact_flop_action(self, conn):
+        """Exact EV cache row on FLOP is returned (not filtered out by street)."""
+        from pokerhero.analysis.queries import get_session_showdown_evs
+
+        sid, _, hero_id = self._seed(conn, with_ev_cache=True, street="FLOP")
+        df = get_session_showdown_evs(conn, sid, hero_id)
+        assert len(df) == 1
+        assert abs(float(df.iloc[0]["equity"]) - 0.75) < 0.001
