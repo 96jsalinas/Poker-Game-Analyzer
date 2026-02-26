@@ -678,9 +678,10 @@ def get_session_showdown_evs(
 ) -> pd.DataFrame:
     """Return one exact-EV row per hand for Lucky/Unlucky classification.
 
-    Queries ``action_ev_cache`` for ``ev_type = 'exact'`` rows on all-in or
-    RIVER actions.  One row per hand is returned (the earliest qualifying
-    action by action id).
+    Queries ``action_ev_cache`` for ``ev_type = 'exact'`` rows across all
+    streets.  One row per hand is returned — the latest qualifying action by
+    action id (i.e. the last decision point, which is most representative for
+    Lucky/Unlucky classification).
 
     Columns: hand_id, source_hand_id, equity, net_result.
 
@@ -707,15 +708,13 @@ def get_session_showdown_evs(
         WHERE h.session_id = :sid
           AND aec.hero_id  = :hero
           AND aec.ev_type  = 'exact'
-          AND (a.is_all_in = 1 OR a.street = 'RIVER')
           AND a.id = (
-              SELECT MIN(a2.id)
+              SELECT MAX(a2.id)
               FROM action_ev_cache aec2
               JOIN actions a2 ON aec2.action_id = a2.id
               WHERE a2.hand_id = h.id
                 AND aec2.hero_id = :hero
                 AND aec2.ev_type = 'exact'
-                AND (a2.is_all_in = 1 OR a2.street = 'RIVER')
           )
         ORDER BY h.id ASC
     """
