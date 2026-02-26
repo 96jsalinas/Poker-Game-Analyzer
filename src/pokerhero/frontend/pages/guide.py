@@ -678,7 +678,11 @@ layout = html.Div(
                 html.Strong("Exact EV"),
                 " — villain's cards were known (showdown/all-in). Equity is computed"
                 " via Monte Carlo simulation against their actual hole cards. For CALL"
-                " actions with negative EV, a '[Fold was better ↑]' hint appears.  ",
+                " actions with negative EV, a '[Fold was better ↑]' hint appears. For"
+                " FOLD actions facing a bet, a verdict is shown instead: '✓ Good fold"
+                " (call EV: −X)' in green when calling would have been −EV, or"
+                " '⚠ Should have called (call EV: +X)' in red when calling would have"
+                " been +EV.  ",
                 html.Strong("Est. EV"),
                 " — villain's cards were unknown. Equity is estimated from their"
                 " inferred range (built from session VPIP/PFR/3-Bet stats blended with"
