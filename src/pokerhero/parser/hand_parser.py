@@ -471,7 +471,10 @@ class HandParser:
             if verb == "folds":
                 action_type = "FOLD"
                 amount = Decimal("0")
-                atc = Decimal("0")
+                atc = max(
+                    Decimal("0"),
+                    street_bet - street_committed.get(username, Decimal("0")),
+                )
             elif verb == "checks":
                 action_type = "CHECK"
                 amount = Decimal("0")
@@ -804,9 +807,9 @@ class HandParser:
                     effective = min(hero_stack, min(active_stacks))
                     spr = effective / pot_before
 
-            # MDF: only when hero faces a bet
+            # MDF: only when hero faces a bet and has not folded
             mdf: Decimal | None = None
-            if is_hero and atc > Decimal("0"):
+            if is_hero and atc > Decimal("0") and atype != "FOLD":
                 mdf = pot_before / (pot_before + atc)
 
             result.append(

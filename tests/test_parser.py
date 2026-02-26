@@ -771,13 +771,14 @@ class TestActionParsing:
     def test_fold_amount_to_call_zero_when_not_facing_bet(
         self, cash_folds_preflop: ParsedHand
     ) -> None:
-        """Hero folds preflop when no bet is pending; amount_to_call should be 0."""
+        """Hero folds preflop facing only the big blind (no raise).
+        amount_to_call equals the big blind size — the hero IS facing the BB."""
         hero_fold = next(
             a
             for a in cash_folds_preflop.actions
             if a.is_hero and a.action_type == "FOLD"
         )
-        assert hero_fold.amount_to_call == Decimal("0")
+        assert hero_fold.amount_to_call == cash_folds_preflop.session.big_blind
 
     # --- noise lines must not generate actions ---
 
