@@ -596,6 +596,10 @@ def get_session_hero_ev_actions(
     Only actions where hero has hole cards are returned (NULL hole_cards rows
     are excluded at the SQL level — the orchestrator would skip them anyway).
 
+    FOLD actions with ``amount_to_call > 0`` (hero folding facing a bet) are
+    also included so the orchestrator can compute the "EV of calling" for those
+    spots.
+
     Columns: action_id, hand_id, street, action_type, amount, amount_to_call,
              pot_before, is_all_in, sequence, hero_cards, board_flop,
              board_turn, board_river, total_pot.
@@ -631,7 +635,10 @@ def get_session_hero_ev_actions(
            AND hp_hero.player_id = :hero
         WHERE h.session_id = :sid
           AND a.player_id  = :hero
-          AND a.action_type IN ('CALL', 'BET', 'RAISE')
+          AND (
+              a.action_type IN ('CALL', 'BET', 'RAISE')
+              OR (a.action_type = 'FOLD' AND a.amount_to_call > 0)
+          )
           AND hp_hero.hole_cards IS NOT NULL
           AND hp_hero.hole_cards != ''
         ORDER BY a.hand_id ASC, a.sequence ASC

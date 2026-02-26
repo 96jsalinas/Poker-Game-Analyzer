@@ -783,9 +783,9 @@ def calculate_session_evs(
             amount_to_call = float(ar["amount_to_call"])
             amount = float(ar["amount"])
             pot_before = float(ar["pot_before"])
-            # For CALL: wager = amount_to_call; for BET/RAISE: wager = amount
+            # For CALL/FOLD: wager = amount_to_call; for BET/RAISE: wager = amount
             action_type = str(ar["action_type"])
-            wager = amount_to_call if action_type == "CALL" else amount
+            wager = amount_to_call if action_type in ("CALL", "FOLD") else amount
             pot_to_win = pot_before + wager
 
             villain_id = identify_primary_villain(

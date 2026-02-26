@@ -760,6 +760,16 @@ def _build_ev_cell(
     ev_type = str(cache_row["ev_type"])
     ev_str = _fmt_pnl(ev)
 
+    if action_type == "FOLD":
+        # EV stored is the "EV of calling" — helps judge if the fold was correct.
+        if ev > 0:
+            label = f"⚠ Should have called (call EV: {ev_str})"
+            color = "var(--pnl-negative, red)"
+        else:
+            label = f"✓ Good fold (call EV: {ev_str})"
+            color = "var(--pnl-positive, green)"
+        return html.Div(html.Span(label, style={"color": color, "fontSize": "12px"}))
+
     if ev_type == "exact":
         equity_pct = f"{equity * 100:.0f}%"
         summary = f"Equity: {equity_pct}   EV: {ev_str}"
