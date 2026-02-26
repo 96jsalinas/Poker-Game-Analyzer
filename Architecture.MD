@@ -24,8 +24,10 @@ The application follows a strictly linear data processing pipeline, moving from 
 3. **Storage:** The parsed, structured data is committed to the SQLite database using raw SQL `INSERT` statements, adhering to the atomic relational schema.
   > ⚠️ **np.int64 parameter bug:** All query functions cast `player_id`, `session_id`, and `hand_id` parameters to Python `int()` before passing to `pd.read_sql_query`. SQLite3 does not reliably accept `numpy.int64` (the type pandas returns for integer columns) as bind parameters — it silently returns empty results in some versions.
 4. **Analysis Engine:** Upon a frontend request, the Python backend queries the SQLite database. Data is loaded into Pandas DataFrames.
-5. **Mathematical Evaluation:** PokerKit and Pandas process the data to calculate complex metrics (EV, Pot Odds, SPR, MDF) for specific hands or aggregate sessions.
+5. **Mathematical Evaluation:** EV is **pre-computed and cached** in `action_ev_cache` via the explicit "📊 Calculate EVs" action — it is never computed on page load. Other metrics (SPR, MDF, Pot Odds) are pre-calculated at parse time. PokerKit and Pandas handle equity sampling.
 6. **Presentation:** The analyzed DataFrames are passed to the web frontend for rendering charts, tables, and hand replayers.
+
+> **DB-First Principle:** Heavy computations (EV, equity) are stored in the database and read at display time. The session report renders instantly by reading `action_ev_cache`; recalculation only happens when the user explicitly requests it.
 
 ## 📂 Current Directory Structure
 
@@ -42,9 +44,12 @@ pokerhero-analyzer/
 │       │   └── hand_parser.py    # HandParser — regex-based PokerStars text parser
 │       ├── database/             # ✅ Implemented
 │       │   ├── __init__.py
-│       │   ├── schema.sql        # CREATE TABLE statements for all 6 tables (incl. settings)
+│       │   ├── schema.sql        # CREATE TABLE statements for all tables (sessions, hands,
+│       │   │                         # hand_players, actions, players, settings, target_settings,
+│       │   │                         # action_ev_cache)
 │       │   └── db.py             # get_connection, init_db, upsert_player, insert_*, save_parsed_hand,
-│       │                         # update_session_financials, get_setting, set_setting, clear_all_data
+│       │                         # update_session_financials, get_setting, set_setting, clear_all_data,
+│       │                         # get_action_ev, save_action_evs, get_range_settings
 │       ├── ingestion/            # ✅ Implemented
 │       │   ├── __init__.py
 │       │   ├── splitter.py       # split_hands — splits raw session text into hand blocks
@@ -55,10 +60,16 @@ pokerhero-analyzer/
 │       │   │                     # get_hero_timeline, get_hero_actions, get_hero_opportunity_actions,
 │       │   │                     # get_export_data, get_session_player_stats,
 │       │   │                     # get_session_kpis, get_session_hero_actions,
-│       │   │                     # get_session_showdown_hands → DataFrames;
+│       │   │                     # get_session_hero_ev_actions, get_session_ev_status,
+│       │   │                     # get_session_showdown_evs → DataFrames;
 │       │   │                     # all hero query functions accept optional currency_type='real'|'play'|None
+│       │   ├── ranges.py         # HAND_RANKING (169 hands), build_range (4 pre-flop action types),
+│       │   │                     # blend_vpip, blend_pfr, blend_3bet, expand_combos (dead-card filtering),
+│       │   │                     # score_combo_vs_board (draw-aware), contract_range
 │       │   └── stats.py          # vpip_pct, pfr_pct, win_rate_bb100, aggression_factor, wtsd_pct,
 │       │                         # total_profit, three_bet_pct, cbet_pct, compute_equity, compute_ev,
+│       │                         # compute_equity_vs_range, identify_primary_villain,
+│       │                         # calculate_session_evs (EV orchestrator),
 │       │                         # classify_player (TAG/LAG/Nit/Fish archetype classification)
 │       ├── frontend/             # ✅ Implemented (multi-page Dash app)
 │       │   ├── __init__.py
@@ -78,20 +89,21 @@ pokerhero-analyzer/
 │       │       │                 # → hand list → action replay; _describe_hand() uses PokerKit to identify
 │       │       │                 # best hand at showdown; _build_opponent_profile_card() renders
 │       │       │                 # TAG/LAG/Nit/Fish badges; _render_session_report() assembles
-│       │       │                 # KPI strip, narrative, EV luck indicator, and notable hands list;
-│       │       │                 # _build_equity_map() uses hand_equity DB cache to avoid recomputing
-│       │       │                 # equity for previously-seen hand/villain card combinations
+│       │       │                 # KPI strip, narrative, EV summary (reads action_ev_cache),
+│       │       │                 # Lucky/Unlucky flagged hands; _build_calculate_ev_section() button
+│       │       │                 # triggers calculate_session_evs via synchronous callback
 │       │       ├── dashboard.py  # "/dashboard" — KPI cards, bankroll graph, positional stats table
 │       │       ├── guide.py      # "/guide" — in-app user guide: stat definitions, app walkthrough
-│       │       └── settings.py   # "/settings" — hero username, Clear DB, Export CSV
+│       │       └── settings.py   # "/settings" — hero username, Clear DB, Export CSV, range settings
 │       └── config.py             # DB_PATH (overridable via POKERHERO_DB_PATH env var), setup_logging()
 ├── tests/
 │   ├── fixtures/                 # 16 .txt hand history snippets (see TestingStrategy.MD)
 │   ├── test_parser.py            # 164 tests across 15 classes
-│   ├── test_database.py          # 69 tests across 9 classes (incl. TestSettings, TestFavorites, currency storage, hand equity cache)
+│   ├── test_database.py          # 69 tests across 9 classes (incl. TestSettings, TestFavorites, currency storage, action_ev_cache)
 │   ├── test_ingestion.py         # 28 tests for pipeline, financials, re-buy detection, logging
-│   ├── test_sessions.py          # 166 tests: card rendering, hero row highlighting, math cell, sessions nav/breadcrumb/state,
+│   ├── test_sessions.py          # 182 tests: card rendering, hero row highlighting, math cell, sessions nav/breadcrumb/state,
 │   │                             # session/hand filters, favourites, DataTable sorting, format helpers,
+│   │                             # EV cell display, background callback wiring, EV summary, flagged hands,
 │   │                             # showdown section, villain summary, archetype badge, opponent profile card/panel,
 │   │                             # session report view + nav, dark mode compatibility
 │   ├── test_dashboard.py         # 31 tests: position traffic light colouring, KPI highlights, VPIP/PFR gap chart,
@@ -102,8 +114,8 @@ pokerhero-analyzer/
 │   ├── test_upload.py            # 7 tests: upload handler, logging
 │   ├── test_guide.py             # 6 tests: guide page registration and stat sections
 │   └── test_analysis.py          # 139 tests: queries and stats (vpip, pfr, win_rate, AF, wtsd, timeline,
-│                                 # 3-bet, c-bet, EV, equity cache, currency filter, session player stats,
-│                                 # player archetype classification, session analysis queries)
+│                                 # 3-bet, c-bet, EV, action_ev_cache, currency filter, session player stats,
+│                                 # player archetype classification, ranges, blend formulas, contraction)
 ├── data/
 │   └── histories/                # Raw .txt session files (git-ignored)
 └── pyproject.toml

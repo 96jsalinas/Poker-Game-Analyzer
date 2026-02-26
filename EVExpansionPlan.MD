@@ -1,6 +1,6 @@
 # EV System Redesign & Range-Based EV Expansion
 
-> **Status:** Partially implemented — Parts A and B complete, Part C steps 7a–8 complete, steps 9–10 and Part D pending.
+> **Status:** ✅ Complete — all parts implemented and documented.
 > **Branch:** `feat/ev-expansion`
 > **Scope:** Rewrite of the entire EV subsystem. No backward-compatibility
 > constraints — the app has no production users.
@@ -28,12 +28,12 @@
 9. `_render_actions` loads from `action_ev_cache` — exact + range display, fold comparison for CALL. Replaces inline `compute_ev` call. Update `TestRenderActionsEVShowdown`. ✅
 10. Session Report Lucky/Unlucky reads from DB — refactor `_build_ev_summary` + `_build_flagged_hands_list` + remove `_build_equity_map`, `_count_session_showdown_hands`. ✅
 
-### ⏳ Part D — Documentation (pending)
+### ✅ Part D — Documentation (complete)
 
-11. `AnalysisLogic.MD` — update EV section with range formula, blend formula, new display rules.
-12. `Architecture.MD` — add DB-first principle + `action_ev_cache` to data flow diagram.
-13. `DataStructure.MD` — add `action_ev_cache` schema.
-14. `UserGuide.MD` + `guide.py` — document "Calculate EVs" button, Est. EV display, fold comparison, range settings.
+11. ✅ `AnalysisLogic.MD` — updated EV section with range formula, blend formula, new display rules.
+12. ✅ `Architecture.MD` — added DB-first principle + `action_ev_cache` to data flow and directory structure.
+13. ✅ `DataStructure.MD` — added `action_ev_cache` schema, `three_bet` column, range settings.
+14. ✅ `UserGuide.MD` + `guide.py` — documented "Calculate EVs" button, Est. EV display, fold comparison, range settings.
 
 ---
 
