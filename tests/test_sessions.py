@@ -2176,6 +2176,127 @@ class TestCalculateSessionEvs:
         ).fetchone()[0]
         assert n == count
 
+    def test_fold_facing_bet_writes_cache_row(self, db_file):
+        """FOLD with amount_to_call > 0 (facing bet) writes EV to cache."""
+        conn, db_path = db_file
+        from pokerhero.analysis.stats import calculate_session_evs
+        from pokerhero.database.db import get_action_ev
+
+        # Seed a hand where the hero FOLDS on the river facing a bet
+        hero_id = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('hero_fold', 'HeroFold')"
+        ).lastrowid
+        villain_id = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('vil_fold', 'VilFold')"
+        ).lastrowid
+        sid = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats,"
+            "  small_blind, big_blind, ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-02-01')"
+        ).lastrowid
+        hid = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            "  rake, timestamp, board_flop, board_turn, board_river)"
+            " VALUES ('HF1', ?, 1200, 0, 0, '2024-02-01T00:00:00',"
+            " 'Qs Jd 4h', '7s', '8h')",
+            (sid,),
+        ).lastrowid
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BTN', 5000, 'Ac Kd', 1, 1, 0, 0, -200)",
+            (hid, hero_id),
+        )
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BB', 5000, '2c 3d', 1, 1, 0, 1, 200)",
+            (hid, villain_id),
+        )
+        conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 0, 'RIVER', 'BET', 400, 0, 800, 0, 1)",
+            (hid, villain_id),
+        )
+        fold_action_id = conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'RIVER', 'FOLD', 0, 400, 800, 0, 2)",
+            (hid, hero_id),
+        ).lastrowid
+        conn.commit()
+
+        n = calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)
+        assert n >= 1
+        row = get_action_ev(conn, fold_action_id, hero_id)
+        assert row is not None
+
+    def test_fold_not_facing_bet_skipped(self, db_file):
+        """FOLD with amount_to_call = 0 (e.g. open fold) is not cached."""
+        conn, db_path = db_file
+        from pokerhero.analysis.stats import calculate_session_evs
+        from pokerhero.database.db import get_action_ev
+
+        hero_id = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('hero_ofold', 'HeroOFold')"
+        ).lastrowid
+        villain_id = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('vil_ofold', 'VilOFold')"
+        ).lastrowid
+        sid = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats,"
+            "  small_blind, big_blind, ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-03-01')"
+        ).lastrowid
+        hid = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            "  rake, timestamp, board_flop, board_turn, board_river)"
+            " VALUES ('HO1', ?, 600, 0, 0, '2024-03-01T00:00:00',"
+            " 'Qs Jd 4h', '7s', '8h')",
+            (sid,),
+        ).lastrowid
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BTN', 5000, 'Ac Kd', 0, 0, 0, 0, 0)",
+            (hid, hero_id),
+        )
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BB', 5000, '2c 3d', 1, 0, 0, 0, 0)",
+            (hid, villain_id),
+        )
+        # Hero open-folds preflop (amount_to_call = 0, just the open)
+        fold_action_id = conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'PREFLOP', 'FOLD', 0, 0, 150, 0, 1)",
+            (hid, hero_id),
+        ).lastrowid
+        conn.commit()
+
+        n = calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)
+        assert n == 0
+        row = get_action_ev(conn, fold_action_id, hero_id)
+        assert row is None
+
 
 # ---------------------------------------------------------------------------
 # TestGetSessionEvStatus
@@ -2492,6 +2613,22 @@ class TestBuildEvCell:
 
         result = _build_ev_cell(self._range_row(), "CALL")
         assert "ℹ" in repr(result)
+
+    def test_fold_pos_ev_shows_should_have_called(self):
+        """FOLD with positive call-EV shows a 'should have called' warning."""
+        from pokerhero.frontend.pages.sessions import _build_ev_cell
+
+        # ev=+8.4 means calling would have been +EV → folding was a mistake
+        result = repr(_build_ev_cell(self._exact_row(ev=8.4), "FOLD")).lower()
+        assert "call" in result
+
+    def test_fold_neg_ev_shows_good_fold(self):
+        """FOLD with negative call-EV confirms the fold was correct."""
+        from pokerhero.frontend.pages.sessions import _build_ev_cell
+
+        # ev=-3.2 means calling would have been -EV → fold was correct
+        result = repr(_build_ev_cell(self._exact_row(ev=-3.2), "FOLD")).lower()
+        assert "fold" in result
 
 
 # ---------------------------------------------------------------------------
