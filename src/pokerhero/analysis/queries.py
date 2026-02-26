@@ -116,7 +116,7 @@ def get_actions(conn: sqlite3.Connection, hand_id: int) -> pd.DataFrame:
 
     Includes player username and position via JOIN with players and hand_players.
 
-    Columns: sequence, player_id, is_hero, street, action_type, amount,
+    Columns: id, sequence, player_id, is_hero, street, action_type, amount,
              amount_to_call, pot_before, is_all_in, spr, mdf, username, position.
 
     Args:
@@ -128,6 +128,7 @@ def get_actions(conn: sqlite3.Connection, hand_id: int) -> pd.DataFrame:
     """
     sql = """
         SELECT
+            a.id,
             a.sequence,
             a.player_id,
             a.is_hero,
@@ -582,4 +583,149 @@ def get_session_player_stats(
     """
     return pd.read_sql_query(
         sql, conn, params={"sid": int(session_id), "hero": int(hero_id)}
+    )
+
+
+def get_session_hero_ev_actions(
+    conn: sqlite3.Connection,
+    session_id: int,
+    hero_id: int,
+) -> pd.DataFrame:
+    """Return all hero CALL/BET/RAISE actions in a session for EV computation.
+
+    Only actions where hero has hole cards are returned (NULL hole_cards rows
+    are excluded at the SQL level — the orchestrator would skip them anyway).
+
+    FOLD actions with ``amount_to_call > 0`` (hero folding facing a bet) are
+    also included so the orchestrator can compute the "EV of calling" for those
+    spots.
+
+    Columns: action_id, hand_id, street, action_type, amount, amount_to_call,
+             pot_before, is_all_in, sequence, hero_cards, board_flop,
+             board_turn, board_river, total_pot.
+
+    Args:
+        conn: Open SQLite connection.
+        session_id: Internal integer id of the session row.
+        hero_id: Internal integer id of the hero player row.
+
+    Returns:
+        DataFrame ordered by hand_id, sequence ascending.
+    """
+    sql = """
+        SELECT
+            a.id           AS action_id,
+            a.hand_id,
+            a.street,
+            a.action_type,
+            a.amount,
+            a.amount_to_call,
+            a.pot_before,
+            a.is_all_in,
+            a.sequence,
+            hp_hero.hole_cards AS hero_cards,
+            h.board_flop,
+            h.board_turn,
+            h.board_river,
+            h.total_pot
+        FROM actions a
+        JOIN hands h ON h.id = a.hand_id
+        JOIN hand_players hp_hero
+            ON hp_hero.hand_id = a.hand_id
+           AND hp_hero.player_id = :hero
+        WHERE h.session_id = :sid
+          AND a.player_id  = :hero
+          AND (
+              a.action_type IN ('CALL', 'BET', 'RAISE')
+              OR (a.action_type = 'FOLD' AND a.amount_to_call > 0)
+          )
+          AND hp_hero.hole_cards IS NOT NULL
+          AND hp_hero.hole_cards != ''
+        ORDER BY a.hand_id ASC, a.sequence ASC
+    """
+    return pd.read_sql_query(
+        sql, conn, params={"hero": int(hero_id), "sid": int(session_id)}
+    )
+
+
+def get_session_ev_status(
+    conn: sqlite3.Connection,
+    session_id: int,
+) -> tuple[int, str | None]:
+    """Return EV cache summary for a session.
+
+    Args:
+        conn: Open SQLite connection.
+        session_id: Internal integer id of the session row.
+
+    Returns:
+        ``(count, latest_computed_at)`` where *count* is the number of
+        ``action_ev_cache`` rows belonging to the session and
+        *latest_computed_at* is the ISO 8601 timestamp of the most recently
+        written row, or ``None`` when no rows exist.
+    """
+    row = conn.execute(
+        """
+        SELECT COUNT(*), MAX(aec.computed_at)
+        FROM action_ev_cache aec
+        JOIN actions a ON aec.action_id = a.id
+        JOIN hands h ON a.hand_id = h.id
+        WHERE h.session_id = ?
+        """,
+        (session_id,),
+    ).fetchone()
+    count = int(row[0]) if row and row[0] else 0
+    computed_at = str(row[1]) if row and row[1] else None
+    return count, computed_at
+
+
+def get_session_showdown_evs(
+    conn: sqlite3.Connection,
+    session_id: int,
+    hero_id: int,
+) -> pd.DataFrame:
+    """Return one exact-EV row per hand for Lucky/Unlucky classification.
+
+    Queries ``action_ev_cache`` for ``ev_type = 'exact'`` rows across all
+    streets.  One row per hand is returned — the latest qualifying action by
+    action id (i.e. the last decision point, which is most representative for
+    Lucky/Unlucky classification).
+
+    Columns: hand_id, source_hand_id, equity, net_result.
+
+    Args:
+        conn: Open SQLite connection.
+        session_id: Internal integer id of the session row.
+        hero_id: Internal integer id of the hero player row.
+
+    Returns:
+        DataFrame with one row per hand that has an exact EV cached.
+    """
+    sql = """
+        SELECT
+            h.id          AS hand_id,
+            h.source_hand_id,
+            aec.equity,
+            hero_hp.net_result
+        FROM action_ev_cache aec
+        JOIN actions a ON aec.action_id = a.id
+        JOIN hands h ON h.id = a.hand_id
+        JOIN hand_players hero_hp
+            ON hero_hp.hand_id = h.id
+           AND hero_hp.player_id = :hero
+        WHERE h.session_id = :sid
+          AND aec.hero_id  = :hero
+          AND aec.ev_type  = 'exact'
+          AND a.id = (
+              SELECT MAX(a2.id)
+              FROM action_ev_cache aec2
+              JOIN actions a2 ON aec2.action_id = a2.id
+              WHERE a2.hand_id = h.id
+                AND aec2.hero_id = :hero
+                AND aec2.ev_type = 'exact'
+          )
+        ORDER BY h.id ASC
+    """
+    return pd.read_sql_query(
+        sql, conn, params={"hero": int(hero_id), "sid": int(session_id)}
     )

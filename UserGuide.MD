@@ -113,16 +113,16 @@ A narrative overview of your performance in the selected session, before you div
 
 **Narrative paragraph** — a short written summary describing your VPIP, PFR, AF and overall win/loss rate for the session.
 
-**EV Summary** — if you had any all-in or showdown hands where villain cards are known, this section shows how your results compared to your equity:
+**EV Summary** — shows how your results compared to your equity at key decision points. First, click **📊 Calculate EVs** to compute EV for the session (this runs once and is saved — subsequent views are instant):
 - 👍 **Ran above equity** — you won more than your equity predicted (ran good).
 - 👎 **Ran below equity** — you won less than your equity predicted (ran bad).
 - **~** **Ran near equity** — results were consistent with your equity.
 
-> A hand is classified as *Lucky* when you won with < 40% equity, and *Unlucky* when you lost with > 60% equity.
+> A hand is classified as *Lucky* when you won with < 40% equity, and *Unlucky* when you lost with > 60% equity. These thresholds are configurable in **Settings → Analysis Settings**.
 
 **Notable Hands** — a list of any individual hands flagged as Lucky (🍀) or Unlucky (😞), showing the hand ID and your equity at the time.
 
-Click **Browse all N hands** to continue to the full hand list for this session.
+**📊 Calculate EVs** — click this button to compute and save EV for every hero action in the session. The session list will show `✅ Ready (date)` once done. Calculation only needs to run once per session; results persist in the database.
 
 ### Level 3: Hand List
 All hands from the selected session. Each row shows the Hand ID, your hole cards, the final pot size, and your net result for that hand.
@@ -152,7 +152,10 @@ Each action row shows:
   - **Pot Odds%** — the equity you need to break even calling this bet.
   - **MDF%** — the % of your range you must continue with to prevent the villain profiting purely from bluffs.
   - **SPR** — shown once at the start of the Flop; how many pot-sized bets deep the stacks are.
-  - **EV** — shown on all-in spots and showdowns when villain cards are known.
+  - **EV** — shown on hero CALL/BET/RAISE/FOLD actions after EVs have been calculated (use **📊 Calculate EVs** on the session report):
+    - **Exact EV** (`Equity: X%  EV: ±Y`): villain's cards were known. For CALL actions with negative EV, a *"[Fold was better ↑]"* hint appears.
+    - **Est. EV** (`Est. Equity: ~X%  Est. EV: ±Y`): villain's cards were unknown; equity estimated from their inferred range. Hover the ℹ icon to see the pre-flop range type and contracted range size.
+    - **Fold verdict** (FOLD actions facing a bet): `✓ Good fold (call EV: −X)` in green, or `⚠ Should have called (call EV: +X)` in red — shows whether calling would have been +EV.
 
 ---
 
@@ -278,13 +281,19 @@ The minimum % of your range you must continue with (call or raise) to prevent th
 ---
 
 ### EV (Expected Value)
-$$EV = (Equity \times Pot_{to\_win}) - ((1 - Equity) \times Amount_{to\_lose})$$
+$$EV = (Equity \times Pot_{to\_win}) - ((1 - Equity) \times Wager)$$
 
-Shown on all-in spots and showdowns (when the villain's cards are visible). A positive EV means the action was mathematically profitable in the long run. Displayed in green (positive) or red (negative). Shown as `—` when villain cards are unknown.
+Shown on hero CALL/BET/RAISE actions once EVs have been calculated for the session. Positive EV (green) = the action was profitable long-term. Negative EV (red) = the action lost expected value. `—` when no EV has been calculated for this action.
 
-**How equity is calculated:** Using PokerKit's `calculate_equities` function via Monte Carlo simulation — 5,000 random board run-outs are sampled from the remaining deck and evaluated using standard 5-card high-hand rules. Results are cached per unique combination of hole cards + board, so repeated views of the same hand are instant.
+Two display modes:
+- **Exact EV** — villain's cards were known (showdown/all-in). Equity is calculated via Monte Carlo simulation against their actual cards.
+- **Est. EV** — villain's cards were unknown. Equity is estimated by building a range from their session VPIP/PFR/3-Bet stats (blended with population priors) and contracting it street by street based on their actions. Hover the ℹ icon for details.
 
-> **Note:** Equity is only available when the villain's exact hole cards are known (showdown or all-in). Range-based equity is not currently supported.
+For CALL actions with **negative exact EV**, a *"[Fold was better ↑]"* hint is shown — the fold option had higher expected value.
+
+For **FOLD actions facing a bet**, the EV column shows a verdict: **✓ Good fold (call EV: −X)** (green) when calling would have been −EV, or **⚠ Should have called (call EV: +X)** (red) when calling would have been +EV.
+
+> **How equity is calculated:** Using PokerKit's `calculate_equities` via Monte Carlo simulation. The number of samples is configurable via **Range sample count** in Analysis Settings (default: 1 000).
 
 ---
 
@@ -298,10 +307,17 @@ Fine-tune how the Session Report computes and displays equity-based statistics.
 
 | Setting | Default | What it does |
 | :--- | :---: | :--- |
-| **Equity sample count** | 2 000 | Number of Monte Carlo samples used to estimate equity. Higher values are more accurate but slower. Range: 500–10 000. |
 | **Lucky equity threshold (%)** | 40 | Hero wins a hand with equity *below* this % → flagged as 🍀 Lucky. |
 | **Unlucky equity threshold (%)** | 60 | Hero loses a hand with equity *above* this % → flagged as 😞 Unlucky. |
 | **Min hands for archetype badge** | 15 | Minimum hands observed against an opponent before a TAG/LAG/Nit/Fish badge is displayed. |
+| **Range sample count** | 1 000 | Monte Carlo samples per EV computation. Higher = more accurate but slower. |
+| **VPIP prior (%)** | 26 | Population VPIP used when few hands are observed against a villain. |
+| **PFR prior (%)** | 14 | Population PFR used when few hands are observed against a villain. |
+| **3-Bet prior (%)** | 6 | Population 3-Bet % used when few hands are observed. |
+| **4-Bet prior (%)** | 3 | Top % of hands used as the 4-bet+ range. |
+| **Prior weight (hands)** | 30 | How strongly the population prior anchors the estimate. Equivalent to observing this many hands at the prior values. |
+| **Continue % passive** | 65 | % of the villain's range assumed to continue after a passive action (check/call) on a street. |
+| **Continue % aggressive** | 40 | % of the villain's range assumed to continue after an aggressive action (bet/raise) on a street. |
 
 ### 🎯 Target Stats (`/settings/targets`)
 Configure per-position optimal ranges for VPIP, PFR, and 3-Bet. Accessible via the **Target Stats** link on the main Settings page.

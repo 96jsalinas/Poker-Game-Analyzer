@@ -471,7 +471,10 @@ class HandParser:
             if verb == "folds":
                 action_type = "FOLD"
                 amount = Decimal("0")
-                atc = Decimal("0")
+                atc = max(
+                    Decimal("0"),
+                    street_bet - street_committed.get(username, Decimal("0")),
+                )
             elif verb == "checks":
                 action_type = "CHECK"
                 amount = Decimal("0")
@@ -685,6 +688,7 @@ class HandParser:
                     net_result=net_result,
                     vpip=False,  # computed in _build_actions
                     pfr=False,
+                    three_bet=False,
                     went_to_showdown=username in showdown_players,
                     is_hero=username == self.hero,
                 )
@@ -704,9 +708,11 @@ class HandParser:
         # net_result is already correctly set in _build_players via total_committed.
         # This method only needs to build ActionData, compute SPR/MDF, and set VPIP/PFR.
 
-        # VPIP / PFR
+        # VPIP / PFR / three_bet
         vpip_set: set[str] = set()
         pfr_set: set[str] = set()
+        three_bet_set: set[str] = set()
+        preflop_raise_count = 0
 
         # Find natural BB (second blind poster)
         natural_blind_posters: list[str] = []
@@ -728,6 +734,9 @@ class HandParser:
             elif atype == "RAISE":
                 vpip_set.add(username)
                 pfr_set.add(username)
+                if preflop_raise_count == 1:
+                    three_bet_set.add(username)
+                preflop_raise_count += 1
             elif atype == "CHECK" and username == natural_bb:
                 pass  # BB checks — not VPIP
 
@@ -798,9 +807,9 @@ class HandParser:
                     effective = min(hero_stack, min(active_stacks))
                     spr = effective / pot_before
 
-            # MDF: only when hero faces a bet
+            # MDF: only when hero faces a bet and has not folded
             mdf: Decimal | None = None
-            if is_hero and atc > Decimal("0"):
+            if is_hero and atc > Decimal("0") and atype != "FOLD":
                 mdf = pot_before / (pot_before + atc)
 
             result.append(
@@ -819,9 +828,10 @@ class HandParser:
                 )
             )
 
-        # Apply VPIP/PFR to players
+        # Apply VPIP/PFR/three_bet to players
         for p in players:
             p.vpip = p.username in vpip_set
             p.pfr = p.username in pfr_set
+            p.three_bet = p.username in three_bet_set
 
         return result

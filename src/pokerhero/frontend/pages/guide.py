@@ -235,9 +235,10 @@ layout = html.Div(
                 html.Li(
                     [
                         html.Strong("EV Summary — "),
-                        "if villain cards were known at showdown or all-in, this shows"
-                        " whether you ran above equity (👍), below equity (👎), or near"
-                        " equity (~). Lucky = won with < 40% equity."
+                        "click 📊 Calculate EVs to compute and save EV for the session."
+                        " The summary then shows whether you ran above equity (👍),"
+                        " below equity (👎), or near equity (~)."
+                        " Lucky = won with < 40% equity."
                         " Unlucky = lost with > 60% equity.",
                     ]
                 ),
@@ -262,7 +263,9 @@ layout = html.Div(
         html.P(
             "A chronological replay grouped by street."
             " Hero decision points show Pot Odds%, MDF%, SPR, and EV"
-            " (on all-in / showdown spots)."
+            " (once EVs have been calculated for the session)."
+            " Exact EV shows villain's actual cards; Est. EV estimates"
+            " from the villain's inferred range (hover ℹ for details)."
         ),
         html.P(
             [
@@ -661,32 +664,31 @@ layout = html.Div(
             " If you fold more than 1−MDF, your opponent can bluff profitably regardless of their cards."  # noqa: E501
         ),
         _stat_heading("EV — Expected Value"),
-        _formula("EV = (Equity × Pot to Win)  −  ((1 − Equity) × Amount to Lose)"),
+        _formula("EV = (Equity × Pot to Win)  −  ((1 − Equity) × Wager)"),
         html.P(
-            "Shown on all-in spots and showdowns when villain cards are visible."
+            "Shown on hero CALL/BET/RAISE actions once EVs have been calculated for"
+            " the session (use 📊 Calculate EVs on the session report)."
             " Positive EV (green) = the action was profitable long-term."
             " Negative EV (red) = the action lost expected value."
-            " Displayed as '—' when villain cards are unknown."
+            " Displayed as '—' when no EV has been calculated."
         ),
         html.P(
             [
-                html.Strong("How equity is calculated: "),
-                "PokerKit's ",
-                html.Code("calculate_equities"),
-                " function runs a Monte Carlo simulation — 5,000 random board"
-                " run-outs sampled from the remaining deck, evaluated with"
-                " standard 5-card high-hand rules. Results are cached per"
-                " unique (hole cards + board) combination so repeated views"
-                " of the same hand are instant.",
+                html.Strong("Two display modes: "),
+                html.Strong("Exact EV"),
+                " — villain's cards were known (showdown/all-in). Equity is computed"
+                " via Monte Carlo simulation against their actual hole cards. For CALL"
+                " actions with negative EV, a '[Fold was better ↑]' hint appears. For"
+                " FOLD actions facing a bet, a verdict is shown instead: '✓ Good fold"
+                " (call EV: −X)' in green when calling would have been −EV, or"
+                " '⚠ Should have called (call EV: +X)' in red when calling would have"
+                " been +EV.  ",
+                html.Strong("Est. EV"),
+                " — villain's cards were unknown. Equity is estimated from their"
+                " inferred range (built from session VPIP/PFR/3-Bet stats blended with"
+                " population priors, contracted street by street). Hover the ℹ icon"
+                " to see the pre-flop range type and contracted range size.",
             ]
-        ),
-        html.P(
-            html.Em(
-                "Note: equity is only available when the villain's exact hole"
-                " cards are known (showdown or all-in). Range-based equity"
-                " is not currently supported."
-            ),
-            style={"color": "var(--text-3, #666)", "fontSize": "13px"},
         ),
         html.Hr(style={"marginTop": "40px"}),
         # ── Settings ──────────────────────────────────────────────────────
@@ -700,11 +702,6 @@ layout = html.Div(
         _kv_table(
             [
                 (
-                    "Equity sample count",
-                    "Monte Carlo samples used to estimate equity. Default: 2 000."
-                    " Higher = more accurate but slower. Range: 500–10 000.",
-                ),
-                (
                     "Lucky equity threshold (%)",
                     "Hero wins a hand with equity below this % → flagged 🍀 Lucky. Default: 40.",  # noqa: E501
                 ),
@@ -716,6 +713,29 @@ layout = html.Div(
                     "Min hands for archetype badge",
                     "Minimum hands observed against an opponent before a TAG/LAG/Nit/Fish"  # noqa: E501
                     " badge is shown. Default: 15.",
+                ),
+                (
+                    "Range sample count",
+                    "Monte Carlo samples per EV computation. Default: 1 000."
+                    " Higher = more accurate but slower.",
+                ),
+                (
+                    "VPIP / PFR / 3-Bet / 4-Bet prior (%)",
+                    "Population priors used when few hands are observed against"
+                    " a villain. Blended with observed stats weighted by"
+                    " 'Prior weight (hands)'.",
+                ),
+                (
+                    "Prior weight (hands)",
+                    "How strongly the population prior anchors the estimate."
+                    " Equivalent to observing this many hands at the prior values."  # noqa: E501
+                    " Default: 30.",
+                ),
+                (
+                    "Continue % passive / aggressive",
+                    "Fraction of the villain's range assumed to continue per street."
+                    " Passive action (check/call) keeps 65%;"  # noqa: E501
+                    " aggressive (bet/raise) keeps 40%.",
                 ),
             ]
         ),

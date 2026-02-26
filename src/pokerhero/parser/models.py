@@ -51,6 +51,7 @@ class HandPlayerData:
     net_result: Decimal
     vpip: bool
     pfr: bool
+    three_bet: bool
     went_to_showdown: bool
     is_hero: bool
 

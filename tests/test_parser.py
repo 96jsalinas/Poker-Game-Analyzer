@@ -757,6 +757,29 @@ class TestActionParsing:
         )
         assert hero_flop_call.amount_to_call == Decimal("400")
 
+    def test_fold_amount_to_call_nonzero_when_facing_bet(
+        self, cash_raises_preflop: ParsedHand
+    ) -> None:
+        """Hero folds river facing a 4338 bet; amount_to_call should be 4338."""
+        hero_river_fold = next(
+            a
+            for a in cash_raises_preflop.actions
+            if a.is_hero and a.action_type == "FOLD" and a.street == "RIVER"
+        )
+        assert hero_river_fold.amount_to_call == Decimal("4338")
+
+    def test_fold_amount_to_call_zero_when_not_facing_bet(
+        self, cash_folds_preflop: ParsedHand
+    ) -> None:
+        """Hero folds preflop facing only the big blind (no raise).
+        amount_to_call equals the big blind size — the hero IS facing the BB."""
+        hero_fold = next(
+            a
+            for a in cash_folds_preflop.actions
+            if a.is_hero and a.action_type == "FOLD"
+        )
+        assert hero_fold.amount_to_call == cash_folds_preflop.session.big_blind
+
     # --- noise lines must not generate actions ---
 
     def test_disconnected_lines_no_action(self, tourn_disconnected: ParsedHand) -> None:
@@ -1250,7 +1273,32 @@ class TestSPRBBRaises:
 
 
 # ===========================================================================
-# TestEuroBlinds
+# TestThreeBetFlag
+# ===========================================================================
+
+
+class TestThreeBetFlag:
+    """hand_players.three_bet must be set by the parser for re-raises."""
+
+    def test_three_bet_true_when_hero_3bets(
+        self, cash_hero_bb_3bets: ParsedHand
+    ) -> None:
+        """Hero BB 3-bets → three_bet flag must be True."""
+        assert hero_player(cash_hero_bb_3bets).three_bet is True
+
+    def test_three_bet_false_when_hero_open_raises(
+        self, cash_raises_preflop: ParsedHand
+    ) -> None:
+        """Hero open-raises (2-bet only, no 3-bet) → three_bet flag must be False."""
+        assert hero_player(cash_raises_preflop).three_bet is False
+
+    def test_three_bet_false_when_hero_folds_preflop(
+        self, cash_folds_preflop: ParsedHand
+    ) -> None:
+        """Hero folds preflop → three_bet must be False."""
+        assert hero_player(cash_folds_preflop).three_bet is False
+
+
 # ===========================================================================
 
 

@@ -126,32 +126,79 @@ $$\text{traffic\_light}(v, g_{min}, g_{max}, y_{min}, y_{max}) = \begin{cases} \
 
 ## 🧪 4. Expected Value (EV) Logic ✅ Implemented
 
-When the Hero goes **All-in**, or the hand reaches **Showdown**:
-$$EV_{Action} = (Equity \times Pot_{to\_Win}) - ((1 - Equity) \times Amount_{to\_Lose})$$
+### A. Exact EV (villain cards known)
 
-* **Equity**: The % chance of winning based on Hero's cards vs. Villain's cards, calculated via PokerKit's `calculate_equities` function using **Monte Carlo simulation** (see below).
-* **Pot to Win**: The current pot + Villain's call/bet.
-* **Amount to Lose**: The amount Hero must risk to make the play.
-* **Display**: Shown in the EV column of the action view for hero all-in spots and hero actions with amount > 0 in showdown hands where villain cards are known. Green = positive EV, Red = negative EV, `—` when villain cards unknown.
+When the Hero goes **All-in** or the hand reaches **Showdown** (villain cards are visible):
+$$EV_{Action} = (Equity \times Pot_{to\_Win}) - ((1 - Equity) \times Wager)$$
 
-### Equity Calculation Detail (`compute_equity` / `compute_equity_multiway`)
+* **Equity**: Hero's win % computed via PokerKit Monte Carlo simulation against the villain's exact hole cards.
+* **Pot to Win**: `pot_before + wager` (what Hero stands to gain).
+* **Wager**: `amount_to_call` for CALL and FOLD actions; `amount` for BET/RAISE actions.
+* **Display**: Green = positive EV, Red = negative EV. For CALL actions with negative EV, a *"[Fold was better ↑]"* hint appears. For FOLD actions, a verdict is shown instead (see § D Fold EV below).
+* **`ev_type = 'exact'`** in `action_ev_cache`.
 
-Equity is calculated by `compute_equity()` (heads-up) or `compute_equity_multiway()` (multiway) in `stats.py` using PokerKit's Monte Carlo engine.  The Session Report always calls `compute_equity_multiway`, which also handles the heads-up case correctly.
+### B. Range-based EV (villain cards unknown)
+
+When the villain's cards are not known, equity is estimated against their **inferred range**. The range is built from the villain's observed session VPIP/PFR/3-Bet stats blended with population priors:
+
+**Blend formula:**
+
+$$\text{blended\_stat} = \frac{n \times \text{obs\_stat} + w \times \text{prior}}{n + w}$$
+
+* $n$ = hands observed against this villain in the session.
+* $w$ = `range_prior_weight` setting (default 30).
+* $\text{obs\_stat}$ = observed VPIP, PFR, or 3-Bet % (0–100 range).
+* $\text{prior}$ = population prior from settings (`range_vpip_prior`, `range_pfr_prior`, `range_3bet_prior`).
+
+**Range construction** (`build_range` in `ranges.py`):
+
+1. Hands are ranked by equity × playability score from `HAND_RANKING` (169 canonical hands).
+2. The villain's pre-flop action determines which slice of the range to use:
+   - `'2bet'` (open raise) → top PFR% of hands by rank.
+   - `'call'` (flat call) → hands ranked from PFR% to VPIP% (flatting range).
+   - `'3bet'` → top 3-Bet% of hands (strong re-raise range).
+   - `'4bet+'` → top 4-Bet% of hands (premium range, defaults to `range_4bet_prior` = 3%).
+3. **Street contraction** (`contract_range`): for each intermediate street already played, the range is filtered to remove hands that would likely have folded, using `score_combo_vs_board` (draw-aware scoring) and the continuation % settings:
+   - Passive villain action (check/call) → keep top 65% (`range_continue_pct_passive`).
+   - Aggressive villain action (bet/raise) → keep top 40% (`range_continue_pct_aggressive`).
+4. If fewer than 5 combos survive after contraction, the hand is skipped (no EV written).
+
+**Display**: Shows `Est. Equity: ~X%  Est. EV: ±Y` with a ℹ tooltip revealing the pre-flop range type, contracted range size, and sample count.
+* **`ev_type = 'range'`** in `action_ev_cache`.
+
+### C. EV Cache & Calculation Flow
+
+EV is **not** computed on page load. It is computed explicitly via the **📊 Calculate EVs** button on the Session Report and stored in `action_ev_cache`. This DB-first approach means:
+
+* Session report render is instant — it reads pre-computed values.
+* EV is stable across page reloads (no re-computation).
+* The session list shows `✅ Ready (YYYY-MM-DD)` once EVs have been calculated.
+
+**Orchestrator**: `calculate_session_evs(db_path, session_id, hero_id, settings)` in `stats.py` — iterates over all hero CALL/BET/RAISE actions **and FOLD actions with `amount_to_call > 0`** in the session, identifies the primary villain via `identify_primary_villain`, branches to exact or range path, and bulk-writes results via `save_action_evs`.
+
+### D. Fold EV (Was the Fold Correct?)
+
+When the hero **folds facing a bet**, the orchestrator computes the **EV of calling** and stores it in `action_ev_cache` for that FOLD action. The wager is `amount_to_call` (same formula as a CALL):
+
+$$EV_{Call} = (Equity \times Pot_{to\_Win}) - ((1 - Equity) \times amount\_to\_call)$$
+
+**Display in action table:**
+* `EV_Call > 0` → **⚠ Should have called (call EV: +X)** in red — calling was +EV, so the fold was a mistake.
+* `EV_Call ≤ 0` → **✓ Good fold (call EV: −X)** in green — calling was −EV, so the fold was correct.
+
+**Parser note:** FOLD actions now have `amount_to_call` set to the pending bet size at parse time (same formula as CALL: `street_bet − player_committed_this_street`). Open folds (no pending bet) retain `amount_to_call = 0` and are excluded from EV computation. MDF is **not** computed for FOLD actions (it is only meaningful for defending decisions).
+
+### E. Equity Calculation Detail
 
 | Parameter | Value |
 | :--- | :--- |
 | **Engine** | PokerKit `calculate_equities` |
 | **Method** | Monte Carlo simulation |
-| **Default samples** | 5 000 (configurable via `sample_count`); Session Report uses the `equity_sample_count` setting (default 2 000, configurable via **Settings → Analysis Settings**) |
+| **Default samples** | 1 000 (configurable via `range_sample_count` setting) |
 | **Deck** | Standard 52-card (`Deck.STANDARD`) |
 | **Hand evaluator** | `StandardHighHand` (best 5-card high hand) |
-| **Input (multiway)** | Hero hole cards + all villain hole-card pairs (pipe-separated string) + board cards seen so far |
-| **Pre-flop all-ins** | Board passed as empty string `""` |
-| **Caching** | Both functions use `functools.lru_cache` keyed by `(hero_cards, villain_cards_str, board, sample_count)` |
 
-> **Limitation:** Equity is only shown when the villain's exact hole cards are available (i.e. the hand reached showdown or both players were all-in). Range-based equity is not currently supported.
-
-### EV Summary Thresholds
+### F. EV Summary Thresholds
 
 The Session Report EV Summary classifies each showdown hand as Lucky or Unlucky based on two thresholds, both configurable via **Settings → Analysis Settings**:
 
@@ -159,6 +206,8 @@ The Session Report EV Summary classifies each showdown hand as Lucky or Unlucky 
 |:--------|:-------|:-------:|:--------|
 | Lucky equity threshold | `lucky_equity_threshold` | 40 (%) | Hero wins with equity < this % → 🍀 Lucky |
 | Unlucky equity threshold | `unlucky_equity_threshold` | 60 (%) | Hero loses with equity > this % → 😞 Unlucky |
+
+The query that feeds Lucky/Unlucky classification (`get_session_showdown_evs`) selects the **latest exact-EV action** per hand (highest `action_id` with `ev_type='exact'`), giving the most representative equity reading regardless of which street it occurred on.
 
 ---
 

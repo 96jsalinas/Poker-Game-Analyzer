@@ -6,6 +6,11 @@ import pytest
 class TestCardRendering:
     """Tests for the _render_card and _render_cards helper functions."""
 
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
     def test_render_card_spade_symbol(self):
         """_render_card('As') must contain the spade symbol ♠."""
         from pokerhero.frontend.pages.sessions import _render_card
@@ -90,6 +95,11 @@ class TestCardRendering:
 
 class TestHeroRowHighlighting:
     """Tests for _action_row_style — hero row visual distinction."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
 
     def test_hero_row_has_background_color(self):
         """Hero rows must have a backgroundColor style."""
@@ -318,35 +328,6 @@ class TestSessionsBreadcrumb:
 
         result = _breadcrumb("hands", session_label="100/200", session_id=3)
         assert "All Hands" in str(result)
-
-    def test_actions_level_has_all_hands_link(self):
-        """'actions' breadcrumb includes a clickable 'All Hands' step."""
-        from pokerhero.frontend.pages.sessions import _breadcrumb
-
-        result = str(
-            _breadcrumb(
-                "actions",
-                session_label="100/200",
-                session_id=3,
-                hand_label="Hand #42",
-            )
-        )
-        assert "All Hands" in result
-
-    def test_actions_level_all_hands_link_navigates_to_hands(self):
-        """'actions' breadcrumb All Hands button targets level='hands'."""
-        from pokerhero.frontend.pages.sessions import _breadcrumb
-
-        result = str(
-            _breadcrumb(
-                "actions",
-                session_label="100/200",
-                session_id=3,
-                hand_label="Hand #42",
-            )
-        )
-        # The button id dict is serialised into the str representation
-        assert "'level': 'hands'" in result or '"level": "hands"' in result
 
 
 # ---------------------------------------------------------------------------
@@ -720,6 +701,7 @@ class TestSessionDataTable:
                 "hands_played": [20, 40],
                 "net_profit": [500.0, -200.0],
                 "is_favorite": [0, 0],
+                "ev_status": ["📊 Calculate", "✅ Ready (2026-01-10)"],
             }
         )
 
@@ -747,12 +729,12 @@ class TestSessionDataTable:
         assert result.sort_action == "native"
 
     def test_column_names(self):
-        """DataTable columns are Date, Stakes, Hands, Net P&L."""
+        """DataTable columns are Date, Stakes, Hands, Net P&L, EV Status."""
         from pokerhero.frontend.pages.sessions import _build_session_table
 
         result = _build_session_table(self._make_df())
         col_names = [c["name"] for c in result.columns]
-        assert col_names == ["Date", "Stakes", "Hands", "Net P&L"]
+        assert col_names == ["Date", "Stakes", "Hands", "Net P&L", "EV Status"]
 
     def test_data_has_id_field(self):
         """Each data row contains an 'id' key for navigation lookups."""
@@ -1600,25 +1582,15 @@ class TestBuildEvSummary:
 
         create_app(db_path=":memory:")
 
-    def _showdown_df(
-        self,
-        net_result: float = 5000.0,
-        hero_cards: str = "Ah Kh",
-        villain_cards: str = "2c 3d",
-    ):
+    def _ev_df(self, equity: float = 0.9, net_result: float = 5000.0):
         import pandas as pd
 
-        # Complete 5-card board: Ah Kh has royal flush (equity ≈ 1.0)
         return pd.DataFrame(
             {
                 "hand_id": [1],
                 "source_hand_id": ["#100"],
-                "hero_cards": [hero_cards],
-                "villain_username": ["villain"],
-                "villain_cards": [villain_cards],
-                "board": ["Qh Jh Th 9d 2s"],
+                "equity": [equity],
                 "net_result": [net_result],
-                "total_pot": [6000.0],
             }
         )
 
@@ -1629,39 +1601,30 @@ class TestBuildEvSummary:
 
         from pokerhero.frontend.pages.sessions import _build_ev_summary
 
-        assert isinstance(_build_ev_summary(pd.DataFrame(), {}), html.Div)
+        assert isinstance(_build_ev_summary(pd.DataFrame()), html.Div)
 
-    def test_empty_shows_no_showdown_message(self):
-        """Empty DataFrame produces a message indicating no showdown data."""
+    def test_empty_shows_not_calculated_message(self):
+        """Empty DataFrame (no cache) produces a 'not yet calculated' message."""
         import pandas as pd
 
         from pokerhero.frontend.pages.sessions import _build_ev_summary
 
-        text = str(_build_ev_summary(pd.DataFrame(), {})).lower()
-        assert "no" in text or "0" in text
+        text = str(_build_ev_summary(pd.DataFrame())).lower()
+        assert "calculate" in text
 
     def test_nonempty_mentions_showdown(self):
-        """Non-empty DataFrame mentions showdown in the output."""
+        """Non-empty ev_df mentions showdown in the output."""
         from pokerhero.frontend.pages.sessions import _build_ev_summary
 
-        text = str(_build_ev_summary(self._showdown_df(), {1: 0.95})).lower()
+        text = str(_build_ev_summary(self._ev_df())).lower()
         assert "showdown" in text
 
     def test_unlucky_outcome_shows_below_equity(self):
         """Hero had near-100% equity but lost → below equity verdict."""
         from pokerhero.frontend.pages.sessions import _build_ev_summary
 
-        # hand_id=1, equity=0.95 (high), hero loses → unlucky
-        result = _build_ev_summary(self._showdown_df(net_result=-3000.0), {1: 0.95})
+        result = _build_ev_summary(self._ev_df(equity=1.0, net_result=-3000.0))
         assert "below" in str(result).lower()
-
-    def test_ev_summary_shows_unavailable_note_when_equity_missing(self):
-        """Hand whose equity was not computed shows an equity-unavailable note."""
-        from pokerhero.frontend.pages.sessions import _build_ev_summary
-
-        # hand_id=1 not in equity_map → unavailable
-        result = str(_build_ev_summary(self._showdown_df(), {}))
-        assert "unavailable" in result.lower()
 
 
 # ---------------------------------------------------------------------------
@@ -1677,24 +1640,15 @@ class TestBuildFlaggedHandsList:
 
         create_app(db_path=":memory:")
 
-    def _hand_df(
-        self,
-        net_result: float = 5000.0,
-        hero_cards: str = "Ah Kh",
-        villain_cards: str = "2c 3d",
-    ):
+    def _ev_df(self, equity: float = 0.9, net_result: float = 5000.0):
         import pandas as pd
 
         return pd.DataFrame(
             {
                 "hand_id": [1],
                 "source_hand_id": ["#100"],
-                "hero_cards": [hero_cards],
-                "villain_username": ["villain"],
-                "villain_cards": [villain_cards],
-                "board": ["Qh Jh Th 9d 2s"],
+                "equity": [equity],
                 "net_result": [net_result],
-                "total_pot": [6000.0],
             }
         )
 
@@ -1705,151 +1659,36 @@ class TestBuildFlaggedHandsList:
 
         from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
 
-        assert isinstance(_build_flagged_hands_list(pd.DataFrame(), {}), html.Div)
+        assert isinstance(_build_flagged_hands_list(pd.DataFrame()), html.Div)
 
     def test_nonempty_no_crash(self):
         """Non-flagged hand (won with high equity) returns Div without raising."""
         from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
 
-        # hand_id=1, equity=0.95 (high), hero wins → not flagged
-        result = _build_flagged_hands_list(self._hand_df(net_result=5000.0), {1: 0.95})
-        assert result is not None
+        # equity=0.9, won → not flagged (below lucky_threshold=0.4)
+        assert (
+            _build_flagged_hands_list(self._ev_df(equity=0.9, net_result=5000.0))
+            is not None
+        )
 
     def test_unlucky_hand_flagged(self):
         """Hero had near-100% equity but lost → flagged as Unlucky."""
         from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
 
-        # hand_id=1, equity=0.95 (> unlucky_threshold=0.6), hero loses
-        result = _build_flagged_hands_list(self._hand_df(net_result=-3000.0), {1: 0.95})
+        result = _build_flagged_hands_list(self._ev_df(equity=1.0, net_result=-3000.0))
         assert "Unlucky" in str(result)
 
     def test_lucky_hand_flagged(self):
         """Hero had near-zero equity but won → flagged as Lucky."""
         from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
 
-        # hand_id=1, equity=0.02 (< lucky_threshold=0.4), hero wins
-        result = _build_flagged_hands_list(self._hand_df(net_result=5000.0), {1: 0.02})
+        result = _build_flagged_hands_list(self._ev_df(equity=0.0, net_result=5000.0))
         assert "Lucky" in str(result)
 
-    def test_flagged_hands_shows_unavailable_for_missing_equity(self):
-        """Hand not present in equity_map appears as equity-unavailable entry."""
-        from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
 
-        # hand_id=1 not in equity_map → unavailable
-        result = str(_build_flagged_hands_list(self._hand_df(), {}))
-        assert "unavailable" in result.lower()
-
-
-class TestBuildEquityMap:
-    """Tests for _build_equity_map — DB cache helper that computes equity on miss."""
-
-    def setup_method(self):
-        from pokerhero.frontend.app import create_app
-
-        create_app(db_path=":memory:")
-
-    @pytest.fixture
-    def conn(self, tmp_path):
-        from pokerhero.database.db import init_db
-
-        c = init_db(tmp_path / "test.db")
-        yield c
-        c.close()
-
-    @pytest.fixture
-    def hero_id(self, conn):
-        cur = conn.execute(
-            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'hero')"
-        )
-        conn.commit()
-        return cur.lastrowid
-
-    @pytest.fixture
-    def hand_id(self, conn, hero_id):
-        cur = conn.execute(
-            "INSERT INTO sessions"
-            " (game_type, limit_type, max_seats, small_blind, big_blind,"
-            " ante, start_time)"
-            " VALUES ('NLHE', 'No Limit', 9, 100, 200, 0, '2024-01-01')"
-        )
-        session_id = cur.lastrowid
-        cur = conn.execute(
-            "INSERT INTO hands"
-            " (source_hand_id, session_id, total_pot,"
-            " uncalled_bet_returned, rake, timestamp)"
-            " VALUES ('H1', ?, 1000, 0, 50, '2024-01-01T00:00:00')",
-            (session_id,),
-        )
-        conn.commit()
-        return cur.lastrowid
-
-    def _showdown_row(self, hand_id: int):
-        import pandas as pd
-
-        return pd.DataFrame(
-            [
-                {
-                    "hand_id": hand_id,
-                    "source_hand_id": "H1",
-                    "hero_cards": "Ac Kd",
-                    "villain_cards": "2h 3d",
-                    "board": "Ah 5c 7d Js 2c",
-                    "net_result": 1000.0,
-                    "total_pot": 2000.0,
-                    "villain_username": "villain1",
-                }
-            ]
-        )
-
-    def test_empty_df_returns_empty_map(self, conn, hero_id):
-        """Empty DataFrame input produces an empty equity map."""
-        import pandas as pd
-
-        from pokerhero.frontend.pages.sessions import _build_equity_map
-
-        result = _build_equity_map(conn, pd.DataFrame(), hero_id, sample_count=200)
-        assert result == {}
-
-    def test_cache_miss_computes_and_stores(self, conn, hero_id, hand_id):
-        """On cache miss: equity is computed and written to DB."""
-        from pokerhero.database.db import get_hand_equity
-        from pokerhero.frontend.pages.sessions import _build_equity_map
-
-        df = self._showdown_row(hand_id)
-        result = _build_equity_map(conn, df, hero_id, sample_count=200)
-        conn.commit()
-        assert hand_id in result
-        assert 0.0 <= result[hand_id] <= 1.0
-        cached = get_hand_equity(conn, hand_id, hero_id, sample_count=200)
-        assert cached == pytest.approx(result[hand_id])
-
-    def test_cache_hit_returns_stored_value_without_recomputing(
-        self, conn, hero_id, hand_id
-    ):
-        """On cache hit: stored equity is returned directly."""
-        from pokerhero.database.db import set_hand_equity
-        from pokerhero.frontend.pages.sessions import _build_equity_map
-
-        set_hand_equity(conn, hand_id, hero_id, equity=0.99, sample_count=200)
-        conn.commit()
-        df = self._showdown_row(hand_id)
-        result = _build_equity_map(conn, df, hero_id, sample_count=200)
-        assert result[hand_id] == pytest.approx(0.99)
-
-    def test_stale_cache_recomputes_and_stores_new_value(self, conn, hero_id, hand_id):
-        """Cached row with different sample_count is ignored; new value stored."""
-        from pokerhero.database.db import get_hand_equity, set_hand_equity
-        from pokerhero.frontend.pages.sessions import _build_equity_map
-
-        set_hand_equity(conn, hand_id, hero_id, equity=0.99, sample_count=100)
-        conn.commit()
-        df = self._showdown_row(hand_id)
-        result = _build_equity_map(conn, df, hero_id, sample_count=200)
-        conn.commit()
-        assert hand_id in result
-        cached_new = get_hand_equity(conn, hand_id, hero_id, sample_count=200)
-        assert cached_new is not None
-        assert 0.0 <= cached_new <= 1.0
+# ---------------------------------------------------------------------------
+# TestBuildSessionPositionTable
+# ---------------------------------------------------------------------------
 
 
 class TestBuildSessionPositionTable:
@@ -1932,508 +1771,978 @@ class TestBuildSessionPositionTable:
         assert result is not None
 
 
-class TestDarkModeCompatibility:
-    """Dark mode: critical inline colors must use CSS custom properties."""
+# ---------------------------------------------------------------------------
+# TestBackgroundCallbackSetup
+# ---------------------------------------------------------------------------
 
-    def setup_method(self):
+
+class TestBackgroundCallbackSetup:
+    """Tests for DiskcacheManager setup and background callback wiring (step 7a)."""
+
+    def test_diskcache_importable(self):
+        """diskcache package is installed and importable."""
+        import diskcache  # noqa: F401
+
+    def test_create_app_accepts_background_manager(self, tmp_path):
+        """create_app(background_callback_manager=...) does not raise."""
+        import diskcache
+        from dash import DiskcacheManager
+
         from pokerhero.frontend.app import create_app
 
-        create_app(db_path=":memory:")
+        cache = diskcache.Cache(str(tmp_path / "cache"))
+        manager = DiskcacheManager(cache)
+        app = create_app(db_path=":memory:", background_callback_manager=manager)
+        assert app is not None
 
-    def test_pnl_style_positive_uses_css_var(self):
-        """_pnl_style(1.0) color must reference --pnl-positive CSS var."""
-        from pokerhero.frontend.pages.sessions import _pnl_style
+    def test_background_manager_stored_in_config(self, tmp_path):
+        """Provided manager is stored in app.server.config under BACKGROUND_MANAGER."""
+        import diskcache
+        from dash import DiskcacheManager
 
-        assert "var(--pnl-positive" in _pnl_style(1.0)["color"]
+        from pokerhero.frontend.app import create_app
 
-    def test_pnl_style_negative_uses_css_var(self):
-        """_pnl_style(-1.0) color must reference --pnl-negative CSS var."""
-        from pokerhero.frontend.pages.sessions import _pnl_style
-
-        assert "var(--pnl-negative" in _pnl_style(-1.0)["color"]
-
-    def test_action_row_style_hero_uses_css_var(self):
-        """Hero action row backgroundColor must use var(--bg-hero-row)."""
-        from pokerhero.frontend.pages.sessions import _action_row_style
-
-        style = _action_row_style(True)
-        assert "var(--bg-hero-row" in style["backgroundColor"]
-
-    def test_tl_colors_use_css_vars(self):
-        """_TL_COLORS values must use CSS custom property references."""
-        from pokerhero.frontend.pages.sessions import _TL_COLORS
-
-        assert all("var(" in v for v in _TL_COLORS.values())
-
-    def test_session_kpi_default_color_uses_css_var(self):
-        """_build_session_kpi_strip must use var(--text-1) as default KPI color."""
-        import inspect
-
-        from pokerhero.frontend.pages.sessions import _build_session_kpi_strip
-
-        assert "var(--text-1" in inspect.getsource(_build_session_kpi_strip)
-
-    def test_opponent_profiles_btn_has_color_var(self):
-        """Opponent profiles button style must include a CSS-var color."""
-        import inspect
-
-        from pokerhero.frontend.pages import sessions
-
-        src = inspect.getsource(sessions)
-        # Locate the button block and verify color is set
-        btn_idx = src.index("opponent-profiles-btn")
-        snippet = src[btn_idx - 400 : btn_idx + 500]
-        assert "var(--text-1" in snippet
+        cache = diskcache.Cache(str(tmp_path / "cache"))
+        manager = DiskcacheManager(cache)
+        app = create_app(db_path=":memory:", background_callback_manager=manager)
+        assert app.server.config["BACKGROUND_MANAGER"] is manager
 
 
 # ---------------------------------------------------------------------------
-# TestCountSessionShowdownHands — progress bar estimate accuracy
+# TestIdentifyPrimaryVillain
 # ---------------------------------------------------------------------------
-class TestCountSessionShowdownHands:
-    """_count_session_showdown_hands must match the actual computation filter.
 
-    The count is used to estimate equity-computation time for the progress bar.
-    It must: (1) require villain hole cards (matching get_session_showdown_hands),
-    and (2) exclude already-cached hands (they are instant to process).
-    """
 
-    def setup_method(self):
-        from pokerhero.frontend.app import create_app
-
-        create_app(db_path=":memory:")
+class TestIdentifyPrimaryVillain:
+    """Tests for the identify_primary_villain stats helper."""
 
     @pytest.fixture
-    def db(self, tmp_path):
+    def conn(self, tmp_path):
         from pokerhero.database.db import init_db
 
         c = init_db(tmp_path / "test.db")
         yield c
         c.close()
 
-    @pytest.fixture
-    def ids(self, db):
-        """Insert a session, two players, and two hands; return useful IDs."""
-        cur = db.execute(
-            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'hero')"
-        )
-        hero_id = cur.lastrowid
-        cur = db.execute(
-            "INSERT INTO players (username, preferred_name)"
-            " VALUES ('villain', 'villain')"
-        )
-        villain_id = cur.lastrowid
-        cur = db.execute(
+    def _seed(self, conn, n_villains: int = 1, add_aggressor: bool = False):
+        """Seed session/hand/players/actions.
+
+        Returns (session_id, hand_id, hero_id, villain_ids, hero_sequence).
+        When add_aggressor=True, villain_ids[1] BETs on FLOP before hero acts.
+        """
+        hero_id = conn.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'Hero')"
+        ).lastrowid
+        villain_ids = []
+        for i in range(n_villains):
+            vid = conn.execute(
+                "INSERT INTO players (username, preferred_name)"
+                f" VALUES ('villain{i}', 'V{i}')"
+            ).lastrowid
+            villain_ids.append(vid)
+        sid = conn.execute(
             "INSERT INTO sessions"
-            " (game_type, limit_type, max_seats, small_blind, big_blind,"
-            " ante, start_time)"
-            " VALUES ('NLHE', 'No Limit', 9, 1, 2, 0, '2024-01-01')"
-        )
-        session_id = cur.lastrowid
-        cur = db.execute(
+            " (game_type, limit_type, max_seats,"
+            "  small_blind, big_blind, ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-01-01')"
+        ).lastrowid
+        hid = conn.execute(
             "INSERT INTO hands"
             " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
-            " rake, timestamp)"
-            " VALUES ('H1', ?, 200, 0, 10, '2024-01-01T00:00:00')",
-            (session_id,),
+            "  rake, timestamp)"
+            " VALUES ('H1', ?, 1000, 0, 0, '2024-01-01T00:00:00')",
+            (sid,),
+        ).lastrowid
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BTN', 5000, 1, 1, 0, 0, -200)",
+            (hid, hero_id),
         )
-        hand1_id = cur.lastrowid
-        cur = db.execute(
-            "INSERT INTO hands"
-            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
-            " rake, timestamp)"
-            " VALUES ('H2', ?, 200, 0, 10, '2024-01-01T00:01:00')",
-            (session_id,),
+        for vid in villain_ids:
+            conn.execute(
+                "INSERT INTO hand_players"
+                " (hand_id, player_id, position, starting_stack,"
+                "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+                " VALUES (?, ?, 'BB', 5000, 1, 1, 0, 0, 100)",
+                (hid, vid),
+            )
+        seq = 1
+        for vid in villain_ids:
+            conn.execute(
+                "INSERT INTO actions"
+                " (hand_id, player_id, is_hero, street, action_type,"
+                "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+                " VALUES (?, ?, 0, 'PREFLOP', 'RAISE', 300, 0, 150, 0, ?)",
+                (hid, vid, seq),
+            )
+            seq += 1
+        if add_aggressor and len(villain_ids) >= 2:
+            conn.execute(
+                "INSERT INTO actions"
+                " (hand_id, player_id, is_hero, street, action_type,"
+                "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+                " VALUES (?, ?, 0, 'FLOP', 'BET', 300, 0, 800, 0, ?)",
+                (hid, villain_ids[1], seq),
+            )
+            seq += 1
+        hero_seq = seq
+        conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'FLOP', 'CALL', 300, 300, 800, 0, ?)",
+            (hid, hero_id, hero_seq),
         )
-        hand2_id = cur.lastrowid
-        db.commit()
-        return {
-            "hero_id": hero_id,
-            "villain_id": villain_id,
-            "session_id": session_id,
-            "hand1_id": hand1_id,
-            "hand2_id": hand2_id,
-        }
+        conn.commit()
+        return sid, hid, hero_id, villain_ids, hero_seq
 
-    def _insert_showdown(
+    def test_heads_up_returns_the_villain(self, conn):
+        """Heads-up: identify_primary_villain returns the single non-hero player."""
+        from pokerhero.analysis.stats import identify_primary_villain
+
+        _, hid, hero_id, villain_ids, hero_seq = self._seed(conn, n_villains=1)
+        result = identify_primary_villain(conn, hid, hero_id, hero_seq, "FLOP")
+        assert result == villain_ids[0]
+
+    def test_multiway_returns_last_aggressor_on_street(self, conn):
+        """Multi-way: last BET/RAISE before hero on this street is primary villain."""
+        from pokerhero.analysis.stats import identify_primary_villain
+
+        _, hid, hero_id, villain_ids, hero_seq = self._seed(
+            conn, n_villains=2, add_aggressor=True
+        )
+        result = identify_primary_villain(conn, hid, hero_id, hero_seq, "FLOP")
+        assert result == villain_ids[1]  # villain1 bet on the flop
+
+    def test_multiway_no_aggressor_returns_most_observed(self, conn):
+        """Multi-way, no FLOP aggressor: villain with most session hands returned."""
+        from pokerhero.analysis.stats import identify_primary_villain
+
+        sid, hid, hero_id, villain_ids, hero_seq = self._seed(
+            conn, n_villains=2, add_aggressor=False
+        )
+        # Give villain_ids[0] extra hands to make them "most observed"
+        for i in range(5):
+            extra_hid = conn.execute(
+                "INSERT INTO hands"
+                " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+                "  rake, timestamp)"
+                " VALUES (?, ?, 500, 0, 0, '2024-01-01T00:01:00')",
+                (f"HX{i}", sid),
+            ).lastrowid
+            conn.execute(
+                "INSERT INTO hand_players"
+                " (hand_id, player_id, position, starting_stack,"
+                "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+                " VALUES (?, ?, 'BB', 5000, 1, 0, 0, 0, 100)",
+                (extra_hid, villain_ids[0]),
+            )
+        conn.commit()
+        result = identify_primary_villain(conn, hid, hero_id, hero_seq, "FLOP")
+        assert result == villain_ids[0]
+
+
+# ---------------------------------------------------------------------------
+# TestCalculateSessionEvs
+# ---------------------------------------------------------------------------
+
+
+class TestCalculateSessionEvs:
+    """Tests for the calculate_session_evs orchestrator."""
+
+    _FAST_SETTINGS: dict[str, float] = {
+        "range_vpip_prior": 26.0,
+        "range_pfr_prior": 14.0,
+        "range_3bet_prior": 6.0,
+        "range_4bet_prior": 3.0,
+        "range_prior_weight": 30.0,
+        "range_sample_count": 50.0,  # small for test speed
+        "range_continue_pct_passive": 65.0,
+        "range_continue_pct_aggressive": 40.0,
+    }
+
+    @pytest.fixture
+    def db_file(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        db_path = str(tmp_path / "test.db")
+        conn = init_db(db_path)
+        yield conn, db_path
+        conn.close()
+
+    def _seed_hand(
         self,
-        db,
-        hand_id: int,
-        hero_id: int,
-        villain_id: int,
-        hero_cards: str | None = "Ah Kh",
-        villain_cards: str | None = "2c 3d",
-    ) -> None:
-        """Helper: insert hand_player rows for a showdown hand."""
-        db.execute(
-            "INSERT INTO hand_players"
-            " (hand_id, player_id, position, starting_stack, vpip, pfr,"
-            " went_to_showdown, net_result, hole_cards)"
-            " VALUES (?, ?, 'BTN', 200, 1, 1, 1, 100, ?)",
-            (hand_id, hero_id, hero_cards),
-        )
-        db.execute(
-            "INSERT INTO hand_players"
-            " (hand_id, player_id, position, starting_stack, vpip, pfr,"
-            " went_to_showdown, net_result, hole_cards)"
-            " VALUES (?, ?, 'BB', 200, 1, 0, 1, -100, ?)",
-            (hand_id, villain_id, villain_cards),
-        )
-        db.commit()
+        conn,
+        hero_cards: str | None = "Ac Kd",
+        villain_cards: str | None = None,
+        villain_pfr: int = 1,
+        villain_three_bet: int = 0,
+        board_flop: str | None = "Qs Jd 2c",
+        board_turn: str | None = "7h",
+        board_river: str | None = "3s",
+        hero_action_street: str = "RIVER",
+        villain_flop_action: str | None = None,
+        villain_turn_action: str | None = None,
+    ) -> tuple[int, int, int, int, int]:
+        """Seed session/hand/players/actions.
 
-    def test_returns_zero_when_villain_cards_unknown(self, tmp_path, db, ids):
-        """Count must be 0 when hero went to showdown but villain cards are NULL."""
-        from pokerhero.frontend.pages.sessions import _count_session_showdown_hands
+        Returns (session_id, hand_id, hero_id, villain_id, hero_action_id).
+        """
+        hero_id = conn.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'Hero')"
+        ).lastrowid
+        villain_id = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('villain', 'Villain')"
+        ).lastrowid
+        sid = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats,"
+            "  small_blind, big_blind, ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-01-01')"
+        ).lastrowid
+        hid = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            "  rake, timestamp, board_flop, board_turn, board_river)"
+            " VALUES ('H1', ?, 1200, 0, 0, '2024-01-01T00:00:00', ?, ?, ?)",
+            (sid, board_flop, board_turn, board_river),
+        ).lastrowid
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BTN', 5000, ?, 1, 1, 0, 0, -400)",
+            (hid, hero_id, hero_cards),
+        )
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BB', 5000, ?, 1, ?, ?, 0, 400)",
+            (hid, villain_id, villain_cards, villain_pfr, villain_three_bet),
+        )
+        seq = 1
+        conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 0, 'PREFLOP', 'RAISE', 300, 0, 150, 0, ?)",
+            (hid, villain_id, seq),
+        )
+        seq += 1
+        conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'PREFLOP', 'CALL', 300, 300, 150, 0, ?)",
+            (hid, hero_id, seq),
+        )
+        seq += 1
+        if villain_flop_action:
+            conn.execute(
+                "INSERT INTO actions"
+                " (hand_id, player_id, is_hero, street, action_type,"
+                "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+                " VALUES (?, ?, 0, 'FLOP', ?, 200, 0, 600, 0, ?)",
+                (hid, villain_id, villain_flop_action, seq),
+            )
+            seq += 1
+        if villain_turn_action:
+            conn.execute(
+                "INSERT INTO actions"
+                " (hand_id, player_id, is_hero, street, action_type,"
+                "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+                " VALUES (?, ?, 0, 'TURN', ?, 200, 0, 1000, 0, ?)",
+                (hid, villain_id, villain_turn_action, seq),
+            )
+            seq += 1
+        hero_action_id = conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, ?, 'CALL', 400, 400, 800, 0, ?)",
+            (hid, hero_id, hero_action_street, seq),
+        ).lastrowid
+        conn.commit()
+        return sid, hid, hero_id, villain_id, hero_action_id
 
-        self._insert_showdown(
-            db,
-            ids["hand1_id"],
-            ids["hero_id"],
-            ids["villain_id"],
+    def test_exact_ev_written_when_villain_cards_known(self, db_file):
+        """CALL on RIVER with known villain cards writes ev_type='exact' to cache."""
+        conn, db_path = db_file
+        from pokerhero.analysis.stats import calculate_session_evs
+        from pokerhero.database.db import get_action_ev
+
+        sid, _, hero_id, _, action_id = self._seed_hand(
+            conn,
+            hero_cards="Ac Kd",
+            villain_cards="2c 3d",
+            board_flop="Qs Jd 4h",
+            board_turn="7s",
+            board_river="8h",
+            hero_action_street="RIVER",
+        )
+        n = calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)
+        assert n >= 1
+        row = get_action_ev(conn, action_id, hero_id)
+        assert row is not None
+        assert row["ev_type"] == "exact"
+        assert 0.0 <= float(row["equity"]) <= 1.0
+
+    def test_range_ev_written_for_flop_action_no_history(self, db_file):
+        """CALL on FLOP with unknown villain cards writes ev_type='range'."""
+        conn, db_path = db_file
+        from pokerhero.analysis.stats import calculate_session_evs
+        from pokerhero.database.db import get_action_ev
+
+        sid, _, hero_id, _, action_id = self._seed_hand(
+            conn,
+            hero_cards="Ac Kd",
             villain_cards=None,
+            villain_pfr=1,
+            board_flop="Qs Jd 2h",
+            board_turn=None,
+            board_river=None,
+            hero_action_street="FLOP",
         )
-        count = _count_session_showdown_hands(
-            str(tmp_path / "test.db"),
-            ids["session_id"],
-            ids["hero_id"],
-            sample_count=2000,
+        n = calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)
+        assert n >= 1
+        row = get_action_ev(conn, action_id, hero_id)
+        assert row is not None
+        assert row["ev_type"] == "range"
+        assert row["contracted_range_size"] is not None
+        assert int(row["contracted_range_size"]) >= 5
+
+    def test_range_ev_river_action_uses_street_history(self, db_file):
+        """CALL on RIVER with villain BET on FLOP+TURN uses 2-street contraction."""
+        conn, db_path = db_file
+        from pokerhero.analysis.stats import calculate_session_evs
+        from pokerhero.database.db import get_action_ev
+
+        sid, _, hero_id, _, action_id = self._seed_hand(
+            conn,
+            hero_cards="Ac Kd",
+            villain_cards=None,
+            villain_pfr=1,
+            board_flop="Qs Jd 2h",
+            board_turn="7s",
+            board_river="8c",
+            hero_action_street="RIVER",
+            villain_flop_action="BET",
+            villain_turn_action="BET",
         )
+        n = calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)
+        assert n >= 1
+        row = get_action_ev(conn, action_id, hero_id)
+        assert row is not None
+        assert row["ev_type"] == "range"
+        assert int(row["contracted_range_size"]) >= 5
+
+    def test_action_skipped_when_hero_cards_unknown(self, db_file):
+        """Hero action with NULL hole_cards produces no cache row."""
+        conn, db_path = db_file
+        from pokerhero.analysis.stats import calculate_session_evs
+        from pokerhero.database.db import get_action_ev
+
+        sid, _, hero_id, _, action_id = self._seed_hand(
+            conn,
+            hero_cards=None,
+            villain_cards="2c 3d",
+            hero_action_street="RIVER",
+        )
+        n = calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)
+        assert n == 0
+        assert get_action_ev(conn, action_id, hero_id) is None
+
+    def test_returns_count_of_rows_written(self, db_file):
+        """Return value equals the number of action_ev_cache rows written."""
+        conn, db_path = db_file
+        from pokerhero.analysis.stats import calculate_session_evs
+
+        sid, _, hero_id, _, _ = self._seed_hand(
+            conn,
+            hero_cards="Ac Kd",
+            villain_cards="2c 3d",
+            board_flop="Qs Jd 4h",
+            board_turn="7s",
+            board_river="8h",
+            hero_action_street="RIVER",
+        )
+        n = calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)
+        count = conn.execute(
+            "SELECT COUNT(*) FROM action_ev_cache WHERE hero_id = ?", (hero_id,)
+        ).fetchone()[0]
+        assert n == count
+
+    def test_fold_facing_bet_writes_cache_row(self, db_file):
+        """FOLD with amount_to_call > 0 (facing bet) writes EV to cache."""
+        conn, db_path = db_file
+        from pokerhero.analysis.stats import calculate_session_evs
+        from pokerhero.database.db import get_action_ev
+
+        # Seed a hand where the hero FOLDS on the river facing a bet
+        hero_id = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('hero_fold', 'HeroFold')"
+        ).lastrowid
+        villain_id = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('vil_fold', 'VilFold')"
+        ).lastrowid
+        sid = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats,"
+            "  small_blind, big_blind, ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-02-01')"
+        ).lastrowid
+        hid = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            "  rake, timestamp, board_flop, board_turn, board_river)"
+            " VALUES ('HF1', ?, 1200, 0, 0, '2024-02-01T00:00:00',"
+            " 'Qs Jd 4h', '7s', '8h')",
+            (sid,),
+        ).lastrowid
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BTN', 5000, 'Ac Kd', 1, 1, 0, 0, -200)",
+            (hid, hero_id),
+        )
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BB', 5000, '2c 3d', 1, 1, 0, 1, 200)",
+            (hid, villain_id),
+        )
+        conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 0, 'RIVER', 'BET', 400, 0, 800, 0, 1)",
+            (hid, villain_id),
+        )
+        fold_action_id = conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'RIVER', 'FOLD', 0, 400, 800, 0, 2)",
+            (hid, hero_id),
+        ).lastrowid
+        conn.commit()
+
+        n = calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)
+        assert n >= 1
+        row = get_action_ev(conn, fold_action_id, hero_id)
+        assert row is not None
+
+    def test_fold_not_facing_bet_skipped(self, db_file):
+        """FOLD with amount_to_call = 0 (e.g. open fold) is not cached."""
+        conn, db_path = db_file
+        from pokerhero.analysis.stats import calculate_session_evs
+        from pokerhero.database.db import get_action_ev
+
+        hero_id = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('hero_ofold', 'HeroOFold')"
+        ).lastrowid
+        villain_id = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('vil_ofold', 'VilOFold')"
+        ).lastrowid
+        sid = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats,"
+            "  small_blind, big_blind, ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-03-01')"
+        ).lastrowid
+        hid = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            "  rake, timestamp, board_flop, board_turn, board_river)"
+            " VALUES ('HO1', ?, 600, 0, 0, '2024-03-01T00:00:00',"
+            " 'Qs Jd 4h', '7s', '8h')",
+            (sid,),
+        ).lastrowid
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BTN', 5000, 'Ac Kd', 0, 0, 0, 0, 0)",
+            (hid, hero_id),
+        )
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BB', 5000, '2c 3d', 1, 0, 0, 0, 0)",
+            (hid, villain_id),
+        )
+        # Hero open-folds preflop (amount_to_call = 0, just the open)
+        fold_action_id = conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'PREFLOP', 'FOLD', 0, 0, 150, 0, 1)",
+            (hid, hero_id),
+        ).lastrowid
+        conn.commit()
+
+        n = calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)
+        assert n == 0
+        row = get_action_ev(conn, fold_action_id, hero_id)
+        assert row is None
+
+
+# ---------------------------------------------------------------------------
+# TestGetSessionEvStatus
+# ---------------------------------------------------------------------------
+
+
+class TestGetSessionEvStatus:
+    """Tests for get_session_ev_status query function."""
+
+    @pytest.fixture
+    def conn(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        c = init_db(str(tmp_path / "test.db"))
+        yield c
+        c.close()
+
+    def _seed(self, conn):
+        """Seed minimal session + hand + player + action.
+
+        Returns (sid, action_id, player_id).
+        """
+        player_id = conn.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'Hero')"
+        ).lastrowid
+        sid = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats,"
+            "  small_blind, big_blind, ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-01-01')"
+        ).lastrowid
+        hid = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            "  rake, timestamp)"
+            " VALUES ('H1', ?, 1000, 0, 0, '2024-01-01T00:00:00')",
+            (sid,),
+        ).lastrowid
+        action_id = conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'FLOP', 'CALL', 100, 100, 200, 0, 1)",
+            (hid, player_id),
+        ).lastrowid
+        conn.commit()
+        return sid, action_id, player_id
+
+    def test_no_cache_rows_returns_zero(self, conn):
+        """Session with no action_ev_cache rows returns (0, None)."""
+        from pokerhero.analysis.queries import get_session_ev_status
+
+        sid, _, _ = self._seed(conn)
+        count, computed_at = get_session_ev_status(conn, sid)
         assert count == 0
+        assert computed_at is None
 
-    def test_returns_count_when_villain_cards_known(self, tmp_path, db, ids):
-        """Count equals the number of hands where both hero and villain showed cards."""
-        from pokerhero.frontend.pages.sessions import _count_session_showdown_hands
+    def test_with_cache_rows_returns_count_and_date(self, conn):
+        """Session with cache rows returns (n, computed_at string)."""
+        from pokerhero.analysis.queries import get_session_ev_status
 
-        self._insert_showdown(db, ids["hand1_id"], ids["hero_id"], ids["villain_id"])
-        self._insert_showdown(db, ids["hand2_id"], ids["hero_id"], ids["villain_id"])
-        count = _count_session_showdown_hands(
-            str(tmp_path / "test.db"),
-            ids["session_id"],
-            ids["hero_id"],
-            sample_count=2000,
+        sid, action_id, player_id = self._seed(conn)
+        conn.execute(
+            "INSERT INTO action_ev_cache"
+            " (action_id, hero_id, equity, ev, ev_type, sample_count, computed_at)"
+            " VALUES (?, ?, 0.6, 10.0, 'exact', 1000, '2024-01-15T12:00:00')",
+            (action_id, player_id),
         )
-        assert count == 2
-
-    def test_cached_hands_are_excluded_from_count(self, tmp_path, db, ids):
-        """Hands already in the equity cache must not be counted (they are instant)."""
-        from pokerhero.database.db import set_hand_equity
-        from pokerhero.frontend.pages.sessions import _count_session_showdown_hands
-
-        self._insert_showdown(db, ids["hand1_id"], ids["hero_id"], ids["villain_id"])
-        self._insert_showdown(db, ids["hand2_id"], ids["hero_id"], ids["villain_id"])
-        # Cache hand1 with matching sample_count
-        set_hand_equity(
-            db, ids["hand1_id"], ids["hero_id"], equity=0.75, sample_count=2000
-        )
-        db.commit()
-        count = _count_session_showdown_hands(
-            str(tmp_path / "test.db"),
-            ids["session_id"],
-            ids["hero_id"],
-            sample_count=2000,
-        )
-        assert count == 1  # hand2 only; hand1 is cached
-
-    def test_stale_cache_does_not_exclude_from_count(self, tmp_path, db, ids):
-        """A cached row with a different sample_count is treated as a cache miss."""
-        from pokerhero.database.db import set_hand_equity
-        from pokerhero.frontend.pages.sessions import _count_session_showdown_hands
-
-        self._insert_showdown(db, ids["hand1_id"], ids["hero_id"], ids["villain_id"])
-        # Cache hand1 with a DIFFERENT sample_count
-        set_hand_equity(
-            db, ids["hand1_id"], ids["hero_id"], equity=0.75, sample_count=500
-        )
-        db.commit()
-        count = _count_session_showdown_hands(
-            str(tmp_path / "test.db"),
-            ids["session_id"],
-            ids["hero_id"],
-            sample_count=2000,
-        )
-        assert count == 1  # stale cache → still counts as needing computation
+        conn.commit()
+        count, computed_at = get_session_ev_status(conn, sid)
+        assert count == 1
+        assert computed_at is not None
+        assert "2024-01-15" in str(computed_at)
 
 
 # ---------------------------------------------------------------------------
-# TestAllinPotToWin — EV pot_to_win for hero aggressor all-in
+# TestEvStatusLabel
 # ---------------------------------------------------------------------------
-class TestAllinPotToWin:
-    """_allin_pot_to_win must return pot_before+amount for CALL, and include the
-    villain's subsequent all-in CALL amount for hero BET/RAISE actions."""
+
+
+class TestEvStatusLabel:
+    """Tests for _ev_status_label helper in sessions.py."""
 
     def setup_method(self):
         from pokerhero.frontend.app import create_app
 
         create_app(db_path=":memory:")
 
-    def _make_df(self, rows: list[dict]) -> "object":
+    @pytest.fixture
+    def conn(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        c = init_db(str(tmp_path / "test.db"))
+        yield c
+        c.close()
+
+    def _seed(self, conn):
+        """Seed minimal session + action. Returns (sid, action_id, player_id)."""
+        player_id = conn.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'Hero')"
+        ).lastrowid
+        sid = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats,"
+            "  small_blind, big_blind, ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-01-01')"
+        ).lastrowid
+        hid = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            "  rake, timestamp)"
+            " VALUES ('H1', ?, 1000, 0, 0, '2024-01-01T00:00:00')",
+            (sid,),
+        ).lastrowid
+        action_id = conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'FLOP', 'CALL', 100, 100, 200, 0, 1)",
+            (hid, player_id),
+        ).lastrowid
+        conn.commit()
+        return sid, action_id, player_id
+
+    def test_no_rows_returns_calculate_label(self, conn):
+        """Session with no cache rows returns a label containing the 📊 emoji."""
+        from pokerhero.frontend.pages.sessions import _ev_status_label
+
+        sid, _, _ = self._seed(conn)
+        label = _ev_status_label(conn, sid)
+        assert "📊" in label
+
+    def test_with_rows_returns_ready_label_with_date(self, conn):
+        """Session with cache rows returns a label containing ✅ and the date."""
+        from pokerhero.frontend.pages.sessions import _ev_status_label
+
+        sid, action_id, player_id = self._seed(conn)
+        conn.execute(
+            "INSERT INTO action_ev_cache"
+            " (action_id, hero_id, equity, ev, ev_type, sample_count, computed_at)"
+            " VALUES (?, ?, 0.6, 10.0, 'exact', 1000, '2024-03-20T12:00:00')",
+            (action_id, player_id),
+        )
+        conn.commit()
+        label = _ev_status_label(conn, sid)
+        assert "✅" in label
+        assert "2024-03-20" in label
+
+
+# ---------------------------------------------------------------------------
+# TestSessionTableEvColumn
+# ---------------------------------------------------------------------------
+
+
+class TestSessionTableEvColumn:
+    """Tests for the EV Status column added to the session DataTable."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def _make_df(self):
         import pandas as pd
 
-        return pd.DataFrame(rows)
-
-    def test_call_allin_returns_pot_before_plus_amount(self):
-        """For hero CALL all-in, pot_before already includes villain's bet."""
-
-        from pokerhero.frontend.pages.sessions import _allin_pot_to_win
-
-        df = self._make_df(
-            [
-                {
-                    "street": "FLOP",
-                    "action_type": "BET",
-                    "is_hero": 0,
-                    "is_all_in": 1,
-                    "amount": 100.0,
-                },
-                {
-                    "street": "FLOP",
-                    "action_type": "CALL",
-                    "is_hero": 1,
-                    "is_all_in": 1,
-                    "amount": 100.0,
-                },
-            ]
+        return pd.DataFrame(
+            {
+                "id": [1],
+                "start_time": ["2026-01-10"],
+                "small_blind": [50],
+                "big_blind": [100],
+                "hands_played": [20],
+                "net_profit": [500.0],
+                "is_favorite": [0],
+                "ev_status": ["📊 Calculate"],
+            }
         )
-        # pot_before=150 (includes villain's 100), hero calls 100
-        result = _allin_pot_to_win(df, 1, "CALL", 150.0, 100.0)
-        assert result == pytest.approx(250.0)
 
-    def test_bet_allin_adds_villain_call(self):
-        """For hero BET all-in, villain's subsequent all-in CALL is added."""
-        from pokerhero.frontend.pages.sessions import _allin_pot_to_win
+    def test_column_names_includes_ev_status(self):
+        """Session table columns include the EV Status column."""
+        from pokerhero.frontend.pages.sessions import _build_session_table
 
-        df = self._make_df(
-            [
-                {
-                    "street": "FLOP",
-                    "action_type": "BET",
-                    "is_hero": 1,
-                    "is_all_in": 1,
-                    "amount": 100.0,
-                },
-                {
-                    "street": "FLOP",
-                    "action_type": "CALL",
-                    "is_hero": 0,
-                    "is_all_in": 1,
-                    "amount": 100.0,
-                },
-            ]
-        )
-        # pot_before=50, hero bets 100, villain calls 100
-        result = _allin_pot_to_win(df, 0, "BET", 50.0, 100.0)
-        assert result == pytest.approx(250.0)  # 50 + 100 + 100
+        result = _build_session_table(self._make_df())
+        col_names = [c["name"] for c in result.columns]
+        assert "EV Status" in col_names
 
-    def test_raise_allin_adds_villain_call(self):
-        """For hero RAISE all-in, villain's subsequent all-in CALL is added."""
-        from pokerhero.frontend.pages.sessions import _allin_pot_to_win
+    def test_ev_status_data_in_rows(self):
+        """Each data row contains an 'ev_status' key."""
+        from pokerhero.frontend.pages.sessions import _build_session_table
 
-        df = self._make_df(
-            [
-                {
-                    "street": "TURN",
-                    "action_type": "BET",
-                    "is_hero": 0,
-                    "is_all_in": 0,
-                    "amount": 50.0,
-                },
-                {
-                    "street": "TURN",
-                    "action_type": "RAISE",
-                    "is_hero": 1,
-                    "is_all_in": 1,
-                    "amount": 200.0,
-                },
-                {
-                    "street": "TURN",
-                    "action_type": "CALL",
-                    "is_hero": 0,
-                    "is_all_in": 1,
-                    "amount": 150.0,
-                },
-            ]
-        )
-        # pot_before=100, hero raises to 200 (all-in), villain calls 150 more
-        result = _allin_pot_to_win(df, 1, "RAISE", 100.0, 200.0)
-        assert result == pytest.approx(450.0)  # 100 + 200 + 150
-
-    def test_bet_allin_no_villain_call_falls_back(self):
-        """If no villain all-in CALL follows, falls back to pot_before + amount."""
-        from pokerhero.frontend.pages.sessions import _allin_pot_to_win
-
-        df = self._make_df(
-            [
-                {
-                    "street": "RIVER",
-                    "action_type": "BET",
-                    "is_hero": 1,
-                    "is_all_in": 1,
-                    "amount": 100.0,
-                },
-                {
-                    "street": "RIVER",
-                    "action_type": "FOLD",
-                    "is_hero": 0,
-                    "is_all_in": 0,
-                    "amount": 0.0,
-                },
-            ]
-        )
-        result = _allin_pot_to_win(df, 0, "BET", 50.0, 100.0)
-        assert result == pytest.approx(150.0)  # villain folded, no call added
-
-    def test_only_same_street_villain_calls_included(self):
-        """Villain CALL on a different street must not be added."""
-        from pokerhero.frontend.pages.sessions import _allin_pot_to_win
-
-        df = self._make_df(
-            [
-                {
-                    "street": "FLOP",
-                    "action_type": "BET",
-                    "is_hero": 1,
-                    "is_all_in": 1,
-                    "amount": 100.0,
-                },
-                # villain folds on flop (no call)
-                {
-                    "street": "TURN",
-                    "action_type": "CALL",
-                    "is_hero": 0,
-                    "is_all_in": 1,
-                    "amount": 80.0,
-                },
-            ]
-        )
-        result = _allin_pot_to_win(df, 0, "BET", 50.0, 100.0)
-        assert result == pytest.approx(150.0)  # TURN call not included
+        result = _build_session_table(self._make_df())
+        assert all("ev_status" in row for row in result.data)
 
 
 # ---------------------------------------------------------------------------
-# TestRenderActionsEVShowdown — EV column for non-all-in showdown hands
+# TestCalculateEvSection
 # ---------------------------------------------------------------------------
-class TestRenderActionsEVShowdown:
-    """EV column must appear for hero actions in showdown hands where villain
-    cards are known, even without an all-in."""
+
+
+class TestCalculateEvSection:
+    """Tests for _build_calculate_ev_section render helper."""
 
     def setup_method(self):
         from pokerhero.frontend.app import create_app
 
         create_app(db_path=":memory:")
 
+    def test_returns_html_div(self):
+        """_build_calculate_ev_section returns an html.Div."""
+        from dash import html
+
+        from pokerhero.frontend.pages.sessions import _build_calculate_ev_section
+
+        result = _build_calculate_ev_section()
+        assert isinstance(result, html.Div)
+
+    def test_has_calculate_button(self):
+        """Section contains a component with id 'calculate-ev-btn'."""
+        from pokerhero.frontend.pages.sessions import _build_calculate_ev_section
+
+        result = _build_calculate_ev_section()
+        assert "calculate-ev-btn" in repr(result)
+
+
+# ---------------------------------------------------------------------------
+# TestBuildEvCell
+# ---------------------------------------------------------------------------
+
+
+class TestBuildEvCell:
+    """Tests for _build_ev_cell display helper."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def _exact_row(self, ev: float = 10.0, equity: float = 0.67) -> dict[str, object]:
+        return {
+            "action_id": 1,
+            "hero_id": 1,
+            "equity": equity,
+            "ev": ev,
+            "ev_type": "exact",
+            "blended_vpip": None,
+            "blended_pfr": None,
+            "blended_3bet": None,
+            "villain_preflop_action": None,
+            "contracted_range_size": None,
+            "sample_count": 1000,
+            "computed_at": "2024-01-01T00:00:00",
+        }
+
+    def _range_row(self, ev: float = 3.4, equity: float = 0.54) -> dict[str, object]:
+        return {
+            "action_id": 1,
+            "hero_id": 1,
+            "equity": equity,
+            "ev": ev,
+            "ev_type": "range",
+            "blended_vpip": 0.26,
+            "blended_pfr": 0.14,
+            "blended_3bet": 0.06,
+            "villain_preflop_action": "3bet",
+            "contracted_range_size": 31,
+            "sample_count": 1000,
+            "computed_at": "2024-01-01T00:00:00",
+        }
+
+    def test_no_cache_returns_dash(self):
+        """None cache_row returns the dash placeholder string."""
+        from pokerhero.frontend.pages.sessions import _build_ev_cell
+
+        assert _build_ev_cell(None, "CALL") == "—"
+
+    def test_exact_shows_equity_percent(self):
+        """Exact EV row output contains 'Equity:' text."""
+        from pokerhero.frontend.pages.sessions import _build_ev_cell
+
+        result = _build_ev_cell(self._exact_row(), "CALL")
+        assert "Equity:" in repr(result)
+
+    def test_exact_shows_ev_value(self):
+        """Exact EV row output contains 'EV:' text."""
+        from pokerhero.frontend.pages.sessions import _build_ev_cell
+
+        result = _build_ev_cell(self._exact_row(), "CALL")
+        assert "EV:" in repr(result)
+
+    def test_exact_call_neg_ev_shows_fold_better(self):
+        """CALL with negative exact EV shows fold comparison."""
+        from pokerhero.frontend.pages.sessions import _build_ev_cell
+
+        result = _build_ev_cell(self._exact_row(ev=-5.0), "CALL")
+        assert "Fold" in repr(result)
+
+    def test_exact_bet_neg_ev_no_fold_comparison(self):
+        """BET with negative exact EV does NOT show fold comparison."""
+        from pokerhero.frontend.pages.sessions import _build_ev_cell
+
+        result = _build_ev_cell(self._exact_row(ev=-5.0), "BET")
+        assert "Fold" not in repr(result)
+
+    def test_range_shows_est_prefix(self):
+        """Range EV row uses 'Est.' prefix on equity and EV values."""
+        from pokerhero.frontend.pages.sessions import _build_ev_cell
+
+        result = _build_ev_cell(self._range_row(), "CALL")
+        assert "Est." in repr(result)
+
+    def test_range_shows_info_tooltip(self):
+        """Range EV row includes a ℹ tooltip element."""
+        from pokerhero.frontend.pages.sessions import _build_ev_cell
+
+        result = _build_ev_cell(self._range_row(), "CALL")
+        assert "ℹ" in repr(result)
+
+    def test_fold_pos_ev_shows_should_have_called(self):
+        """FOLD with positive call-EV shows a 'should have called' warning."""
+        from pokerhero.frontend.pages.sessions import _build_ev_cell
+
+        # ev=+8.4 means calling would have been +EV → folding was a mistake
+        result = repr(_build_ev_cell(self._exact_row(ev=8.4), "FOLD")).lower()
+        assert "call" in result
+
+    def test_fold_neg_ev_shows_good_fold(self):
+        """FOLD with negative call-EV confirms the fold was correct."""
+        from pokerhero.frontend.pages.sessions import _build_ev_cell
+
+        # ev=-3.2 means calling would have been -EV → fold was correct
+        result = repr(_build_ev_cell(self._exact_row(ev=-3.2), "FOLD")).lower()
+        assert "fold" in result
+
+
+# ---------------------------------------------------------------------------
+# TestGetSessionShowdownEvs
+# ---------------------------------------------------------------------------
+
+
+class TestGetSessionShowdownEvs:
+    """Tests for get_session_showdown_evs query function."""
+
     @pytest.fixture
-    def db(self, tmp_path):
-        """Return (db_path, hand_id) for a non-all-in showdown hand."""
-        from pokerhero.database.db import init_db, set_setting
+    def conn(self, tmp_path):
+        from pokerhero.database.db import init_db
 
-        conn = init_db(tmp_path / "test.db")
-        cur = conn.execute(
+        c = init_db(str(tmp_path / "test.db"))
+        yield c
+        c.close()
+
+    def _seed(self, conn, *, with_ev_cache: bool = False, street: str = "RIVER"):
+        """Seed session/hand/players/action; optionally insert an exact ev cache row.
+
+        Returns (session_id, action_id, hero_id).
+        """
+        hero_id = conn.execute(
             "INSERT INTO players (username, preferred_name) VALUES ('hero', 'Hero')"
-        )
-        hero_id = cur.lastrowid
-        cur = conn.execute(
-            "INSERT INTO players (username, preferred_name)"
-            " VALUES ('villain', 'Villain')"
-        )
-        villain_id = cur.lastrowid
-        set_setting(conn, "hero_username", "hero")
-        cur = conn.execute(
+        ).lastrowid
+        sid = conn.execute(
             "INSERT INTO sessions"
-            " (game_type, limit_type, max_seats, small_blind, big_blind,"
-            " ante, start_time)"
-            " VALUES ('NLHE', 'No Limit', 6, 1, 2, 0, '2024-01-01')"
-        )
-        session_id = cur.lastrowid
-        cur = conn.execute(
+            " (game_type, limit_type, max_seats,"
+            "  small_blind, big_blind, ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-01-01')"
+        ).lastrowid
+        hid = conn.execute(
             "INSERT INTO hands"
-            " (source_hand_id, session_id, board_flop, board_turn, board_river,"
-            " total_pot, uncalled_bet_returned, rake, timestamp)"
-            " VALUES ('H-SD-1', ?, 'Ah 5c 7d', 'Js', '2c', 100.0, 0, 0,"
-            " '2024-01-01T00:00:00')",
-            (session_id,),
-        )
-        hand_id = cur.lastrowid
-        # Hero wins with top pair; villain shows down a bluff
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            "  rake, timestamp)"
+            " VALUES ('H1', ?, 1000, 0, 0, '2024-01-01T00:00:00')",
+            (sid,),
+        ).lastrowid
         conn.execute(
             "INSERT INTO hand_players"
             " (hand_id, player_id, position, starting_stack, hole_cards,"
-            " went_to_showdown, net_result)"
-            " VALUES (?, ?, 'BTN', 200, 'Ac Kd', 1, 50.0)",
-            (hand_id, hero_id),
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BTN', 5000, 'Ah Kh', 1, 1, 0, 1, -500)",
+            (hid, hero_id),
         )
-        conn.execute(
-            "INSERT INTO hand_players"
-            " (hand_id, player_id, position, starting_stack, hole_cards,"
-            " went_to_showdown, net_result)"
-            " VALUES (?, ?, 'BB', 200, '2h 3d', 1, -50.0)",
-            (hand_id, villain_id),
-        )
-        # River CALL by hero; no all-in
-        conn.execute(
+        action_id = conn.execute(
             "INSERT INTO actions"
-            " (hand_id, player_id, is_hero, street, action_type, amount,"
-            " amount_to_call, pot_before, is_all_in, sequence)"
-            " VALUES (?, ?, 1, 'RIVER', 'CALL', 20.0, 20.0, 60.0, 0, 1)",
-            (hand_id, hero_id),
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, ?, 'CALL', 100, 100, 200, 0, 1)",
+            (hid, hero_id, street),
+        ).lastrowid
+        if with_ev_cache:
+            conn.execute(
+                "INSERT INTO action_ev_cache"
+                " (action_id, hero_id, equity, ev, ev_type, sample_count, computed_at)"
+                " VALUES (?, ?, 0.75, 12.5, 'exact', 1000, '2024-01-15T12:00:00')",
+                (action_id, hero_id),
+            )
+        conn.commit()
+        return sid, action_id, hero_id
+
+    def test_empty_when_no_cache(self, conn):
+        """Session with no action_ev_cache rows returns empty DataFrame."""
+        from pokerhero.analysis.queries import get_session_showdown_evs
+
+        sid, _, hero_id = self._seed(conn, with_ev_cache=False)
+        df = get_session_showdown_evs(conn, sid, hero_id)
+        assert df.empty
+
+    def test_returns_equity_for_exact_river_action(self, conn):
+        """Exact EV cache row on RIVER is returned with equity and net_result."""
+        from pokerhero.analysis.queries import get_session_showdown_evs
+
+        sid, _, hero_id = self._seed(conn, with_ev_cache=True, street="RIVER")
+        df = get_session_showdown_evs(conn, sid, hero_id)
+        assert len(df) == 1
+        assert abs(float(df.iloc[0]["equity"]) - 0.75) < 0.001
+        assert float(df.iloc[0]["net_result"]) == pytest.approx(-500.0)
+
+    def test_deduplicates_multiple_qualifying_actions_per_hand(self, conn):
+        """Multiple exact EV cache rows for the same hand yield one row."""
+        from pokerhero.analysis.queries import get_session_showdown_evs
+
+        sid, action_id, hero_id = self._seed(conn, with_ev_cache=True, street="RIVER")
+        # Insert a second cache row for a different action in the SAME hand
+        hid = conn.execute(
+            "SELECT hand_id FROM actions WHERE id = ?", (action_id,)
+        ).fetchone()[0]
+        action_id2 = conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'RIVER', 'BET', 200, 0, 400, 1, 2)",
+            (hid, hero_id),
+        ).lastrowid
+        conn.execute(
+            "INSERT INTO action_ev_cache"
+            " (action_id, hero_id, equity, ev, ev_type, sample_count, computed_at)"
+            " VALUES (?, ?, 0.80, 20.0, 'exact', 1000, '2024-01-15T12:00:01')",
+            (action_id2, hero_id),
         )
         conn.commit()
-        conn.close()
-        return str(tmp_path / "test.db"), hand_id
+        df = get_session_showdown_evs(conn, sid, hero_id)
+        assert len(df) == 1
+        # Should pick the LATEST action (action_id2, equity=0.80), not the first.
+        assert abs(float(df.iloc[0]["equity"]) - 0.80) < 0.001
 
-    def test_ev_shown_for_non_allin_showdown_call(self, db):
-        """EV must appear for a hero CALL in a showdown hand (is_all_in=0)."""
-        from pokerhero.frontend.pages.sessions import _render_actions
+    def test_returns_equity_for_exact_flop_action(self, conn):
+        """Exact EV cache row on FLOP is returned (not filtered out by street)."""
+        from pokerhero.analysis.queries import get_session_showdown_evs
 
-        db_path, hand_id = db
-        content, _ = _render_actions(db_path, hand_id)
-        assert "EV:" in str(content)
-
-    def test_ev_not_shown_without_villain_cards(self, tmp_path):
-        """EV must stay '—' when villain folds (cards unknown, non-showdown)."""
-        from pokerhero.database.db import init_db, set_setting
-        from pokerhero.frontend.pages.sessions import _render_actions
-
-        conn = init_db(tmp_path / "test2.db")
-        cur = conn.execute(
-            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'Hero')"
-        )
-        hero_id = cur.lastrowid
-        conn.execute(
-            "INSERT INTO players (username, preferred_name)"
-            " VALUES ('villain', 'Villain')"
-        )
-        set_setting(conn, "hero_username", "hero")
-        cur = conn.execute(
-            "INSERT INTO sessions"
-            " (game_type, limit_type, max_seats, small_blind, big_blind,"
-            " ante, start_time)"
-            " VALUES ('NLHE', 'No Limit', 6, 1, 2, 0, '2024-01-01')"
-        )
-        session_id = cur.lastrowid
-        cur = conn.execute(
-            "INSERT INTO hands"
-            " (source_hand_id, session_id, board_flop, board_turn, board_river,"
-            " total_pot, uncalled_bet_returned, rake, timestamp)"
-            " VALUES ('H-NO-SD', ?, 'Ah 5c 7d', 'Js', '2c', 100.0, 0, 0,"
-            " '2024-01-01T00:00:00')",
-            (session_id,),
-        )
-        hand_id = cur.lastrowid
-        # Hero has hole cards, but villain folded (no hole_cards stored)
-        conn.execute(
-            "INSERT INTO hand_players"
-            " (hand_id, player_id, position, starting_stack, hole_cards,"
-            " went_to_showdown, net_result)"
-            " VALUES (?, ?, 'BTN', 200, 'Ac Kd', 0, 20.0)",
-            (hand_id, hero_id),
-        )
-        conn.execute(
-            "INSERT INTO actions"
-            " (hand_id, player_id, is_hero, street, action_type, amount,"
-            " amount_to_call, pot_before, is_all_in, sequence)"
-            " VALUES (?, ?, 1, 'RIVER', 'BET', 20.0, 0, 60.0, 0, 1)",
-            (hand_id, hero_id),
-        )
-        conn.commit()
-        conn.close()
-        content, _ = _render_actions(str(tmp_path / "test2.db"), hand_id)
-        assert "EV:" not in str(content)
+        sid, _, hero_id = self._seed(conn, with_ev_cache=True, street="FLOP")
+        df = get_session_showdown_evs(conn, sid, hero_id)
+        assert len(df) == 1
+        assert abs(float(df.iloc[0]["equity"]) - 0.75) < 0.001

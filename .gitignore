@@ -14,3 +14,6 @@ TODO.MD
 # Hand history files and local database
 data/histories/
 data/*.db
+
+# Diskcache (background callback manager)
+cache/

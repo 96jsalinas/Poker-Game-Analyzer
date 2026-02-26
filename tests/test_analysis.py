@@ -623,7 +623,7 @@ class TestEV:
         # Villain: 2c 3d (no hand)
         result = compute_ev("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 100.0, 300.0)
         assert result is not None
-        assert result > 0
+        assert result[0] > 0
 
     def test_losing_hand_is_negative_ev(self):
         """Hero has trash vs royal flush on complete board → negative EV."""
@@ -632,7 +632,7 @@ class TestEV:
         # Hero: 2c 3d, Villain: Ah Kh, Board: Qh Jh Th 9d 2s
         result = compute_ev("2c 3d", "Ah Kh", "Qh Jh Th 9d 2s", 100.0, 300.0)
         assert result is not None
-        assert result < 0
+        assert result[0] < 0
 
     def test_ev_formula_at_river(self):
         """Complete board → exact equity; EV ≈ equity*pot - (1-equity)*risked."""
@@ -642,7 +642,7 @@ class TestEV:
         # EV = 1.0 * 300 - 0 * 100 = 300
         result = compute_ev("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 100.0, 300.0)
         assert result is not None
-        assert result == pytest.approx(300.0, abs=5.0)
+        assert result[0] == pytest.approx(300.0, abs=5.0)
 
     def test_ev_partial_board_in_range(self):
         """Partial board (flop only) → equity between 0 and 1 for non-trivial hand."""
@@ -652,12 +652,66 @@ class TestEV:
         # Villain has set of 2s, hero has many outs (flush + straight outs)
         result = compute_ev("Ah Kh", "2c 2d", "Qh Jh 2s", 100.0, 300.0)
         assert result is not None
-        # Result is some finite float (not trivially 300 or -100)
-        assert isinstance(result, float)
+        # Result is a 2-tuple of finite floats
+        assert isinstance(result, tuple)
 
 
 # ---------------------------------------------------------------------------
-# TestComputeEquity — lru_cache wrapper around PokerKit equity calculation
+# TestEVTuple — compute_ev must return (ev, equity) tuple (not bare float)
+# ---------------------------------------------------------------------------
+class TestEVTuple:
+    """Failing tests: compute_ev must return tuple[float, float] | None.
+
+    These tests drive the A1 sub-task of the EV redesign.
+    """
+
+    def test_returns_none_when_villain_unknown(self):
+        """None is still returned when villain cards are absent."""
+        from pokerhero.analysis.stats import compute_ev
+
+        assert compute_ev("Ah Kh", None, "Qh Jh Th", 100.0, 300.0) is None
+
+    def test_returns_tuple_not_bare_float(self):
+        """Result must be a 2-tuple, not a bare float."""
+        from pokerhero.analysis.stats import compute_ev
+
+        result = compute_ev("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 100.0, 300.0)
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+
+    def test_first_element_is_ev(self):
+        """result[0] is EV — positive when hero has royal flush vs trash."""
+        from pokerhero.analysis.stats import compute_ev
+
+        ev, _ = compute_ev("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 100.0, 300.0)
+        assert ev > 0
+
+    def test_second_element_is_equity(self):
+        """result[1] is equity — a float in [0, 1]."""
+        from pokerhero.analysis.stats import compute_ev
+
+        _, equity = compute_ev("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 100.0, 300.0)
+        assert 0.0 <= equity <= 1.0
+
+    def test_equity_near_one_for_dominating_hand(self):
+        """Hero royal flush on complete board → equity ≈ 1.0."""
+        from pokerhero.analysis.stats import compute_ev
+
+        _, equity = compute_ev("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 100.0, 300.0)
+        assert equity == pytest.approx(1.0, abs=0.01)
+
+    def test_ev_formula_consistent_with_equity(self):
+        """EV should equal equity*pot_to_win - (1-equity)*amount_risked."""
+        from pokerhero.analysis.stats import compute_ev
+
+        amount_risked, pot_to_win = 100.0, 300.0
+        ev, equity = compute_ev(
+            "Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", amount_risked, pot_to_win
+        )
+        expected_ev = equity * pot_to_win - (1.0 - equity) * amount_risked
+        assert ev == pytest.approx(expected_ev, abs=0.01)
+
+
 # ---------------------------------------------------------------------------
 class TestComputeEquity:
     def setup_method(self):
@@ -1310,6 +1364,282 @@ class TestSessionAnalysisQueries:
             "total_pot",
         } <= set(df.columns)
 
+
+# ===========================================================================
+# TestHandRanking — HAND_RANKING list in ranges.py
+# ===========================================================================
+
+
+class TestHandRanking:
+    """HAND_RANKING must be a well-formed 169-hand descending-strength list."""
+
+    def test_length_is_169(self):
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert len(HAND_RANKING) == 169
+
+    def test_no_duplicates(self):
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert len(set(HAND_RANKING)) == 169
+
+    def test_aa_is_first(self):
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert HAND_RANKING[0] == "AA"
+
+    def test_32o_is_last(self):
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert HAND_RANKING[-1] == "32o"
+
+    def test_aks_in_top_10(self):
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert HAND_RANKING.index("AKs") < 10
+
+    def test_all_pairs_present(self):
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        pairs = {
+            "AA",
+            "KK",
+            "QQ",
+            "JJ",
+            "TT",
+            "99",
+            "88",
+            "77",
+            "66",
+            "55",
+            "44",
+            "33",
+            "22",
+        }
+        assert pairs <= set(HAND_RANKING)
+
+    def test_suited_beats_offsuit_same_cards(self):
+        """AKs must be ranked higher (earlier) than AKo."""
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert HAND_RANKING.index("AKs") < HAND_RANKING.index("AKo")
+
+    def test_high_pair_beats_low_pair(self):
+        """AA must be ranked higher than 22."""
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert HAND_RANKING.index("AA") < HAND_RANKING.index("22")
+
+    def test_total_suited_count(self):
+        """Must contain exactly 78 suited hands."""
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert sum(1 for h in HAND_RANKING if h.endswith("s")) == 78
+
+    def test_total_offsuit_count(self):
+        """Must contain exactly 78 offsuit (non-pair) hands."""
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert sum(1 for h in HAND_RANKING if h.endswith("o")) == 78
+
+    def test_total_pair_count(self):
+        """Must contain exactly 13 pocket pairs."""
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        assert sum(1 for h in HAND_RANKING if len(h) == 2) == 13
+
+
+# ===========================================================================
+# TestBuildRange — build_range returns correct hand slices
+# ===========================================================================
+
+
+class TestBuildRange:
+    """build_range must return the right slice of HAND_RANKING per action type."""
+
+    def test_2bet_returns_top_pfr_pct(self):
+        """villain_preflop_action='2bet' → top pfr_pct% of HAND_RANKING."""
+        from pokerhero.analysis.ranges import HAND_RANKING, build_range
+
+        result = build_range(
+            vpip_pct=26.0,
+            pfr_pct=14.0,
+            three_bet_pct=6.0,
+            villain_preflop_action="2bet",
+        )
+        expected_n = round(169 * 14.0 / 100)
+        assert result == HAND_RANKING[:expected_n]
+
+    def test_3bet_returns_top_3bet_pct(self):
+        """villain_preflop_action='3bet' → top three_bet_pct% of HAND_RANKING."""
+        from pokerhero.analysis.ranges import HAND_RANKING, build_range
+
+        result = build_range(
+            vpip_pct=26.0,
+            pfr_pct=14.0,
+            three_bet_pct=6.0,
+            villain_preflop_action="3bet",
+        )
+        expected_n = round(169 * 6.0 / 100)
+        assert result == HAND_RANKING[:expected_n]
+
+    def test_3bet_range_tighter_than_2bet_range(self):
+        """3-bet range must be strictly smaller than 2-bet range."""
+        from pokerhero.analysis.ranges import build_range
+
+        r2 = build_range(26.0, 14.0, 6.0, "2bet")
+        r3 = build_range(26.0, 14.0, 6.0, "3bet")
+        assert len(r3) < len(r2)
+
+    def test_4bet_uses_fixed_prior_ignores_pfr(self):
+        """villain_preflop_action='4bet+' → top four_bet_prior% regardless of pfr."""
+        from pokerhero.analysis.ranges import HAND_RANKING, build_range
+
+        result = build_range(
+            vpip_pct=26.0,
+            pfr_pct=14.0,
+            three_bet_pct=6.0,
+            villain_preflop_action="4bet+",
+            four_bet_prior=3.0,
+        )
+        expected_n = round(169 * 3.0 / 100)
+        assert result == HAND_RANKING[:expected_n]
+
+    def test_4bet_range_tighter_than_3bet_range(self):
+        """4-bet range must be strictly smaller than 3-bet range."""
+        from pokerhero.analysis.ranges import build_range
+
+        r3 = build_range(26.0, 14.0, 6.0, "3bet")
+        r4 = build_range(26.0, 14.0, 6.0, "4bet+", four_bet_prior=3.0)
+        assert len(r4) < len(r3)
+
+    def test_call_returns_flatting_slice(self):
+        """villain_preflop_action='call' → hands between pfr% and vpip% cutoffs."""
+        from pokerhero.analysis.ranges import HAND_RANKING, build_range
+
+        result = build_range(
+            vpip_pct=26.0,
+            pfr_pct=14.0,
+            three_bet_pct=6.0,
+            villain_preflop_action="call",
+        )
+        lo = round(169 * 14.0 / 100)
+        hi = round(169 * 26.0 / 100)
+        assert result == HAND_RANKING[lo:hi]
+
+    def test_call_range_does_not_overlap_2bet_range(self):
+        """Flatting range must be disjoint from open-raise range."""
+        from pokerhero.analysis.ranges import build_range
+
+        r_call = set(build_range(26.0, 14.0, 6.0, "call"))
+        r_2bet = set(build_range(26.0, 14.0, 6.0, "2bet"))
+        assert r_call.isdisjoint(r_2bet)
+
+    def test_unknown_action_raises_value_error(self):
+        from pokerhero.analysis.ranges import build_range
+
+        with pytest.raises(ValueError):
+            build_range(26.0, 14.0, 6.0, "shove")
+
+    def test_2bet_with_custom_hand_ranking(self):
+        """build_range respects a custom hand_ranking list passed as argument."""
+        from pokerhero.analysis.ranges import build_range
+
+        custom = ["KK", "AA", "QQ", "JJ", "TT"]
+        result = build_range(
+            vpip_pct=26.0,
+            pfr_pct=14.0,
+            three_bet_pct=6.0,
+            villain_preflop_action="2bet",
+            hand_ranking=custom,
+        )
+        n = max(1, round(len(custom) * 14.0 / 100))
+        assert result == custom[:n]
+
+    def test_call_with_custom_hand_ranking(self):
+        """build_range call-slice uses custom hand_ranking when provided."""
+        from pokerhero.analysis.ranges import build_range
+
+        custom = ["AA", "KK", "QQ", "JJ", "TT", "99", "88", "77", "66", "55"]
+        result = build_range(
+            vpip_pct=40.0,
+            pfr_pct=20.0,
+            three_bet_pct=6.0,
+            villain_preflop_action="call",
+            hand_ranking=custom,
+        )
+        lo = round(len(custom) * 20.0 / 100)
+        hi = round(len(custom) * 40.0 / 100)
+        assert result == custom[lo:hi]
+
+
+# ===========================================================================
+# TestBlendFunctions — Bayesian blend helpers
+# ===========================================================================
+
+
+class TestBlendFunctions:
+    """blend_vpip, blend_pfr, blend_3bet must apply the Bayesian blend formula."""
+
+    def test_blend_vpip_with_zero_hands_returns_prior(self):
+        from pokerhero.analysis.ranges import blend_vpip
+
+        assert blend_vpip(observed=None, n_hands=0) == pytest.approx(26.0)
+
+    def test_blend_vpip_observed_none_returns_prior(self):
+        from pokerhero.analysis.ranges import blend_vpip
+
+        assert blend_vpip(observed=None, n_hands=50) == pytest.approx(26.0)
+
+    def test_blend_vpip_large_sample_approaches_observed(self):
+        """With n >> k, blended value should be very close to observed."""
+        from pokerhero.analysis.ranges import blend_vpip
+
+        result = blend_vpip(observed=40.0, n_hands=3000, prior=26.0, k=30)
+        assert result == pytest.approx(40.0, abs=0.5)
+
+    def test_blend_vpip_formula(self):
+        """(n * obs + k * prior) / (n + k)."""
+        from pokerhero.analysis.ranges import blend_vpip
+
+        # n=30, k=30: equal weight → (30*40 + 30*26)/(30+30) = (1200+780)/60 = 33
+        result = blend_vpip(observed=40.0, n_hands=30, prior=26.0, k=30)
+        assert result == pytest.approx(33.0)
+
+    def test_blend_pfr_default_prior_is_14(self):
+        from pokerhero.analysis.ranges import blend_pfr
+
+        assert blend_pfr(observed=None, n_hands=0) == pytest.approx(14.0)
+
+    def test_blend_pfr_formula(self):
+        from pokerhero.analysis.ranges import blend_pfr
+
+        result = blend_pfr(observed=20.0, n_hands=30, prior=14.0, k=30)
+        # (30*20 + 30*14) / 60 = (600+420)/60 = 17
+        assert result == pytest.approx(17.0)
+
+    def test_blend_3bet_default_prior_is_6(self):
+        from pokerhero.analysis.ranges import blend_3bet
+
+        assert blend_3bet(observed=None, n_hands=0) == pytest.approx(6.0)
+
+    def test_blend_3bet_falls_back_to_prior_when_n_zero(self):
+        """n_hands=0 with any observed value → prior returned."""
+        from pokerhero.analysis.ranges import blend_3bet
+
+        assert blend_3bet(observed=10.0, n_hands=0) == pytest.approx(6.0)
+
+    def test_blend_3bet_formula(self):
+        from pokerhero.analysis.ranges import blend_3bet
+
+        result = blend_3bet(observed=12.0, n_hands=30, prior=6.0, k=30)
+        # (30*12 + 30*6) / 60 = (360+180)/60 = 9
+        assert result == pytest.approx(9.0)
+
+
+class TestSessionAnalysisQueriesShowdown:
+    """Continuation of TestSessionAnalysisQueries — showdown hand query tests."""
+
     def test_get_session_showdown_hands_row_count(
         self, db_with_data, hero_player_id, session_id
     ):
@@ -1696,3 +2026,326 @@ class TestSeedTargetDefaults:
             "SELECT green_min FROM target_settings WHERE stat='vpip' AND position='btn'"
         ).fetchone()
         assert row[0] == 99.0  # custom value must survive
+
+
+# ===========================================================================
+# TestExpandCombos — expand_combos expands hand strings to specific combos
+# ===========================================================================
+
+
+class TestExpandCombos:
+    """expand_combos must expand shorthand hands to concrete card combos and
+    filter out any combo containing a dead card."""
+
+    def test_pair_expands_to_six_combos(self):
+        """AA with no dead cards yields all 6 suit combinations."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        result = expand_combos(["AA"], set())
+        assert len(result) == 6
+
+    def test_suited_hand_expands_to_four_combos(self):
+        """AKs with no dead cards yields 4 combos (one per suit)."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        result = expand_combos(["AKs"], set())
+        assert len(result) == 4
+
+    def test_offsuit_hand_expands_to_twelve_combos(self):
+        """AKo with no dead cards yields 12 combos (4×3, same-suit excluded)."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        result = expand_combos(["AKo"], set())
+        assert len(result) == 12
+
+    def test_pair_dead_card_removes_three_combos(self):
+        """One dead card in a pair removes 3 of the 6 combos."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        result = expand_combos(["AA"], {"Ah"})
+        assert len(result) == 3
+        assert all("Ah" not in combo for combo in result)
+
+    def test_suited_dead_card_removes_one_combo(self):
+        """Killing one card removes the one suited combo that uses it."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        result = expand_combos(["AKs"], {"Ah"})
+        assert len(result) == 3
+        assert all("Ah" not in combo for combo in result)
+
+    def test_offsuit_dead_card_removes_combos(self):
+        """Dead Ah removes 3 combos from AKo (Ah Kc, Ah Kd, Ah Ks)."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        result = expand_combos(["AKo"], {"Ah"})
+        assert len(result) == 9
+        assert all("Ah" not in combo for combo in result)
+
+    def test_two_dead_cards_filter_correctly(self):
+        """Two dead cards each from a different rank filter combined combos."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        # Ah and Kh dead: removes AhKx and AxKh from AKo
+        result = expand_combos(["AKo"], {"Ah", "Kh"})
+        assert all("Ah" not in combo and "Kh" not in combo for combo in result)
+
+    def test_all_combos_dead_returns_empty_for_that_hand(self):
+        """If every combo of a hand is dead, it contributes nothing."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        # Kill all four aces — no AA combos possible
+        result = expand_combos(["AA"], {"Ac", "Ad", "Ah", "As"})
+        assert result == []
+
+    def test_empty_range_returns_empty_list(self):
+        from pokerhero.analysis.ranges import expand_combos
+
+        assert expand_combos([], set()) == []
+
+    def test_combos_are_space_separated_card_strings(self):
+        """Each combo in the output is a 'Xr Xs' space-separated string."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        result = expand_combos(["AKs"], set())
+        for combo in result:
+            parts = combo.split()
+            assert len(parts) == 2
+            assert len(parts[0]) == 2
+            assert len(parts[1]) == 2
+
+    def test_mixed_range_total_combo_count(self):
+        """AA(6) + AKs(4) + AKo(12) = 22 combos with no dead cards."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        result = expand_combos(["AA", "AKs", "AKo"], set())
+        assert len(result) == 22
+
+    def test_no_duplicate_combos(self):
+        """No combo appears twice in the output."""
+        from pokerhero.analysis.ranges import expand_combos
+
+        result = expand_combos(["AA", "KK", "QQ"], set())
+        assert len(result) == len(set(result))
+
+
+# ===========================================================================
+# TestScoreComboVsBoard — equity-aware scoring with draw bonuses
+# ===========================================================================
+
+
+class TestScoreComboVsBoard:
+    """score_combo_vs_board must rank draws favourably vs weak made hands."""
+
+    def test_flush_draw_scores_lower_than_bottom_pair(self):
+        """KhQh on Ah8h2c (flush draw) must score lower than 5s2d (bottom pair)."""
+        from pokerhero.analysis.ranges import score_combo_vs_board
+
+        flush_draw = score_combo_vs_board("Kh Qh", "Ah 8h 2c")
+        bottom_pair = score_combo_vs_board("5s 2d", "Ah 8h 2c")
+        assert flush_draw < bottom_pair
+
+    def test_naked_ace_monotone_scores_lower_than_missed_offsuit(self):
+        """AhQs on Kh8h2h (naked nut-flush card) beats pure air (Td4c)."""
+        from pokerhero.analysis.ranges import score_combo_vs_board
+
+        naked_ace = score_combo_vs_board("Ah Qs", "Kh 8h 2h")
+        pure_air = score_combo_vs_board("Td 4c", "Kh 8h 2h")
+        assert naked_ace < pure_air
+
+    def test_oesd_scores_lower_than_pure_air(self):
+        """JsTs on Qh9h2c (OESD) must score lower than 3d2c (pure air)."""
+        from pokerhero.analysis.ranges import score_combo_vs_board
+
+        oesd = score_combo_vs_board("Js Ts", "Qh 9h 2c")
+        pure_air = score_combo_vs_board("3d 2c", "Qh 9h 2c")
+        assert oesd < pure_air
+
+    def test_gutshot_scores_lower_than_pure_air(self):
+        """Js9d on Qh8h2c (gutshot needing T) scores below 3d2c."""
+        from pokerhero.analysis.ranges import score_combo_vs_board
+
+        gutshot = score_combo_vs_board("Js 9d", "Qh 8h 2c")
+        pure_air = score_combo_vs_board("3d 2c", "Qh 8h 2c")
+        assert gutshot < pure_air
+
+    def test_two_overcards_score_lower_than_trash(self):
+        """AhKd on Js7d2c (two overcards) must score lower than Qd9c (trash)."""
+        from pokerhero.analysis.ranges import score_combo_vs_board
+
+        overcards = score_combo_vs_board("Ah Kd", "Js 7d 2c")
+        trash = score_combo_vs_board("Qd 9c", "Js 7d 2c")
+        assert overcards < trash
+
+    def test_flush_draw_plus_oesd_cumulative(self):
+        """JhTh on Qh9h3d (flush draw AND OESD) scores lower than Kh7h (flush only)."""
+        from pokerhero.analysis.ranges import score_combo_vs_board
+
+        combo = score_combo_vs_board("Jh Th", "Qh 9h 3d")
+        flush_only = score_combo_vs_board("Kh 7h", "Qh 9h 3d")
+        assert combo < flush_only
+
+    def test_made_hand_scores_lower_than_flush_draw(self):
+        """Top set (AhAd on Ah8h2c) scores lower than flush draw (KhQh)."""
+        from pokerhero.analysis.ranges import score_combo_vs_board
+
+        top_set = score_combo_vs_board("Ah Ad", "Ah 8h 2c")
+        flush_draw = score_combo_vs_board("Kh Qh", "Ah 8h 2c")
+        assert top_set < flush_draw
+
+
+# ===========================================================================
+# TestContractRange — range contraction based on board + villain action
+# ===========================================================================
+
+
+class TestContractRange:
+    """contract_range must keep stronger/drawing combos and honour passive vs
+    aggressive thresholds."""
+
+    def _all_combos(self) -> list[str]:
+        """Return all combos for HAND_RANKING with no dead cards."""
+        from pokerhero.analysis.ranges import HAND_RANKING, expand_combos
+
+        return expand_combos(HAND_RANKING, set())
+
+    def test_aggressive_action_keeps_fewer_combos_than_passive(self):
+        """Bet/raise should keep fewer combos than check/call at same %."""
+        from pokerhero.analysis.ranges import contract_range
+
+        combos = self._all_combos()
+        passive = contract_range(combos, "Ah 8h 2c", "check")
+        aggressive = contract_range(combos, "Ah 8h 2c", "bet")
+        assert len(aggressive) < len(passive)
+
+    def test_passive_retains_continue_pct_passive_fraction(self):
+        """Check action retains ~65% of combos by default."""
+        from pokerhero.analysis.ranges import contract_range
+
+        combos = self._all_combos()
+        result = contract_range(combos, "Ah 8h 2c", "check")
+        expected = round(len(combos) * 65.0 / 100)
+        assert len(result) == expected
+
+    def test_aggressive_retains_continue_pct_aggressive_fraction(self):
+        """Bet action retains ~40% of combos by default."""
+        from pokerhero.analysis.ranges import contract_range
+
+        combos = self._all_combos()
+        result = contract_range(combos, "Ah 8h 2c", "bet")
+        expected = round(len(combos) * 40.0 / 100)
+        assert len(result) == expected
+
+    def test_returns_empty_when_zero_pct(self):
+        """contract_range returns [] when continue_pct forces 0 combos."""
+        from pokerhero.analysis.ranges import contract_range
+
+        combos = self._all_combos()
+        result = contract_range(
+            combos,
+            "Ah 8h 2c",
+            "bet",
+            continue_pct_aggressive=0.0,
+        )
+        assert result == []
+
+    def test_raise_treated_as_aggressive(self):
+        """'raise' action uses continue_pct_aggressive, same as 'bet'."""
+        from pokerhero.analysis.ranges import contract_range
+
+        combos = self._all_combos()
+        bet_result = contract_range(combos, "Ah 8h 2c", "bet")
+        raise_result = contract_range(combos, "Ah 8h 2c", "raise")
+        assert len(raise_result) == len(bet_result)
+
+    def test_call_treated_as_passive(self):
+        """'call' action uses continue_pct_passive, same as 'check'."""
+        from pokerhero.analysis.ranges import contract_range
+
+        combos = self._all_combos()
+        check_result = contract_range(combos, "Ah 8h 2c", "check")
+        call_result = contract_range(combos, "Ah 8h 2c", "call")
+        assert len(call_result) == len(check_result)
+
+    def test_flush_draw_survives_aggressive_contraction(self):
+        """KhQh (nut flush draw on Ah8h2c) must survive a 40% contraction."""
+        from pokerhero.analysis.ranges import contract_range
+
+        combos = ["Kh Qh", "5s 2d", "3c 2c", "Td 4c", "9s 6d"]
+        result = contract_range(
+            combos,
+            "Ah 8h 2c",
+            "bet",
+            continue_pct_aggressive=40.0,
+        )
+        assert "Kh Qh" in result
+
+
+class TestComputeEquityVsRange:
+    """Integration tests for compute_equity_vs_range in stats.py."""
+
+    def _fn(self, **kwargs):
+        from pokerhero.analysis.stats import compute_equity_vs_range
+
+        defaults = dict(
+            hero_cards="Th Td",
+            board="Ah Kh Qh",
+            vpip_pct=25.0,
+            pfr_pct=18.0,
+            three_bet_pct=5.0,
+            villain_preflop_action="2bet",
+            villain_street_history=[],
+            sample_count=80,
+        )
+        defaults.update(kwargs)
+        return compute_equity_vs_range(**defaults)
+
+    def test_flop_2bet_returns_valid_equity_and_positive_size(self):
+        """FLOP 2-bet: equity in [0, 1] and contracted_size > 0."""
+        equity, size = self._fn()
+        assert 0.0 <= equity <= 1.0
+        assert size > 0
+
+    def test_3bet_range_smaller_than_2bet(self):
+        """3-bet range is tighter: contracted_size(3bet) < contracted_size(2bet)."""
+        _, size_2bet = self._fn(villain_preflop_action="2bet", pfr_pct=18.0)
+        _, size_3bet = self._fn(villain_preflop_action="3bet", three_bet_pct=5.0)
+        assert size_3bet < size_2bet
+
+    def test_river_two_street_history_contracts_range(self):
+        """2-street history produces smaller range than no history (same board)."""
+        board_river = "Ah Kh Qh 2c 3d"
+        _, size_no_history = self._fn(board=board_river)
+        _, size_with_history = self._fn(
+            board=board_river,
+            villain_street_history=[
+                ("Ah Kh Qh", "bet"),
+                ("Ah Kh Qh 2c", "call"),
+            ],
+        )
+        assert size_with_history < size_no_history
+
+    def test_range_collapse_returns_zero(self):
+        """Contraction leaving < 5 combos returns (0.0, 0)."""
+        equity, size = self._fn(
+            hero_cards="2c 3d",
+            board="5s 6h 7c",
+            villain_preflop_action="4bet+",
+            four_bet_prior=0.8,  # top 0.8% → 1 hand (AA = 6 combos) → 40% = 2
+            villain_street_history=[("5s 6h 7c", "bet")],
+        )
+        assert equity == 0.0
+        assert size == 0
+
+    def test_4bet_smaller_range_than_2bet(self):
+        """4bet+ uses fixed prior (3%), not villain's pfr (40%)."""
+        _, size_4bet = self._fn(
+            villain_preflop_action="4bet+",
+            pfr_pct=40.0,
+            four_bet_prior=3.0,
+        )
+        _, size_2bet = self._fn(
+            villain_preflop_action="2bet",
+            pfr_pct=40.0,
+        )
+        assert size_4bet < size_2bet

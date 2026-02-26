@@ -52,6 +52,7 @@ The "State" of a player for a specific hand. Stores flags for fast stat-checking
 | `hole_cards` | String | Hero's cards (or villain cards if shown). |
 | `vpip` | Boolean | Did the player voluntarily put money in? |
 | `pfr` | Boolean | Did the player raise pre-flop? |
+| `three_bet` | Boolean | Did the player 3-bet (re-raise a pre-flop raiser) in this hand? 0/1. |
 | `went_to_showdown` | Boolean | Did the hand reach the showdown for this player? |
 | `net_result` | Decimal | Final profit/loss for this hand (numeric). |
 
@@ -67,12 +68,12 @@ Atomic actions. Stores "Contextual Math" to allow for instant Pot Odds analysis.
 | `street` | Enum | PREFLOP, FLOP, TURN, RIVER. |
 | `action_type` | Enum | FOLD, CHECK, CALL, BET, RAISE, ALL_IN. |
 | `amount` | Decimal | Total bet/raise size on the current street (not the incremental cost). e.g., if Hero raises to $35 over a $10 bet, `amount = 35`. |
-| `amount_to_call` | Decimal | The total facing bet size Hero must match (e.g., villain bet $25 → `amount_to_call = 25`). Note: this is NOT the incremental cost — if Hero already committed $10, the incremental cost = `amount_to_call - prior_commitment`. |
+| `amount_to_call` | Decimal | The total facing bet size Hero must match (e.g., villain bet $25 → `amount_to_call = 25`). Set for CALL, RAISE, and **FOLD actions facing a bet**. Note: this is NOT the incremental cost — if Hero already committed $10, the incremental cost = `amount_to_call - prior_commitment`. Zero for BET, CHECK, and FOLD actions where no bet was pending on that street. |
 | `pot_before` | Decimal | The total pot size *before* this action. |
 | `is_all_in` | Boolean | Flag to trigger "Effective Stack" logic. |
 | `sequence` | Integer | Global order of actions in the hand (1, 2, 3...). |
 | `spr` | Decimal | Stack-to-Pot Ratio, pre-calculated at flop commencement. NULL for all other streets/actions. |
-| `mdf` | Decimal | Minimum Defense Frequency, pre-calculated when Hero faces a bet. NULL otherwise. |
+| `mdf` | Decimal | Minimum Defense Frequency, pre-calculated when Hero faces a bet on a CALL or RAISE action. NULL for FOLD (not applicable — Hero chose not to defend) and all other actions. |
 
 ## 👤 5. Players
 Stores players.
@@ -99,6 +100,14 @@ A simple key/value store for persistent application configuration.
 | `lucky_equity_threshold` | `"40"` | Integer percentage (0–100). Hero wins below this equity → 🍀 Lucky. |
 | `unlucky_equity_threshold` | `"60"` | Integer percentage (0–100). Hero loses above this equity → 😞 Unlucky. |
 | `min_hands_classification` | `"15"` | Minimum hands observed before an opponent archetype badge is shown. |
+| `range_sample_count` | `"1000"` | Monte Carlo samples per EV computation in `calculate_session_evs`. |
+| `range_vpip_prior` | `"26.0"` | Population VPIP prior (%) used in the Bayesian blend formula. |
+| `range_pfr_prior` | `"14.0"` | Population PFR prior (%) used in the Bayesian blend formula. |
+| `range_3bet_prior` | `"6.0"` | Population 3-Bet prior (%) used in the Bayesian blend formula. |
+| `range_4bet_prior` | `"3.0"` | Population 4-Bet prior (%) — top slice used for `'4bet+'` pre-flop action. |
+| `range_prior_weight` | `"30"` | Equivalent hand-count weight for the population prior in the blend formula. |
+| `range_continue_pct_passive` | `"65.0"` | % of range retained per street when villain acted passively (check/call). |
+| `range_continue_pct_aggressive` | `"40.0"` | % of range retained per street when villain acted aggressively (bet/raise). |
 
 ---
 
@@ -135,27 +144,28 @@ Dedicated table for position-specific traffic-light target ranges. Separate from
 
 ---
 
-## 🔢 8. Hand Equity Cache Table
-Pre-computed Monte Carlo equity results, persisted to avoid recomputation on repeated session report views.
+## 📊 8. Action EV Cache Table
+Pre-computed EV results per hero action, persisted to avoid recomputation. Written by `calculate_session_evs` and read by the session report display.
 
 | Column | Type | Description |
 | :--- | :--- | :--- |
-| `hand_id` | INTEGER FK (PK) | Link to `Hands`. |
-| `hero_id` | INTEGER FK (PK) | Link to `Players` (the hero). Composite PK with `hand_id`. |
-| `equity` | REAL NOT NULL | Hero's win equity (0.0–1.0) computed via `compute_equity_multiway`. |
-| `sample_count` | INTEGER NOT NULL | Monte Carlo sample count used for this result. Used for staleness detection — if the user changes the `equity_sample_count` setting, rows with a mismatched `sample_count` are treated as cache misses and recomputed. |
+| `action_id` | INTEGER FK (PK) | Link to `Actions`. Composite PK with `hero_id`. |
+| `hero_id` | INTEGER FK (PK) | Link to `Players` (the hero). |
+| `equity` | REAL NOT NULL | Hero's win equity (0.0–1.0). Exact when villain cards known; estimated from range otherwise. |
+| `ev` | REAL NOT NULL | Expected value: `equity × pot_to_win − (1 − equity) × wager`. |
+| `ev_type` | TEXT NOT NULL | `'exact'` — villain's cards were known (showdown/all-in). `'range'` — equity estimated from villain's inferred range. |
+| `blended_vpip` | REAL | Bayesian-blended VPIP used in range construction. NULL when `ev_type = 'exact'`. |
+| `blended_pfr` | REAL | Bayesian-blended PFR used in range construction. NULL when `ev_type = 'exact'`. |
+| `blended_3bet` | REAL | Bayesian-blended 3-Bet % used in range construction. NULL when `ev_type = 'exact'`. |
+| `villain_preflop_action` | TEXT | `'call'`, `'2bet'`, `'3bet'`, or `'4bet+'`. NULL when `ev_type = 'exact'`. |
+| `contracted_range_size` | INTEGER | Number of combos surviving contraction. NULL when `ev_type = 'exact'`. |
+| `sample_count` | INTEGER NOT NULL | Monte Carlo samples used. |
+| `computed_at` | TEXT NOT NULL | ISO 8601 timestamp of computation. |
 
 **Key functions** (`src/pokerhero/database/db.py`):
-* `get_hand_equity(conn, hand_id, hero_id, sample_count) -> float | None` — returns cached equity if `sample_count` matches, else `None`.
-* `set_hand_equity(conn, hand_id, hero_id, equity, sample_count) -> None` — upsert via `INSERT OR REPLACE`.
-
-**Migration:** The table is created by `CREATE TABLE IF NOT EXISTS` in `schema.sql`, so `init_db()` creates it transparently on existing databases.
-
-### `get_session_showdown_hands` output schema
-| Column | Type | Notes |
-| :--- | :--- | :--- |
-| `villain_cards` | `str` | Pipe-separated hole-card pairs for all villains who showed cards (e.g. `"Kh Qd"` heads-up; `"Kh Qd\|9c 8c"` for two opponents). Consumed by `compute_equity_multiway`. |
-| `villain_username` | `str` | Comma-separated list of all villain usernames who showed cards. |
+* `get_action_ev(conn, action_id, hero_id) -> dict | None` — returns the cached row for an action, or `None`.
+* `save_action_evs(conn, rows) -> None` — bulk `INSERT OR REPLACE` for a list of row dicts.
+* `get_range_settings(conn) -> dict` — returns all `range_*` settings as a typed dict (falls back to `RANGE_SETTING_DEFAULTS`).
 
 
 
@@ -213,11 +223,11 @@ These dataclasses are what `HandParser.parse()` returns. Field names differ from
 | `street` | `str` | `PREFLOP / FLOP / TURN / RIVER` |
 | `action_type` | `str` | `POST_BLIND / POST_ANTE / FOLD / CHECK / CALL / BET / RAISE` |
 | `amount` | `Decimal` | total bet/raise size on street; 0 for FOLD/CHECK |
-| `amount_to_call` | `Decimal` | facing bet Hero must match; 0 for BET/CHECK/FOLD/POST_* |
+| `amount_to_call` | `Decimal` | facing bet Hero must match; 0 for BET/CHECK/POST_*; set to the pending bet size for FOLD when folding to a bet |
 | `pot_before` | `Decimal` | running pot before this action |
 | `is_all_in` | `bool` | |
 | `spr` | `Decimal \| None` | set only on first hero FLOP action |
-| `mdf` | `Decimal \| None` | set only when `is_hero=True` and `amount_to_call > 0` |
+| `mdf` | `Decimal \| None` | set only when `is_hero=True`, `amount_to_call > 0`, and `action_type != 'FOLD'` |
 
 ### `ParsedHand`
 Top-level container returned by `HandParser(hero="username").parse(text)`:

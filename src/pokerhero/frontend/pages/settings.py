@@ -12,8 +12,10 @@ from pokerhero.analysis.queries import get_export_data
 from pokerhero.database.db import (
     clear_all_data,
     get_connection,
+    get_hand_ranking,
     get_setting,
     init_db,
+    save_hand_ranking,
     set_setting,
 )
 
@@ -281,6 +283,76 @@ layout = html.Div(
                 ),
             ],
         ),
+        # ── Advanced Settings ────────────────────────────────────────────────
+        html.Details(
+            style={**_SECTION_STYLE, "marginBottom": "32px"},
+            children=[
+                html.Summary(
+                    "🔬 Advanced Settings",
+                    style={
+                        "fontWeight": "600",
+                        "fontSize": "16px",
+                        "cursor": "pointer",
+                        "userSelect": "none",
+                    },
+                ),
+                html.P(
+                    "For advanced users only. Modify the pre-flop hand ranking "
+                    "used when estimating villain ranges. Provide 169 unique "
+                    "hand strings (e.g. AA, AKs, AKo) separated by commas or "
+                    "newlines, strongest first.",
+                    style={
+                        "color": "var(--text-3, #555)",
+                        "fontSize": "14px",
+                        "marginTop": "12px",
+                    },
+                ),
+                html.Label(
+                    "Pre-flop Hand Ranking",
+                    style={
+                        "fontWeight": "600",
+                        "fontSize": "14px",
+                        "display": "block",
+                        "marginBottom": "6px",
+                    },
+                ),
+                dcc.Textarea(
+                    id="settings-hand-ranking",
+                    style={
+                        "width": "100%",
+                        "height": "120px",
+                        "fontFamily": "monospace",
+                        "fontSize": "12px",
+                        "padding": "8px",
+                        "boxSizing": "border-box",
+                    },
+                    placeholder="AA, KK, QQ, JJ, AKs, ...",
+                ),
+                html.Div(
+                    style={
+                        "display": "flex",
+                        "alignItems": "center",
+                        "gap": "12px",
+                        "marginTop": "8px",
+                    },
+                    children=[
+                        html.Button(
+                            "💾 Save Hand Ranking",
+                            id="settings-hand-ranking-save",
+                            style={
+                                **_BUTTON_STYLE,
+                                "background": "#2ecc40",
+                                "color": "#fff",
+                            },
+                        ),
+                        html.Span(
+                            id="settings-hand-ranking-msg",
+                            style={"fontSize": "13px"},
+                        ),
+                    ],
+                ),
+            ],
+        ),
         # ── Data Management ─────────────────────────────────────────────────
         html.Div(
             style=_SECTION_STYLE,
@@ -490,6 +562,56 @@ def _save_min_hands(value: int | None) -> str:
     conn = get_connection(db_path)
     try:
         set_setting(conn, "min_hands_classification", str(int(value)))
+        conn.commit()
+    finally:
+        conn.close()
+    return "✓ saved"
+
+
+@callback(
+    Output("settings-hand-ranking", "value"),
+    Input("_pages_location", "pathname"),
+    prevent_initial_call=False,
+)
+def _load_hand_ranking(pathname: str) -> str:
+    """Pre-populate hand ranking textarea from DB on page visit."""
+    if pathname != "/settings":
+        raise dash.exceptions.PreventUpdate
+    db_path = _get_db_path()
+    if db_path == ":memory:":
+        from pokerhero.analysis.ranges import HAND_RANKING
+
+        return ", ".join(HAND_RANKING)
+    conn = get_connection(db_path)
+    try:
+        ranking = get_hand_ranking(conn)
+    finally:
+        conn.close()
+    return ", ".join(ranking)
+
+
+@callback(
+    Output("settings-hand-ranking-msg", "children"),
+    Input("settings-hand-ranking-save", "n_clicks"),
+    State("settings-hand-ranking", "value"),
+    prevent_initial_call=True,
+)
+def _save_hand_ranking_cb(n_clicks: int | None, value: str | None) -> str:
+    """Validate and persist the hand ranking from the textarea."""
+    if not value:
+        return "⚠️ No ranking provided."
+    raw = [h.strip() for h in value.replace("\n", ",").split(",") if h.strip()]
+    if len(raw) != 169:
+        return f"⚠️ Expected 169 hands, got {len(raw)}."
+    if len(set(raw)) != 169:
+        dupes = [h for h in set(raw) if raw.count(h) > 1]
+        return f"⚠️ Duplicate hands: {', '.join(dupes[:5])}."
+    db_path = _get_db_path()
+    if db_path == ":memory:":
+        return "✓ (not persisted in demo mode)"
+    conn = get_connection(db_path)
+    try:
+        save_hand_ranking(conn, raw)
         conn.commit()
     finally:
         conn.close()

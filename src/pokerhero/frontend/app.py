@@ -7,38 +7,51 @@ with the configured DB path and starts the development server.
 from __future__ import annotations
 
 from pathlib import Path
+from typing import TYPE_CHECKING, Any
 
 import dash
 from dash import Input, Output, State, dcc, html
 
 from pokerhero.database.db import init_db
 
+if TYPE_CHECKING:
+    from dash import DiskcacheManager
 
-def create_app(db_path: str | Path = "data/pokerhero.db") -> dash.Dash:
+
+def create_app(
+    db_path: str | Path = "data/pokerhero.db",
+    background_callback_manager: DiskcacheManager | None = None,
+) -> dash.Dash:
     """Create and configure the Dash application.
 
     Args:
         db_path: Path to the SQLite database file, or ':memory:' for tests.
+        background_callback_manager: DiskcacheManager for long-running background
+            callbacks. Pass None (default) in tests; create_app works without it.
 
     Returns:
         Configured Dash app instance (not yet running).
     """
     db_path = Path(db_path) if db_path != ":memory:" else ":memory:"
 
-    app = dash.Dash(
-        __name__,
-        use_pages=True,
-        pages_folder=str(Path(__file__).parent / "pages"),
-        title="PokerHero Analyzer",
-        suppress_callback_exceptions=True,
-    )
+    dash_kwargs: dict[str, Any] = {
+        "use_pages": True,
+        "pages_folder": str(Path(__file__).parent / "pages"),
+        "title": "PokerHero Analyzer",
+        "suppress_callback_exceptions": True,
+    }
+    if background_callback_manager is not None:
+        dash_kwargs["background_callback_manager"] = background_callback_manager
+
+    app = dash.Dash(__name__, **dash_kwargs)
 
     # Ensure the schema exists for file-based DBs.
     if db_path != ":memory:":
         init_db(db_path)
 
-    # Expose db_path to page callbacks via Flask's app config.
+    # Expose db_path and background manager to callbacks via Flask's app config.
     app.server.config["DB_PATH"] = str(db_path)
+    app.server.config["BACKGROUND_MANAGER"] = background_callback_manager
 
     app.layout = html.Div(
         style={"fontFamily": "sans-serif"},
