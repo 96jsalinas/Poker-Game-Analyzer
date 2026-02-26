@@ -1,6 +1,6 @@
 # PokerHero Analyzer
 
-> ⚠️ **Work in progress** — the core pipeline, stats dashboard, and session review are fully functional. Session-level aggregate analysis is the next major feature being built.
+> 🚀 **Ready for feedback** — the core pipeline, stats dashboard, session review, and EV analysis engine are fully functional. Looking for testers to provide feedback on accuracy and UX.
 
 A local, open-source poker hand history analyzer built entirely in Python. Upload your PokerStars session files, and the app parses every hand, stores it in a local SQLite database, and surfaces your stats through an interactive web dashboard — no cloud accounts, no subscriptions, no data leaving your machine.
 
@@ -8,46 +8,39 @@ A local, open-source poker hand history analyzer built entirely in Python. Uploa
 
 ## Features
 
-### ✅ Implemented
-
 **Hand ingestion & parsing**
 - Drag-and-drop PokerStars `.txt` hand history files; duplicate detection prevents double-counting
 - Supports **USD**, **EUR**, and **Play Money** sessions; currency is auto-detected per file
-- Supports **Cash** and **Tournament** game types
+- Supports **Cash** and **Tournament** game types; includes automatic **re-buy detection**
 
 **Session drill-down review**
+- **Session Report** — narrative summary, KPI strip (bb/100, VPIP, AF), and position-specific stat tables
+- **EV Analysis** — calculate EV for entire sessions; highlights "Lucky" and "Unlucky" hands based on equity vs results
 - Navigate Sessions → Hands → Actions with a breadcrumb UI
-- Filter the hand list by game type (cash/tournament), position, P&L outcome, and whether the hand went to showdown or saw a flop
-- **Favourites** — star any hand to pin it for later review
+- Filter by game type, position, P&L, showdown, and **Favourites** (star hands/sessions for later)
 
 **Action view (Hand Detail)**
 - Full street-by-street replay with every action, amount, running pot, and board cards
 - **Poker math inline** — SPR at flop, Pot Odds%, and MDF% shown at every hero decision point
-- **EV calculation** — for all-in spots where villain cards are known, equity estimated via PokerKit Monte Carlo
-- **Showdown winner** — winning hand described in plain English (e.g. "a flush, Ace high") with EV shown for the hero
+- **EV calculation** — supports both **Exact EV** (showdown/all-in) and **Range-based EV** (estimated against an inferred villain range using Bayesian blending)
+- **Fold Verdicts** — tells you if a fold was mathematically correct (✓ Good fold) or a mistake (⚠ Should have called)
 
 **Opponent profiling**
-- Every opponent is automatically classified as **TAG**, **LAG**, **Nit**, or **Fish** based on their VPIP and aggression ratio across the session (minimum 15 hands)
+- Every opponent is automatically classified as **TAG**, **LAG**, **Nit**, or **Fish** based on their VPIP and aggression ratio
+- **Confidence Tiers** — badges reflect sample size (Preliminary, Standard, or Confirmed ✓)
 - Profile cards for all opponents accessible via a toggle panel in the hand list
-- Archetype badge shown in the hand detail villain summary line, on each villain's first action, and at showdown
 
 **Overall Stats dashboard**
-- KPI cards: P&L, win rate (bb/100), VPIP, PFR
-- Bankroll graph (cumulative P&L over time)
-- Positional breakdown table: VPIP%, PFR%, 3-Bet%, C-Bet%, Aggression Factor, Net P&L per position
-- Dashboard Highlights: biggest single-hand win and loss
-- Period filter: 7 days / 1 month / 1 year / All time
-- Currency toggle: display P&L in chips, USD, or EUR (where available)
+- KPI cards: P&L, win rate (bb/100), VPIP, PFR, 3-Bet
+- **Bankroll graph** (cumulative P&L over time) and **VPIP/PFR Gap chart**
+- **Traffic Light Targets** — positional stats shaded green/yellow/red based on your custom target ranges
+- Dashboard Highlights: biggest single-hand win/loss and best/worst session
+- Period filter (7 days / 1 year / All time) and currency toggle
 
 **App**
+- **Dark Mode** — system-wide 🌚/🌞 toggle with persistent user preference
 - In-app guide explaining every feature, stat formula, and opponent archetype
-- Settings page: set hero username, clear the database, export all data to CSV
-- Card rendering: hole cards and board cards rendered with suit symbols and colour-coding
-
-### 🔲 Planned
-
-- Session-level analysis (per-session KPIs and trends)
-- VPIP/PFR gap chart
+- Settings page: set hero username, configure EV thresholds, clear database, and **Export to CSV**
 
 ---
 
@@ -60,9 +53,8 @@ A local, open-source poker hand history analyzer built entirely in Python. Uploa
 | Data manipulation | Pandas + NumPy |
 | Poker engine | [PokerKit](https://github.com/uoftcprg/pokerkit) (open-source) |
 | Frontend | [Dash](https://dash.plotly.com/) (Plotly) |
-| Linting / formatting | Ruff |
-| Type checking | mypy (strict) |
-| Testing | pytest |
+| Style | CSS Variables + Dark Mode support |
+| Tooling | Ruff, mypy (strict), pytest |
 
 All dependencies are open-source.
 
@@ -95,8 +87,8 @@ Then open [http://localhost:8050](http://localhost:8050) in your browser.
 
 1. Go to **Settings** and enter your PokerStars username as the hero.
 2. Go to **Upload Files** and drop your `.txt` hand history files.
-3. Browse your sessions on **Review Sessions** — filter by game type, position, or outcome; click a session, then a hand, to see the full action-by-action breakdown with poker math and opponent archetypes.
-4. Check **Overall Stats** for aggregate performance across all your hands. Use the period selector and currency toggle to slice the data.
+3. Browse your sessions on **Review Sessions** — use the **📊 Calculate EVs** button on any session report to run the analysis engine.
+4. Check **Overall Stats** for aggregate performance and positional targets.
 5. Open the **Guide** page (❓) for an explanation of every stat formula and opponent archetype.
 
 > **Note:** Only **PokerStars** `.txt` hand history exports are currently supported.
@@ -112,7 +104,8 @@ ruff format .           # format
 mypy src/               # type check
 ```
 
-The project follows strict TDD (red → green → refactor). See [`Contributing.MD`](Contributing.MD) for conventions, commit format, and workflow rules.
+The project follows strict TDD (red → green → refactor). See [`Contributing.MD`](Contributing.MD) for conventions and workflow.
+
 
 ---
 
