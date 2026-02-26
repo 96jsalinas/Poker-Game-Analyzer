@@ -116,7 +116,7 @@ def get_actions(conn: sqlite3.Connection, hand_id: int) -> pd.DataFrame:
 
     Includes player username and position via JOIN with players and hand_players.
 
-    Columns: sequence, player_id, is_hero, street, action_type, amount,
+    Columns: id, sequence, player_id, is_hero, street, action_type, amount,
              amount_to_call, pot_before, is_all_in, spr, mdf, username, position.
 
     Args:
@@ -128,6 +128,7 @@ def get_actions(conn: sqlite3.Connection, hand_id: int) -> pd.DataFrame:
     """
     sql = """
         SELECT
+            a.id,
             a.sequence,
             a.player_id,
             a.is_hero,
