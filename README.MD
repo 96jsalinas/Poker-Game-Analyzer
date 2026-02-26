@@ -6,6 +6,14 @@ A local, open-source poker hand history analyzer built entirely in Python. Uploa
 
 ---
 
+## ⚠️ Limitations & Disclaimers
+
+- **PokerStars Only:** The parser is built exclusively for PokerStars `.txt` hand history files. Ingestion of files from other poker sites is not supported.
+- **Cash games:** While the app can ingest tournament files, it has been predominantly developed and tested with cash game data. Tournament-specific features and calculations may be less reliable. Contributions to improve tournament support are welcome.
+- **Data Integrity:** This is a local-only application. While there is no risk of data being leaked, it is strongly recommended to back up your original `.txt` hand history files. Future updates or unforeseen bugs could potentially corrupt the local database.
+
+---
+
 ## Features
 
 **Hand ingestion & parsing**
@@ -91,7 +99,6 @@ Then open [http://localhost:8050](http://localhost:8050) in your browser.
 4. Check **Overall Stats** for aggregate performance and positional targets.
 5. Open the **Guide** page (❓) for an explanation of every stat formula and opponent archetype.
 
-> **Note:** Only **PokerStars** `.txt` hand history exports are currently supported.
 
 ---
 
@@ -105,7 +112,6 @@ mypy src/               # type check
 ```
 
 The project follows strict TDD (red → green → refactor). See [`Contributing.MD`](Contributing.MD) for conventions and workflow.
-
 
 ---
 
