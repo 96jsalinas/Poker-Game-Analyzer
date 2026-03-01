@@ -34,6 +34,8 @@ def handle_upload(
         Human-readable status string, e.g.
         '✅ file.txt — 24 imported, 0 skipped, 0 failed'
     """
+    if "," not in content_string:
+        raise ValueError("Invalid data URI format: missing comma separator")
     _header, b64_data = content_string.split(",", 1)
     decoded = base64.b64decode(b64_data)
 

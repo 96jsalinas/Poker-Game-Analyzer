@@ -493,6 +493,8 @@ def _save_sample_count(value: int | None) -> str:
     """Persist equity_sample_count to settings table on change."""
     if value is None:
         return ""
+    if not (500 <= value <= 10000):
+        return "⚠️ Value must be between 500 and 10,000"
     db_path = _get_db_path()
     if db_path == ":memory:":
         return ""
@@ -514,6 +516,8 @@ def _save_lucky_threshold(value: int | None) -> str:
     """Persist lucky_equity_threshold to settings table on change."""
     if value is None:
         return ""
+    if not (10 <= value <= 49):
+        return "⚠️ Value must be between 10 and 49"
     db_path = _get_db_path()
     if db_path == ":memory:":
         return ""
@@ -535,6 +539,8 @@ def _save_unlucky_threshold(value: int | None) -> str:
     """Persist unlucky_equity_threshold to settings table on change."""
     if value is None:
         return ""
+    if not (51 <= value <= 90):
+        return "⚠️ Value must be between 51 and 90"
     db_path = _get_db_path()
     if db_path == ":memory:":
         return ""
@@ -556,6 +562,8 @@ def _save_min_hands(value: int | None) -> str:
     """Persist min_hands_classification to settings table on change."""
     if value is None:
         return ""
+    if not (5 <= value <= 200):
+        return "⚠️ Value must be between 5 and 200"
     db_path = _get_db_path()
     if db_path == ":memory:":
         return ""
