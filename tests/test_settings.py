@@ -329,3 +329,77 @@ class TestAdvancedSettingsUI:
 
         comp = layout() if callable(layout) else layout
         assert "Advanced Settings" in str(comp)
+
+
+# ---------------------------------------------------------------------------
+# TestSettingsServerSideValidation — M7: range checks in save callbacks
+# ---------------------------------------------------------------------------
+
+
+class TestSettingsServerSideValidation:
+    """Server-side validation must reject out-of-range values."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_sample_count_below_min_rejected(self):
+        from pokerhero.frontend.pages.settings import _save_sample_count
+
+        result = _save_sample_count(100)  # min is 500
+        assert "⚠" in result
+
+    def test_sample_count_above_max_rejected(self):
+        from pokerhero.frontend.pages.settings import _save_sample_count
+
+        result = _save_sample_count(99999)  # max is 10000
+        assert "⚠" in result
+
+    def test_lucky_threshold_below_min_rejected(self):
+        from pokerhero.frontend.pages.settings import _save_lucky_threshold
+
+        result = _save_lucky_threshold(5)  # min is 10
+        assert "⚠" in result
+
+    def test_lucky_threshold_above_max_rejected(self):
+        from pokerhero.frontend.pages.settings import _save_lucky_threshold
+
+        result = _save_lucky_threshold(50)  # max is 49
+        assert "⚠" in result
+
+    def test_unlucky_threshold_below_min_rejected(self):
+        from pokerhero.frontend.pages.settings import _save_unlucky_threshold
+
+        result = _save_unlucky_threshold(50)  # min is 51
+        assert "⚠" in result
+
+    def test_unlucky_threshold_above_max_rejected(self):
+        from pokerhero.frontend.pages.settings import _save_unlucky_threshold
+
+        result = _save_unlucky_threshold(95)  # max is 90
+        assert "⚠" in result
+
+    def test_min_hands_below_min_rejected(self):
+        from pokerhero.frontend.pages.settings import _save_min_hands
+
+        result = _save_min_hands(2)  # min is 5
+        assert "⚠" in result
+
+    def test_min_hands_above_max_rejected(self):
+        from pokerhero.frontend.pages.settings import _save_min_hands
+
+        result = _save_min_hands(500)  # max is 200
+        assert "⚠" in result
+
+    def test_valid_sample_count_accepted(self):
+        from pokerhero.frontend.pages.settings import _save_sample_count
+
+        result = _save_sample_count(2000)
+        assert "⚠" not in result
+
+    def test_valid_lucky_threshold_accepted(self):
+        from pokerhero.frontend.pages.settings import _save_lucky_threshold
+
+        result = _save_lucky_threshold(40)
+        assert "⚠" not in result

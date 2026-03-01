@@ -84,3 +84,19 @@ class TestUploadHandlerLogging:
         with caplog.at_level(logging.INFO, logger="pokerhero.frontend.upload_handler"):
             handle_upload(content, FRATERNITAS.name, "jsalinas96", db)
         assert any("imported" in r.message for r in caplog.records)
+
+
+class TestUploadHandlerMalformedInput:
+    """M1: Malformed data-URI without comma must raise ValueError."""
+
+    def test_no_comma_raises_value_error(self, db):
+        from pokerhero.frontend.upload_handler import handle_upload
+
+        with pytest.raises(ValueError, match="[Ii]nvalid.*data.*URI"):
+            handle_upload("no-comma-here", "bad.txt", "hero", db)
+
+    def test_empty_string_raises_value_error(self, db):
+        from pokerhero.frontend.upload_handler import handle_upload
+
+        with pytest.raises(ValueError, match="[Ii]nvalid.*data.*URI"):
+            handle_upload("", "empty.txt", "hero", db)
