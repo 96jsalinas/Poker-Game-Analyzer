@@ -3442,3 +3442,114 @@ class TestLoadSessionReportGuard:
             )
         except dash.exceptions.PreventUpdate:
             pass  # Expected — URL has hand_id so user is not on session report
+
+
+# ---------------------------------------------------------------------------
+# TestRenderInitialCallParsesURL
+# ---------------------------------------------------------------------------
+
+
+class TestRenderInitialCallParsesURL:
+    """_render must parse URL params on initial page load (cross-page nav).
+
+    In Dash multi-page apps, when a user navigates from another page (e.g.
+    dashboard) to /sessions?session_id=X&hand_id=Y, the sessions page layout
+    is loaded AFTER the URL has changed.  The _render callback fires via
+    prevent_initial_call=False with ctx.triggered = [{'prop_id': '.'}].
+
+    The '.' trigger is truthy but doesn't contain 'pathname' or 'search', so
+    a condition that only checks for those strings will skip URL parsing and
+    fall through to the store's default level='sessions'.
+    """
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_render_parses_url_on_initial_call(self):
+        """_render returns actions-level content when search has hand_id.
+
+        Simulates the initial callback fire (ctx.triggered=['.']) that occurs
+        when navigating from the dashboard to /sessions?session_id=1&hand_id=1.
+        The store has its default level='sessions', but the URL should win.
+        """
+        import unittest.mock as mock
+
+        import dash
+
+        from pokerhero.frontend.pages.sessions import _render
+
+        fake_ctx = mock.MagicMock()
+        fake_ctx.triggered = [{"prop_id": ".", "value": None}]
+
+        with (
+            mock.patch.object(dash, "callback_context", fake_ctx),
+            mock.patch(
+                "pokerhero.frontend.pages.sessions._render_actions",
+                return_value=(
+                    "actions-content",
+                    "Hand #1",
+                ),
+            ) as mock_actions,
+            mock.patch(
+                "pokerhero.frontend.pages.sessions._get_db_path",
+                return_value=":memory:",
+            ),
+            mock.patch(
+                "pokerhero.frontend.pages.sessions._get_session_label",
+                return_value="Session 1",
+            ),
+        ):
+            result = _render(
+                state={"level": "sessions"},
+                pathname="/sessions",
+                _ev_result=None,
+                search="?session_id=1&hand_id=1",
+            )
+
+        mock_actions.assert_called_once()
+        content = result[0]
+        assert content == "actions-content", (
+            f"Expected actions-level content but got: {content!r}. "
+            "URL params were not parsed on initial page load."
+        )
+
+    def test_render_parses_url_on_initial_call_report_level(self):
+        """_render returns report-level placeholder when search has session_id.
+
+        Simulates initial load for /sessions?session_id=5 (Best Session
+        highlight from dashboard). The store has default level='sessions'.
+        """
+        import unittest.mock as mock
+
+        import dash
+
+        from pokerhero.frontend.pages.sessions import _render
+
+        fake_ctx = mock.MagicMock()
+        fake_ctx.triggered = [{"prop_id": ".", "value": None}]
+
+        with (
+            mock.patch.object(dash, "callback_context", fake_ctx),
+            mock.patch(
+                "pokerhero.frontend.pages.sessions._get_db_path",
+                return_value=":memory:",
+            ),
+            mock.patch(
+                "pokerhero.frontend.pages.sessions._get_session_label",
+                return_value="Session 5",
+            ),
+        ):
+            result = _render(
+                state={"level": "sessions"},
+                pathname="/sessions",
+                _ev_result=None,
+                search="?session_id=5",
+            )
+
+        pending = result[3]
+        assert pending == 5, (
+            f"Expected pending-session-report=5 but got {pending!r}. "
+            "URL params were not parsed on initial page load."
+        )
