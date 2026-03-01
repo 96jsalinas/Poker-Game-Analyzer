@@ -3306,3 +3306,44 @@ class TestSessionPositionTablePnl:
         """Position table must show the summed P&L for BTN (150 + -50 = +100)."""
         result = self._call_position_table()
         assert "+100" in result
+
+
+# ---------------------------------------------------------------------------
+# TestSearchInputWiring
+# ---------------------------------------------------------------------------
+
+
+class TestSearchInputWiring:
+    """Verify _render is triggered by search-only URL changes (intra-page nav)."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_render_callback_has_search_as_input_not_state(self):
+        """_pages_location.search must be an Input of _render, not a State.
+
+        When a dcc.Link changes only the URL search (same pathname), Dash only
+        fires callbacks whose inputs changed. If search is registered as State,
+        clicking a flagged-hand link (/sessions?session_id=X&hand_id=Y) from
+        the session report view never triggers _render and navigation silently
+        fails.
+        """
+        import pytest
+        from dash._callback import GLOBAL_CALLBACK_MAP
+
+        search_entry = {"id": "_pages_location", "property": "search"}
+
+        for key, cb in GLOBAL_CALLBACK_MAP.items():
+            if "drill-down-content" in key and "children" in key:
+                inputs = cb.get("inputs", [])
+                state = cb.get("state", [])
+                assert search_entry in inputs, (
+                    "_pages_location.search must be an Input of _render "
+                    "so intra-page dcc.Link clicks trigger re-render"
+                )
+                assert search_entry not in state
+                return
+
+        pytest.fail("Could not find _render callback in GLOBAL_CALLBACK_MAP")
