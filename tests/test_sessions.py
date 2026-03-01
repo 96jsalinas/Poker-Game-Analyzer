@@ -3314,7 +3314,7 @@ class TestSessionPositionTablePnl:
 
 
 class TestSearchInputWiring:
-    """Verify _render is triggered by search-only URL changes (intra-page nav)."""
+    """Verify _render wiring for URL-based and consumed-search navigation."""
 
     def setup_method(self):
         from pokerhero.frontend.app import create_app
@@ -3348,6 +3348,28 @@ class TestSearchInputWiring:
 
         pytest.fail("Could not find _render callback in GLOBAL_CALLBACK_MAP")
 
+    def test_render_callback_has_consumed_search_state(self):
+        """_render must have consumed-search as State and Output."""
+        import pytest
+        from dash._callback import GLOBAL_CALLBACK_MAP
+
+        consumed_state = {"id": "consumed-search", "property": "data"}
+
+        for key, cb in GLOBAL_CALLBACK_MAP.items():
+            if (
+                "drill-down-content" in key
+                and "children" in key
+                and "consumed-search" in key
+            ):
+                state = cb.get("state", [])
+                assert consumed_state in state, (
+                    "_render must have consumed-search as State "
+                    "to track which URL params have been consumed"
+                )
+                return
+
+        pytest.fail("consumed-search not found as Output in _render callback")
+
 
 # ---------------------------------------------------------------------------
 # TestLoadSessionReportGuard
@@ -3355,14 +3377,13 @@ class TestSearchInputWiring:
 
 
 class TestLoadSessionReportGuard:
-    """_load_session_report guard must be URL-based, not store-based.
+    """_load_session_report guard must allow both URL-based and click-based nav.
 
-    The drill-down-state store is only updated by click callbacks, never by
-    URL navigation.  When a user arrives from the dashboard via a highlight
-    link, the store still has its default level='sessions'.  If the guard
-    reads drill-down-state it raises PreventUpdate and the session report
-    never loads.  The guard must instead read _pages_location.search so it
-    reflects the *current* URL, not a potentially stale store.
+    The guard needs both drill-down-state AND _pages_location.search as State:
+    - URL navigation (dashboard highlights): store is stale (default level),
+      but URL has correct params → allow via URL check.
+    - Click-based navigation (session row click): URL may be empty,
+      but store has correct level=report → allow via store check.
     """
 
     def setup_method(self):
@@ -3370,8 +3391,8 @@ class TestLoadSessionReportGuard:
 
         create_app(db_path=":memory:")
 
-    def test_callback_uses_search_not_store(self):
-        """_load_session_report State must be _pages_location.search, not drill-down-state."""  # noqa: E501
+    def test_callback_has_both_search_and_store_state(self):
+        """_load_session_report must have both URL search and store as State."""
         import pytest
         from dash._callback import GLOBAL_CALLBACK_MAP
 
@@ -3384,64 +3405,68 @@ class TestLoadSessionReportGuard:
             ):
                 state = cb.get("state", [])
                 assert search_entry in state, (
-                    "_load_session_report must have _pages_location.search as State "
-                    "so the URL-based guard is reliable after URL navigation"
+                    "_load_session_report must have _pages_location.search "
+                    "as State for URL-based guard"
                 )
-                assert store_entry not in state, (
-                    "_load_session_report must NOT use drill-down-state as State "
-                    "(the store is stale after URL navigation from the dashboard)"
+                assert store_entry in state, (
+                    "_load_session_report must have drill-down-state "
+                    "as State for click-based guard"
                 )
                 return
 
-        pytest.fail(
-            "Could not find _load_session_report callback in GLOBAL_CALLBACK_MAP"  # noqa: E501
-        )
+        pytest.fail("Could not find _load_session_report in GLOBAL_CALLBACK_MAP")
 
-    def test_does_not_prevent_update_when_store_has_default_level(self):
-        """Must not raise PreventUpdate when URL matches and store level is default.
-
-        Regression: before the URL-based guard, any user navigating from the
-        dashboard to a session report would see the placeholder spin forever
-        because the store still held level='sessions' (its initial value).
-        """
+    def test_allows_report_when_url_matches(self):
+        """Must not PreventUpdate when URL says report, even if store is default."""
         import dash
 
         from pokerhero.frontend.pages.sessions import _load_session_report
 
         try:
-            _load_session_report(session_id=0, search="?session_id=0")
+            _load_session_report(
+                session_id=0,
+                state={"level": "sessions"},
+                search="?session_id=0",
+            )
         except TypeError:
-            pytest.fail(
-                "_load_session_report does not accept 'search' argument — "
-                "fix: replace State('drill-down-state') with "
-                "State('_pages_location', 'search')"
-            )
+            pytest.fail("_load_session_report does not accept both state and search")
         except dash.exceptions.PreventUpdate:
-            pytest.fail(
-                "_load_session_report raised PreventUpdate with session_id=0 and "
-                "search='?session_id=0' — URL-based guard is missing"
+            pytest.fail("PreventUpdate raised despite URL matching report-level")
+
+    def test_allows_report_when_store_matches(self):
+        """Must not PreventUpdate when store says report, even if URL is empty."""
+        import dash
+
+        from pokerhero.frontend.pages.sessions import _load_session_report
+
+        try:
+            _load_session_report(
+                session_id=5,
+                state={"level": "report", "session_id": 5},
+                search="",
             )
+        except TypeError:
+            pytest.fail("_load_session_report does not accept both state and search")
+        except dash.exceptions.PreventUpdate:
+            pytest.fail("PreventUpdate raised despite store matching report-level")
 
     def test_raises_prevent_update_when_url_has_hand_id(self):
-        """Must raise PreventUpdate when URL has hand_id (user is on actions view)."""
+        """Must raise PreventUpdate when URL has hand_id (actions view)."""
         import dash
 
         from pokerhero.frontend.pages.sessions import _load_session_report
 
         try:
-            _load_session_report(session_id=5, search="?session_id=5&hand_id=10")
-            pytest.fail(
-                "_load_session_report should raise PreventUpdate when URL has "
-                "hand_id (user is on actions view, not session report)"
+            _load_session_report(
+                session_id=5,
+                state={"level": "sessions"},
+                search="?session_id=5&hand_id=10",
             )
+            pytest.fail("Should have raised PreventUpdate")
         except TypeError:
-            pytest.fail(
-                "_load_session_report does not accept 'search' argument — "
-                "fix: replace State('drill-down-state') with "
-                "State('_pages_location', 'search')"
-            )
+            pytest.fail("_load_session_report does not accept both state and search")
         except dash.exceptions.PreventUpdate:
-            pass  # Expected — URL has hand_id so user is not on session report
+            pass  # Expected
 
 
 # ---------------------------------------------------------------------------
@@ -3452,14 +3477,10 @@ class TestLoadSessionReportGuard:
 class TestRenderInitialCallParsesURL:
     """_render must parse URL params on initial page load (cross-page nav).
 
-    In Dash multi-page apps, when a user navigates from another page (e.g.
-    dashboard) to /sessions?session_id=X&hand_id=Y, the sessions page layout
-    is loaded AFTER the URL has changed.  The _render callback fires via
-    prevent_initial_call=False with ctx.triggered = [{'prop_id': '.'}].
-
-    The '.' trigger is truthy but doesn't contain 'pathname' or 'search', so
-    a condition that only checks for those strings will skip URL parsing and
-    fall through to the store's default level='sessions'.
+    Uses a consumed-search store to track which URL params have been applied.
+    On fresh page load the store is empty, so any search params are new and
+    get parsed.  After consumption, subsequent callback fires from click-based
+    navigation see the same consumed value and skip URL parsing.
     """
 
     def setup_method(self):
@@ -3467,12 +3488,11 @@ class TestRenderInitialCallParsesURL:
 
         create_app(db_path=":memory:")
 
-    def test_render_parses_url_on_initial_call(self):
+    def test_render_parses_url_on_fresh_page_load(self):
         """_render returns actions-level content when search has hand_id.
 
-        Simulates the initial callback fire (ctx.triggered=['.']) that occurs
-        when navigating from the dashboard to /sessions?session_id=1&hand_id=1.
-        The store has its default level='sessions', but the URL should win.
+        On a fresh page load (consumed_search is empty), the URL must be
+        parsed regardless of what triggered the callback.
         """
         import unittest.mock as mock
 
@@ -3481,7 +3501,10 @@ class TestRenderInitialCallParsesURL:
         from pokerhero.frontend.pages.sessions import _render
 
         fake_ctx = mock.MagicMock()
-        fake_ctx.triggered = [{"prop_id": ".", "value": None}]
+        # Simulate trigger being drill-down-state (store init on page load)
+        fake_ctx.triggered = [
+            {"prop_id": "drill-down-state.data", "value": {"level": "sessions"}}
+        ]
 
         with (
             mock.patch.object(dash, "callback_context", fake_ctx),
@@ -3506,6 +3529,7 @@ class TestRenderInitialCallParsesURL:
                 pathname="/sessions",
                 _ev_result=None,
                 search="?session_id=1&hand_id=1",
+                consumed_search="",
             )
 
         mock_actions.assert_called_once()
@@ -3515,11 +3539,11 @@ class TestRenderInitialCallParsesURL:
             "URL params were not parsed on initial page load."
         )
 
-    def test_render_parses_url_on_initial_call_report_level(self):
-        """_render returns report-level placeholder when search has session_id.
+    def test_render_parses_url_on_fresh_page_load_report_level(self):
+        """_render returns report placeholder when search has session_id.
 
         Simulates initial load for /sessions?session_id=5 (Best Session
-        highlight from dashboard). The store has default level='sessions'.
+        highlight from dashboard).
         """
         import unittest.mock as mock
 
@@ -3528,7 +3552,9 @@ class TestRenderInitialCallParsesURL:
         from pokerhero.frontend.pages.sessions import _render
 
         fake_ctx = mock.MagicMock()
-        fake_ctx.triggered = [{"prop_id": ".", "value": None}]
+        fake_ctx.triggered = [
+            {"prop_id": "drill-down-state.data", "value": {"level": "sessions"}}
+        ]
 
         with (
             mock.patch.object(dash, "callback_context", fake_ctx),
@@ -3546,10 +3572,55 @@ class TestRenderInitialCallParsesURL:
                 pathname="/sessions",
                 _ev_result=None,
                 search="?session_id=5",
+                consumed_search="",
             )
 
         pending = result[3]
         assert pending == 5, (
             f"Expected pending-session-report=5 but got {pending!r}. "
             "URL params were not parsed on initial page load."
+        )
+
+    def test_render_skips_consumed_url_on_click_nav(self):
+        """_render ignores URL when it matches consumed_search (click nav).
+
+        After URL params are consumed, a subsequent callback fire from a
+        click-based nav (e.g. breadcrumb) should use the store, not the
+        stale URL.
+        """
+        import unittest.mock as mock
+
+        import dash
+
+        from pokerhero.frontend.pages.sessions import _render
+
+        fake_ctx = mock.MagicMock()
+        fake_ctx.triggered = [
+            {"prop_id": "drill-down-state.data", "value": {"level": "sessions"}}
+        ]
+
+        with (
+            mock.patch.object(dash, "callback_context", fake_ctx),
+            mock.patch(
+                "pokerhero.frontend.pages.sessions._render_sessions",
+                return_value="sessions-list",
+            ) as mock_sessions,
+            mock.patch(
+                "pokerhero.frontend.pages.sessions._get_db_path",
+                return_value=":memory:",
+            ),
+        ):
+            result = _render(
+                state={"level": "sessions"},
+                pathname="/sessions",
+                _ev_result=None,
+                search="?session_id=1&hand_id=1",
+                consumed_search="?session_id=1&hand_id=1",
+            )
+
+        mock_sessions.assert_called_once()
+        content = result[0]
+        assert content == "sessions-list", (
+            f"Expected sessions-list but got: {content!r}. "
+            "Already-consumed URL params should be ignored."
         )
