@@ -51,19 +51,19 @@ Poker hand histories contain hundreds of edge cases. The `tests/fixtures/` direc
 
 * **Framework:** `pytest` will be the primary testing framework due to its concise syntax and powerful fixture management.
 * **Data Mocking:** `pandas.testing.assert_frame_equal` will be used extensively to verify analytical outputs match expected DataFrame structures.
-* **Current test count (671 total):**
+* **Current test count (816 total):**
 
 | File | Tests | Scope |
 | :--- | :--- | :--- |
-| `test_parser.py` | 166 | 16 classes — parser rules, SPR/MDF, multiway SPR effective stack, re-buy, multi-street, EUR currency format, currency detection (USD/EUR/PLAY) |
-| `test_sessions.py` | 171 | 26 classes — card rendering, hero row highlighting, math cell, sessions nav/breadcrumb/state, session/hand filters, favourites, DataTable sorting, format helpers (cards text, blind, P&L), showdown section (winner + hand description + net result), villain summary line, first-action archetype badge, opponent profile card/panel, session report view (KPI strip, narrative, position breakdown table with traffic lights, EV summary, flagged hands, equity-unavailable note), dark mode compatibility (CSS vars for P&L, hero row, traffic lights, KPI strip), multiway exact EV pipeline (ev_type=exact_multiway, equity comparison), fold equity for BET/RAISE (fold_equity_pct column, EV formula with fold component) |
-| `test_analysis.py` | 147 | Queries and stats: VPIP, PFR, Win Rate, AF, WTSD, timeline, 3-bet (incl. blind-position regression, 4-bet exclusion), c-bet, EV, equity cache, date filter, currency filter, session player stats, player archetype classification (incl. min_hands kwarg), session analysis queries, compute_equity_multiway, multiway showdown query, traffic_light (green/yellow/red zones, asymmetric, boundary), read_target_settings (defaults, DB override), straight draw detection (boundary OESD, gutshot, 3-to-a-straight exclusion) |
-| `test_database.py` | 69 | 9 classes — schema, inserts, deduplication, settings, favourites, currency storage, hand equity cache table |
-| `test_dashboard.py` | 31 | 4 classes — position traffic light colouring, KPI highlights (biggest win/loss/best/worst session), VPIP/PFR gap chart, stat header tooltips, dark mode compatibility (CSS vars, theme param) |
+| `test_parser.py` | 176 | 16 classes — parser rules, SPR/MDF, multiway SPR effective stack, re-buy, multi-street, EUR currency format, currency detection (USD/EUR/PLAY), regex hardening (multi-dot rejection) |
+| `test_sessions.py` | 195 | 27 classes — card rendering, hero row highlighting, math cell, sessions nav/breadcrumb/state, session/hand filters, favourites, DataTable sorting, format helpers (cards text, blind, P&L incl. scientific notation prevention), showdown section (winner + hand description + net result), villain summary line, first-action archetype badge, opponent profile card/panel, session report view (KPI strip, narrative, position breakdown table with traffic lights, EV summary, flagged hands, equity-unavailable note), batch EV-status labels, dark mode compatibility (CSS vars for P&L, hero row, traffic lights, KPI strip), multiway exact EV pipeline (ev_type=exact_multiway, equity comparison), fold equity for BET/RAISE (fold_equity_pct column, EV formula with fold component) |
+| `test_analysis.py` | 218 | Queries and stats: VPIP, PFR, Win Rate, AF, WTSD, timeline, 3-bet (incl. blind-position regression, 4-bet exclusion), c-bet, EV, equity cache, date filter, currency filter, session player stats, player archetype classification (incl. min_hands kwarg), session analysis queries, compute_equity_multiway, multiway showdown query, traffic_light (green/yellow/red zones, asymmetric, boundary), read_target_settings (defaults, DB override), straight draw detection (boundary OESD, gutshot, 3-to-a-straight exclusion, tight loop bound verification) |
+| `test_database.py` | 78 | 9 classes — schema, inserts, deduplication, settings, favourites, currency storage, hand equity cache table, actions indexes |
+| `test_dashboard.py` | 32 | 5 classes — position traffic light colouring, KPI highlights (biggest win/loss/best/worst session), VPIP/PFR gap chart, stat header tooltips, dark mode compatibility (CSS vars, theme param), _fmt_pnl scientific notation prevention |
 | `test_app_layout.py` | 28 | 5 classes — multi-page app registration, home/upload/sessions/dashboard page layouts, theme toggle (store, button, face emojis, CSS custom property vars) |
-| `test_ingestion.py` | 28 | Pipeline, financials, re-buy detection, logging |
-| `test_settings.py` | 15 | 2 classes — main settings page layout, target settings sub-page (/settings/targets — layout, 6-position inputs, load callback defaults, link from main settings) |
-| `test_upload.py` | 7 | 2 classes — upload handler (valid/invalid file, duplicate skip, summary message), upload handler logging |
+| `test_ingestion.py` | 35 | Pipeline, financials, re-buy detection, logging, BOM handling, CRLF normalisation, orphaned session cleanup, IntegrityError classification, empty file warning |
+| `test_settings.py` | 39 | 3 classes — main settings page layout, target settings sub-page (/settings/targets — layout, 6-position inputs, load callback defaults, link from main settings), server-side range validation |
+| `test_upload.py` | 9 | 3 classes — upload handler (valid/invalid file, duplicate skip, summary message), upload handler logging, malformed input guard |
 | `test_guide.py` | 6 | 1 class — guide page registration and stat section presence |
 
 **File organisation strategy:** one test file per app page or source module. `test_frontend.py` was retired when it grew beyond 1,800 lines and 39 classes; its contents were split along page/feature boundaries.
