@@ -2508,6 +2508,163 @@ class TestCalculateSessionEvs:
         assert hu_row is not None and mw_row is not None
         assert float(mw_row["equity"]) <= float(hu_row["equity"])
 
+    def test_bet_action_has_fold_equity(self, db_file):
+        """BET action writes fold_equity_pct to action_ev_cache."""
+        conn, db_path = db_file
+        from pokerhero.analysis.stats import calculate_session_evs
+        from pokerhero.database.db import get_action_ev
+
+        hero_id = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('hero_fe', 'HeroFE')"
+        ).lastrowid
+        villain_id = conn.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('vil_fe', 'VilFE')"
+        ).lastrowid
+        sid = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats,"
+            "  small_blind, big_blind, ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-06-01')"
+        ).lastrowid
+        hid = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            "  rake, timestamp, board_flop, board_turn, board_river)"
+            " VALUES ('FE1', ?, 1200, 0, 0, '2024-06-01T00:00:00',"
+            " 'Qs Jd 4h', '7s', '8c')",
+            (sid,),
+        ).lastrowid
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BTN', 5000, '2d 3c', 1, 1, 0, 1, -400)",
+            (hid, hero_id),
+        )
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BB', 5000, 'Ac Kd', 1, 0, 0, 1, 400)",
+            (hid, villain_id),
+        )
+        conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 0, 'PREFLOP', 'CALL', 100, 100, 150, 0, 1)",
+            (hid, villain_id),
+        )
+        # Hero BETS on the river (a bluff with 2d3c)
+        bet_action_id = conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'RIVER', 'BET', 400, 0, 800, 0, 2)",
+            (hid, hero_id),
+        ).lastrowid
+        conn.commit()
+
+        n = calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)
+        assert n >= 1
+        row = get_action_ev(conn, bet_action_id, hero_id)
+        assert row is not None
+        assert row["fold_equity_pct"] is not None
+        assert 0.0 < float(row["fold_equity_pct"]) < 100.0
+
+    def test_call_action_has_no_fold_equity(self, db_file):
+        """CALL action has fold_equity_pct = NULL."""
+        conn, db_path = db_file
+        from pokerhero.analysis.stats import calculate_session_evs
+        from pokerhero.database.db import get_action_ev
+
+        sid, _, hero_id, _, action_id = self._seed_hand(
+            conn,
+            hero_cards="Ac Kd",
+            villain_cards="2c 3d",
+            board_flop="Qs Jd 4h",
+            board_turn="7s",
+            board_river="8h",
+            hero_action_street="RIVER",
+        )
+        calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)
+        row = get_action_ev(conn, action_id, hero_id)
+        assert row is not None
+        assert row["fold_equity_pct"] is None
+
+    def test_bet_ev_includes_fold_equity_component(self, db_file):
+        """BET EV with fold equity must be higher than pure showdown EV for a bluff."""
+        conn, db_path = db_file
+        from pokerhero.analysis.stats import calculate_session_evs
+        from pokerhero.database.db import get_action_ev
+
+        hero_id = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('hero_fecmp', 'HeroFECmp')"
+        ).lastrowid
+        villain_id = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('vil_fecmp', 'VilFECmp')"
+        ).lastrowid
+        sid = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats,"
+            "  small_blind, big_blind, ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-07-01')"
+        ).lastrowid
+        hid = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            "  rake, timestamp, board_flop, board_turn, board_river)"
+            " VALUES ('FECmp', ?, 1200, 0, 0, '2024-07-01T00:00:00',"
+            " 'Qs Jd 4h', '7s', '8c')",
+            (sid,),
+        ).lastrowid
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BTN', 5000, '2d 3c', 1, 1, 0, 1, -400)",
+            (hid, hero_id),
+        )
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BB', 5000, 'Ac Kd', 1, 0, 0, 1, 400)",
+            (hid, villain_id),
+        )
+        conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 0, 'PREFLOP', 'CALL', 100, 100, 150, 0, 1)",
+            (hid, villain_id),
+        )
+        bet_action_id = conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'RIVER', 'BET', 400, 0, 800, 0, 2)",
+            (hid, hero_id),
+        ).lastrowid
+        conn.commit()
+
+        calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)
+        row = get_action_ev(conn, bet_action_id, hero_id)
+        assert row is not None
+
+        # Compute pure showdown EV for comparison:
+        # showdown_ev = equity * pot_to_win - wager
+        equity = float(row["equity"])
+        pot_to_win = 800 + 400  # pot_before + wager
+        wager = 400
+        showdown_ev = equity * pot_to_win - wager
+        actual_ev = float(row["ev"])
+        # With fold equity, EV must be strictly higher than showdown EV
+        assert actual_ev > showdown_ev
+
 
 # ---------------------------------------------------------------------------
 # TestGetSessionEvStatus
