@@ -452,7 +452,7 @@ def _detect_straight_draw(
     is_gutshot = False
 
     # Check for 4 consecutive ranks (potential OESD or boundary draw)
-    for low in range(14):
+    for low in range(11):  # max window {10,11,12,13}
         window = {low, low + 1, low + 2, low + 3}
         if len(window & all_ranks) == 4:
             # True OESD requires both ends completable
@@ -466,7 +466,7 @@ def _detect_straight_draw(
     # Check for gutshot: 4 of 5 consecutive ranks with 1 internal gap,
     # and at least one combo card is part of the 5-card window
     if not is_oesd and not is_gutshot:
-        for low in range(13):
+        for low in range(10):  # max window {9,10,11,12,13}
             window = {low, low + 1, low + 2, low + 3, low + 4}
             if len(window & all_ranks) == 4 and (window & combo_ranks):
                 is_gutshot = True

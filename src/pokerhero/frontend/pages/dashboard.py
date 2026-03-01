@@ -123,7 +123,10 @@ def _fmt_blind(v: object) -> str:
 def _fmt_pnl(pnl: float) -> str:
     """Format a P&L value with leading sign; no trailing decimal zeros."""
     sign = "+" if pnl >= 0 else ""
-    return f"{sign}{pnl:,.6g}"
+    formatted = f"{sign}{pnl:,.6g}"
+    if "e" in formatted or "E" in formatted:
+        formatted = f"{sign}{pnl:,.2f}"
+    return formatted
 
 
 def _get_db_path() -> str:

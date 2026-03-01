@@ -352,29 +352,6 @@ def toggle_hand_favorite(conn: sqlite3.Connection, hand_id: int) -> None:
     )
 
 
-def get_hand_equity(
-    conn: sqlite3.Connection,
-    hand_id: int,
-    hero_id: int,
-    sample_count: int,
-) -> float | None:
-    """Return None — hand_equity table replaced by action_ev_cache.
-
-    Kept as a no-op shim so sessions.py calls don't crash before migration.
-    """
-    return None
-
-
-def set_hand_equity(
-    conn: sqlite3.Connection,
-    hand_id: int,
-    hero_id: int,
-    equity: float,
-    sample_count: int,
-) -> None:
-    """No-op shim — hand_equity table replaced by action_ev_cache."""
-
-
 def get_action_ev(
     conn: sqlite3.Connection,
     action_id: int,

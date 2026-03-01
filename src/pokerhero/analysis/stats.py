@@ -704,17 +704,18 @@ def identify_primary_villain(
     ).fetchone()
     if session_id_row:
         sid = int(session_id_row[0])
+        placeholders = ",".join("?" * len(active))
         most_obs_row = conn.execute(
-            """
+            f"""
             SELECT hp.player_id
             FROM hand_players hp
             JOIN hands h ON h.id = hp.hand_id
             WHERE h.session_id = ?
-              AND hp.player_id IN ({})
+              AND hp.player_id IN ({placeholders})
             GROUP BY hp.player_id
             ORDER BY COUNT(*) DESC
             LIMIT 1
-            """.format(",".join("?" * len(active))),
+            """,
             [sid, *active],
         ).fetchone()
         if most_obs_row:

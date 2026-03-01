@@ -158,7 +158,7 @@ def _process_upload(
         try:
             msg = handle_upload(content, filename, hero_username.strip(), conn)
             color = "green" if msg.startswith("✅") else "orange"
-        except Exception as exc:  # noqa: BLE001
+        except (OSError, ValueError, KeyError) as exc:
             msg = f"❌ {filename} — unexpected error: {exc}"
             color = "red"
         messages.append(html.Div(msg, style={"color": color, "marginBottom": "6px"}))

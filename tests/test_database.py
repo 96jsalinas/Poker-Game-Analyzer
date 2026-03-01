@@ -1081,38 +1081,11 @@ class TestFavorites:
 
 
 class TestHandEquityCache:
-    """hand_equity table is replaced by action_ev_cache.
+    """hand_equity table was replaced by action_ev_cache.
 
-    get_hand_equity / set_hand_equity are kept as no-op shims until
-    sessions.py is fully migrated.  These tests verify the shim contract.
+    The no-op shims (get_hand_equity / set_hand_equity) have been removed
+    since nothing calls them. Only the schema-level assertion remains.
     """
-
-    @pytest.fixture
-    def player_id(self, db):
-        cur = db.execute(
-            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'hero')"
-        )
-        db.commit()
-        return cur.lastrowid
-
-    @pytest.fixture
-    def hand_id(self, db, player_id):
-        cur = db.execute(
-            "INSERT INTO sessions"
-            " (game_type, limit_type, max_seats, small_blind, big_blind,"
-            " ante, start_time)"
-            " VALUES ('NLHE', 'No Limit', 9, 100, 200, 0, '2024-01-01')"
-        )
-        session_id = cur.lastrowid
-        cur = db.execute(
-            "INSERT INTO hands"
-            " (source_hand_id, session_id, total_pot,"
-            " uncalled_bet_returned, rake, timestamp)"
-            " VALUES ('H1', ?, 1000, 0, 50, '2024-01-01T00:00:00')",
-            (session_id,),
-        )
-        db.commit()
-        return cur.lastrowid
 
     def test_hand_equity_table_does_not_exist(self, db):
         """hand_equity replaced by action_ev_cache."""
@@ -1120,19 +1093,6 @@ class TestHandEquityCache:
             "SELECT name FROM sqlite_master WHERE type='table' AND name='hand_equity'"
         ).fetchone()
         assert row is None
-
-    def test_get_hand_equity_always_returns_none(self, db, hand_id, player_id):
-        """No-op shim always misses."""
-        from pokerhero.database.db import get_hand_equity
-
-        assert get_hand_equity(db, hand_id, player_id, sample_count=2000) is None
-
-    def test_set_hand_equity_is_no_op(self, db, hand_id, player_id):
-        """set_hand_equity must not raise."""
-        from pokerhero.database.db import set_hand_equity
-
-        set_hand_equity(db, hand_id, player_id, equity=0.72, sample_count=2000)
-        db.commit()  # no error
 
 
 # ---------------------------------------------------------------------------
