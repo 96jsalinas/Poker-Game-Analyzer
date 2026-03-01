@@ -141,6 +141,9 @@ Both forms yield the **net expected profit**: Hero wins the full pot (including 
 * **Display**: Green = positive EV, Red = negative EV. For CALL actions with negative EV, a *"[Fold was better ↑]"* hint appears. For FOLD actions, a verdict is shown instead (see § D Fold EV below).
 * **`ev_type = 'exact'`** in `action_ev_cache`.
 
+**Multiway exact EV**: When multiple active villains have known hole cards, the pipeline uses `compute_equity_multiway()` (pipe-separated villain hands) instead of the heads-up `compute_ev()`. This yields more accurate equity for multiway pots.
+* **`ev_type = 'exact_multiway'`** in `action_ev_cache`.
+
 ### B. Range-based EV (villain cards unknown)
 
 When the villain's cards are not known, equity is estimated against their **inferred range**. The range is built from the villain's observed session VPIP/PFR/3-Bet stats blended with population priors:
@@ -173,6 +176,7 @@ $$\text{blended\_stat} = \frac{n \times \text{obs\_stat} + w \times \text{prior}
 
 **Display**: Shows `Est. Equity: ~X%  Est. EV: ±Y` with a ℹ tooltip revealing the pre-flop range type, contracted range size, and sample count.
 * **`ev_type = 'range'`** in `action_ev_cache`.
+* **`ev_type = 'range_multiway_approx'`** when the hand is multiway but villain cards are unknown — flags that the range-based equity is a heads-up approximation against the primary villain only.
 
 ### C. EV Cache & Calculation Flow
 
@@ -182,7 +186,7 @@ EV is **not** computed on page load. It is computed explicitly via the **📊 Ca
 * EV is stable across page reloads (no re-computation).
 * The session list shows `✅ Ready (YYYY-MM-DD)` once EVs have been calculated.
 
-**Orchestrator**: `calculate_session_evs(db_path, session_id, hero_id, settings)` in `stats.py` — iterates over all hero CALL/BET/RAISE actions **and FOLD actions with `amount_to_call > 0`** in the session, identifies the primary villain via `identify_primary_villain`, branches to exact or range path, and bulk-writes results via `save_action_evs`.
+**Orchestrator**: `calculate_session_evs(db_path, session_id, hero_id, settings)` in `stats.py` — iterates over all hero CALL/BET/RAISE actions **and FOLD actions with `amount_to_call > 0`** in the session, identifies the primary villain via `identify_primary_villain`, detects multiway scenarios (multiple active villains with known cards → `compute_equity_multiway`), branches to exact or range path, and bulk-writes results via `save_action_evs`.
 
 ### D. Fold EV (Was the Fold Correct?)
 

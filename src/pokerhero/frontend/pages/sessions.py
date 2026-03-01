@@ -770,9 +770,10 @@ def _build_ev_cell(
             color = "var(--pnl-positive, green)"
         return html.Div(html.Span(label, style={"color": color, "fontSize": "12px"}))
 
-    if ev_type == "exact":
+    if ev_type in ("exact", "exact_multiway"):
         equity_pct = f"{equity * 100:.0f}%"
-        summary = f"Equity: {equity_pct}   EV: {ev_str}"
+        prefix = "Multiway " if ev_type == "exact_multiway" else ""
+        summary = f"{prefix}Equity: {equity_pct}   EV: {ev_str}"
         children: list[Any] = [html.Span(summary)]
         if action_type == "CALL" and ev < 0:
             children.append(
@@ -783,9 +784,10 @@ def _build_ev_cell(
             )
         return html.Div(children)
 
-    # ev_type == "range"
+    # ev_type == "range" or "range_multiway_approx"
     equity_pct = f"~{equity * 100:.0f}%"
-    summary = f"Est. Equity: {equity_pct}   Est. EV: {ev_str}"
+    multiway_note = " (multiway approx)" if ev_type == "range_multiway_approx" else ""
+    summary = f"Est. Equity: {equity_pct}   Est. EV: {ev_str}{multiway_note}"
     preflop_action = str(cache_row.get("villain_preflop_action") or "unknown")
     contracted = cache_row.get("contracted_range_size")
     sample_count = int(float(cache_row.get("sample_count") or 0))  # type: ignore[arg-type]

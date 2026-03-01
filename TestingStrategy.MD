@@ -51,12 +51,12 @@ Poker hand histories contain hundreds of edge cases. The `tests/fixtures/` direc
 
 * **Framework:** `pytest` will be the primary testing framework due to its concise syntax and powerful fixture management.
 * **Data Mocking:** `pandas.testing.assert_frame_equal` will be used extensively to verify analytical outputs match expected DataFrame structures.
-* **Current test count (663 total):**
+* **Current test count (665 total):**
 
 | File | Tests | Scope |
 | :--- | :--- | :--- |
 | `test_parser.py` | 166 | 16 classes — parser rules, SPR/MDF, multiway SPR effective stack, re-buy, multi-street, EUR currency format, currency detection (USD/EUR/PLAY) |
-| `test_sessions.py` | 166 | 26 classes — card rendering, hero row highlighting, math cell, sessions nav/breadcrumb/state, session/hand filters, favourites, DataTable sorting, format helpers (cards text, blind, P&L), showdown section (winner + hand description + net result), villain summary line, first-action archetype badge, opponent profile card/panel, session report view (KPI strip, narrative, position breakdown table with traffic lights, EV summary, flagged hands, equity-unavailable note), dark mode compatibility (CSS vars for P&L, hero row, traffic lights, KPI strip) |
+| `test_sessions.py` | 168 | 26 classes — card rendering, hero row highlighting, math cell, sessions nav/breadcrumb/state, session/hand filters, favourites, DataTable sorting, format helpers (cards text, blind, P&L), showdown section (winner + hand description + net result), villain summary line, first-action archetype badge, opponent profile card/panel, session report view (KPI strip, narrative, position breakdown table with traffic lights, EV summary, flagged hands, equity-unavailable note), dark mode compatibility (CSS vars for P&L, hero row, traffic lights, KPI strip), multiway exact EV pipeline (ev_type=exact_multiway, equity comparison) |
 | `test_analysis.py` | 147 | Queries and stats: VPIP, PFR, Win Rate, AF, WTSD, timeline, 3-bet (incl. blind-position regression, 4-bet exclusion), c-bet, EV, equity cache, date filter, currency filter, session player stats, player archetype classification (incl. min_hands kwarg), session analysis queries, compute_equity_multiway, multiway showdown query, traffic_light (green/yellow/red zones, asymmetric, boundary), read_target_settings (defaults, DB override), straight draw detection (boundary OESD, gutshot, 3-to-a-straight exclusion) |
 | `test_database.py` | 69 | 9 classes — schema, inserts, deduplication, settings, favourites, currency storage, hand equity cache table |
 | `test_dashboard.py` | 31 | 4 classes — position traffic light colouring, KPI highlights (biggest win/loss/best/worst session), VPIP/PFR gap chart, stat header tooltips, dark mode compatibility (CSS vars, theme param) |

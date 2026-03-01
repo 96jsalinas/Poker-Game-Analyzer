@@ -798,31 +798,61 @@ def calculate_session_evs(
             if villain_id is None:
                 continue
 
-            villain_cards_row = conn.execute(
-                "SELECT hole_cards FROM hand_players"
-                " WHERE hand_id = ? AND player_id = ?",
-                (hand_id, villain_id),
-            ).fetchone()
-            villain_cards: str | None = (
-                str(villain_cards_row[0])
-                if villain_cards_row and villain_cards_row[0]
-                else None
-            )
+            # Gather all active non-hero villains with known hole cards
+            all_villain_cards_rows = conn.execute(
+                """
+                SELECT hp.player_id, hp.hole_cards
+                FROM hand_players hp
+                WHERE hp.hand_id = :hid
+                  AND hp.player_id != :hero
+                  AND hp.hole_cards IS NOT NULL
+                  AND hp.hole_cards != ''
+                  AND hp.player_id NOT IN (
+                      SELECT a.player_id FROM actions a
+                      WHERE a.hand_id = :hid
+                        AND a.action_type = 'FOLD'
+                        AND a.sequence < :seq
+                  )
+                """,
+                {
+                    "hid": hand_id,
+                    "hero": hero_id,
+                    "seq": int(ar["sequence"]),
+                },
+            ).fetchall()
+            known_villain_cards = {int(r[0]): str(r[1]) for r in all_villain_cards_rows}
+
+            villain_cards: str | None = known_villain_cards.get(villain_id)
 
             if villain_cards:
-                result = compute_ev(
-                    hero_cards, villain_cards, board, wager, pot_to_win, sample_count
-                )
-                if result is None:
-                    continue
-                ev, equity = result
+                if len(known_villain_cards) > 1:
+                    # Multiway exact: use all known villain hands
+                    all_cards_str = "|".join(known_villain_cards.values())
+                    equity = compute_equity_multiway(
+                        hero_cards, all_cards_str, board, sample_count
+                    )
+                    ev = equity * pot_to_win - wager
+                    ev_type = "exact_multiway"
+                else:
+                    result = compute_ev(
+                        hero_cards,
+                        villain_cards,
+                        board,
+                        wager,
+                        pot_to_win,
+                        sample_count,
+                    )
+                    if result is None:
+                        continue
+                    ev, equity = result
+                    ev_type = "exact"
                 rows.append(
                     {
                         "action_id": action_id,
                         "hero_id": hero_id,
                         "equity": equity,
                         "ev": ev,
-                        "ev_type": "exact",
+                        "ev_type": ev_type,
                         "blended_vpip": None,
                         "blended_pfr": None,
                         "blended_3bet": None,
@@ -878,6 +908,28 @@ def calculate_session_evs(
                 if contracted_size < 5:
                     continue
 
+                # Count active non-hero villains to detect multiway
+                active_count = conn.execute(
+                    """
+                    SELECT COUNT(DISTINCT hp.player_id)
+                    FROM hand_players hp
+                    WHERE hp.hand_id = :hid
+                      AND hp.player_id != :hero
+                      AND hp.player_id NOT IN (
+                          SELECT a.player_id FROM actions a
+                          WHERE a.hand_id = :hid
+                            AND a.action_type = 'FOLD'
+                            AND a.sequence < :seq
+                      )
+                    """,
+                    {
+                        "hid": hand_id,
+                        "hero": hero_id,
+                        "seq": int(ar["sequence"]),
+                    },
+                ).fetchone()[0]
+                range_ev_type = "range_multiway_approx" if active_count > 1 else "range"
+
                 ev = equity * pot_to_win - wager
                 rows.append(
                     {
@@ -885,7 +937,7 @@ def calculate_session_evs(
                         "hero_id": hero_id,
                         "equity": equity,
                         "ev": ev,
-                        "ev_type": "range",
+                        "ev_type": range_ev_type,
                         "blended_vpip": blended_v,
                         "blended_pfr": blended_p,
                         "blended_3bet": blended_3b,
