@@ -991,10 +991,10 @@ class TestSPRAndMDFParsing:
         """Flop pot includes dead money (firefly2005 folded SB of 100).
         Pot at flop: 100(dead SB) + 600*3(active players) = 1900.
         Hero invested 600 preflop; stack at flop start = 16458-600 = 15858.
-        Effective stack = min(15858, Marghita72_remaining, antonio347_remaining).
+        Effective stack = min(15858, max(Marghita72_remaining, antonio347_remaining)).
         Marghita72 started 40566, invested 600 → 39966 remaining.
         antonio347 started 20000, invested 600 → 19400 remaining.
-        SPR = min(15858, 39966, 19400) / 1900 = 15858/1900 ≈ 8.35.
+        SPR = min(15858, max(39966, 19400)) / 1900 = 15858/1900 ≈ 8.35.
         """
         hero_flop = next(
             a for a in cash_raises_preflop.actions if a.is_hero and a.street == "FLOP"

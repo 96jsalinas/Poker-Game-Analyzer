@@ -795,7 +795,7 @@ class HandParser:
             if is_hero and street == "FLOP" and not hero_first_flop_done:
                 hero_first_flop_done = True
                 hero_stack = stacks_at_flop.get(self.hero, Decimal("0"))
-                # Effective stack = min of hero and active villain stacks
+                # Effective stack = min(hero, max(active villain stacks))
                 active_stacks = [
                     stacks_at_flop[u]
                     for u in stacks_at_flop
@@ -804,7 +804,7 @@ class HandParser:
                     and u not in preflop_folders
                 ]
                 if active_stacks and pot_before > Decimal("0"):
-                    effective = min(hero_stack, min(active_stacks))
+                    effective = min(hero_stack, max(active_stacks))
                     spr = effective / pot_before
 
             # MDF: only when hero faces a bet and has not folded

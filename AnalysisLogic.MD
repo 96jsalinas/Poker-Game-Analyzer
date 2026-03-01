@@ -32,8 +32,7 @@ To maintain compatibility with raw PokerStars logs while enabling easy math:
 ### A. Stack-to-Pot Ratio (SPR)
 Calculated only at the **commencement of the Flop**.
 $$SPR = \frac{Stack_{Effective}}{Pot_{Flop\_Start}}$$
-* **$Stack_{Effective}$**: The smallest stack between Hero and the active Villain(s).
-* **Logic**: If multiple Villains are in, use the largest stack among Villains that Hero can effectively play for, capped by Hero's own stack.
+* **$Stack_{Effective}$**: `min(Hero_Stack, max(Active_Villain_Stacks))`. Hero can play for their full stack against the deepest remaining villain; the shallowest villain is irrelevant for Hero's strategic SPR decision.
 
 ### B. Minimum Defense Frequency (MDF)
 The mathematical "line in the sand" to prevent being exploited by bluffs.
