@@ -83,7 +83,7 @@ A detailed list of every hand dealt in that session.
 A chronological breakdown of the specific hand.
 * **Header**: Hand # and board cards (Flop | Turn | River).
 * **Favourite** ✅ Implemented — ★/☆ button in the top-right of the action view header; clicking toggles `is_favorite` on the current hand (gold star = favourite). Persisted to DB via `_toggle_hand_fav` callback + `hand-fav-id-store`.
-* **Body**: Actions grouped by street (colour-coded headers), showing player username, position (e.g. `jsalinas96 (BTN)`), action type, amount, and pot size.
+* **Body**: Actions grouped by street (colour-coded headers with board cards inline — FLOP shows the three flop cards, TURN shows the turn card, RIVER shows the river card), showing player username, position (e.g. `jsalinas96 (BTN)`), action type, amount, and pot size.
 * **Math Column**: SPR shown on the first Flop action; Pot Odds % and MDF % shown for every decision point Hero faces.
 * **Showdown Section**: ✅ Implemented — when villain hole cards are known (showdown or all-in with cards exposed), a purple "Showdown" section appears after the last street, showing each villain's name, position, and styled hole cards.
 * **Breadcrumb**: `Sessions > Session Label (→ report) > All Hands (→ hand list) > Hand #N`.

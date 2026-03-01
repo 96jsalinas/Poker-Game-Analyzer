@@ -2539,15 +2539,28 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
 
     def _flush(street: str, rows: list[html.Tr]) -> html.Div:
         colour = _STREET_COLOURS.get(street, "#333")
+        street_cards = {"FLOP": flop, "TURN": turn, "RIVER": river}
+        cards_str = street_cards.get(street)
+        header_children: list[Any] = [street]
+        if cards_str:
+            header_children.append(
+                html.Span(
+                    _render_cards(cards_str),
+                    style={"marginLeft": "10px", "verticalAlign": "middle"},
+                )
+            )
         return html.Div(
             [
                 html.H5(
-                    street,
+                    header_children if len(header_children) > 1 else street,
                     style={
                         "color": colour,
                         "borderBottom": f"2px solid {colour}",
                         "paddingBottom": "4px",
                         "marginBottom": "4px",
+                        "display": "flex",
+                        "alignItems": "center",
+                        "gap": "8px",
                     },
                 ),
                 html.Table(
