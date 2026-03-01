@@ -56,9 +56,9 @@ def ingest_file(
 
     logger.info("Starting ingestion: %s", path)
 
-    blocks = split_hands(path.read_text(encoding="utf-8"))
+    blocks = split_hands(path.read_text(encoding="utf-8-sig"))
     if not blocks:
-        logger.info("Ingestion complete — %s: no hand blocks found", path.name)
+        logger.warning("No hand blocks found in %s", path.name)
         return result
 
     parser = HandParser(hero_username=hero_username)
@@ -77,18 +77,21 @@ def ingest_file(
         first_parsed.session,
         start_time=first_parsed.hand.timestamp.isoformat(),
     )
-    conn.commit()
+    # Commit deferred until first hand is successfully inserted (M3).
     logger.info("Session %d created for %s", session_id, path.name)
 
     hero_buy_in = None
     hero_end_stack = None  # tracks starting_stack + net_result after each hand
     hero_cash_out = None
+    session_committed = False
 
-    for block in blocks:
+    for i, block in enumerate(blocks):
         try:
-            parsed = parser.parse(block)
+            # Re-use the cached first parse to avoid double-parsing (L3).
+            parsed = first_parsed if i == 0 else parser.parse(block)
             save_parsed_hand(conn, parsed, session_id)
             conn.commit()
+            session_committed = True
             result.ingested += 1
             logger.debug("Ingested hand %s", parsed.hand.hand_id)
 
@@ -103,17 +106,27 @@ def ingest_file(
                 hero_end_stack = hero.starting_stack + hero.net_result
                 hero_cash_out = hero_end_stack
 
-        except sqlite3.IntegrityError:
+        except sqlite3.IntegrityError as ie:
             conn.rollback()
-            result.skipped += 1
-            logger.warning("Skipped duplicate hand in %s", path.name)
+            if "source_hand_id" in str(ie).lower() or "unique" in str(ie).lower():
+                result.skipped += 1
+                logger.warning("Skipped duplicate hand in %s", path.name)
+            else:
+                result.failed += 1
+                result.errors.append(str(ie))
+                logger.error("Integrity error in %s: %s", path.name, ie)
         except Exception as exc:
             conn.rollback()
             result.failed += 1
             result.errors.append(str(exc))
             logger.error("Failed to ingest hand from %s: %s", path.name, exc)
 
-    if hero_buy_in is not None and hero_cash_out is not None:
+    # Clean up orphaned session if no hands were successfully inserted (M3).
+    if not session_committed:
+        conn.execute("DELETE FROM sessions WHERE id = ?", (session_id,))
+        conn.commit()
+        logger.warning("Removed orphaned session %d (no hands ingested)", session_id)
+    elif hero_buy_in is not None and hero_cash_out is not None:
         update_session_financials(conn, session_id, hero_buy_in, hero_cash_out)
         conn.commit()
         logger.debug(
