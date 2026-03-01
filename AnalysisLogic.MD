@@ -129,7 +129,12 @@ $$\text{traffic\_light}(v, g_{min}, g_{max}, y_{min}, y_{max}) = \begin{cases} \
 ### A. Exact EV (villain cards known)
 
 When the Hero goes **All-in** or the hand reaches **Showdown** (villain cards are visible):
-$$EV_{Action} = (Equity \times Pot_{to\_Win}) - ((1 - Equity) \times Wager)$$
+$$EV_{Action} = (Equity \times Pot_{to\_Win}) - Wager$$
+
+This is equivalent to:
+$$EV_{Action} = (Equity \times Pot_{before}) - ((1 - Equity) \times Wager)$$
+
+Both forms yield the **net expected profit**: Hero wins the full pot (including their own wager) with probability $Equity$, and loses their wager with probability $(1 - Equity)$.
 
 * **Equity**: Hero's win % computed via PokerKit Monte Carlo simulation against the villain's exact hole cards.
 * **Pot to Win**: `pot_before + wager` (what Hero stands to gain).

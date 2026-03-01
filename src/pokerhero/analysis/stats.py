@@ -300,11 +300,12 @@ def compute_ev(
 ) -> tuple[float, float] | None:
     """Compute Expected Value of hero's all-in action using PokerKit equity.
 
-    EV = (equity × pot_to_win) − ((1 − equity) × amount_risked)
+    EV = (equity × pot_to_win) − amount_risked
 
-    Equity is calculated via Monte Carlo simulation using PokerKit's
-    calculate_equities function (see compute_equity). Results are cached
-    by card and board combination so repeated page loads are instant.
+    This yields the net expected profit: Hero wins the full pot (including
+    their own wager) with probability ``equity``, and loses their wager
+    with probability ``(1 − equity)``.  Equivalently:
+    ``EV = equity × (pot_before + wager) − wager``.
 
     Args:
         hero_cards: Hero hole cards as stored in DB (e.g. "Ah Kh").
@@ -328,7 +329,7 @@ def compute_ev(
         board.strip(),
         sample_count,
     )
-    ev = equity * pot_to_win - (1.0 - equity) * amount_risked
+    ev = equity * pot_to_win - amount_risked
     return ev, equity
 
 
@@ -874,7 +875,7 @@ def calculate_session_evs(
                 if contracted_size < 5:
                     continue
 
-                ev = equity * pot_to_win - (1.0 - equity) * wager
+                ev = equity * pot_to_win - wager
                 rows.append(
                     {
                         "action_id": action_id,
