@@ -121,8 +121,10 @@ def total_profit(hp_df: pd.DataFrame) -> float:
 def three_bet_pct(opp_df: pd.DataFrame) -> float:
     """Fraction of 3-bet opportunities where hero re-raised preflop.
 
-    An opportunity exists when a non-hero player has raised before hero's
-    first preflop action. Hero making a 3-bet means hero raised after that.
+    An opportunity exists when exactly one non-hero raise has occurred
+    before hero's first voluntary preflop action. If two or more raises
+    preceded hero (pot already 3-bet), it is a 4-bet+ opportunity and
+    is excluded from this statistic.
 
     3Bet% = COUNT(hands where hero raised vs prior raiser)
             / COUNT(opportunities)
@@ -151,7 +153,8 @@ def three_bet_pct(opp_df: pd.DataFrame) -> float:
             continue
         hero_first_seq = int(hero_voluntary["sequence"].iloc[0])
         pre_hero = hand[(hand["is_hero"] == 0) & (hand["sequence"] < hero_first_seq)]
-        if pre_hero["action_type"].eq("RAISE").any():
+        raise_count = int(pre_hero["action_type"].eq("RAISE").sum())
+        if raise_count == 1:
             opportunities += 1
             if (hero_rows["action_type"] == "RAISE").any():
                 made += 1
