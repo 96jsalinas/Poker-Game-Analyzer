@@ -1127,12 +1127,17 @@ def _render(
         state = _DrillDownState(level="sessions")
 
     # When arriving via page navigation (pathname change, search-only intra-page
-    # link, or initial app load), URL query params take priority over the store
-    # so that deep links and flagged-hand links land on the correct level.
+    # link, or initial page load after cross-page nav), URL query params take
+    # priority over the store so that deep links and highlight links land on the
+    # correct level.  On cross-page nav, ctx.triggered is [{'prop_id': '.'}]
+    # (the initial-call sentinel) — pathname/search are already set but didn't
+    # "trigger" because the callback wasn't registered yet when the URL changed.
     ctx = dash.callback_context
     triggered_props = {t["prop_id"] for t in (ctx.triggered or [])}
-    if not triggered_props or any(
-        "pathname" in p or "search" in p for p in triggered_props
+    if (
+        not triggered_props
+        or "." in triggered_props
+        or any("pathname" in p or "search" in p for p in triggered_props)
     ):
         nav_state = _parse_nav_search(search)
         if nav_state is not None:
