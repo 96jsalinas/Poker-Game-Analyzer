@@ -1347,3 +1347,69 @@ class TestEuroBlinds:
 
     def test_eur_currency(self, cash_eur_blinds: ParsedHand) -> None:
         assert cash_eur_blinds.session.currency == "EUR"
+
+
+# ===========================================================================
+# TestSPRMultiwayEffectiveStack
+# ===========================================================================
+
+
+class TestSPRMultiwayEffectiveStack:
+    """SPR must use max(villain_stacks), not min, for effective stack."""
+
+    _HAND_TEXT = (
+        "PokerStars Hand #999000001:  Hold'em No Limit (100/200)"
+        " - 2026/03/01 12:00:00 CET [2026/03/01 06:00:00 ET]\n"
+        "Table 'TestSPR' 6-max (Play Money) Seat #1 is the button\n"
+        "Seat 1: villain_short (3000 in chips)\n"
+        "Seat 2: villain_big (15000 in chips)\n"
+        "Seat 4: jsalinas96 (10000 in chips)\n"
+        "villain_short: posts small blind 100\n"
+        "villain_big: posts big blind 200\n"
+        "*** HOLE CARDS ***\n"
+        "Dealt to jsalinas96 [Ac Kd]\n"
+        "jsalinas96: raises 200 to 400\n"
+        "villain_short: calls 300\n"
+        "villain_big: calls 200\n"
+        "*** FLOP *** [8s Tc 3s]\n"
+        "villain_short: checks\n"
+        "villain_big: checks\n"
+        "jsalinas96: checks\n"
+        "*** TURN *** [8s Tc 3s] [Qh]\n"
+        "villain_short: checks\n"
+        "villain_big: checks\n"
+        "jsalinas96: checks\n"
+        "*** RIVER *** [8s Tc 3s Qh] [4c]\n"
+        "villain_short: checks\n"
+        "villain_big: checks\n"
+        "jsalinas96: checks\n"
+        "*** SUMMARY ***\n"
+        "Total pot 1200 | Rake 0\n"
+        "Board [8s Tc 3s Qh 4c]\n"
+    )
+
+    @pytest.fixture
+    def parsed(self) -> ParsedHand:
+        return HandParser(hero_username=HERO).parse(self._HAND_TEXT)
+
+    def test_spr_uses_max_villain_stack(self, parsed: ParsedHand) -> None:
+        """Effective stack = min(hero, max(villains)), not min(hero, min(villains)).
+
+        Hero invested 400 → stack at flop = 10000 - 400 = 9600.
+        villain_short invested 400 → 3000 - 400 = 2600.
+        villain_big invested 400 → 15000 - 400 = 14600.
+        Pot at flop = 400 * 3 = 1200.
+        Effective = min(9600, max(2600, 14600)) = min(9600, 14600) = 9600.
+        SPR = 9600 / 1200 = 8.0.
+        """
+        hero_flop = next(a for a in parsed.actions if a.is_hero and a.street == "FLOP")
+        assert hero_flop.spr is not None
+        expected_spr = Decimal("9600") / Decimal("1200")
+        assert abs(hero_flop.spr - expected_spr) < Decimal("0.01")
+
+    def test_spr_not_artificially_low(self, parsed: ParsedHand) -> None:
+        """SPR must NOT be 2600/1200 ≈ 2.17 (using short stack villain)."""
+        hero_flop = next(a for a in parsed.actions if a.is_hero and a.street == "FLOP")
+        wrong_spr = Decimal("2600") / Decimal("1200")
+        assert hero_flop.spr is not None
+        assert hero_flop.spr != pytest.approx(wrong_spr, abs=Decimal("0.01"))
