@@ -417,6 +417,7 @@ layout = html.Div(
         dcc.Store(id="drill-down-state", data={"level": "sessions"}),
         dcc.Store(id="pending-session-report"),
         dcc.Store(id="ev-result-store", data=None),
+        dcc.Store(id="consumed-search", data=""),
     ],
 )
 
@@ -1108,10 +1109,12 @@ def _parse_nav_search(search: str) -> _DrillDownState | None:
     Output("breadcrumb", "children"),
     Output("session-analysis-hint", "children"),
     Output("pending-session-report", "data"),
+    Output("consumed-search", "data"),
     Input("drill-down-state", "data"),
     Input("_pages_location", "pathname"),
     Input("ev-result-store", "data"),
     Input("_pages_location", "search"),
+    State("consumed-search", "data"),
     prevent_initial_call=False,
 )
 def _render(
@@ -1119,36 +1122,39 @@ def _render(
     pathname: str,
     _ev_result: dict[str, Any] | None,
     search: str,
-) -> tuple[html.Div | str, html.Div, html.Div | None, int | None]:
+    consumed_search: str,
+) -> tuple[html.Div | str, html.Div, html.Div | None, int | None, str]:
     if pathname != "/sessions":
         raise dash.exceptions.PreventUpdate
 
     if state is None:
         state = _DrillDownState(level="sessions")
 
-    # When arriving via page navigation (pathname change, search-only intra-page
-    # link, or initial page load after cross-page nav), URL query params take
-    # priority over the store so that deep links and highlight links land on the
-    # correct level.  On cross-page nav, ctx.triggered is [{'prop_id': '.'}]
-    # (the initial-call sentinel) — pathname/search are already set but didn't
-    # "trigger" because the callback wasn't registered yet when the URL changed.
-    ctx = dash.callback_context
-    triggered_props = {t["prop_id"] for t in (ctx.triggered or [])}
-    if (
-        not triggered_props
-        or "." in triggered_props
-        or any("pathname" in p or "search" in p for p in triggered_props)
-    ):
+    # Parse URL params when the search string has not yet been consumed.
+    # On a fresh page load (cross-page nav from dashboard, direct URL entry),
+    # consumed_search is "" (store's initial value) so any search params are
+    # new and get parsed.  After consumption, subsequent callback fires from
+    # click-based navigation (breadcrumb, row click) see the same consumed
+    # value and skip URL parsing — the drill-down-state store is trusted.
+    new_consumed: str = consumed_search or ""
+    if search and search != (consumed_search or ""):
         nav_state = _parse_nav_search(search)
         if nav_state is not None:
             state = nav_state
+            new_consumed = search
 
     level = state.get("level", "sessions")
 
     db_path = _get_db_path()
 
     if level == "sessions":
-        return _render_sessions(db_path), _breadcrumb("sessions"), None, None
+        return (
+            _render_sessions(db_path),
+            _breadcrumb("sessions"),
+            None,
+            None,
+            new_consumed,
+        )
 
     session_id = int(state.get("session_id") or 0)
     if level == "report":
@@ -1195,6 +1201,7 @@ def _render(
             _breadcrumb("report", session_label=label, session_id=session_id),
             hint,
             session_id,
+            new_consumed,
         )
 
     if level == "hands":
@@ -1204,6 +1211,7 @@ def _render(
             _breadcrumb("hands", session_label=label, session_id=session_id),
             None,
             None,
+            new_consumed,
         )
 
     hand_id = int(state.get("hand_id") or 0)
@@ -1219,6 +1227,7 @@ def _render(
         ),
         None,
         None,
+        new_consumed,
     )
 
 
@@ -1226,27 +1235,32 @@ def _render(
     Output("drill-down-content", "children", allow_duplicate=True),
     Output("session-analysis-hint", "children", allow_duplicate=True),
     Input("pending-session-report", "data"),
+    State("drill-down-state", "data"),
     State("_pages_location", "search"),
     prevent_initial_call=True,
 )
 def _load_session_report(
     session_id: int | None,
+    state: _DrillDownState | None,
     search: str,
 ) -> tuple[html.Div | str, None]:
     """Phase 2: compute Session Report after the hint banner is shown.
 
-    Triggered by pending-session-report store. Guards against stale triggers
-    using the current URL search string so that navigating away (or arriving
-    via a hand-level link) correctly suppresses the report render.
+    Triggered by pending-session-report store.  The guard allows the report
+    to load when EITHER source confirms report-level intent:
+    - drill-down-state has level='report' (click-based navigation), OR
+    - URL search has ?session_id=N matching session_id (URL navigation).
     """
     if session_id is None:
         raise dash.exceptions.PreventUpdate
+    store_ok = state and state.get("level") == "report"
     nav = _parse_nav_search(search)
-    if (
-        nav is None
-        or nav.get("level") != "report"
-        or nav.get("session_id") != session_id
-    ):
+    url_ok = (
+        nav is not None
+        and nav.get("level") == "report"
+        and nav.get("session_id") == session_id
+    )
+    if not (store_ok or url_ok):
         raise dash.exceptions.PreventUpdate
     db_path = _get_db_path()
     content, _ = _render_session_report(db_path, int(session_id))
