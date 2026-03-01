@@ -3347,3 +3347,98 @@ class TestSearchInputWiring:
                 return
 
         pytest.fail("Could not find _render callback in GLOBAL_CALLBACK_MAP")
+
+
+# ---------------------------------------------------------------------------
+# TestLoadSessionReportGuard
+# ---------------------------------------------------------------------------
+
+
+class TestLoadSessionReportGuard:
+    """_load_session_report guard must be URL-based, not store-based.
+
+    The drill-down-state store is only updated by click callbacks, never by
+    URL navigation.  When a user arrives from the dashboard via a highlight
+    link, the store still has its default level='sessions'.  If the guard
+    reads drill-down-state it raises PreventUpdate and the session report
+    never loads.  The guard must instead read _pages_location.search so it
+    reflects the *current* URL, not a potentially stale store.
+    """
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_callback_uses_search_not_store(self):
+        """_load_session_report State must be _pages_location.search, not drill-down-state."""  # noqa: E501
+        import pytest
+        from dash._callback import GLOBAL_CALLBACK_MAP
+
+        search_entry = {"id": "_pages_location", "property": "search"}
+        store_entry = {"id": "drill-down-state", "property": "data"}
+
+        for _key, cb in GLOBAL_CALLBACK_MAP.items():
+            if any(
+                i.get("id") == "pending-session-report" for i in cb.get("inputs", [])
+            ):
+                state = cb.get("state", [])
+                assert search_entry in state, (
+                    "_load_session_report must have _pages_location.search as State "
+                    "so the URL-based guard is reliable after URL navigation"
+                )
+                assert store_entry not in state, (
+                    "_load_session_report must NOT use drill-down-state as State "
+                    "(the store is stale after URL navigation from the dashboard)"
+                )
+                return
+
+        pytest.fail(
+            "Could not find _load_session_report callback in GLOBAL_CALLBACK_MAP"  # noqa: E501
+        )
+
+    def test_does_not_prevent_update_when_store_has_default_level(self):
+        """Must not raise PreventUpdate when URL matches and store level is default.
+
+        Regression: before the URL-based guard, any user navigating from the
+        dashboard to a session report would see the placeholder spin forever
+        because the store still held level='sessions' (its initial value).
+        """
+        import dash
+
+        from pokerhero.frontend.pages.sessions import _load_session_report
+
+        try:
+            _load_session_report(session_id=0, search="?session_id=0")
+        except TypeError:
+            pytest.fail(
+                "_load_session_report does not accept 'search' argument — "
+                "fix: replace State('drill-down-state') with "
+                "State('_pages_location', 'search')"
+            )
+        except dash.exceptions.PreventUpdate:
+            pytest.fail(
+                "_load_session_report raised PreventUpdate with session_id=0 and "
+                "search='?session_id=0' — URL-based guard is missing"
+            )
+
+    def test_raises_prevent_update_when_url_has_hand_id(self):
+        """Must raise PreventUpdate when URL has hand_id (user is on actions view)."""
+        import dash
+
+        from pokerhero.frontend.pages.sessions import _load_session_report
+
+        try:
+            _load_session_report(session_id=5, search="?session_id=5&hand_id=10")
+            pytest.fail(
+                "_load_session_report should raise PreventUpdate when URL has "
+                "hand_id (user is on actions view, not session report)"
+            )
+        except TypeError:
+            pytest.fail(
+                "_load_session_report does not accept 'search' argument — "
+                "fix: replace State('drill-down-state') with "
+                "State('_pages_location', 'search')"
+            )
+        except dash.exceptions.PreventUpdate:
+            pass  # Expected — URL has hand_id so user is not on session report
