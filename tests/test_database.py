@@ -155,6 +155,16 @@ class TestSchema:
             "mdf",
         } <= cols
 
+    def test_actions_indexes_exist(self, db):
+        """H2: actions table must have indexes for performance."""
+        rows = db.execute(
+            "SELECT name FROM sqlite_master WHERE type='index' AND tbl_name='actions'"
+        ).fetchall()
+        idx_names = {r[0] for r in rows}
+        assert "idx_actions_hand_id" in idx_names
+        assert "idx_actions_player_id" in idx_names
+        assert "idx_actions_hand_sequence" in idx_names
+
 
 class TestInitDbSeedsTargetDefaults:
     """init_db must pre-populate target_settings with all default rows."""

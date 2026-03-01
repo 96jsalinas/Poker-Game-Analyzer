@@ -2814,6 +2814,94 @@ class TestEvStatusLabel:
         assert "2024-03-20" in label
 
 
+class TestBatchEvStatusLabels:
+    """H3: _batch_ev_status_labels returns labels for multiple sessions in one query."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    @pytest.fixture
+    def conn(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        c = init_db(str(tmp_path / "test.db"))
+        yield c
+        c.close()
+
+    def _seed_sessions(self, conn, n=3):
+        """Create n sessions with one hand+action each; return list of session ids."""
+        pid = conn.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'Hero')"
+        ).lastrowid
+        sids = []
+        for i in range(n):
+            sid = conn.execute(
+                "INSERT INTO sessions"
+                " (game_type, limit_type, max_seats,"
+                "  small_blind, big_blind, ante, start_time)"
+                " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, ?)",
+                (f"2024-01-0{i + 1}",),
+            ).lastrowid
+            hid = conn.execute(
+                "INSERT INTO hands"
+                " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+                "  rake, timestamp)"
+                " VALUES (?, ?, 1000, 0, 0, '2024-01-01T00:00:00')",
+                (f"H{i}", sid),
+            ).lastrowid
+            conn.execute(
+                "INSERT INTO actions"
+                " (hand_id, player_id, is_hero, street, action_type,"
+                "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+                " VALUES (?, ?, 1, 'FLOP', 'CALL', 100, 100, 200, 0, 1)",
+                (hid, pid),
+            )
+            sids.append(sid)
+        conn.commit()
+        return sids, pid
+
+    def test_returns_dict_keyed_by_session_id(self, conn):
+        from pokerhero.frontend.pages.sessions import _batch_ev_status_labels
+
+        sids, _ = self._seed_sessions(conn, 2)
+        result = _batch_ev_status_labels(conn, sids)
+        assert isinstance(result, dict)
+        assert set(result.keys()) == set(sids)
+
+    def test_all_calculate_when_no_cache(self, conn):
+        from pokerhero.frontend.pages.sessions import _batch_ev_status_labels
+
+        sids, _ = self._seed_sessions(conn, 3)
+        result = _batch_ev_status_labels(conn, sids)
+        for sid in sids:
+            assert "📊" in result[sid]
+
+    def test_mixed_status(self, conn):
+        """One session with cache, two without — only the cached one shows ✅."""
+        from pokerhero.frontend.pages.sessions import _batch_ev_status_labels
+
+        sids, pid = self._seed_sessions(conn, 3)
+        # Add cache row for first session only
+        action_id = conn.execute(
+            "SELECT a.id FROM actions a JOIN hands h ON a.hand_id = h.id"
+            " WHERE h.session_id = ? LIMIT 1",
+            (sids[0],),
+        ).fetchone()[0]
+        conn.execute(
+            "INSERT INTO action_ev_cache"
+            " (action_id, hero_id, equity, ev, ev_type, sample_count, computed_at)"
+            " VALUES (?, ?, 0.6, 10.0, 'exact', 1000, '2024-03-20T12:00:00')",
+            (action_id, pid),
+        )
+        conn.commit()
+        result = _batch_ev_status_labels(conn, sids)
+        assert "✅" in result[sids[0]]
+        assert "📊" in result[sids[1]]
+        assert "📊" in result[sids[2]]
+
+
 # ---------------------------------------------------------------------------
 # TestSessionTableEvColumn
 # ---------------------------------------------------------------------------
