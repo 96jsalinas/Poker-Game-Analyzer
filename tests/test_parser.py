@@ -1413,3 +1413,42 @@ class TestSPRMultiwayEffectiveStack:
         wrong_spr = Decimal("2600") / Decimal("1200")
         assert hero_flop.spr is not None
         assert hero_flop.spr != pytest.approx(wrong_spr, abs=Decimal("0.01"))
+
+
+# ===========================================================================
+# L1: Parser regex hardening — reject malformed monetary values
+# ===========================================================================
+
+
+class TestRegexRejectsMalformedAmounts:
+    """L1: Monetary regexes must not accept multi-dot values like '1.2.3'."""
+
+    def test_seat_regex_rejects_multi_dot_chips(self):
+        from pokerhero.parser.hand_parser import _RE_SEAT
+
+        m = _RE_SEAT.match("Seat 1: Player1 (1.2.3 in chips)")
+        assert m is None or "." not in (m.group(3) or "").replace(".", "", 1)
+
+    def test_action_regex_rejects_multi_dot_amount(self):
+        from pokerhero.parser.hand_parser import _RE_ACTION
+
+        m = _RE_ACTION.match("Player1: bets 1.2.3")
+        assert m is None or "." not in (m.group(3) or "").replace(".", "", 1)
+
+    def test_uncalled_regex_rejects_multi_dot_amount(self):
+        from pokerhero.parser.hand_parser import _RE_UNCALLED
+
+        m = _RE_UNCALLED.match("Uncalled bet (1.2.3) returned to Player1")
+        assert m is None or "." not in (m.group(1) or "").replace(".", "", 1)
+
+    def test_collected_regex_rejects_multi_dot_amount(self):
+        from pokerhero.parser.hand_parser import _RE_COLLECTED
+
+        m = _RE_COLLECTED.match("Player1 collected 1.2.3 from pot")
+        assert m is None or "." not in (m.group(2) or "").replace(".", "", 1)
+
+    def test_summary_pot_regex_rejects_multi_dot_amount(self):
+        from pokerhero.parser.hand_parser import _RE_SUMMARY_POT
+
+        m = _RE_SUMMARY_POT.match("Total pot 1.2.3 | Rake 0.4.5")
+        assert m is None or "." not in (m.group(1) or "").replace(".", "", 1)

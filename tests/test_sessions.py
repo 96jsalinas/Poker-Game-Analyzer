@@ -1291,6 +1291,13 @@ class TestFmtPnl:
 
         assert _fmt_pnl(0.0) == "+0"
 
+    def test_tiny_value_no_scientific_notation(self):
+        """M2: Very small P&L must not use scientific notation."""
+        from pokerhero.frontend.pages.sessions import _fmt_pnl
+
+        result = _fmt_pnl(0.000001)
+        assert "e" not in result.lower(), f"Scientific notation detected: {result}"
+
 
 # ---------------------------------------------------------------------------
 # TestBuildOpponentProfileCard

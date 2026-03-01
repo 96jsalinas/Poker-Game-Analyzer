@@ -317,3 +317,18 @@ class TestDashboardDarkModeCompatibility:
 
         src = inspect.getsource(_kpi_card)
         assert "var(--text-1" in src
+
+
+class TestDashboardFmtPnl:
+    """M2: _fmt_pnl in dashboard.py must not produce scientific notation."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def test_tiny_value_no_scientific_notation(self):
+        from pokerhero.frontend.pages.dashboard import _fmt_pnl
+
+        result = _fmt_pnl(0.000001)
+        assert "e" not in result.lower(), f"Scientific notation: {result}"

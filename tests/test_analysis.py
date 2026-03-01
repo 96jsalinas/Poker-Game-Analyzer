@@ -2304,6 +2304,24 @@ class TestDetectStraightDraw:
         is_oesd, _ = _detect_straight_draw("5s", "8d", ["6h", "7c", "Td"])
         assert is_oesd is True
 
+    def test_oesd_loop_bound_is_tight(self):
+        """M8: OESD loop should iterate range(11), not range(14)."""
+        import inspect
+
+        from pokerhero.analysis.ranges import _detect_straight_draw
+
+        src = inspect.getsource(_detect_straight_draw)
+        assert "range(14)" not in src, "OESD loop still uses sloppy range(14)"
+
+    def test_gutshot_loop_bound_is_tight(self):
+        """M8: Gutshot loop should iterate range(10), not range(13)."""
+        import inspect
+
+        from pokerhero.analysis.ranges import _detect_straight_draw
+
+        src = inspect.getsource(_detect_straight_draw)
+        assert "range(13)" not in src, "Gutshot loop still uses sloppy range(13)"
+
 
 # ===========================================================================
 # TestContractRange — range contraction based on board + villain action
