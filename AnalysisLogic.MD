@@ -200,6 +200,18 @@ $$EV_{Call} = (Equity \times Pot_{to\_Win}) - ((1 - Equity) \times amount\_to\_c
 
 **Parser note:** FOLD actions now have `amount_to_call` set to the pending bet size at parse time (same formula as CALL: `street_bet − player_committed_this_street`). Open folds (no pending bet) retain `amount_to_call = 0` and are excluded from EV computation. MDF is **not** computed for FOLD actions (it is only meaningful for defending decisions).
 
+### D′. Fold Equity for BET/RAISE Actions
+
+For **BET** and **RAISE** actions, the EV formula incorporates **fold equity** — the probability that the villain folds, awarding hero the pot uncontested:
+
+$$EV_{Bet} = P(fold) \times pot\_before + P(call) \times (equity \times pot\_to\_win - wager)$$
+
+where $P(call) = 1 - P(fold)$.
+
+**Fold probability estimation**: Uses `fold_equity_default_pct` setting (default 40%). This is a population-level default; future versions may use per-villain fold-to-bet statistics when available.
+
+**Storage**: `fold_equity_pct` column in `action_ev_cache` (nullable). Set for BET/RAISE actions; NULL for CALL/FOLD.
+
 ### E. Equity Calculation Detail
 
 | Parameter | Value |

@@ -763,6 +763,7 @@ def calculate_session_evs(
     prior_weight = int(settings.get("range_prior_weight", 30))
     cont_passive = settings.get("range_continue_pct_passive", 65.0)
     cont_aggressive = settings.get("range_continue_pct_aggressive", 40.0)
+    fold_equity_default = settings.get("fold_equity_default_pct", 40.0)
 
     conn = get_connection(db_path)
     try:
@@ -846,6 +847,15 @@ def calculate_session_evs(
                         continue
                     ev, equity = result
                     ev_type = "exact"
+
+                # Apply fold equity for BET/RAISE actions
+                fold_eq_pct: float | None = None
+                if action_type in ("BET", "RAISE"):
+                    fold_eq_pct = fold_equity_default
+                    p_fold = fold_eq_pct / 100.0
+                    showdown_ev = equity * pot_to_win - wager
+                    ev = p_fold * pot_before + (1.0 - p_fold) * showdown_ev
+
                 rows.append(
                     {
                         "action_id": action_id,
@@ -858,6 +868,7 @@ def calculate_session_evs(
                         "blended_3bet": None,
                         "villain_preflop_action": None,
                         "contracted_range_size": None,
+                        "fold_equity_pct": fold_eq_pct,
                         "sample_count": sample_count,
                         "computed_at": now,
                     }
@@ -931,6 +942,15 @@ def calculate_session_evs(
                 range_ev_type = "range_multiway_approx" if active_count > 1 else "range"
 
                 ev = equity * pot_to_win - wager
+
+                # Apply fold equity for BET/RAISE actions
+                fold_eq_pct_r: float | None = None
+                if action_type in ("BET", "RAISE"):
+                    fold_eq_pct_r = fold_equity_default
+                    p_fold = fold_eq_pct_r / 100.0
+                    showdown_ev = ev
+                    ev = p_fold * pot_before + (1.0 - p_fold) * showdown_ev
+
                 rows.append(
                     {
                         "action_id": action_id,
@@ -943,6 +963,7 @@ def calculate_session_evs(
                         "blended_3bet": blended_3b,
                         "villain_preflop_action": preflop_action,
                         "contracted_range_size": contracted_size,
+                        "fold_equity_pct": fold_eq_pct_r,
                         "sample_count": sample_count,
                         "computed_at": now,
                     }

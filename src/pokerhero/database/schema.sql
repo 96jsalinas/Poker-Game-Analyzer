@@ -79,6 +79,7 @@ CREATE TABLE IF NOT EXISTS action_ev_cache (
     blended_3bet           REAL,
     villain_preflop_action TEXT,
     contracted_range_size  INTEGER,
+    fold_equity_pct        REAL,
     sample_count           INTEGER NOT NULL,
     computed_at            TEXT    NOT NULL,
     PRIMARY KEY (action_id, hero_id)

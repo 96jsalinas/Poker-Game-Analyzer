@@ -80,6 +80,7 @@ class TestSchema:
             "blended_3bet",
             "villain_preflop_action",
             "contracted_range_size",
+            "fold_equity_pct",
             "sample_count",
             "computed_at",
         } <= cols
@@ -1257,6 +1258,7 @@ class TestActionEvCache:
                     "blended_3bet": None,
                     "villain_preflop_action": None,
                     "contracted_range_size": None,
+                    "fold_equity_pct": None,
                     "sample_count": 5000,
                     "computed_at": "2024-01-01T00:00:00",
                 }
@@ -1287,6 +1289,7 @@ class TestActionEvCache:
                     "blended_3bet": 0.06,
                     "villain_preflop_action": "2bet",
                     "contracted_range_size": 47,
+                    "fold_equity_pct": None,
                     "sample_count": 1000,
                     "computed_at": "2024-01-01T00:00:00",
                 }
@@ -1314,6 +1317,7 @@ class TestActionEvCache:
             "blended_3bet": None,
             "villain_preflop_action": None,
             "contracted_range_size": None,
+            "fold_equity_pct": None,
             "sample_count": 1000,
             "computed_at": "2024-01-01T00:00:00",
         }
@@ -1341,6 +1345,7 @@ class TestActionEvCache:
                     "blended_3bet": None,
                     "villain_preflop_action": None,
                     "contracted_range_size": None,
+                    "fold_equity_pct": None,
                     "sample_count": 1000,
                     "computed_at": "2024-01-01T00:00:00",
                 }

@@ -148,11 +148,12 @@ RANGE_SETTING_DEFAULTS: dict[str, float] = {
     "range_sample_count": 1000.0,
     "range_continue_pct_passive": 65.0,
     "range_continue_pct_aggressive": 40.0,
+    "fold_equity_default_pct": 40.0,
 }
 
 
 def get_range_settings(conn: sqlite3.Connection) -> dict[str, float]:
-    """Return all 8 range-EV analysis settings, falling back to defaults.
+    """Return all range-EV analysis settings, falling back to defaults.
 
     Args:
         conn: An open SQLite connection.
@@ -412,11 +413,11 @@ def save_action_evs(
            (action_id, hero_id, equity, ev, ev_type,
             blended_vpip, blended_pfr, blended_3bet,
             villain_preflop_action, contracted_range_size,
-            sample_count, computed_at)
+            fold_equity_pct, sample_count, computed_at)
            VALUES (:action_id, :hero_id, :equity, :ev, :ev_type,
                    :blended_vpip, :blended_pfr, :blended_3bet,
                    :villain_preflop_action, :contracted_range_size,
-                   :sample_count, :computed_at)""",
+                   :fold_equity_pct, :sample_count, :computed_at)""",
         rows,
     )
 
