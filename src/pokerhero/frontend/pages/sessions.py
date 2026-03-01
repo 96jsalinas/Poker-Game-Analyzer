@@ -691,6 +691,35 @@ def _ev_status_label(conn: sqlite3.Connection, session_id: int) -> str:
     return f"✅ Ready ({date})"
 
 
+def _batch_ev_status_labels(
+    conn: sqlite3.Connection, session_ids: list[int]
+) -> dict[int, str]:
+    """Return EV status labels for all *session_ids* in a single query."""
+    if not session_ids:
+        return {}
+    placeholders = ",".join("?" * len(session_ids))
+    rows = conn.execute(
+        f"""
+        SELECT h.session_id, COUNT(*), MAX(aec.computed_at)
+        FROM action_ev_cache aec
+        JOIN actions a ON aec.action_id = a.id
+        JOIN hands h ON a.hand_id = h.id
+        WHERE h.session_id IN ({placeholders})
+        GROUP BY h.session_id
+        """,
+        session_ids,
+    ).fetchall()
+    result: dict[int, str] = {}
+    cached = {int(r[0]): (int(r[1]), r[2]) for r in rows}
+    for sid in session_ids:
+        if sid in cached and cached[sid][0] > 0:
+            date = str(cached[sid][1])[:10]
+            result[sid] = f"✅ Ready ({date})"
+        else:
+            result[sid] = "📊 Calculate"
+    return result
+
+
 def _build_calculate_ev_section() -> html.Div:
     """Return the 'Calculate EVs' button + status area for the sessions view."""
     return html.Div(
@@ -1470,9 +1499,9 @@ def _render_sessions(db_path: str) -> html.Div | str:
     try:
         df = get_sessions(conn, player_id)
         if not df.empty:
-            df["ev_status"] = [
-                _ev_status_label(conn, int(row["id"])) for _, row in df.iterrows()
-            ]
+            sids = [int(s) for s in df["id"].tolist()]
+            labels = _batch_ev_status_labels(conn, sids)
+            df["ev_status"] = [labels.get(int(r["id"]), "") for _, r in df.iterrows()]
     finally:
         conn.close()
 

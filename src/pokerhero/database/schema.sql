@@ -63,6 +63,10 @@ CREATE TABLE IF NOT EXISTS actions (
     mdf REAL
 );
 
+CREATE INDEX IF NOT EXISTS idx_actions_hand_id ON actions(hand_id);
+CREATE INDEX IF NOT EXISTS idx_actions_player_id ON actions(player_id);
+CREATE INDEX IF NOT EXISTS idx_actions_hand_sequence ON actions(hand_id, sequence);
+
 CREATE TABLE IF NOT EXISTS settings (
     key TEXT PRIMARY KEY,
     value TEXT NOT NULL
