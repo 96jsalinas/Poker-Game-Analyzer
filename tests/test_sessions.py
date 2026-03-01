@@ -3209,3 +3209,100 @@ class TestGetSessionShowdownEvs:
         df = get_session_showdown_evs(conn, sid, hero_id)
         assert len(df) == 1
         assert abs(float(df.iloc[0]["equity"]) - 0.75) < 0.001
+
+
+# ===========================================================================
+# TestFlaggedHandsLinks — lucky/unlucky hands link to action view
+# ===========================================================================
+
+
+class TestFlaggedHandsLinks:
+    """Flagged hands (Lucky/Unlucky) must be clickable links to the action view."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def _make_ev_df(self) -> "pd.DataFrame":  # noqa: F821
+        import pandas as pd
+
+        return pd.DataFrame(
+            {
+                "hand_id": [42],
+                "source_hand_id": ["HS-42"],
+                "equity": [0.25],  # wins with low equity → Lucky
+                "net_result": [200.0],
+            }
+        )
+
+    def test_flagged_hand_contains_link_to_action_view(self):
+        """Lucky hand entry must be a dcc.Link with hand_id and session_id."""
+        from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
+
+        result = str(_build_flagged_hands_list(self._make_ev_df(), session_id=5))
+        assert "hand_id=42" in result, "hand_id not found in link"
+        assert "session_id=5" in result, "session_id not found in link"
+
+    def test_flagged_hand_link_points_to_sessions_path(self):
+        """Link href must use /sessions path."""
+        from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
+
+        result = str(_build_flagged_hands_list(self._make_ev_df(), session_id=7))
+        assert "/sessions" in result
+
+    def test_flagged_hand_still_shows_source_hand_id(self):
+        """Link text must still display the source_hand_id (display label)."""
+        from pokerhero.frontend.pages.sessions import _build_flagged_hands_list
+
+        result = str(_build_flagged_hands_list(self._make_ev_df(), session_id=5))
+        assert "HS-42" in result
+
+
+# ===========================================================================
+# TestSessionPositionTablePnl — position table includes Net P&L column
+# ===========================================================================
+
+
+class TestSessionPositionTablePnl:
+    """Position breakdown table must include a Net P&L column."""
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    def _make_kpis_df(self) -> "pd.DataFrame":  # noqa: F821
+        import pandas as pd
+
+        return pd.DataFrame(
+            {
+                "position": ["BTN", "BTN", "BB"],
+                "vpip": [1, 0, 1],
+                "pfr": [1, 0, 0],
+                "net_result": [150.0, -50.0, 30.0],
+                "went_to_showdown": [0, 0, 0],
+                "hole_cards": [None, None, None],
+                "big_blind": [100, 100, 100],
+                "saw_flop": [1, 0, 0],
+            }
+        )
+
+    def _call_position_table(self) -> str:
+
+        from pokerhero.database.db import init_db
+        from pokerhero.frontend.pages.sessions import _build_session_position_table
+
+        conn = init_db(":memory:")
+        result = str(_build_session_position_table(self._make_kpis_df(), conn))
+        conn.close()
+        return result
+
+    def test_position_table_has_net_pnl_header(self):
+        """Position table must include a 'Net P&L' column header."""
+        assert "Net P&L" in self._call_position_table()
+
+    def test_position_table_shows_btn_pnl(self):
+        """Position table must show the summed P&L for BTN (150 + -50 = +100)."""
+        result = self._call_position_table()
+        assert "+100" in result
