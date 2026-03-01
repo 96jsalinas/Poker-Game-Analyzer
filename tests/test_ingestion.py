@@ -294,3 +294,121 @@ class TestIngestFileLogging:
         with caplog.at_level(logging.ERROR, logger="pokerhero.ingestion.pipeline"):
             ingest_file(FRATERNITAS, "jsalinas96", db)
         assert any("Failed" in r.message for r in caplog.records)
+
+
+class TestBOMHandling:
+    """H4: Files with UTF-8 BOM must be ingested correctly."""
+
+    @pytest.fixture
+    def db(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        conn = init_db(tmp_path / "test.db")
+        yield conn
+        conn.close()
+
+    def test_bom_prefixed_file_ingests_successfully(self, db, tmp_path):
+        from pokerhero.ingestion.pipeline import ingest_file
+
+        bom_file = tmp_path / "bom_session.txt"
+        raw = FRATERNITAS.read_bytes()
+        bom_file.write_bytes(b"\xef\xbb\xbf" + raw)
+        result = ingest_file(bom_file, "jsalinas96", db)
+        assert result.ingested == 2
+        assert result.failed == 0
+
+    def test_bom_splitter_returns_correct_count(self):
+        from pokerhero.ingestion.splitter import split_hands
+
+        raw = FRATERNITAS.read_text(encoding="utf-8")
+        bom_text = "\ufeff" + raw
+        blocks = split_hands(bom_text)
+        assert len(blocks) == 2
+
+
+class TestCRLFHandling:
+    """M4: Files with CRLF line endings must split correctly."""
+
+    def test_crlf_text_splits_correctly(self):
+        from pokerhero.ingestion.splitter import split_hands
+
+        raw = FRATERNITAS.read_text(encoding="utf-8")
+        crlf_text = raw.replace("\n", "\r\n")
+        blocks = split_hands(crlf_text)
+        assert len(blocks) == 2
+
+    def test_crlf_blocks_have_no_carriage_returns(self):
+        from pokerhero.ingestion.splitter import split_hands
+
+        raw = FRATERNITAS.read_text(encoding="utf-8")
+        crlf_text = raw.replace("\n", "\r\n")
+        for block in split_hands(crlf_text):
+            assert "\r" not in block
+
+
+class TestOrphanedSession:
+    """M3: No orphaned sessions when all hands fail to insert."""
+
+    @pytest.fixture
+    def db(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        conn = init_db(tmp_path / "test.db")
+        yield conn
+        conn.close()
+
+    def test_no_session_when_all_inserts_fail(self, db, monkeypatch):
+        from pokerhero.ingestion import pipeline
+        from pokerhero.ingestion.pipeline import ingest_file
+
+        def _failing_save(*args, **kwargs):
+            raise RuntimeError("injected insert failure")
+
+        monkeypatch.setattr(pipeline, "save_parsed_hand", _failing_save)
+        result = ingest_file(FRATERNITAS, "jsalinas96", db)
+        assert result.ingested == 0
+        count = db.execute("SELECT COUNT(*) FROM sessions").fetchone()[0]
+        assert count == 0, "Orphaned session should be cleaned up"
+
+
+class TestIntegrityErrorClassification:
+    """M5: Only source_hand_id duplicates should be classified as skipped."""
+
+    @pytest.fixture
+    def db(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        conn = init_db(tmp_path / "test.db")
+        yield conn
+        conn.close()
+
+    def test_duplicate_import_counts_as_skipped(self, db):
+        from pokerhero.ingestion.pipeline import ingest_file
+
+        ingest_file(FRATERNITAS, "jsalinas96", db)
+        result = ingest_file(FRATERNITAS, "jsalinas96", db)
+        assert result.skipped == 2
+        assert result.failed == 0
+
+
+class TestEmptyFileWarning:
+    """L7: Empty file ingestion should log a warning."""
+
+    @pytest.fixture
+    def db(self, tmp_path):
+        from pokerhero.database.db import init_db
+
+        conn = init_db(tmp_path / "test.db")
+        yield conn
+        conn.close()
+
+    def test_empty_file_logs_warning(self, db, tmp_path, caplog):
+        import logging
+
+        from pokerhero.ingestion.pipeline import ingest_file
+
+        empty_file = tmp_path / "empty.txt"
+        empty_file.write_text("")
+        with caplog.at_level(logging.WARNING, logger="pokerhero.ingestion.pipeline"):
+            ingest_file(empty_file, "jsalinas96", db)
+        assert any("no hand" in r.message.lower() for r in caplog.records)
