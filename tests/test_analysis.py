@@ -2250,6 +2250,62 @@ class TestScoreComboVsBoard:
 
 
 # ===========================================================================
+# TestDetectStraightDraw — boundary conditions and gutshot validation
+# ===========================================================================
+
+
+class TestDetectStraightDraw:
+    """_detect_straight_draw boundary and gutshot correctness."""
+
+    def test_standard_oesd(self):
+        """5-6-7-8 across combo + board → true OESD (4 or 9 completes)."""
+        from pokerhero.analysis.ranges import _detect_straight_draw
+
+        is_oesd, is_gutshot = _detect_straight_draw("5s", "8d", ["6h", "7c", "Ks"])
+        assert is_oesd is True
+
+    def test_boundary_akqj_not_oesd(self):
+        """A-K-Q-J is one-ended (only T completes) → gutshot, not OESD."""
+        from pokerhero.analysis.ranges import _detect_straight_draw
+
+        is_oesd, is_gutshot = _detect_straight_draw("Ah", "Kd", ["Qc", "Js", "2h"])
+        assert is_oesd is False
+        assert is_gutshot is True
+
+    def test_boundary_a234_not_oesd(self):
+        """A-2-3-4 is one-ended (only 5 completes) → gutshot, not OESD."""
+        from pokerhero.analysis.ranges import _detect_straight_draw
+
+        is_oesd, is_gutshot = _detect_straight_draw("Ad", "4s", ["2h", "3c", "Kh"])
+        assert is_oesd is False
+        assert is_gutshot is True
+
+    def test_genuine_gutshot(self):
+        """5-6-_-8-9 (missing 7) → gutshot."""
+        from pokerhero.analysis.ranges import _detect_straight_draw
+
+        is_oesd, is_gutshot = _detect_straight_draw("5d", "9c", ["6h", "8s", "Kd"])
+        assert is_oesd is False
+        assert is_gutshot is True
+
+    def test_three_to_straight_not_gutshot(self):
+        """7-8-9 on board with unrelated combo → no draw (no 4th connected rank)."""
+        from pokerhero.analysis.ranges import _detect_straight_draw
+
+        is_oesd, is_gutshot = _detect_straight_draw("2d", "3c", ["7h", "8s", "9d"])
+        assert is_oesd is False
+        assert is_gutshot is False
+
+    def test_oesd_takes_priority_over_gutshot(self):
+        """When both OESD and gutshot patterns exist, OESD wins."""
+        from pokerhero.analysis.ranges import _detect_straight_draw
+
+        # 5-6-7-8 = OESD (also gutshot windows exist like 5-6-7-_-9 if 9 present)
+        is_oesd, _ = _detect_straight_draw("5s", "8d", ["6h", "7c", "Td"])
+        assert is_oesd is True
+
+
+# ===========================================================================
 # TestContractRange — range contraction based on board + villain action
 # ===========================================================================
 
