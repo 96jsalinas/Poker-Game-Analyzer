@@ -1111,7 +1111,7 @@ def _parse_nav_search(search: str) -> _DrillDownState | None:
     Input("drill-down-state", "data"),
     Input("_pages_location", "pathname"),
     Input("ev-result-store", "data"),
-    State("_pages_location", "search"),
+    Input("_pages_location", "search"),
     prevent_initial_call=False,
 )
 def _render(
@@ -1126,12 +1126,14 @@ def _render(
     if state is None:
         state = _DrillDownState(level="sessions")
 
-    # When arriving via page navigation (pathname change or initial app load),
-    # URL query params take priority over the store's default value so that
-    # dashboard highlight-card links land on the correct drill-down level.
+    # When arriving via page navigation (pathname change, search-only intra-page
+    # link, or initial app load), URL query params take priority over the store
+    # so that deep links and flagged-hand links land on the correct level.
     ctx = dash.callback_context
     triggered_props = {t["prop_id"] for t in (ctx.triggered or [])}
-    if not triggered_props or any("pathname" in p for p in triggered_props):
+    if not triggered_props or any(
+        "pathname" in p or "search" in p for p in triggered_props
+    ):
         nav_state = _parse_nav_search(search)
         if nav_state is not None:
             state = nav_state
