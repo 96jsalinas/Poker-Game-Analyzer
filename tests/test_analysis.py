@@ -544,7 +544,62 @@ class TestThreeBetCBet:
         )
         assert three_bet_pct(df) == pytest.approx(1.0)
 
-    def test_cbet_pct_empty_returns_zero(self):
+    def test_three_bet_pct_excludes_4bet_opportunity(self):
+        """Pot already 3-bet before hero acts → NOT a 3-bet opportunity.
+
+        Villain A opens (RAISE seq 3), Villain B 3-bets (RAISE seq 4),
+        Hero 4-bets (RAISE seq 5). Two raises before hero → 4-bet opp,
+        not 3-bet opp → 0 opportunities, result 0.0.
+        """
+        from pokerhero.analysis.stats import three_bet_pct
+
+        df = pd.DataFrame(
+            {
+                "hand_id": [1, 1, 1, 1, 1, 1, 1],
+                "saw_flop": [0, 0, 0, 0, 0, 0, 0],
+                "sequence": [1, 2, 3, 4, 5, 6, 7],
+                "is_hero": [0, 1, 0, 0, 1, 0, 0],
+                "street": ["PREFLOP"] * 7,
+                "action_type": [
+                    "POST_BLIND",  # SB
+                    "POST_BLIND",  # BB (hero)
+                    "RAISE",  # UTG opens (2-bet)
+                    "RAISE",  # CO 3-bets
+                    "RAISE",  # Hero 4-bets
+                    "FOLD",  # UTG folds
+                    "FOLD",  # CO folds
+                ],
+            }
+        )
+        assert three_bet_pct(df) == 0.0
+
+    def test_three_bet_pct_mixed_3bet_and_4bet_opportunities(self):
+        """Hand 1: one raise before hero → 3-bet opportunity (hero folds).
+        Hand 2: two raises before hero → 4-bet opportunity (not counted).
+        Result: 1 opportunity, 0 made → 0.0 (not 0.5 from counting both).
+        """
+        from pokerhero.analysis.stats import three_bet_pct
+
+        df = pd.DataFrame(
+            {
+                "hand_id": [1, 1, 1, 2, 2, 2, 2, 2],
+                "saw_flop": [0, 0, 0, 0, 0, 0, 0, 0],
+                "sequence": [1, 2, 3, 4, 5, 6, 7, 8],
+                "is_hero": [0, 0, 1, 0, 1, 0, 0, 1],
+                "street": ["PREFLOP"] * 8,
+                "action_type": [
+                    "CALL",  # H1: limper
+                    "RAISE",  # H1: open raise
+                    "FOLD",  # H1: hero folds → opportunity, not made
+                    "POST_BLIND",  # H2: SB
+                    "POST_BLIND",  # H2: BB (hero)
+                    "RAISE",  # H2: UTG opens
+                    "RAISE",  # H2: CO 3-bets
+                    "RAISE",  # H2: hero 4-bets → NOT a 3-bet opp
+                ],
+            }
+        )
+        assert three_bet_pct(df) == pytest.approx(0.0)
         from pokerhero.analysis.stats import cbet_pct
 
         df = pd.DataFrame(
