@@ -3624,3 +3624,176 @@ class TestRenderInitialCallParsesURL:
             f"Expected sessions-list but got: {content!r}. "
             "Already-consumed URL params should be ignored."
         )
+
+
+# ---------------------------------------------------------------------------
+# TestStreetHeaderBoardCards
+# ---------------------------------------------------------------------------
+
+
+class TestStreetHeaderBoardCards:
+    """Street headers in the action view must show board cards.
+
+    FLOP → flop cards, TURN → turn card, RIVER → river card, PREFLOP → none.
+    """
+
+    def setup_method(self):
+        from pokerhero.frontend.app import create_app
+
+        create_app(db_path=":memory:")
+
+    @pytest.fixture
+    def db_with_hand(self, tmp_path):
+        """Seed a DB with a hand that has PREFLOP + FLOP + TURN + RIVER actions."""
+
+        from pokerhero.database.db import init_db
+
+        db_path = str(tmp_path / "test.db")
+        conn = init_db(db_path)
+        hero_id = conn.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('hero', 'Hero')"
+        ).lastrowid
+        villain_id = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('villain', 'Villain')"
+        ).lastrowid
+        sid = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats,"
+            "  small_blind, big_blind, ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-01-01')"
+        ).lastrowid
+        hid = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            "  rake, timestamp, board_flop, board_turn, board_river)"
+            " VALUES ('H1', ?, 1200, 0, 0, '2024-01-01T00:00:00',"
+            "  'Ah Th 8d', 'Ks', '2c')",
+            (sid,),
+        ).lastrowid
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BTN', 5000, 'Ac Kd', 1, 1, 0, 0, -400)",
+            (hid, hero_id),
+        )
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BB', 5000, NULL, 1, 1, 0, 0, 400)",
+            (hid, villain_id),
+        )
+        for seq, (pid, is_hero, street, action_type) in enumerate(
+            [
+                (villain_id, 0, "PREFLOP", "RAISE"),
+                (hero_id, 1, "PREFLOP", "CALL"),
+                (villain_id, 0, "FLOP", "CHECK"),
+                (hero_id, 1, "FLOP", "BET"),
+                (villain_id, 0, "TURN", "CHECK"),
+                (hero_id, 1, "TURN", "CHECK"),
+                (villain_id, 0, "RIVER", "CHECK"),
+                (hero_id, 1, "RIVER", "CHECK"),
+            ],
+            start=1,
+        ):
+            conn.execute(
+                "INSERT INTO actions"
+                " (hand_id, player_id, is_hero, street, action_type,"
+                "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+                " VALUES (?, ?, ?, ?, ?, 0, 0, 600, 0, ?)",
+                (hid, pid, is_hero, street, action_type, seq),
+            )
+        conn.commit()
+        conn.close()
+        return db_path, hid
+
+    @staticmethod
+    def _find_street_h5(comp, street_name: str):
+        """Walk Dash component tree; return the H5 for the given street."""  # noqa: E501
+        from dash import html
+
+        if isinstance(comp, html.H5):
+            children = comp.children
+            label = children[0] if isinstance(children, list) else children
+            if isinstance(label, str) and label == street_name:
+                return comp
+        if hasattr(comp, "children") and comp.children:
+            kids = comp.children if isinstance(comp.children, list) else [comp.children]
+            for k in kids:
+                if hasattr(k, "children"):
+                    found = TestStreetHeaderBoardCards._find_street_h5(k, street_name)
+                    if found is not None:
+                        return found
+        return None
+
+    def test_flop_header_shows_flop_cards(self, db_with_hand):
+        """FLOP H5 header must have list children (label + cards), not just a string."""  # noqa: E501
+
+        from pokerhero.frontend.pages.sessions import _render_actions
+
+        db_path, hid = db_with_hand
+        result, _ = _render_actions(db_path, hid)
+
+        flop_h5 = self._find_street_h5(result, "FLOP")
+        assert flop_h5 is not None, "FLOP H5 element not found"
+        assert isinstance(flop_h5.children, list), (
+            f"FLOP H5.children should be a list (label + cards) but got "
+            f"{type(flop_h5.children).__name__!r}: {flop_h5.children!r}"
+        )
+
+    def test_flop_header_shows_all_three_flop_cards(self, db_with_hand):
+        """FLOP H5 header must contain rendered card spans for Ah, Th, and 8d."""
+
+        from pokerhero.frontend.pages.sessions import _render_actions
+
+        db_path, hid = db_with_hand
+        result, _ = _render_actions(db_path, hid)
+
+        flop_h5 = self._find_street_h5(result, "FLOP")
+        assert flop_h5 is not None, "FLOP H5 element not found"
+        assert isinstance(flop_h5.children, list), "FLOP H5 must have list children"
+        # The card spans should be in the H5 children
+        h5_str = str(flop_h5)
+        assert "A♥" in h5_str, "Ah (A♥) must appear in FLOP H5"
+        assert "T♥" in h5_str, "Th (T♥) must appear in FLOP H5"
+        assert "8♦" in h5_str, "8d (8♦) must appear in FLOP H5"
+
+    def test_turn_header_shows_turn_card(self, db_with_hand):
+        """TURN H5 header must contain the turn card (Ks → K♠)."""
+        from pokerhero.frontend.pages.sessions import _render_actions
+
+        db_path, hid = db_with_hand
+        result, _ = _render_actions(db_path, hid)
+
+        turn_h5 = self._find_street_h5(result, "TURN")
+        assert turn_h5 is not None, "TURN H5 element not found"
+        assert isinstance(turn_h5.children, list), "TURN H5 must have list children"
+        assert "K♠" in str(turn_h5), "Ks (K♠) must appear in TURN H5"
+
+    def test_river_header_shows_river_card(self, db_with_hand):
+        """RIVER H5 header must contain the river card (2c → 2♣)."""
+        from pokerhero.frontend.pages.sessions import _render_actions
+
+        db_path, hid = db_with_hand
+        result, _ = _render_actions(db_path, hid)
+
+        river_h5 = self._find_street_h5(result, "RIVER")
+        assert river_h5 is not None, "RIVER H5 element not found"
+        assert isinstance(river_h5.children, list), "RIVER H5 must have list children"
+        assert "2♣" in str(river_h5), "2c (2♣) must appear in RIVER H5"
+
+    def test_preflop_header_has_no_cards(self, db_with_hand):
+        """PREFLOP H5 header must be a plain string with no card children."""
+        from pokerhero.frontend.pages.sessions import _render_actions
+
+        db_path, hid = db_with_hand
+        result, _ = _render_actions(db_path, hid)
+
+        preflop_h5 = self._find_street_h5(result, "PREFLOP")
+        assert preflop_h5 is not None, "PREFLOP H5 element not found"
+        assert preflop_h5.children == "PREFLOP", (
+            f"PREFLOP H5 should have plain string 'PREFLOP' but got "
+            f"{preflop_h5.children!r}"
+        )
