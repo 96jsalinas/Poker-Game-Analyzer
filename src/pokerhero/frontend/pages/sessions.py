@@ -2541,7 +2541,7 @@ def _render_actions(db_path: str, hand_id: int) -> tuple[html.Div | str, str]:
         colour = _STREET_COLOURS.get(street, "#333")
         street_cards = {"FLOP": flop, "TURN": turn, "RIVER": river}
         cards_str = street_cards.get(street)
-        header_children: list[Any] = [street]
+        header_children: list[str | Component] = [street]
         if cards_str:
             header_children.append(
                 html.Span(
