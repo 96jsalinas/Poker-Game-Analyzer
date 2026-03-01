@@ -1221,21 +1221,27 @@ def _render(
     Output("drill-down-content", "children", allow_duplicate=True),
     Output("session-analysis-hint", "children", allow_duplicate=True),
     Input("pending-session-report", "data"),
-    State("drill-down-state", "data"),
+    State("_pages_location", "search"),
     prevent_initial_call=True,
 )
 def _load_session_report(
     session_id: int | None,
-    state: _DrillDownState | None,
+    search: str,
 ) -> tuple[html.Div | str, None]:
     """Phase 2: compute Session Report after the hint banner is shown.
 
     Triggered by pending-session-report store. Guards against stale triggers
-    (e.g. user navigated away before computation finished).
+    using the current URL search string so that navigating away (or arriving
+    via a hand-level link) correctly suppresses the report render.
     """
     if session_id is None:
         raise dash.exceptions.PreventUpdate
-    if not state or state.get("level") != "report":
+    nav = _parse_nav_search(search)
+    if (
+        nav is None
+        or nav.get("level") != "report"
+        or nav.get("session_id") != session_id
+    ):
         raise dash.exceptions.PreventUpdate
     db_path = _get_db_path()
     content, _ = _render_session_report(db_path, int(session_id))
