@@ -1660,7 +1660,8 @@ def _build_session_position_table(
     kpis_df: pd.DataFrame,
     conn: sqlite3.Connection,
 ) -> html.Div:
-    """Return a per-position VPIP / PFR breakdown table with traffic-light colours.
+    """Return a per-position VPIP / PFR / Net P&L breakdown table with traffic-light
+    colours.
 
     Args:
         kpis_df: DataFrame from get_session_kpis (per-hand hero rows).
@@ -1687,6 +1688,7 @@ def _build_session_position_table(
             html.Th("Hands", style=_th),
             html.Th("VPIP%", style=_th),
             html.Th("PFR%", style=_th),
+            html.Th("Net P&L", style=_th),
         ]
     )
 
@@ -1719,6 +1721,7 @@ def _build_session_position_table(
                 pfr_b["yellow_max"],
             )
         ]
+        pnl = float(pos_hp["net_result"].sum())
         rows.append(
             html.Tr(
                 [
@@ -1726,6 +1729,7 @@ def _build_session_position_table(
                     html.Td(str(n), style=_td),
                     html.Td(f"{v:.1f}%", style={**_td, "backgroundColor": vpip_color}),
                     html.Td(f"{p:.1f}%", style={**_td, "backgroundColor": pfr_color}),
+                    html.Td(_fmt_pnl(pnl), style=_td),
                 ]
             )
         )
@@ -1976,17 +1980,20 @@ def _build_ev_summary(
 def _build_flagged_hands_list(
     ev_df: pd.DataFrame,
     *,
+    session_id: int = 0,
     lucky_threshold: float = 0.4,
     unlucky_threshold: float = 0.6,
 ) -> html.Div:
     """Return a list of notably lucky or unlucky hands.
 
     A hand is flagged as Lucky when hero won with equity < *lucky_threshold*,
-    or Unlucky when hero lost with equity > *unlucky_threshold*.
+    or Unlucky when hero lost with equity > *unlucky_threshold*. Each entry
+    is a clickable link that navigates directly to the hand action view.
 
     Args:
         ev_df: DataFrame from get_session_showdown_evs (columns: hand_id,
                source_hand_id, equity, net_result).
+        session_id: Internal session id used to build the deep-link URL.
         lucky_threshold: Hero wins with equity below this fraction → Lucky.
         unlucky_threshold: Hero loses with equity above this fraction → Unlucky.
 
@@ -1999,7 +2006,7 @@ def _build_flagged_hands_list(
             style={"color": "var(--text-4, #888)", "fontSize": "13px"},
         )
 
-    flagged: list[html.Div] = []
+    flagged: list[dcc.Link] = []
     for _, row in ev_df.iterrows():
         eq = float(row["equity"])
         hero_won = float(row["net_result"]) > 0
@@ -2009,27 +2016,36 @@ def _build_flagged_hands_list(
             flag, fcolor = "😞 Unlucky", "#dc3545"
         else:
             continue
+        href = f"/sessions?session_id={session_id}&hand_id={int(row['hand_id'])}"
         flagged.append(
-            html.Div(
-                [
-                    html.Span(
-                        flag,
-                        style={
-                            "marginRight": "10px",
-                            "color": fcolor,
-                            "fontWeight": "600",
-                        },
-                    ),
-                    html.Span(
-                        f"Hand #{row['source_hand_id']}",
-                        style={"marginRight": "10px", "fontSize": "13px"},
-                    ),
-                    html.Span(
-                        f"Equity: {eq * 100:.0f}%",
-                        style={"color": "var(--text-4, #888)", "fontSize": "12px"},
-                    ),
-                ],
-                style={"padding": "6px 0", "borderBottom": "1px solid #f0f0f0"},
+            dcc.Link(
+                html.Div(
+                    [
+                        html.Span(
+                            flag,
+                            style={
+                                "marginRight": "10px",
+                                "color": fcolor,
+                                "fontWeight": "600",
+                            },
+                        ),
+                        html.Span(
+                            f"Hand #{row['source_hand_id']}",
+                            style={"marginRight": "10px", "fontSize": "13px"},
+                        ),
+                        html.Span(
+                            f"Equity: {eq * 100:.0f}%",
+                            style={"color": "var(--text-4, #888)", "fontSize": "12px"},
+                        ),
+                    ],
+                    style={"padding": "6px 0", "borderBottom": "1px solid #f0f0f0"},
+                ),
+                href=href,
+                style={
+                    "textDecoration": "none",
+                    "color": "inherit",
+                    "display": "block",
+                },
             )
         )
 
@@ -2107,6 +2123,7 @@ def _render_session_report(db_path: str, session_id: int) -> tuple[html.Div | st
             ),
             _build_flagged_hands_list(
                 ev_df,
+                session_id=session_id,
                 lucky_threshold=lucky_threshold,
                 unlucky_threshold=unlucky_threshold,
             ),

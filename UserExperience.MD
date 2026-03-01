@@ -65,9 +65,9 @@ A table view showing all played sessions.
 A narrative overview of the selected session, assembled from three query DataFrames (`get_session_kpis`, `get_session_hero_actions`, `get_session_showdown_hands`).
 * **Narrative paragraph** — template-driven sentence summarising VPIP%, PFR%, AF and win rate for the session. Built by `_build_session_narrative(kpis_df, actions_df, session_label)`.
 * **KPI strip** — five at-a-glance cards (Hands, VPIP%, PFR%, AF, Win Rate bb/100). Built by `_build_session_kpi_strip(kpis_df, actions_df)`.
-* **Position Breakdown Table** ✅ Implemented — compact per-position VPIP% / PFR% table with traffic-light background colouring (same green/yellow/red palette as the dashboard). Positions with no hands are omitted. Built by `_build_session_position_table(kpis_df, conn)` in `sessions.py`.
+* **Position Breakdown Table** ✅ Implemented — compact per-position VPIP% / PFR% / Net P&L table with traffic-light background colouring (same green/yellow/red palette as the dashboard). Positions with no hands are omitted. Built by `_build_session_position_table(kpis_df, conn)` in `sessions.py`.
 * **EV Summary** — equity-based luck indicator. For each showdown hand with known villain cards, computes `compute_equity(hero_cards, villain_cards, board, 2000)`. Lucky: won with eq < 0.4. Unlucky: lost with eq > 0.6. Verdict: `👍 Ran above equity` / `👎 Ran below equity` / `~ Ran near equity`. Built by `_build_ev_summary(showdown_df)`.
-* **Notable Hands** — lists each hand classified as 🍀 Lucky or 😞 Unlucky with the equity percentage. Built by `_build_flagged_hands_list(showdown_df)`.
+* **Notable Hands** — lists each hand classified as 🍀 Lucky or 😞 Unlucky with the equity percentage. Each entry is a clickable link that navigates to the hand action view (`/sessions?session_id=X&hand_id=Y`). Built by `_build_flagged_hands_list(showdown_df, session_id=session_id)`.
 * **Browse all N hands button** (`session-report-browse-btn`) — navigates to the Hand List for this session via `_browse_session_hands` callback.
 * State: `level="report"`, `session_id=X`.
 
