@@ -635,14 +635,14 @@ class TestEV:
         assert result[0] < 0
 
     def test_ev_formula_at_river(self):
-        """Complete board → exact equity; EV ≈ equity*pot - (1-equity)*risked."""
+        """Complete board → exact equity; EV = equity*pot_to_win - wager."""
         from pokerhero.analysis.stats import compute_ev
 
         # Hero: Ah Kh vs 2c 3d on complete board → equity=1.0
-        # EV = 1.0 * 300 - 0 * 100 = 300
+        # EV = 1.0 * 300 - 100 = 200 (net profit, not gross pot)
         result = compute_ev("Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", 100.0, 300.0)
         assert result is not None
-        assert result[0] == pytest.approx(300.0, abs=5.0)
+        assert result[0] == pytest.approx(200.0, abs=5.0)
 
     def test_ev_partial_board_in_range(self):
         """Partial board (flop only) → equity between 0 and 1 for non-trivial hand."""
@@ -701,14 +701,14 @@ class TestEVTuple:
         assert equity == pytest.approx(1.0, abs=0.01)
 
     def test_ev_formula_consistent_with_equity(self):
-        """EV should equal equity*pot_to_win - (1-equity)*amount_risked."""
+        """EV should equal equity*pot_to_win - amount_risked."""
         from pokerhero.analysis.stats import compute_ev
 
         amount_risked, pot_to_win = 100.0, 300.0
         ev, equity = compute_ev(
             "Ah Kh", "2c 3d", "Qh Jh Th 9d 2s", amount_risked, pot_to_win
         )
-        expected_ev = equity * pot_to_win - (1.0 - equity) * amount_risked
+        expected_ev = equity * pot_to_win - amount_risked
         assert ev == pytest.approx(expected_ev, abs=0.01)
 
 
