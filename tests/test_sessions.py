@@ -2297,6 +2297,217 @@ class TestCalculateSessionEvs:
         row = get_action_ev(conn, fold_action_id, hero_id)
         assert row is None
 
+    def test_multiway_exact_ev_when_multiple_villain_cards_known(self, db_file):
+        """Multiway hand with 2 known villain hands writes ev_type='exact_multiway'."""
+        conn, db_path = db_file
+        from pokerhero.analysis.stats import calculate_session_evs
+        from pokerhero.database.db import get_action_ev
+
+        hero_id = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('hero_mw', 'HeroMW')"
+        ).lastrowid
+        v1_id = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('villain1_mw', 'V1')"
+        ).lastrowid
+        v2_id = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('villain2_mw', 'V2')"
+        ).lastrowid
+        sid = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats,"
+            "  small_blind, big_blind, ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-04-01')"
+        ).lastrowid
+        hid = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            "  rake, timestamp, board_flop, board_turn, board_river)"
+            " VALUES ('MW1', ?, 2000, 0, 0, '2024-04-01T00:00:00',"
+            " 'Qs Jd 4h', '7s', '8c')",
+            (sid,),
+        ).lastrowid
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BTN', 5000, 'Ac Kd', 1, 1, 0, 1, -400)",
+            (hid, hero_id),
+        )
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'CO', 5000, '2c 3d', 1, 1, 0, 1, 200)",
+            (hid, v1_id),
+        )
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BB', 5000, '9c 8s', 1, 0, 0, 1, 200)",
+            (hid, v2_id),
+        )
+        # Preflop: V1 raises, V2 calls, Hero calls
+        conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 0, 'PREFLOP', 'RAISE', 300, 0, 150, 0, 1)",
+            (hid, v1_id),
+        )
+        conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 0, 'PREFLOP', 'CALL', 300, 300, 450, 0, 2)",
+            (hid, v2_id),
+        )
+        conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'PREFLOP', 'CALL', 300, 300, 750, 0, 3)",
+            (hid, hero_id),
+        )
+        # River: V1 bets, V2 calls, Hero calls
+        hero_action_id = conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'RIVER', 'CALL', 400, 400, 1600, 0, 6)",
+            (hid, hero_id),
+        ).lastrowid
+        conn.commit()
+
+        n = calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)
+        assert n >= 1
+        row = get_action_ev(conn, hero_action_id, hero_id)
+        assert row is not None
+        assert row["ev_type"] == "exact_multiway"
+        assert 0.0 <= float(row["equity"]) <= 1.0
+
+    def test_multiway_exact_ev_lower_than_headsup(self, db_file):
+        """Multiway equity must be ≤ heads-up equity for the same hero hand."""
+        conn, db_path = db_file
+        from pokerhero.analysis.stats import calculate_session_evs
+        from pokerhero.database.db import get_action_ev
+
+        # --- Heads-up hand ---
+        hero_id = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('hero_cmp', 'HeroCmp')"
+        ).lastrowid
+        v1_id = conn.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('v1_cmp', 'V1Cmp')"
+        ).lastrowid
+        sid = conn.execute(
+            "INSERT INTO sessions"
+            " (game_type, limit_type, max_seats,"
+            "  small_blind, big_blind, ante, start_time)"
+            " VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-05-01')"
+        ).lastrowid
+        hid_hu = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            "  rake, timestamp, board_flop, board_turn, board_river)"
+            " VALUES ('CmpHU', ?, 1200, 0, 0, '2024-05-01T00:00:00',"
+            " 'Ah 8d 2c', '5s', '3h')",
+            (sid,),
+        ).lastrowid
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BTN', 5000, '7s 8s', 1, 1, 0, 1, -400)",
+            (hid_hu, hero_id),
+        )
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BB', 5000, '2d 3d', 1, 1, 0, 1, 400)",
+            (hid_hu, v1_id),
+        )
+        conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 0, 'PREFLOP', 'RAISE', 300, 0, 150, 0, 1)",
+            (hid_hu, v1_id),
+        )
+        hu_action_id = conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'RIVER', 'CALL', 400, 400, 800, 0, 2)",
+            (hid_hu, hero_id),
+        ).lastrowid
+
+        # --- Multiway hand (same hero cards, same board, same primary villain) ---
+        v2_id = conn.execute(
+            "INSERT INTO players (username, preferred_name) VALUES ('v2_cmp', 'V2Cmp')"
+        ).lastrowid
+        hid_mw = conn.execute(
+            "INSERT INTO hands"
+            " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+            "  rake, timestamp, board_flop, board_turn, board_river)"
+            " VALUES ('CmpMW', ?, 2000, 0, 0, '2024-05-01T00:01:00',"
+            " 'Ah 8d 2c', '5s', '3h')",
+            (sid,),
+        ).lastrowid
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BTN', 5000, '7s 8s', 1, 1, 0, 1, -400)",
+            (hid_mw, hero_id),
+        )
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'CO', 5000, '2d 3d', 1, 1, 0, 1, 200)",
+            (hid_mw, v1_id),
+        )
+        conn.execute(
+            "INSERT INTO hand_players"
+            " (hand_id, player_id, position, starting_stack, hole_cards,"
+            "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+            " VALUES (?, ?, 'BB', 5000, 'Jc Tc', 1, 0, 0, 1, 200)",
+            (hid_mw, v2_id),
+        )
+        conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 0, 'PREFLOP', 'RAISE', 300, 0, 150, 0, 1)",
+            (hid_mw, v1_id),
+        )
+        conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 0, 'PREFLOP', 'CALL', 300, 300, 450, 0, 2)",
+            (hid_mw, v2_id),
+        )
+        mw_action_id = conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'RIVER', 'CALL', 400, 400, 1600, 0, 3)",
+            (hid_mw, hero_id),
+        ).lastrowid
+        conn.commit()
+
+        calculate_session_evs(db_path, sid, hero_id, self._FAST_SETTINGS)
+        hu_row = get_action_ev(conn, hu_action_id, hero_id)
+        mw_row = get_action_ev(conn, mw_action_id, hero_id)
+        assert hu_row is not None and mw_row is not None
+        assert float(mw_row["equity"]) <= float(hu_row["equity"])
+
 
 # ---------------------------------------------------------------------------
 # TestGetSessionEvStatus
