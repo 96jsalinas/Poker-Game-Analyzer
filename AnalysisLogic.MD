@@ -162,7 +162,11 @@ $$\text{blended\_stat} = \frac{n \times \text{obs\_stat} + w \times \text{prior}
    - `'call'` (flat call) → hands ranked from PFR% to VPIP% (flatting range).
    - `'3bet'` → top 3-Bet% of hands (strong re-raise range).
    - `'4bet+'` → top 4-Bet% of hands (premium range, defaults to `range_4bet_prior` = 3%).
-3. **Street contraction** (`contract_range`): for each intermediate street already played, the range is filtered to remove hands that would likely have folded, using `score_combo_vs_board` (draw-aware scoring) and the continuation % settings:
+3. **Street contraction** (`contract_range`): for each intermediate street already played, the range is filtered to remove hands that would likely have folded, using `score_combo_vs_board` (draw-aware scoring) and the continuation % settings.
+   Draw detection (`_detect_straight_draw`) classifies straight draws as follows:
+   - **OESD (8 outs)**: 4 consecutive rank indices present AND both ends completable (`low ≥ 1` and `low + 4 ≤ 13`). Example: 5-6-7-8 (needs 4 or 9).
+   - **Gutshot (4 outs)**: either (a) a boundary 4-consecutive draw where only one end completes (A-K-Q-J needing T, or A-2-3-4 needing 5), or (b) 4 of 5 consecutive rank indices present with one internal gap, where at least one combo card contributes to the window. Example: 5-6-_-8-9 (needs 7).
+   - Board-only 3-to-a-straight patterns (e.g., 7-8-9 with unrelated combo) are **not** flagged as draws.
    - Passive villain action (check/call) → keep top 65% (`range_continue_pct_passive`).
    - Aggressive villain action (bet/raise) → keep top 40% (`range_continue_pct_aggressive`).
 4. If fewer than 5 combos survive after contraction, the hand is skipped (no EV written).

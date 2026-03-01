@@ -432,28 +432,45 @@ def _detect_straight_draw(
 
     Uses rank indices (A=0 … 2=12). Also considers Ace-low straights
     by appending rank index 13 for aces (treating A as both high and low).
+
+    Boundary draws (A-K-Q-J, A-2-3-4) are classified as gutshot (4 outs)
+    since only one end can complete the straight.
+
+    A gutshot requires 4 of 5 consecutive ranks present (one internal gap),
+    AND at least one of the combo cards must contribute to the draw.
     """
-    ranks = sorted(
-        {_rank_idx(c) for c in [c1, c2, *board_cards]},
-        reverse=True,  # ascending by raw idx means descending by card rank
-    )
+    combo_ranks = {_rank_idx(c) for c in [c1, c2]}
+    board_ranks = {_rank_idx(c) for c in board_cards}
+    all_ranks = combo_ranks | board_ranks
     # Add ace-low duplicate (idx 13) if any ace (idx 0) is present
-    if 0 in ranks:
-        ranks = ranks + [13]
-    ranks_set = set(ranks)
+    if 0 in all_ranks:
+        all_ranks = all_ranks | {13}
+    if 0 in combo_ranks:
+        combo_ranks = combo_ranks | {13}
 
     is_oesd = False
     is_gutshot = False
 
-    for low in range(14):  # check every possible 4-card window
+    # Check for 4 consecutive ranks (potential OESD or boundary draw)
+    for low in range(14):
         window = {low, low + 1, low + 2, low + 3}
-        hits = len(window & ranks_set)
-        if hits == 4:
-            # Check it's genuinely open-ended (cards on both sides exist or not)
-            is_oesd = True
-            break
-        if hits == 3 and len(window - ranks_set) == 1:
-            is_gutshot = True
+        if len(window & all_ranks) == 4:
+            # True OESD requires both ends completable
+            if low - 1 >= 0 and low + 4 <= 13:
+                is_oesd = True
+                break
+            else:
+                # Boundary draw (A-K-Q-J or A-2-3-4): only 4 outs
+                is_gutshot = True
+
+    # Check for gutshot: 4 of 5 consecutive ranks with 1 internal gap,
+    # and at least one combo card is part of the 5-card window
+    if not is_oesd and not is_gutshot:
+        for low in range(13):
+            window = {low, low + 1, low + 2, low + 3, low + 4}
+            if len(window & all_ranks) == 4 and (window & combo_ranks):
+                is_gutshot = True
+                break
 
     return is_oesd, is_gutshot
 
