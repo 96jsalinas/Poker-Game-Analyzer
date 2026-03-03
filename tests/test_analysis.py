@@ -710,6 +710,18 @@ class TestEV:
         # Result is a 2-tuple of finite floats
         assert isinstance(result, tuple)
 
+    def test_returns_none_for_single_card_villain(self):
+        """Villain with only one card (e.g. one-card show) must not crash."""
+        from pokerhero.analysis.stats import compute_ev
+
+        assert compute_ev("Ah Kh", "2d", "Qh Jh Th", 100.0, 300.0) is None
+
+    def test_returns_none_for_single_card_hero(self):
+        """Malformed hero cards (one card) must not crash."""
+        from pokerhero.analysis.stats import compute_ev
+
+        assert compute_ev("Ah", "2c 3d", "Qh Jh Th", 100.0, 300.0) is None
+
 
 # ---------------------------------------------------------------------------
 # TestEVTuple — compute_ev must return (ev, equity) tuple (not bare float)

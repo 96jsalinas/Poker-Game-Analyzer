@@ -412,6 +412,46 @@ class TestPlayerParsing:
         )
         assert antonio.hole_cards is None
 
+    def test_one_card_show_stored_as_none(self) -> None:
+        """A player who shows only one card should have hole_cards=None (not '2d')."""
+        # PokerStars sometimes records 'shows [2d]' for a one-card reveal.
+        # Storing a single card crashes equity computation (parse_range treats
+        # '2d' as a 2-rank range where 'd' is an invalid rank).
+        hand_text = """\
+PokerStars Hand #999000001: Hold'em No Limit ($0.02/$0.05 USD) - 2026/01/01 12:00:00 ET
+Table 'TestTable' 9-max Seat #1 is the button
+Seat 1: jsalinas96 (500 in chips)
+Seat 2: villain1 (500 in chips)
+jsalinas96: posts small blind 2
+villain1: posts big blind 5
+*** HOLE CARDS ***
+Dealt to jsalinas96 [Ah Kh]
+jsalinas96: raises 10 to 15
+villain1: calls 10
+*** FLOP *** [Qh Jh Th]
+jsalinas96: bets 20
+villain1: calls 20
+*** TURN *** [Qh Jh Th] [9d]
+jsalinas96: checks
+villain1: checks
+*** RIVER *** [Qh Jh Th 9d] [2s]
+jsalinas96: checks
+villain1: bets 30
+jsalinas96: calls 30
+*** SHOW DOWN ***
+jsalinas96: shows [Ah Kh] (a straight flush)
+villain1: shows [2d]
+jsalinas96 collected 130 from pot
+*** SUMMARY ***
+Total pot 130 | Rake 0
+Board [Qh Jh Th 9d 2s]
+Seat 1: jsalinas96 (button) showed [Ah Kh] and won (130) with straight flush
+Seat 2: villain1 (big blind) showed [2d] and lost with a pair of 2s
+"""
+        parsed = HandParser(hero_username=HERO).parse(hand_text)
+        villain = next(p for p in parsed.players if p.username == "villain1")
+        assert villain.hole_cards is None
+
     def test_position_btn(self, cash_folds_preflop: ParsedHand) -> None:
         btn = next(p for p in cash_folds_preflop.players if p.username == "firefly2005")
         assert btn.position == "BTN"
