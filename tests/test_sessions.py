@@ -3793,6 +3793,7 @@ class TestRenderInitialCallParsesURL:
                 _ev_result=None,
                 search="?session_id=1&hand_id=1",
                 consumed_search="",
+                hand_filter_state=None,
             )
 
         mock_actions.assert_called_once()
@@ -3836,6 +3837,7 @@ class TestRenderInitialCallParsesURL:
                 _ev_result=None,
                 search="?session_id=5",
                 consumed_search="",
+                hand_filter_state=None,
             )
 
         pending = result[3]
@@ -3879,6 +3881,7 @@ class TestRenderInitialCallParsesURL:
                 _ev_result=None,
                 search="?session_id=1&hand_id=1",
                 consumed_search="?session_id=1&hand_id=1",
+                hand_filter_state=None,
             )
 
         mock_sessions.assert_called_once()

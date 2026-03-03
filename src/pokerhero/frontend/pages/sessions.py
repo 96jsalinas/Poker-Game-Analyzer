@@ -418,6 +418,7 @@ layout = html.Div(
         dcc.Store(id="pending-session-report"),
         dcc.Store(id="ev-result-store", data=None),
         dcc.Store(id="consumed-search", data=""),
+        dcc.Store(id="hand-filter-state"),
     ],
 )
 
@@ -1109,6 +1110,7 @@ def _parse_nav_search(search: str) -> _DrillDownState | None:
     Input("ev-result-store", "data"),
     Input("_pages_location", "search"),
     State("consumed-search", "data"),
+    State("hand-filter-state", "data"),
     prevent_initial_call=False,
 )
 def _render(
@@ -1117,6 +1119,7 @@ def _render(
     _ev_result: dict[str, Any] | None,
     search: str,
     consumed_search: str,
+    hand_filter_state: dict[str, Any] | None,
 ) -> tuple[html.Div | str, html.Div, html.Div | None, int | None, str]:
     if pathname != "/sessions":
         raise dash.exceptions.PreventUpdate
@@ -1199,7 +1202,9 @@ def _render(
         )
 
     if level == "hands":
-        content, label = _render_hands(db_path, session_id)
+        content, label = _render_hands(
+            db_path, session_id, filter_state=hand_filter_state
+        )
         return (
             content,
             _breadcrumb("hands", session_label=label, session_id=session_id),
@@ -2187,7 +2192,11 @@ def _render_session_report(db_path: str, session_id: int) -> tuple[html.Div | st
     return content, session_label
 
 
-def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
+def _render_hands(
+    db_path: str,
+    session_id: int,
+    filter_state: dict[str, Any] | None = None,
+) -> tuple[html.Div | str, str]:
     player_id = _get_hero_player_id(db_path)
     if player_id is None:
         return "", ""
@@ -2213,6 +2222,7 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
         return html.Div("No hands found for this session."), session_label
 
     positions = sorted(df["position"].dropna().unique().tolist())
+    fs: dict[str, Any] = filter_state or {}
     _input_style = {
         "border": "1px solid var(--border, #ddd)",
         "borderRadius": "4px",
@@ -2227,6 +2237,7 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
                 type="number",
                 placeholder="P&L min",
                 debounce=True,
+                value=fs.get("pnl_min"),
                 style={**_input_style, "width": "90px"},
             ),
             dcc.Input(
@@ -2234,6 +2245,7 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
                 type="number",
                 placeholder="P&L max",
                 debounce=True,
+                value=fs.get("pnl_max"),
                 style={**_input_style, "width": "90px"},
             ),
             dcc.Dropdown(
@@ -2241,6 +2253,7 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
                 options=[{"label": p, "value": p} for p in positions],
                 multi=True,
                 placeholder="Position…",
+                value=fs.get("positions"),
                 style={**_input_style, "minWidth": "130px", "height": "auto"},
                 clearable=True,
             ),
@@ -2250,7 +2263,7 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
                     {"label": " Saw flop", "value": "saw_flop"},
                     {"label": " Showdown", "value": "showdown"},
                 ],
-                value=[],
+                value=fs.get("flags") or [],
                 inline=True,
                 inputStyle={"marginRight": "4px"},
                 labelStyle={"marginRight": "12px", "fontSize": "13px"},
@@ -2258,7 +2271,7 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
             dcc.Checklist(
                 id="hand-filter-favorites",
                 options=[{"label": " ★ Favourites only", "value": "favorites"}],
-                value=[],
+                value=fs.get("favorites") or [],
                 inline=True,
                 inputStyle={"marginRight": "4px"},
                 labelStyle={"fontSize": "13px"},
@@ -2272,6 +2285,7 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
                 ],
                 multi=True,
                 placeholder="EV quality…",
+                value=fs.get("ev_filter"),
                 style={**_input_style, "minWidth": "175px", "height": "auto"},
                 clearable=True,
             ),
@@ -2873,6 +2887,35 @@ def _apply_hand_filters(
         ev_filter=ev_filter or None,
     )
     return list(_build_hand_table(filtered).data)
+
+
+@callback(
+    Output("hand-filter-state", "data"),
+    Input("hand-filter-pnl-min", "value"),
+    Input("hand-filter-pnl-max", "value"),
+    Input("hand-filter-position", "value"),
+    Input("hand-filter-flags", "value"),
+    Input("hand-filter-favorites", "value"),
+    Input("hand-filter-ev", "value"),
+    prevent_initial_call=True,
+)
+def _save_hand_filter_state(
+    pnl_min: float | None,
+    pnl_max: float | None,
+    positions: list[str] | None,
+    flags: list[str] | None,
+    favorites: list[str] | None,
+    ev_filter: list[str] | None,
+) -> dict[str, Any]:
+    """Persist hand filter values so they are restored when navigating back."""
+    return {
+        "pnl_min": pnl_min,
+        "pnl_max": pnl_max,
+        "positions": positions,
+        "flags": flags,
+        "favorites": favorites,
+        "ev_filter": ev_filter,
+    }
 
 
 @callback(
