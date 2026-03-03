@@ -135,6 +135,7 @@ All hands from the selected session. Each row shows the Hand ID, your hole cards
 | Saw Flop | Show only hands where you saw the flop. |
 | Showdown | Show only hands that went to showdown. |
 | ★ Favourites only | Show only hands you have starred. |
+| EV quality | Filter by action quality: **⚠ Bad call (−EV)** shows hands where you called but the range EV was negative; **✓ Good call (+EV)** shows hands where your call had positive range EV; **⚠ Bad fold (should call)** shows hands where your fold had positive calling EV. Multiple values use OR logic. Only applies to hands with calculated EV data. |
 
 Use the breadcrumb trail at the top to navigate back to the session report or the session list.
 

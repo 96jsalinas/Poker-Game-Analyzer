@@ -73,7 +73,13 @@ def get_hands(
 
     Columns: id, source_hand_id, timestamp, board_flop, board_turn,
              board_river, total_pot, net_result, hole_cards, position,
-             went_to_showdown, saw_flop.
+             went_to_showdown, saw_flop, has_bad_call, has_good_call,
+             has_bad_fold.
+
+    EV flag columns (0 or 1) reflect range-EV data from action_ev_cache:
+      has_bad_call  — hero made a CALL with negative range EV
+      has_good_call — hero made a CALL with positive range EV
+      has_bad_fold  — hero folded when calling had positive range EV
 
     Args:
         conn: Open SQLite connection.
@@ -102,7 +108,37 @@ def get_hands(
                 WHERE a.hand_id = h.id
                   AND a.player_id = hp.player_id
                   AND a.street = 'FLOP'
-            ) THEN 1 ELSE 0 END AS saw_flop
+            ) THEN 1 ELSE 0 END AS saw_flop,
+            COALESCE((
+                SELECT MAX(CASE WHEN a.action_type = 'CALL' AND aec.ev < 0
+                               THEN 1 ELSE 0 END)
+                FROM actions a
+                JOIN action_ev_cache aec
+                  ON aec.action_id = a.id AND aec.hero_id = hp.player_id
+                WHERE a.hand_id = h.id
+                  AND a.player_id = hp.player_id
+                  AND aec.ev_type IN ('range', 'range_multiway_approx')
+            ), 0) AS has_bad_call,
+            COALESCE((
+                SELECT MAX(CASE WHEN a.action_type = 'CALL' AND aec.ev > 0
+                               THEN 1 ELSE 0 END)
+                FROM actions a
+                JOIN action_ev_cache aec
+                  ON aec.action_id = a.id AND aec.hero_id = hp.player_id
+                WHERE a.hand_id = h.id
+                  AND a.player_id = hp.player_id
+                  AND aec.ev_type IN ('range', 'range_multiway_approx')
+            ), 0) AS has_good_call,
+            COALESCE((
+                SELECT MAX(CASE WHEN a.action_type = 'FOLD' AND aec.ev > 0
+                               THEN 1 ELSE 0 END)
+                FROM actions a
+                JOIN action_ev_cache aec
+                  ON aec.action_id = a.id AND aec.hero_id = hp.player_id
+                WHERE a.hand_id = h.id
+                  AND a.player_id = hp.player_id
+                  AND aec.ev_type IN ('range', 'range_multiway_approx')
+            ), 0) AS has_bad_fold
         FROM hands h
         LEFT JOIN hand_players hp ON hp.hand_id = h.id AND hp.player_id = ?
         WHERE h.session_id = ?

@@ -1325,17 +1325,22 @@ def _filter_hands_data(
     saw_flop_only: bool,
     showdown_only: bool,
     favorites_only: bool = False,
+    ev_filter: list[str] | None = None,
 ) -> pd.DataFrame:
     """Filter a hands DataFrame based on user-selected criteria.
 
     Args:
         df: DataFrame from get_hands (columns: net_result, position,
-            saw_flop, went_to_showdown).
+            saw_flop, went_to_showdown, has_bad_call, has_good_call,
+            has_bad_fold).
         pnl_min: Minimum net_result (inclusive); None keeps all.
         pnl_max: Maximum net_result (inclusive); None keeps all.
         positions: List of position strings to keep; None keeps all.
         saw_flop_only: When True, keep only hands where hero saw the flop.
         showdown_only: When True, keep only hands that went to showdown.
+        ev_filter: List of EV quality flags to keep (OR logic). Supported
+            values: ``'bad_call'``, ``'good_call'``, ``'bad_fold'``.
+            None or empty list disables the filter.
 
     Returns:
         Filtered copy of df.
@@ -1353,6 +1358,18 @@ def _filter_hands_data(
         result = result[result["went_to_showdown"].astype(int) == 1]
     if favorites_only and "is_favorite" in result.columns:
         result = result[result["is_favorite"].astype(int) == 1]
+    if ev_filter:
+        _FLAG_COL = {
+            "bad_call": "has_bad_call",
+            "good_call": "has_good_call",
+            "bad_fold": "has_bad_fold",
+        }
+        mask = pd.Series(False, index=result.index)
+        for key in ev_filter:
+            col = _FLAG_COL.get(key)
+            if col and col in result.columns:
+                mask = mask | (result[col].astype(int) == 1)
+        result = result[mask]
     return result
 
 
@@ -2246,6 +2263,18 @@ def _render_hands(db_path: str, session_id: int) -> tuple[html.Div | str, str]:
                 inputStyle={"marginRight": "4px"},
                 labelStyle={"fontSize": "13px"},
             ),
+            dcc.Dropdown(
+                id="hand-filter-ev",
+                options=[
+                    {"label": "⚠ Bad call (−EV)", "value": "bad_call"},
+                    {"label": "✓ Good call (+EV)", "value": "good_call"},
+                    {"label": "⚠ Bad fold (should call)", "value": "bad_fold"},
+                ],
+                multi=True,
+                placeholder="EV quality…",
+                style={**_input_style, "minWidth": "175px", "height": "auto"},
+                clearable=True,
+            ),
         ],
         style={
             "display": "flex",
@@ -2816,6 +2845,7 @@ def _apply_session_filters(
     Input("hand-filter-position", "value"),
     Input("hand-filter-flags", "value"),
     Input("hand-filter-favorites", "value"),
+    Input("hand-filter-ev", "value"),
     State("hand-data-store", "data"),
     prevent_initial_call=True,
 )
@@ -2825,6 +2855,7 @@ def _apply_hand_filters(
     positions: list[str] | None,
     flags: list[str] | None,
     fav_filter: list[str] | None,
+    ev_filter: list[str] | None,
     data: list[dict[str, Any]] | None,
 ) -> list[dict[str, Any]]:
     if not data:
@@ -2839,6 +2870,7 @@ def _apply_hand_filters(
         "saw_flop" in flags,
         "showdown" in flags,
         favorites_only="favorites" in (fav_filter or []),
+        ev_filter=ev_filter or None,
     )
     return list(_build_hand_table(filtered).data)
 
