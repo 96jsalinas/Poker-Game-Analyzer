@@ -871,18 +871,20 @@ def calculate_session_evs(
                 continue_pct_aggressive=cont_aggressive,
             )
             if contracted_size >= 5:
-                # Count active non-hero villains to detect multiway
+                # Count active non-hero villains to detect multiway.
+                # Use actions table (not hand_players) so players whose fold
+                # was not parsed are not incorrectly counted as active.
                 active_count = conn.execute(
                     """
-                    SELECT COUNT(DISTINCT hp.player_id)
-                    FROM hand_players hp
-                    WHERE hp.hand_id = :hid
-                      AND hp.player_id != :hero
-                      AND hp.player_id NOT IN (
-                          SELECT a.player_id FROM actions a
-                          WHERE a.hand_id = :hid
-                            AND a.action_type = 'FOLD'
-                            AND a.sequence < :seq
+                    SELECT COUNT(DISTINCT a.player_id)
+                    FROM actions a
+                    WHERE a.hand_id = :hid
+                      AND a.player_id != :hero
+                      AND a.player_id NOT IN (
+                          SELECT a2.player_id FROM actions a2
+                          WHERE a2.hand_id = :hid
+                            AND a2.action_type = 'FOLD'
+                            AND a2.sequence < :seq
                       )
                     """,
                     {
