@@ -118,6 +118,87 @@ class TestQueries:
         df = get_hands(db_with_data, session_id, hero_player_id)
         assert {"has_bad_call", "has_good_call", "has_bad_fold"} <= set(df.columns)
 
+    def test_get_hands_ev_flags_not_polluted_by_other_sessions(self, tmp_path):
+        """ev_flags subquery must be scoped to the requested session.
+
+        EV cache rows from a *different* session must not bleed through and mark
+        hands in the queried session as has_bad_call=1.
+        """
+        from pokerhero.analysis.queries import get_hands
+        from pokerhero.database.db import init_db
+
+        conn = init_db(str(tmp_path / "test_ev_scope.db"))
+
+        hero_id = conn.execute(
+            "INSERT INTO players (username, preferred_name)"
+            " VALUES ('scope_hero', 'ScopeHero')"
+        ).lastrowid
+
+        def _make_session(label: str) -> int:
+            return conn.execute(
+                "INSERT INTO sessions"
+                " (game_type, limit_type, max_seats,"
+                "  small_blind, big_blind, ante, start_time)"
+                f" VALUES ('NLHE', 'No Limit', 6, 50, 100, 0, '2024-01-0{label}')"
+            ).lastrowid
+
+        def _make_hand(sid: int, src: str) -> int:
+            return conn.execute(
+                "INSERT INTO hands"
+                " (source_hand_id, session_id, total_pot, uncalled_bet_returned,"
+                "  rake, timestamp)"
+                " VALUES (?, ?, 200, 0, 0, '2024-01-01T00:00:00')",
+                (src, sid),
+            ).lastrowid
+
+        sid1 = _make_session("1")
+        sid2 = _make_session("2")
+        hid1 = _make_hand(sid1, "S1H1")
+        hid2 = _make_hand(sid2, "S2H1")
+
+        for hid in (hid1, hid2):
+            conn.execute(
+                "INSERT INTO hand_players"
+                " (hand_id, player_id, position, starting_stack, hole_cards,"
+                "  vpip, pfr, three_bet, went_to_showdown, net_result)"
+                " VALUES (?, ?, 'BTN', 1000, 'Ah Kd', 1, 1, 0, 0, 100)",
+                (hid, hero_id),
+            )
+
+        # Action in session 1's hand (no EV)
+        conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'FLOP', 'CALL', 100, 100, 200, 0, 1)",
+            (hid1, hero_id),
+        )
+        # Action in session 2's hand — gets a *bad-call* EV row
+        act2_id = conn.execute(
+            "INSERT INTO actions"
+            " (hand_id, player_id, is_hero, street, action_type,"
+            "  amount, amount_to_call, pot_before, is_all_in, sequence)"
+            " VALUES (?, ?, 1, 'FLOP', 'CALL', 100, 100, 200, 0, 1)",
+            (hid2, hero_id),
+        ).lastrowid
+        now = "2024-01-01T00:00:00"
+        conn.execute(
+            "INSERT INTO action_ev_cache"
+            " (action_id, hero_id, equity, ev, ev_type, sample_count, computed_at)"
+            " VALUES (?, ?, 0.3, -50.0, 'range', 100, ?)",
+            (act2_id, hero_id, now),
+        )
+        conn.commit()
+
+        df1 = get_hands(conn, sid1, hero_id)
+        assert len(df1) == 1
+        # Session 1's hand must NOT be flagged has_bad_call due to session 2's EV row
+        assert int(df1["has_bad_call"].iloc[0]) == 0, (
+            "has_bad_call must not be polluted by EV rows from another session"
+        )
+
+        conn.close()
+
     def test_get_actions_returns_dataframe(self, db_with_data, hero_player_id):
         from pokerhero.analysis.queries import get_actions, get_hands, get_sessions
 
