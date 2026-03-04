@@ -852,21 +852,15 @@ def calculate_session_evs(
                             sample_count,
                         )
                         if allin_result is None:
-                            allin_equity = 0.0  # unreachable branch — skip below
-                            allin_ev_type = ""
+                            pass  # compute_ev failed — skip allin_exact
                         else:
                             _, allin_equity = allin_result
                             allin_ev_type = "allin_exact"
 
                     if allin_ev_type:
+                        # Fold equity is NOT applied here: villain cards are known
+                        # because they called the all-in, so fold probability is 0.
                         allin_ev = allin_equity * pot_to_win - wager
-
-                        fold_eq_pct_allin: float | None = None
-                        if action_type in ("BET", "RAISE"):
-                            fold_eq_pct_allin = fold_equity_default
-                            p_fold = fold_eq_pct_allin / 100.0
-                            allin_ev = p_fold * pot_before + (1.0 - p_fold) * allin_ev
-
                         rows.append(
                             {
                                 "action_id": action_id,
@@ -879,7 +873,7 @@ def calculate_session_evs(
                                 "blended_3bet": None,
                                 "villain_preflop_action": None,
                                 "contracted_range_size": None,
-                                "fold_equity_pct": fold_eq_pct_allin,
+                                "fold_equity_pct": None,
                                 "sample_count": sample_count,
                                 "computed_at": now,
                             }

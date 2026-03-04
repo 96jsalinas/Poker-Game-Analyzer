@@ -1370,11 +1370,14 @@ def _filter_hands_data(
             "bad_fold": "has_bad_fold",
         }
         mask = pd.Series(False, index=result.index)
+        applied_any = False
         for key in ev_filter:
             col = _FLAG_COL.get(key)
             if col and col in result.columns:
+                applied_any = True
                 mask = mask | (result[col].astype(int) == 1)
-        result = result[mask]
+        if applied_any:
+            result = result[mask]
     return result
 
 

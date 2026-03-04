@@ -72,17 +72,36 @@ CREATE TABLE IF NOT EXISTS settings (
     value TEXT NOT NULL
 );
 
--- NOTE: All tables use CREATE TABLE IF NOT EXISTS, so this script is
--- idempotent for additive changes.  However, structural changes such as
--- modifying a PRIMARY KEY or a CHECK constraint cannot be applied to an
--- existing database by re-running this script — SQLite does not support
--- ALTER TABLE for those operations.  If you upgrade from an older schema
--- version that had a different PK or CHECK on action_ev_cache (e.g. PK on
--- just (action_id, hero_id)), you must drop and recreate the table (or
--- clear the database with "Clear Database" in Settings) before the new
--- schema takes effect.  Since this project is single-user and hand history
--- files can be re-ingested from disk, a full DB reset is the recommended
--- migration path.
+-- WARNING: This schema file does NOT perform automatic structural
+-- migrations for existing databases. All tables use CREATE TABLE
+-- IF NOT EXISTS, which is safe for additive changes (adding tables,
+-- columns, or indexes), but SQLite does not support changing a
+-- PRIMARY KEY or CHECK constraint via ALTER TABLE.
+--
+-- The action_ev_cache table below relies on the NEW composite
+-- primary key (action_id, hero_id, ev_type) and a CHECK constraint
+-- on ev_type. If you are upgrading from an older version that
+-- created action_ev_cache with a different PK (for example, only
+-- (action_id, hero_id)) or without this CHECK, simply re-running
+-- this script WILL NOT update the existing table definition.
+--
+-- On such upgraded databases, application code that uses
+-- INSERT OR REPLACE into action_ev_cache will cause different
+-- ev_type variants for the same (action_id, hero_id) to overwrite
+-- each other under the old PK, producing incorrect and unstable
+-- EV behavior without raising a hard error.
+--
+-- To avoid corrupted EV caches, you MUST ensure that any existing
+-- action_ev_cache table is dropped and recreated before using this
+-- schema. The simplest way is to clear/reset the database from the
+-- application UI (e.g. "Clear Database" in Settings), or to
+-- manually DROP TABLE action_ev_cache in SQLite and then allow
+-- the application to recreate it on next startup.
+--
+-- Because this project is single-user and hand history files can
+-- be re-imported from disk, a full database reset is the recommended
+-- and supported migration path when upgrading across schema versions
+-- that change the PK or CHECK on action_ev_cache.
 CREATE TABLE IF NOT EXISTS action_ev_cache (
     action_id              INTEGER NOT NULL REFERENCES actions(id),
     hero_id                INTEGER NOT NULL REFERENCES players(id),

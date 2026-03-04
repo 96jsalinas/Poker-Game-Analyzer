@@ -365,7 +365,9 @@ def get_action_ev(
         action_id: Internal action id.
         hero_id: Internal player id for the hero.
         ev_type: If provided, return the row with this specific ev_type.
-                 If None, returns the first matching row (any ev_type).
+                 If None, returns the best available row, preferring the
+                 decision-review range tracks (`range`, then
+                 `range_multiway_approx`), then other ev_types as a fallback.
 
     Returns:
         Dict with all action_ev_cache columns, or None if no row found.
