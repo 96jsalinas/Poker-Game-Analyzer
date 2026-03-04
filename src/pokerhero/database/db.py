@@ -25,10 +25,41 @@ def get_connection(db_path: str | Path) -> sqlite3.Connection:
 
 
 def init_db(db_path: str | Path) -> sqlite3.Connection:
-    """Create the database schema if it doesn't exist. Returns an open connection."""
+    """Create the database schema if it doesn't exist. Returns an open connection.
+
+    Raises:
+        RuntimeError: If an existing ``action_ev_cache`` table was created with
+            the old two-column primary key ``(action_id, hero_id)`` rather than
+            the current three-column key ``(action_id, hero_id, ev_type)``.  On
+            such a database ``INSERT OR REPLACE`` would silently overwrite one EV
+            track with the other, producing incorrect variance data.  The fix is
+            to reset the database (use "Clear Database" in Settings or delete the
+            file and re-ingest hand histories).
+    """
     from pokerhero.analysis.targets import seed_target_defaults
 
     conn = get_connection(db_path)
+
+    # Detect stale action_ev_cache schema before running any migrations.
+    old_ddl = conn.execute(
+        "SELECT sql FROM sqlite_master WHERE type='table' AND name='action_ev_cache'"
+    ).fetchone()
+    if old_ddl is not None:
+        ddl_text: str = old_ddl[0] or ""
+        # The new schema PRIMARY KEY includes ev_type; the old one did not.
+        # A simple DDL substring check is sufficient and avoids PRAGMA queries.
+        ddl_lower = ddl_text.lower()
+        pk_start = ddl_lower.find("primary key")
+        pk_clause = ddl_lower[pk_start:] if pk_start != -1 else ""
+        if "ev_type" not in pk_clause:
+            raise RuntimeError(
+                "action_ev_cache exists with an incompatible schema (old PRIMARY KEY "
+                "does not include ev_type).  Using this database would cause EV tracks "
+                "to silently overwrite each other.  Please reset the database: use "
+                "'Clear Database' in Settings, or delete the .db file and re-ingest "
+                "your hand histories."
+            )
+
     conn.executescript(_SCHEMA_PATH.read_text())
     # Migrate existing databases: add is_favorite if not present
     for table in ("sessions", "hands"):

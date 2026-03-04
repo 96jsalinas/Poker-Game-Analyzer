@@ -117,7 +117,6 @@ def get_hands(
         LEFT JOIN (
             SELECT
                 a.hand_id,
-                aec.hero_id,
                 MAX(CASE WHEN a.action_type = 'CALL' AND aec.ev < 0 THEN 1 ELSE 0 END)
                     AS has_bad_call,
                 MAX(CASE WHEN a.action_type = 'CALL' AND aec.ev > 0 THEN 1 ELSE 0 END)
@@ -127,9 +126,10 @@ def get_hands(
             FROM actions a
             JOIN action_ev_cache aec
               ON aec.action_id = a.id
+             AND aec.hero_id = ?
              AND aec.ev_type IN ('range', 'range_multiway_approx')
-            GROUP BY a.hand_id, aec.hero_id
-        ) ev_flags ON ev_flags.hand_id = h.id AND ev_flags.hero_id = ?
+            GROUP BY a.hand_id
+        ) ev_flags ON ev_flags.hand_id = h.id
         WHERE h.session_id = ?
         ORDER BY h.timestamp ASC
     """

@@ -832,6 +832,26 @@ def calculate_session_evs(
             # Computed BEFORE the range-track guard so it is never skipped due
             # to preflop_action being unavailable (e.g. villain vpip=0).
             if is_all_in and known_villain_cards:
+                # For BET/RAISE all-ins, pot_to_win must include subsequent
+                # villain calls (which pot_before + wager does not capture).
+                if action_type in ("BET", "RAISE"):
+                    villain_calls_row = conn.execute(
+                        """
+                        SELECT COALESCE(SUM(amount), 0.0)
+                        FROM actions
+                        WHERE hand_id = ? AND player_id != ? AND street = ?
+                          AND action_type = 'CALL' AND sequence > ?
+                        """,
+                        (hand_id, hero_id, street, int(ar["sequence"])),
+                    ).fetchone()
+                    allin_pot_to_win = (
+                        pot_to_win + float(villain_calls_row[0])
+                        if villain_calls_row
+                        else pot_to_win
+                    )
+                else:
+                    allin_pot_to_win = pot_to_win
+
                 villain_cards: str | None = known_villain_cards.get(villain_id)
                 if villain_cards is not None:
                     allin_equity: float
@@ -848,7 +868,7 @@ def calculate_session_evs(
                             villain_cards,
                             board,
                             wager,
-                            pot_to_win,
+                            allin_pot_to_win,
                             sample_count,
                         )
                         if allin_result is None:
@@ -860,7 +880,7 @@ def calculate_session_evs(
                     if allin_ev_type:
                         # Fold equity is NOT applied here: villain cards are known
                         # because they called the all-in, so fold probability is 0.
-                        allin_ev = allin_equity * pot_to_win - wager
+                        allin_ev = allin_equity * allin_pot_to_win - wager
                         rows.append(
                             {
                                 "action_id": action_id,
