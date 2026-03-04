@@ -1739,6 +1739,24 @@ class TestBuildEvSummary:
         text = str(_build_ev_summary(self._ev_df())).lower()
         assert "showdown" in text
 
+    def test_nonempty_mentions_allin(self):
+        """Non-empty ev_df should say 'all-in', not 'showdown'."""
+        from pokerhero.frontend.pages.sessions import _build_ev_summary
+
+        text = str(_build_ev_summary(self._ev_df())).lower()
+        assert "all-in" in text
+
+    def test_empty_ev_calculated_shows_no_allin_spots(self):
+        """Empty df with ev_calculated=True should indicate no all-in spots,
+        not 'not yet calculated'."""
+        import pandas as pd
+
+        from pokerhero.frontend.pages.sessions import _build_ev_summary
+
+        text = str(_build_ev_summary(pd.DataFrame(), ev_calculated=True)).lower()
+        assert "all-in" in text
+        assert "calculate" not in text
+
     def test_unlucky_outcome_shows_below_equity(self):
         """Hero had near-100% equity but lost → below equity verdict."""
         from pokerhero.frontend.pages.sessions import _build_ev_summary
