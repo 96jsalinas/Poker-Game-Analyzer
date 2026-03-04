@@ -128,13 +128,16 @@ def get_hands(
               ON aec.action_id = a.id
              AND aec.hero_id = ?
              AND aec.ev_type IN ('range', 'range_multiway_approx')
+            JOIN hands h2 ON h2.id = a.hand_id AND h2.session_id = ?
             GROUP BY a.hand_id
         ) ev_flags ON ev_flags.hand_id = h.id
         WHERE h.session_id = ?
         ORDER BY h.timestamp ASC
     """
     return pd.read_sql_query(
-        sql, conn, params=(int(player_id), int(player_id), int(session_id))
+        sql,
+        conn,
+        params=(int(player_id), int(player_id), int(session_id), int(session_id)),
     )
 
 

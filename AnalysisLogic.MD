@@ -136,7 +136,7 @@ $$EV_{Action} = (Equity \times Pot_{before}) - ((1 - Equity) \times Wager)$$
 Both forms yield the **net expected profit**: Hero wins the full pot (including their own wager) with probability $Equity$, and loses their wager with probability $(1 - Equity)$.
 
 * **Equity**: Hero's win % computed via PokerKit Monte Carlo simulation against the villain's exact hole cards — only valid when hero shoved all-in and villain cards were later revealed.
-* **Pot to Win**: Baseline is `pot_before + wager` (what Hero stands to gain). For **all-in BET/RAISE actions**, `pot_to_win` additionally includes any subsequent villain call amounts committed on that street after the shove, so the pot is not understated when the villain(s) call.
+* **Pot to Win**: Baseline is `pot_before + wager` (what Hero stands to gain). For **all all-in actions** (BET, RAISE, or CALL), `pot_to_win` additionally includes any subsequent non-hero CALL amounts committed on that street after the hero's action, so the pot is not understated in multiway spots where other villains call behind.
 * **Wager**: `amount_to_call` for CALL and FOLD actions; `amount` for BET/RAISE actions.
 * **Display**: Used for the **Lucky/Unlucky variance summary** only — not shown in the action table.
 * **`ev_type = 'allin_exact'`** in `action_ev_cache`.
