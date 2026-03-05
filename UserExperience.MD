@@ -76,7 +76,7 @@ A detailed list of every hand dealt in that session.
 * **Columns**: Hand ID, Hero Cards (Hole Cards with suit symbols), Final Pot, Net Result.
 * **Sorting** ✅ Implemented — click any column header to sort ascending/descending.
 * **Action**: Clicking any cell in a row navigates to the **Hand Action View**.
-* **Filters** ✅ Implemented — filter bar: P&L min/max, position multiselect, Saw Flop checkbox, Showdown checkbox, Favourites only, EV quality multiselect (bad_call/good_call/bad_fold, OR logic, uses `has_bad_call`/`has_good_call`/`has_bad_fold` columns from `get_hands`). Updates table without page reload via `_apply_hand_filters` callback + `hand-data-store`.
+* **Filters** ✅ Implemented — filter bar: P&L min/max, position multiselect, Saw Flop checkbox, Showdown checkbox, Favourites only, EV quality multiselect (bad_call/good_call/bad_fold, OR logic, uses `has_bad_call`/`has_good_call`/`has_bad_fold` columns from `get_hands`). Updates table without page reload via `_apply_hand_filters` callback + `hand-data-store`. **Filter state is preserved** in `hand-filter-store` and restored when navigating back from the action view to the hand list, so users returning from a hand keep their active filter context.
 * **Breadcrumb**: `Sessions > Session Label (→ report) > All Hands`.
 
 ### Level 4: Hand Action View ✅

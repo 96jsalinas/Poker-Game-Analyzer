@@ -23,14 +23,14 @@ A local, open-source poker hand history analyzer built entirely in Python. Uploa
 
 **Session drill-down review**
 - **Session Report** — narrative summary, KPI strip (bb/100, VPIP, AF), and position-specific stat tables
-- **EV Analysis** — calculate EV for entire sessions; highlights "Lucky" and "Unlucky" hands based on equity vs results
+- **EV Analysis** — calculate EV for entire sessions; highlights 🍀 Lucky and 😞 Unlucky all-in hands based on exact equity at the moment of the all-in vs actual result
 - Navigate Sessions → Hands → Actions with a breadcrumb UI
-- Filter by game type, position, P&L, showdown, and **Favourites** (star hands/sessions for later)
+- Filter hands by position, P&L, showdown, Favourites, and **EV quality** (bad call / good call / bad fold); **filters persist** when navigating back from the action view to the hand list
 
 **Action view (Hand Detail)**
 - Full street-by-street replay with every action, amount, running pot, and board cards
 - **Poker math inline** — SPR at flop, Pot Odds%, and MDF% shown at every hero decision point
-- **EV calculation** — supports both **Exact EV** (showdown/all-in) and **Range-based EV** (estimated against an inferred villain range using Bayesian blending)
+- **EV calculation** — **Range-based EV** (estimated vs inferred villain range, always shown in the action table for decision review) and **All-in Exact EV** (against revealed villain cards at the moment of the all-in, used for the Lucky/Unlucky variance summary only)
 - **Fold Verdicts** — tells you if a fold was mathematically correct (✓ Good fold) or a mistake (⚠ Should have called)
 
 **Opponent profiling**

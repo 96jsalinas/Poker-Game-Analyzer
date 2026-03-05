@@ -62,7 +62,7 @@ pokerhero-analyzer/
 │       │   │                     # get_export_data, get_session_player_stats,
 │       │   │                     # get_session_kpis, get_session_hero_actions,
 │       │   │                     # get_session_hero_ev_actions, get_session_ev_status,
-│       │   │                     # get_session_showdown_evs → DataFrames;
+│       │   │                     # get_session_allin_evs → DataFrames;
 │       │   │                     # all hero query functions accept optional currency_type='real'|'play'|None
 │       │   ├── ranges.py         # HAND_RANKING (169 hands), build_range (4 pre-flop action types),
 │       │   │                     # blend_vpip, blend_pfr, blend_3bet, expand_combos (dead-card filtering),
@@ -98,25 +98,26 @@ pokerhero-analyzer/
 │       │       └── settings.py   # "/settings" — hero username, Clear DB, Export CSV, range settings
 │       └── config.py             # DB_PATH (overridable via POKERHERO_DB_PATH env var), setup_logging()
 ├── tests/
-│   ├── fixtures/                 # 16 .txt hand history snippets (see TestingStrategy.MD)
-│   ├── test_parser.py            # 164 tests across 15 classes
-│   ├── test_database.py          # 69 tests across 9 classes (incl. TestSettings, TestFavorites, currency storage, action_ev_cache)
-│   ├── test_ingestion.py         # 28 tests for pipeline, financials, re-buy detection, logging
-│   ├── test_sessions.py          # 182 tests: card rendering, hero row highlighting, math cell, sessions nav/breadcrumb/state,
-│   │                             # session/hand filters, favourites, DataTable sorting, format helpers,
-│   │                             # EV cell display, background callback wiring, EV summary, flagged hands,
-│   │                             # showdown section, villain summary, archetype badge, opponent profile card/panel,
-│   │                             # session report view + nav, dark mode compatibility
-│   ├── test_dashboard.py         # 31 tests: position traffic light colouring, KPI highlights, VPIP/PFR gap chart,
+│   ├── fixtures/                 # 17 .txt hand history snippets (see TestingStrategy.MD)
+│   ├── test_parser.py            # 177 tests across 16 classes
+│   ├── test_database.py          # 83 tests across 9 classes (incl. TestSettings, TestFavorites, currency storage, action_ev_cache, old-schema detection)
+│   ├── test_ingestion.py         # 35 tests for pipeline, financials, re-buy detection, logging
+│   ├── test_sessions.py          # 232 tests: card rendering, hero row highlighting, math cell, sessions nav/breadcrumb/state,
+│   │                             # session/hand filters (EV quality + persistence), favourites, DataTable sorting, format helpers,
+│   │                             # EV cell display, background callback wiring, EV summary (all-in text, ev_calculated),
+│   │                             # flagged hands, showdown section, villain summary, archetype badge, opponent profile card/panel,
+│   │                             # session report view + nav, dark mode compatibility, allin_exact pipeline fixes
+│   ├── test_dashboard.py         # 32 tests: position traffic light colouring, KPI highlights, VPIP/PFR gap chart,
 │   │                             # stat header tooltips, dark mode compatibility
 │   ├── test_app_layout.py        # 28 tests: multi-page app registration, home/upload/sessions/dashboard page layouts,
 │   │                             # theme toggle (store, button, face emojis, CSS vars)
-│   ├── test_settings.py          # 15 tests: main settings page layout, target settings sub-page
-│   ├── test_upload.py            # 7 tests: upload handler, logging
+│   ├── test_settings.py          # 39 tests: main settings page layout, target settings sub-page
+│   ├── test_upload.py            # 9 tests: upload handler, logging
 │   ├── test_guide.py             # 6 tests: guide page registration and stat sections
-│   └── test_analysis.py          # 139 tests: queries and stats (vpip, pfr, win_rate, AF, wtsd, timeline,
+│   └── test_analysis.py          # 222 tests: queries and stats (vpip, pfr, win_rate, AF, wtsd, timeline,
 │                                 # 3-bet, c-bet, EV, action_ev_cache, currency filter, session player stats,
-│                                 # player archetype classification, ranges, blend formulas, contraction)
+│                                 # player archetype classification, ranges, blend formulas, contraction,
+│                                 # ev_flags session scope isolation)
 ├── data/
 │   └── histories/                # Raw .txt session files (git-ignored)
 └── pyproject.toml
